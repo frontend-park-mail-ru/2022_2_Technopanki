@@ -1,0 +1,90 @@
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.main__intro-big {
+    font-size: 48px;
+    font-weight: bold;
+    font-family: Inter, sans-serif;
+    line-height: 40px;
+}
+.main__intro-small {
+    font-size: 14px;
+    font-weight: revert;
+    font-family: Inter, sans-serif;
+    line-height: 28px;
+    color: #6D6D7A;
+}
+
+.main__intro-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.main__intro-buttons-signup {
+    appearance: none;
+    border: 0;
+    border-radius: 10px;
+    color: #F3F5FF;
+    background: #1C34EC;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.main__intro-buttons-signup:hover {
+    appearance: none;
+    border: 0;
+    border-radius: 10px;
+    background: #e0e4fa;
+    color: #1C34EC;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.main__intro-buttons-signup:focus {
+    appearance: none;
+    border: 0;
+    border-radius: 10px;
+    background: rgba(224, 228, 250, 0.5);
+    color: #1C34EC;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.main__intro-buttons-signin {
+    appearance: none;
+    border: 0;
+    border-radius: 10px;
+    color: #000000;
+    background: #f8f8f8;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.main__intro-buttons-signin:hover {
+    appearance: none;
+    border: 0;
+    border-radius: 10px;
+    color: #000000;
+    background: #d3d3d3;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.main__intro-buttons-signin:focus {
+    appearance: none;
+    border: 0;
+    border-radius: 10px;
+    color: #000000;
+    background: #c2c2c2;
+    padding: 10px;
+    font-weight: bold;
+}

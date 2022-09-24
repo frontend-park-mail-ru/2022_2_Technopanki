@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+hr {
+    /*margin-top: 25px;*/
+    margin-top: 0;
+    margin-bottom: 25px;
+    border: none;
+    background-color: #efefef;
+    height: 1px;
+}
+
+.navbar{
+    display: flex;
+    align-items: center;
+    gap: 300px;
+    justify-content: center;
+    height: 67px;
+}
+
+.navbar__links {
+    display: flex;
+    gap: 30px;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+}
+
+.navbar__links-current {
+    font-weight: bold;
+}
+
+.navbar__buttons {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+}
+
+.navbar__buttons-signin {
+    font-weight: bold;
+}
+
+.navbar__buttons-signup {
+    appearance: none;
+    border: 0;
+    border-radius: 10px;
+    background: #F3F5FF;
+    color: #1C34EC;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.navbar__buttons-signup:hover {
+    appearance: none;
+    border: 0;
+    border-radius: 10px;
+    color: #F3F5FF;
+    background: #1C34EC;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.navbar__buttons-signup:focus {
+    appearance: none;
+    border: 0;
+    border-radius: 10px;
+    color: #F3F5FF;
+    background: #1528b2;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.navbar__logo {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
