@@ -28,6 +28,24 @@ hr {
     font-weight: bold;
 }
 
+.navbar__links-current-buttons {
+    outline: none;
+    text-decoration: none;
+    color: black;
+}
+
+.navbar__links-default {
+    outline: none;
+    text-decoration: none;
+    color: black;
+}
+
+.navbar__links-default:hover {
+    outline: none;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.61);
+}
+
 .navbar__buttons {
     display: flex;
     gap: 30px;

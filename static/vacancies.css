@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+.vacancies {
+    display: flex;
+    justify-content: center;
+}
+
+.vacancies__cards {
+
+}
+
+.vacancies__cards-header {
+    font-family: Inter, sans-serif;
+    font-size: 64px;
+    font-weight: bold;
+}
+
+.vacancies__cards-intro {
+    font-size: 14px;
+    font-weight: revert;
+    font-family: Inter, sans-serif;
+    line-height: 28px;
+    color: #6D6D7A;
+    padding-bottom: 20px;
+}
+
+.vacancies__cards-single {
+    font-family: Inter, sans-serif;
+    width: 690px;
+    height: 233px;
+
+    background: #FFFFFF;
+    /* grey/100 */
+
+    border: 1px solid #DADAE0;
+    /* grey */
+
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04);
+    border-radius: 16px;
+}
+
+.vacancies__cards-data {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin: 15px;
+}
+
+.vacancies__cards-data-header {
+    display: flex;
+    gap: 15px;
+}
+
+.vacancies__cards-data-header-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 12px;
+    gap: 5px;
+}
+
+.vacancies__cards-data-header-name-company {
+    margin: 0;
+    color: #9797A2;
+}
+
+.vacancies__cards-data-header-name-salary {
+    margin: 0;
+    font-weight: bold;
+
+}
+

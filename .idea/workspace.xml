@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="517126f8-5787-4c54-b6e7-feb5c16d13ea" name="Changes" comment="" />
+    <list default="true" id="517126f8-5787-4c54-b6e7-feb5c16d13ea" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/static/vacancies.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vacancies.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/logo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/static/logo.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/navbar.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,6 +20,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="HTML File" />
         <option value="CSS File" />
       </list>
     </option>
@@ -40,6 +48,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -69,7 +78,7 @@
       <workItem from="1663784138238" duration="4901000" />
       <workItem from="1663962923896" duration="16575000" />
       <workItem from="1663982232530" duration="65000" />
-      <workItem from="1663982299068" duration="810000" />
+      <workItem from="1663982299068" duration="6590000" />
     </task>
     <task id="LOCAL-00001" summary="main page layout">
       <created>1663982430710</created>
