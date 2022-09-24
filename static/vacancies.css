@@ -3,10 +3,17 @@
 .vacancies {
     display: flex;
     justify-content: center;
+    gap: 20px;
 }
 
 .vacancies__cards {
 
+}
+
+.vacancies__cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .vacancies__cards-header {
@@ -37,21 +44,47 @@
 
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04);
     border-radius: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.vacancies__cards-single:hover {
+    font-family: Inter, sans-serif;
+    width: 690px;
+    height: 233px;
+
+    background: #FFFFFF;
+    /* grey/100 */
+
+    border: 2px solid #1C34EC;
+    /* Blue/400 */
+
+    box-shadow: 0px 4px 16px rgba(81, 101, 255, 0.24);
+    border-radius: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .vacancies__cards-data {
     display: flex;
-    justify-content: left;
-    align-items: center;
-    margin: 15px;
+    justify-content: center;
+    align-items: start;
+    margin: 10px;
+    gap: 40px;
 }
 
-.vacancies__cards-data-header {
+.vacancies__cards-metadata {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.vacancies__cards-data-company {
     display: flex;
     gap: 15px;
 }
 
-.vacancies__cards-data-header-name {
+.vacancies__cards-company-header {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -59,14 +92,82 @@
     gap: 5px;
 }
 
-.vacancies__cards-data-header-name-company {
+.vacancies__cards-company-metadata {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.vacancies__cards-company-name {
     margin: 0;
+    color: #97A2FB;
+    outline: none;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.vacancies__cards-company-location {
     color: #9797A2;
 }
 
-.vacancies__cards-data-header-name-salary {
+.vacancies__cards-salary {
     margin: 0;
     font-weight: bold;
+}
 
+.vacancies__cards-main {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.vacancies__cards-main-name {
+    outline: none;
+    text-decoration: none;
+    color: black;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    /* identical to box height */
+
+    letter-spacing: -0.02em;
+
+    /* grey/900 */
+
+    color: #33333C;
+}
+
+.vacancies__cards-main-description {
+    /* p/default */
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 200;
+    font-size: 16px;
+    line-height: 22px;
+    /* or 138% */
+
+    letter-spacing: -0.02em;
+
+    /* grey/500 */
+
+    color: #81818E;
+}
+
+.vacancies__cards-publish-date {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    /* identical to box height, or 157% */
+
+    letter-spacing: -0.02em;
+
+    /* grey/300 */
+
+    color: #ADADB7;
 }
 
