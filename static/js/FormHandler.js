@@ -21,11 +21,11 @@ export const setFormHandler = () => {
         });
 
         response.json().then(data => {
-            const dataElem = document.getElementById('data');
+            const dataElem = document.querySelector('#data');
             dataElem.innerText = JSON.stringify(data);
         });
     };
 
-    const form = document.getElementById('signup_form');
+    const form = document.querySelector('#signup_form');
     form.addEventListener('submit', sendFormToServer);
 };
