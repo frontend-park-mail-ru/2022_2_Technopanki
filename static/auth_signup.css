@@ -191,6 +191,12 @@
     height: 50vh;
 }
 
+@media (min-width: 2000px) {
+    .description__container {
+        padding: 120px 120px 0 120px;
+    }
+}
+
 .description__header {
     margin-top: 3rem;
 }
