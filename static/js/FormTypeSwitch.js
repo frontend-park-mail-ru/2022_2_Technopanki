@@ -1,15 +1,15 @@
 const removeActive = element => {
     element.classList.remove('toggle__active');
     const icon = element.querySelector('.toggle__element-icon');
-    icon[0].classList.remove('toggle__element-icon_active');
-    icon[0].classList.add('toggle__element-icon_disabled');
+    icon.classList.remove('toggle__element-icon_active');
+    icon.classList.add('toggle__element-icon_disabled');
 };
 
 const addActive = element => {
     element.classList.add('toggle__active');
     const icon = element.querySelector('.toggle__element-icon');
-    icon[0].classList.add('toggle__element-icon_active');
-    icon[0].classList.remove('toggle__element-icon_disabled');
+    icon.classList.add('toggle__element-icon_active');
+    icon.classList.remove('toggle__element-icon_disabled');
 };
 
 export const addSwitcher = () => {
