@@ -7,7 +7,7 @@
     <title>Title</title>
 </head>
 <body>
-<section class="signup">
+<div class="signup">
     <div class="menu">
         <div class="menu__wrapper">
             <div class="toggle">
@@ -17,7 +17,7 @@
                         <p>Зарегиcтрироваться как соискатель</p>
                     </div>
                     <div class="toggle__element-icon toggle__element-icon_active">
-                        <img src="img/icon.svg">
+                        <img src="img/icon.svg" alt="✓">
                     </div>
                 </div>
                 <div id="employer_toggle" class="toggle__element">
@@ -26,7 +26,7 @@
                         <p>Зарегиcтрироваться как работодатель</p>
                     </div>
                     <div class="toggle__element-icon toggle__element-icon_disabled">
-                        <img src="img/icon.svg">
+                        <img src="img/icon.svg" alt="✓">
                     </div>
                 </div>
             </div>
@@ -48,20 +48,20 @@
                     <label>Фамилия</label>
                     <input name="surname" type="text" placeholder="example@email.ru" required>
                 </div>
-                <button class="form__submit-button">Создать аккаунт →</button>
-                <p style="font-weight: lighter" class="form__question">Уже есть аккаунт? <a href="/auth" class="form__question_a">Войти</a></p>
+                <button type="submit" class="form__submit-button">Создать аккаунт →</button>
+                <p class="form__question">Уже есть аккаунт? <a href="/auth" class="form__question_a">Войти</a></p>
             </form>
         </div>
     </div>
     <div class="description">
         <div class="description__container">
-            <img class="description__logo" alt="Jobflow">
+            <img class="description__logo" alt="Jobflow" src="img/Logo.svg" height="16">
             <h2 class="description__header">Создай свою команду<br>Найди свою миссию</h2>
             <p class="description__text">На нашем сайте вы можете найти вакансии от лучших работодателей, а также узнать последние новости рынка труда. Если вы уже определились, вакансии каких специальностей вас интересуют, вам остаётся только зарегистрироваться и приступать к поиску работы мечты!</p>
         </div>
-        <img class="description__img" alt="img" src="img/Rectangle.png">
+        <img class="description__img" alt="Rectangle" src="img/Rectangle.png">
     </div>
-</section>
+</div>
 <script src="js/index.js"></script>
 </body>
 </html>
