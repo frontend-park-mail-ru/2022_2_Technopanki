@@ -1,5 +1,5 @@
-const express = require('express');
-const path = require('path');
+import express from 'express';
+import * as path from 'path';
 
 const app = express();
 
@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/signup', (req, res) => {
-    res.sendFile(path.join(__dirname, `/signup.html`));
+    res.sendFile(path.join(__dirname, '/signup.html'));
 });
 
 app.get('/auth', (req, res) => {
