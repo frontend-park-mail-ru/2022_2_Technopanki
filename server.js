@@ -9,10 +9,6 @@ app.use('/static', express.static(path.join(__dirname, 'static')));
 app.use('/img', express.static(path.join(__dirname, 'static/img')));
 app.use('/js', express.static(path.join(__dirname, 'static/js')));
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '/signup.html'));
-});
-
 app.get('/signup', (req, res) => {
     res.sendFile(path.join(__dirname, '/signup.html'));
 });
