@@ -1,7 +1,9 @@
 .main {
+    margin: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 30px;
 }
 
 .main__intro {
@@ -32,7 +34,8 @@
 .main__intro-buttons-signup {
     appearance: none;
     border: 0;
-    border-radius: 10px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 16px rgba(81, 101, 255, 0.24);
     color: #F3F5FF;
     background: #1C34EC;
     padding: 10px;
@@ -42,9 +45,10 @@
 .main__intro-buttons-signup:hover {
     appearance: none;
     border: 0;
-    border-radius: 10px;
-    background: #e0e4fa;
+    border-radius: 12px;
+    box-shadow: 0px 4px 16px rgba(81, 101, 255, 0.24);
     color: #1C34EC;
+    background: #F3F5FF;
     padding: 10px;
     font-weight: bold;
 }
@@ -53,8 +57,8 @@
     appearance: none;
     border: 0;
     border-radius: 10px;
-    background: rgba(224, 228, 250, 0.5);
     color: #1C34EC;
+    background: #c2c2c2;
     padding: 10px;
     font-weight: bold;
 }
@@ -62,9 +66,10 @@
 .main__intro-buttons-signin {
     appearance: none;
     border: 0;
-    border-radius: 10px;
-    color: #000000;
-    background: #f8f8f8;
+    border-radius: 12px;
+    box-shadow: 0px 4px 16px rgba(81, 101, 255, 0.24);
+    color: #1C34EC;
+    background: #F3F5FF;
     padding: 10px;
     font-weight: bold;
 }
@@ -73,8 +78,8 @@
     appearance: none;
     border: 0;
     border-radius: 10px;
-    color: #000000;
-    background: #d3d3d3;
+    color: #1C34EC;
+    background: rgba(243, 245, 255, 0.55);
     padding: 10px;
     font-weight: bold;
 }
@@ -83,7 +88,7 @@
     appearance: none;
     border: 0;
     border-radius: 10px;
-    color: #000000;
+    color: #1C34EC;
     background: #c2c2c2;
     padding: 10px;
     font-weight: bold;
