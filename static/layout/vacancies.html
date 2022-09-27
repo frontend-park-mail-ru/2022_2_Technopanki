@@ -1,35 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>meeeeeme</title></titl></title>
+    <title>meeeeeme</title>
 
-    <link href="../style/navbar.css" rel="stylesheet">
+    <link href="../style/header.css" rel="stylesheet">
     <link href="../style/vacancies.css" rel="stylesheet">
 </head>
 <body style="margin: 0">
-    <div class="navbar">
-        <div class="navbar__logo">
-            <img src="../img/logo.svg">
-            <img src="../img/Jobflow.svg">
-        </div>
-        <div class="navbar__links">
-            <p><a class="navbar__links-default" href="main.html">Главная</a></p>
-            <p class="navbar__links-current"><a class="navbar__links-current-buttons" href="vacancies.html">Все вакансии</a></p>
-            <p><a class="navbar__links-default" href="vacancies.html">Создать резюме</a></p>
-        </div>
-
-        <div class="navbar__buttons">
-            <div class="navbar__buttons-signin">
-                <p>Войти</p>
+    <div class="header">
+        <div class="header__data">
+            <div class="header__logo">
+                <img src="../img/logo.svg" alt="logo">
+                <img src="../img/Jobflow.svg" alg="Jobflow">
+            </div>
+            <div class="header__links">
+                <p><a class="header__links-default" href="main.html">Главная</a></p>
+                <p><a class="header__links-current-buttons" href="vacancies.html">Все вакансии</a></p>
+                <p><a class="header__links-default" href="vacancies.html">Создать резюме</a></p>
             </div>
 
-            <button class="navbar__buttons-signup">
-                Создать аккаунт!
-            </button>
+            <div class="header__buttons">
+                <div class="header__buttons-signin">
+                    <p>Войти</p>
+                </div>
+
+                <button class="header__buttons-signup">
+                    Создать аккаунт!
+                </button>
+            </div>
         </div>
+        <hr>
     </div>
-    <hr>
     <div class="vacancies">
         <div class="vacancies__cards">
             <div class="vacancies__cards-header">
@@ -43,7 +45,7 @@
             <div class="vacancies__cards-list">
                 <div class="vacancies__cards-single">
                     <div class="vacancies__cards-data">
-                        <img src="../img/vk_logo.svg">
+                        <img src="../img/vk_logo.svg" alt="VK logo">
 
                         <div class="vacancies__cards-metadata">
                             <div class="vacancies__cards-company-header">
@@ -74,12 +76,12 @@
                                 September 17, 2022 • 14:30
                             </div>
                         </div>
-                        <img src="../img/dots.svg">
+                        <img src="../img/dots.svg" alt="dots for extra options">
                     </div>
                 </div>
                 <div class="vacancies__cards-single">
                     <div class="vacancies__cards-data">
-                        <img src="../img/vk_logo.svg">
+                        <img src="../img/vk_logo.svg" alt="VK logo">
 
                         <div class="vacancies__cards-metadata">
                             <div class="vacancies__cards-company-header">
@@ -110,12 +112,12 @@
                                 September 17, 2022 • 14:30
                             </div>
                         </div>
-                        <img src="../img/dots.svg">
+                        <img src="../img/dots.svg" alt="dots for extra options">
                     </div>
                 </div>
                 <div class="vacancies__cards-single">
                     <div class="vacancies__cards-data">
-                        <img src="../img/vk_logo.svg">
+                        <img src="../img/vk_logo.svg" alt="VK logo">
 
                         <div class="vacancies__cards-metadata">
                             <div class="vacancies__cards-company-header">
@@ -146,12 +148,12 @@
                                 September 17, 2022 • 14:30
                             </div>
                         </div>
-                        <img src="../img/dots.svg">
+                        <img src="../img/dots.svg" alt="dots for extra options">
                     </div>
                 </div>
             </div>
         </div>
-        <img style="padding-top: 40px" src="../img/strange_rect.svg">
+        <img class="vacancies__settings-block" src="../img/strange_rect.svg" alt="field for settings">
     </div>
 </body>
 </html>

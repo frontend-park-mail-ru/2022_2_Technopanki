@@ -7,9 +7,17 @@ hr {
     border: none;
     background-color: #efefef;
     height: 1px;
+    width: 100%;
 }
 
-.navbar{
+.header {
+    display: flex;
+    flex-direction: column;
+    /*justify-content: center;*/
+    /*align-items: center;*/
+}
+
+.header__data {
     display: flex;
     align-items: center;
     gap: 300px;
@@ -17,36 +25,33 @@ hr {
     height: 67px;
 }
 
-.navbar__links {
+.header__links {
     display: flex;
     gap: 30px;
     font-family: Inter, sans-serif;
     font-size: 14px;
 }
 
-.navbar__links-current {
+.header__links-current-buttons {
+    outline: none;
+    text-decoration: none;
+    color: black;
     font-weight: bold;
 }
 
-.navbar__links-current-buttons {
+.header__links-default {
     outline: none;
     text-decoration: none;
     color: black;
 }
 
-.navbar__links-default {
-    outline: none;
-    text-decoration: none;
-    color: black;
-}
-
-.navbar__links-default:hover {
+.header__links-default:hover {
     outline: none;
     text-decoration: none;
     color: rgba(0, 0, 0, 0.61);
 }
 
-.navbar__buttons {
+.header__buttons {
     display: flex;
     gap: 30px;
     align-items: center;
@@ -54,11 +59,11 @@ hr {
     font-size: 14px;
 }
 
-.navbar__buttons-signin {
+.header__buttons-signin {
     font-weight: bold;
 }
 
-.navbar__buttons-signup {
+.header__buttons-signup {
     appearance: none;
     border: 0;
     border-radius: 10px;
@@ -68,7 +73,7 @@ hr {
     font-weight: bold;
 }
 
-.navbar__buttons-signup:hover {
+.header__buttons-signup:hover {
     appearance: none;
     border: 0;
     border-radius: 10px;
@@ -78,7 +83,7 @@ hr {
     font-weight: bold;
 }
 
-.navbar__buttons-signup:focus {
+.header__buttons-signup:focus {
     appearance: none;
     border: 0;
     border-radius: 10px;
@@ -88,7 +93,7 @@ hr {
     font-weight: bold;
 }
 
-.navbar__logo {
+.header__logo {
     display: flex;
     gap: 10px;
     align-items: center;

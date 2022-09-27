@@ -1,40 +1,42 @@
 <!doctype html>
 
-<html lang="en" class="h-100">
+<html>
 <head>
     <meta charset="utf-8">
     <title>meeeme</title>
 
-    <link href="../style/navbar.css" rel="stylesheet">
+    <link href="../style/header.css" rel="stylesheet">
     <link href="../style/main.css" rel="stylesheet">
 </head>
 
 <body style="margin: 0">
-    <div class="navbar">
-        <div class="navbar__logo">
-            <img src="../img/logo.svg">
-            <img src="../img/Jobflow.svg">
-        </div>
-        <div class="navbar__links">
-            <p class="navbar__links-current"><a class="navbar__links-current-buttons" href="../style/main.css">Главная</a></p>
-            <p><a class="navbar__links-default" href="vacancies.html">Все вакансии</a></p>
-            <p><a class="navbar__links-default" href="vacancies.html">Создать резюме</a></p>
-        </div>
-
-        <div class="navbar__buttons">
-            <div class="navbar__buttons-signin">
-                <p>Войти</p>
+    <div class="header">
+        <div class="header__data">
+            <div class="header__logo">
+                <img src="../img/logo.svg" alt="logo">
+                <img src="../img/Jobflow.svg" alt="Jobflow">
+            </div>
+            <div class="header__links">
+                <p><a class="header__links-current-buttons" href="#">Главная</a></p>
+                <p><a class="header__links-default" href="vacancies.html">Все вакансии</a></p>
+                <p><a class="header__links-default" href="vacancies.html">Создать резюме</a></p>
             </div>
 
-            <button class="navbar__buttons-signup">
-                Создать аккаунт!
-            </button>
+            <div class="header__buttons">
+                <div class="header__buttons-signin">
+                    <p>Войти</p>
+                </div>
+
+                <button class="header__buttons-signup">
+                    Создать аккаунт!
+                </button>
+            </div>
         </div>
+        <hr>
     </div>
-    <hr>
     <div class="main">
         <div class="main__intro">
-            <img style="width: 73px; height: 16px;" src="../img/Jobflow.svg">
+            <img src="../img/Jobflow.svg" width="91" height="20" alt="Jobflow">
             <div class="main__intro-big">
                 Начни строить<br>
                 свою карьеру<br>
@@ -56,7 +58,7 @@
             </div>
         </div>
         <div class="main__picture">
-            <img src="../img/main_banner.svg">
+            <img src="../img/main_banner.svg" alt="banner">
         </div>
     </div>
 </body>

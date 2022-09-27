@@ -39,7 +39,7 @@
     background: #FFFFFF;
     /* grey/100 */
 
-    border: 1px solid #DADAE0;
+    outline: 1px solid #DADAE0;
     /* grey */
 
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04);
@@ -56,13 +56,32 @@
     background: #FFFFFF;
     /* grey/100 */
 
-    border: 2px solid #1C34EC;
+    outline: 2px solid #1C34EC;
     /* Blue/400 */
 
     box-shadow: 0px 4px 16px rgba(81, 101, 255, 0.24);
     border-radius: 16px;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+.vacancies__cards-single:focus {
+    font-family: Inter, sans-serif;
+    width: 690px;
+    height: 233px;
+
+    background: #FFFFFF;
+    /* grey/100 */
+
+    outline: 2px solid #1C34EC;
+    /* Blue/400 */
+
+    box-shadow: 0px 4px 16px rgba(81, 101, 255, 0.24);
+    border-radius: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    transition: top 1s ease-out 0.5s;
 }
 
 .vacancies__cards-data {
@@ -171,3 +190,6 @@
     color: #ADADB7;
 }
 
+.vacancies__settings-block {
+    padding-top: 40px
+}

@@ -1,9 +1,9 @@
 .main {
-    margin: 70px;
+    height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 30px;
+    gap: 5%;
 }
 
 .main__intro {
