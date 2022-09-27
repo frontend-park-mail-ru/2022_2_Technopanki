@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link type="text/css" rel="stylesheet" href="static/globals.css" />
+        <link type="text/css" rel="stylesheet" href="static/auth_signup.css" />
+        <title>Title</title>
+    </head>
+    <body>
+        <div class="signup">
+            <div class="menu">
+                <div class="menu__wrapper">
+                    <form
+                        id="signup_form"
+                        action="/employers"
+                        class="menu__form"
+                        method="post"
+                    >
+                        <h4>Авторизация</h4>
+                        <div class="form__input">
+                            <label>Email</label>
+                            <input
+                                name="email"
+                                type="email"
+                                placeholder="example@email.ru"
+                                required
+                            />
+                        </div>
+                        <div class="form__input">
+                            <label>Пароль</label>
+                            <input
+                                name="password"
+                                type="password"
+                                placeholder="*****"
+                                required
+                            />
+                        </div>
+                        <button type="submit" class="form__submit-button">
+                            Войти →
+                        </button>
+                        <p class="form__question">
+                            Еще не зарегистрированы?
+                            <a
+                                style="font-weight: bold"
+                                href="/signup"
+                                class="form__question_a"
+                                >Создать аккаунт</a
+                            >
+                        </p>
+                    </form>
+                </div>
+            </div>
+            <div class="description">
+                <div class="description__container">
+                    <img
+                        class="description__logo"
+                        alt="Jobflow"
+                        src="img/Logo.svg"
+                        height="16"
+                    />
+                    <h3 class="description__header">
+                        Создай свою команду<br />Найди свою миссию
+                    </h3>
+                    <p class="description__text">
+                        На нашем сайте вы можете найти вакансии от лучших
+                        работодателей, а также узнать последние новости рынка
+                        труда. Если вы уже определились, вакансии каких
+                        специальностей вас интересуют, вам остаётся только
+                        зарегистрироваться и приступать к поиску работы мечты!
+                    </p>
+                </div>
+                <div class="description__img-wrapper">
+                    <img
+                        class="description__img"
+                        alt="Rectangle"
+                        src="img/Illustration.svg"
+                    />
+                </div>
+            </div>
+        </div>
+        <script type="module" src="js/index.js"></script>
+    </body>
+</html>
