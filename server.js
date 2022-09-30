@@ -3,7 +3,7 @@ const path = require('path');
 
 const app = express();
 
-const PORT = 9000;
+const PORT = 8000;
 
 app.use('/static', express.static(path.join(__dirname, 'src/static/')));
 app.use('/css', express.static(path.join(__dirname, 'src/styles/css')));
