@@ -8,7 +8,7 @@ export const signUpTemplate = `
             >
                 <div class="toggle__element-content">
                     <h5>Я соискатель</h5>
-                    <p>Зарегиcтрироваться как соискатель</p>
+                    <p>Зарегистрироваться как соискатель</p>
                 </div>
                 <div
                     class="toggle__element-icon toggle__element-icon_active"
@@ -19,7 +19,7 @@ export const signUpTemplate = `
             <div id="employer_toggle" class="toggle__element">
                 <div class="toggle__element-content">
                     <h5>Я работодатель</h5>
-                    <p>Зарегиcтрироваться как работодатель</p>
+                    <p>Зарегистрироваться как работодатель</p>
                 </div>
                 <div
                     class="toggle__element-icon toggle__element-icon_disabled"

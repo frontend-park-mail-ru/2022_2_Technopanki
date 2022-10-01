@@ -1,21 +1,23 @@
-import { setUpRouter } from './Router.js';
+import { Router } from './Router.js';
+import { Component } from '../core/VDOM/component.js';
+import { createText } from '../core/VDOM/VDOMElement.js';
 
-export const Link = (to, innerText, ...children) => {
-    const RouteLink = e => {
+export default class Link extends Component {
+    onClick = e => {
         e.preventDefault();
-        window.history.pushState(null, null, to);
-        setUpRouter(to);
+        window.history.pushState(null, null, this.props.to);
+        Router(this.props.to);
     };
 
-    const button = document.createElement('button');
-    button.href = to;
-    if (innerText !== null) {
-        button.innerText = innerText;
-    } else {
-        button.append(...children);
+    render() {
+        return createText(
+            'a',
+            {
+                key: 'link',
+                onclick: this.onClick,
+                href: this.props.to,
+            },
+            this.props.value,
+        );
     }
-
-    button.onclick = RouteLink;
-
-    return button;
-};
+}

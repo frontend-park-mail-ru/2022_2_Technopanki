@@ -1,18 +1,18 @@
+import SignUp from '../../views/SignUp.js';
+import { renderDOM } from '../core/renderDOM.js';
 import Main from '../../views/Main.js';
-import Signup from '../../views/Signup.js';
 
-export const setUpRouter = to => {
+export const Router = to => {
     const root = document.querySelector('#root');
 
     const routesMap = {
         '/': {
-            component: new Main(root),
+            component: () => renderDOM(root, Main),
         },
         '/signup': {
-            component: new Signup(root),
+            component: () => renderDOM(root, SignUp),
         },
     };
 
-    root.innerHTML = '';
-    routesMap[to].component.render();
+    routesMap[to].component();
 };

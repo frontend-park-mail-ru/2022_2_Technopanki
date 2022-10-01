@@ -1,9 +1,6 @@
-import Root from './lib/core/Root.js';
+import { Router } from './lib/router/Router.js';
 
-const root = document.querySelector('#root');
-const rootComponent = new Root(root);
-
-rootComponent.render();
+Router(location.pathname);
 
 const testServer = async () => {
     const response = await fetch('http://localhost:8080/auth/sign-up', {
@@ -18,6 +15,7 @@ const testServer = async () => {
             Surname: 'Kirpichov',
             Password: '12345',
         }),
+        credentials: 'include',
     });
 
     response.headers.forEach(elem => console.log(elem));
@@ -32,5 +30,5 @@ const testApi = async () => {
     // response.headers.forEach()
 };
 
-testServer();
-testApi();
+// testServer();
+// testApi();
