@@ -14,5 +14,6 @@ export const Router = to => {
         },
     };
 
+    window.history.pushState(null, null, to);
     routesMap[to].component();
 };

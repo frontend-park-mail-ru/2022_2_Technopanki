@@ -5,7 +5,6 @@ import { createText } from '../core/VDOM/VDOMElement.js';
 export default class Link extends Component {
     onClick = e => {
         e.preventDefault();
-        window.history.pushState(null, null, this.props.to);
         Router(this.props.to);
     };
 
