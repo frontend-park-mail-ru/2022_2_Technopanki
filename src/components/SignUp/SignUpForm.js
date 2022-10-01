@@ -23,6 +23,7 @@ export default class SignUpForm extends Component {
                 Surname: formData.get('surname'),
                 Password: formData.get('password'),
             }),
+            credentials: 'include',
         });
 
         response.json().then(data => console.log(data));
