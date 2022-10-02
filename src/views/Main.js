@@ -1,5 +1,10 @@
 import { Component } from '../lib/core/VDOM/component.js';
-import { createElement, createText } from '../lib/core/VDOM/VDOMElement.js';
+import {
+    createComponent,
+    createElement,
+    createText,
+} from '../lib/core/VDOM/VDOMElement.js';
+import Link from '../lib/router/Link.js';
 
 export default class Main extends Component {
     state = {
@@ -9,7 +14,7 @@ export default class Main extends Component {
     render() {
         return createElement(
             'div',
-            { key: 'hello' },
+            null,
             createText('h3', { key: 'hi' }, this.state.counter),
             createElement(
                 'button',
@@ -23,6 +28,7 @@ export default class Main extends Component {
                 },
                 createText('p', { key: 'another hi' }, 'Increment'),
             ),
+            createComponent(Link, { to: '/signup', value: 'Go to signup' }),
         );
     }
 }

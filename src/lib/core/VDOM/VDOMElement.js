@@ -1,44 +1,67 @@
+const createKey = () => {
+    return Math.floor(Math.random() * Date.now()).toString();
+};
+
 export const createElement = (tagName, props, ...children) => {
-    return {
+    const obj = {
         type: 'element',
         tagName: tagName,
         props: props,
         children: children,
-        key:
-            props == null || typeof props.key === 'undefined'
-                ? Math.floor(Math.random() * Date.now()).toString()
-                : props.key,
     };
+
+    if (!obj.props) {
+        obj.props = {
+            key: createKey(),
+        };
+    }
+
+    if (!obj.props.key) {
+        obj.props.key = createKey();
+    }
+
+    return obj;
 };
 
 export const createText = (tagName, props, value) => {
-    return {
+    const obj = {
         type: 'text',
         tagName: tagName,
-        props:
-            props == null
-                ? { key: Math.floor(Math.random() * Date.now()).toString() }
-                : props,
+        props: props,
         value: value,
-        key:
-            props == null
-                ? 1
-                : typeof props.key === 'undefined'
-                ? Math.floor(Math.random() * Date.now()).toString()
-                : props.key,
     };
+
+    if (!obj.props) {
+        obj.props = {
+            key: createKey(),
+        };
+    }
+
+    if (!obj.props.key) {
+        obj.props.key = createKey();
+    }
+
+    return obj;
 };
 
 export const createComponent = (componentType, props, ...children) => {
-    return {
+    const obj = {
         type: 'component',
         instance: new componentType(),
         component: componentType,
         props: props,
         children: children,
-        key:
-            props == null || typeof props.key === 'undefined'
-                ? Math.floor(Math.random() * Date.now()).toString()
-                : props.key,
     };
+
+    if (!obj.props) {
+        obj.props = {
+            key: createKey(),
+        };
+    }
+
+    if (!obj.props.key) {
+        obj.props.key = createKey();
+    }
+
+    return obj;
 };

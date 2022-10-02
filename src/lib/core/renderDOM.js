@@ -5,8 +5,6 @@ export const renderDOM = (root, component) => {
     root.innerHTML = '';
 
     root.appendChild(
-        renderElement(
-            createComponent(component, { key: 'root', ...component.props }),
-        ),
+        renderElement(createComponent(component, { ...component.props })),
     );
 };

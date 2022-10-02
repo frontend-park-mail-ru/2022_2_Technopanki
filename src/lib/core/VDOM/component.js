@@ -29,7 +29,6 @@ export class Component {
     // Will be called then component is mounted in DOM.
     notifyMounted(elem) {
         this.#mountedElement = elem;
-        // setTimeout(() => this.componentDidMount())
     }
 
     // Generates update. This method is responsible for "reactiveness" of component

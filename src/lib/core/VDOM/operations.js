@@ -15,11 +15,11 @@ const insertUntilKey = (operations, elements, key) => {
 // creates operations for children
 const childrenDiff = (oldChildren, newChildren) => {
     const remainingOldChildren = oldChildren.map(children => [
-        children.key,
+        children.props.key,
         children,
     ]);
     const remainingNewChildren = newChildren.map(children => [
-        children.key,
+        children.props.key,
         children,
     ]);
 

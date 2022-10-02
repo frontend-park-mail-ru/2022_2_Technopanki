@@ -1,12 +1,12 @@
-// import { Router } from './lib/router/Router.js';
-import { renderDOM } from './lib/core/renderDOM.js';
 import Main from './views/Main.js';
+import { Router } from './lib/router/Router.js';
+import SignUp from './views/SignUp.js';
 
-const root = document.querySelector('#root');
-renderDOM(root, Main);
+Router.addRoutePath('/', Main);
+Router.addRoutePath('/signup', SignUp);
 
 window.addEventListener('popstate', e => {
-    // Router(location.pathname);
+    Router.routeTo(location.pathname, true);
 });
 
-// Router(location.pathname);
+Router.routeTo(location.pathname);
