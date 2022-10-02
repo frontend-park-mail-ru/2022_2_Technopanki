@@ -3,13 +3,13 @@ import { applyDiff } from './render.js';
 
 export class Component {
     props;
-    #state;
+    state;
 
     #mountedElement;
     #rootNode;
 
-    #setState(state) {
-        this.#state = this.getUpdateDiff();
+    setState(updater) {
+        this.state = updater(this.state);
         applyDiff(this.#mountedElement, this.getUpdateDiff());
     }
 
@@ -39,8 +39,8 @@ export class Component {
         if (diff.type === 'replace') {
             // TODO: возможно переделать
         }
-
         this.#rootNode = newRootNode;
+
         return diff;
     }
 

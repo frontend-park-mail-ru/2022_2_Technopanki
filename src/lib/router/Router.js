@@ -2,18 +2,29 @@ import SignUp from '../../views/SignUp.js';
 import { renderDOM } from '../core/renderDOM.js';
 import Main from '../../views/Main.js';
 
-export const Router = to => {
-    const root = document.querySelector('#root');
+class Router {
+    #root;
+    #routePathMap = {};
 
-    const routesMap = {
-        '/': {
-            component: () => renderDOM(root, Main),
-        },
-        '/signup': {
-            component: () => renderDOM(root, SignUp),
-        },
+    constructor(root, routerPathMap) {
+        this.#root = root;
+        if (typeof routerPathMap !== 'undefined')
+            this.#routePathMap = routerPathMap;
+    }
+
+    addRoutePath = (path, component) => {
+        this.#routePathMap[path].component = component;
+        this.#routePathMap[path].render = () =>
+            renderDOM(this.#root, component);
     };
 
-    window.history.pushState(null, null, to);
-    routesMap[to].component();
-};
+    // render()
+    routeTo(to, goBack) {
+        if (typeof goBack === 'undefined' || goBack === false) {
+            window.history.pushState(null, null, to);
+        }
+        renderDOM(this.#root, this.#routePathMap[to].component);
+    }
+}
+
+export default new Router();

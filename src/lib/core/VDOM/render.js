@@ -10,7 +10,11 @@ export const renderElement = root => {
     }
 
     const elem = document.createElement(root.tagName);
-    Object.keys(root.props).forEach(attr => (elem[attr] = root.props[attr]));
+    if (root.props) {
+        Object.keys(root.props).forEach(
+            attr => (elem[attr] = root.props[attr]),
+        );
+    }
 
     if (root.type === 'text') {
         elem.innerText = root.value;
@@ -55,8 +59,8 @@ export const applyChildrenDiff = (elem, operations) => {
         if (childUpdater.type === 'skip') continue;
 
         if (childUpdater.type === 'replace') {
-            const newElem = childUpdater.newNode;
-            elem.replaceWith(newElem);
+            const newElem = renderElement(childUpdater.newNode);
+            elem.childNodes[i + offset].replaceWith(newElem);
             continue;
         }
 

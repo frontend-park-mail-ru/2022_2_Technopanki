@@ -15,7 +15,6 @@ export class Menu extends Component {
             createElement(
                 'div',
                 { key: 'menu__wrapper', className: 'menu__wrapper' },
-                createComponent(Toggle, { key: 'toggleElem' }),
                 createComponent(SignUpForm, { key: 'fform' }, null),
             ),
         );

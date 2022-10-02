@@ -1,11 +1,11 @@
-import { Router } from './Router.js';
+// import { Router } from './Router.js';
 import { Component } from '../core/VDOM/component.js';
 import { createText } from '../core/VDOM/VDOMElement.js';
 
 export default class Link extends Component {
     onClick = e => {
         e.preventDefault();
-        Router(this.props.to);
+        // Router(this.props.to);
     };
 
     render() {

@@ -30,21 +30,27 @@ const childrenDiff = (oldChildren, newChildren) => {
 
     // find first element that got updated
     let nextUpdateKey = remainingOldChildren.find(
-        k => remainingNewChildrenKeys.indexOf(k[0]) === -1,
-    );
-    while (nextUpdateKey) {
-        removeUntilKey(operations, remainingOldChildren, nextUpdateKey);
-        insertUntilKey(operations, remainingNewChildrenKeys, nextUpdateKey);
+        k => remainingNewChildrenKeys.indexOf(k[0]) !== -1,
+    ) || [null];
 
-        operations.push(createDiff(remainingOldChildren.shift()));
+    while (nextUpdateKey && nextUpdateKey[0] != null) {
+        removeUntilKey(operations, remainingOldChildren, nextUpdateKey[0]);
+        insertUntilKey(operations, remainingNewChildren, nextUpdateKey[0]);
+
+        operations.push(
+            createDiff(
+                remainingOldChildren.shift()[1],
+                remainingNewChildren.shift()[1],
+            ),
+        );
 
         nextUpdateKey = remainingOldChildren.find(
-            k => remainingNewChildrenKeys.indexOf(k[0]) === -1,
-        );
+            k => remainingNewChildrenKeys.indexOf(k[0]) !== -1,
+        ) || [null];
     }
 
-    removeUntilKey(operations, remainingOldChildren, nextUpdateKey);
-    insertUntilKey(operations, remainingNewChildrenKeys, nextUpdateKey);
+    removeUntilKey(operations, remainingOldChildren, nextUpdateKey[0]);
+    insertUntilKey(operations, remainingNewChildren, nextUpdateKey[0]);
 
     return operations;
 };
@@ -62,11 +68,35 @@ export const createDiff = (oldNode, newNode) => {
         return replace(newNode);
     }
 
-    if (oldNode.type === 'component' && newNode.type === 'component') {
+    if (
+        oldNode.type === 'component' &&
+        newNode.type === 'component' &&
+        oldNode.component === newNode.component
+    ) {
         if (JSON.stringify(oldNode.props) === JSON.stringify(newNode.props))
             return skip();
         // TODO: if (isEqual(oldNode.props, newNode.props)) return skip();
-        return newNode.instance.setProps(newNode.props);
+        return update(
+            {
+                remove: Object.keys(oldNode.props).filter(
+                    attr => Object.keys(newNode.props).indexOf(attr) === -1,
+                ),
+                set: (() => {
+                    const attributes = Object.keys(newNode.props).filter(
+                        attr => oldNode.props[attr] !== newNode.props[attr],
+                    );
+                    if (!attributes || attributes.length === 0) {
+                        return attributes;
+                    }
+
+                    return attributes.reduce((updated, attr) => ({
+                        ...updated,
+                        attr,
+                    }));
+                })(),
+            },
+            childrenDiff(oldNode.children, newNode.children),
+        );
     }
 
     if (newNode.type === 'component') {
@@ -80,11 +110,21 @@ export const createDiff = (oldNode, newNode) => {
 
     const attrUpdater = {
         remove: Object.keys(oldNode.props).filter(
-            attr => Object.keys(newNode.keys).indexOf(attr) === -1,
+            attr => Object.keys(newNode.props).indexOf(attr) === -1,
         ),
-        set: Object.keys(newNode.props)
-            .filter(attr => oldNode.props[attr] !== newNode.props[attr])
-            .reduce((updated, attr) => ({ ...updated, attr })),
+        set: (() => {
+            const attributes = Object.keys(newNode.props).filter(
+                attr => oldNode.props[attr] !== newNode.props[attr],
+            );
+            if (!attributes || attributes.length === 0) {
+                return attributes;
+            }
+
+            return attributes.reduce((updated, attr) => ({
+                ...updated,
+                attr,
+            }));
+        })(),
     };
 
     const childrenUpdater = childrenDiff(oldNode.children, newNode.children);
