@@ -7,7 +7,6 @@ export const Router = {
     addRoutePath(path, component) {
         this.routePathMap[path] = {
             component: component,
-            render: () => renderDOM(this.root, component),
         };
     },
 

@@ -15,18 +15,17 @@ export default class Main extends Component {
         return createElement(
             'div',
             null,
-            createText('h3', { key: 'hi' }, this.state.counter),
+            createText('h3', null, this.state.counter),
             createElement(
                 'button',
                 {
-                    key: 'hello',
                     onclick: () =>
                         this.setState(state => {
                             state.counter = state.counter + 1;
                             return state;
                         }),
                 },
-                createText('p', { key: 'another hi' }, 'Increment'),
+                createText('p', null, 'Increment'),
             ),
             createComponent(Link, { to: '/signup', value: 'Go to signup' }),
         );

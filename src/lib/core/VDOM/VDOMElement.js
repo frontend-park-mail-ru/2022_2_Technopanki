@@ -1,7 +1,3 @@
-const createKey = () => {
-    return Math.floor(Math.random() * Date.now()).toString();
-};
-
 export const createElement = (tagName, props, ...children) => {
     const obj = {
         type: 'element',
@@ -12,12 +8,12 @@ export const createElement = (tagName, props, ...children) => {
 
     if (!obj.props) {
         obj.props = {
-            key: createKey(),
+            key: 'key',
         };
     }
 
     if (!obj.props.key) {
-        obj.props.key = createKey();
+        obj.props.key = 'key';
     }
 
     return obj;
@@ -33,12 +29,12 @@ export const createText = (tagName, props, value) => {
 
     if (!obj.props) {
         obj.props = {
-            key: createKey(),
+            key: 'key',
         };
     }
 
     if (!obj.props.key) {
-        obj.props.key = createKey();
+        obj.props.key = 'key';
     }
 
     return obj;
@@ -55,12 +51,12 @@ export const createComponent = (componentType, props, ...children) => {
 
     if (!obj.props) {
         obj.props = {
-            key: createKey(),
+            key: 'key',
         };
     }
 
     if (!obj.props.key) {
-        obj.props.key = createKey();
+        obj.props.key = 'key';
     }
 
     return obj;
