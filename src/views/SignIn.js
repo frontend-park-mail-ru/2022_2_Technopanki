@@ -3,19 +3,17 @@ import {
     createComponent,
     createElement,
 } from '../lib/core/VDOM/VDOMElement.js';
+import SignInForm from '../components/SingIn/SignInForm.js';
 import { Menu } from '../components/SignUp/Menu.js';
 import Description from '../components/Description.js';
-import SignUpForm from '../components/SignUp/SignUpForm.js';
 
-export default class SignUp extends Component {
+export default class SignIn extends Component {
     render() {
         return createElement(
             'div',
             { key: 'wrapper', className: 'signup auth' },
-            createComponent(Menu, { key: 'form_menu', form: SignUpForm }),
-            createComponent(Description, {
-                key: 'description',
-            }),
+            createComponent(Menu, { key: 'form_menu', form: SignInForm }),
+            createComponent(Description, { key: 'description' }),
         );
     }
 }
