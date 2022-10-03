@@ -1,5 +1,5 @@
-@import './variables';
-@import './colors';
+@import "./variables";
+@import "./colors";
 
 .auth {
   position: relative;
@@ -140,6 +140,7 @@
 }
 
 .form__input input {
+  outline-width: 2px;
   padding: 10px 14px;
   background: #ffffff;
   border: 1.5px solid #f8f8f8;
@@ -198,6 +199,18 @@
 .form__question_a:hover {
   color: $color-grey-500;
   text-decoration: none;
+}
+
+.form__input-error {
+  font-size: 12px;
+  font-weight: 600;
+  color: $color-primary-red;
+}
+
+.toggle-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .description {

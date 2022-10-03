@@ -1,12 +1,14 @@
 import Main from './views/Main.js';
 import { Router } from './lib/router/Router.js';
 import SignUp from './views/SignUp.js';
+import SIgnIn from './views/SignIn.js';
 
 Router.addRoutePath('/', Main);
 Router.addRoutePath('/signup', SignUp);
+Router.addRoutePath('/signin', SIgnIn);
 
-window.addEventListener('popstate', e => {
-    Router.routeTo(location.pathname, true);
+window.addEventListener('popstate', () => {
+    Router.render(location.pathname, true);
 });
 
-Router.routeTo(location.pathname);
+Router.render(location.pathname);

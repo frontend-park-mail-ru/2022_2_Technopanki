@@ -1,69 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
-body {
-  font-family: "Inter", sans-serif;
-  font-size: 14px;
-  margin: 0;
-  padding: 0;
-  color: #33333c;
-  position: relative;
-}
-
-h1 {
-  font-style: normal;
-  font-weight: 700;
-  font-size: 64px;
-  line-height: 81%;
-  letter-spacing: -0.03em;
-}
-
-h2 {
-  font-style: normal;
-  font-weight: 700;
-  font-size: 40px;
-  line-height: 50px;
-  letter-spacing: -0.02em;
-  margin: 0;
-  margin-block: 0;
-}
-
-h3 {
-  font-style: normal;
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 38px;
-  letter-spacing: -0.02em;
-  margin: 0;
-  margin-block: 0;
-}
-
-h5 {
-  font-weight: 600;
-  font-size: 16px;
-  letter-spacing: -0.02em;
-  margin: 0;
-  margin-block: 0;
-}
-
-p {
-  font-size: 14px;
-  letter-spacing: -0.02em;
-  line-height: 22px;
-  margin: 0;
-}
-
-.signup {
+.auth {
   position: relative;
   display: grid;
   height: 100vh;
 }
 
 @media (max-width: 992px) {
-  .signup {
+  .auth {
     grid-template-columns: 100vw 0;
   }
 }
 @media (min-width: 992px) {
-  .signup {
+  .auth {
     grid-template-columns: 50vw 50vw;
   }
 }
@@ -200,6 +147,7 @@ p {
 }
 
 .form__input input {
+  outline-width: 2px;
   padding: 10px 14px;
   background: #ffffff;
   border: 1.5px solid #f8f8f8;
@@ -246,16 +194,30 @@ p {
 }
 
 .form__question_a {
-  color: inherit;
+  color: #adadb7;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
   text-decoration: none;
 }
 
 .form__question_a:hover {
-  color: #1c34ec;
-  font-weight: bold;
+  color: #81818e;
   text-decoration: none;
+}
+
+.form__input-error {
+  font-size: 12px;
+  font-weight: 600;
+  color: #f32a2a;
+}
+
+.toggle-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .description {
@@ -313,6 +275,6 @@ p {
     display: none;
   }
 }
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=auth.css.map */
 
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=auth.css.map */

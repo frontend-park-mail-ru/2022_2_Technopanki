@@ -5,15 +5,19 @@ export default class Input extends Component {
     render() {
         return createElement(
             'div',
-            { className: 'form__input', key: 'form__input' },
+            { className: 'form__input' },
             createText('label', { key: 'label' }, this.props.label),
             createElement('input', {
-                name: this.props.name,
                 type: this.props.inputType,
-                placeholder: this.props.placeholder,
-                required: this.props.required,
-                key: 'input',
+                ...this.props,
             }),
+            createText(
+                'p',
+                {
+                    className: `form__input-error form__input-error-${this.props.name}`,
+                },
+                '',
+            ),
         );
     }
 }

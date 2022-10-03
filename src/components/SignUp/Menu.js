@@ -4,8 +4,6 @@ import {
     createElement,
     createText,
 } from '../../lib/core/VDOM/VDOMElement.js';
-import SignUpForm from './SignUpForm.js';
-import Toggle from './Toggle.js';
 
 export class Menu extends Component {
     render() {
@@ -15,7 +13,7 @@ export class Menu extends Component {
             createElement(
                 'div',
                 { key: 'menu__wrapper', className: 'menu__wrapper' },
-                createComponent(SignUpForm, { key: 'fform' }, null),
+                createComponent(this.props.form),
             ),
         );
     }

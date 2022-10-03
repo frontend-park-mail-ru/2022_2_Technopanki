@@ -1,9 +1,5 @@
 import { Component } from '../lib/core/VDOM/component.js';
-import {
-    createComponent,
-    createElement,
-    createText,
-} from '../lib/core/VDOM/VDOMElement.js';
+import { createElement, createText } from '../lib/core/VDOM/VDOMElement.js';
 
 export default class Description extends Component {
     render() {
@@ -25,6 +21,16 @@ export default class Description extends Component {
                     src: 'img/Logo.svg',
                     height: '16',
                 }),
+                createText(
+                    'h3',
+                    { className: 'description__header' },
+                    'Создай свою команду\nНайди свою миссию',
+                ),
+                createText(
+                    'p',
+                    { className: 'description__text' },
+                    'Мы создаем передовые технологии на всех доступных платформах для того, чтобы работодатели могли быстро найти подходящего сотрудника, а соискатели — хорошую работу. ',
+                ),
             ),
             createElement(
                 'div',

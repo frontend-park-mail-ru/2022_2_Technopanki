@@ -4,12 +4,6 @@ export const Router = {
     root: document.getElementById('root'),
     routePathMap: {},
 
-    init: (root, routerPathMap) => {
-        this.root = root;
-        if (typeof routerPathMap !== 'undefined')
-            this.routePathMap = routerPathMap;
-    },
-
     addRoutePath(path, component) {
         this.routePathMap[path] = {
             component: component,
@@ -17,10 +11,10 @@ export const Router = {
         };
     },
 
-    routeTo(to, goBack) {
+    render(path, goBack) {
         if (!goBack) {
-            window.history.pushState(null, null, to);
+            window.history.pushState(null, null, path);
         }
-        renderDOM(this.root, this.routePathMap[to].component);
+        renderDOM(this.root, this.routePathMap[path].component);
     },
 };

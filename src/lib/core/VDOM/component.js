@@ -13,11 +13,6 @@ export class Component {
         applyDiff(this.#mountedElement, this.getUpdateDiff());
     }
 
-    setProps(props) {
-        this.props = props;
-        return this.getUpdateDiff();
-    }
-
     // Inits props and calls render for the first time.
     // Returns current rootNode
     initProps(props) {

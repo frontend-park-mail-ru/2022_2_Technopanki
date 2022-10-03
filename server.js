@@ -14,16 +14,4 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '/src/static/index.html'));
 });
 
-// app.get('/signup', (req, res) => {
-//     res.sendFile(path.join(__dirname, '/signup.html'));
-// });
-
-// app.get('/auth', (req, res) => {
-//     res.sendFile(path.join(__dirname, '/auth.html'));
-// });
-
-// app.get('/test', (req, res) => {
-//     res.sendFile(path.join(__dirname, '/src/views/index.html'));
-// });
-
 app.listen(PORT);
