@@ -4,10 +4,17 @@
     display: flex;
     justify-content: center;
     gap: 20px;
+    padding-top: 30px;
 }
 
 .vacancies__cards {
 
+}
+
+.vacancies__body {
+    display: flex;
+    flex-direction: row;
+    gap: 3%;
 }
 
 .vacancies__cards-list {
@@ -198,5 +205,4 @@
 }
 
 .vacancies__settings-block {
-    padding-top: 40px
 }
