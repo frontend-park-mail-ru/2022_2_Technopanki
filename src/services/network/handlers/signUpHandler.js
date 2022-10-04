@@ -1,5 +1,7 @@
+import { SERVER_URL, SIGNUP_URL } from '../serverURLs.js';
+
 export const sendSignUpData = async formData => {
-    return await fetch('http://localhost:8080/auth/sign-up', {
+    return await fetch(SERVER_URL + SIGNUP_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -15,7 +15,7 @@ export default class Description extends Component {
                     className: 'description__container',
                     key: 'description__container',
                 },
-                createText('img', {
+                createElement('img', {
                     key: 'img',
                     alt: 'Jobflow',
                     src: 'img/Logo.svg',
@@ -38,7 +38,7 @@ export default class Description extends Component {
                     className: 'description__img-wrapper',
                     key: 'description__img-wrapper',
                 },
-                createText('img', {
+                createElement('img', {
                     key: 'img',
                     className: 'description__img',
                     alt: 'Illustration',

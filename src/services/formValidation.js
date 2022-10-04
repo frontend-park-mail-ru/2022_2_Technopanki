@@ -1,4 +1,4 @@
-import { USER_ALREADY_EXISTS_ERROR } from './network/messages/signUpMessages.js';
+import { DEFAULT_MESSAGE } from './network/messages/signUpMessages.js';
 
 export const setInvalidInput = (event, inputName, message) => {
     event.target
@@ -42,7 +42,9 @@ export const setInvalidServerResponse = (event, responseBody) => {
         setInvalidInput(event, 'name', responseBody.error);
     } else if (responseBody.error.includes('фамилии')) {
         setInvalidInput(event, 'surname', responseBody.error);
-    } else if (responseBody.error.includes('user already exists')) {
-        setInvalidInput(event, 'email', USER_ALREADY_EXISTS_ERROR);
+    } else if (responseBody.error.includes('пользователь')) {
+        setInvalidInput(event, 'email', responseBody.error);
+    } else {
+        setInvalidInput(event, 'email', DEFAULT_MESSAGE);
     }
 };

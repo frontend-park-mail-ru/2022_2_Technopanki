@@ -7,25 +7,45 @@ import {
 import Input from '../Input.js';
 import SubmitButton from '../SubmitButton.js';
 import Link from '../../lib/router/Link.js';
+import { sendSignInData } from '../../services/network/handlers/signInHandler.js';
+import { validateEmail, validatePassword } from '../../services/validation.js';
+import {
+    setInvalidInput,
+    setInvalidServerResponse,
+    setValidInput,
+} from '../../services/formValidation.js';
+import {
+    EMAIL_ERROR,
+    PASSWORD_ERROR,
+} from '../../services/network/messages/signUpMessages.js';
+import { Router } from '../../lib/router/Router.js';
 
 export default class SignInForm extends Component {
     onSubmit = async e => {
         e.preventDefault();
         const formData = new FormData(e.target);
 
-        const response = await fetch('http://localhost:8080/auth/sign-in', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email: formData.get('email'),
-                password: formData.get('password'),
-            }),
-            credentials: 'include',
-        });
+        if (validateEmail(formData.get('email'))) {
+            setValidInput(e, 'email');
+        } else {
+            setInvalidInput(e, 'email', EMAIL_ERROR);
+            return;
+        }
 
-        response.json().then(data => console.log(data));
+        if (validatePassword(formData.get('password'))) {
+            setValidInput(e, 'password');
+        } else {
+            setInvalidInput(e, 'password', PASSWORD_ERROR);
+            return;
+        }
+
+        const response = await sendSignInData(formData);
+
+        if (response.status >= 400) {
+            response.json().then(body => setInvalidServerResponse(e, body));
+        } else {
+            Router.render('/');
+        }
     };
 
     render() {
@@ -37,6 +57,7 @@ export default class SignInForm extends Component {
                 className: 'menu__form',
                 method: 'post',
                 key: 'form',
+                noValidate: true,
                 onsubmit: this.onSubmit,
             },
             createText('h4', { key: 'header' }, 'Авторизация'),

@@ -65,13 +65,9 @@ export default class SignUpForm extends Component {
 
         clearAllInputs(e);
 
-        response.json().then(body => {
-            if (response.status >= 400) {
-                setInvalidServerResponse(e, body);
-            }
-        });
-
-        if (response.status < 400) {
+        if (response.status >= 400) {
+            response.json().then(body => setInvalidServerResponse(e, body));
+        } else {
             Router.render('/');
         }
     };
