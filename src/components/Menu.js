@@ -12,8 +12,8 @@ export class Menu extends Component {
             createElement(
                 'div',
                 { key: 'menu__wrapper', className: 'menu__wrapper' },
-                createComponent(this.props.form),
-            ),
+                createComponent(this.props.form)
+            )
         );
     }
 }

@@ -10,7 +10,7 @@ export default class SubmitButton extends Component {
                 className: this.props.className,
                 type: 'submit',
             },
-            this.props.value,
+            this.props.value
         );
     }
 }
