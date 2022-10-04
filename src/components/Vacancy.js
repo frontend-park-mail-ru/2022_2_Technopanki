@@ -20,19 +20,12 @@ export default class Vacancy extends Component {
                     key: 'vacancy body',
                     className: 'vacancy__body'
                 },
-                createElement(
-                    'a',
-                    {
-                        key: 'logo link',
-                        to: '/'
-                    },
-                    createText(
-                        'img',
-                        {
-                            key: 'company icon',
-                            alt: 'vk icon',
-                            src: 'img/vk_logo.svg'
-                        })),
+                createComponent(Link, {
+                    key: 'company logo',
+                    to: '/',
+                    alt: 'company icon',
+                    value: createText('img', { key: 'company', src: 'img/vk_logo.svg' }),
+                }),
                 createElement(
                     'div',
                     {
@@ -48,7 +41,7 @@ export default class Vacancy extends Component {
                         createComponent(Link, {
                             key: 'vacancy name',
                             className: 'vacancy__name',
-                            value: 'Middle фронтэнд-разработчик'
+                            value: createText('p', null, "Middle фронтэнд-разработчик")
                             }),
                         createElement(
                             'div',
@@ -59,7 +52,8 @@ export default class Vacancy extends Component {
                             createComponent(Link, {
                                 key: 'company name',
                                 to: '/',
-                                className: 'company__name'
+                                className: 'company__name',
+                                value: createText('p', null, "VK")
                             }),
                             createText('p', { key: 'company location' }, 'в Москве'))),
 

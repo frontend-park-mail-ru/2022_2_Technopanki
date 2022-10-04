@@ -23,7 +23,7 @@ export default class Header extends Component {
                 createText('img', {
                     key: 'icon',
                     alt: 'icon',
-                    src: 'img/favicon.ico',
+                    src: 'img/icon.svg',
                     height: '16',
                 }),
                 createText('img', {
@@ -42,21 +42,20 @@ export default class Header extends Component {
                 createComponent(Link, {
                     key: 'main page',
                     to: '/',
-                    value: 'Главная',
                     className: 'header__links-default',
+                    value: createText('p', { key: 'main link' }, 'Главная'),
                     }),
                 createComponent(Link, {
                     key: 'vacancies page',
                     to: '/vacancies',
-                    value: 'Все вакансии',
                     className: 'header__links-default',
-                    width: '100px'
+                    value: createText('p', { key: 'vacancies page link' }, 'Все вакансии'),
                 }),
                 createComponent(Link, {
                     key: 'create resume',
                     to: '/',
-                    value: 'Создать резюме',
                     className: 'header__links-default',
+                    value: createText('p', { key: 'create resume link' }, 'Создать резюме'),
                 })
             ),
             createElement(
@@ -68,8 +67,8 @@ export default class Header extends Component {
                 createComponent(Link, {
                     key: 'sign in link',
                     to: '/signin',
-                    value: 'Вход',
                     className: 'header__links-signin',
+                    value: createText('p', { key: 'logout link' }, 'Вход'),
                 }),
                 createComponent(SubmitButton, {
                     key: 'sign up button',

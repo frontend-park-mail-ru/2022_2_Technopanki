@@ -1,9 +1,12 @@
-@import "colors";
+@import "../colors";
 
 .vacancy__cards-single {
+  display: flex;
+  width: 72%;
+  height: auto;
+  justify-content: center;
   font-family: Inter, sans-serif;
-  width: 894px;
-  height: 178px;
+
 
   background: #FFFFFF;
 
@@ -14,9 +17,9 @@
 }
 
 .vacancy__cards-single:hover {
+  display: flex;
+  justify-content: center;
   font-family: Inter, sans-serif;
-  width: 894px;
-  height: 178px;
 
   background: #FFFFFF;
 
@@ -37,7 +40,7 @@
 .vacancy__metadata {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
   width: 650px;
   height: 138px;
 }
@@ -47,7 +50,6 @@
   flex-direction: column;
   justify-content: center;
   font-size: 12px;
-  gap: 3px;
 }
 
 .vacancy__name {
