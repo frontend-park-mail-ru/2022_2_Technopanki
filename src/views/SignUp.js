@@ -3,7 +3,7 @@ import {
     createComponent,
     createElement,
 } from '../lib/core/VDOM/VDOMElement.js';
-import { Menu } from '../components/SignUp/Menu.js';
+import { Menu } from '../components/Menu.js';
 import Description from '../components/Description.js';
 import SignUpForm from '../components/SignUp/SignUpForm.js';
 

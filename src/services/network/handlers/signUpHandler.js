@@ -1,7 +1,5 @@
 export const sendSignUpData = async formData => {
-    console.log(formData.get('toggle'));
-
-    return await fetch('http://localhost:8080/auth/sign-up  ', {
+    return await fetch('http://localhost:8080/auth/sign-up', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

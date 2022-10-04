@@ -11,13 +11,9 @@ export default class Input extends Component {
                 type: this.props.inputType,
                 ...this.props,
             }),
-            createText(
-                'p',
-                {
-                    className: `form__input-error form__input-error-${this.props.name}`,
-                },
-                '',
-            ),
+            createText('p', {
+                className: `form__input-error form__input-error-${this.props.name}`,
+            }),
         );
     }
 }
