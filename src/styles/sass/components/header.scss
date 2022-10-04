@@ -1,12 +1,22 @@
 @import "../colors";
+@import "../variables";
 
 header {
   display: flex;
+  position: absolute;
+  left: 0;
+  top: 0;
+  justify-content: space-between;
+  width: 100vw;
   align-items: center;
-  gap: 300px;
-  justify-content: center;
-  height: 67px;
+  gap: 16px;
   box-shadow: 0 0 5px rgba(81, 101, 255, 0.24);
+  @media (max-width: $screen-sm) {
+    padding: 16px 16px;
+  }
+  @media (min-width: $screen-sm) {
+    padding: 16px 120px;
+  }
 }
 
 .header__logo {
@@ -47,8 +57,8 @@ header {
   appearance: none;
   border: 0;
   border-radius: 10px;
-  background: #F3F5FF;
-  color: #1C34EC;
+  background: #f3f5ff;
+  color: #1c34ec;
   padding: 10px;
   font-weight: bold;
 }

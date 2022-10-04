@@ -5,7 +5,6 @@ import {
     createText,
 } from '../lib/core/VDOM/VDOMElement.js';
 import Link from '../lib/router/Link.js';
-import LinkComponent from '../lib/router/LinkComponent.js';
 
 export default class Main extends Component {
     state = {

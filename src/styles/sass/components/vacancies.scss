@@ -1,9 +1,15 @@
 @import "../colors";
+@import "../variables";
 
 .vacancies__body {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-left: 15%;
-  padding-top: 1%;
+  @media (max-width: $screen-sm) {
+    padding: 0 16px;
+  }
+  @media (min-width: $screen-sm) {
+    padding: 0 120px;
+  }
+  padding-top: calc(32px + 1rem + 80px);
 }

@@ -13,16 +13,8 @@
 }
 
 .vacancy__cards-single:hover {
-  display: flex;
-  justify-content: center;
-  font-family: Inter, sans-serif;
-
-  background: #ffffff;
-
-  outline: 1px solid #1c34ec;
-
+  outline: 2px solid $color-primary-blue;
   box-shadow: 0 4px 16px rgba(81, 101, 255, 0.24);
-  border-radius: 16px;
 }
 
 .vacancy__body {
