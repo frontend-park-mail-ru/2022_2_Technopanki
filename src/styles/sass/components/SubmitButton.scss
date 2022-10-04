@@ -1,0 +1,21 @@
+@import "../colors";
+
+.form__submit-button {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  background: $color-primary-blue;
+  border: 2px solid rgba(28, 52, 236, 0.16);
+  box-shadow: 0 4px 12px rgba(28, 52, 236, 0.24);
+  border-radius: 12px;
+  color: #fff;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: -0.03em;
+  cursor: pointer;
+}

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
-    "sass": "sass --watch src/styles/sass/:src/styles/css/"
+    "sass": "sass --watch src/styles/sass/style.scss:src/styles/css/style.css"
   },
   "repository": {
     "type": "git",

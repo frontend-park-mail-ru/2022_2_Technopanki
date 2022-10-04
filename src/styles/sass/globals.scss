@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 @import "colors";
+@import "./components/RadioButton";
 
 body {
   font-family: "Inter", sans-serif;
@@ -53,39 +54,9 @@ p {
   margin: 0;
 }
 
-input[type="radio"] {
-  cursor: inherit;
-  background-color: #fff;
-  margin: 0;
-  width: 16px;
-  height: 16px;
-  border: 1.5px solid $color-grey-100;
-  content: "";
-  border-radius: 50%;
-}
-
 .invalid-input,
 .invalid-input:focus {
   outline: none;
   color: $color-primary-red;
   border: 2px solid $color-primary-red !important;
-}
-
-.input-radio {
-  cursor: pointer;
-  color: $color-grey-100;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-
-  label {
-    cursor: inherit;
-    font-size: 14px;
-    font-weight: 500;
-  }
-
-  input[type="radio"]:checked + label {
-    color: $color-primary-blue;
-  }
 }

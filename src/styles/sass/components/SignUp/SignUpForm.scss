@@ -1,20 +1,4 @@
-@import "./variables";
-@import "./colors";
-@import "./components/Description";
-@import "./components/Input";
-@import "./components/SubmitButton";
-
-.auth {
-  position: relative;
-  display: grid;
-  @media (max-width: $screen-md) {
-    grid-template-columns: 100vw 0;
-  }
-  @media (min-width: $screen-md) {
-    grid-template-columns: 50vw 50vw;
-  }
-  height: 100vh;
-}
+@import "../../colors";
 
 .form__input {
   width: 100%;
@@ -35,7 +19,7 @@
   padding: 10px 14px;
   background: #ffffff;
   border: 1.5px solid #f8f8f8;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   border-radius: 8px;
 }
 
@@ -70,10 +54,4 @@
 .form__question_a:hover {
   color: $color-grey-500;
   text-decoration: none;
-}
-
-.toggle-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
 }
