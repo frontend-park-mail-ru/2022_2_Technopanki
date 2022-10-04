@@ -14,7 +14,9 @@ import {
     validateName,
 } from '../../services/validation.js';
 import {
+    clearAllInputs,
     setInvalidInput,
+    setInvalidServerResponse,
     setValidInput,
 } from '../../services/formValidation.js';
 import { sendSignUpData } from '../../services/network/handlers/signUpHandler.js';
@@ -24,7 +26,6 @@ import {
     NAME_ERROR,
     PASSWORD_ERROR,
     SURNAME_ERROR,
-    USER_ALREADY_EXISTS_ERROR,
 } from '../../services/network/messages/signUpMessages.js';
 
 export default class SignUpForm extends Component {
@@ -62,38 +63,17 @@ export default class SignUpForm extends Component {
 
         const response = await sendSignUpData(formData);
 
-        // Clear all inputs from errors
-        e.target
-            .querySelectorAll(`input`)
-            .forEach(elem => elem.classList.remove('invalid-input'));
-        e.target
-            .querySelectorAll('.form__input-error')
-            .forEach(elem => (elem.innerText = ''));
+        clearAllInputs(e);
 
-        response.json().then(data => {
-            if (response.status >= 400 && data.error.includes('email')) {
-                setInvalidInput(e, 'email', data.error);
-            } else if (
-                response.status >= 400 &&
-                (data.error.includes('пароля') || data.error.includes('пароль'))
-            ) {
-                setInvalidInput(e, 'password', data.error);
-            } else if (response.status >= 400 && data.error.includes('имени')) {
-                setInvalidInput(e, 'name', data.error);
-            } else if (
-                response.status >= 400 &&
-                data.error.includes('фамилии')
-            ) {
-                setInvalidInput(e, 'surname', data.error);
-            } else if (
-                response.status >= 400 &&
-                data.error.includes('user already exists')
-            ) {
-                setInvalidInput(e, 'email', USER_ALREADY_EXISTS_ERROR);
-            } else {
-                Router.render('/');
+        response.json().then(body => {
+            if (response.status >= 400) {
+                setInvalidServerResponse(e, body);
             }
         });
+
+        if (response.status < 400) {
+            Router.render('/');
+        }
     };
 
     render() {
@@ -121,7 +101,7 @@ export default class SignUpForm extends Component {
                 label: 'Пароль',
                 inputType: 'password',
                 name: 'password',
-                placeholder: '*****',
+                placeholder: '*********',
                 required: true,
             }),
             createComponent(Input, {

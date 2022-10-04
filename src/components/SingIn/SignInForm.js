@@ -53,7 +53,7 @@ export default class SignInForm extends Component {
                 label: 'Пароль',
                 inputType: 'password',
                 name: 'password',
-                placeholder: '*****',
+                placeholder: '*********',
                 required: true,
             }),
             createComponent(SubmitButton, {
@@ -64,7 +64,7 @@ export default class SignInForm extends Component {
             createComponent(Link, {
                 key: 'link',
                 to: '/signup',
-                value: 'Зарегестрироваться',
+                value: 'Зарегистрироваться',
                 className: 'form__question_a',
             }),
         );

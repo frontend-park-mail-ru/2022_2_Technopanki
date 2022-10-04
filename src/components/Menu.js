@@ -1,9 +1,8 @@
-import { Component } from '../../lib/core/VDOM/component.js';
+import { Component } from '../lib/core/VDOM/component.js';
 import {
     createComponent,
     createElement,
-    createText,
-} from '../../lib/core/VDOM/VDOMElement.js';
+} from '../lib/core/VDOM/VDOMElement.js';
 
 export class Menu extends Component {
     render() {
