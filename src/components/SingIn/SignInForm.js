@@ -24,18 +24,23 @@ export default class SignInForm extends Component {
     onSubmit = async e => {
         e.preventDefault();
         const formData = new FormData(e.target);
+        let validFlag = true;
 
         if (validateEmail(formData.get('email'))) {
             setValidInput(e, 'email');
         } else {
             setInvalidInput(e, 'email', EMAIL_ERROR);
-            return;
+            validFlag = false;
         }
 
         if (validatePassword(formData.get('password'))) {
             setValidInput(e, 'password');
         } else {
             setInvalidInput(e, 'password', PASSWORD_ERROR);
+            validFlag = false;
+        }
+
+        if (!validFlag) {
             return;
         }
 
