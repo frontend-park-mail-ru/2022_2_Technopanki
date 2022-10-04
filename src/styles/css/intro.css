@@ -1,0 +1,100 @@
+.main {
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
+}
+
+.main__intro {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.main__intro-big {
+  font-size: 48px;
+  font-weight: bold;
+  font-family: Inter, sans-serif;
+  line-height: 40px;
+}
+
+.main__intro-small {
+  font-size: 14px;
+  font-weight: revert;
+  font-family: Inter, sans-serif;
+  line-height: 20px;
+  color: #6D6D7A;
+}
+
+.main__intro-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.main__intro-buttons-signup {
+  appearance: none;
+  border: 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(81, 101, 255, 0.24);
+  color: #F3F5FF;
+  background: #1C34EC;
+  padding: 12px 16px;
+  font-weight: bold;
+}
+
+.main__intro-buttons-signup:hover {
+  appearance: none;
+  border: 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(81, 101, 255, 0.24);
+  color: #1C34EC;
+  background: #F3F5FF;
+  padding: 12px 16px;
+  font-weight: bold;
+}
+
+.main__intro-buttons-signup:focus {
+  appearance: none;
+  border: 0;
+  border-radius: 12px;
+  background: #F3F5FF;
+  color: #1C34EC;
+  padding-top: 13px;
+  padding-bottom: 11px;
+  font-weight: bold;
+}
+
+.main__intro-buttons-signin {
+  appearance: none;
+  border: 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(81, 101, 255, 0.24);
+  color: #1C34EC;
+  background: #F3F5FF;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.main__intro-buttons-signin:hover {
+  appearance: none;
+  border: 0;
+  border-radius: 10px;
+  color: #1C34EC;
+  background: rgba(243, 245, 255, 0.55);
+  padding: 10px;
+  font-weight: bold;
+}
+
+.main__intro-buttons-signin:focus {
+  appearance: none;
+  border: 0;
+  border-radius: 10px;
+  color: #1229D2;
+  background: #c2c2c2;
+  padding-top: 13px;
+  padding-bottom: 11px;
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=intro.css.map */

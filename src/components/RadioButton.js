@@ -13,7 +13,7 @@ export default class RadioButton extends Component {
                 checked: this.props.checked,
                 value: this.props.value,
             }),
-            createText('label', { htmlFor: this.props.id }, this.props.label),
+            createText('label', { htmlFor: this.props.id }, this.props.label)
         );
     }
 }
