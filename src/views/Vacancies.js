@@ -16,12 +16,12 @@ export default class Vacancies extends Component {
                 content: 'Some content here',
             },
             {
-                id: 1,
+                id: 2,
                 title: 'Hello world',
                 content: 'Some content here',
             },
             {
-                id: 1,
+                id: 3,
                 title: 'Hello world',
                 content: 'Some content here',
             },
@@ -49,7 +49,21 @@ export default class Vacancies extends Component {
                 },
                 createText('h2', { key: 'vacancies header' }, 'Все вакансии'),
                 createText('p', { key: 'vacancies intro' }, 'some intro text'),
-                createComponent(Vacancy, { key: 'vacancy' }),
+                ...this.state.vacancies.map(vacancy =>
+                    createComponent(Vacancy, { key: vacancy.id }),
+                ),
+            ),
+            createElement(
+                'button',
+                {
+                    key: 'set button',
+                    onclick: () =>
+                        this.setState(state => {
+                            state.vacancies.push({ id: 1 });
+                            return state;
+                        }),
+                },
+                createText('p', null, 'add new vanacy'),
             ),
         );
     }
