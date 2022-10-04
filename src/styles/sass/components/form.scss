@@ -1,4 +1,4 @@
-@import "../../colors";
+@import "../colors";
 
 .form__input {
   width: 100%;
@@ -54,4 +54,10 @@
 .form__question_a:hover {
   color: $color-grey-500;
   text-decoration: none;
+}
+
+.toggle-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }

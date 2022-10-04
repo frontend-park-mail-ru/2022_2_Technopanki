@@ -3,6 +3,7 @@
 @import "./components/Description";
 @import "./components/Input";
 @import "./components/SubmitButton";
+@import "./components/form";
 
 .auth {
   position: relative;
@@ -14,66 +15,4 @@
     grid-template-columns: 50vw 50vw;
   }
   height: 100vh;
-}
-
-.form__input {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  gap: 6px;
-}
-
-.form__input label {
-  font-size: 12px;
-  color: #6d6d7a;
-  letter-spacing: -0.02em;
-}
-
-.form__input input {
-  outline-width: 2px;
-  padding: 10px 14px;
-  background: #ffffff;
-  border: 1.5px solid #f8f8f8;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.04);
-  border-radius: 8px;
-}
-
-.form__input input:focus {
-  padding: 10px 14px;
-  background: #ffffff;
-  border: 1.5px solid #dadae0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-}
-
-.form__question {
-  width: 100%;
-  text-align: center;
-  font-style: normal;
-  font-size: 12px;
-  line-height: 15px;
-  letter-spacing: -0.02em;
-  font-weight: lighter;
-  color: #9797a2;
-}
-
-.form__question_a {
-  color: $color-grey-300;
-  width: 100%;
-  text-align: center;
-  font-size: 12px;
-  cursor: pointer;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.form__question_a:hover {
-  color: $color-grey-500;
-  text-decoration: none;
-}
-
-.toggle-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
 }
