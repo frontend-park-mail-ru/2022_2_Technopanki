@@ -143,7 +143,7 @@ export default class SignUpForm extends Component {
             }),
             createComponent(Link, {
                 to: '/signin',
-                value: 'Авторизироваться',
+                value: createText('p', null, 'Авторизироваться'),
                 className: 'form__question_a',
             }),
         );

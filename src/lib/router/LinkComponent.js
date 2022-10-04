@@ -1,12 +1,8 @@
 import { Component } from '../core/VDOM/component.js';
-import {
-    createComponent,
-    createElement,
-    createText,
-} from '../core/VDOM/VDOMElement.js';
+import { createElement } from '../core/VDOM/VDOMElement.js';
 import { Router } from './Router.js';
 
-export default class Link extends Component {
+export default class LinkComponent extends Component {
     onClick = e => {
         e.preventDefault();
         Router.render(this.props.to);
@@ -14,15 +10,13 @@ export default class Link extends Component {
 
     render() {
         return createElement(
-            'a',
+            this.props.element,
             {
-                className: !this.props.className
-                    ? 'link'
-                    : this.props.className,
+                className: this.props.className,
                 onclick: this.onClick,
                 href: this.props.to,
             },
-            this.props.value,
+            this.props.children,
         );
     }
 }

@@ -5,6 +5,7 @@ import {
     createText,
 } from '../lib/core/VDOM/VDOMElement.js';
 import Link from '../lib/router/Link.js';
+import LinkComponent from '../lib/router/LinkComponent.js';
 
 export default class Main extends Component {
     state = {
@@ -27,7 +28,18 @@ export default class Main extends Component {
                 },
                 createText('p', null, 'Increment'),
             ),
-            createComponent(Link, { to: '/signup', value: 'Go to signup' }),
+            createComponent(Link, {
+                to: '/signup',
+                value: createText('p', null, 'Go to signup'),
+            }),
+            createComponent(Link, {
+                to: '/',
+                value: createElement(
+                    'div',
+                    null,
+                    createText('h1', null, 'test'),
+                ),
+            }),
         );
     }
 }

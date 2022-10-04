@@ -85,7 +85,7 @@ export default class SignInForm extends Component {
             createComponent(Link, {
                 key: 'link',
                 to: '/signup',
-                value: 'Зарегистрироваться',
+                value: createText('p', null, 'Зарегистрировать'),
                 className: 'form__question_a',
             }),
         );
