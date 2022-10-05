@@ -8,7 +8,7 @@ import SubmitButton from './SubmitButton.js';
 import Link from '../lib/router/Link.js';
 import HeaderUnauthorized from './HeaderUnauthorized.js';
 import HeaderAuthorized from './HeaderAuthorized.js';
-import { LOGOUT_URL, SERVER_URL } from '../services/network/serverURLs.js';
+import { LOGOUT_URL, SERVER_URL } from '../services/network/URLs.js';
 import HeaderInfo from './HeaderInfo.js';
 
 export default class Header extends Component {

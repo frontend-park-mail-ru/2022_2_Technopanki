@@ -20,7 +20,7 @@ export default class HeaderAuthorized extends Component {
             ),
             createComponent(Button, {
                 className: 'btn',
-                value: createText('p', null, 'Logout'),
+                value: createText('p', null, 'Выйти'),
                 onclick: this.props.onclick,
             }),
         );

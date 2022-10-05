@@ -1,3 +1,9 @@
+/**
+ * Adds remove operation in operations until we met key in elements
+ * @param {[]} operations
+ * @param elements
+ * @param {string} key
+ */
 const removeUntilKey = (operations, elements, key) => {
     while (elements[0] && elements[0][0] !== key) {
         operations.push(remove());
@@ -6,7 +12,7 @@ const removeUntilKey = (operations, elements, key) => {
 };
 
 /**
- * Add element to operations until we met key in elements
+ * Adds an insert operation in operations until we met key in elements
  * @param {[]} operations
  * @param elements
  * @param {string} key
@@ -160,6 +166,11 @@ const update = (attrUpdater, childrenUpdater) => ({
     childrenUpdater: childrenUpdater,
 });
 
+/**
+ * VDOM replace
+ * @param newNode
+ * @returns {{newNode, type: string}}
+ */
 const replace = newNode => ({
     type: 'replace',
     newNode: newNode,

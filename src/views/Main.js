@@ -6,6 +6,11 @@ import {
 import Header from '../components/Header.js';
 import Intro from '../components/Intro.js';
 
+/**
+ * Component for showing main page
+ *
+ * @component
+ */
 export default class Main extends Component {
     render() {
         return createElement(

@@ -1,5 +1,5 @@
 import { Component } from '../lib/core/VDOM/component.js';
-import { LOGOUT_URL, SERVER_URL } from '../services/network/serverURLs.js';
+import { LOGOUT_URL, SERVER_URL } from '../services/network/URLs.js';
 import {
     createComponent,
     createElement,

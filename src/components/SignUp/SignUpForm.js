@@ -13,14 +13,14 @@ import {
     validateName,
     validatePasswordLength,
     validatePasswordSymbols,
-} from '../../services/validation.js';
+} from '../../services/validation/validation.js';
 import {
     clearAllInputs,
     setInvalidInput,
     setInvalidServerResponse,
     setValidInput,
-} from '../../services/formValidation.js';
-import { sendSignUpData } from '../../services/network/handlers/signUpHandler.js';
+} from '../../services/validation/formValidation.js';
+import { sendSignUpData } from '../../services/network/helpers/signUpHandler.js';
 import { Router } from '../../lib/router/Router.js';
 import {
     EMAIL_ERROR,
@@ -28,7 +28,7 @@ import {
     PASSWORD_LENGTH_ERROR,
     PASSWORD_SYMBOLS_ERROR,
     SURNAME_ERROR,
-} from '../../services/network/messages/signUpMessages.js';
+} from '../../services/messages/errorMessages.js';
 
 /**
  * Component for showing sign up form.
@@ -57,7 +57,7 @@ export default class SignUpForm extends Component {
         if (!validatePasswordLength(formData.get('password'))) {
             setInvalidInput(e, 'password', PASSWORD_LENGTH_ERROR);
             validFlag = false;
-        } else if (!validatePasswordSymbols(formData.get('pasword'))) {
+        } else if (!validatePasswordSymbols(formData.get('password'))) {
             setValidInput(e, 'password');
             setInvalidInput(e, 'password', PASSWORD_SYMBOLS_ERROR);
             validFlag = false;
@@ -88,7 +88,7 @@ export default class SignUpForm extends Component {
         clearAllInputs(e);
 
         if (response.status >= 400) {
-            response.json().then(body => setInvalidServerResponse(e, body));
+            setInvalidServerResponse(e, response.body);
         } else {
             localStorage.setItem('name', formData.get('name'));
             localStorage.setItem('surname', formData.get('surname'));

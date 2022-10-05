@@ -6,16 +6,14 @@ import {
 } from '../lib/core/VDOM/VDOMElement.js';
 import Header from '../components/Header.js';
 import Vacancy from '../components/Vacancy.js';
-import { getVacanciesFromServer } from '../services/network/handlers/vacanciesHandler.js';
+import { getVacanciesFromServer } from '../services/network/helpers/vacanciesHandler.js';
 
 export default class Vacancies extends Component {
     getVacancy = async () => {
         const response = await getVacanciesFromServer();
-        response.json().then(data => {
-            this.setState(state => {
-                state.vacancies = data;
-                return state;
-            });
+        this.setState(state => {
+            state.vacancies = response.body;
+            return state;
         });
     };
 

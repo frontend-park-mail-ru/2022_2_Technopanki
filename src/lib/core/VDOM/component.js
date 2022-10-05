@@ -1,6 +1,10 @@
 import { createDiff } from './operations.js';
 import { applyDiff } from './render.js';
 
+/**
+ * An interface defining a component
+ * from which all other components inherit
+ */
 export class Component {
     props;
     state;
