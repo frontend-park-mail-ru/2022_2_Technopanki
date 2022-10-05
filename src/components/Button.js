@@ -1,9 +1,5 @@
 import { Component } from '../lib/core/VDOM/component.js';
-import {
-    createComponent,
-    createElement,
-    createText,
-} from '../lib/core/VDOM/VDOMElement.js';
+import { createElement } from '../lib/core/VDOM/VDOMElement.js';
 
 export default class Button extends Component {
     render() {

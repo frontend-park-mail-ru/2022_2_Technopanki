@@ -24,6 +24,9 @@ header {
   display: flex;
   gap: 10px;
   align-items: center;
+  @media (max-width: $screen-sm) {
+    display: none;
+  }
 }
 
 .header__links {
