@@ -41,7 +41,8 @@ export default class Vacancies extends Component {
                     className: 'vacancies__body',
                 },
                 createText('h2', { key: 'vacancies header' }, 'Все вакансии'),
-                createText('p', { key: 'vacancies intro' }, 'some intro text'),
+                createText('p', { key: 'vacancies intro' },
+                    'Jobflow — сервис, который помогает найти работу и подобрать персонал более 20 лет! Создавайте резюме и откликайтесь на вакансии.'),
                 ...this.state.vacancies.map(vacancy =>
                     createComponent(Vacancy, {
                         key: vacancy.id,

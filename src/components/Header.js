@@ -45,7 +45,7 @@ export default class Header extends Component {
                 },
                 createComponent(Link, {
                     key: 'main page',
-                    to: '/',
+                    to: '/main',
                     className: 'header__links-default',
                     value: createText('p', { key: 'main link' }, 'Главная'),
                 }),
@@ -74,7 +74,6 @@ export default class Header extends Component {
                 'div',
                 {
                     key: 'header buttons',
-                    className: 'header__buttons',
                 },
                 localStorage.getItem('name') && localStorage.getItem('surname')
                     ? createText(
@@ -86,7 +85,7 @@ export default class Header extends Component {
                       )
                     : createElement(
                           'div',
-                          null,
+                        { className:'header__buttons' },
                           createComponent(Link, {
                               key: 'sign in link',
                               to: '/signin',
