@@ -22,7 +22,7 @@ export default class Description extends Component {
                     key: 'img',
                     alt: 'Jobflow',
                     src: 'img/logo.svg',
-                    height: '16',
+                    height: '32',
                 }),
                 createText(
                     'h3',
