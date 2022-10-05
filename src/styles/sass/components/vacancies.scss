@@ -11,4 +11,10 @@
   @media (min-width: $screen-sm) {
     padding: 120px 120px;
   }
+
+  > p {
+    @media (min-width: $screen-sm) {
+      width: 70%;
+    }
+  }
 }
