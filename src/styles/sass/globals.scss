@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 @import "colors";
 @import "./components/RadioButton";
+@import "./variables";
 
 body {
   font-family: "Inter", sans-serif;
@@ -73,9 +74,24 @@ p {
   border: 1px solid $color-grey-100;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
   border-radius: 12px;
-  :hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  }
+  cursor: pointer;
+  transition: 0.25s;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.btn:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.btn-active {
+  background: $color-primary-blue;
+  border: 2px solid rgba(28, 52, 236, 0.16);
+  box-shadow: 0 4px 12px rgba(28, 52, 236, 0.24);
+  color: white;
+  font-weight: 700;
 }
 
 .invalid-input,
