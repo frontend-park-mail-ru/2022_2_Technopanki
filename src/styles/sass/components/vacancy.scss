@@ -63,6 +63,14 @@
   font-size: 14px;
   font-weight: bold;
 }
+.company__name:hover {
+  margin: 0;
+  color: $color-primary-blue;
+  outline: none;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+}
 
 .vacancy__description {
   font-style: normal;
