@@ -8,7 +8,11 @@ import Input from '../Input.js';
 import SubmitButton from '../SubmitButton.js';
 import Link from '../../lib/router/Link.js';
 import { sendSignInData } from '../../services/network/handlers/signInHandler.js';
-import { validateEmail, validatePassword } from '../../services/validation.js';
+import {
+    validateEmail,
+    validatePasswordLength,
+    validatePasswordSymbols,
+} from '../../services/validation.js';
 import {
     setInvalidInput,
     setInvalidServerResponse,
@@ -16,10 +20,16 @@ import {
 } from '../../services/formValidation.js';
 import {
     EMAIL_ERROR,
-    PASSWORD_ERROR,
+    PASSWORD_LENGTH_ERROR,
+    PASSWORD_SYMBOLS_ERROR,
 } from '../../services/network/messages/signUpMessages.js';
 import { Router } from '../../lib/router/Router.js';
 
+/**
+ * Component for showing sign up form.
+ *
+ * @component
+ */
 export default class SignInForm extends Component {
     onSubmit = async e => {
         e.preventDefault();
@@ -33,11 +43,14 @@ export default class SignInForm extends Component {
             validFlag = false;
         }
 
-        if (validatePassword(formData.get('password'))) {
-            setValidInput(e, 'password');
-        } else {
-            setInvalidInput(e, 'password', PASSWORD_ERROR);
+        if (!validatePasswordLength(formData.get('password'))) {
+            setInvalidInput(e, 'password', PASSWORD_LENGTH_ERROR);
             validFlag = false;
+        } else if (!validatePasswordSymbols(formData.get('pasword'))) {
+            setInvalidInput(e, 'password', PASSWORD_SYMBOLS_ERROR);
+            validFlag = false;
+        } else {
+            setValidInput(e, 'password');
         }
 
         if (!validFlag) {
@@ -54,6 +67,12 @@ export default class SignInForm extends Component {
                 localStorage.setItem('surname', data.surname);
                 Router.render('/vacancies');
             });
+        }
+    };
+
+    componentWillMount = () => {
+        if (localStorage.getItem('name') && localStorage.getItem('surname')) {
+            Router.render('/vacancies');
         }
     };
 

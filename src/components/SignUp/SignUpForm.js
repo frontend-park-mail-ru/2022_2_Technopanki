@@ -10,8 +10,9 @@ import Link from '../../lib/router/Link.js';
 import RadioButton from '../RadioButton.js';
 import {
     validateEmail,
-    validatePassword,
     validateName,
+    validatePasswordLength,
+    validatePasswordSymbols,
 } from '../../services/validation.js';
 import {
     clearAllInputs,
@@ -24,11 +25,23 @@ import { Router } from '../../lib/router/Router.js';
 import {
     EMAIL_ERROR,
     NAME_ERROR,
-    PASSWORD_ERROR,
+    PASSWORD_LENGTH_ERROR,
+    PASSWORD_SYMBOLS_ERROR,
     SURNAME_ERROR,
 } from '../../services/network/messages/signUpMessages.js';
 
+/**
+ * Component for showing sign up form.
+ *
+ * @component
+ */
 export default class SignUpForm extends Component {
+    componentWillMount = () => {
+        if (localStorage.getItem('name') && localStorage.getItem('surname')) {
+            Router.render('/vacancies');
+        }
+    };
+
     onSubmit = async e => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -41,11 +54,15 @@ export default class SignUpForm extends Component {
             validFlag = false;
         }
 
-        if (validatePassword(formData.get('password'))) {
-            setValidInput(e, 'password');
-        } else {
-            setInvalidInput(e, 'password', PASSWORD_ERROR);
+        if (!validatePasswordLength(formData.get('password'))) {
+            setInvalidInput(e, 'password', PASSWORD_LENGTH_ERROR);
             validFlag = false;
+        } else if (!validatePasswordSymbols(formData.get('pasword'))) {
+            setValidInput(e, 'password');
+            setInvalidInput(e, 'password', PASSWORD_SYMBOLS_ERROR);
+            validFlag = false;
+        } else {
+            setValidInput(e, 'password');
         }
 
         if (validateName(formData.get('name'))) {
