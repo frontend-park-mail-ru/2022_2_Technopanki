@@ -24,7 +24,7 @@ export default class HeaderInfo extends Component {
         });
 
         fetch(SERVER_URL + LOGOUT_URL, {
-            method: 'GET',
+            method: 'POST',
             credentials: 'include',
         });
     };
