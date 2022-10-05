@@ -7,6 +7,13 @@ import {
 import LinkButton from './Buttons/LinkButton.js';
 
 export default class Intro extends Component {
+    componentWillMount = () => {
+        if (localStorage.getItem('name') && localStorage.getItem('surname')) {
+            document.querySelector('.main__intro-buttons').style.display =
+                'none';
+        }
+    };
+
     render() {
         return createElement(
             'div',
