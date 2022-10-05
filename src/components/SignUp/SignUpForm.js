@@ -73,6 +73,8 @@ export default class SignUpForm extends Component {
         if (response.status >= 400) {
             response.json().then(body => setInvalidServerResponse(e, body));
         } else {
+            localStorage.setItem('name', formData.get('name'));
+            localStorage.setItem('surname', formData.get('surname'));
             Router.render('/');
         }
     };

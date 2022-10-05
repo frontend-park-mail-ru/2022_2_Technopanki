@@ -8,6 +8,10 @@ import SubmitButton from './SubmitButton.js';
 import Link from '../lib/router/Link.js';
 
 export default class Header extends Component {
+    state = {
+        isUserAuthorized: false,
+    };
+
     render() {
         return createElement(
             'header',
@@ -72,18 +76,34 @@ export default class Header extends Component {
                     key: 'header buttons',
                     className: 'header__buttons',
                 },
-                createComponent(Link, {
-                    key: 'sign in link',
-                    to: '/signin',
-                    className: 'header__links-signin',
-                    value: createText('p', { key: 'logout link' }, 'Вход'),
-                }),
-                createComponent(SubmitButton, {
-                    key: 'sign up button',
-                    to: '/signup',
-                    value: 'Создать аккаунт',
-                    className: 'header__buttons-signup',
-                }),
+                localStorage.getItem('name') && localStorage.getItem('surname')
+                    ? createText(
+                          'p',
+                          null,
+                          `${localStorage.getItem(
+                              'name',
+                          )} ${localStorage.getItem('surname')}`,
+                      )
+                    : createElement(
+                          'div',
+                          null,
+                          createComponent(Link, {
+                              key: 'sign in link',
+                              to: '/signin',
+                              className: 'header__links-signin',
+                              value: createText(
+                                  'p',
+                                  { key: 'logout link' },
+                                  'Вход',
+                              ),
+                          }),
+                          createComponent(SubmitButton, {
+                              key: 'sign up button',
+                              to: '/signup',
+                              value: 'Создать аккаунт',
+                              className: 'header__buttons-signup',
+                          }),
+                      ),
             ),
         );
     }
