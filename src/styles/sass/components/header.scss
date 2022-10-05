@@ -31,7 +31,7 @@ header {
 
 .header__links {
   display: flex;
-  gap: 50px;
+  gap: 16px;
   font-family: Inter, sans-serif;
   font-size: 14px;
 }
@@ -67,15 +67,43 @@ header {
   outline: none;
   text-decoration: none;
   color: $color-grey-800;
+  padding: 10px 12px;
   font-weight: bold;
 }
 
-.header__buttons-signup {
-  appearance: none;
-  border: 0;
-  border-radius: 10px;
-  background: $color-grey-50;
-  color: $color-primary-blue;
-  padding: 10px;
+.header__links-grey {
+  outline: none;
+  text-decoration: none;
+  color: $color-grey-800;
+  padding: 10px 12px;
   font-weight: bold;
 }
+
+.header__links-grey:active {
+  color: $color-grey-800;
+  padding: 12px 12px 8px 12px;
+  font-weight: bold;
+}
+
+.header__buttons-blue {
+  font-weight: bold;
+  background: $color-primary-blue;
+  color: $color-grey-50;
+}
+
+.header__buttons-blue:hover {
+  color: $color-grey-50;
+  background: #1229d2;
+  box-shadow: 0 4px 24px rgba(81, 101, 255, 0.4);
+}
+
+.header__buttons-blue:active {
+  color: $color-grey-50;
+  font-weight: bold;
+  background: #0d21bd;
+  padding: 12px 12px 8px 12px;
+  box-shadow: 0 4px 24px rgba(81, 101, 255, 0.4);
+  border-radius: 12px;
+}
+
+

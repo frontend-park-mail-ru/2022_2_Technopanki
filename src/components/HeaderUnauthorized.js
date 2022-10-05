@@ -18,13 +18,13 @@ export default class HeaderUnauthorized extends Component {
             createComponent(LinkButton, {
                 key: 'sign in link',
                 to: '/signin',
-                buttonClassName: 'btn header__links-signin',
+                buttonClassName: 'btn header__links-grey',
                 value: createText('p', { key: 'logout link' }, 'Вход'),
             }),
             createComponent(LinkButton, {
                 key: 'sign up button',
                 to: '/signup',
-                buttonClassName: 'btn header__buttons-signup',
+                buttonClassName: 'btn header__buttons-blue',
                 value: createText('p', null, 'Создать аккаунт'),
             }),
         );
