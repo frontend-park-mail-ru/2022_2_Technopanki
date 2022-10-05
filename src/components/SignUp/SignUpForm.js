@@ -75,7 +75,7 @@ export default class SignUpForm extends Component {
         } else {
             localStorage.setItem('name', formData.get('name'));
             localStorage.setItem('surname', formData.get('surname'));
-            Router.render('/');
+            Router.render('/vacancies');
         }
     };
 

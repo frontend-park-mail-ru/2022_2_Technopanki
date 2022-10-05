@@ -24,7 +24,7 @@ export const createText = (tagName, props, value) => {
         type: 'text',
         tagName: tagName,
         props: props,
-        value: value === undefined ? '' : value,
+        value: !value ? '' : value,
     };
 
     if (!obj.props) {
