@@ -33,7 +33,6 @@ header {
   display: flex;
   gap: 16px;
   font-family: Inter, sans-serif;
-  font-size: 14px;
 }
 
 .header__links-default {
@@ -45,15 +44,16 @@ header {
 .header__links-default:hover {
   outline: none;
   text-decoration: none;
-  color: rgba(0, 0, 0, 0.61);
+  color: $color-grey-900;
+  font-size: 16px;
 }
 
-//.header__links-current-buttons {
-//  outline: none;
-//  text-decoration: none;
-//  color: black;
-//  font-weight: bold;
-//}
+.header__links-current {
+  outline: none;
+  text-decoration: none;
+  color: $color-grey-900;
+  font-weight: bold;
+}
 
 .header__buttons {
   display: flex;
