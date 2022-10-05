@@ -69,8 +69,11 @@
   font-weight: 200;
   font-size: 14px;
   line-height: 22px;
-
   letter-spacing: -0.02em;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 
   color: #81818e;
 }
