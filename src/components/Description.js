@@ -21,7 +21,7 @@ export default class Description extends Component {
                 createElement('img', {
                     key: 'img',
                     alt: 'Jobflow',
-                    src: 'img/Logo.svg',
+                    src: 'img/logo.svg',
                     height: '16',
                 }),
                 createText(
