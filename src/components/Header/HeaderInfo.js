@@ -6,17 +6,18 @@ import {
 } from '../../framework/core/VDOM/VDOMElement.js';
 import HeaderAuthorized from './HeaderAuthorized.js';
 import HeaderUnauthorized from './HeaderUnauthorized.js';
+import { userModel } from '../../services/model/userModel.js';
 
 export default class HeaderInfo extends Component {
     state = {
-        name: localStorage.getItem('name'),
-        surname: localStorage.getItem('surname'),
+        isAuthorized: userModel.isAuthorized,
+        name: userModel.name,
+        surname: userModel.surname,
     };
 
     logout = () => {
         this.setState(state => {
-            state.name = null;
-            state.surname = null;
+            state.isAuthorized = false;
             return state;
         });
 
@@ -25,11 +26,11 @@ export default class HeaderInfo extends Component {
             credentials: 'include',
         });
 
-        localStorage.clear();
+        userModel.isAuthorized = false;
     };
 
     render() {
-        if (this.state.name && this.state.surname) {
+        if (userModel.isAuthorized) {
             return createElement(
                 'div',
                 null,

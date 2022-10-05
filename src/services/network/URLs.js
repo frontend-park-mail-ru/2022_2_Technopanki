@@ -1,5 +1,5 @@
 /** Server url */
-export const SERVER_URL = 'http://localhost:8080';
+export const SERVER_URL = 'http://95.163.208.72:8080';
 
 /** Signup relative path */
 export const SIGNUP_URL = '/auth/sign-up';
