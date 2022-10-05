@@ -10,6 +10,7 @@ import HeaderUnauthorized from './HeaderUnauthorized.js';
 import HeaderAuthorized from './HeaderAuthorized.js';
 import { LOGOUT_URL, SERVER_URL } from '../../services/network/URLs.js';
 import HeaderInfo from './HeaderInfo.js';
+import HeaderLink from './HeaderLink.js';
 
 export default class Header extends Component {
     state = {
@@ -58,33 +59,7 @@ export default class Header extends Component {
                     })
                 },
             ),
-            createElement(
-                'div',
-                {
-                    key: 'main_links',
-                    className: 'header__links',
-                },
-                createComponent(Link, {
-                    key: 'vacancies page',
-                    to: '/vacancies',
-                    className: 'header__links-default',
-                    value: createText(
-                        'p',
-                        { key: 'vacancies page link' },
-                        'Все вакансии',
-                    ),
-                }),
-                createComponent(Link, {
-                    key: 'create resume',
-                    to: '/',
-                    className: 'header__links-default',
-                    value: createText(
-                        'p',
-                        { key: 'create resume link' },
-                        'Создать резюме',
-                    ),
-                }),
-            ),
+            createComponent(HeaderLink),
             createComponent(HeaderInfo),
         );
     }

@@ -52,7 +52,7 @@ export default class Vacancies extends Component {
                         vacancyTitle: vacancy.title,
                         vacancyDescription: vacancy.description,
                         salary: vacancy.maximum_salary,
-                        companyName: vacancy.company_name,
+                        companyName: vacancy.employer_name,
                     }),
                 ),
             ),

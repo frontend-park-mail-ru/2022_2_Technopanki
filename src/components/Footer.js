@@ -33,7 +33,7 @@ export default class Footer extends Component {
             createElement(
                 'div',
                 {
-                    key: 'main_links',
+                    key: 'main links',
                     className: 'header__links footer__links',
                 },
                 createComponent(Link, {
