@@ -57,7 +57,7 @@
 
 .company__name {
   margin: 0;
-  color: #97a2fb;
+  color: $color-primary-purple;
   outline: none;
   text-decoration: none;
   font-size: 14px;
@@ -75,7 +75,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 
-  color: #81818e;
+  color: $color-grey-500;
 }
 
 .vacancy__date {
@@ -86,7 +86,7 @@
 
   letter-spacing: -0.02em;
 
-  color: #c3c3cb;
+  color: $color-grey-200;
 }
 
 .vacancy__salary {
@@ -96,5 +96,5 @@
   line-height: 22px;
   text-align: center;
   letter-spacing: -0.02em;
-  color: #33333c;
+  color: $color-grey-900;
 }
