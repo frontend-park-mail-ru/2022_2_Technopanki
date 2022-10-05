@@ -29,7 +29,7 @@ export default class Footer extends Component {
                     key: 'outro',
                     className: 'footer__outro',
                 },
-                'Build your team, find your mission.\n There is a job for everyone.',
+                'Создай свою команду, найди свою миссию\n Найдем работу для каждого!',
             ),
             createElement(
                 'div',

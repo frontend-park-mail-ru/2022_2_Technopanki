@@ -77,7 +77,7 @@ export default class Vacancy extends Component {
                         key: 'publication date',
                         className: 'vacancy__date',
                     },
-                    'September 17, 2022 • 14:30',
+                    '17 сентября, 2022 • 14:30',
                 ),
             ),
             createElement(
