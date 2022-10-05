@@ -9,21 +9,24 @@ import Vacancy from '../components/Vacancy.js';
 
 export default class Vacancies extends Component {
     getVacancy = async () => {
-        const response = await fetch('http://localhost:8080/api/vacancy/')
+        const response = await fetch('http://localhost:8080/api/vacancy/');
         response.json().then(data => {
-            this.setState((state) => {
-                state.vacancies = data
-                return state
-            })
-        })
-    }
+            this.setState(state => {
+                state.vacancies = data;
+                return state;
+            });
+        });
+    };
+
+    componentWillMount = () => {
+        this.getVacancy();
+    };
 
     state = {
-        vacancies: []
-    }
+        vacancies: [],
+    };
 
     render() {
-        this.getVacancy()
         return createElement(
             'div',
             {
@@ -42,10 +45,10 @@ export default class Vacancies extends Component {
                 ...this.state.vacancies.map(vacancy =>
                     createComponent(Vacancy, {
                         key: vacancy.id,
-                        vacancyTitle: vacancy.title ,
+                        vacancyTitle: vacancy.title,
                         vacancyDescription: vacancy.description,
                         salary: vacancy.maximum_salary,
-                        companyName: vacancy.company_name
+                        companyName: vacancy.company_name,
                     }),
                 ),
             ),
