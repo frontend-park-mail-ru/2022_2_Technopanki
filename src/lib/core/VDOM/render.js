@@ -1,5 +1,5 @@
 /**
- * Creates an DOM element from an element of VDOM
+ * Creates a DOM element from an element of VDOM
  * @param root - VDOM element
  * @returns {*} - DOM element
  */
@@ -32,7 +32,7 @@ export const renderElement = root => {
 };
 
 /**
- * Applies VDOM element changes to DOM element associated with it
+ * Applies result of diff algorithm to DOM element
  * @param elem - DOM element
  * @param diff - Changes to be applied
  * @returns {*}
@@ -62,6 +62,11 @@ export const applyDiff = (elem, diff) => {
 };
 
 export const applyChildrenDiff = (elem, operations) => {
+    /**
+     * It is necessary that during the "remove" operation
+     * to preserve the order of children compared to operations array
+     * @type {number}
+     */
     let offset = 0;
     for (let i = 0; i < operations.length; ++i) {
         const childUpdater = operations[i];

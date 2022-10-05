@@ -1,5 +1,11 @@
 import { DEFAULT_MESSAGE } from './network/messages/signUpMessages.js';
 
+/**
+ *
+ * @param event - form onSubmit event
+ * @param inputName
+ * @param {string} message - error message
+ */
 export const setInvalidInput = (event, inputName, message) => {
     event.target
         .querySelector(`input[name=${inputName}]`)
@@ -12,6 +18,11 @@ export const setInvalidInput = (event, inputName, message) => {
         message;
 };
 
+/**
+ *
+ * @param event - form onSubmit event
+ * @param {string} inputName
+ */
 export const setValidInput = (event, inputName) => {
     event.target
         .querySelector(`input[name=${inputName}]`)
@@ -21,6 +32,10 @@ export const setValidInput = (event, inputName) => {
         '';
 };
 
+/**
+ * Clear all events from .invalid-input
+ * @param event - form onSubmit event
+ */
 export const clearAllInputs = event => {
     event.target
         .querySelectorAll(`input`)
@@ -30,6 +45,11 @@ export const clearAllInputs = event => {
         .forEach(elem => (elem.innerText = ''));
 };
 
+/**
+ * Set invalid input according to server response
+ * @param event - form onSubmit event
+ * @param responseBody - server response body
+ */
 export const setInvalidServerResponse = (event, responseBody) => {
     if (responseBody.error.includes('email')) {
         setInvalidInput(event, 'email', responseBody.error);

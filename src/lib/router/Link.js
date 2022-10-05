@@ -6,6 +6,10 @@ import {
 } from '../core/VDOM/VDOMElement.js';
 import { Router } from './Router.js';
 
+/**
+ * This is a wrapper over <a> that allows you to
+ * conveniently insert links to other pages.
+ */
 export default class Link extends Component {
     onClick = e => {
         e.preventDefault();

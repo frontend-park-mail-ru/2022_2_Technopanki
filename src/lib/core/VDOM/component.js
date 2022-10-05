@@ -9,8 +9,8 @@ export class Component {
     #rootNode;
 
     /**
-     *
-     * @param updater - function that updates state
+     * Creates new state object and call rerender of component
+     * @param {function} updater - function that updates state
      */
     setState(updater) {
         this.state = updater(this.state);
@@ -35,25 +35,24 @@ export class Component {
      */
     componentWillMount = () => {};
 
-    // Will be called then component is mounted in DOM.
+    /**
+     * Will be called then component is mounted in DOM.
+     * @param elem - new DOM element
+     */
     notifyMounted(elem) {
         this.#mountedElement = elem;
     }
 
-    // Generates update. This method is responsible for "reactiveness" of component
+    /**
+     * Generates update of this component. This method is responsible for "reactiveness" of component
+     * @returns {{type: string}|{newNode: *, type: string}|{childrenUpdater: *, type: string, attrUpdater: *}}
+     */
     getUpdateDiff() {
         const newRootNode = this.render();
         const diff = createDiff(this.#rootNode, newRootNode);
-        if (diff.type === 'replace') {
-            // TODO: возможно переделать
-        }
         this.#rootNode = newRootNode;
 
         return diff;
-    }
-
-    unmout() {
-        this.#mountedElement = null;
     }
 
     render() {}
