@@ -34,6 +34,6 @@ export const validateEmail = email => {
  * @returns {boolean}
  */
 export const validateName = name => {
-    const regexp = /[a-zA-Zа-яА-Я]{3,20}/;
+    const regexp = /^[a-zA-Zа-яА-Я]{3,20}$/;
     return regexp.test(name);
 };
