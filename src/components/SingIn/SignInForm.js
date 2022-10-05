@@ -47,6 +47,7 @@ export default class SignInForm extends Component {
         if (response.status >= 400) {
             setInvalidServerResponse(e, response.body);
         } else {
+            userModel.isAuthorized = true;
             userModel.name = response.body.name;
             userModel.surname = response.body.surname;
             Router.render('/vacancies');
@@ -54,7 +55,7 @@ export default class SignInForm extends Component {
     };
 
     componentWillMount = () => {
-        if (localStorage.getItem('name') && localStorage.getItem('surname')) {
+        if (userModel.isAuthorized) {
             Router.render('/vacancies');
         }
     };
