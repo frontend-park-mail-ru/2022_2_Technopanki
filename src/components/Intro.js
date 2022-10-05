@@ -41,12 +41,12 @@ export default class Intro extends Component {
                     { className: 'main__intro-buttons' },
                     createComponent(LinkButton, {
                         to: '/signup',
-                        buttonClassName: 'btn btn-active',
+                        buttonClassName: 'btn header__buttons-blue',
                         value: createText('p', null, 'Зарегистрироваться'),
                     }),
                     createComponent(LinkButton, {
                         to: '/signup',
-                        buttonClassName: 'btn',
+                        buttonClassName: 'btn header__links-grey',
                         value: createText('p', null, 'Войти'),
                     }),
                 ),
