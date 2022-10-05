@@ -24,7 +24,8 @@ export default class Header extends Component {
                     to: '/',
                     value: createElement('img', {
                         alt: 'logo svg',
-                        src: 'img/logo.svg'
+                        src: 'img/logo.svg',
+                        height: 32
                     })
                 },
             ),
