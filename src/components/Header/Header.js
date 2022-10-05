@@ -13,37 +13,6 @@ import HeaderInfo from './HeaderInfo.js';
 import HeaderLink from './HeaderLink.js';
 
 export default class Header extends Component {
-    state = {
-        isUserAuthorized: false,
-        name: '',
-        surname: '',
-    };
-
-    logout = () => {
-        this.setState(state => {
-            state.isUserAuthorized = false;
-            return state;
-        });
-
-        fetch(SERVER_URL + LOGOUT_URL, {
-            method: 'POST',
-            credentials: 'include',
-        });
-
-        localStorage.clear();
-    };
-
-    // componentWillMount = () => {
-    //     if (localStorage.getItem('name') && localStorage.getItem('surname')) {
-    //         this.setState(state => {
-    //             state.isUserAuthorized = true;
-    //             state.name = localStorage.getItem('name');
-    //             state.surname = localStorage.getItem('surname');
-    //             return state;
-    //         });
-    //     }
-    // };
-
     render() {
         return createElement(
             'header',

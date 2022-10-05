@@ -18,6 +18,7 @@ import { EMAIL_ERROR } from '../../services/messages/errorMessages.js';
 import { Router } from '../../framework/router/Router.js';
 import { NetworkHander } from '../../services/network/NetworkHandler.js';
 import { SIGNIN_URL } from '../../services/network/URLs.js';
+import { userModel } from '../../services/model/userModel.js';
 
 /**
  * Component for showing sign up form.
@@ -46,14 +47,15 @@ export default class SignInForm extends Component {
         if (response.status >= 400) {
             setInvalidServerResponse(e, response.body);
         } else {
-            localStorage.setItem('name', response.body.name);
-            localStorage.setItem('surname', response.body.surname);
+            userModel.isAuthorized = true;
+            userModel.name = response.body.name;
+            userModel.surname = response.body.surname;
             Router.render('/vacancies');
         }
     };
 
     componentWillMount = () => {
-        if (localStorage.getItem('name') && localStorage.getItem('surname')) {
+        if (userModel.isAuthorized) {
             Router.render('/vacancies');
         }
     };
