@@ -1,4 +1,4 @@
-export const SERVER_URL = 'http://localhost:8080';
+export const SERVER_URL = 'http://95.163.208.72:8080';
 
 export const SIGNUP_URL = '/auth/sign-up';
 export const SIGNIN_URL = '/auth/sign-in';
