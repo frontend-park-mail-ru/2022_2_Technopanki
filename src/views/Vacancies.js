@@ -5,6 +5,7 @@ import {
     createText,
 } from '../lib/core/VDOM/VDOMElement.js';
 import Header from '../components/Header.js';
+import Footer from '../components/Footer.js';
 import Vacancy from '../components/Vacancy.js';
 import { getVacanciesFromServer } from '../services/network/handlers/vacanciesHandler.js';
 
@@ -57,6 +58,7 @@ export default class Vacancies extends Component {
                     }),
                 ),
             ),
+            createComponent(Footer, { key: 'footer', }),
         );
     }
 }
