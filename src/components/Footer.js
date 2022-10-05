@@ -13,28 +13,14 @@ export default class Footer extends Component {
             {
                 key: 'footer',
             },
-            createElement(
-                'div',
-                {
-                    key: 'full logo',
-                    className: 'header__logo',
-                },
-                createElement('img', {
-                    key: 'icon',
-                    alt: 'icon',
-                    src: 'img/icon.svg',
-                    height: '16',
-                }),
-                createComponent(Link, {
-                    key: 'logo link',
+            createComponent(Link, {
+                    key: 'logo',
                     to: '/',
                     value: createElement('img', {
-                        key: 'logo',
-                        alt: 'logo',
-                        src: 'img/Logo.svg',
-                        height: '16',
-                    }),
-                }),
+                        alt: 'logo svg',
+                        src: 'img/logo.svg'
+                    })
+                },
             ),
             createText(
                 'p',

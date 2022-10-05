@@ -11,13 +11,14 @@
     padding: 0 16px;
   }
   @media (min-width: $screen-sm) {
-    padding: 0 120px;
+    padding: 0 10vw;
   }
 }
 
 .main__intro {
   display: flex;
   flex-direction: column;
+  flex-basis: 602px;
   gap: 20px;
 }
 
