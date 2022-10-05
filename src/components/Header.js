@@ -45,7 +45,7 @@ export default class Header extends Component {
                 },
                 createComponent(Link, {
                     key: 'main page',
-                    to: '/main',
+                    to: '/',
                     className: 'header__links-default',
                     value: createText('p', { key: 'main link' }, 'Главная'),
                 }),
