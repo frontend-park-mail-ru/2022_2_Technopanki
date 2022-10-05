@@ -1,16 +1,18 @@
 import { Component } from '../lib/core/VDOM/component.js';
-import { createText } from '../lib/core/VDOM/VDOMElement.js';
+import { createElement, createText } from '../lib/core/VDOM/VDOMElement.js';
 
 export default class SubmitButton extends Component {
     render() {
-        return createText(
+        return createElement(
             'button',
             {
                 key: this.props.key,
-                className: this.props.className,
+                className: !this.props.className
+                    ? 'btn btn-primary'
+                    : 'btn btn-primary ' + this.props.className,
                 type: 'submit',
             },
-            this.props.value
+            createText('p', null, this.props.value),
         );
     }
 }

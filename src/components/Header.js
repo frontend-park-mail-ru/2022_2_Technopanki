@@ -9,6 +9,7 @@ import Link from '../lib/router/Link.js';
 import HeaderUnauthorized from './HeaderUnauthorized.js';
 import HeaderAuthorized from './HeaderAuthorized.js';
 import { LOGOUT_URL, SERVER_URL } from '../services/network/serverURLs.js';
+import HeaderInfo from './HeaderInfo.js';
 
 export default class Header extends Component {
     state = {
@@ -31,16 +32,16 @@ export default class Header extends Component {
         localStorage.clear();
     };
 
-    componentWillMount = () => {
-        if (localStorage.getItem('name') && localStorage.getItem('surname')) {
-            this.setState(state => {
-                state.isUserAuthorized = true;
-                state.name = localStorage.getItem('name');
-                state.surname = localStorage.getItem('surname');
-                return state;
-            });
-        }
-    };
+    // componentWillMount = () => {
+    //     if (localStorage.getItem('name') && localStorage.getItem('surname')) {
+    //         this.setState(state => {
+    //             state.isUserAuthorized = true;
+    //             state.name = localStorage.getItem('name');
+    //             state.surname = localStorage.getItem('surname');
+    //             return state;
+    //         });
+    //     }
+    // };
 
     render() {
         return createElement(
@@ -100,9 +101,7 @@ export default class Header extends Component {
                     ),
                 }),
             ),
-            this.state.isUserAuthorized
-                ? createComponent(HeaderAuthorized, { onclick: this.logout })
-                : createComponent(HeaderUnauthorized),
+            createComponent(HeaderInfo),
         );
     }
 }

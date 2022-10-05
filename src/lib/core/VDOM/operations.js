@@ -5,14 +5,24 @@ const removeUntilKey = (operations, elements, key) => {
     }
 };
 
+/**
+ * Add element to operations until we met key in elements
+ * @param {[]} operations
+ * @param elements
+ * @param {string} key
+ */
 const insertUntilKey = (operations, elements, key) => {
     while (elements[0] && elements[0][0] !== key) {
         operations.push(insert(elements.shift()[1]));
     }
 };
 
-// TODO: refactor
-// creates operations for children
+/**
+ * Creates diff operations for child elements of a node
+ * @param oldChildren - children of old VDOM node
+ * @param newChildren - children of new VDOM node
+ * @returns {*[]} - array of operations to be executed sequentially for each child of this node
+ */
 const childrenDiff = (oldChildren, newChildren) => {
     const remainingOldChildren = oldChildren.map(children => [
         children.props.key,
@@ -55,6 +65,13 @@ const childrenDiff = (oldChildren, newChildren) => {
     return operations;
 };
 
+/**
+ * Compares 2 nodes of VDOM and returns
+ * the operation to be performed in the real one on this node in DOM.
+ * @param oldNode - old version of VDOM node
+ * @param newNode - new version of VDOM node
+ * @returns {{childrenUpdater, type: string, attrUpdater}|{type: string}|{newNode, type: string}} - operation to be performed on this element
+ */
 export const createDiff = (oldNode, newNode) => {
     if (
         oldNode.type === 'text' &&
@@ -75,7 +92,6 @@ export const createDiff = (oldNode, newNode) => {
     ) {
         if (JSON.stringify(oldNode.props) === JSON.stringify(newNode.props))
             return skip();
-        // TODO: if (isEqual(oldNode.props, newNode.props)) return skip();
         return update(
             {
                 remove: Object.keys(oldNode.props).filter(
@@ -132,6 +148,12 @@ export const createDiff = (oldNode, newNode) => {
     return update(attrUpdater, childrenUpdater);
 };
 
+/**
+ * VDOM node update operation
+ * @param attrUpdater
+ * @param childrenUpdater
+ * @returns {{childrenUpdater, type: string, attrUpdater}}
+ */
 const update = (attrUpdater, childrenUpdater) => ({
     type: 'update',
     attrUpdater: attrUpdater,
