@@ -6,10 +6,11 @@ import {
 } from '../lib/core/VDOM/VDOMElement.js';
 import Header from '../components/Header.js';
 import Vacancy from '../components/Vacancy.js';
+import { getVacanciesFromServer } from '../services/network/handlers/vacanciesHandler.js';
 
 export default class Vacancies extends Component {
     getVacancy = async () => {
-        const response = await fetch('http://localhost:8080/api/vacancy/');
+        const response = await getVacanciesFromServer();
         response.json().then(data => {
             this.setState(state => {
                 state.vacancies = data;
@@ -41,8 +42,11 @@ export default class Vacancies extends Component {
                     className: 'vacancies__body',
                 },
                 createText('h2', { key: 'vacancies header' }, 'Все вакансии'),
-                createText('p', { key: 'vacancies intro' },
-                    'Jobflow — сервис, который помогает найти работу и подобрать персонал более 20 лет! Создавайте резюме и откликайтесь на вакансии.'),
+                createText(
+                    'p',
+                    { key: 'vacancies intro' },
+                    'Jobflow — сервис, который помогает найти работу и подобрать персонал более 20 лет! Создавайте резюме и откликайтесь на вакансии.',
+                ),
                 ...this.state.vacancies.map(vacancy =>
                     createComponent(Vacancy, {
                         key: vacancy.id,
