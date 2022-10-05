@@ -80,13 +80,26 @@ export default class Vacancy extends Component {
                     'September 17, 2022 • 14:30',
                 ),
             ),
-            createText(
-                'h5',
+            createElement('div',
                 {
-                    key: 'vacancy salary',
-                    className: 'vacancy__salary',
+                    key: 'salary',
+                    className: 'vacancy__salary'
                 },
-                this.props.salary + 'P/мес',
+
+                createText(
+                    'h5',
+                    {
+                        key: 'salary value',
+                        className: 'vacancy__salary-value',
+                    },
+                    this.props.salary + '₽',
+                ),
+                createText('p', {
+                    key: 'per month',
+                    className: 'vacancy__per-month'
+                    },
+                    ' в месяц'
+                )
             ),
         );
     }

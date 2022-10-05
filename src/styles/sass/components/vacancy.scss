@@ -42,7 +42,7 @@
 .vacancy__name {
   outline: none;
   text-decoration: none;
-  color: black;
+  color: $color-grey-900;
   margin: 0;
   font-weight: bold;
   font-size: 18px;
@@ -57,7 +57,7 @@
 
 .company__name {
   margin: 0;
-  color: #97a2fb;
+  color: $color-primary-purple;
   outline: none;
   text-decoration: none;
   font-size: 14px;
@@ -75,7 +75,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 
-  color: #81818e;
+  color: $color-grey-500;
 }
 
 .vacancy__date {
@@ -86,15 +86,33 @@
 
   letter-spacing: -0.02em;
 
-  color: #c3c3cb;
+  color: $color-grey-200;
 }
 
-.vacancy__salary {
+.vacancy__salary-value {
   font-style: normal;
-  font-weight: 500;
-  font-size: 18px;
+  font-weight: 400;
+  font-size: 16px;
   line-height: 22px;
   text-align: center;
   letter-spacing: -0.02em;
-  color: #33333c;
+  color: $color-grey-900;
+}
+
+.vacancy__per-month {
+  padding-top: 1px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 22px;
+  text-align: center;
+  letter-spacing: -0.02em;
+  color: $color-grey-900;
+}
+
+.vacancy__salary {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 5px;
 }
