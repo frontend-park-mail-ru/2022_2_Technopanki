@@ -164,7 +164,6 @@ export default class SignUpForm extends Component {
                 }),
             ),
             createComponent(SubmitButton, {
-                className: 'form__submit-button',
                 value: 'Создать аккаунт',
             }),
             createComponent(Link, {
