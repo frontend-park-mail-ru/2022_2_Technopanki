@@ -49,8 +49,8 @@ export default class SignInForm extends Component {
         if (response.status >= 400) {
             response.json().then(body => setInvalidServerResponse(e, body));
         } else {
-            localStorage.setItem('name', formData.get('name'));
-            localStorage.setItem('surname', formData.get('surname'));
+            localStorage.setItem('name', formData.get('name').toString());
+            localStorage.setItem('surname', formData.get('surname').toString());
             Router.render('/vacancies');
         }
     };

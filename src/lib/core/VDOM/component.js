@@ -18,16 +18,15 @@ export class Component {
     }
 
     /**
-     *
+     * Inits props and calls render for the first time.
+     * Returns current rootNode
      * @param props
      * @returns {*} - node element
      */
-    // Inits props and calls render for the first time.
-    // Returns current rootNode
     initProps(props) {
-        this.componentWillMount();
         this.props = props;
         this.#rootNode = this.render();
+        setTimeout(() => this.componentWillMount());
         return this.#rootNode;
     }
 

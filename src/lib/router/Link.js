@@ -18,7 +18,7 @@ export default class Link extends Component {
             {
                 className: !this.props.className
                     ? 'link'
-                    : this.props.className,
+                    : 'link ' + this.props.className,
                 onclick: this.onClick,
                 href: this.props.to,
             },

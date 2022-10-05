@@ -58,6 +58,26 @@ p {
   margin: 0;
 }
 
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 12px;
+  background: $color-grey-50;
+  border: 1px solid $color-grey-100;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+  border-radius: 12px;
+  :hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+}
+
 .invalid-input,
 .invalid-input:focus {
   outline: none;

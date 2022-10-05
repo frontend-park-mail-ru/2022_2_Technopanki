@@ -6,10 +6,39 @@ import {
 } from '../lib/core/VDOM/VDOMElement.js';
 import SubmitButton from './SubmitButton.js';
 import Link from '../lib/router/Link.js';
+import HeaderUnauthorized from './HeaderUnauthorized.js';
+import HeaderAuthorized from './HeaderAuthorized.js';
 
 export default class Header extends Component {
     state = {
         isUserAuthorized: false,
+        name: '',
+        surname: '',
+    };
+
+    logout = () => {
+        this.setState(state => {
+            state.isUserAuthorized = false;
+            return state;
+        });
+
+        fetch('http://localhost:8080/auth/logout', {
+            method: 'POST',
+            credentials: 'include',
+        });
+
+        localStorage.clear();
+    };
+
+    componentWillMount = () => {
+        if (localStorage.getItem('name') && localStorage.getItem('surname')) {
+            this.setState(state => {
+                state.isUserAuthorized = true;
+                state.name = localStorage.getItem('name');
+                state.surname = localStorage.getItem('surname');
+                return state;
+            });
+        }
     };
 
     render() {
@@ -70,40 +99,9 @@ export default class Header extends Component {
                     ),
                 }),
             ),
-            createElement(
-                'div',
-                {
-                    key: 'header buttons',
-                },
-                localStorage.getItem('name') && localStorage.getItem('surname')
-                    ? createText(
-                          'p',
-                          null,
-                          `${localStorage.getItem(
-                              'name',
-                          )} ${localStorage.getItem('surname')}`,
-                      )
-                    : createElement(
-                          'div',
-                        { className:'header__buttons' },
-                          createComponent(Link, {
-                              key: 'sign in link',
-                              to: '/signin',
-                              className: 'header__links-signin',
-                              value: createText(
-                                  'p',
-                                  { key: 'logout link' },
-                                  'Вход',
-                              ),
-                          }),
-                          createComponent(SubmitButton, {
-                              key: 'sign up button',
-                              to: '/signup',
-                              value: 'Создать аккаунт',
-                              className: 'header__buttons-signup',
-                          }),
-                      ),
-            ),
+            this.state.isUserAuthorized
+                ? createComponent(HeaderAuthorized, { onclick: this.logout })
+                : createComponent(HeaderUnauthorized),
         );
     }
 }
