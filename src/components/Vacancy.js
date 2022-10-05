@@ -41,7 +41,7 @@ export default class Vacancy extends Component {
                         value: createText(
                             'p',
                             null,
-                            'Middle фронтэнд-разработчик',
+                            this.props.vacancyTitle,
                         ),
                     }),
                     createElement(
@@ -54,7 +54,7 @@ export default class Vacancy extends Component {
                             key: 'company name',
                             to: '/',
                             className: 'company__name',
-                            value: createText('p', null, 'VK'),
+                            value: createText('p', null, this.props.companyName),
                         }),
                         createText(
                             'p',
@@ -69,7 +69,7 @@ export default class Vacancy extends Component {
                         key: 'vacancy description',
                         className: 'vacancy__description',
                     },
-                    'some description text',
+                    this.props.vacancyDescription,
                 ),
                 createText(
                     'p',
@@ -86,7 +86,7 @@ export default class Vacancy extends Component {
                     key: 'vacancy salary',
                     className: 'vacancy__salary',
                 },
-                '100₽ в месяц',
+                this.props.salary + 'P/мес',
             ),
         );
     }

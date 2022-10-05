@@ -8,32 +8,22 @@ import Header from '../components/Header.js';
 import Vacancy from '../components/Vacancy.js';
 
 export default class Vacancies extends Component {
+    getVacancy = async () => {
+        const response = await fetch('http://localhost:8080/api/vacancy/')
+        response.json().then(data => {
+            this.setState((state) => {
+                state.vacancies = data
+                return state
+            })
+        })
+    }
+
     state = {
-        vacancies: [
-            {
-                id: 1,
-                title: 'Hello world',
-                content: 'Some content here',
-            },
-            {
-                id: 2,
-                title: 'Hello world',
-                content: 'Some content here',
-            },
-            {
-                id: 3,
-                title: 'Hello world',
-                content: 'Some content here',
-            },
-            {
-                id: 4,
-                title: 'Hello world',
-                content: 'Some content here',
-            },
-        ],
-    };
+        vacancies: []
+    }
 
     render() {
+        this.getVacancy()
         return createElement(
             'div',
             {
@@ -50,20 +40,14 @@ export default class Vacancies extends Component {
                 createText('h2', { key: 'vacancies header' }, 'Все вакансии'),
                 createText('p', { key: 'vacancies intro' }, 'some intro text'),
                 ...this.state.vacancies.map(vacancy =>
-                    createComponent(Vacancy, { key: vacancy.id }),
+                    createComponent(Vacancy, {
+                        key: vacancy.id,
+                        vacancyTitle: vacancy.title ,
+                        vacancyDescription: vacancy.description,
+                        salary: vacancy.maximum_salary,
+                        companyName: vacancy.company_name
+                    }),
                 ),
-            ),
-            createElement(
-                'button',
-                {
-                    key: 'set button',
-                    onclick: () =>
-                        this.setState(state => {
-                            state.vacancies.push({ id: 1 });
-                            return state;
-                        }),
-                },
-                createText('p', null, 'add new vanacy'),
             ),
         );
     }
