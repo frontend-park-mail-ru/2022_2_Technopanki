@@ -29,6 +29,7 @@ import {
     PASSWORD_SYMBOLS_ERROR,
     SURNAME_ERROR,
 } from '../../services/messages/errorMessages.js';
+import { userModel } from '../../services/model/userModel.js';
 
 /**
  * Component for showing sign up form.
@@ -90,8 +91,8 @@ export default class SignUpForm extends Component {
         if (response.status >= 400) {
             setInvalidServerResponse(e, response.body);
         } else {
-            localStorage.setItem('name', formData.get('name'));
-            localStorage.setItem('surname', formData.get('surname'));
+            userModel.name = response.body.name;
+            userModel.surname = response.body.surname;
             Router.render('/vacancies');
         }
     };
