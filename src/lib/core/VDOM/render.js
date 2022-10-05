@@ -1,3 +1,8 @@
+/**
+ * Creates an DOM element from an element of VDOM
+ * @param root - VDOM element
+ * @returns {*} - DOM element
+ */
 export const renderElement = root => {
     if (root.type === 'component') {
         if (!root.instance) {
@@ -26,6 +31,12 @@ export const renderElement = root => {
     return elem;
 };
 
+/**
+ * Applies VDOM element changes to DOM element associated with it
+ * @param elem - DOM element
+ * @param diff - Changes to be applied
+ * @returns {*}
+ */
 export const applyDiff = (elem, diff) => {
     if (diff.type === 'skip') {
         return elem;
@@ -37,14 +48,13 @@ export const applyDiff = (elem, diff) => {
         return newElem;
     }
 
-    // TODO: rework to forEach
-    for (const attr in diff.attrUpdater.remove) {
-        elem.removeAttribute(attr);
-    }
+    const attributesWillBeDeleted = Object.keys(diff.attrUpdater.remove) || [
+        null,
+    ];
+    attributesWillBeDeleted.forEach(attr => elem.removeAttribute(attr));
 
-    for (const attr in diff.attrUpdater.set) {
-        elem[attr] = diff.attrUpdater.set[attr];
-    }
+    const attributesWillBeAdded = Object.values(diff.attrUpdater.set) || [null];
+    attributesWillBeAdded.forEach(([attr, value]) => (elem[attr] = value));
 
     applyChildrenDiff(elem, diff.childrenUpdater);
 
