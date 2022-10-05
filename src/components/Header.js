@@ -8,6 +8,7 @@ import SubmitButton from './SubmitButton.js';
 import Link from '../lib/router/Link.js';
 import HeaderUnauthorized from './HeaderUnauthorized.js';
 import HeaderAuthorized from './HeaderAuthorized.js';
+import { LOGOUT_URL, SERVER_URL } from '../services/network/serverURLs.js';
 
 export default class Header extends Component {
     state = {
@@ -22,7 +23,7 @@ export default class Header extends Component {
             return state;
         });
 
-        fetch('http://localhost:8080/auth/logout', {
+        fetch(SERVER_URL + LOGOUT_URL, {
             method: 'POST',
             credentials: 'include',
         });
