@@ -16,6 +16,8 @@ export default class HeaderInfo extends Component {
     };
 
     logout = () => {
+        userModel.isAuthorized = false;
+
         this.setState(state => {
             state.isAuthorized = false;
             return state;
@@ -25,8 +27,6 @@ export default class HeaderInfo extends Component {
             method: 'GET',
             credentials: 'include',
         });
-
-        userModel.isAuthorized = false;
     };
 
     render() {

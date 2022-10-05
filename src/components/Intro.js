@@ -5,10 +5,11 @@ import {
     createText,
 } from '../framework/core/VDOM/VDOMElement.js';
 import LinkButton from './Buttons/LinkButton.js';
+import { userModel } from '../services/model/userModel.js';
 
 export default class Intro extends Component {
     componentWillMount = () => {
-        if (localStorage.getItem('name') && localStorage.getItem('surname')) {
+        if (userModel.isAuthorized) {
             document.querySelector('.main__intro-buttons').style.display =
                 'none';
         }
