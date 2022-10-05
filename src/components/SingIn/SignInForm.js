@@ -49,9 +49,11 @@ export default class SignInForm extends Component {
         if (response.status >= 400) {
             response.json().then(body => setInvalidServerResponse(e, body));
         } else {
-            localStorage.setItem('name', formData.get('name').toString());
-            localStorage.setItem('surname', formData.get('surname').toString());
-            Router.render('/vacancies');
+            response.json().then(data => {
+                localStorage.setItem('name', data.name);
+                localStorage.setItem('surname', data.surname);
+                Router.render('/vacancies');
+            });
         }
     };
 
@@ -92,7 +94,7 @@ export default class SignInForm extends Component {
             createComponent(Link, {
                 key: 'link',
                 to: '/signup',
-                value: createText('p', null, 'Зарегистрировать'),
+                value: createText('p', null, 'Зарегистрироваться'),
                 className: 'form__question_a',
             }),
         );
