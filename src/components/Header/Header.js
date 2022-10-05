@@ -1,14 +1,14 @@
-import { Component } from '../lib/core/VDOM/component.js';
+import { Component } from '../../framework/core/VDOM/component.js';
 import {
     createComponent,
     createElement,
     createText,
-} from '../lib/core/VDOM/VDOMElement.js';
-import SubmitButton from './SubmitButton.js';
-import Link from '../lib/router/Link.js';
+} from '../../framework/core/VDOM/VDOMElement.js';
+import SubmitButton from '../Buttons/SubmitButton.js';
+import Link from '../../framework/router/Link.js';
 import HeaderUnauthorized from './HeaderUnauthorized.js';
 import HeaderAuthorized from './HeaderAuthorized.js';
-import { LOGOUT_URL, SERVER_URL } from '../services/network/URLs.js';
+import { LOGOUT_URL, SERVER_URL } from '../../services/network/URLs.js';
 import HeaderInfo from './HeaderInfo.js';
 
 export default class Header extends Component {

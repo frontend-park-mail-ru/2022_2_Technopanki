@@ -2,9 +2,9 @@ import {
     createComponent,
     createElement,
     createText,
-} from '../lib/core/VDOM/VDOMElement.js';
-import { Component } from '../lib/core/VDOM/component.js';
-import Button from './Button.js';
+} from '../../framework/core/VDOM/VDOMElement.js';
+import { Component } from '../../framework/core/VDOM/component.js';
+import Button from '../Buttons/Button.js';
 
 export default class HeaderAuthorized extends Component {
     render() {

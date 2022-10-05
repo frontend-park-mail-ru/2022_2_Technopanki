@@ -1,9 +1,9 @@
-import { Component } from '../lib/core/VDOM/component.js';
+import { Component } from '../framework/core/VDOM/component.js';
 import {
     createComponent,
     createElement,
-} from '../lib/core/VDOM/VDOMElement.js';
-import Header from '../components/Header.js';
+} from '../framework/core/VDOM/VDOMElement.js';
+import Header from '../components/Header/Header.js';
 import Intro from '../components/Intro.js';
 
 /**

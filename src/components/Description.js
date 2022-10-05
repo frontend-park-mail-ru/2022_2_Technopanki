@@ -1,5 +1,8 @@
-import { Component } from '../lib/core/VDOM/component.js';
-import { createElement, createText } from '../lib/core/VDOM/VDOMElement.js';
+import { Component } from '../framework/core/VDOM/component.js';
+import {
+    createElement,
+    createText,
+} from '../framework/core/VDOM/VDOMElement.js';
 
 export default class Description extends Component {
     render() {
@@ -24,13 +27,13 @@ export default class Description extends Component {
                 createText(
                     'h3',
                     { className: 'description__header' },
-                    'Создай свою команду\nНайди свою миссию'
+                    'Создай свою команду\nНайди свою миссию',
                 ),
                 createText(
                     'p',
                     { className: 'description__text' },
-                    'Мы создаем передовые технологии на всех доступных платформах для того, чтобы работодатели могли быстро найти подходящего сотрудника, а соискатели — хорошую работу. '
-                )
+                    'Мы создаем передовые технологии на всех доступных платформах для того, чтобы работодатели могли быстро найти подходящего сотрудника, а соискатели — хорошую работу. ',
+                ),
             ),
             createElement(
                 'div',
@@ -43,8 +46,8 @@ export default class Description extends Component {
                     className: 'description__img',
                     alt: 'Illustration',
                     src: 'img/Illustration.svg',
-                })
-            )
+                }),
+            ),
         );
     }
 }

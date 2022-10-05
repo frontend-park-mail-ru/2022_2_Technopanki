@@ -1,10 +1,10 @@
-import { Component } from '../lib/core/VDOM/component.js';
+import { Component } from '../framework/core/VDOM/component.js';
 import {
     createComponent,
     createElement,
     createText,
-} from '../lib/core/VDOM/VDOMElement.js';
-import Header from '../components/Header.js';
+} from '../framework/core/VDOM/VDOMElement.js';
+import Header from '../components/Header/Header.js';
 import Footer from '../components/Footer.js';
 import Vacancy from '../components/Vacancy.js';
 import { getVacanciesFromServer } from '../services/network/helpers/vacanciesHandler.js';
@@ -56,7 +56,7 @@ export default class Vacancies extends Component {
                     }),
                 ),
             ),
-            createComponent(Footer, { key: 'footer', }),
+            createComponent(Footer, { key: 'footer' }),
         );
     }
 }

@@ -1,4 +1,4 @@
-import { Router } from './lib/router/Router.js';
+import { Router } from './framework/router/Router.js';
 import SignUp from './views/SignUp.js';
 import SIgnIn from './views/SignIn.js';
 import Main from './views/Main.js';

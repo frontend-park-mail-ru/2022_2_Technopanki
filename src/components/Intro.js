@@ -1,10 +1,10 @@
-import { Component } from '../lib/core/VDOM/component.js';
+import { Component } from '../framework/core/VDOM/component.js';
 import {
     createComponent,
     createElement,
     createText,
-} from '../lib/core/VDOM/VDOMElement.js';
-import LinkButton from './LinkButton.js';
+} from '../framework/core/VDOM/VDOMElement.js';
+import LinkButton from './Buttons/LinkButton.js';
 
 export default class Intro extends Component {
     render() {
@@ -41,25 +41,21 @@ export default class Intro extends Component {
                     { className: 'main__intro-buttons' },
                     createComponent(LinkButton, {
                         to: '/signup',
-                        buttonClassName: 'btn header__buttons-blue',
+                        buttonClassName: 'btn btn-active',
                         value: createText('p', null, 'Зарегистрироваться'),
                     }),
                     createComponent(LinkButton, {
                         to: '/signup',
-                        buttonClassName: 'btn header__links-grey',
+                        buttonClassName: 'btn',
                         value: createText('p', null, 'Войти'),
                     }),
                 ),
             ),
-            createText(
-                'img',
-                {
-                    key: 'banner',
-                    alt: 'banner',
-                    src: 'img/banner.svg',
-                },
-                'some text',
-            ),
+            createElement('img', {
+                key: 'banner',
+                alt: 'banner',
+                src: 'img/banner.svg',
+            }),
         );
     }
 }

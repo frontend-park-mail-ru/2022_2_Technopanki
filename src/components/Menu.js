@@ -1,8 +1,8 @@
-import { Component } from '../lib/core/VDOM/component.js';
+import { Component } from '../framework/core/VDOM/component.js';
 import {
     createComponent,
     createElement,
-} from '../lib/core/VDOM/VDOMElement.js';
+} from '../framework/core/VDOM/VDOMElement.js';
 
 export class Menu extends Component {
     render() {
@@ -12,8 +12,8 @@ export class Menu extends Component {
             createElement(
                 'div',
                 { key: 'menu__wrapper', className: 'menu__wrapper' },
-                createComponent(this.props.form)
-            )
+                createComponent(this.props.form),
+            ),
         );
     }
 }

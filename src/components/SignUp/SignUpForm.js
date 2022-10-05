@@ -1,13 +1,13 @@
-import { Component } from '../../lib/core/VDOM/component.js';
+import { Component } from '../../framework/core/VDOM/component.js';
 import {
     createComponent,
     createElement,
     createText,
-} from '../../lib/core/VDOM/VDOMElement.js';
+} from '../../framework/core/VDOM/VDOMElement.js';
 import Input from '../Input.js';
-import SubmitButton from '../SubmitButton.js';
-import Link from '../../lib/router/Link.js';
-import RadioButton from '../RadioButton.js';
+import SubmitButton from '../Buttons/SubmitButton.js';
+import Link from '../../framework/router/Link.js';
+import RadioButton from '../Buttons/RadioButton.js';
 import {
     validateEmail,
     validateName,
@@ -21,7 +21,7 @@ import {
     setValidInput,
 } from '../../services/validation/formValidation.js';
 import { sendSignUpData } from '../../services/network/helpers/signUpHandler.js';
-import { Router } from '../../lib/router/Router.js';
+import { Router } from '../../framework/router/Router.js';
 import {
     EMAIL_ERROR,
     NAME_ERROR,

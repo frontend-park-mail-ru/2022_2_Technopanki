@@ -1,8 +1,8 @@
-import { Component } from '../lib/core/VDOM/component.js';
+import { Component } from '../framework/core/VDOM/component.js';
 import {
     createComponent,
     createElement,
-} from '../lib/core/VDOM/VDOMElement.js';
+} from '../framework/core/VDOM/VDOMElement.js';
 import SignInForm from '../components/SingIn/SignInForm.js';
 import { Menu } from '../components/Menu.js';
 import Description from '../components/Description.js';

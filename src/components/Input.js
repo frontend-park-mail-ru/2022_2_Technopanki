@@ -1,5 +1,8 @@
-import { Component } from '../lib/core/VDOM/component.js';
-import { createElement, createText } from '../lib/core/VDOM/VDOMElement.js';
+import { Component } from '../framework/core/VDOM/component.js';
+import {
+    createElement,
+    createText,
+} from '../framework/core/VDOM/VDOMElement.js';
 
 export default class Input extends Component {
     render() {

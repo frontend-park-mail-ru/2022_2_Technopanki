@@ -1,12 +1,12 @@
-import { Component } from '../../lib/core/VDOM/component.js';
+import { Component } from '../../framework/core/VDOM/component.js';
 import {
     createComponent,
     createElement,
     createText,
-} from '../../lib/core/VDOM/VDOMElement.js';
+} from '../../framework/core/VDOM/VDOMElement.js';
 import Input from '../Input.js';
-import SubmitButton from '../SubmitButton.js';
-import Link from '../../lib/router/Link.js';
+import SubmitButton from '../Buttons/SubmitButton.js';
+import Link from '../../framework/router/Link.js';
 import { sendSignInData } from '../../services/network/helpers/signInHandler.js';
 import { validateEmail } from '../../services/validation/validation.js';
 import {
@@ -15,7 +15,7 @@ import {
     setValidInput,
 } from '../../services/validation/formValidation.js';
 import { EMAIL_ERROR } from '../../services/messages/errorMessages.js';
-import { Router } from '../../lib/router/Router.js';
+import { Router } from '../../framework/router/Router.js';
 import { NetworkHander } from '../../services/network/NetworkHandler.js';
 import { SIGNIN_URL } from '../../services/network/URLs.js';
 

@@ -1,9 +1,9 @@
-import { Component } from '../lib/core/VDOM/component.js';
-import { LOGOUT_URL, SERVER_URL } from '../services/network/URLs.js';
+import { Component } from '../../framework/core/VDOM/component.js';
+import { LOGOUT_URL, SERVER_URL } from '../../services/network/URLs.js';
 import {
     createComponent,
     createElement,
-} from '../lib/core/VDOM/VDOMElement.js';
+} from '../../framework/core/VDOM/VDOMElement.js';
 import HeaderAuthorized from './HeaderAuthorized.js';
 import HeaderUnauthorized from './HeaderUnauthorized.js';
 

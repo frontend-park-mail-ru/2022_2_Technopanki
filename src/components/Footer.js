@@ -1,10 +1,10 @@
-import { Component } from '../lib/core/VDOM/component.js';
+import { Component } from '../framework/core/VDOM/component.js';
 import {
     createComponent,
     createElement,
     createText,
-} from '../lib/core/VDOM/VDOMElement.js';
-import Link from '../lib/router/Link.js';
+} from '../framework/core/VDOM/VDOMElement.js';
+import Link from '../framework/router/Link.js';
 
 export default class Footer extends Component {
     render() {
@@ -36,11 +36,14 @@ export default class Footer extends Component {
                     }),
                 }),
             ),
-            createText('p', {
-                key: 'outro',
-                className: 'footer__outro'
-            },
-                'Build your team, find your mission.\n There is a job for everyone.'),
+            createText(
+                'p',
+                {
+                    key: 'outro',
+                    className: 'footer__outro',
+                },
+                'Build your team, find your mission.\n There is a job for everyone.',
+            ),
             createElement(
                 'div',
                 {

@@ -1,10 +1,10 @@
-import { Component } from '../lib/core/VDOM/component.js';
+import { Component } from '../framework/core/VDOM/component.js';
 import {
     createComponent,
     createElement,
     createText,
-} from '../lib/core/VDOM/VDOMElement.js';
-import Link from '../lib/router/Link.js';
+} from '../framework/core/VDOM/VDOMElement.js';
+import Link from '../framework/router/Link.js';
 
 export default class Vacancy extends Component {
     render() {
@@ -18,7 +18,7 @@ export default class Vacancy extends Component {
                 key: 'company logo',
                 to: '/',
                 alt: 'company icon',
-                value: createText('img', {
+                value: createElement('img', {
                     key: 'company',
                     src: 'img/vk_logo.svg',
                 }),
@@ -38,11 +38,7 @@ export default class Vacancy extends Component {
                     createComponent(Link, {
                         key: 'vacancy name',
                         className: 'vacancy__name',
-                        value: createText(
-                            'p',
-                            null,
-                            this.props.vacancyTitle,
-                        ),
+                        value: createText('p', null, this.props.vacancyTitle),
                     }),
                     createElement(
                         'div',
@@ -54,7 +50,11 @@ export default class Vacancy extends Component {
                             key: 'company name',
                             to: '/',
                             className: 'company__name',
-                            value: createText('p', null, this.props.companyName),
+                            value: createText(
+                                'p',
+                                null,
+                                this.props.companyName,
+                            ),
                         }),
                         createText(
                             'p',
@@ -80,10 +80,11 @@ export default class Vacancy extends Component {
                     'September 17, 2022 • 14:30',
                 ),
             ),
-            createElement('div',
+            createElement(
+                'div',
                 {
                     key: 'salary',
-                    className: 'vacancy__salary'
+                    className: 'vacancy__salary',
                 },
 
                 createText(
@@ -94,12 +95,14 @@ export default class Vacancy extends Component {
                     },
                     this.props.salary + '₽',
                 ),
-                createText('p', {
-                    key: 'per month',
-                    className: 'vacancy__per-month'
+                createText(
+                    'p',
+                    {
+                        key: 'per month',
+                        className: 'vacancy__per-month',
                     },
-                    ' в месяц'
-                )
+                    ' в месяц',
+                ),
             ),
         );
     }

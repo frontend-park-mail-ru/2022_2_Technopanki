@@ -1,5 +1,8 @@
-import { Component } from '../lib/core/VDOM/component.js';
-import { createElement, createText } from '../lib/core/VDOM/VDOMElement.js';
+import { Component } from '../../framework/core/VDOM/component.js';
+import {
+    createElement,
+    createText,
+} from '../../framework/core/VDOM/VDOMElement.js';
 
 export default class RadioButton extends Component {
     render() {
@@ -13,7 +16,7 @@ export default class RadioButton extends Component {
                 checked: this.props.checked,
                 value: this.props.value,
             }),
-            createText('label', { htmlFor: this.props.id }, this.props.label)
+            createText('label', { htmlFor: this.props.id }, this.props.label),
         );
     }
 }

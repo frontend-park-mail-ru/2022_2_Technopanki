@@ -88,7 +88,7 @@ p {
 
 .btn-active {
   background: $color-primary-blue;
-  border: 2px solid rgba(28, 52, 236, 0.16);
+  border: 2px solid rgba(28, 52, 236, 0.16) !important;
   box-shadow: 0 4px 12px rgba(28, 52, 236, 0.24);
   color: white;
   font-weight: 700;
@@ -99,4 +99,8 @@ p {
   outline: none;
   color: $color-primary-red;
   border: 2px solid $color-primary-red !important;
+}
+
+.invalid-input + p {
+  line-height: 16px;
 }

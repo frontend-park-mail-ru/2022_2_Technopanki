@@ -1,12 +1,12 @@
-import { Component } from '../lib/core/VDOM/component.js';
+import { Component } from '../../framework/core/VDOM/component.js';
 import {
     createComponent,
     createElement,
     createText,
-} from '../lib/core/VDOM/VDOMElement.js';
-import Link from '../lib/router/Link.js';
-import SubmitButton from './SubmitButton.js';
-import LinkButton from './LinkButton.js';
+} from '../../framework/core/VDOM/VDOMElement.js';
+import Link from '../../framework/router/Link.js';
+import SubmitButton from '../Buttons/SubmitButton.js';
+import LinkButton from '../Buttons/LinkButton.js';
 
 export default class HeaderUnauthorized extends Component {
     render() {
@@ -24,7 +24,7 @@ export default class HeaderUnauthorized extends Component {
             createComponent(LinkButton, {
                 key: 'sign up button',
                 to: '/signup',
-                buttonClassName: 'btn header__buttons-blue',
+                buttonClassName: 'btn btn-active',
                 value: createText('p', null, 'Создать аккаунт'),
             }),
         );
