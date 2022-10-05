@@ -6,11 +6,12 @@ header {
   position: absolute;
   left: 0;
   top: 0;
+  box-sizing: border-box;
   justify-content: space-between;
-  width: 100vw;
   align-items: center;
+  width: 100%;
   gap: 16px;
-  box-shadow: 0 0 5px rgba(81, 101, 255, 0.24);
+  border-bottom: 1px solid $color-grey-50;
   @media (max-width: $screen-sm) {
     padding: 16px 16px;
   }
@@ -35,7 +36,7 @@ header {
 .header__links-default {
   outline: none;
   text-decoration: none;
-  color: black;
+  color: $color-grey-900;
 }
 
 .header__buttons {
@@ -49,7 +50,7 @@ header {
 .header__links-signin {
   outline: none;
   text-decoration: none;
-  color: black;
+  color: $color-grey-800;
   font-weight: bold;
 }
 
