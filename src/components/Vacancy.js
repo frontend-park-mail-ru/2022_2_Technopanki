@@ -16,7 +16,7 @@ export default class Vacancy extends Component {
             },
             createComponent(Link, {
                 key: 'company logo',
-                to: '/',
+                to: '/vacancies',
                 alt: 'company icon',
                 value: createElement('img', {
                     key: 'company',
@@ -38,6 +38,7 @@ export default class Vacancy extends Component {
                     createComponent(Link, {
                         key: 'vacancy name',
                         className: 'vacancy__name',
+                        to: '/vacancies',
                         value: createText('p', null, this.props.vacancyTitle),
                     }),
                     createElement(
@@ -48,7 +49,7 @@ export default class Vacancy extends Component {
                         },
                         createComponent(Link, {
                             key: 'company name',
-                            to: '/',
+                            to: '/vacancies',
                             className: 'company__name',
                             value: createText(
                                 'p',
