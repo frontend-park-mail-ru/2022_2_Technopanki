@@ -91,7 +91,6 @@ export default class SignInForm extends Component {
             }),
             createComponent(SubmitButton, {
                 key: 'submit',
-                className: 'form__submit-button',
                 value: 'Войти',
             }),
             createComponent(Link, {

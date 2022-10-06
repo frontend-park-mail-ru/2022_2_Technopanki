@@ -39,6 +39,7 @@ export default class Vacancy extends Component {
                         key: 'vacancy name',
                         to: '/vacancies',
                         className: 'vacancy__name',
+                        to: '/vacancies',
                         value: createText('p', null, this.props.vacancyTitle),
                     }),
                     createElement(
