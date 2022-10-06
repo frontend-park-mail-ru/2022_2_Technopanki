@@ -11,8 +11,8 @@ export default class SubmitButton extends Component {
             {
                 key: this.props.key,
                 className: !this.props.className
-                    ? 'w-100 btn btn-primary'
-                    : 'w-100 btn btn-primary ' + this.props.className,
+                    ? 'btn btn-primary'
+                    : 'btn btn-primary ' + this.props.className,
                 type: 'submit',
             },
             createText('p', null, this.props.value),

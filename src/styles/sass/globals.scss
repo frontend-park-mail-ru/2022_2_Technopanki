@@ -59,13 +59,45 @@ p {
   margin: 0;
 }
 
-.w-100 {
-  width: 100%;
-}
-
 .link {
   text-decoration: none;
   color: inherit;
+}
+
+.btn {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 12px;
+  background: $color-grey-50;
+  border: 1px solid $color-grey-100;
+  color: $color-grey-700;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.25s;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 600;
+}
+
+.btn:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.btn-active {
+  background: $color-primary-blue;
+  border: 1px solid rgba(28, 52, 236, 0.16);
+  box-shadow: 0 4px 12px rgba(28, 52, 236, 0.24);
+  color: white;
+  font-weight: 700;
+}
+
+.btn:active {
+  padding: 12px 12px 8px 12px;
 }
 
 .invalid-input,

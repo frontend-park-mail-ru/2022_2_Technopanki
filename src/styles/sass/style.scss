@@ -1,6 +1,5 @@
 @import "globals";
 @import "auth";
-@import "button";
 
 // Components
 @import "./components/Description";
@@ -11,4 +10,4 @@
 @import "./components/intro";
 @import "./components/header";
 @import "./components/vacancies";
-@import "./components/Footer";
+@import "components/Footer";

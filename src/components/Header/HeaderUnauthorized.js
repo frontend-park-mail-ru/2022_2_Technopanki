@@ -24,7 +24,7 @@ export default class HeaderUnauthorized extends Component {
             createComponent(LinkButton, {
                 key: 'sign up button',
                 to: '/signup',
-                buttonClassName: 'btn btn-primary',
+                buttonClassName: 'btn btn-active',
                 value: createText('p', null, 'Создать аккаунт'),
             }),
         );
