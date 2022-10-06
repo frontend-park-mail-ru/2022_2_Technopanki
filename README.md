@@ -1,16 +1,17 @@
-# 2022_1_SamoeKrNaz
-Проект Trello команды "Самое крутое название"
+# 2022_2_Technopanki
+Проект HeadHunter команды "Technopanki"
 
-Деплой: [planexa](https://planexa.ru/)
-Swagger: [API](https://app.swaggerhub.com/apis/Planexa/Planexa/0.2.0)
+Деплой: [Jobflow](http://95.163.208.72:8000/)
+Swagger: [API](http://95.163.208.72:8080/swagger/index.html#/)
 
 # Ссылки
 
-+ Репозиторий [backend](https://github.com/go-park-mail-ru/2022_1_SamoeKrNaz)
-+ Макет в [Фигма](https://www.figma.com/file/STxRD8eHottP3xwMk0VjBK/Planexa?node-id=197%3A98)
++ Репозиторий [backend](https://github.com/go-park-mail-ru/2022_2_Technopanki)
++ Макет в [Фигма](https://www.figma.com/file/kJRmblovlNZokHVkHI1MGK/Headhunter?node-id=255%3A772)
 
 # Авторы
 
-+ Найденов Александр - [yalublukotikov](https://github.com/yalublukotikov)
-+ Шевченко Василий - [shevvvo](https://github.com/shevvvo)
-+ Иванов Виктор - [Victorius19](https://github.com/Victorius19)
++ Урванцев Захар - [Zuhropenchik](https://github.com/Zuhropenchik)
++ Егоров Аким - [AkimEgorov](https://github.com/AkimEgorov)
++ Кирпичов Владислав - [VladislavKirpichov](https://github.com/VladislavKirpichov)
++ Ситниченко Софья - [sonichka-s](https://github.com/sonichka-s)
