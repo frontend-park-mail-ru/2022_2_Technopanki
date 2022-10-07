@@ -20,7 +20,7 @@ import {
     setInvalidServerResponse,
     setValidInput,
 } from '../../services/validation/formValidation.js';
-import { sendSignUpData } from '../../services/network/handlers/signUpHandler.js';
+import { sendSignUpData } from '../../services/network/handlers/signUpHelper.js';
 import { Router } from '../../framework/router/Router.js';
 import {
     EMAIL_ERROR,

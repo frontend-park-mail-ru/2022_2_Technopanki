@@ -1,6 +1,15 @@
 import { SERVER_URL } from './URLs.js';
 
+/**
+ * Class responsible for communicating with the server
+ */
 class Handler {
+    /**
+     * Sends GET request to server.
+     * @param {string} relativePath
+     * @param {Object} headers
+     * @returns {Promise<{body: any, status: number}>}
+     */
     GET = async (relativePath, headers) => {
         if (!headers) {
             headers = {
@@ -25,6 +34,14 @@ class Handler {
         };
     };
 
+    /**
+     * Sends POST request to server.
+     * @param relativePath
+     * @param {string} headers
+     * @param {Object} body
+     * @returns {Promise<{body: any, status: number}>}
+     * @constructor
+     */
     POST = async (relativePath, headers, body) => {
         if (!headers) {
             headers = {
