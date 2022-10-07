@@ -2,6 +2,14 @@ import { SERVER_URL } from './URLs.js';
 
 class Handler {
     GET = async (relativePath, headers) => {
+        if (!headers) {
+            headers = {
+                'Content-Type': 'application/json',
+            };
+        } else {
+            headers['Content-Type'] = 'application/json';
+        }
+
         const response = await fetch(SERVER_URL + relativePath, {
             method: 'GET',
             headers: headers,
@@ -18,6 +26,14 @@ class Handler {
     };
 
     POST = async (relativePath, headers, body) => {
+        if (!headers) {
+            headers = {
+                'Content-Type': 'application/json',
+            };
+        } else {
+            headers['Content-Type'] = 'application/json';
+        }
+
         const response = await fetch(SERVER_URL + relativePath, {
             method: 'POST',
             headers: headers,

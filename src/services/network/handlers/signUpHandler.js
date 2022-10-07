@@ -9,9 +9,7 @@ import { NetworkHander } from '../NetworkHandler.js';
 export const sendSignUpData = async formData => {
     return await NetworkHander.POST(
         SIGNUP_URL,
-        {
-            'Content-Type': 'application/json',
-        },
+        null,
         JSON.stringify({
             email: formData.get('email'),
             name: formData.get('name'),

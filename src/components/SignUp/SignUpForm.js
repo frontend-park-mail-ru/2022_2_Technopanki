@@ -20,7 +20,7 @@ import {
     setInvalidServerResponse,
     setValidInput,
 } from '../../services/validation/formValidation.js';
-import { sendSignUpData } from '../../services/network/helpers/signUpHandler.js';
+import { sendSignUpData } from '../../services/network/handlers/signUpHandler.js';
 import { Router } from '../../framework/router/Router.js';
 import {
     EMAIL_ERROR,
@@ -37,7 +37,7 @@ import { userModel } from '../../services/model/userModel.js';
  * @component
  */
 export default class SignUpForm extends Component {
-    componentWillMount = () => {
+    componentDidMount = () => {
         if (localStorage.getItem('name') && localStorage.getItem('surname')) {
             Router.render('/vacancies');
         }
