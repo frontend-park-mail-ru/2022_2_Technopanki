@@ -40,11 +40,19 @@ export default class Vacancy extends Component {
                         key: 'header',
                         className: 'vacancy__header',
                     },
-                    createComponent(Link, {
-                        key: 'vacancy name',
-                        className: 'vacancy__name',
-                        value: createText('p', null, this.props.vacancyTitle),
-                    }),
+                    createElement(
+                        'div',
+                        {
+                            key: 'vacancy name',
+                            className: 'vacancy__name-field'
+                        },
+                        createComponent(Link, {
+                            key: 'vacancy name link',
+                            className: 'vacancy__name',
+                            to: '/',
+                            value: createText('p', null, this.props.vacancyTitle)
+                        })
+                    ),
                     createElement(
                         'div',
                         {

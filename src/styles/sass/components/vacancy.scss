@@ -39,6 +39,10 @@
   font-size: 12px;
 }
 
+.vacancy__name-field {
+  display: flex;
+}
+
 .vacancy__name {
   outline: none;
   text-decoration: none;
@@ -46,6 +50,7 @@
   margin: 0;
   font-weight: bold;
   font-size: 18px;
+  max-width: content-box;
 }
 
 .company__metadata {
