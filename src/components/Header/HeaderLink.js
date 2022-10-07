@@ -7,6 +7,11 @@ import {
 import HeaderVacancies from './HeaderVacancies.js';
 import HeaderMain from './HeaderMain.js';
 
+/**
+ * Component for showing a header depending on page
+ *
+ * @component
+ */
 export default class HeaderLink extends Component {
     render() {
         if (location.pathname === '/vacancies') {

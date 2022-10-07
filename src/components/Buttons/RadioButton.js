@@ -4,6 +4,11 @@ import {
     createText,
 } from '../../framework/core/VDOM/VDOMElement.js';
 
+/**
+ * Component implementing toggle button
+ *
+ * @component
+ */
 export default class RadioButton extends Component {
     render() {
         return createElement(

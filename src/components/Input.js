@@ -4,6 +4,11 @@ import {
     createText,
 } from '../framework/core/VDOM/VDOMElement.js';
 
+/**
+ * Component for showing input
+ *
+ * @component
+ */
 export default class Input extends Component {
     render() {
         return createElement(

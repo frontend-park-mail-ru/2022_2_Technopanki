@@ -9,6 +9,11 @@ import Footer from '../components/Footer.js';
 import Vacancy from '../components/Vacancy.js';
 import { getVacanciesFromServer } from '../services/network/helpers/vacanciesHandler.js';
 
+/**
+ * Component for showing vacancies page
+ *
+ * @component Vaca
+ */
 export default class Vacancies extends Component {
     getVacancy = async () => {
         const response = await getVacanciesFromServer();

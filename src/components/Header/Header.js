@@ -12,6 +12,11 @@ import { LOGOUT_URL, SERVER_URL } from '../../services/network/URLs.js';
 import HeaderInfo from './HeaderInfo.js';
 import HeaderLink from './HeaderLink.js';
 
+/**
+ * Component for showing header
+ *
+ * @component
+ */
 export default class Header extends Component {
     render() {
         return createElement(

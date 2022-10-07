@@ -9,7 +9,7 @@ import Intro from '../components/Intro.js';
 /**
  * Component for showing main page
  *
- * @component
+ * @component 
  */
 export default class Main extends Component {
     render() {

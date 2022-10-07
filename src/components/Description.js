@@ -4,6 +4,11 @@ import {
     createText,
 } from '../framework/core/VDOM/VDOMElement.js';
 
+/**
+ * Component for showing description field
+ *
+ * @component
+ */
 export default class Description extends Component {
     render() {
         return createElement(

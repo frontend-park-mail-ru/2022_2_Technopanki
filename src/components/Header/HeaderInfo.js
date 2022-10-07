@@ -8,6 +8,11 @@ import HeaderAuthorized from './HeaderAuthorized.js';
 import HeaderUnauthorized from './HeaderUnauthorized.js';
 import { userModel } from '../../services/model/userModel.js';
 
+/**
+ * Component checking if user is authorized and showing the header depending on it
+ *
+ * @component
+ */
 export default class HeaderInfo extends Component {
     state = {
         isAuthorized: userModel.isAuthorized,

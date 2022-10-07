@@ -7,6 +7,11 @@ import {
 import Link from '../../framework/router/Link.js';
 import Button from './Button.js';
 
+/**
+ * Component implementing link button
+ *
+ * @component
+ */
 export default class LinkButton extends Component {
     render() {
         return createComponent(Link, {

@@ -5,6 +5,11 @@ import {
 } from '../../framework/core/VDOM/VDOMElement.js';
 import Link from '../../framework/router/Link.js';
 
+/**
+ * Component for showing a header on vacancies page
+ *
+ * @component
+ */
 export default class HeaderVacancies extends Component {
     render() {
         return createElement(

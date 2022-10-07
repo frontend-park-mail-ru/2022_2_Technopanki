@@ -4,6 +4,11 @@ import {
     createElement,
 } from '../framework/core/VDOM/VDOMElement.js';
 
+/**
+ * Component for showing form
+ *
+ * @component
+ */
 export class Menu extends Component {
     render() {
         return createElement(

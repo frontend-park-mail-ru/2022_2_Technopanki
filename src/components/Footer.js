@@ -6,6 +6,11 @@ import {
 } from '../framework/core/VDOM/VDOMElement.js';
 import Link from '../framework/router/Link.js';
 
+/**
+ * Component for showing footer
+ *
+ * @component
+ */
 export default class Footer extends Component {
     render() {
         return createElement(

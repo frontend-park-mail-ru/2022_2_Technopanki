@@ -7,6 +7,11 @@ import { Component } from '../../framework/core/VDOM/component.js';
 import Button from '../Buttons/Button.js';
 import { userModel } from '../../services/model/userModel.js';
 
+/**
+ * Component for showing a header to authorized user
+ *
+ * @component
+ */
 export default class HeaderAuthorized extends Component {
     render() {
         return createElement(

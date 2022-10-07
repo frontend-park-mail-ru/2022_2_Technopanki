@@ -4,6 +4,11 @@ import {
     createText,
 } from '../../framework/core/VDOM/VDOMElement.js';
 
+/**
+ * Component implementing submit button
+ *
+ * @component
+ */
 export default class SubmitButton extends Component {
     render() {
         return createElement(

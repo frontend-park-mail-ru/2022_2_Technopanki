@@ -8,6 +8,11 @@ import Link from '../../framework/router/Link.js';
 import SubmitButton from '../Buttons/SubmitButton.js';
 import LinkButton from '../Buttons/LinkButton.js';
 
+/**
+ * Component for showing a header to unauthorized user
+ *
+ * @component
+ */
 export default class HeaderUnauthorized extends Component {
     render() {
         return createElement(

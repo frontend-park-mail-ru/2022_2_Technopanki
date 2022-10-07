@@ -7,6 +7,11 @@ import {
 import LinkButton from './Buttons/LinkButton.js';
 import { userModel } from '../services/model/userModel.js';
 
+/**
+ * Component for showing main page
+ *
+ * @component
+ */
 export default class Intro extends Component {
     componentWillMount = () => {
         if (userModel.isAuthorized) {

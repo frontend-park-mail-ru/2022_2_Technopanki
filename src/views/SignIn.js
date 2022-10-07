@@ -7,6 +7,11 @@ import SignInForm from '../components/SingIn/SignInForm.js';
 import { Menu } from '../components/Menu.js';
 import Description from '../components/Description.js';
 
+/**
+ * Component for showing sign in page
+ *
+ * @component
+ */
 export default class SignIn extends Component {
     render() {
         return createElement(
