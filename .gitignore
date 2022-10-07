@@ -1,2 +1,9 @@
 /node_modules
 /.idea
+
+*.css
+*.css.map
+/src/state/.DS_Store
+.DS_Store
+src/.DS_Store
+src/**/.DS_Store

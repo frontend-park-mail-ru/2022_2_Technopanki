@@ -1,0 +1,44 @@
+@import "../colors";
+
+.main {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding-top: 50px;
+  @media (max-width: $screen-sm) {
+    padding: 0 16px;
+  }
+  @media (min-width: $screen-sm) {
+    padding: 0 10vw;
+  }
+}
+
+.main__intro {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 602px;
+  gap: 20px;
+}
+
+.main__intro-big {
+  font-size: 48px;
+  font-weight: bold;
+  font-family: Inter, sans-serif;
+  line-height: 44px;
+}
+
+.main__intro-small {
+  font-size: 14px;
+  font-weight: revert;
+  font-family: Inter, sans-serif;
+  line-height: 20px;
+  color: $color-grey-600;
+}
+
+.main__intro-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
