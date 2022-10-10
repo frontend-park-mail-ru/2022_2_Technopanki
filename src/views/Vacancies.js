@@ -7,7 +7,7 @@ import {
 import Header from '../components/Header/Header.js';
 import Footer from '../components/Footer.js';
 import Vacancy from '../components/Vacancy.js';
-import { getVacanciesFromServer } from '../services/network/helpers/vacanciesHandler.js';
+import { getVacanciesFromServer } from '../services/network/handlers/vacanciesHelper.js';
 
 export default class Vacancies extends Component {
     getVacancy = async () => {
@@ -18,7 +18,7 @@ export default class Vacancies extends Component {
         });
     };
 
-    componentWillMount = () => {
+    componentDidMount = () => {
         this.getVacancy();
     };
 

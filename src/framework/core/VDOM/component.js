@@ -30,14 +30,14 @@ export class Component {
     initProps(props) {
         this.props = props;
         this.#rootNode = this.render();
-        setTimeout(() => this.componentWillMount());
+        setTimeout(() => this.componentDidMount());
         return this.#rootNode;
     }
 
     /**
      * Hook that will be called then component is first mounted in DOM
      */
-    componentWillMount = () => {};
+    componentDidMount = () => {};
 
     /**
      * Will be called then component is mounted in DOM.
