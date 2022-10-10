@@ -9,7 +9,7 @@ export const validatePasswordSymbols = password => {
 };
 
 /**
- * Check if 8 < password.length < 20
+ * Check if 8 <= password.length <= 20
  * @param {string} password
  * @returns {boolean}
  */
@@ -29,11 +29,18 @@ export const validateEmail = email => {
 };
 
 /**
- *
  * @param {string} name
  * @returns {boolean}
  */
-export const validateName = name => {
-    const regexp = /^[a-zA-Zа-яА-Я]{3,20}$/;
+export const validateNameLength = name => {
+    return 3 <= name.length && name.length <= 20;
+};
+
+/**
+ * @param {string} name
+ * @returns {boolean}
+ */
+export const validateNameSymbols = name => {
+    const regexp = /^[a-zA-Zа-яА-Я]*$/;
     return regexp.test(name);
 };

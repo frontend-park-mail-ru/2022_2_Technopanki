@@ -10,7 +10,8 @@ import Link from '../../framework/router/Link.js';
 import RadioButton from '../Buttons/RadioButton.js';
 import {
     validateEmail,
-    validateName,
+    validateNameLength,
+    validateNameSymbols,
     validatePasswordLength,
     validatePasswordSymbols,
 } from '../../services/validation/validation.js';
@@ -66,18 +67,34 @@ export default class SignUpForm extends Component {
             setValidInput(e, 'password');
         }
 
-        if (validateName(formData.get('name'))) {
-            setValidInput(e, 'name');
-        } else {
+        if (!validateNameLength(formData.get('name'))) {
             setInvalidInput(e, 'name', NAME_ERROR);
             validFlag = false;
+        } else if (!validateNameSymbols(formData.get('name'))) {
+            setValidInput(e, 'name');
+            setInvalidInput(
+                e,
+                'name',
+                'Имя должно содержать буквы русского или английского алфавита',
+            );
+            validFlag = false;
+        } else {
+            setValidInput(e, 'name');
         }
 
-        if (validateName(formData.get('surname'))) {
-            setValidInput(e, 'surname');
-        } else {
-            setInvalidInput(e, 'surname', SURNAME_ERROR);
+        if (!validateNameLength(formData.get('surname'))) {
+            setInvalidInput(e, 'surname', NAME_ERROR);
             validFlag = false;
+        } else if (!validateNameSymbols(formData.get('surname'))) {
+            setValidInput(e, 'surname');
+            setInvalidInput(
+                e,
+                'surname',
+                'Фамилия должна содержать буквы русского или английского алфавита',
+            );
+            validFlag = false;
+        } else {
+            setValidInput(e, 'surname');
         }
 
         if (!validFlag) {
