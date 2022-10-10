@@ -25,12 +25,10 @@ import { sendSignUpData } from '../../services/network/handlers/signUpHelper.js'
 import { Router } from '../../framework/router/Router.js';
 import {
     EMAIL_ERROR,
-    NAME_ERROR,
     NAME_LENGTH_ERROR,
     NAME_SYMBOLS_ERROR,
     PASSWORD_LENGTH_ERROR,
     PASSWORD_SYMBOLS_ERROR,
-    SURNAME_ERROR,
     SURNAME_LENGTH_ERROR,
     SURNAME_SYMBOLS_ERROR,
 } from '../../services/messages/errorMessages.js';
