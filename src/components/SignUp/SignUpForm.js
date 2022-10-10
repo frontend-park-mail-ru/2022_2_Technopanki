@@ -103,8 +103,8 @@ export default class SignUpForm extends Component {
             setInvalidServerResponse(e, response.body);
         } else {
             userModel.isAuthorized = true;
-            userModel.name = response.body.name;
-            userModel.surname = response.body.surname;
+            userModel.name = formData.get('name');
+            userModel.surname = formData.get('surname');
             Router.render('/vacancies');
         }
     };
