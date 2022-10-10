@@ -1,8 +1,11 @@
 export const EMAIL_ERROR = 'Некорректный email';
+
 export const PASSWORD_SYMBOLS_ERROR =
     'Пароль должен содержать буквы латиницы, цифры и спецсимволы(!#%^$)';
 export const PASSWORD_LENGTH_ERROR =
     'Длина пароля должна быть между 8 и 20 символами';
+export const PASSWORD_REPEAT_ERROR = 'Пароли должны совпадать'
+
 export const NAME_LENGTH_ERROR =
     'Длина имени должна быть между 3 и 20 символами';
 export const SURNAME_LENGTH_ERROR =
