@@ -27,7 +27,7 @@ import {
     EMAIL_ERROR,
     NAME_LENGTH_ERROR,
     NAME_SYMBOLS_ERROR,
-    PASSWORD_LENGTH_ERROR,
+    PASSWORD_LENGTH_ERROR, PASSWORD_REPEAT_ERROR,
     PASSWORD_SYMBOLS_ERROR,
     SURNAME_LENGTH_ERROR,
     SURNAME_SYMBOLS_ERROR,
@@ -67,6 +67,13 @@ export default class SignUpForm extends Component {
             validFlag = false;
         } else {
             setValidInput(e, 'password');
+        }
+
+        if (formData.get('password') !== formData.get('repeat_password')) {
+            setInvalidInput(e, 'repeat_password', PASSWORD_REPEAT_ERROR);
+            validFlag = false;
+        } else {
+            setValidInput(e, 'repeat_password');
         }
 
         if (!validateNameLength(formData.get('name'))) {
@@ -134,6 +141,14 @@ export default class SignUpForm extends Component {
                 label: 'Пароль',
                 inputType: 'password',
                 name: 'password',
+                placeholder: '*********',
+                required: true,
+            }),
+            createComponent(Input, {
+                key: 'password repeat',
+                label: 'Повторите пароль',
+                inputType: 'password',
+                name: 'repeat_password',
                 placeholder: '*********',
                 required: true,
             }),
