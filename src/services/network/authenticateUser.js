@@ -10,7 +10,7 @@ import { NetworkHander } from './NetworkHandler.js';
 export const authenticateUser = async () => {
     const response = await NetworkHander.GET(AUTH_URL);
 
-    return await response.body.then(data => {
+    return await response.json().then(data => {
         if (!data.error) {
             userModel.isAuthorized = true;
             userModel.name = data.name;

@@ -26,9 +26,13 @@ import { Router } from '../../framework/router/Router.js';
 import {
     EMAIL_ERROR,
     NAME_ERROR,
+    NAME_LENGTH_ERROR,
+    NAME_SYMBOLS_ERROR,
     PASSWORD_LENGTH_ERROR,
     PASSWORD_SYMBOLS_ERROR,
     SURNAME_ERROR,
+    SURNAME_LENGTH_ERROR,
+    SURNAME_SYMBOLS_ERROR,
 } from '../../services/messages/errorMessages.js';
 import { userModel } from '../../services/model/userModel.js';
 
@@ -68,30 +72,22 @@ export default class SignUpForm extends Component {
         }
 
         if (!validateNameLength(formData.get('name'))) {
-            setInvalidInput(e, 'name', NAME_ERROR);
+            setInvalidInput(e, 'name', NAME_LENGTH_ERROR);
             validFlag = false;
         } else if (!validateNameSymbols(formData.get('name'))) {
             setValidInput(e, 'name');
-            setInvalidInput(
-                e,
-                'name',
-                'Имя должно содержать буквы русского или английского алфавита',
-            );
+            setInvalidInput(e, 'name', NAME_SYMBOLS_ERROR);
             validFlag = false;
         } else {
             setValidInput(e, 'name');
         }
 
         if (!validateNameLength(formData.get('surname'))) {
-            setInvalidInput(e, 'surname', NAME_ERROR);
+            setInvalidInput(e, 'surname', SURNAME_LENGTH_ERROR);
             validFlag = false;
         } else if (!validateNameSymbols(formData.get('surname'))) {
             setValidInput(e, 'surname');
-            setInvalidInput(
-                e,
-                'surname',
-                'Фамилия должна содержать буквы русского или английского алфавита',
-            );
+            setInvalidInput(e, 'surname', SURNAME_SYMBOLS_ERROR);
             validFlag = false;
         } else {
             setValidInput(e, 'surname');
