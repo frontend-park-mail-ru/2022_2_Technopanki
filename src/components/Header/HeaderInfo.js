@@ -7,6 +7,7 @@ import {
 import HeaderAuthorized from './HeaderAuthorized.js';
 import HeaderUnauthorized from './HeaderUnauthorized.js';
 import { userModel } from '../../services/model/userModel.js';
+import { NetworkHander } from '../../services/network/NetworkHandler.js';
 
 export default class HeaderInfo extends Component {
     state = {
@@ -23,10 +24,7 @@ export default class HeaderInfo extends Component {
             return state;
         });
 
-        fetch(SERVER_URL + LOGOUT_URL, {
-            method: 'POST',
-            credentials: 'include',
-        });
+        NetworkHander.POST(LOGOUT_URL);
     };
 
     render() {

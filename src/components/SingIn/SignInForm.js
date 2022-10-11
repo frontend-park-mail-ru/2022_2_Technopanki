@@ -7,7 +7,7 @@ import {
 import Input from '../Input.js';
 import SubmitButton from '../Buttons/SubmitButton.js';
 import Link from '../../framework/router/Link.js';
-import { sendSignInData } from '../../services/network/helpers/signInHandler.js';
+import { sendSignInData } from '../../services/network/handlers/signInHelper.js';
 import { validateEmail } from '../../services/validation/validation.js';
 import {
     setInvalidInput,
@@ -54,7 +54,7 @@ export default class SignInForm extends Component {
         }
     };
 
-    componentWillMount = () => {
+    componentDidMount = () => {
         if (userModel.isAuthorized) {
             Router.render('/vacancies');
         }
