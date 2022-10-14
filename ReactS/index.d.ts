@@ -7,6 +7,10 @@ declare global {
             [elemName: string]: any; // specify the property name to use
         }
 
+        interface ElementClass {
+            render: any;
+        }
+
         interface ElementAttributesProperty {
             props: PropsType<any>;
         }

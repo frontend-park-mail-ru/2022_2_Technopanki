@@ -1,6 +1,7 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const fs = require('fs')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const fs = require('fs');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: './ReactS/tess.tsx',
@@ -23,11 +24,17 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js'],
+        extensions: ['.d.ts', '.ts', '.tsx', '.js'],
     },
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
     },
+    devtool: 'source-map',
+    plugins: [
+        new CopyPlugin({
+            patterns: ['./server.js'],
+        }),
+    ],
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
 };

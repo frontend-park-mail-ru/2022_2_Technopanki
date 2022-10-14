@@ -1,3 +1,9 @@
-const helloWorld = <h1 className={'Hello'}>Hello world</h1>;
+import Example from './Example';
+
+const helloWorld = (
+    <div>
+        <Example />
+    </div>
+);
 
 console.log(helloWorld);
