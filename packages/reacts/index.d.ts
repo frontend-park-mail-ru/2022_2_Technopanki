@@ -7,67 +7,33 @@
 //
 // VNode API
 // -------------------------------------------------------------------
+import {
+    ChildrenType,
+    ComponentType,
+    PropsType,
+    VNodeType,
+} from '../reacts-dom/common';
 
-import { VNodeType } from '../reacts-dom/common';
-
-/**
- * VDOM type interface
- */
-export interface ReactsElement<P = {}> {
-    $$typeof: Symbol;
-    type: ReactsElementType<P>;
-    props: PropsType<P>;
-    key: Key;
-    ref?: null; // TODO
-    _owner?: null; // TODO
-}
-
-export type ReactsElementType<P = {}, S = {}> = string | ComponentClass<P, S>;
-export type PropsType<P = {}> = P & { children?: ComponentChildren };
-
-export type Key = Symbol | string | number | undefined | null;
-
-export type ComponentChild =
-    | ReactsElement<any>
-    | object
-    | string
-    | number
-    | bigint
-    | boolean
-    | null
-    | undefined;
-
+type ComponentChild = Exclude<ChildrenType, VNodeType[] | VNodeType> &
+    ReactsElement<any>;
 type ComponentChildren = ComponentChild[] | ComponentChild;
 
-//
-// Component API
-// -------------------------------------------------------------------
-
-interface ComponentLifecycle<P, S> {
-    /**
-     * @deprecated
-     */
-    componentWillMount?(): void;
-
-    componentDidMount?(): void;
-    componentWillUnmount?(): void;
-    shouldComponentUpdate?(): boolean;
+export interface ReactsElement<P extends PropsType> extends VNodeType {
+    props: { children: ComponentChildren } & P;
+    _instance?: ComponentClass<P>;
 }
 
-//
-// ComponentClass API
-// -------------------------------------------------------------------
-
-// interface Component<P = {}, S = {}> extends ComponentLifecycle<P, S> {}
-export abstract class ComponentClass<P, S> implements ComponentLifecycle<P, S> {
+export abstract class ComponentClass<P extends PropsType = {}, S = {}> {
     // fields
     readonly props: Readonly<P>;
     state: Readonly<S>;
-    context: unknown;
+    context: unknown; // TODO
+    domRef?: HTMLElement;
+    // refs: {
+    //     [key: string]: ComponentClass<P, S> | Element;
+    // };
 
     // TODO: rework to queue maybe
-    _vnode?: VNodeType;
-    _baseElement?: Element;
 
     // TODO static fields
     static displayName?: string;
@@ -81,7 +47,7 @@ export abstract class ComponentClass<P, S> implements ComponentLifecycle<P, S> {
     // action methods
     setState<K extends keyof S>(
         /** Function for state update */
-        update: (prevState: S, props?: Readonly<P>) => Pick<S, K> | S | null,
+        update: (prevState: S, props?: Readonly<P>) => Pick<S, K> | S,
         callback?: () => void,
     ): void;
     // From https://github.com/DefinitelyTyped/DefinitelyTyped/blob/e836acc75a78cf0655b5dfdbe81d69fdd4d8a252/types/react/index.d.ts#L402
@@ -93,6 +59,8 @@ export abstract class ComponentClass<P, S> implements ComponentLifecycle<P, S> {
     // ): void;
 
     componentDidMount?(): void;
+    componentWillUnmount?(): void;
+    shouldComponentUpdate?(): boolean;
 
-    render(): ReactsElement;
+    render(): ReactsElement<P>;
 }

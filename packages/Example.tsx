@@ -1,7 +1,7 @@
-import { ComponentClass, ReactsElement } from './reacts/index';
+import { ReactsElement } from './reacts/index';
 import { Component } from './reacts/Component';
 
-export default class Example extends Component<any, any> {
+export default class Example extends Component<{}, { counter: number }> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -9,7 +9,7 @@ export default class Example extends Component<any, any> {
         };
     }
 
-    render(): ReactsElement {
+    render(): ReactsElement<{}> {
         return (
             <div className={'div'}>
                 <p className={'counter'}>{`${this.state.counter}`}</p>

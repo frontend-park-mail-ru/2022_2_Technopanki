@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "description": "Проект HeadHunter команды \"Technopanki\"",
   "main": "index.js",
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "config/git/commitizen.js"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon dist/server.js",
@@ -31,6 +39,7 @@
     "babel-loader": "^8.2.5",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.1",
+    "cz-customizable": "^7.0.0",
     "eslint": "8.22.0",
     "esm": "^3.2.25",
     "express": "^4.18.1",

@@ -1,23 +1,23 @@
 import { ComponentClass } from './index';
-import {
-    renderInDomElement,
-    rerenderElement,
-} from '../reacts-dom/render/index';
+import { rerenderComponent } from './renderComponent';
+import { PropsType } from '../reacts-dom/common';
 
-export abstract class Component<P, S> extends ComponentClass<P, S> {
+export class Component<P extends PropsType = {}, S = {}> extends ComponentClass<
+    P,
+    S
+> {
     setState<K extends keyof S>(
-        update: (prevState: S, props?: Readonly<P>) => Pick<S, K> | S | null,
+        update: (prevState: S, props?: Readonly<P>) => Pick<S, K> | S,
         callback?: () => void,
     ) {
         // @ts-ignore
         this.state = update(this.state);
         console.log('setState called');
+
         if (callback) {
             callback();
         }
 
-        // @ts-ignore
-        console.log(this);
-        rerenderElement(this._baseElement, this.render());
+        rerenderComponent(this);
     }
 }

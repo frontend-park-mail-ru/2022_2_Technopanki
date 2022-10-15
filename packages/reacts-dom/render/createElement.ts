@@ -1,4 +1,10 @@
-import { JSXElementType, KeyType, PropsType, VNodeType } from '../common';
+import {
+    ChildrenType,
+    JSXElementType,
+    KeyType,
+    PropsType,
+    VNodeType,
+} from '../common';
 import {
     COMPONENT_ELEMENT_SYMBOL,
     DOM_ELEMENT_SYMBOL,
@@ -13,7 +19,7 @@ import {
  */
 export const createElement = (
     type: JSXElementType,
-    props: PropsType,
+    props: PropsType & { children: ChildrenType },
     maybeKey: KeyType | null | undefined,
 ) => {
     let key = maybeKey;
@@ -34,7 +40,7 @@ export const createElement = (
  */
 export const createVNode = (
     type: JSXElementType,
-    props: PropsType,
+    props: PropsType & { children: ChildrenType },
     key: KeyType,
 ): VNodeType => {
     const vnode = {

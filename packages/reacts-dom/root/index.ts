@@ -1,5 +1,5 @@
 import { VNodeType } from '../common';
-import { renderInDomElement } from '../render/index';
+import { renderNode } from '../render/index';
 
 export interface RootType {
     render(node: VNodeType): void;
@@ -13,7 +13,7 @@ class Root implements RootType {
     }
 
     render(node: VNodeType): void {
-        renderInDomElement(this.root, node);
+        renderNode(this.root, node);
     }
 
     unmount() {}
