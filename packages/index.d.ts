@@ -1,4 +1,4 @@
-import { ComponentChildren, PropsType } from './core/index';
+import { ComponentChildren, PropsType } from './reacts/index';
 
 declare global {
     // https://www.typescriptlang.org/docs/handbook/jsx.html

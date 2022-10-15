@@ -4,7 +4,7 @@ const fs = require('fs');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-    entry: './ReactS/tess.tsx',
+    entry: './packages/tess.tsx',
     module: {
         rules: [
             {
@@ -33,7 +33,7 @@ module.exports = {
     devtool: 'source-map',
     plugins: [
         new CopyPlugin({
-            patterns: ['./server.js'],
+            patterns: ['./server.js', './src/static/index.html'],
         }),
     ],
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
