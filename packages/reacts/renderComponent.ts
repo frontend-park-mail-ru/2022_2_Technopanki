@@ -1,15 +1,30 @@
 import { Component } from './Component';
-import { rerenderElement } from '../reacts-dom/render/index';
+import { rerenderNode } from '../reacts-dom/render/rerenderNode';
+import { COMPONENT_ELEMENT_SYMBOL, DOM_ELEMENT_SYMBOL } from '../shared/index';
 
 export function rerenderComponent(component: Component<any, any>) {
-    console.log(component);
-    if (component.domRef) {
+    if (component.rootDomRef && component.prevRenderVNodeRef) {
         const VDomElement = component.render();
-        VDomElement._instance = component;
-        rerenderElement(component.domRef, VDomElement);
+        if (
+            VDomElement.$$typeof.description ===
+            COMPONENT_ELEMENT_SYMBOL.description
+        ) {
+            VDomElement._instance = component;
+        }
+        console.log(
+            component.rootDomRef,
+            component.prevRenderVNodeRef,
+            VDomElement,
+        );
+        rerenderNode(
+            component.rootDomRef,
+            component.prevRenderVNodeRef,
+            VDomElement,
+        );
+        component.prevRenderVNodeRef = VDomElement;
     } else {
         throw new Error(
-            `domRef = ${component.domRef}; component: ${component}`,
+            `rootDomRef or prevRenderVNodeRef is empty. component: ${component}`,
         );
     }
 }

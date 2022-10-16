@@ -4,11 +4,8 @@ import {
     KeyType,
     PropsType,
     VNodeType,
-} from '../common';
-import {
-    COMPONENT_ELEMENT_SYMBOL,
-    DOM_ELEMENT_SYMBOL,
-} from '../../shared/index';
+} from '../reacts-dom/common';
+import { COMPONENT_ELEMENT_SYMBOL, DOM_ELEMENT_SYMBOL } from '../shared/index';
 
 /**
  * Creates a virtual DOM element (virtual node) for (used for JSX)

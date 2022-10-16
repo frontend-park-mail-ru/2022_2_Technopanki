@@ -1,45 +1,83 @@
-import { ComponentType, PropsType, VNodeType } from '../common';
-import { Operation, Updater } from './index';
-import { replace, skip, update } from './operations';
+import { ChildrenType, ComponentType, PropsType, VNodeType } from '../common';
+import { AttributeUpdater, Operation } from './index';
+import { emptyAttrUpdate, replace, skip, update } from './operations';
 import {
     COMPONENT_ELEMENT_SYMBOL,
     DOM_ELEMENT_SYMBOL,
 } from '../../shared/index';
 import { childrenDiff } from './childrenDiff';
 
+// TODO: add list of attributes
 const compareAttributes = (
     oldNodeProps: PropsType,
     newNodeProps: PropsType,
-): Updater => {
-    const oldNodeKeysWithoutChildren = Object.keys(oldNodeProps).filter(
-        attr => attr !== 'children',
+): AttributeUpdater => {
+    const oldNodeWithoutChildren = Object.entries(oldNodeProps).filter(
+        ([attr, _]) => attr !== 'children',
     );
-    const newNodeKeysWithoutChildren = Object.keys(newNodeProps).filter(
-        attr => attr !== 'children',
+    const newNodeWithoutChildren = Object.entries(newNodeProps).filter(
+        ([attr, _]) => attr !== 'children',
     );
 
+    const oldNodeAttrNames = oldNodeWithoutChildren.map(([attr, _]) => attr);
+    const newNodeAttrNames = newNodeWithoutChildren.map(([attr, _]) => attr);
+
     return {
-        set: newNodeKeysWithoutChildren.filter(
-            attr => Object.keys(oldNodeProps).indexOf(attr) === -1,
+        set: newNodeWithoutChildren.filter(
+            ([attr, _]) => oldNodeAttrNames.indexOf(attr) === -1,
         ),
-        remove: oldNodeKeysWithoutChildren.filter(
-            attr => Object.keys(newNodeProps).indexOf(attr) === -1,
+        remove: oldNodeAttrNames.filter(
+            attr => newNodeAttrNames.indexOf(attr) === -1,
         ),
-        update: newNodeKeysWithoutChildren.filter(
-            attr =>
-                oldNodeProps[attr] !== newNodeProps[attr] &&
-                oldNodeProps[attr] &&
-                newNodeProps[attr],
+        update: newNodeWithoutChildren.filter(
+            ([attr, value]) =>
+                oldNodeAttrNames.indexOf(attr) !== -1 &&
+                oldNodeAttrNames.find(
+                    node => node[0] === attr && node[1] !== value,
+                ),
         ),
     };
 };
 
-const createDiffForComponent = (
-    oldNode: ComponentType,
-    newNode: ComponentType,
+const isPrimitiveTypeChildren = (
+    oldNode: VNodeType,
+    newNode: VNodeType,
+): boolean => {
+    return (
+        (!oldNode.props.children && !oldNode.props.children) ||
+        (typeof oldNode.props.children === 'string' &&
+            typeof newNode.props.children === 'string')
+    );
+};
+
+const comparePrimitiveTypeChildren = (
+    oldNode: VNodeType,
+    newNode: VNodeType,
 ): Operation => {
-    if (oldNode.prototype.constructor) {
+    // If both, oldChildren and newChildren are undefined or null
+    if (!oldNode.props.children && !oldNode.props.children) {
+        return skip();
     }
+
+    console.log(oldNode.props.children, newNode.props.children);
+    if (
+        typeof oldNode.props.children === 'string' &&
+        typeof newNode.props.children === 'string'
+    ) {
+        if (oldNode.props.children === newNode.props.children) {
+            return skip();
+        } else {
+            return update(
+                {
+                    ...emptyAttrUpdate,
+                    update: [['textContent', newNode.props.children]],
+                },
+                [],
+                oldNode,
+            );
+        }
+    }
+
     return skip();
 };
 
@@ -64,7 +102,6 @@ export const createDiff = (
     ) {
         const attrUpdate = compareAttributes(oldNode.props, newNode.props);
 
-        // TODO: rework children diff
         if (
             attrUpdate.set.length == 0 &&
             attrUpdate.remove.length == 0 &&
@@ -74,30 +111,18 @@ export const createDiff = (
             return skip();
         }
 
-        // TODO: refactor. Probably delete VNodeType from ChildrenType
-        // if (
-        //     typeof oldNode.props.children === 'object' &&
-        //     typeof newNode.props.children === 'object' &&
-        //     oldNode.props.children &&
-        //     newNode.props.children
-        // ) {
-        //     if (!Array.isArray(oldNode.props.children)) {
-        //         oldNode.props.children = [oldNode.props.children];
-        //     }
-        //     if (!Array.isArray(newNode.props.children)) {
-        //         newNode.props.children = [newNode.props.children];
-        //     }
-        // }
-
+        if (isPrimitiveTypeChildren(oldNode, newNode)) {
+            return comparePrimitiveTypeChildren(oldNode, newNode);
+        }
         return update(
             attrUpdate,
             childrenDiff(oldNode.props.children, newNode.props.children),
+            oldNode,
         );
     } else if (
         oldNode.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description &&
         newNode.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description
     ) {
-        console.log('component diff');
         if (oldNode._instance !== newNode._instance) {
             return replace(newNode);
         }

@@ -7,12 +7,7 @@
 //
 // VNode API
 // -------------------------------------------------------------------
-import {
-    ChildrenType,
-    ComponentType,
-    PropsType,
-    VNodeType,
-} from '../reacts-dom/common';
+import { ChildrenType, PropsType, VNodeType } from '../reacts-dom/common';
 
 type ComponentChild = Exclude<ChildrenType, VNodeType[] | VNodeType> &
     ReactsElement<any>;
@@ -28,7 +23,9 @@ export abstract class ComponentClass<P extends PropsType = {}, S = {}> {
     readonly props: Readonly<P>;
     state: Readonly<S>;
     context: unknown; // TODO
-    domRef?: HTMLElement;
+
+    rootDomRef?: HTMLElement;
+    prevRenderVNodeRef?: VNodeType;
     // refs: {
     //     [key: string]: ComponentClass<P, S> | Element;
     // };

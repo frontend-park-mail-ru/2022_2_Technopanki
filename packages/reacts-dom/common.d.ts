@@ -4,7 +4,8 @@ export type ConstructorType<T> = new (...args: any[]) => T;
 
 type PropType = Function | string | number | null | undefined;
 export type PropsType = { [key: string]: PropType };
-export type ChildrenType = VNodeType[] | VNodeType | string | null | undefined;
+// TODO: maybe rework to only VNodeType[] | string[] ...
+export type ChildrenType = VNodeType[] | string | null | undefined;
 
 export type VNodeType = {
     $$typeof: Symbol;
@@ -13,6 +14,7 @@ export type VNodeType = {
     key: KeyType;
 
     _instance?: ComponentType;
+    _domElement?: HTMLElement;
 
     // ---------
     // TODO
@@ -27,8 +29,11 @@ export type VNodeType = {
     constructor?: Function;
 };
 
+// TODO: переделать ComponentType и написать функцию конструктор
+//  https://stackoverflow.com/questions/37654840/constructor-provides-no-match-for-signature-new
 export interface ComponentType {
-    domRef?: HTMLElement;
+    rootDomRef?: HTMLElement;
+    prevRenderVNodeRef?: VNodeType;
     // unmout()
     render(): VNodeType;
 }

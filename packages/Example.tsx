@@ -12,12 +12,19 @@ export default class Example extends Component<{}, { counter: number }> {
     render(): ReactsElement<{}> {
         return (
             <div className={'div'}>
-                <p className={'counter'}>{`${this.state.counter}`}</p>
-                <p className={'hello'}>Hello world!</p>
-                <p className={'hello'}>Hello world!</p>
-                <p className={'hello'}>Hello world!</p>
-                <p>Hello world!</p>
+                <p key={1} className={'counter'}>{`${this.state.counter}`}</p>
+                <p key={2} className={'hello'}>
+                    Hello world!
+                </p>
+                <p key={3} className={'hello'}>
+                    Hello world!
+                </p>
+                <p key={4} className={'hello'}>
+                    Hello world!
+                </p>
+                <p key={5}>Hello world!</p>
                 <button
+                    key={6}
                     onclick={() =>
                         this.setState(state => ({
                             ...state,

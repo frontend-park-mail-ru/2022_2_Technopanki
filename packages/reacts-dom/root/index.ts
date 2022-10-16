@@ -1,5 +1,5 @@
 import { VNodeType } from '../common';
-import { renderNode } from '../render/index';
+import { renderNode } from '../render/renderNode';
 
 export interface RootType {
     render(node: VNodeType): void;
@@ -7,8 +7,8 @@ export interface RootType {
 }
 
 class Root implements RootType {
-    root: Element;
-    constructor(root: Element) {
+    root: HTMLElement;
+    constructor(root: HTMLElement) {
         this.root = root;
     }
 
@@ -19,7 +19,7 @@ class Root implements RootType {
     unmount() {}
 }
 
-export function createRoot(root: Element | null): RootType {
+export function createRoot(root: HTMLElement | null): RootType {
     if (!root) {
         throw new Error(`Root element: ${root}`);
     }

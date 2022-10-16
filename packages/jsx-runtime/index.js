@@ -1,5 +1,5 @@
 // TODO: Maybe add default props
-import { createElement } from '../reacts-dom/render/createElement';
+import { createElement } from './createElement';
 
 const jsx = (type, config, maybeKey) => {
     return createElement(type, config, maybeKey);
