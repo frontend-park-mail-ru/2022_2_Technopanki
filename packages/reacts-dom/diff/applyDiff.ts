@@ -57,10 +57,7 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
 
         if (operation.childrenUpdater && operation.oldNode) {
             // @ts-ignore TODO
-            applyChildrenDiff(
-                operation.oldNode._domElement,
-                operation.childrenUpdater,
-            );
+            applyChildrenDiff(element, operation.childrenUpdater);
         }
     }
 

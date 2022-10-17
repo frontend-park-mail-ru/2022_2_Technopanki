@@ -9,25 +9,25 @@ export const rerenderNode = (
     newNode: VNodeType,
 ) => {
     const diff = createDiff(oldNode, newNode);
-    let root = element;
-    console.log(diff);
+    applyDiff(element, diff);
+    // let root = element;
+    // console.log(diff);
+    //
+    // if (diff.type === SKIP_OPERATION) {
+    //     return;
+    // }
+    //
+    // if (diff.type === UPDATE_OPERATION) {
+    //     if (oldNode._domElement) {
+    //         newNode._domElement = oldNode._domElement;
+    //         root = newNode._domElement;
+    //     }
+    //
+    //     const nodesArr: string | any[] | Node = [];
+    //     // @ts-ignore
+    //     console.log(diff);
+    //     applyChildrenDiff(root, diff.childrenUpdater);
 
-    if (diff.type === SKIP_OPERATION) {
-        return;
-    }
-
-    if (diff.type === UPDATE_OPERATION) {
-        if (oldNode._domElement) {
-            newNode._domElement = oldNode._domElement;
-            root = newNode._domElement;
-        }
-
-        const nodesArr: string | any[] | Node = [];
-        // @ts-ignore
-        console.log(diff);
-        applyChildrenDiff(root, diff.childrenUpdater);
-
-        // console.log(nodesArr, element);
-        // element.replaceChildren(...nodesArr);
-    }
+    // console.log(nodesArr, element);
+    // element.replaceChildren(...nodesArr);
 };

@@ -37,12 +37,14 @@ const renderChildren = (element: HTMLElement, children: ChildrenType) => {
 
 const renderComponentFirstTime = (
     root: HTMLElement,
-    constructor: ConstructorType<any>,
+    node: VNodeType & { type: ComponentType },
 ): ComponentType => {
-    const instance = new constructor();
+    const instance = new node.type.prototype.constructor(node.props);
 
     // Set instance fields
+    node._domElement = root;
     instance.rootDomRef = root;
+    console.log(instance.render());
     instance.prevRenderVNodeRef = instance.render();
 
     renderNode(root, instance.prevRenderVNodeRef);
@@ -67,18 +69,6 @@ export const renderNode = (root: HTMLElement, node: VNodeType) => {
     } else if (
         node.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description
     ) {
-        if (node._instance) {
-            if (node._instance.rootDomRef) {
-                renderNode(node._instance.rootDomRef, node._instance.render());
-            } else {
-                throw new Error('node._instance._baseElement is empty');
-            }
-        } else {
-            node._instance = renderComponentFirstTime(
-                root,
-                // @ts-ignore node.type guaranteed to be typeof ComponentType
-                node.type.prototype.constructor,
-            );
-        }
+        renderComponentFirstTime(root, node);
     }
 };

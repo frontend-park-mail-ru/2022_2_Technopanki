@@ -5,6 +5,7 @@ import { COMPONENT_ELEMENT_SYMBOL, DOM_ELEMENT_SYMBOL } from '../shared/index';
 export function rerenderComponent(component: Component<any, any>) {
     if (component.rootDomRef && component.prevRenderVNodeRef) {
         const VDomElement = component.render();
+        console.log(VDomElement);
         if (
             VDomElement.$$typeof.description ===
             COMPONENT_ELEMENT_SYMBOL.description

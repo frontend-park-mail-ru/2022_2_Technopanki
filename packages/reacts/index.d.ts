@@ -38,6 +38,7 @@ export abstract class ComponentClass<P extends PropsType = {}, S = {}> {
 
     // @ts-ignore
     constructor(props: Readonly<P> | P) {
+        console.log('constructor called', props);
         this.props = props;
     }
 

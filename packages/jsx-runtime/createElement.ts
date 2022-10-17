@@ -40,17 +40,21 @@ export const createVNode = (
     props: PropsType & { children: ChildrenType },
     key: KeyType,
 ): VNodeType => {
-    const vnode = {
-        $$typeof: COMPONENT_ELEMENT_SYMBOL,
+    const vnode: VNodeType = {
+        $$typeof: DOM_ELEMENT_SYMBOL,
         type,
         props,
         key,
     };
 
-    if (typeof type === 'string') {
-        vnode['$$typeof'] = DOM_ELEMENT_SYMBOL;
+    if (typeof type !== 'string') {
+        vnode['$$typeof'] = COMPONENT_ELEMENT_SYMBOL;
+        vnode._instance = new vnode.type.prototype.constructor(props);
+        vnode.props.children = vnode._instance?.render();
+        console.log('createElement: ', vnode);
     }
 
+    console.log('JSX: ', vnode);
     return vnode;
 };
 

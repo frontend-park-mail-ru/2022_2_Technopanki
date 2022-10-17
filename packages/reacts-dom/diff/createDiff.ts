@@ -114,6 +114,18 @@ export const createDiff = (
         if (isPrimitiveTypeChildren(oldNode, newNode)) {
             return comparePrimitiveTypeChildren(oldNode, newNode);
         }
+
+        if (
+            !Array.isArray(oldNode.props.children) &&
+            !Array.isArray(newNode.props.children)
+        ) {
+            return update(
+                attrUpdate,
+                [createDiff(oldNode.props.children, newNode.props.children)],
+                oldNode,
+            );
+        }
+
         return update(
             attrUpdate,
             childrenDiff(oldNode.props.children, newNode.props.children),
@@ -123,8 +135,30 @@ export const createDiff = (
         oldNode.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description &&
         newNode.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description
     ) {
-        if (oldNode._instance !== newNode._instance) {
+        console.log('Diff: ', oldNode, newNode);
+        if (oldNode.type !== newNode.type) {
             return replace(newNode);
+        } else {
+            const attrUpdate = compareAttributes(oldNode.props, newNode.props);
+            if (
+                !Array.isArray(oldNode.props.children) &&
+                !Array.isArray(newNode.props.children)
+            ) {
+                return update(
+                    attrUpdate,
+                    [
+                        createDiff(
+                            oldNode.props.children,
+                            newNode.props.children,
+                        ),
+                    ],
+                    oldNode,
+                );
+            }
+            return update(
+                attrUpdate,
+                childrenDiff(oldNode.props.children, newNode.props.children),
+            );
         }
     } else {
         throw new Error(

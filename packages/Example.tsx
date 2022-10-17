@@ -1,18 +1,19 @@
 import { ReactsElement } from './reacts/index';
 import { Component } from './reacts/Component';
 
-export default class Example extends Component<{}, { counter: number }> {
-    constructor(props: any) {
+class NewExample extends Component<{ counter: number; setState: Function }> {
+    constructor(
+        props:
+            | { counter: number; setState: Function }
+            | Readonly<{ counter: number; setState: Function }>,
+    ) {
         super(props);
-        this.state = {
-            counter: 2,
-        };
     }
 
-    render(): ReactsElement<{}> {
+    render() {
         return (
             <div className={'div'}>
-                <p key={1} className={'counter'}>{`${this.state.counter}`}</p>
+                <p key={1} className={'counter'}>{`${this.props.counter}`}</p>
                 <p key={2} className={'hello'}>
                     Hello world!
                 </p>
@@ -23,17 +24,35 @@ export default class Example extends Component<{}, { counter: number }> {
                     Hello world!
                 </p>
                 <p key={5}>Hello world!</p>
-                <button
-                    key={6}
-                    onclick={() =>
+                <button key={6} onclick={this.props.setState}>
+                    Increment
+                </button>
+            </div>
+        );
+    }
+}
+
+export default class Example extends Component<{}, { counter: number }> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            counter: 2,
+        };
+    }
+
+    render(): ReactsElement<{}> {
+        return (
+            <div>
+                <NewExample
+                    counter={this.state.counter}
+                    setState={() => {
+                        console.log('set state called');
                         this.setState(state => ({
                             ...state,
                             counter: state.counter + 1,
-                        }))
-                    }
-                >
-                    Increment
-                </button>
+                        }));
+                    }}
+                />
             </div>
         );
     }
