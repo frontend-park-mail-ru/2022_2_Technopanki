@@ -4,7 +4,7 @@ import {
     KeyType,
     PropsType,
     VNodeType,
-} from '../reacts-dom/common';
+} from '../shared/common';
 import {
     COMPONENT_ELEMENT_SYMBOL,
     DOM_ELEMENT_SYMBOL,
@@ -34,7 +34,7 @@ export const createElement = (
     };
 
     if (vnode.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description) {
-        // @ts-ignore trust me, vnode.type = ComponentConstructor
+        // @ts-ignore vnode.type guaranteed to be typeof ComponentConstructor
         vnode._instance = new vnode.type.prototype.constructor(props);
         vnode.props.children = vnode._instance?.render();
     }

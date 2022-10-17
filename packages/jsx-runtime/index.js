@@ -2,7 +2,6 @@
 import { createElement } from './createElement';
 
 const jsx = (type, config, maybeKey) => {
-    console.log('config: ', config);
     return createElement(type, config, maybeKey);
 };
 

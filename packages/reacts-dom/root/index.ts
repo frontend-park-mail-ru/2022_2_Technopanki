@@ -1,4 +1,4 @@
-import { VNodeType } from '../common';
+import { VNodeType } from '../../shared/common';
 import { renderNode } from '../render/renderNode';
 
 export interface RootType {

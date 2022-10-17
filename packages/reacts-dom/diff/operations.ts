@@ -1,5 +1,5 @@
 import { AttributeUpdater, Operation } from './index';
-import { VNodeType } from '../common';
+import { VNodeType } from '../../shared/common';
 
 export const SKIP_OPERATION = 'skip';
 export const UPDATE_OPERATION = 'update';
@@ -14,12 +14,10 @@ export const skip = (): Operation => ({
 export const update = (
     attrUpdater: AttributeUpdater,
     childrenUpdater: Operation[],
-    oldNode: VNodeType,
 ): Operation => ({
     type: UPDATE_OPERATION,
     attrUpdater,
     childrenUpdater,
-    oldNode,
 });
 
 export const replace = (newNode: VNodeType) => ({

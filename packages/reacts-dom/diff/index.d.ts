@@ -1,4 +1,9 @@
-import { ChildrenType, PropsType, PropType, VNodeType } from '../common';
+import {
+    ChildrenType,
+    PropsType,
+    PropType,
+    VNodeType,
+} from '../../shared/common';
 
 // For algorithms purpose we make Attribute type as tuple
 export type Attribute = [string, PropType];

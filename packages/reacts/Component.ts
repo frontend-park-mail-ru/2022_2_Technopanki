@@ -1,6 +1,6 @@
 import { ComponentClass } from './index';
 import { rerenderComponent } from './renderComponent';
-import { PropsType } from '../reacts-dom/common';
+import { PropsType } from '../shared/common';
 
 export class Component<P extends PropsType = {}, S = {}> extends ComponentClass<
     P,

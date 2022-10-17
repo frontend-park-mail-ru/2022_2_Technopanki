@@ -7,9 +7,14 @@ import {
     UPDATE_OPERATION,
 } from './operations';
 import { setAttributes } from '../render/renderNode';
-import { VNodeType } from '../common';
+import { VNodeType } from '../../shared/common';
 import { createDomElement } from '../utils';
 
+/**
+ * Creates DOM node from node and replaces element with this node
+ * @param element
+ * @param node
+ */
 const replaceElement = (
     element: HTMLElement,
     node: VNodeType & { type: string },
@@ -22,15 +27,14 @@ const replaceElement = (
 const updateElementAttributes = (
     element: HTMLElement,
     operation: Operation & {
-        type: string;
         attrUpdater: AttributeUpdater;
         childrenUpdater: Operation[];
     },
 ) => {
-    // TODO
+    // TODO refactor and add setAttribute maybe
     operation.attrUpdater.set.forEach(
         // @ts-ignore
-        ([attr, value]) => (element[attr] = value),
+        ([attr, value]) => element.setAttribute(attr, value),
     );
     operation.attrUpdater.update.forEach(
         // @ts-ignore
@@ -39,8 +43,16 @@ const updateElementAttributes = (
     operation.attrUpdater.remove.forEach(attr => element.removeAttribute(attr));
 };
 
+const insertElement = (
+    element: HTMLElement,
+    node: VNodeType & { type: string },
+) => {
+    const newElement = document.createElement(node.type);
+    setAttributes(newElement, node.props);
+    element.appendChild(newElement);
+};
+
 export const applyDiff = (element: HTMLElement, operation: Operation) => {
-    console.log(operation);
     if (operation.type === SKIP_OPERATION) {
         return;
     }
@@ -55,10 +67,15 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
         // @ts-ignore trust me, check replace operation in operations.ts
         updateElementAttributes(element, operation);
 
-        if (operation.childrenUpdater && operation.oldNode) {
+        if (operation.childrenUpdater) {
             // @ts-ignore TODO
             applyChildrenDiff(element, operation.childrenUpdater);
         }
+    }
+
+    if (operation.type === INSERT_OPERATION) {
+        // @ts-ignore trust me, check insert operation in operations.ts
+        insertElement(element, operation.node);
     }
 
     return element;

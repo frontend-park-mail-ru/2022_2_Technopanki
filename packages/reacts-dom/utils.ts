@@ -1,4 +1,4 @@
-import { PropType } from './common';
+import { PropType } from '../shared/common';
 import { setAttributes } from './render/renderNode';
 
 export const createDomElement = (

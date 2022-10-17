@@ -7,7 +7,7 @@
 //
 // VNode API
 // -------------------------------------------------------------------
-import { ChildrenType, PropsType, VNodeType } from '../reacts-dom/common';
+import { ChildrenType, PropsType, VNodeType } from '../shared/common';
 
 type ComponentChild = Exclude<ChildrenType, VNodeType[] | VNodeType> &
     ReactsElement<any>;

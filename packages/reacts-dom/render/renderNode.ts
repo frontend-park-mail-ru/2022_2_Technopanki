@@ -5,7 +5,7 @@ import {
     ConstructorType,
     PropsType,
     VNodeType,
-} from '../common';
+} from '../../shared/common';
 import {
     COMPONENT_ELEMENT_SYMBOL,
     DOM_ELEMENT_SYMBOL,

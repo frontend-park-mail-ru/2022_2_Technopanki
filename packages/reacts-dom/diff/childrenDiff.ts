@@ -1,8 +1,15 @@
-import { ChildrenType, KeyType, VNodeType } from '../common';
+import { ChildrenType, KeyType, VNodeType } from '../../shared/common';
 import { Operation } from './index';
 import { emptyAttrUpdate, insert, remove, skip, update } from './operations';
 import { createDiff } from './createDiff';
 
+/**
+ * Adds remove operation to operations and removes elements from oldChildren
+ * until finds children with key
+ * @param operations
+ * @param oldChildren
+ * @param key
+ */
 const removeUntilKey = (
     operations: Operation[],
     oldChildren: [KeyType, VNodeType][],
@@ -14,6 +21,13 @@ const removeUntilKey = (
     }
 };
 
+/**
+ * Adds insert operation to operations and removes elements from oldChildren
+ * until finds children with key
+ * @param operations
+ * @param newChildren
+ * @param key
+ */
 const insertUntilKey = (
     operations: Operation[],
     newChildren: [KeyType, VNodeType][],
@@ -34,62 +48,54 @@ const findNextUpdateKey = (
     const oldChildrenKeys = oldChildrenWithKeys.map(node => node[0]);
     const newChildrenKeys = newChildrenWithKeys.map(node => node[0]);
 
-    // return oldChildrenKeys.find(
-    //     k => newChildrenKeys.map(node => node[0]).indexOf(k[0]) !== -1,
-    // );
-
-    return (
-        oldChildrenKeys.find(
-            k =>
-                // @ts-ignore
-                newChildrenKeys.indexOf(k) !== -1,
-        ) || null
-    );
+    return oldChildrenKeys.find(k => newChildrenKeys.indexOf(k) !== -1) || null;
 };
 
+/**
+ * Compares old and new children
+ * @param oldChildren
+ * @param newChildren
+ * @return - operations to be performed on children
+ */
 export const childrenDiff = (
-    oldChildren: ChildrenType,
-    newChildren: ChildrenType,
+    oldChildren: VNodeType[],
+    newChildren: VNodeType[],
 ): Operation[] => {
     const operations: Operation[] = [];
 
-    if (Array.isArray(oldChildren) && Array.isArray(newChildren)) {
-        const oldChildrenWithKeys = oldChildren.map(
-            (node: VNodeType): [KeyType, VNodeType] => [node.key, node],
-        );
-        const newChildrenWithKeys = newChildren.map(
-            (node: VNodeType): [KeyType, VNodeType] => [node.key, node],
+    const oldChildrenWithKeys = oldChildren.map(
+        (node: VNodeType): [KeyType, VNodeType] => [node.key, node],
+    );
+    const newChildrenWithKeys = newChildren.map(
+        (node: VNodeType): [KeyType, VNodeType] => [node.key, node],
+    );
+
+    let nextUpdateKey = findNextUpdateKey(
+        oldChildrenWithKeys,
+        newChildrenWithKeys,
+    );
+
+    while (nextUpdateKey) {
+        removeUntilKey(operations, oldChildrenWithKeys, nextUpdateKey);
+        insertUntilKey(operations, newChildrenWithKeys, nextUpdateKey);
+
+        operations.push(
+            createDiff(
+                // @ts-ignore guaranteed to be an element
+                oldChildrenWithKeys.shift()[1],
+                // @ts-ignore guaranteed to be an element
+                newChildrenWithKeys.shift()[1],
+            ),
         );
 
-        let nextUpdateKey = findNextUpdateKey(
+        nextUpdateKey = findNextUpdateKey(
             oldChildrenWithKeys,
             newChildrenWithKeys,
         );
-
-        while (nextUpdateKey) {
-            removeUntilKey(operations, oldChildrenWithKeys, nextUpdateKey);
-            insertUntilKey(operations, newChildrenWithKeys, nextUpdateKey);
-
-            operations.push(
-                createDiff(
-                    // @ts-ignore guaranteed to be an element
-                    oldChildrenWithKeys.shift()[1],
-                    // @ts-ignore guaranteed to be an element
-                    newChildrenWithKeys.shift()[1],
-                ),
-            );
-
-            nextUpdateKey = findNextUpdateKey(
-                oldChildrenWithKeys,
-                newChildrenWithKeys,
-            );
-        }
-
-        removeUntilKey(operations, oldChildrenWithKeys, nextUpdateKey);
-        insertUntilKey(operations, newChildrenWithKeys, nextUpdateKey);
-    } else {
-        throw new Error(`not array: ${oldChildren}, ${newChildren}`);
     }
+
+    removeUntilKey(operations, oldChildrenWithKeys, nextUpdateKey);
+    insertUntilKey(operations, newChildrenWithKeys, nextUpdateKey);
 
     return operations;
 };

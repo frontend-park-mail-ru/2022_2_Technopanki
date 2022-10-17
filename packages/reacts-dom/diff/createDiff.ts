@@ -1,6 +1,13 @@
-import { ChildrenType, ComponentType, PropsType, VNodeType } from '../common';
+import { PropsType, VNodeType } from '../../shared/common';
 import { AttributeUpdater, Operation } from './index';
-import { emptyAttrUpdate, replace, skip, update } from './operations';
+import {
+    emptyAttrUpdate,
+    insert,
+    remove,
+    replace,
+    skip,
+    update,
+} from './operations';
 import {
     COMPONENT_ELEMENT_SYMBOL,
     DOM_ELEMENT_SYMBOL,
@@ -54,12 +61,14 @@ const comparePrimitiveTypeChildren = (
     oldNode: VNodeType,
     newNode: VNodeType,
 ): Operation => {
-    // If both, oldChildren and newChildren are undefined or null
-    if (!oldNode.props.children && !oldNode.props.children) {
+    if (!oldNode.props.children && !newNode.props.children) {
         return skip();
+    } else if (!oldNode.props.children && newNode.props.children) {
+        return insert(newNode);
+    } else if (oldNode.props.children && !newNode.props.children) {
+        return remove();
     }
 
-    console.log(oldNode.props.children, newNode.props.children);
     if (
         typeof oldNode.props.children === 'string' &&
         typeof newNode.props.children === 'string'
@@ -73,7 +82,6 @@ const comparePrimitiveTypeChildren = (
                     update: [['textContent', newNode.props.children]],
                 },
                 [],
-                oldNode,
             );
         }
     }
@@ -81,7 +89,15 @@ const comparePrimitiveTypeChildren = (
     return skip();
 };
 
-// TODO: rework
+const updateChild = (
+    attrUpdater: AttributeUpdater,
+    oldChild: VNodeType,
+    newChild: VNodeType,
+): Operation => {
+    return update(attrUpdater, [createDiff(oldChild, newChild)]);
+};
+
+// TODO: refactor
 /**
  * Compares 2 VDom nodes and returns
  * the operation to be performed in the real one on this node in DOM
@@ -102,14 +118,14 @@ export const createDiff = (
     ) {
         const attrUpdate = compareAttributes(oldNode.props, newNode.props);
 
-        if (
-            attrUpdate.set.length == 0 &&
-            attrUpdate.remove.length == 0 &&
-            attrUpdate.update.length == 0 &&
-            oldNode.props.children === newNode.props.children
-        ) {
-            return skip();
-        }
+        // if (Object.values(attrUpdate).length === 0 &&
+        //     attrUpdate.set.length == 0 &&
+        //     attrUpdate.remove.length == 0 &&
+        //     attrUpdate.update.length == 0 &&
+        //     oldNode.props.children === newNode.props.children
+        // ) {
+        //     return skip();
+        // }
 
         if (isPrimitiveTypeChildren(oldNode, newNode)) {
             return comparePrimitiveTypeChildren(oldNode, newNode);
@@ -119,17 +135,25 @@ export const createDiff = (
             !Array.isArray(oldNode.props.children) &&
             !Array.isArray(newNode.props.children)
         ) {
-            return update(
+            return updateChild(
                 attrUpdate,
-                [createDiff(oldNode.props.children, newNode.props.children)],
-                oldNode,
+                // @ts-ignore node.type guaranteed to be typeof VNodeType
+                oldNode.props.children,
+                newNode.props.children,
             );
         }
 
         return update(
             attrUpdate,
-            childrenDiff(oldNode.props.children, newNode.props.children),
-            oldNode,
+            childrenDiff(
+                // @ts-ignore node.type guaranteed to be typeof VNodeType or [VNodeType]
+                Array.isArray(oldNode.props.children)
+                    ? oldNode.props.children
+                    : [oldNode.props.children],
+                Array.isArray(newNode.props.children)
+                    ? newNode.props.children
+                    : [newNode.props.children],
+            ),
         );
     } else if (
         oldNode.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description &&
@@ -144,16 +168,9 @@ export const createDiff = (
                 !Array.isArray(oldNode.props.children) &&
                 !Array.isArray(newNode.props.children)
             ) {
-                return update(
-                    attrUpdate,
-                    [
-                        createDiff(
-                            oldNode.props.children,
-                            newNode.props.children,
-                        ),
-                    ],
-                    oldNode,
-                );
+                return update(attrUpdate, [
+                    createDiff(oldNode.props.children, newNode.props.children),
+                ]);
             }
             return update(
                 attrUpdate,

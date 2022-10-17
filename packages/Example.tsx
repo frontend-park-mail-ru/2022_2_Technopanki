@@ -43,6 +43,7 @@ export default class Example extends Component<{}, { counter: number }> {
     render(): ReactsElement<{}> {
         return (
             <div>
+                <h1 key={'hi'}>Hellllllo world from my app!</h1>
                 <NewExample
                     counter={this.state.counter}
                     setState={() => {
@@ -53,6 +54,9 @@ export default class Example extends Component<{}, { counter: number }> {
                         }));
                     }}
                 />
+                <div key={3} style={'padding: 40px'}>
+                    <p>Some text with padding</p>
+                </div>
             </div>
         );
     }

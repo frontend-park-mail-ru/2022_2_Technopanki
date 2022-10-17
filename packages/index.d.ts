@@ -1,4 +1,4 @@
-import { ComponentChildren, PropsType } from './reacts/index';
+import { ComponentType, PropsType } from './shared/common';
 
 declare global {
     // https://www.typescriptlang.org/docs/handbook/jsx.html
@@ -12,11 +12,11 @@ declare global {
         }
 
         interface ElementAttributesProperty {
-            props: PropsType<any>;
+            props: PropsType;
         }
 
         interface ElementChildrenAttribute {
-            children: ComponentChildren; // specify children name to use
+            children: ComponentType; // specify children name to use
         }
     }
 }
