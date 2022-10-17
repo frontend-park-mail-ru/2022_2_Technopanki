@@ -34,7 +34,7 @@ export const createElement = (
     };
 
     if (vnode.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description) {
-        // @ts-ignore trust me, vnode type = ComponentConstructor
+        // @ts-ignore trust me, vnode.type = ComponentConstructor
         vnode._instance = new vnode.type.prototype.constructor(props);
         vnode.props.children = vnode._instance?.render();
     }

@@ -1,5 +1,6 @@
 import {
     ChildrenType,
+    ComponentConstructor,
     ComponentType,
     ConstructorType,
     PropsType,
@@ -35,16 +36,25 @@ const renderChildren = (element: HTMLElement, children: ChildrenType) => {
     }
 };
 
-const renderComponentFirstTime = (
+const renderDomElement = (node: VNodeType & { type: string }): HTMLElement => {
+    const element = document.createElement(node.type);
+    node._domElement = element;
+
+    setAttributes(element, node.props);
+    renderChildren(element, node.props.children);
+
+    return element;
+};
+
+const renderComponent = (
     root: HTMLElement,
-    node: VNodeType & { type: ComponentType },
+    node: VNodeType & { type: ComponentConstructor },
 ): ComponentType => {
-    const instance = new node.type.prototype.constructor(node.props);
+    const instance = new node.type(node.props);
 
     // Set instance fields
     node._domElement = root;
     instance.rootDomRef = root;
-    console.log(instance.render());
     instance.prevRenderVNodeRef = instance.render();
 
     renderNode(root, instance.prevRenderVNodeRef);
@@ -59,16 +69,11 @@ const renderComponentFirstTime = (
 export const renderNode = (root: HTMLElement, node: VNodeType) => {
     if (node.$$typeof.description === DOM_ELEMENT_SYMBOL.description) {
         // @ts-ignore node.type guaranteed to be typeof string
-        const element = document.createElement(node.type);
-        node._domElement = element;
-
-        setAttributes(element, node.props);
-        renderChildren(element, node.props.children);
-
-        root.appendChild(element);
+        root.appendChild(renderDomElement(node));
     } else if (
         node.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description
     ) {
-        renderComponentFirstTime(root, node);
+        // @ts-ignore node.type guaranteed to be typeof ComponentConstructor
+        renderComponent(root, node);
     }
 };
