@@ -14,6 +14,7 @@ export function rerenderComponent(component: Component<any, any>) {
         }
         rerenderNode(
             component.rootDomRef,
+            // @ts-ignore if we call rerender => we have some prevRenderVNodeRef with DOM element
             component.prevRenderVNodeRef,
             VDomElement,
         );

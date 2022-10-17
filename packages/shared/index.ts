@@ -1,3 +1,11 @@
+export const PROVIDER_TYPE = 'provider';
+export const CONSUMER_TYPE = 'consumer';
+
 export const KEY_SYMBOL = Symbol('key');
-export const DOM_ELEMENT_SYMBOL = Symbol('dom');
-export const COMPONENT_ELEMENT_SYMBOL = Symbol('component');
+
+export const DOM_ELEMENT_SYMBOL = Symbol.for('dom');
+export const COMPONENT_ELEMENT_SYMBOL = Symbol.for('component');
+export const TEMP_ELEMENT_SYMBOL = Symbol.for('temp');
+export const CONTEXT_ELEMENT_SYMBOL = Symbol.for('context');
+export const PROVIDER_ELEMENT_SYMBOL = Symbol.for('provider');
+export const CONSUMER_ELEMENT_SYMBOL = Symbol.for('consumer');

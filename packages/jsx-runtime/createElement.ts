@@ -7,10 +7,21 @@ import {
 } from '../shared/common';
 import {
     COMPONENT_ELEMENT_SYMBOL,
+    CONSUMER_ELEMENT_SYMBOL,
+    CONSUMER_TYPE,
     DOM_ELEMENT_SYMBOL,
     KEY_SYMBOL,
+    PROVIDER_ELEMENT_SYMBOL,
+    PROVIDER_TYPE,
+    TEMP_ELEMENT_SYMBOL,
 } from '../shared/index';
+import { Component } from '../reacts/Component';
+import {
+    ConsumerConstructor,
+    ProviderConstructor,
+} from '../reacts-context/context';
 
+// TODO: refactor and add Fragment
 /**
  * Creates a virtual DOM element - virtual node. Used for JSX
  * @param type
@@ -23,25 +34,38 @@ export const createElement = (
     props: PropsType & { children: ChildrenType },
     maybeKey: KeyType | null | undefined,
 ): VNodeType => {
-    const vnode: VNodeType = {
-        $$typeof:
-            typeof type === 'string'
-                ? DOM_ELEMENT_SYMBOL
-                : COMPONENT_ELEMENT_SYMBOL,
-        type,
-        props,
-        key: !maybeKey ? KEY_SYMBOL : maybeKey,
-    };
+    if (typeof type === 'object') {
+        const vnode: VNodeType = {
+            $$typeof: type.$$typeof,
+            type: type.type,
+            props: { ...type.props, ...props },
+            key: maybeKey ? maybeKey : KEY_SYMBOL,
+        };
 
-    if (vnode.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description) {
+        if (typeof vnode.props.children === 'function') {
+            vnode.props.children = vnode.props.children(vnode.props.value);
+        }
+
+        return vnode;
+    } else if (typeof type === 'string') {
+        return {
+            $$typeof: DOM_ELEMENT_SYMBOL,
+            type,
+            props,
+            key: !maybeKey ? KEY_SYMBOL : maybeKey,
+        };
+    } else {
+        const vnode: VNodeType = {
+            $$typeof: COMPONENT_ELEMENT_SYMBOL,
+            type,
+            props,
+            key: !maybeKey ? KEY_SYMBOL : maybeKey,
+        };
+
         // @ts-ignore vnode.type guaranteed to be typeof ComponentConstructor
-        vnode._instance = new vnode.type.prototype.constructor(props);
+        vnode._instance = new vnode.type(props);
         vnode.props.children = vnode._instance?.render();
+
+        return vnode;
     }
-
-    return vnode;
-};
-
-export const Fragment = (props: PropsType) => {
-    return props.children;
 };

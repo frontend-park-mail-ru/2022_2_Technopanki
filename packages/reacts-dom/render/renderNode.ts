@@ -41,7 +41,9 @@ const renderDomElement = (node: VNodeType & { type: string }): HTMLElement => {
     node._domElement = element;
 
     setAttributes(element, node.props);
-    renderChildren(element, node.props.children);
+    if (node.props.children) {
+        renderChildren(element, node.props.children);
+    }
 
     return element;
 };
@@ -67,13 +69,15 @@ const renderComponent = (
  * @param node
  */
 export const renderNode = (root: HTMLElement, node: VNodeType) => {
-    if (node.$$typeof.description === DOM_ELEMENT_SYMBOL.description) {
+    if (node.$$typeof === DOM_ELEMENT_SYMBOL) {
         // @ts-ignore node.type guaranteed to be typeof string
         root.appendChild(renderDomElement(node));
-    } else if (
-        node.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description
-    ) {
+    } else if (node.$$typeof === COMPONENT_ELEMENT_SYMBOL) {
         // @ts-ignore node.type guaranteed to be typeof ComponentConstructor
         renderComponent(root, node);
+    } else {
+        if (node.props.children) {
+            renderChildren(root, node.props.children);
+        }
     }
 };

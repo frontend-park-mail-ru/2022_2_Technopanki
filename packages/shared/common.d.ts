@@ -1,16 +1,21 @@
 export type KeyType = Symbol | string | number | undefined | null;
-export type JSXElementType = string | ComponentConstructor;
+export type JSXVnodeType = {
+    $$typeof: Symbol;
+    type: string;
+    [key: string]: any;
+};
+export type JSXElementType = string | ComponentConstructor | JSXVnodeType;
 export type ConstructorType<T> = new (...args: any[]) => T;
 
 type PropType = Function | string | number | null | undefined;
-export type PropsType = { [key: string]: PropType };
+export type PropsType = { [key: string]: PropType } | {};
 // TODO: maybe rework to only VNodeType[] | string[] ...
-export type ChildrenType = VNodeType[] | VNodeType | string | null | undefined;
+export type ChildrenType = VNodeType[] | VNodeType | string | null;
 
 export type VNodeType = {
     $$typeof: Symbol;
     type: string | ComponentConstructor;
-    props: { children: ChildrenType } & PropsType;
+    props: { children?: ChildrenType } & PropsType;
     key: KeyType;
 
     _instance?: ComponentType;

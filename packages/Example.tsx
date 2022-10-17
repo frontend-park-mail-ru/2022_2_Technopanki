@@ -1,5 +1,6 @@
 import { ReactsElement } from './reacts/index';
 import { Component } from './reacts/Component';
+import { createContext } from './reacts-context/context';
 
 class NewExample extends Component<{ counter: number; setState: Function }> {
     constructor(
@@ -41,8 +42,16 @@ export default class Example extends Component<{}, { counter: number }> {
     }
 
     render(): ReactsElement<{}> {
+        const Context = createContext<number>(2);
         return (
             <div>
+                <Context.Provider value={this.state.counter}>
+                    <div>
+                        <Context.Consumer>
+                            {(value: number) => <p>{value.toString()}</p>}
+                        </Context.Consumer>
+                    </div>
+                </Context.Provider>
                 <h1 key={'hi'}>Hellllllo world from my app!</h1>
                 <NewExample
                     counter={this.state.counter}

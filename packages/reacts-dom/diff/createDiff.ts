@@ -13,6 +13,7 @@ import {
     DOM_ELEMENT_SYMBOL,
 } from '../../shared/index';
 import { childrenDiff } from './childrenDiff';
+import { createContext } from '../../reacts-context/context';
 
 // TODO: add list of attributes
 const compareAttributes = (
@@ -108,13 +109,13 @@ export const createDiff = (
     oldNode: VNodeType,
     newNode: VNodeType,
 ): Operation => {
-    if (oldNode.$$typeof.description !== newNode.$$typeof.description) {
+    if (oldNode.$$typeof !== newNode.$$typeof) {
         return replace(newNode);
     }
 
     if (
-        oldNode.$$typeof.description === DOM_ELEMENT_SYMBOL.description &&
-        newNode.$$typeof.description === DOM_ELEMENT_SYMBOL.description
+        oldNode.$$typeof === DOM_ELEMENT_SYMBOL &&
+        newNode.$$typeof === DOM_ELEMENT_SYMBOL
     ) {
         const attrUpdate = compareAttributes(oldNode.props, newNode.props);
 
@@ -178,9 +179,7 @@ export const createDiff = (
             );
         }
     } else {
-        throw new Error(
-            `Undefined type of node: ${oldNode.$$typeof}, ${newNode.$$typeof}`,
-        );
+        return createDiff(oldNode.props.children, newNode.props.children);
     }
 
     return skip();
