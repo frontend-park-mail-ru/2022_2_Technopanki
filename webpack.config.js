@@ -2,7 +2,7 @@ const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-    entry: './packages/tess.tsx',
+    entry: './src/App.tsx',
     module: {
         rules: [
             {

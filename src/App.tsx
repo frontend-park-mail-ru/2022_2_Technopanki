@@ -1,5 +1,5 @@
-import { Component } from './packages/reacts/Component.js';
-import { createRoot } from './packages/reacts-dom/root/index.js';
+import { Component } from './packages/reacts/Component';
+import { createRoot } from './packages/reacts-dom/root/index';
 
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
@@ -12,21 +12,40 @@ import { createRoot } from './packages/reacts-dom/root/index.js';
 //
 // authenticateUser().then(() => Router.render(location.pathname));
 
-class Header extends Component {
+class Header extends Component<{ count: number }> {
+    constructor(props: { count: number }) {
+        super(props);
+    }
     render() {
-        <header style={'display: flex, flex-direction: row'}>
-            <p>Item 1</p>
-            <p>Item 2</p>
-        </header>;
+        // TODO: fix bug with <p>Item: ${this.props.count.toString()}</p>
+        // сейчас он возвращает массив, и поэтому на проверке в renderChildren в
+        // renderNode.ts не проходит проверку и падает с ошибкой
+        return (
+            <header class={'main__header'}>
+                <p>{`Item: ${this.props.count.toString()}`}</p>
+                <p>Item 2</p>
+            </header>
+        );
     }
 }
 
-class App extends Component {
+class App extends Component<{}, { count: number }> {
+    state = {
+        count: 0,
+    };
+
     render() {
         return (
-            <div>
-                <Header />
+            <div class={'main'}>
+                <Header count={this.state.count} />
                 <h1>Hello world!</h1>
+                <button
+                    onclick={() =>
+                        this.setState(state => ({ count: state.count + 1 }))
+                    }
+                >
+                    Increment button
+                </button>
             </div>
         );
     }

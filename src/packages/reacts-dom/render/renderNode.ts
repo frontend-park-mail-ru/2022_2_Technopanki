@@ -2,7 +2,6 @@ import {
     ChildrenType,
     ComponentConstructor,
     ComponentType,
-    ConstructorType,
     PropsType,
     VNodeType,
 } from '../../shared/common';
@@ -21,11 +20,12 @@ export const setAttributes = (element: HTMLElement, props: PropsType) => {
     }
 };
 
+// Здесь пофиксить баг с <p>Item {this.props.someData}</p>
 const renderChildren = (element: HTMLElement, children: ChildrenType) => {
     if (children) {
         if (typeof children === 'string') {
             element.innerText = children;
-        } else if (children.constructor === Array) {
+        } else if (Array.isArray(children)) {
             children.forEach((node: VNodeType) => {
                 renderNode(element, node);
             });

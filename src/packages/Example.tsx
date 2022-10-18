@@ -1,4 +1,4 @@
-import { ReactsElement } from './reacts/index';
+import { ReactsElement } from './reacts';
 import { Component } from './reacts/Component';
 import { createContext } from './reacts-context/context';
 
