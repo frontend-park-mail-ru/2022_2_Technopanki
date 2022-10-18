@@ -21,7 +21,7 @@ class Header extends Component<{ count: number }> {
         // сейчас он возвращает массив, и поэтому на проверке в renderChildren в
         // renderNode.ts не проходит проверку и падает с ошибкой
         return (
-            <header class={'main__header'}>
+            <header className={'main__header'}>
                 <p>{`Item: ${this.props.count.toString()}`}</p>
                 <p>Item 2</p>
             </header>
@@ -36,7 +36,7 @@ class App extends Component<{}, { count: number }> {
 
     render() {
         return (
-            <div class={'main'}>
+            <div className={'main'}>
                 <Header count={this.state.count} />
                 <h1>Hello world!</h1>
                 <button
