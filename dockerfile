@@ -1,4 +1,4 @@
-FROM node:16-alpine AS builder
+FROM node:alpine AS builder
 
 WORKDIR /app
 RUN mkdir "dist"
@@ -10,8 +10,8 @@ RUN npm run build
 FROM node:alpine
 WORKDIR /app
 
-COPY --from=builder /app/dist /app
-RUN npm install express -g
+COPY --from=builder /app/dist .
+RUN npm install express
 
 EXPOSE 8000
 

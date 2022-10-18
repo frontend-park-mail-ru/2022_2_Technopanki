@@ -1,15 +1,11 @@
-// Copied from: https://habr.com/ru/company/yandex/blog/431432/
-
 'use strict';
 
 module.exports = {
-    // Добавим описание на русском языке ко всем типам
     types: [
         {
             value: 'build',
             name: 'build:     Сборка проекта или изменения внешних зависимостей',
         },
-        { value: 'ci', name: 'ci:        Настройка CI и работа со скриптами' },
         { value: 'docs', name: 'docs:      Обновление документации' },
         { value: 'feat', name: 'feat:      Добавление нового функционала' },
         { value: 'fix', name: 'fix:       Исправление ошибок' },
@@ -32,21 +28,14 @@ module.exports = {
     // Область. Она характеризует фрагмент кода, которую затронули изменения
     scopes: [
         { name: 'components' },
-        { name: 'tutorial' },
-        { name: 'catalog' },
-        { name: 'product' },
+        { name: 'views' },
+        { name: 'services' },
+        { name: 'server' },
+        { name: 'reacts library' },
+        { name: 'git' },
+        { name: 'configs' },
+        { name: 'docker' },
     ],
-
-    // Возможность задать спец ОБЛАСТЬ для определенного типа коммита (пример для 'fix')
-    /*
-  scopeOverrides: {
-    fix: [
-      {name: 'style'},
-      {name: 'e2eTest'},
-      {name: 'unitTest'}
-    ]
-  },
-  */
 
     // Поменяем дефолтные вопросы
     messages: {
@@ -56,20 +45,11 @@ module.exports = {
         customScope: 'Укажите свою ОБЛАСТЬ:',
         subject: 'Напишите КОРОТКОЕ описание в ПОВЕЛИТЕЛЬНОМ наклонении:\n',
         body: 'Напишите ПОДРОБНОЕ описание (опционально). Используйте "|" для новой строки:\n',
-        breaking: 'Список BREAKING CHANGES (опционально):\n',
-        footer: 'Место для мета данных (тикетов, ссылок и остального). Например: SECRETMRKT-700, SECRETMRKT-800:\n',
         confirmCommit: 'Вас устраивает получившийся коммит?',
     },
 
     // Разрешим собственную ОБЛАСТЬ
     allowCustomScopes: true,
 
-    // Запрет на Breaking Changes
-    allowBreakingChanges: false,
-
-    // Префикс для нижнего колонтитула
-    footerPrefix: 'МЕТА ДАННЫЕ:',
-
-    // limit subject length
     subjectLimit: 120,
 };

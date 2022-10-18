@@ -15,7 +15,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon dist/server.js",
     "build": "NODE_ENV='production' webpack",
-    "sass": "sass --watch src/styles/sass/style.scss:src/styles/css/style.css"
+    "sass": "sass --watch src/styles/sass/style.scss:src/styles/css/style.css",
+    "watch": "./node_modules/.bin/webpack --watch --config webpack.dev.js"
   },
   "repository": {
     "type": "git",
