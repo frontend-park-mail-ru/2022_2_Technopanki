@@ -170,15 +170,25 @@ export const createDiff = (
                 !Array.isArray(newNode.props.children)
             ) {
                 return update(attrUpdate, [
+                    // @ts-ignore children guaranteed not to be undefined (checked in isPrimitiveTypeChildren)
                     createDiff(oldNode.props.children, newNode.props.children),
                 ]);
             }
             return update(
                 attrUpdate,
-                childrenDiff(oldNode.props.children, newNode.props.children),
+                childrenDiff(
+                    // @ts-ignore node.type guaranteed to be typeof VNodeType or [VNodeType]
+                    Array.isArray(oldNode.props.children)
+                        ? oldNode.props.children
+                        : [oldNode.props.children],
+                    Array.isArray(newNode.props.children)
+                        ? newNode.props.children
+                        : [newNode.props.children],
+                ),
             );
         }
     } else {
+        // @ts-ignore TODO: for now just return diff from children
         return createDiff(oldNode.props.children, newNode.props.children);
     }
 

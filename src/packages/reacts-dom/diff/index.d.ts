@@ -8,7 +8,6 @@ import {
 // For algorithms purpose we make Attribute type as tuple
 export type Attribute = [string, PropType];
 
-// TODO create attr type
 export interface AttributeUpdater {
     remove: string[];
     set: Attribute[];

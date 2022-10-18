@@ -14,7 +14,7 @@ import {
     PROVIDER_ELEMENT_SYMBOL,
     PROVIDER_TYPE,
     TEMP_ELEMENT_SYMBOL,
-} from '../shared/index';
+} from '../shared';
 import { Component } from '../reacts/Component';
 import {
     ConsumerConstructor,

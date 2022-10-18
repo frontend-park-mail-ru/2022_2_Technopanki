@@ -8,6 +8,7 @@ import {
     PROVIDER_TYPE,
 } from '../shared/index';
 
+// TODO: refactor
 export function ProviderConstructor<T extends PropType>(
     defaultValue: T,
 ): Provider<T> {
