@@ -13,6 +13,12 @@ import {
     getUniqueSymbol,
 } from '../shared/index';
 
+/**
+ * Creates virtual dom node from object in a type
+ * @param type
+ * @param props
+ * @param maybeKey
+ */
 const createNodeFromObject = (
     type: JSXVnodeType,
     props: PropsType & { children: ChildrenType },
@@ -33,6 +39,12 @@ const createNodeFromObject = (
     return vnode;
 };
 
+/**
+ * Creates virtual dom node from Component in a type
+ * @param type
+ * @param props
+ * @param maybeKey
+ */
 const createComponentNode = (
     type: ComponentConstructor,
     props: PropsType & { children: ChildrenType },
@@ -52,6 +64,12 @@ const createComponentNode = (
     return vnode;
 };
 
+/**
+ * Creates virtual dom node from type of DOM node in a type
+ * @param type
+ * @param props
+ * @param maybeKey
+ */
 const createDomNode = (
     type: string,
     props: PropsType & { children: ChildrenType },
@@ -65,6 +83,12 @@ const createDomNode = (
     };
 };
 
+/**
+ * Creates virtual dom node from type of text DOM node in a type
+ * @param type
+ * @param props
+ * @param maybeKey
+ */
 const createTextNode = (
     type: string,
     props: PropsType & { children: ChildrenType },

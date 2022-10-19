@@ -22,6 +22,10 @@ module.exports = {
             value: 'style',
             name: 'style:     Правки по кодстайлу (табы, отступы, точки, запятые и т.д.)',
         },
+        {
+            value: 'JSDoc',
+            name: 'JSDoc:   Добавления JSDoc в файлы',
+        },
         { value: 'test', name: 'test:      Добавление тестов' },
     ],
 
