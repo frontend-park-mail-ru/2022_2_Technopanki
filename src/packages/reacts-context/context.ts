@@ -3,10 +3,10 @@ import { PropType } from '../shared/common';
 import {
     CONSUMER_ELEMENT_SYMBOL,
     CONSUMER_TYPE,
-    KEY_SYMBOL,
+    getUniqueSymbol,
     PROVIDER_ELEMENT_SYMBOL,
     PROVIDER_TYPE,
-} from '../shared';
+} from '../shared/index';
 
 // TODO: refactor
 export function ProviderConstructor<T extends PropType>(
@@ -15,7 +15,7 @@ export function ProviderConstructor<T extends PropType>(
     return {
         $$typeof: PROVIDER_ELEMENT_SYMBOL,
         type: PROVIDER_TYPE,
-        key: KEY_SYMBOL,
+        key: getUniqueSymbol(),
         props: { value: defaultValue },
         // _consumers: consumers,
     };
@@ -28,7 +28,7 @@ export function ConsumerConstructor<T extends PropType>(
     return {
         $$typeof: CONSUMER_ELEMENT_SYMBOL,
         type: CONSUMER_TYPE,
-        key: KEY_SYMBOL,
+        key: getUniqueSymbol(),
         props: { value: defaultValue },
         _provider: provider,
     };

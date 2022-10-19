@@ -1,7 +1,7 @@
 export const PROVIDER_TYPE = 'provider';
 export const CONSUMER_TYPE = 'consumer';
 
-export const KEY_SYMBOL = Symbol('key');
+export const getUniqueSymbol = () => Symbol('key');
 
 export const DOM_ELEMENT_SYMBOL = Symbol.for('dom');
 export const COMPONENT_ELEMENT_SYMBOL = Symbol.for('component');

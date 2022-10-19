@@ -6,6 +6,9 @@ export const createDomElement = (
     attributes: { [key: string]: PropType },
 ): HTMLElement => {
     const element = document.createElement(tagName);
+    if (typeof attributes.children === 'string') {
+        element.innerText = attributes.children;
+    }
     setAttributes(element, attributes);
     return element;
 };

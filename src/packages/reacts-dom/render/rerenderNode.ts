@@ -8,6 +8,7 @@ export const rerenderNode = (
     newNode: VNodeType,
 ) => {
     const diff = createDiff(oldNode, newNode);
+    console.log(diff);
     applyDiff(oldNode._domElement, diff);
     newNode._domElement = oldNode._domElement;
 };

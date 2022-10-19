@@ -106,6 +106,7 @@ export const createDiff = (
     oldNode: VNodeType,
     newNode: VNodeType,
 ): Operation => {
+    console.log(oldNode, newNode);
     if (oldNode.$$typeof !== newNode.$$typeof) {
         return replace(newNode);
     }

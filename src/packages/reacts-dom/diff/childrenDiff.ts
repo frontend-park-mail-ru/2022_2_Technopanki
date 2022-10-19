@@ -48,7 +48,7 @@ const findNextUpdateKey = (
     const oldChildrenKeys = oldChildrenWithKeys.map(node => node[0]);
     const newChildrenKeys = newChildrenWithKeys.map(node => node[0]);
 
-    return oldChildrenKeys.find(k => newChildrenKeys.indexOf(k) !== -1) || null;
+    return newChildrenKeys.find(k => oldChildrenKeys.indexOf(k) !== -1) || null;
 };
 
 /**
@@ -61,6 +61,7 @@ export const childrenDiff = (
     oldChildren: VNodeType[],
     newChildren: VNodeType[],
 ): Operation[] => {
+    console.log('ch');
     const operations: Operation[] = [];
 
     const oldChildrenWithKeys = oldChildren.map(

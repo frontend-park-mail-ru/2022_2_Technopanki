@@ -27,7 +27,11 @@ const renderChildren = (element: HTMLElement, children: ChildrenType) => {
             element.innerText = children;
         } else if (Array.isArray(children)) {
             children.forEach((node: VNodeType) => {
-                renderNode(element, node);
+                if (Array.isArray(node)) {
+                    renderChildren(element, node);
+                } else {
+                    renderNode(element, node);
+                }
             });
         } else {
             // @ts-ignore we checked if node,props.children is VNodeType[]

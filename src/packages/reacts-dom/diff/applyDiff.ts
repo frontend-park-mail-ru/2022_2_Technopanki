@@ -81,6 +81,7 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
     return element;
 };
 
+// TODO: refactor
 export const applyChildrenDiff = (
     element: HTMLElement,
     diffOperations: Operation[],
@@ -94,14 +95,19 @@ export const applyChildrenDiff = (
         const childElem = element.childNodes[i + offset];
 
         if (childUpdater.type === INSERT_OPERATION) {
-            childElem.appendChild(
-                createDomElement(
-                    // @ts-ignore trust me, check insert operation in operations.ts
-                    childUpdater.node.type,
-                    // @ts-ignore trust me, check insert operation in operations.ts
-                    childUpdater.node.props,
-                ),
-            );
+            if (Array.isArray(childUpdater.node)) {
+                applyChildrenDiff(element, childUpdater.node);
+            } else {
+                element.insertBefore(
+                    createDomElement(
+                        // @ts-ignore trust me, check insert operation in operations.ts
+                        childUpdater.node.type,
+                        // @ts-ignore trust me, check insert operation in operations.ts
+                        childUpdater.node.props,
+                    ),
+                    childElem,
+                );
+            }
             continue;
         }
 

@@ -5,7 +5,7 @@ export const SKIP_OPERATION = 'skip';
 export const UPDATE_OPERATION = 'update';
 export const REPLACE_OPERATION = 'replace';
 export const REMOVE_OPERATION = 'remove';
-export const INSERT_OPERATION = 'append';
+export const INSERT_OPERATION = 'insert';
 
 export const skip = (): Operation => ({
     type: SKIP_OPERATION,
@@ -29,7 +29,7 @@ export const remove = () => ({
     type: REMOVE_OPERATION,
 });
 
-export const insert = (node: VNodeType) => ({
+export const insert = (node: VNodeType | VNodeType[]) => ({
     type: INSERT_OPERATION,
     node,
 });

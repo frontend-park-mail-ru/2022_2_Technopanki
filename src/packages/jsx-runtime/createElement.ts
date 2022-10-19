@@ -10,16 +10,11 @@ import {
     CONSUMER_ELEMENT_SYMBOL,
     CONSUMER_TYPE,
     DOM_ELEMENT_SYMBOL,
-    KEY_SYMBOL,
+    getUniqueSymbol,
     PROVIDER_ELEMENT_SYMBOL,
     PROVIDER_TYPE,
     TEMP_ELEMENT_SYMBOL,
-} from '../shared';
-import { Component } from '../reacts/Component';
-import {
-    ConsumerConstructor,
-    ProviderConstructor,
-} from '../reacts-context/context';
+} from '../shared/index';
 
 // TODO: refactor and add Fragment
 /**
@@ -34,12 +29,26 @@ export const createElement = (
     props: PropsType & { children: ChildrenType },
     maybeKey: KeyType | null | undefined,
 ): VNodeType => {
+    console.log('hello');
+    if (Array.isArray(props.children)) {
+        const newChildren: ChildrenType = [];
+        props.children.forEach(elem => {
+            if (Array.isArray(elem)) {
+                elem.forEach(item => {
+                    newChildren.push(item);
+                });
+            } else {
+                newChildren.push(elem);
+            }
+        });
+        props.children = newChildren;
+    }
     if (typeof type === 'object') {
         const vnode: VNodeType = {
             $$typeof: type.$$typeof,
             type: type.type,
             props: { ...type.props, ...props },
-            key: maybeKey ? maybeKey : KEY_SYMBOL,
+            key: maybeKey ? maybeKey : getUniqueSymbol(),
         };
 
         if (typeof vnode.props.children === 'function') {
@@ -52,14 +61,14 @@ export const createElement = (
             $$typeof: DOM_ELEMENT_SYMBOL,
             type,
             props,
-            key: !maybeKey ? KEY_SYMBOL : maybeKey,
+            key: !maybeKey ? getUniqueSymbol() : maybeKey,
         };
     } else {
         const vnode: VNodeType = {
             $$typeof: COMPONENT_ELEMENT_SYMBOL,
             type,
             props,
-            key: !maybeKey ? KEY_SYMBOL : maybeKey,
+            key: !maybeKey ? getUniqueSymbol() : maybeKey,
         };
 
         // @ts-ignore vnode.type guaranteed to be typeof ComponentConstructor

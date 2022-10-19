@@ -29,22 +29,51 @@ class Header extends Component<{ count: number }> {
     }
 }
 
-class App extends Component<{}, { count: number }> {
+class App extends Component<{}, { data: { name: string }[] }> {
     state = {
-        count: 0,
+        data: [
+            {
+                name: 'hello world',
+            },
+            {
+                name: 'hello world',
+            },
+            {
+                name: 'hello world',
+            },
+            {
+                name: 'hello world',
+            },
+        ],
     };
 
     render() {
         return (
             <div className={'main'}>
-                <Header count={this.state.count} />
-                <h1>Hello world!</h1>
+                {this.state.data.map((item, index) => (
+                    <p key={index.toString()}>{item.name}</p>
+                ))}
                 <button
+                    key={'button'}
                     onclick={() =>
-                        this.setState(state => ({ count: state.count + 1 }))
+                        this.setState(state => {
+                            state.data.push({ name: 'New item' });
+                            return state;
+                        })
                     }
                 >
-                    Increment button
+                    Add item to list
+                </button>
+                <button
+                    key={'delete'}
+                    onclick={() =>
+                        this.setState(state => {
+                            state.data.shift();
+                            return state;
+                        })
+                    }
+                >
+                    Delete last line
                 </button>
             </div>
         );
