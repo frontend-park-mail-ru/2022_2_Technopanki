@@ -8,11 +8,18 @@ import {
     skip,
     update,
 } from './operations';
-import { COMPONENT_ELEMENT_SYMBOL, DOM_ELEMENT_SYMBOL } from '../../shared';
+import {
+    COMPONENT_ELEMENT_SYMBOL,
+    DOM_ELEMENT_SYMBOL,
+} from '../../shared/index';
 import { childrenDiff } from './childrenDiff';
-import { createContext } from '../../reacts-context/context';
 
 // TODO: add list of attributes
+/**
+ * A function that looks for which attributes to add, remove or change
+ * @param oldNodeProps
+ * @param newNodeProps
+ */
 const compareAttributes = (
     oldNodeProps: PropsType,
     newNodeProps: PropsType,
@@ -88,6 +95,12 @@ const comparePrimitiveTypeChildren = (
     return skip();
 };
 
+/**
+ * Helper function for updating children
+ * @param attrUpdater
+ * @param oldChild
+ * @param newChild
+ */
 const updateChild = (
     attrUpdater: AttributeUpdater,
     oldChild: VNodeType,
@@ -107,7 +120,6 @@ export const createDiff = (
     oldNode: VNodeType,
     newNode: VNodeType,
 ): Operation => {
-    console.log(oldNode, newNode);
     if (oldNode.$$typeof !== newNode.$$typeof) {
         return replace(newNode);
     }
@@ -117,15 +129,6 @@ export const createDiff = (
         newNode.$$typeof === DOM_ELEMENT_SYMBOL
     ) {
         const attrUpdate = compareAttributes(oldNode.props, newNode.props);
-
-        // if (Object.values(attrUpdate).length === 0 &&
-        //     attrUpdate.set.length == 0 &&
-        //     attrUpdate.remove.length == 0 &&
-        //     attrUpdate.update.length == 0 &&
-        //     oldNode.props.children === newNode.props.children
-        // ) {
-        //     return skip();
-        // }
 
         if (isPrimitiveTypeChildren(oldNode, newNode)) {
             return comparePrimitiveTypeChildren(oldNode, newNode);
@@ -160,7 +163,6 @@ export const createDiff = (
         oldNode.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description &&
         newNode.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description
     ) {
-        console.log('Diff: ', oldNode, newNode);
         if (oldNode.type !== newNode.type) {
             return replace(newNode);
         } else {
@@ -172,8 +174,8 @@ export const createDiff = (
                 return update(
                     attrUpdate,
                     [
-                        // @ts-ignore children guaranteed not to be undefined (checked in isPrimitiveTypeChildren)
                         createDiff(
+                            // @ts-ignore children guaranteed not to be undefined (checked in isPrimitiveTypeChildren)
                             oldNode.props.children,
                             newNode.props.children,
                         ),

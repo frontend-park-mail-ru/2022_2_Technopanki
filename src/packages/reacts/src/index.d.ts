@@ -4,7 +4,12 @@
 // React src
 // https://github.com/facebook/react/tree/main/packages/react
 
-import { ChildrenType, PropsType, PropType, VNodeType } from '../shared/common';
+import {
+    ChildrenType,
+    PropsType,
+    PropType,
+    VNodeType,
+} from '../../shared/common';
 
 type ComponentChildren =
     | Exclude<ChildrenType, VNodeType[] | VNodeType>

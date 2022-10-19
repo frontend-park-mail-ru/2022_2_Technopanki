@@ -61,7 +61,6 @@ export const childrenDiff = (
     oldChildren: VNodeType[],
     newChildren: VNodeType[],
 ): Operation[] => {
-    console.log('ch');
     const operations: Operation[] = [];
 
     const oldChildrenWithKeys = oldChildren.map(

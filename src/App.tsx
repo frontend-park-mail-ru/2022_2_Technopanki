@@ -1,4 +1,4 @@
-import { Component } from './packages/reacts/Component';
+import { Component } from './packages/reacts/src/Component';
 import { createRoot } from './packages/reacts-dom/root/index';
 
 // Router.addRoutePath('/', Main);

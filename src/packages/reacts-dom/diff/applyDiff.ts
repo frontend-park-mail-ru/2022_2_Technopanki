@@ -1,6 +1,5 @@
 import { AttributeUpdater, Operation } from './index';
 import {
-    insert,
     INSERT_OPERATION,
     REMOVE_OPERATION,
     REPLACE_OPERATION,
@@ -9,9 +8,10 @@ import {
 } from './operations';
 import { setAttributes } from '../render/renderNode';
 import { VNodeType } from '../../shared/common';
-import { createDomElement } from '../utils';
-import { COMPONENT_ELEMENT_SYMBOL, DOM_ELEMENT_SYMBOL } from '../../shared';
-import { childrenDiff } from './childrenDiff';
+import {
+    COMPONENT_ELEMENT_SYMBOL,
+    DOM_ELEMENT_SYMBOL,
+} from '../../shared/index';
 
 /**
  * Creates DOM node from node and replaces element with this node
@@ -21,19 +21,24 @@ import { childrenDiff } from './childrenDiff';
 const replaceElement = (
     element: HTMLElement,
     node: VNodeType & { type: string },
-) => {
+): void => {
     const newElement = document.createElement(node.type);
     setAttributes(newElement, node.props);
     element.replaceWith(newElement);
 };
 
+/**
+ * Updates attributes of HTML element
+ * @param element
+ * @param operation
+ */
 const updateElementAttributes = (
     element: HTMLElement,
     operation: Operation & {
         attrUpdater: AttributeUpdater;
         childrenUpdater: Operation[];
     },
-) => {
+): void => {
     // TODO refactor and add setAttribute maybe
     operation.attrUpdater.set.forEach(
         // @ts-ignore
@@ -46,33 +51,39 @@ const updateElementAttributes = (
     operation.attrUpdater.remove.forEach(attr => element.removeAttribute(attr));
 };
 
+const insertChildren = (
+    element: HTMLElement,
+    children: VNodeType | VNodeType[],
+    beforeElement: HTMLElement | null = null,
+) => {
+    Array.isArray(children)
+        ? children.forEach(child =>
+              insertElement(element, child, beforeElement),
+          )
+        : insertElement(element, children, beforeElement);
+};
+
 const insertElement = (
     element: HTMLElement,
     node: VNodeType,
-    beforeElement: HTMLElement | null,
+    beforeElement: HTMLElement | null = null,
 ) => {
     if (node.$$typeof === DOM_ELEMENT_SYMBOL) {
         const newElement = document.createElement(node.type);
         setAttributes(newElement, node.props);
+
         if (node.props.children) {
             if (typeof node.props.children === 'string') {
                 newElement.innerText = node.props.children;
             } else {
-                Array.isArray(node.props.children)
-                    ? node.props.children.forEach(child =>
-                          insertElement(newElement, child, null),
-                      )
-                    : insertElement(newElement, node.props.children, null);
+                insertChildren(newElement, node.props.children);
             }
         }
+
         element.insertBefore(newElement, beforeElement);
     } else {
         if (node.props.children) {
-            Array.isArray(node.props.children)
-                ? node.props.children.forEach(child =>
-                      insertElement(element, child, beforeElement),
-                  )
-                : insertElement(element, node.props.children, beforeElement);
+            insertChildren(element, node.props.children, beforeElement);
         }
     }
 };
@@ -126,20 +137,6 @@ export const applyChildrenDiff = (
 
         if (childUpdater.type === INSERT_OPERATION) {
             insertElement(element, childUpdater.node, childElem);
-            // if (childUpdater.node.$$typeof === COMPONENT_ELEMENT_SYMBOL) {
-            //     insertElement(element, childUpdater.node, childElem);
-            //     // applyDiff(element, insert(childUpdater.node));
-            // } else {
-            //     element.insertBefore(
-            //         createDomElement(
-            //             // @ts-ignore trust me, check insert operation in operations.ts
-            //             childUpdater.node.type,
-            //             // @ts-ignore trust me, check insert operation in operations.ts
-            //             childUpdater.node.props,
-            //         ),
-            //         childElem,
-            //     );
-            // }
             continue;
         }
 

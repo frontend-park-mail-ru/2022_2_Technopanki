@@ -1,5 +1,5 @@
-import { ReactsElement } from './reacts';
-import { Component } from './reacts/Component';
+import { ReactsElement } from './reacts/src';
+import { Component } from './reacts/src/Component';
 import { createContext } from './reacts-context/context';
 
 class NewExample extends Component<{ counter: number; setState: Function }> {
@@ -56,7 +56,6 @@ export default class Example extends Component<{}, { counter: number }> {
                 <NewExample
                     counter={this.state.counter}
                     setState={() => {
-                        console.log('set state called');
                         this.setState(state => ({
                             ...state,
                             counter: state.counter + 1,
@@ -70,9 +69,3 @@ export default class Example extends Component<{}, { counter: number }> {
         );
     }
 }
-
-// export default class Example {
-//     render() {
-//         return <div>Hello world!</div>;
-//     }
-// }

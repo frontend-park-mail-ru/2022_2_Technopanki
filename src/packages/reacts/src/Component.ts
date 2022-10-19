@@ -1,6 +1,6 @@
 import { ComponentClass, ReactsContext } from './index';
 import { rerenderComponent } from './renderComponent';
-import { PropsType } from '../shared/common';
+import { PropsType } from '../../shared/common';
 
 export class Component<P extends PropsType = {}, S = {}> extends ComponentClass<
     P,

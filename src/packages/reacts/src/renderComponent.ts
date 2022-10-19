@@ -1,6 +1,6 @@
 import { Component } from './Component';
-import { COMPONENT_ELEMENT_SYMBOL } from '../shared/index';
-import { rerenderNode } from '../reacts-dom/index';
+import { COMPONENT_ELEMENT_SYMBOL } from '../../shared';
+import { rerenderNode } from '../../reacts-dom';
 
 export function rerenderComponent(component: Component<any, any>) {
     if (component.rootDomRef && component.prevRenderVNodeRef) {
