@@ -16,5 +16,26 @@ export interface AttributeUpdater {
 
 export interface Operation {
     type: string;
-    [key: string]: VNodeType | AttributeUpdater | Operation[] | string;
+    [key: string]:
+        | VNodeType
+        | VNodeType[]
+        | AttributeUpdater
+        | Operation[]
+        | string;
+}
+
+export interface Update extends Operation {
+    attrUpdater: AttributeUpdater;
+    childrenUpdater: Operation[];
+    node: VNodeType;
+}
+
+export interface Replace extends Operation {
+    node: VNodeType;
+}
+
+export interface Remove extends Operation {}
+
+export interface Insert extends Operation {
+    node: VNodeType | VNodeType[];
 }
