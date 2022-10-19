@@ -8,7 +8,10 @@ import {
     skip,
     update,
 } from './operations';
-import { COMPONENT_ELEMENT_SYMBOL, DOM_ELEMENT_SYMBOL } from '../../shared';
+import {
+    COMPONENT_ELEMENT_SYMBOL,
+    DOM_ELEMENT_SYMBOL,
+} from '../../shared/index';
 import { childrenDiff } from './childrenDiff';
 
 // TODO: add list of attributes
@@ -93,7 +96,7 @@ const comparePrimitiveTypeChildren = (
 };
 
 /**
- * Helper function for updating children
+ * Helper function for updating children as single elements
  * @param attrUpdater
  * @param oldChild
  * @param newChild
@@ -106,7 +109,32 @@ const updateChild = (
     return update(attrUpdater, [createDiff(oldChild, newChild)], oldChild);
 };
 
-// TODO: refactor
+/**
+ * Helper function for updating children as arrays
+ * @param attrUpdater
+ * @param oldNode
+ * @param newNode
+ */
+const updateChildren = (
+    attrUpdater: AttributeUpdater,
+    oldNode: VNodeType,
+    newNode: VNodeType,
+): Operation => {
+    return update(
+        attrUpdater,
+        childrenDiff(
+            // @ts-ignore node.type guaranteed to be typeof VNodeType or [VNodeType]
+            Array.isArray(oldNode.props.children)
+                ? oldNode.props.children
+                : [oldNode.props.children],
+            Array.isArray(newNode.props.children)
+                ? newNode.props.children
+                : [newNode.props.children],
+        ),
+        oldNode,
+    );
+};
+
 /**
  * Compares 2 VDom nodes and returns
  * the operation to be performed in the real one on this node in DOM
@@ -143,19 +171,7 @@ export const createDiff = (
             );
         }
 
-        return update(
-            attrUpdate,
-            childrenDiff(
-                // @ts-ignore node.type guaranteed to be typeof VNodeType or [VNodeType]
-                Array.isArray(oldNode.props.children)
-                    ? oldNode.props.children
-                    : [oldNode.props.children],
-                Array.isArray(newNode.props.children)
-                    ? newNode.props.children
-                    : [newNode.props.children],
-            ),
-            oldNode,
-        );
+        return updateChildren(attrUpdate, oldNode, newNode);
     } else if (
         oldNode.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description &&
         newNode.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description
@@ -180,19 +196,8 @@ export const createDiff = (
                     oldNode,
                 );
             }
-            return update(
-                attrUpdate,
-                childrenDiff(
-                    // @ts-ignore node.type guaranteed to be typeof VNodeType or [VNodeType]
-                    Array.isArray(oldNode.props.children)
-                        ? oldNode.props.children
-                        : [oldNode.props.children],
-                    Array.isArray(newNode.props.children)
-                        ? newNode.props.children
-                        : [newNode.props.children],
-                ),
-                oldNode,
-            );
+
+            return updateChildren(attrUpdate, oldNode, newNode);
         }
     } else {
         // @ts-ignore TODO: for now just return diff from children

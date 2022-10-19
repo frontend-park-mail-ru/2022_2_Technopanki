@@ -41,7 +41,7 @@ export abstract class ComponentClass<P extends PropsType = {}, S = {}> {
     // @ts-ignore
     constructor(props: Readonly<P> | P, context?: ReactsContext) {
         this.props = props;
-        this.context = context;
+        // this.context = context;
     }
 
     setState<K extends keyof S>(

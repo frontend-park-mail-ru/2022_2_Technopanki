@@ -5,9 +5,8 @@ export type JSXVnodeType = {
     [key: string]: any;
 };
 export type JSXElementType = string | ComponentConstructor | JSXVnodeType;
-export type ConstructorType<T> = new (...args: any[]) => T;
 
-type PropType = Function | string | number | null | undefined;
+type PropType = Function | string | null | undefined;
 export type PropsType = { [key: string]: PropType } | {};
 export type ChildrenType = VNodeType[] | VNodeType | string | null;
 
