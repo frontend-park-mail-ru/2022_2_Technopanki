@@ -1,5 +1,6 @@
 import { AttributeUpdater, Operation } from './index';
 import {
+    insert,
     INSERT_OPERATION,
     REMOVE_OPERATION,
     REPLACE_OPERATION,
@@ -9,6 +10,8 @@ import {
 import { setAttributes } from '../render/renderNode';
 import { VNodeType } from '../../shared/common';
 import { createDomElement } from '../utils';
+import { COMPONENT_ELEMENT_SYMBOL, DOM_ELEMENT_SYMBOL } from '../../shared';
+import { childrenDiff } from './childrenDiff';
 
 /**
  * Creates DOM node from node and replaces element with this node
@@ -45,11 +48,37 @@ const updateElementAttributes = (
 
 const insertElement = (
     element: HTMLElement,
-    node: VNodeType & { type: string },
+    node: VNodeType,
+    beforeElement: HTMLElement | null,
 ) => {
-    const newElement = document.createElement(node.type);
-    setAttributes(newElement, node.props);
-    element.appendChild(newElement);
+    if (node.$$typeof === DOM_ELEMENT_SYMBOL) {
+        const newElement = document.createElement(node.type);
+        setAttributes(newElement, node.props);
+        if (node.props.children) {
+            if (typeof node.props.children === 'string') {
+                newElement.innerText = node.props.children;
+            } else {
+                Array.isArray(node.props.children)
+                    ? node.props.children.forEach(child =>
+                          insertElement(newElement, child, null),
+                      )
+                    : insertElement(
+                          newElement,
+                          node.props.children,
+                          insert(node.props.children),
+                      );
+            }
+        }
+        element.insertBefore(newElement, beforeElement);
+    } else {
+        if (node.props.children) {
+            Array.isArray(node.props.children)
+                ? node.props.children.forEach(child =>
+                      insertElement(element, child, beforeElement),
+                  )
+                : insertElement(element, node.props.children, beforeElement);
+        }
+    }
 };
 
 export const applyDiff = (element: HTMLElement, operation: Operation) => {
@@ -69,7 +98,11 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
 
         if (operation.childrenUpdater) {
             // @ts-ignore TODO
-            applyChildrenDiff(element, operation.childrenUpdater);
+            applyChildrenDiff(
+                element,
+                operation.childrenUpdater,
+                operation.node.$$typeof,
+            );
         }
     }
 
@@ -85,6 +118,7 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
 export const applyChildrenDiff = (
     element: HTMLElement,
     diffOperations: Operation[],
+    nodeType?: Symbol,
 ) => {
     let offset = 0;
     for (let i = 0; i < diffOperations.length; ++i) {
@@ -95,19 +129,21 @@ export const applyChildrenDiff = (
         const childElem = element.childNodes[i + offset];
 
         if (childUpdater.type === INSERT_OPERATION) {
-            if (Array.isArray(childUpdater.node)) {
-                applyChildrenDiff(element, childUpdater.node);
-            } else {
-                element.insertBefore(
-                    createDomElement(
-                        // @ts-ignore trust me, check insert operation in operations.ts
-                        childUpdater.node.type,
-                        // @ts-ignore trust me, check insert operation in operations.ts
-                        childUpdater.node.props,
-                    ),
-                    childElem,
-                );
-            }
+            insertElement(element, childUpdater.node, childElem);
+            // if (childUpdater.node.$$typeof === COMPONENT_ELEMENT_SYMBOL) {
+            //     insertElement(element, childUpdater.node, childElem);
+            //     // applyDiff(element, insert(childUpdater.node));
+            // } else {
+            //     element.insertBefore(
+            //         createDomElement(
+            //             // @ts-ignore trust me, check insert operation in operations.ts
+            //             childUpdater.node.type,
+            //             // @ts-ignore trust me, check insert operation in operations.ts
+            //             childUpdater.node.props,
+            //         ),
+            //         childElem,
+            //     );
+            // }
             continue;
         }
 
@@ -118,6 +154,10 @@ export const applyChildrenDiff = (
         }
 
         // @ts-ignore TODO
-        applyDiff(childElem, childUpdater);
+        if (childUpdater.type === UPDATE_OPERATION) {
+            nodeType === COMPONENT_ELEMENT_SYMBOL
+                ? applyDiff(element, childUpdater)
+                : applyDiff(childElem, childUpdater);
+        }
     }
 };

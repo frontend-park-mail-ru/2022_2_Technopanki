@@ -17,13 +17,9 @@ class Header extends Component<{ count: number }> {
         super(props);
     }
     render() {
-        // TODO: fix bug with <p>Item: ${this.props.count.toString()}</p>
-        // сейчас он возвращает массив, и поэтому на проверке в renderChildren в
-        // renderNode.ts не проходит проверку и падает с ошибкой
         return (
             <header className={'main__header'}>
-                <p>{`Item: ${this.props.count.toString()}`}</p>
-                <p>Item 2</p>
+                <p>Number of items ${this.props.count.toString()}</p>
             </header>
         );
     }
@@ -50,9 +46,7 @@ class App extends Component<{}, { data: { name: string }[] }> {
     render() {
         return (
             <div className={'main'}>
-                {this.state.data.map((item, index) => (
-                    <p key={index.toString()}>{item.name}</p>
-                ))}
+                <Header key={1} count={this.state.data.length} />
                 <button
                     key={'button'}
                     onclick={() =>
@@ -68,13 +62,16 @@ class App extends Component<{}, { data: { name: string }[] }> {
                     key={'delete'}
                     onclick={() =>
                         this.setState(state => {
-                            state.data.shift();
+                            state.data.pop();
                             return state;
                         })
                     }
                 >
                     Delete last line
                 </button>
+                {this.state.data.map((item, index) => (
+                    <p key={index.toString()}>{item.name}</p>
+                ))}
             </div>
         );
     }

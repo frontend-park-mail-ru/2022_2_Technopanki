@@ -80,6 +80,7 @@ const comparePrimitiveTypeChildren = (
                     update: [['textContent', newNode.props.children]],
                 },
                 [],
+                oldNode,
             );
         }
     }
@@ -92,7 +93,7 @@ const updateChild = (
     oldChild: VNodeType,
     newChild: VNodeType,
 ): Operation => {
-    return update(attrUpdater, [createDiff(oldChild, newChild)]);
+    return update(attrUpdater, [createDiff(oldChild, newChild)], oldChild);
 };
 
 // TODO: refactor
@@ -153,6 +154,7 @@ export const createDiff = (
                     ? newNode.props.children
                     : [newNode.props.children],
             ),
+            oldNode,
         );
     } else if (
         oldNode.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description &&
@@ -167,10 +169,17 @@ export const createDiff = (
                 !Array.isArray(oldNode.props.children) &&
                 !Array.isArray(newNode.props.children)
             ) {
-                return update(attrUpdate, [
-                    // @ts-ignore children guaranteed not to be undefined (checked in isPrimitiveTypeChildren)
-                    createDiff(oldNode.props.children, newNode.props.children),
-                ]);
+                return update(
+                    attrUpdate,
+                    [
+                        // @ts-ignore children guaranteed not to be undefined (checked in isPrimitiveTypeChildren)
+                        createDiff(
+                            oldNode.props.children,
+                            newNode.props.children,
+                        ),
+                    ],
+                    oldNode,
+                );
             }
             return update(
                 attrUpdate,
@@ -183,6 +192,7 @@ export const createDiff = (
                         ? newNode.props.children
                         : [newNode.props.children],
                 ),
+                oldNode,
             );
         }
     } else {

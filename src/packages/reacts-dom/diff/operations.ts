@@ -14,10 +14,12 @@ export const skip = (): Operation => ({
 export const update = (
     attrUpdater: AttributeUpdater,
     childrenUpdater: Operation[],
+    node: VNodeType,
 ): Operation => ({
     type: UPDATE_OPERATION,
     attrUpdater,
     childrenUpdater,
+    node,
 });
 
 export const replace = (newNode: VNodeType) => ({
