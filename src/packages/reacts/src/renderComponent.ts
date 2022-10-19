@@ -1,11 +1,10 @@
 import { Component } from './Component';
-import { rerenderNode } from '../reacts-dom/render/rerenderNode';
-import { COMPONENT_ELEMENT_SYMBOL } from '../shared';
+import { COMPONENT_ELEMENT_SYMBOL } from '../shared/index';
+import { rerenderNode } from '../reacts-dom/index';
 
 export function rerenderComponent(component: Component<any, any>) {
     if (component.rootDomRef && component.prevRenderVNodeRef) {
         const VDomElement = component.render();
-        console.log(VDomElement);
         if (
             VDomElement.$$typeof.description ===
             COMPONENT_ELEMENT_SYMBOL.description

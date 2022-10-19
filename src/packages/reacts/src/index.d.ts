@@ -11,7 +11,6 @@ type ComponentChildren =
     | ReactsNode
     | ReactsNode[]
     | null;
-// type ComponentChildren = ComponentChild[] | ComponentChild;
 
 export interface ReactsNode<P extends PropsType = {}> extends VNodeType {
     props: { children: ComponentChildren } & P;
@@ -49,9 +48,7 @@ export abstract class ComponentClass<P extends PropsType = {}, S = {}> {
     componentWillUnmount?(): void;
     shouldComponentUpdate?(props: P | Readonly<P>): boolean;
 
+    unmount?(): void;
+
     render(): ReactsNode<P>;
 }
-
-//
-// Context
-// -------------------------------------------------

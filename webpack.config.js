@@ -1,5 +1,6 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
     entry: {
@@ -34,6 +35,9 @@ module.exports = {
     plugins: [
         new CopyPlugin({
             patterns: ['./server.js', './src/static/index.html'],
+        }),
+        new webpack.DefinePlugin({
+            __DEV__: process.env.NODE_ENV === 'development',
         }),
     ],
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',

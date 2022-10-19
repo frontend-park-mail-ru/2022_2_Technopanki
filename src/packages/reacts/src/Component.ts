@@ -21,7 +21,6 @@ export class Component<P extends PropsType = {}, S = {}> extends ComponentClass<
     ) {
         // @ts-ignore
         this.state = update(this.state);
-        console.log('setState called');
 
         if (callback) {
             callback();
