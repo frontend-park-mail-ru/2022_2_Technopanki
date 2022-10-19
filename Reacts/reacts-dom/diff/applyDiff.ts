@@ -1,4 +1,4 @@
-import { AttributeUpdater, Operation } from './index';
+import { AttributeUpdater, Insert, Operation, Replace, Update } from './index';
 import {
     INSERT_OPERATION,
     REMOVE_OPERATION,
@@ -8,7 +8,10 @@ import {
 } from './operations';
 import { setAttributes } from '../render/renderNode';
 import { VNodeType } from '../../shared/common';
-import { COMPONENT_ELEMENT_SYMBOL, DOM_ELEMENT_SYMBOL } from '../../shared';
+import {
+    COMPONENT_ELEMENT_SYMBOL,
+    DOM_ELEMENT_SYMBOL,
+} from '../../shared/index';
 
 /**
  * Creates DOM node from node and replaces element with this node
@@ -66,7 +69,7 @@ const insertElement = (
     beforeElement: HTMLElement | null = null,
 ) => {
     if (node.$$typeof === DOM_ELEMENT_SYMBOL) {
-        const newElement = document.createElement(node.type);
+        const newElement = document.createElement(<string>node.type);
         setAttributes(newElement, node.props);
 
         if (node.props.children) {
@@ -79,6 +82,7 @@ const insertElement = (
 
         element.insertBefore(newElement, beforeElement);
     } else {
+        // TODO
         if (node.props.children) {
             insertChildren(element, node.props.children, beforeElement);
         }
@@ -90,35 +94,33 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
         return;
     }
 
-    if (operation.type === REPLACE_OPERATION) {
-        // @ts-ignore trust me, check replace operation in operations.ts
-        replaceElement(element, operation.node);
+    if (
+        operation.type === REPLACE_OPERATION &&
+        typeof (<Replace>operation).node.type === 'string'
+    ) {
+        replaceElement(element, (<Replace>operation).node);
         return;
     }
 
     if (operation.type === UPDATE_OPERATION) {
-        // @ts-ignore trust me, check replace operation in operations.ts
-        updateElementAttributes(element, operation);
+        updateElementAttributes(element, <Update>operation);
 
         if (operation.childrenUpdater) {
-            // @ts-ignore TODO
             applyChildrenDiff(
                 element,
-                operation.childrenUpdater,
-                operation.node.$$typeof,
+                (<Update>operation).childrenUpdater,
+                (<Update>operation).node.$$typeof,
             );
         }
     }
 
     if (operation.type === INSERT_OPERATION) {
-        // @ts-ignore trust me, check insert operation in operations.ts
-        insertElement(element, operation.node);
+        insertElement(element, <VNodeType>(<Insert>operation).node);
     }
 
     return element;
 };
 
-// TODO: refactor
 export const applyChildrenDiff = (
     element: HTMLElement,
     diffOperations: Operation[],
@@ -130,10 +132,14 @@ export const applyChildrenDiff = (
             continue;
         }
         const childUpdater = diffOperations[i];
-        const childElem = element.childNodes[i + offset];
+        const childElem = element.childNodes[i + offset] as HTMLElement;
 
         if (childUpdater.type === INSERT_OPERATION) {
-            insertElement(element, childUpdater.node, childElem);
+            insertElement(
+                element,
+                <VNodeType>(<Insert>childUpdater).node,
+                childElem,
+            );
             continue;
         }
 
