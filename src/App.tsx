@@ -19,25 +19,29 @@ class Header extends Component<{ count: number }> {
     render() {
         return (
             <header className={'main__header'}>
-                <p>Number of items ${this.props.count.toString()}</p>
+                <p>Number of items: {this.props.count.toString()}</p>
             </header>
         );
     }
 }
 
-class App extends Component<{}, { data: { name: string }[] }> {
+class App extends Component<{}, { data: { id: number; name: string }[] }> {
     state = {
         data: [
             {
+                id: 1,
                 name: 'hello world',
             },
             {
+                id: 2,
                 name: 'hello world',
             },
             {
+                id: 3,
                 name: 'hello world',
             },
             {
+                id: 4,
                 name: 'hello world',
             },
         ],
@@ -46,12 +50,15 @@ class App extends Component<{}, { data: { name: string }[] }> {
     render() {
         return (
             <div className={'main'}>
-                <Header key={1} count={this.state.data.length} />
+                <Header key={'header'} count={this.state.data.length} />
                 <button
                     key={'button'}
                     onclick={() =>
                         this.setState(state => {
-                            state.data.push({ name: 'New item' });
+                            state.data.push({
+                                id: state.data.length + 1,
+                                name: 'New item',
+                            });
                             return state;
                         })
                     }
@@ -70,7 +77,7 @@ class App extends Component<{}, { data: { name: string }[] }> {
                     Delete last line
                 </button>
                 {this.state.data.map((item, index) => (
-                    <p key={index.toString()}>{item.name}</p>
+                    <p key={item.id}>{item.name}</p>
                 ))}
             </div>
         );

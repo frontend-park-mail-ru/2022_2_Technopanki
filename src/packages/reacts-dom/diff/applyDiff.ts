@@ -62,11 +62,7 @@ const insertElement = (
                     ? node.props.children.forEach(child =>
                           insertElement(newElement, child, null),
                       )
-                    : insertElement(
-                          newElement,
-                          node.props.children,
-                          insert(node.props.children),
-                      );
+                    : insertElement(newElement, node.props.children, null);
             }
         }
         element.insertBefore(newElement, beforeElement);

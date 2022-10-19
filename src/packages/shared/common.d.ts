@@ -9,7 +9,7 @@ export type ConstructorType<T> = new (...args: any[]) => T;
 
 type PropType = Function | string | number | null | undefined;
 export type PropsType = { [key: string]: PropType } | {};
-export type ChildrenType = VNodeType[] | VNodeType | string | string[] | null;
+export type ChildrenType = (VNodeType | string)[] | VNodeType | string | null;
 
 export type VNodeType = {
     $$typeof: Symbol;

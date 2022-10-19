@@ -26,6 +26,7 @@ const createNodeFromObject = (
     };
 
     if (typeof vnode.props.children === 'function') {
+        // @ts-ignore
         vnode.props.children = vnode.props.children(vnode.props.value);
     }
 
@@ -69,6 +70,8 @@ const createTextNode = (
     props: PropsType & { children: ChildrenType },
     maybeKey: KeyType | null | undefined,
 ): VNodeType => {
+    // To concatenate a string. An example where it is needed: <p>Number of items: {this.props.count.toString()}</p>
+    // In this case, the props will be: props = {children: ['Number of items: ', '2'], ...}
     if (Array.isArray(props.children)) {
         props.children = props.children.join('');
     }
@@ -81,32 +84,43 @@ const createTextNode = (
     };
 };
 
-// TODO: refactor and add Fragment
+/**
+ * The function is required to enable dynamic generation of JSX elements. Example:
+ * {this.state.data.map((item, index) => (
+ *  <p key={item.id}>{item.name}</p>
+ * ))}
+ * @param children
+ */
+const resolveArraysInChildren = (
+    children: (VNodeType | string)[],
+): (VNodeType | string)[] => {
+    const newChildren: (VNodeType | string)[] = [];
+    children.forEach(elem => {
+        if (Array.isArray(elem)) {
+            elem.forEach(item => {
+                newChildren.push(item);
+            });
+        } else {
+            newChildren.push(elem);
+        }
+    });
+    return newChildren;
+};
+
 /**
  * Creates a virtual DOM element - virtual node. Used for JSX.
- * IMPORTANT: if in
  * @param type
  * @param props
  * @param maybeKey
  * @returns {{_children: null, _parent: null, _nextDom: undefined, _depth: number, construct: undefined, type, key, props, _instance: null}}
  */
-export const createElement = (
+export const createVNode = (
     type: JSXElementType,
     props: PropsType & { children: ChildrenType },
     maybeKey: KeyType | null | undefined,
 ): VNodeType => {
     if (Array.isArray(props.children)) {
-        const newChildren: ChildrenType = [];
-        props.children.forEach(elem => {
-            if (Array.isArray(elem)) {
-                elem.forEach(item => {
-                    newChildren.push(item);
-                });
-            } else {
-                newChildren.push(elem);
-            }
-        });
-        props.children = newChildren;
+        props.children = resolveArraysInChildren(props.children);
     }
 
     if (typeof type === 'object') {
