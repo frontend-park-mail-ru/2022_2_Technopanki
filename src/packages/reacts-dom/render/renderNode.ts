@@ -20,16 +20,23 @@ export const setAttributes = (element: HTMLElement, props: PropsType) => {
     }
 };
 
-// Здесь пофиксить баг с <p>Item {this.props.someData}</p>
+/**
+ * Renders children in DOM
+ * @param element
+ * @param children
+ */
 const renderChildren = (element: HTMLElement, children: ChildrenType) => {
     if (children) {
         if (typeof children === 'string') {
             element.innerText = children;
         } else if (Array.isArray(children)) {
-            children.forEach((node: VNodeType) => {
+            children.forEach(node => {
                 if (Array.isArray(node)) {
                     renderChildren(element, node);
                 } else {
+                    // @ts-ignore there will be no string type of node here,
+                    // because in createNode(jsx-runtime lib) we bring all arrays
+                    // of the type to one line using .join()
                     renderNode(element, node);
                 }
             });
@@ -40,6 +47,10 @@ const renderChildren = (element: HTMLElement, children: ChildrenType) => {
     }
 };
 
+/**
+ * Creates DOM node and adds it in DOM
+ * @param node
+ */
 const renderDomElement = (node: VNodeType & { type: string }): HTMLElement => {
     const element = document.createElement(node.type);
     node._domElement = element;
@@ -52,6 +63,11 @@ const renderDomElement = (node: VNodeType & { type: string }): HTMLElement => {
     return element;
 };
 
+/**
+ * Creates Component instance and renders it in DOM
+ * @param root
+ * @param node
+ */
 const renderComponent = (
     root: HTMLElement,
     node: VNodeType & { type: ComponentConstructor },

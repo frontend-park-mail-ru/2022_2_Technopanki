@@ -1,5 +1,5 @@
 // TODO: Maybe add default props
-import { createVNode } from './createElement.ts';
+import { createVNode } from './createNode.ts';
 
 const jsx = (type, config, maybeKey) => {
     return createVNode(type, config, maybeKey);
