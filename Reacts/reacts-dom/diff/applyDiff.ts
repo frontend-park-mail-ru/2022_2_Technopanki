@@ -8,10 +8,7 @@ import {
 } from './operations';
 import { setAttributes } from '../render/renderNode';
 import { VNodeType } from '../../shared/common';
-import {
-    COMPONENT_ELEMENT_SYMBOL,
-    DOM_ELEMENT_SYMBOL,
-} from '../../shared/index';
+import { COMPONENT_ELEMENT_SYMBOL, DOM_ELEMENT_SYMBOL } from '../../shared';
 
 /**
  * Creates DOM node from node and replaces element with this node

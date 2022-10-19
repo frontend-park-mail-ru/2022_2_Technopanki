@@ -5,10 +5,7 @@ import {
     PropsType,
     VNodeType,
 } from '../../shared/common';
-import {
-    COMPONENT_ELEMENT_SYMBOL,
-    DOM_ELEMENT_SYMBOL,
-} from '../../shared/index';
+import { COMPONENT_ELEMENT_SYMBOL, DOM_ELEMENT_SYMBOL } from '../../shared';
 
 // TODO: rework to setAttributes
 export const setAttributes = (element: HTMLElement, props: PropsType) => {

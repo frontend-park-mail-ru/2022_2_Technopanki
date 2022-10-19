@@ -8,10 +8,7 @@ import {
     skip,
     update,
 } from './operations';
-import {
-    COMPONENT_ELEMENT_SYMBOL,
-    DOM_ELEMENT_SYMBOL,
-} from '../../shared/index';
+import { COMPONENT_ELEMENT_SYMBOL, DOM_ELEMENT_SYMBOL } from '../../shared';
 import { childrenDiff } from './childrenDiff';
 
 // TODO: add list of attributes

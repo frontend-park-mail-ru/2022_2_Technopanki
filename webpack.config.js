@@ -2,6 +2,9 @@ const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 
+const PRODUCTION = 'production';
+const DEVELOPMENT = 'development';
+
 module.exports = {
     entry: {
         main: './src/App.tsx',
@@ -37,8 +40,8 @@ module.exports = {
             patterns: ['./server.js', './src/static/index.html'],
         }),
         new webpack.DefinePlugin({
-            __DEV__: process.env.NODE_ENV === 'development',
+            __DEV__: process.env.NODE_ENV === DEVELOPMENT,
         }),
     ],
-    mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+    mode: process.env.NODE_ENV === PRODUCTION ? PRODUCTION : DEVELOPMENT,
 };

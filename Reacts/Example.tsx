@@ -1,5 +1,5 @@
-import { ReactsElement } from './reacts/src';
-import { Component } from './reacts/src/Component';
+import { ReactsNode } from './reacts/src/index';
+import { Component } from './reacts/index';
 import { createContext } from './reacts-context/context';
 
 class NewExample extends Component<{ counter: number; setState: Function }> {
@@ -41,7 +41,7 @@ export default class Example extends Component<{}, { counter: number }> {
         };
     }
 
-    render(): ReactsElement<{}> {
+    render(): ReactsNode<{}> {
         const Context = createContext<number>(2);
         return (
             <div>

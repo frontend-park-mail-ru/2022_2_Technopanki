@@ -1,5 +1,5 @@
-import { Component } from './packages/reacts/src/Component';
-import { createRoot } from './packages/reacts-dom/root/index';
+import { Component } from '../Reacts/index';
+import { createRoot } from '../Reacts/index';
 
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);

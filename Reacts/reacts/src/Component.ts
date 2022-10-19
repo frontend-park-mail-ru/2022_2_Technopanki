@@ -1,4 +1,4 @@
-import { ComponentClass, ReactsContext } from './index';
+import { ComponentClass } from './index';
 import { rerenderComponent } from './renderComponent';
 import { PropsType } from '../../shared/common';
 

@@ -6,7 +6,7 @@ import {
     getUniqueSymbol,
     PROVIDER_ELEMENT_SYMBOL,
     PROVIDER_TYPE,
-} from '../shared/index';
+} from '../shared';
 
 // TODO: refactor
 export function ProviderConstructor<T extends PropType>(

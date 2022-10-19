@@ -11,7 +11,7 @@ import {
     COMPONENT_ELEMENT_SYMBOL,
     DOM_ELEMENT_SYMBOL,
     getUniqueSymbol,
-} from '../shared/index';
+} from '../shared';
 
 /**
  * Creates virtual dom node from object in a type

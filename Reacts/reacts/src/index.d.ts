@@ -29,7 +29,7 @@ export interface ReactsNode<P extends PropsType = {}> extends VNodeType {
 export abstract class ComponentClass<P extends PropsType = {}, S = {}> {
     readonly props: Readonly<P>;
     state: Readonly<S>;
-    context?: Context<any>;
+    // context?: Context<any>;
 
     rootDomRef?: HTMLElement;
     prevRenderVNodeRef?: VNodeType;
