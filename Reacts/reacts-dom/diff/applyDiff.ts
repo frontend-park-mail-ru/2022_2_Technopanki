@@ -6,12 +6,12 @@ import {
     SKIP_OPERATION,
     UPDATE_OPERATION,
 } from './operations';
-import { setAttributes } from '../render/renderNode';
 import { VNodeType } from '../../shared/common';
 import {
     COMPONENT_ELEMENT_SYMBOL,
     DOM_ELEMENT_SYMBOL,
 } from '../../shared/index';
+import { setProps } from '../attributes/index';
 
 /**
  * Creates DOM node from node and replaces element with this node
@@ -23,7 +23,7 @@ const replaceElement = (
     node: VNodeType & { type: string },
 ): void => {
     const newElement = document.createElement(node.type);
-    setAttributes(newElement, node.props);
+    setProps(newElement, node.props);
     element.replaceWith(newElement);
 };
 
@@ -70,7 +70,7 @@ const insertElement = (
 ) => {
     if (node.$$typeof === DOM_ELEMENT_SYMBOL) {
         const newElement = document.createElement(<string>node.type);
-        setAttributes(newElement, node.props);
+        setProps(newElement, node.props);
 
         if (node.props.children) {
             if (typeof node.props.children === 'string') {

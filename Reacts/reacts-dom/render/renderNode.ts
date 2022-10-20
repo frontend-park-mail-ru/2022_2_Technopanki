@@ -5,17 +5,11 @@ import {
     PropsType,
     VNodeType,
 } from '../../shared/common';
-import { COMPONENT_ELEMENT_SYMBOL, DOM_ELEMENT_SYMBOL } from '../../shared';
-
-// TODO: rework to setAttributes
-export const setAttributes = (element: HTMLElement, props: PropsType) => {
-    for (let attr in props) {
-        if (attr !== 'children') {
-            // @ts-ignore
-            element[attr] = props[attr];
-        }
-    }
-};
+import {
+    COMPONENT_ELEMENT_SYMBOL,
+    DOM_ELEMENT_SYMBOL,
+} from '../../shared/index';
+import { setProps } from '../attributes/index';
 
 /**
  * Renders children in DOM
@@ -52,7 +46,7 @@ const renderDomElement = (node: VNodeType & { type: string }): HTMLElement => {
     const element = document.createElement(node.type);
     node._domElement = element;
 
-    setAttributes(element, node.props);
+    setProps(element, node.props);
     if (node.props.children) {
         renderChildren(element, node.props.children);
     }

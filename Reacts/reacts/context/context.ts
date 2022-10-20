@@ -1,12 +1,12 @@
 import { Consumer, Context, Provider } from './index';
-import { PropType } from '../shared/common';
+import { PropType } from '../../shared/common';
 import {
     CONSUMER_ELEMENT_SYMBOL,
     CONSUMER_TYPE,
     getUniqueSymbol,
     PROVIDER_ELEMENT_SYMBOL,
     PROVIDER_TYPE,
-} from '../shared';
+} from '../../shared/index';
 
 // TODO: refactor
 export function ProviderConstructor<T extends PropType>(

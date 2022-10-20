@@ -53,7 +53,7 @@ class App extends Component<{}, { data: { id: number; name: string }[] }> {
                 <Header key={'header'} count={this.state.data.length} />
                 <button
                     key={'button'}
-                    onclick={() =>
+                    onClick={() =>
                         this.setState(state => {
                             state.data.push({
                                 id: state.data.length + 1,
@@ -67,7 +67,7 @@ class App extends Component<{}, { data: { id: number; name: string }[] }> {
                 </button>
                 <button
                     key={'delete'}
-                    onclick={() =>
+                    onClick={() =>
                         this.setState(state => {
                             state.data.pop();
                             return state;
@@ -77,7 +77,12 @@ class App extends Component<{}, { data: { id: number; name: string }[] }> {
                     Delete last line
                 </button>
                 {this.state.data.map((item, index) => (
-                    <p key={item.id}>{item.name}</p>
+                    <p
+                        onCopy={(e: Event) => console.log('copied!', e)}
+                        key={item.id}
+                    >
+                        {item.name}
+                    </p>
                 ))}
             </div>
         );

@@ -117,13 +117,12 @@ const updateChild = (
  */
 const updateChildren = (
     attrUpdater: AttributeUpdater,
-    oldNode: VNodeType,
-    newNode: VNodeType,
+    oldNode: VNodeType & { props: { children: VNodeType | VNodeType[] } },
+    newNode: VNodeType & { props: { children: VNodeType | VNodeType[] } },
 ): Operation => {
     return update(
         attrUpdater,
         childrenDiff(
-            // @ts-ignore node.type guaranteed to be typeof VNodeType or [VNodeType]
             Array.isArray(oldNode.props.children)
                 ? oldNode.props.children
                 : [oldNode.props.children],
@@ -171,6 +170,7 @@ export const createDiff = (
             );
         }
 
+        // @ts-ignore children type guaranteed to be typeof VNodeType | VNodeType[]
         return updateChildren(attrUpdate, oldNode, newNode);
     } else if (
         oldNode.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description &&
@@ -197,6 +197,7 @@ export const createDiff = (
                 );
             }
 
+            // @ts-ignore children type guaranteed to be typeof VNodeType | VNodeType[]
             return updateChildren(attrUpdate, oldNode, newNode);
         }
     } else {
