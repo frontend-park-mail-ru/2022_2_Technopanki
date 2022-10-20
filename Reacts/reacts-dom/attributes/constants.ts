@@ -44,4 +44,5 @@ export const attributes: { [key: string]: string } = {
     lang: 'lang',
     align: 'align',
     dir: 'dir',
+    style: 'style',
 };

@@ -25,6 +25,20 @@ class Header extends Component<{ count: number }> {
     }
 }
 
+class Card extends Component<{ name: string }> {
+    render() {
+        return (
+            <div
+                style={
+                    'padding: 8px, border: 1px solid #000, border-radius: 8px, margin-top: 8px'
+                }
+            >
+                <h1>{this.props.name}</h1>
+            </div>
+        );
+    }
+}
+
 class App extends Component<{}, { data: { id: number; name: string }[] }> {
     state = {
         data: [
@@ -77,12 +91,7 @@ class App extends Component<{}, { data: { id: number; name: string }[] }> {
                     Delete last line
                 </button>
                 {this.state.data.map((item, index) => (
-                    <p
-                        onCopy={(e: Event) => console.log('copied!', e)}
-                        key={item.id}
-                    >
-                        {item.name}
-                    </p>
+                    <Card key={item.id} name={item.name} />
                 ))}
             </div>
         );
