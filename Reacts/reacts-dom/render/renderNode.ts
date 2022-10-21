@@ -8,6 +8,7 @@ import {
 import {
     COMPONENT_ELEMENT_SYMBOL,
     DOM_ELEMENT_SYMBOL,
+    PROVIDER_ELEMENT_SYMBOL,
 } from '../../shared/index';
 import { setProps } from '../attributes/index';
 
@@ -86,9 +87,20 @@ export const renderNode = (root: HTMLElement, node: VNodeType) => {
     } else if (node.$$typeof === COMPONENT_ELEMENT_SYMBOL) {
         // @ts-ignore node.type guaranteed to be typeof ComponentConstructor
         renderComponent(root, node);
-    } else {
-        if (node.props.children) {
+    } else if (node.$$typeof === PROVIDER_ELEMENT_SYMBOL) {
+        if (Array.isArray(node.props.children)) {
             renderChildren(root, node.props.children);
+        } else {
+            renderNode(root, node.props.children);
+        }
+    } else {
+        if (typeof node.props.children === 'function') {
+            node.props.children = node.props.children(node.value);
+            if (Array.isArray(node.props.children)) {
+                renderChildren(root, node.props.children);
+            } else {
+                renderNode(root, node.props.children);
+            }
         }
     }
 };

@@ -10,6 +10,8 @@ import {
 } from './operations';
 import {
     COMPONENT_ELEMENT_SYMBOL,
+    CONSUMER_ELEMENT_SYMBOL,
+    CONTEXT_ELEMENT_SYMBOL,
     DOM_ELEMENT_SYMBOL,
 } from '../../shared/index';
 import { childrenDiff } from './childrenDiff';
@@ -201,6 +203,27 @@ export const createDiff = (
             // @ts-ignore children type guaranteed to be typeof VNodeType | VNodeType[]
             return updateChildren(attrUpdate, oldNode, newNode);
         }
+    } else if (oldNode.$$typeof === CONTEXT_ELEMENT_SYMBOL) {
+        newNode.props.children = newNode.props.children(newNode.value);
+        if (
+            !Array.isArray(oldNode.props.children) &&
+            !Array.isArray(newNode.props.children)
+        ) {
+            return update(
+                emptyAttrUpdate,
+                [
+                    createDiff(
+                        // @ts-ignore children guaranteed not to be undefined (checked in isPrimitiveTypeChildren)
+                        oldNode.props.children,
+                        newNode.props.children,
+                    ),
+                ],
+                oldNode,
+            );
+        }
+
+        // @ts-ignore children type guaranteed to be typeof VNodeType | VNodeType[]
+        return updateChildren(emptyAttrUpdate, oldNode, newNode);
     } else {
         // @ts-ignore TODO: for now just return diff from children
         if (

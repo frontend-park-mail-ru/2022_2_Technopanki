@@ -1,4 +1,4 @@
-import { Consumer, Context, Provider } from './index';
+import { Context } from './index';
 import { PropType } from '../../shared/common';
 import {
     CONTEXT_ELEMENT_SYMBOL,

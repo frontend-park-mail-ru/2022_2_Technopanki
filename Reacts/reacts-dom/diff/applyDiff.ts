@@ -7,7 +7,12 @@ import {
     UPDATE_OPERATION,
 } from './operations';
 import { VNodeType } from '../../shared/common';
-import { DOM_ELEMENT_SYMBOL } from '../../shared/index';
+import {
+    CONSUMER_ELEMENT_SYMBOL,
+    CONTEXT_ELEMENT_SYMBOL,
+    CONTEXT_TYPE,
+    DOM_ELEMENT_SYMBOL,
+} from '../../shared/index';
 import { setProps } from '../attributes/index';
 
 /**
@@ -78,6 +83,11 @@ const insertElement = (
         }
 
         element.insertBefore(newElement, beforeElement);
+    } else if (node.$$typeof === CONTEXT_ELEMENT_SYMBOL) {
+        node.props.children = node.props.children(node.value);
+        if (node.props.children) {
+            insertChildren(element, node.props.children, beforeElement);
+        }
     } else {
         // TODO
         if (node.props.children) {

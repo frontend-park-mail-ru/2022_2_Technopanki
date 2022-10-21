@@ -40,7 +40,10 @@ class Card extends Component<{ name: string }> {
     }
 }
 
-class App extends Component<{}, { data: { id: number; name: string }[] }> {
+class App extends Component<
+    {},
+    { data: { id: number; name: string }[]; str: string }
+> {
     state = {
         data: [
             {
@@ -60,13 +63,14 @@ class App extends Component<{}, { data: { id: number; name: string }[] }> {
                 name: 'hello world',
             },
         ],
+        str: 'Hello world!',
     };
 
     render() {
         const Context = createContext('hello world');
         return (
             <div className={'main'}>
-                <Context.Provider value={'provider value'}>
+                <Context.Provider value={this.state.str}>
                     <Header key={'header'} count={this.state.data.length} />
                     <button
                         key={'button'}
@@ -92,6 +96,18 @@ class App extends Component<{}, { data: { id: number; name: string }[] }> {
                         }
                     >
                         Delete last line
+                    </button>
+                    <button
+                        onClick={() =>
+                            this.setState(state => {
+                                state.str = `Random number: ${
+                                    Math.random() * Date.now()
+                                }`;
+                                return state;
+                            })
+                        }
+                    >
+                        Set provider to random value
                     </button>
                     {this.state.data.map((item, index) => (
                         <Card key={item.id} name={item.name} />

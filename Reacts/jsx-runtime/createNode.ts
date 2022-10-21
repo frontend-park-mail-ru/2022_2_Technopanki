@@ -11,6 +11,7 @@ import {
     COMPONENT_ELEMENT_SYMBOL,
     DOM_ELEMENT_SYMBOL,
     getUniqueSymbol,
+    PROVIDER_ELEMENT_SYMBOL,
 } from '../shared/index';
 
 /**
@@ -24,17 +25,18 @@ const createNodeFromObject = (
     props: PropsType & { children: ChildrenType },
     maybeKey: KeyType | null | undefined,
 ): VNodeType => {
-    const vnode: VNodeType = {
-        ...type,
-        $$typeof: type.$$typeof,
-        type: type.type,
-        props: { ...type.props, ...props },
-        key: maybeKey ? maybeKey : getUniqueSymbol(),
-    };
+    const vnode: VNodeType = type;
+    vnode.props = { ...vnode.props, ...props };
 
-    if (typeof vnode.props.children === 'function') {
-        // @ts-ignore
-        vnode.props.children = vnode.props.children(vnode.value);
+    // if (typeof vnode.props.children === 'function') {
+    //     // @ts-ignore
+    //     setTimeout(() => {
+    //         vnode.props.children = vnode.props.children(vnode.value);
+    //     });
+    // }
+
+    if (vnode.$$typeof === PROVIDER_ELEMENT_SYMBOL) {
+        vnode._context.value = vnode.props.value;
     }
 
     return vnode;
