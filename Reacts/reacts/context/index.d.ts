@@ -16,7 +16,7 @@ export interface Consumer<T extends PropType> extends VNodeType {
 }
 
 export interface Context<T extends PropType> extends VNodeType {
-    currentValue: T;
-    Provider: Provider<T>;
-    Consumer: Consumer<T>;
+    value: T;
+    Consumer: {};
+    Provider: {};
 }

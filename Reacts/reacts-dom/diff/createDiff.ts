@@ -120,6 +120,7 @@ const updateChildren = (
     oldNode: VNodeType & { props: { children: VNodeType | VNodeType[] } },
     newNode: VNodeType & { props: { children: VNodeType | VNodeType[] } },
 ): Operation => {
+    console.log(oldNode, newNode);
     return update(
         attrUpdater,
         childrenDiff(
@@ -173,8 +174,8 @@ export const createDiff = (
         // @ts-ignore children type guaranteed to be typeof VNodeType | VNodeType[]
         return updateChildren(attrUpdate, oldNode, newNode);
     } else if (
-        oldNode.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description &&
-        newNode.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description
+        oldNode.$$typeof === COMPONENT_ELEMENT_SYMBOL &&
+        newNode.$$typeof === COMPONENT_ELEMENT_SYMBOL
     ) {
         if (oldNode.type !== newNode.type) {
             return replace(newNode);
@@ -202,7 +203,25 @@ export const createDiff = (
         }
     } else {
         // @ts-ignore TODO: for now just return diff from children
-        return createDiff(oldNode.props.children, newNode.props.children);
+        if (
+            !Array.isArray(oldNode.props.children) &&
+            !Array.isArray(newNode.props.children)
+        ) {
+            return update(
+                emptyAttrUpdate,
+                [
+                    createDiff(
+                        // @ts-ignore children guaranteed not to be undefined (checked in isPrimitiveTypeChildren)
+                        oldNode.props.children,
+                        newNode.props.children,
+                    ),
+                ],
+                oldNode,
+            );
+        }
+
+        // @ts-ignore children type guaranteed to be typeof VNodeType | VNodeType[]
+        return updateChildren(emptyAttrUpdate, oldNode, newNode);
     }
 
     return skip();

@@ -7,10 +7,7 @@ import {
     UPDATE_OPERATION,
 } from './operations';
 import { VNodeType } from '../../shared/common';
-import {
-    COMPONENT_ELEMENT_SYMBOL,
-    DOM_ELEMENT_SYMBOL,
-} from '../../shared/index';
+import { DOM_ELEMENT_SYMBOL } from '../../shared/index';
 import { setProps } from '../attributes/index';
 
 /**
@@ -151,9 +148,9 @@ export const applyChildrenDiff = (
 
         // @ts-ignore TODO
         if (childUpdater.type === UPDATE_OPERATION) {
-            nodeType === COMPONENT_ELEMENT_SYMBOL
-                ? applyDiff(element, childUpdater)
-                : applyDiff(childElem, childUpdater);
+            nodeType === DOM_ELEMENT_SYMBOL
+                ? applyDiff(childElem, childUpdater)
+                : applyDiff(element, childUpdater);
         }
     }
 };

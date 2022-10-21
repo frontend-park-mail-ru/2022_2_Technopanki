@@ -25,6 +25,7 @@ const createNodeFromObject = (
     maybeKey: KeyType | null | undefined,
 ): VNodeType => {
     const vnode: VNodeType = {
+        ...type,
         $$typeof: type.$$typeof,
         type: type.type,
         props: { ...type.props, ...props },
@@ -33,7 +34,7 @@ const createNodeFromObject = (
 
     if (typeof vnode.props.children === 'function') {
         // @ts-ignore
-        vnode.props.children = vnode.props.children(vnode.props.value);
+        vnode.props.children = vnode.props.children(vnode.value);
     }
 
     return vnode;
