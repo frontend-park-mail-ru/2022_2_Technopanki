@@ -7,6 +7,10 @@ import {
     PROVIDER_ELEMENT_SYMBOL,
 } from '../../shared/index';
 
+export function getContextValue<T extends PropType>(
+    contextChildren: Function,
+) {}
+
 export function createContext<T extends PropType>(defaultValue: T): Context<T> {
     const context = {
         $$typeof: CONTEXT_ELEMENT_SYMBOL,

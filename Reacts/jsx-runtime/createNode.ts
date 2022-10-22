@@ -55,7 +55,7 @@ const createComponentNode = (
         $$typeof: COMPONENT_ELEMENT_SYMBOL,
         type,
         props,
-        key: !maybeKey ? getUniqueSymbol() : maybeKey,
+        key: maybeKey ?? getUniqueSymbol(),
         _domElement: undefined,
     };
 
@@ -95,7 +95,7 @@ const createDomNode = (
         $$typeof: DOM_ELEMENT_SYMBOL,
         type,
         props,
-        key: !maybeKey ? getUniqueSymbol() : maybeKey,
+        key: maybeKey ?? getUniqueSymbol(),
         _domElement: undefined,
     };
 };
