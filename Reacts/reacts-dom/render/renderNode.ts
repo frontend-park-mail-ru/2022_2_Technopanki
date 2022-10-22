@@ -11,6 +11,7 @@ import {
 } from '../../shared/index';
 import { setProps } from '../attributes/index';
 import { Context } from '../../reacts/context/index';
+import { setContextValue } from '../../reacts/context/context';
 
 /**
  * Renders children in DOM
@@ -102,11 +103,10 @@ const renderProvider = (root: HTMLElement, node: VNodeType) => {
  */
 const renderContext = (root: HTMLElement, node: Context<any>) => {
     node._domElement = root;
-    if (typeof node.props.children === 'function') {
-        node.props.children = node.props.children(
-            (<Context<any>>node).value,
-        ) as ChildrenType;
-    }
+    setContextValue(<Context<any>>node);
+
+    // @ts-ignore in setContextValue we called a function
+    // and assigned the children a specific value
     renderChildren(root, node.props.children);
 };
 

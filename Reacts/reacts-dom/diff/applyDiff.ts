@@ -7,14 +7,10 @@ import {
     UPDATE_OPERATION,
 } from './operations';
 import { VNodeType } from '../../shared/common';
-import {
-    COMPONENT_ELEMENT_SYMBOL,
-    CONSUMER_ELEMENT_SYMBOL,
-    CONTEXT_ELEMENT_SYMBOL,
-    CONTEXT_TYPE,
-    DOM_ELEMENT_SYMBOL,
-} from '../../shared/index';
+import { CONTEXT_ELEMENT_SYMBOL, DOM_ELEMENT_SYMBOL } from '../../shared/index';
 import { setProps } from '../attributes/index';
+import { setContextValue } from '../../reacts/context/context';
+import { Context } from '../../reacts/context/index';
 
 /**
  * Creates DOM node from node and replaces element with this node
@@ -43,7 +39,6 @@ const updateElementAttributes = (
         childrenUpdater: Operation[];
     },
 ): void => {
-    // TODO refactor and add setAttribute maybe
     operation.attrUpdater.set.forEach(
         // @ts-ignore
         ([attr, value]) => element.setAttribute(attr, value),
@@ -65,44 +60,57 @@ const insertChildren = (
     }
 
     Array.isArray(children)
-        ? children.forEach(child =>
-              insertElement(element, child, beforeElement),
-          )
-        : insertElement(element, children, beforeElement);
+        ? children.forEach(child => insertNode(element, child, beforeElement))
+        : insertNode(element, children, beforeElement);
 };
 
-const insertElement = (
+const insertDomNode = (
     element: HTMLElement,
     node: VNodeType,
     beforeElement: HTMLElement | null = null,
 ) => {
-    // Set new node domEle
+    const newElement = document.createElement(<string>node.type);
+    node._domElement = newElement;
+    setProps(newElement, node.props);
+
+    if (node.props.children) {
+        if (typeof node.props.children === 'string') {
+            newElement.innerText = node.props.children;
+        } else {
+            insertChildren(newElement, node.props.children);
+        }
+    }
+
+    element.insertBefore(newElement, beforeElement);
+};
+
+const insertContextNode = (
+    element: HTMLElement,
+    node: VNodeType,
+    beforeElement: HTMLElement | null = null,
+) => {
+    setContextValue(<Context<any>>node);
+    // @ts-ignore context cannot have children of type string
+    insertChildren(element, node.props.children, beforeElement);
+    if (__DEV__) {
+        if (typeof node.props.children === 'string') {
+            throw new Error('Context children type = string');
+        }
+    }
+};
+
+const insertNode = (
+    element: HTMLElement,
+    node: VNodeType,
+    beforeElement: HTMLElement | null = null,
+) => {
+    // We must remember to set _domElement in node
     node._domElement = element;
+
     if (node.$$typeof === DOM_ELEMENT_SYMBOL) {
-        const newElement = document.createElement(<string>node.type);
-        node._domElement = newElement;
-        setProps(newElement, node.props);
-
-        if (node.props.children) {
-            if (typeof node.props.children === 'string') {
-                newElement.innerText = node.props.children;
-            } else {
-                insertChildren(newElement, node.props.children);
-            }
-        }
-
-        element.insertBefore(newElement, beforeElement);
+        insertDomNode(element, node, beforeElement);
     } else if (node.$$typeof === CONTEXT_ELEMENT_SYMBOL) {
-        if (typeof node.props.children === 'function') {
-            node.props.children = node.props.children(node.value);
-        }
-        // @ts-ignore context cannot have children of type string
-        insertChildren(element, node.props.children, beforeElement);
-        if (__DEV__) {
-            if (typeof node.props.children === 'string') {
-                throw new Error('Context children type = string');
-            }
-        }
+        insertContextNode(element, node, beforeElement);
     } else {
         // TODO
         insertChildren(element, node.props.children, beforeElement);
@@ -128,17 +136,20 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
         applyChildrenDiff(
             (<Update>operation).node._domElement,
             (<Update>operation).childrenUpdater,
-            (<Update>operation).node.$$typeof,
         );
     }
 
     return element;
 };
 
-export const applyChildrenDiff = (
+/**
+ * For each of the children applies the operation
+ * @param element
+ * @param diffOperations
+ */
+const applyChildrenDiff = (
     element: HTMLElement,
     diffOperations: Operation[],
-    nodeType?: Symbol,
 ) => {
     let offset = 0;
     for (let i = 0; i < diffOperations.length; ++i) {
@@ -149,7 +160,7 @@ export const applyChildrenDiff = (
         const childElem = element.childNodes[i + offset] as HTMLElement;
 
         if (childUpdater.type === INSERT_OPERATION) {
-            insertElement(
+            insertNode(
                 element,
                 <VNodeType>(<Insert>childUpdater).node,
                 childElem,
@@ -163,7 +174,7 @@ export const applyChildrenDiff = (
             continue;
         }
 
-        // @ts-ignore TODO
+        // TODO
         if (childUpdater.type === UPDATE_OPERATION) {
             applyDiff((<Update>childUpdater).node._domElement, childUpdater);
         }

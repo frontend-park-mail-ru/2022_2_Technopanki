@@ -18,6 +18,7 @@ import {
 } from '../../shared/index';
 import { childrenDiff } from './childrenDiff';
 import { Context } from '../../reacts/context/index';
+import { setContextValue } from '../../reacts/context/context';
 
 /**
  * A function that looks for which attributes to add, remove or change
@@ -163,8 +164,8 @@ const createDiffDOM = (oldNode: VNodeType, newNode: VNodeType) => {
         return comparePrimitiveTypeChildren(oldNode, newNode);
     }
 
-    // because we checked the primitive types above in the
-    // code primitive types cannot get into this call
+    // because we checked the primitive types above in the code,
+    // primitive types cannot get into this call
     return updateChildren(
         attrUpdate,
         <VNodeType & { props: { children: VNodeType | VNodeType[] } }>oldNode,
@@ -185,11 +186,7 @@ const createDiffComponent = (oldNode: VNodeType, newNode: VNodeType) => {
 
 const createDiffContext = (oldNode: Context<any>, newNode: Context<any>) => {
     newNode._domElement = oldNode._domElement;
-    if (typeof newNode.props.children === 'function') {
-        newNode.props.children = newNode.props.children(
-            newNode.value,
-        ) as ChildrenType;
-    }
+    setContextValue(<Context<any>>newNode);
 
     // The context object will always store
     // a vnode or an array of vnodes in children.
@@ -241,10 +238,7 @@ export const createDiff = (
             if (__DEV__) {
                 console.error('undefined node type: ', newNode, oldNode);
                 throw new Error('undefined node type');
-            } else {
-                return skip();
             }
+            return skip();
     }
-
-    return skip();
 };

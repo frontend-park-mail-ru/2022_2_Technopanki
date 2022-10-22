@@ -21,7 +21,7 @@ export type VNodeType = {
     key: KeyType;
 
     _instance?: ComponentType;
-    _domElement?: HTMLElement;
+    _domElement: HTMLElement;
 
     // ---------
     // TODO
