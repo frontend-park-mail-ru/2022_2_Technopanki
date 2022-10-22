@@ -16,7 +16,6 @@ import {
 } from '../../shared/index';
 import { childrenDiff } from './childrenDiff';
 
-// TODO: add list of attributes
 /**
  * A function that looks for which attributes to add, remove or change
  * @param oldNodeProps
@@ -64,6 +63,11 @@ const isPrimitiveTypeChildren = (
     );
 };
 
+/**
+ * Compare 2 primitive nodes and returns operation
+ * @param oldNode
+ * @param newNode
+ */
 const comparePrimitiveTypeChildren = (
     oldNode: VNodeType,
     newNode: VNodeType,
@@ -105,10 +109,14 @@ const comparePrimitiveTypeChildren = (
  */
 const updateChild = (
     attrUpdater: AttributeUpdater,
-    oldChild: VNodeType,
-    newChild: VNodeType,
+    oldChild: VNodeType & { props: { children: VNodeType } },
+    newChild: VNodeType & { props: { children: VNodeType } },
 ): Operation => {
-    return update(attrUpdater, [createDiff(oldChild, newChild)], oldChild);
+    return update(
+        attrUpdater,
+        [createDiff(oldChild.props.children, newChild.props.children)],
+        newChild,
+    );
 };
 
 /**
@@ -126,17 +134,8 @@ const updateChildren = (
         !Array.isArray(oldNode.props.children) &&
         !Array.isArray(newNode.props.children)
     ) {
-        return update(
-            attrUpdater,
-            [
-                createDiff(
-                    // @ts-ignore children guaranteed not to be undefined (checked in isPrimitiveTypeChildren)
-                    oldNode.props.children,
-                    newNode.props.children,
-                ),
-            ],
-            newNode,
-        );
+        // @ts-ignore we checked with
+        return updateChild(attrUpdater, oldNode, newNode);
     }
 
     return update(
@@ -194,6 +193,7 @@ export const createDiff = (
     } else if (oldNode.$$typeof === CONTEXT_ELEMENT_SYMBOL) {
         newNode._domElement = oldNode._domElement;
         if (typeof newNode.props.children === 'function') {
+            // @ts-ignore
             newNode.props.children = newNode.props.children(newNode.value);
         }
         // @ts-ignore children type guaranteed to be typeof VNodeType | VNodeType[]

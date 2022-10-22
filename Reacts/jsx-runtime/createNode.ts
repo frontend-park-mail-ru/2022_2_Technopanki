@@ -27,9 +27,10 @@ const createNodeFromObject = (
 ): VNodeType => {
     const vnode = type;
     vnode.props = { ...vnode.props, ...props };
-    if (maybeKey) {
-        vnode.key = maybeKey;
-    }
+    // TODO: fix bug with key and context
+    // if (maybeKey) {
+    //     vnode.key = maybeKey;
+    // }
 
     // Update context value
     if (vnode.$$typeof === PROVIDER_ELEMENT_SYMBOL) {

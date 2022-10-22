@@ -26,6 +26,7 @@ const replaceElement = (
     node: VNodeType & { type: string },
 ): void => {
     const newElement = document.createElement(node.type);
+    node._domElement = newElement;
     setProps(newElement, node.props);
     element.replaceWith(newElement);
 };
@@ -56,9 +57,13 @@ const updateElementAttributes = (
 
 const insertChildren = (
     element: HTMLElement,
-    children: VNodeType | VNodeType[],
+    children: VNodeType | VNodeType[] | undefined | null,
     beforeElement: HTMLElement | null = null,
 ) => {
+    if (!children) {
+        return;
+    }
+
     Array.isArray(children)
         ? children.forEach(child =>
               insertElement(element, child, beforeElement),
@@ -71,6 +76,8 @@ const insertElement = (
     node: VNodeType,
     beforeElement: HTMLElement | null = null,
 ) => {
+    // Set new node domEle
+    node._domElement = element;
     if (node.$$typeof === DOM_ELEMENT_SYMBOL) {
         const newElement = document.createElement(<string>node.type);
         node._domElement = newElement;
@@ -86,19 +93,19 @@ const insertElement = (
 
         element.insertBefore(newElement, beforeElement);
     } else if (node.$$typeof === CONTEXT_ELEMENT_SYMBOL) {
-        node._domElement = element;
         if (typeof node.props.children === 'function') {
             node.props.children = node.props.children(node.value);
         }
-        if (node.props.children) {
-            insertChildren(element, node.props.children, beforeElement);
+        // @ts-ignore context cannot have children of type string
+        insertChildren(element, node.props.children, beforeElement);
+        if (__DEV__) {
+            if (typeof node.props.children === 'string') {
+                throw new Error('Context children type = string');
+            }
         }
     } else {
         // TODO
-        node._domElement = element;
-        if (node.props.children) {
-            insertChildren(element, node.props.children, beforeElement);
-        }
+        insertChildren(element, node.props.children, beforeElement);
     }
 };
 

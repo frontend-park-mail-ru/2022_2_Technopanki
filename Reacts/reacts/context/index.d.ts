@@ -7,6 +7,9 @@ import {
 
 export interface Context<T extends PropType> extends VNodeType {
     value: T;
-    Consumer: {};
-    Provider: {};
+    Consumer: Context<T>;
+    Provider: {
+        $$typeof: Symbol;
+        _context: Context<T>;
+    };
 }

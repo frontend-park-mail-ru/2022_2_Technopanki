@@ -25,5 +25,6 @@ export function createContext<T extends PropType>(defaultValue: T): Context<T> {
         _context: context,
     };
 
+    // @ts-ignore we have redefined Consumer and Provider fields
     return context;
 }
