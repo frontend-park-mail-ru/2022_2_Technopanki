@@ -1,6 +1,7 @@
 import { Component } from '../Reacts/index';
 import { createRoot } from '../Reacts/index';
 import { createContext } from '../Reacts/reacts/context/context';
+import { Context } from '../Reacts/reacts/context';
 
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
@@ -26,7 +27,7 @@ class Header extends Component<{ count: number }> {
     }
 }
 
-class Card extends Component<{ name: string }> {
+class Card extends Component<{ name: string; context: Context<any> }> {
     render() {
         return (
             <div
@@ -34,6 +35,9 @@ class Card extends Component<{ name: string }> {
                     'padding: 8px, border: 1px solid #000, border-radius: 8px, margin-top: 8px'
                 }
             >
+                <this.props.context.Consumer>
+                    {(value: string) => <p key={'text'}>{value}</p>}
+                </this.props.context.Consumer>
                 <h1>{this.props.name}</h1>
             </div>
         );
@@ -110,11 +114,12 @@ class App extends Component<
                         Set provider to random value
                     </button>
                     {this.state.data.map((item, index) => (
-                        <Card key={item.id} name={item.name} />
+                        <Card
+                            context={Context}
+                            key={item.id}
+                            name={item.name}
+                        />
                     ))}
-                    <Context.Consumer>
-                        {(value: string) => <p key={'text'}>{value}</p>}
-                    </Context.Consumer>
                 </Context.Provider>
             </div>
         );

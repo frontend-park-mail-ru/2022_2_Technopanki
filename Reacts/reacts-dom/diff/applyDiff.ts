@@ -8,6 +8,7 @@ import {
 } from './operations';
 import { VNodeType } from '../../shared/common';
 import {
+    COMPONENT_ELEMENT_SYMBOL,
     CONSUMER_ELEMENT_SYMBOL,
     CONTEXT_ELEMENT_SYMBOL,
     CONTEXT_TYPE,
@@ -72,6 +73,7 @@ const insertElement = (
 ) => {
     if (node.$$typeof === DOM_ELEMENT_SYMBOL) {
         const newElement = document.createElement(<string>node.type);
+        node._domElement = newElement;
         setProps(newElement, node.props);
 
         if (node.props.children) {
@@ -84,12 +86,16 @@ const insertElement = (
 
         element.insertBefore(newElement, beforeElement);
     } else if (node.$$typeof === CONTEXT_ELEMENT_SYMBOL) {
-        node.props.children = node.props.children(node.value);
+        node._domElement = element;
+        if (typeof node.props.children === 'function') {
+            node.props.children = node.props.children(node.value);
+        }
         if (node.props.children) {
             insertChildren(element, node.props.children, beforeElement);
         }
     } else {
         // TODO
+        node._domElement = element;
         if (node.props.children) {
             insertChildren(element, node.props.children, beforeElement);
         }
@@ -112,18 +118,24 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
     if (operation.type === UPDATE_OPERATION) {
         updateElementAttributes(element, <Update>operation);
 
-        if (operation.childrenUpdater) {
-            applyChildrenDiff(
-                element,
-                (<Update>operation).childrenUpdater,
-                (<Update>operation).node.$$typeof,
-            );
-        }
+        // if (
+        //     (<Update>operation).node.$$typeof === DOM_ELEMENT_SYMBOL &&
+        //     typeof (<Update>operation).node.props.children === 'string'
+        // ) {
+        //     element.innerText = (<Update>operation).node.props.children;
+        //     return;
+        // }
+
+        applyChildrenDiff(
+            (<Update>operation).node._domElement,
+            (<Update>operation).childrenUpdater,
+            (<Update>operation).node.$$typeof,
+        );
     }
 
-    if (operation.type === INSERT_OPERATION) {
-        insertElement(element, <VNodeType>(<Insert>operation).node);
-    }
+    // if (operation.type === INSERT_OPERATION) {
+    //     insertElement(element, <VNodeType>(<Insert>operation).node);
+    // }
 
     return element;
 };
@@ -158,9 +170,16 @@ export const applyChildrenDiff = (
 
         // @ts-ignore TODO
         if (childUpdater.type === UPDATE_OPERATION) {
-            nodeType === DOM_ELEMENT_SYMBOL
-                ? applyDiff(childElem, childUpdater)
-                : applyDiff(element, childUpdater);
+            // applyDiff(childUpdater.node._domElement, childUpdater);
+            // if (childUpdater.node.$$typeof === DOM_ELEMENT_SYMBOL) {
+            //     applyDiff(childElem, childUpdater);
+            // } else {
+            //     applyDiff(element, childUpdater);
+            // }
+            applyDiff((<Update>childUpdater).node._domElement, childUpdater);
+            // nodeType === DOM_ELEMENT_SYMBOL
+            //     ? applyDiff(childElem, childUpdater)
+            //     : applyDiff(element, childUpdater);
         }
     }
 };

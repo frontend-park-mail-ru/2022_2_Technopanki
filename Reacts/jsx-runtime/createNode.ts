@@ -58,6 +58,7 @@ const createComponentNode = (
         type,
         props,
         key: !maybeKey ? getUniqueSymbol() : maybeKey,
+        _domElement: undefined,
     };
 
     // @ts-ignore vnode.type guaranteed to be typeof ComponentConstructor
@@ -83,6 +84,7 @@ const createDomNode = (
         type,
         props,
         key: !maybeKey ? getUniqueSymbol() : maybeKey,
+        _domElement: undefined,
     };
 };
 
@@ -108,6 +110,7 @@ const createTextNode = (
         type,
         props,
         key: !maybeKey ? getUniqueSymbol() : maybeKey,
+        _domElement: undefined,
     };
 };
 

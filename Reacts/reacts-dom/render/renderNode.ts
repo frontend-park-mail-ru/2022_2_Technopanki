@@ -63,16 +63,18 @@ const renderDomElement = (node: VNodeType & { type: string }): HTMLElement => {
 const renderComponent = (
     root: HTMLElement,
     node: VNodeType & { type: ComponentConstructor },
-): ComponentType => {
+) => {
     const instance = new node.type(node.props);
 
     // Set instance fields
     node._domElement = root;
-    instance.rootDomRef = root;
-    instance.prevRenderVNodeRef = instance.render();
+    node._instance.rootDomRef = root;
+    node._instance.prevRenderVNodeRef = node.props.children;
+    // instance.rootDomRef = root;
+    // instance.prevRenderVNodeRef = node
 
-    renderNode(root, instance.prevRenderVNodeRef);
-    return instance;
+    renderChildren(root, node.props.children);
+    // node._instance = instance;
 };
 
 /**
@@ -81,6 +83,7 @@ const renderComponent = (
  * @param node
  */
 export const renderNode = (root: HTMLElement, node: VNodeType) => {
+    console.log(node);
     if (node.$$typeof === DOM_ELEMENT_SYMBOL) {
         // @ts-ignore node.type guaranteed to be typeof string
         root.appendChild(renderDomElement(node));
@@ -88,6 +91,7 @@ export const renderNode = (root: HTMLElement, node: VNodeType) => {
         // @ts-ignore node.type guaranteed to be typeof ComponentConstructor
         renderComponent(root, node);
     } else if (node.$$typeof === PROVIDER_ELEMENT_SYMBOL) {
+        node._domElement = root;
         if (Array.isArray(node.props.children)) {
             renderChildren(root, node.props.children);
         } else {
@@ -96,11 +100,7 @@ export const renderNode = (root: HTMLElement, node: VNodeType) => {
     } else {
         if (typeof node.props.children === 'function') {
             node.props.children = node.props.children(node.value);
-            if (Array.isArray(node.props.children)) {
-                renderChildren(root, node.props.children);
-            } else {
-                renderNode(root, node.props.children);
-            }
         }
+        renderChildren(root, node.props.children);
     }
 };
