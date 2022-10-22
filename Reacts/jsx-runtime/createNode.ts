@@ -25,21 +25,18 @@ const createNodeFromObject = (
     props: PropsType & { children: ChildrenType },
     maybeKey: KeyType | null | undefined,
 ): VNodeType => {
-    const vnode: VNodeType = type;
+    const vnode = type;
     vnode.props = { ...vnode.props, ...props };
+    if (maybeKey) {
+        vnode.key = maybeKey;
+    }
 
-    // if (typeof vnode.props.children === 'function') {
-    //     // @ts-ignore
-    //     setTimeout(() => {
-    //         vnode.props.children = vnode.props.children(vnode.value);
-    //     });
-    // }
-
+    // Update context value
     if (vnode.$$typeof === PROVIDER_ELEMENT_SYMBOL) {
         vnode._context.value = vnode.props.value;
     }
 
-    return vnode;
+    return <VNodeType>vnode;
 };
 
 /**
@@ -61,9 +58,8 @@ const createComponentNode = (
         _domElement: undefined,
     };
 
-    // @ts-ignore vnode.type guaranteed to be typeof ComponentConstructor
-    vnode._instance = new vnode.type(props);
-    vnode.props.children = vnode._instance?.render();
+    vnode._instance = new (<ComponentConstructor>vnode.type)(props);
+    vnode.props.children = vnode._instance.render();
 
     return vnode;
 };
@@ -121,10 +117,8 @@ const createTextNode = (
  * ))}
  * @param children
  */
-const resolveArraysInChildren = (
-    children: (VNodeType | string)[],
-): (VNodeType | string)[] => {
-    const newChildren: (VNodeType | string)[] = [];
+const resolveArraysInChildren = (children: VNodeType[]): VNodeType[] => {
+    const newChildren: VNodeType[] = [];
     children.forEach(elem => {
         if (Array.isArray(elem)) {
             elem.forEach(item => {
@@ -134,6 +128,7 @@ const resolveArraysInChildren = (
             newChildren.push(elem);
         }
     });
+
     return newChildren;
 };
 

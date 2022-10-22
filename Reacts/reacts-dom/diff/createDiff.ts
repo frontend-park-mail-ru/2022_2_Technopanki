@@ -193,7 +193,9 @@ export const createDiff = (
         }
     } else if (oldNode.$$typeof === CONTEXT_ELEMENT_SYMBOL) {
         newNode._domElement = oldNode._domElement;
-        newNode.props.children = newNode.props.children(newNode.value);
+        if (typeof newNode.props.children === 'function') {
+            newNode.props.children = newNode.props.children(newNode.value);
+        }
         // @ts-ignore children type guaranteed to be typeof VNodeType | VNodeType[]
         return updateChildren(emptyAttrUpdate, oldNode, newNode);
     } else {

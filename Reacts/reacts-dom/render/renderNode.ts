@@ -1,8 +1,6 @@
 import {
     ChildrenType,
     ComponentConstructor,
-    ComponentType,
-    PropsType,
     VNodeType,
 } from '../../shared/common';
 import {

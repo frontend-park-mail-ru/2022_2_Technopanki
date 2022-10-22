@@ -35,10 +35,10 @@ class Card extends Component<{ name: string; context: Context<any> }> {
                     'padding: 8px, border: 1px solid #000, border-radius: 8px, margin-top: 8px'
                 }
             >
-                <this.props.context.Consumer>
+                <this.props.context.Consumer key={1}>
                     {(value: string) => <p key={'text'}>{value}</p>}
                 </this.props.context.Consumer>
-                <h1>{this.props.name}</h1>
+                <h1 key={2}>{this.props.name}</h1>
             </div>
         );
     }

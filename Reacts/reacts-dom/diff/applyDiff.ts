@@ -118,24 +118,12 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
     if (operation.type === UPDATE_OPERATION) {
         updateElementAttributes(element, <Update>operation);
 
-        // if (
-        //     (<Update>operation).node.$$typeof === DOM_ELEMENT_SYMBOL &&
-        //     typeof (<Update>operation).node.props.children === 'string'
-        // ) {
-        //     element.innerText = (<Update>operation).node.props.children;
-        //     return;
-        // }
-
         applyChildrenDiff(
             (<Update>operation).node._domElement,
             (<Update>operation).childrenUpdater,
             (<Update>operation).node.$$typeof,
         );
     }
-
-    // if (operation.type === INSERT_OPERATION) {
-    //     insertElement(element, <VNodeType>(<Insert>operation).node);
-    // }
 
     return element;
 };
@@ -170,16 +158,7 @@ export const applyChildrenDiff = (
 
         // @ts-ignore TODO
         if (childUpdater.type === UPDATE_OPERATION) {
-            // applyDiff(childUpdater.node._domElement, childUpdater);
-            // if (childUpdater.node.$$typeof === DOM_ELEMENT_SYMBOL) {
-            //     applyDiff(childElem, childUpdater);
-            // } else {
-            //     applyDiff(element, childUpdater);
-            // }
             applyDiff((<Update>childUpdater).node._domElement, childUpdater);
-            // nodeType === DOM_ELEMENT_SYMBOL
-            //     ? applyDiff(childElem, childUpdater)
-            //     : applyDiff(element, childUpdater);
         }
     }
 };
