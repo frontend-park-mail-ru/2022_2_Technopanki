@@ -76,30 +76,19 @@ const createDomNode = (
     props: PropsType & { children: ChildrenType },
     maybeKey: KeyType | null | undefined,
 ): VNodeType => {
-    return {
-        $$typeof: DOM_ELEMENT_SYMBOL,
-        type,
-        props,
-        key: !maybeKey ? getUniqueSymbol() : maybeKey,
-        _domElement: undefined,
-    };
-};
-
-/**
- * Creates virtual dom node from type of text DOM node in a type
- * @param type
- * @param props
- * @param maybeKey
- */
-const createTextNode = (
-    type: string,
-    props: PropsType & { children: ChildrenType },
-    maybeKey: KeyType | null | undefined,
-): VNodeType => {
     // To concatenate a string. An example where it is needed: <p>Number of items: {this.props.count.toString()}</p>
     // In this case, the props will be: props = {children: ['Number of items: ', '2'], ...}
-    if (Array.isArray(props.children)) {
-        props.children = props.children.join('');
+    switch (type) {
+        case 'h1':
+        case 'h2':
+        case 'h3':
+        case 'h4':
+        case 'h5':
+        case 'h6':
+        case 'p':
+            if (Array.isArray(props.children)) {
+                props.children = props.children.join('');
+            }
     }
 
     return {
@@ -149,23 +138,12 @@ export const createVNode = (
         props.children = resolveArraysInChildren(props.children);
     }
 
-    if (typeof type === 'object') {
-        return createNodeFromObject(type, props, maybeKey);
-    } else if (typeof type === 'string') {
-        if (
-            type === 'h1' ||
-            type === 'h2' ||
-            type === 'h3' ||
-            type === 'h4' ||
-            type === 'h5' ||
-            type === 'h6' ||
-            type === 'p'
-        ) {
-            return createTextNode(type, props, maybeKey);
-        } else {
+    switch (typeof type) {
+        case 'object':
+            return createNodeFromObject(type, props, maybeKey);
+        case 'string':
             return createDomNode(type, props, maybeKey);
-        }
-    } else {
-        return createComponentNode(type, props, maybeKey);
+        default:
+            return createComponentNode(type, props, maybeKey);
     }
 };
