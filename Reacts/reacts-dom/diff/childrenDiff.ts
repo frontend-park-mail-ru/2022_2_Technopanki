@@ -16,7 +16,7 @@ const removeUntilKey = (
     key: KeyType,
 ) => {
     while (oldChildren[0] && oldChildren[0][0] !== key) {
-        operations.push(remove());
+        operations.push(remove(oldChildren[0][1]));
         oldChildren.shift();
     }
 };

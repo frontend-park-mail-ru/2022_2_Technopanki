@@ -38,8 +38,9 @@ export const update = (
 /**
  * Remove operation for diff algorithm
  */
-export const remove = (): Remove => ({
+export const remove = (node: VNodeType): Remove => ({
     type: REMOVE_OPERATION,
+    node,
 });
 
 /**
@@ -53,10 +54,12 @@ export const insert = (node: VNodeType): Insert => ({
 
 /**
  * Replace operation for diff algorithm
+ * @param oldNode
  * @param newNode
  */
-export const replace = (newNode: VNodeType): Replace => ({
+export const replace = (oldNode: VNodeType, newNode: VNodeType): Replace => ({
     type: REPLACE_OPERATION,
+    remove: remove(oldNode),
     insert: insert(newNode),
 });
 

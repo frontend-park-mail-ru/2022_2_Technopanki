@@ -29,7 +29,6 @@ export interface ReactsNode<P extends PropsType = {}> extends VNodeType {
 export abstract class ComponentClass<P extends PropsType = {}, S = {}> {
     readonly props: Readonly<P>;
     state: Readonly<S>;
-    // context?: Context<any>;
 
     rootDomRef?: HTMLElement;
     prevRenderVNodeRef?: VNodeType;
@@ -38,8 +37,7 @@ export abstract class ComponentClass<P extends PropsType = {}, S = {}> {
     static displayName?: string;
     static defaultProps?: any;
 
-    // @ts-ignore
-    constructor(props: Readonly<P> | P, context?: ReactsContext) {
+    constructor(props: Readonly<P> | P) {
         this.props = props;
         // this.context = context;
     }
@@ -49,11 +47,17 @@ export abstract class ComponentClass<P extends PropsType = {}, S = {}> {
         callback?: () => void,
     ): void;
 
-    componentDidMount?(): void;
-    componentWillUnmount?(): void;
-    shouldComponentUpdate?(props: P | Readonly<P>): boolean;
+    // Mounting
+    componentDidMount(): void;
 
-    unmount?(): void;
+    // Updating
+    shouldComponentUpdate(nextProps: P | Readonly<P>, nextState?: S): void;
+    componentDidUpdate(): void;
+
+    // Unmounting
+    componentWillUnmount(): void;
+
+    unmount(): void;
 
     render(): ReactsNode<P>;
 }

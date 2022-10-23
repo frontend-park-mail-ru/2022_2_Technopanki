@@ -10,11 +10,6 @@ export class Component<P extends PropsType = {}, S = {}> extends ComponentClass<
         super(props);
     }
 
-    shouldComponentUpdate(props: P | Readonly<P>): boolean {
-        // TODO: refactor
-        return this.props.value === props.value;
-    }
-
     setState<K extends keyof S>(
         update: (prevState: S, props?: Readonly<P>) => Pick<S, K> | S,
         callback?: () => void,
@@ -27,5 +22,19 @@ export class Component<P extends PropsType = {}, S = {}> extends ComponentClass<
         }
 
         rerenderComponent(this);
+    }
+
+    // Mounting
+    componentDidMount(): void {}
+
+    // Updating
+    shouldComponentUpdate(nextProps: P | Readonly<P>, nextState?: S): void {}
+    componentDidUpdate(): void {}
+
+    // Unmounting
+    componentWillUnmount(): void {}
+
+    unmount(): void {
+        console.log('unmount');
     }
 }

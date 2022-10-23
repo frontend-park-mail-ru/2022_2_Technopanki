@@ -84,6 +84,9 @@ const renderComponent = (
     }
 
     renderChildren(root, node.props.children);
+
+    // @ts-ignore in development build we throw error
+    node._instance?.componentDidMount();
 };
 
 /**

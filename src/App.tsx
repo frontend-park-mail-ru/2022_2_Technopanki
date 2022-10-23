@@ -26,6 +26,22 @@ class Header extends Component<{ count: number }> {
 }
 
 class Card extends Component<{ name: string; context: Context<any> }> {
+    componentDidMount() {
+        console.log('componentDidMount called!');
+    }
+
+    componentDidUpdate() {
+        console.log('componentDidUpdate called!');
+    }
+
+    componentWillUnmount() {
+        console.log('componentWillUnmount called!');
+    }
+
+    unmount() {
+        console.log('unmount called!');
+    }
+
     render() {
         return (
             <div
@@ -118,7 +134,7 @@ class App extends Component<
                             name={item.name}
                         />
                     ))}
-                    <Test />
+                    <Test key={'test'} />
                 </Context.Provider>
             </div>
         );

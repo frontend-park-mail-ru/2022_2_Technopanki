@@ -31,12 +31,15 @@ export interface Update extends Operation {
     node: VNodeType;
 }
 
-export interface Remove extends Operation {}
+export interface Remove extends Operation {
+    node: VNodeType;
+}
 
 export interface Insert extends Operation {
     node: VNodeType;
 }
 
 export interface Replace extends Operation {
+    remove: Remove;
     insert: Insert;
 }

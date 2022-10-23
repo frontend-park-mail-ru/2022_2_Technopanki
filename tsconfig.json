@@ -6,9 +6,6 @@
     "jsx": "preserve",
     "strict": true,
     "moduleResolution": "path",
-    "compilerOptions": {
-      "sourceMap": true
-    }
   },
   "exclude": [
     "node_modules"

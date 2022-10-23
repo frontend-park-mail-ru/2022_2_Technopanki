@@ -81,7 +81,7 @@ const comparePrimitiveTypeChildren = (
     } else if (!oldNode.props.children && newNode.props.children) {
         return insert(newNode);
     } else if (oldNode.props.children && !newNode.props.children) {
-        return remove();
+        return remove(oldNode);
     }
 
     if (
@@ -175,7 +175,7 @@ const createDiffDOM = (oldNode: VNodeType, newNode: VNodeType) => {
 
 const createDiffComponent = (oldNode: VNodeType, newNode: VNodeType) => {
     if (oldNode.type !== newNode.type) {
-        return replace(newNode);
+        return replace(oldNode, newNode);
     } else {
         const attrUpdate = compareAttributes(oldNode.props, newNode.props);
         newNode._domElement = oldNode._domElement;
@@ -219,7 +219,7 @@ export const createDiff = (
     newNode: VNodeType,
 ): Operation => {
     if (oldNode.$$typeof !== newNode.$$typeof) {
-        return replace(newNode);
+        return replace(oldNode, newNode);
     }
 
     // if ()

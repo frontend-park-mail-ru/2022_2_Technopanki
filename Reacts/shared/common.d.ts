@@ -39,7 +39,12 @@ export type VNodeType = {
 export interface ComponentType {
     rootDomRef?: HTMLElement;
     prevRenderVNodeRef?: VNodeType;
-    // unmout()
+
+    componentDidMount(): void;
+    componentDidUpdate(): void;
+    componentWillUnmount(): void;
+
+    unmout(): void;
     render(): VNodeType;
 }
 
