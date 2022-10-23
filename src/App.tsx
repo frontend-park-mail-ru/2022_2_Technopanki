@@ -2,6 +2,7 @@ import { Component } from '../Reacts/index';
 import { createRoot } from '../Reacts/index';
 import { createContext } from '../Reacts/reacts/context/context';
 import { Context } from '../Reacts/reacts/context/index';
+import Test from './components/test';
 
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
@@ -117,6 +118,7 @@ class App extends Component<
                             name={item.name}
                         />
                     ))}
+                    <Test />
                 </Context.Provider>
             </div>
         );
