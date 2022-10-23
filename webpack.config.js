@@ -37,7 +37,7 @@ module.exports = {
     devtool: 'source-map',
     plugins: [
         new CopyPlugin({
-            patterns: ['./server.js', './src/static/index.html'],
+            patterns: ['.server/server.js', './src/static/index.html'],
         }),
         new webpack.DefinePlugin({
             __DEV__: process.env.NODE_ENV === DEVELOPMENT,

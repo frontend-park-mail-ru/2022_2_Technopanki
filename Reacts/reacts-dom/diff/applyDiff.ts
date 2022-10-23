@@ -1,5 +1,6 @@
 import { AttributeUpdater, Insert, Operation, Replace, Update } from './index';
 import {
+    insert,
     INSERT_OPERATION,
     REMOVE_OPERATION,
     REPLACE_OPERATION,
@@ -122,11 +123,17 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
         return;
     }
 
-    if (
-        operation.type === REPLACE_OPERATION &&
-        typeof (<Replace>operation).node.type === 'string'
-    ) {
-        replaceElement(element, (<Replace>operation).node);
+    if (operation.type === INSERT_OPERATION) {
+        insertNode(element, (<Insert>operation).node);
+    }
+
+    if (operation.type === REMOVE_OPERATION) {
+        element.remove();
+    }
+
+    if (operation.type === REPLACE_OPERATION) {
+        element.remove();
+        insertNode(element, (<Replace>operation).insert.node);
         return;
     }
 
@@ -159,12 +166,15 @@ const applyChildrenDiff = (
         const childUpdater = diffOperations[i];
         const childElem = element.childNodes[i + offset] as HTMLElement;
 
+        if (childUpdater.type === REPLACE_OPERATION) {
+            childElem.remove();
+            offset -= 1;
+            const temp = element.childNodes[i + offset] as HTMLElement;
+            insertNode(element, <VNodeType>(<Insert>childUpdater).node, temp);
+        }
+
         if (childUpdater.type === INSERT_OPERATION) {
-            insertNode(
-                element,
-                <VNodeType>(<Insert>childUpdater).node,
-                childElem,
-            );
+            insertNode(element, (<Insert>childUpdater).node, childElem);
             continue;
         }
 

@@ -222,6 +222,8 @@ export const createDiff = (
         return replace(newNode);
     }
 
+    // if ()
+
     switch (oldNode.$$typeof) {
         case DOM_ELEMENT_SYMBOL:
             return createDiffDOM(oldNode, newNode);
