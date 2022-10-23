@@ -170,7 +170,7 @@ const applyChildrenDiff = (
             childElem.remove();
             offset -= 1;
             const temp = element.childNodes[i + offset] as HTMLElement;
-            insertNode(element, <VNodeType>(<Insert>childUpdater).node, temp);
+            insertNode(element, (<Replace>childUpdater).insert.node, temp);
         }
 
         if (childUpdater.type === INSERT_OPERATION) {
