@@ -1,10 +1,10 @@
 import { Context } from './index';
 import { PropType } from '../../shared/common';
 import {
-    CONTEXT_ELEMENT_SYMBOL,
+    CONTEXT_NODE_SYMBOL,
     CONTEXT_TYPE,
     getUniqueSymbol,
-    PROVIDER_ELEMENT_SYMBOL,
+    PROVIDER_NODE_SYMBOL,
 } from '../../shared/index';
 
 export function setContextValue(context: Context<any>) {
@@ -33,7 +33,7 @@ export function setContextValue(context: Context<any>) {
 
 export function createContext<T extends PropType>(defaultValue: T): Context<T> {
     const context = {
-        $$typeof: CONTEXT_ELEMENT_SYMBOL,
+        $$typeof: CONTEXT_NODE_SYMBOL,
         type: CONTEXT_TYPE,
         key: getUniqueSymbol(),
         props: {},
@@ -45,7 +45,7 @@ export function createContext<T extends PropType>(defaultValue: T): Context<T> {
     context.Consumer = context;
 
     context.Provider = {
-        $$typeof: PROVIDER_ELEMENT_SYMBOL,
+        $$typeof: PROVIDER_NODE_SYMBOL,
         _context: context,
     };
 

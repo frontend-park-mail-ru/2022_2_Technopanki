@@ -16,9 +16,9 @@ import {
 } from './operations';
 import { VNodeType } from '../../shared/common';
 import {
-    COMPONENT_ELEMENT_SYMBOL,
-    CONTEXT_ELEMENT_SYMBOL,
-    DOM_ELEMENT_SYMBOL,
+    COMPONENT_NODE_SYMBOL,
+    CONTEXT_NODE_SYMBOL,
+    DOM_NODE_SYMBOL,
 } from '../../shared/index';
 import { setProps } from '../attributes/index';
 import { setContextValue } from '../../reacts/context/context';
@@ -119,11 +119,11 @@ const insertNode = (
     // We must remember to set _domElement in node
     node._domElement = element;
 
-    if (node.$$typeof === DOM_ELEMENT_SYMBOL) {
+    if (node.$$typeof === DOM_NODE_SYMBOL) {
         insertDomNode(element, node, beforeElement);
-    } else if (node.$$typeof === CONTEXT_ELEMENT_SYMBOL) {
+    } else if (node.$$typeof === CONTEXT_NODE_SYMBOL) {
         insertContextNode(element, node, beforeElement);
-    } else if (node.$$typeof === COMPONENT_ELEMENT_SYMBOL) {
+    } else if (node.$$typeof === COMPONENT_NODE_SYMBOL) {
         insertChildren(element, node.props.children, beforeElement);
         node._instance?.componentDidMount();
     } else {

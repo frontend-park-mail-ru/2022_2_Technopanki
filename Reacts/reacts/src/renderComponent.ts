@@ -1,5 +1,5 @@
 import { Component } from './Component';
-import { COMPONENT_ELEMENT_SYMBOL } from '../../shared/index';
+import { COMPONENT_NODE_SYMBOL } from '../../shared/index';
 import { rerenderNode } from '../../reacts-dom/index';
 
 export function rerenderComponent(component: Component<any, any>) {
@@ -7,7 +7,7 @@ export function rerenderComponent(component: Component<any, any>) {
         const VDomElement = component.render();
         if (
             VDomElement.$$typeof.description ===
-            COMPONENT_ELEMENT_SYMBOL.description
+            COMPONENT_NODE_SYMBOL.description
         ) {
             VDomElement._instance = component;
         }

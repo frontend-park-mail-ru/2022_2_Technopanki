@@ -9,12 +9,11 @@ import {
     update,
 } from './operations';
 import {
-    COMPONENT_ELEMENT_SYMBOL,
-    CONSUMER_ELEMENT_SYMBOL,
-    CONTEXT_ELEMENT_SYMBOL,
+    COMPONENT_NODE_SYMBOL,
+    CONTEXT_NODE_SYMBOL,
     CONTEXT_TYPE,
-    DOM_ELEMENT_SYMBOL,
-    PROVIDER_ELEMENT_SYMBOL,
+    DOM_NODE_SYMBOL,
+    PROVIDER_NODE_SYMBOL,
 } from '../../shared/index';
 import { childrenDiff } from './childrenDiff';
 import { Context } from '../../reacts/context/index';
@@ -228,16 +227,16 @@ export const createDiff = (
     // if ()
 
     switch (oldNode.$$typeof) {
-        case DOM_ELEMENT_SYMBOL:
+        case DOM_NODE_SYMBOL:
             return createDiffDOM(oldNode, newNode);
-        case COMPONENT_ELEMENT_SYMBOL:
+        case COMPONENT_NODE_SYMBOL:
             return createDiffComponent(oldNode, newNode);
-        case CONTEXT_ELEMENT_SYMBOL:
+        case CONTEXT_NODE_SYMBOL:
             return createDiffContext(
                 <Context<any>>oldNode,
                 <Context<any>>newNode,
             );
-        case PROVIDER_ELEMENT_SYMBOL:
+        case PROVIDER_NODE_SYMBOL:
             return createDiffProvider(oldNode, newNode);
         default:
             if (__DEV__) {
