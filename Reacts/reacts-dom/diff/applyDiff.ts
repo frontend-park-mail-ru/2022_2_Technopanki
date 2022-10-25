@@ -222,9 +222,13 @@ const applyChildrenDiff = (
             continue;
         }
 
-        // TODO
         if (childUpdater.type === UPDATE_OPERATION) {
             applyDiff((<Update>childUpdater).node._domElement, childUpdater);
+            continue;
+        }
+
+        if (__DEV__) {
+            throw new Error('undefined operation');
         }
     }
 };

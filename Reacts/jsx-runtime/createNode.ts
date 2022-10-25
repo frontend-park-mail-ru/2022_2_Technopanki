@@ -28,7 +28,6 @@ const createNodeFromObject = (
 ): VNodeType => {
     const vnode = { ...type };
     vnode.props = { ...vnode.props, ...props };
-    // TODO: fix bug with key and context
     vnode.key = maybeKey ?? getUniqueSymbol();
 
     // Update context value
@@ -36,10 +35,6 @@ const createNodeFromObject = (
         type._context.value = vnode.props.value;
         vnode._context.value = vnode.props.value;
     }
-
-    // if (vnode.$$typeof === CONTEXT_ELEMENT_SYMBOL) {
-    //     vnode.props.value = type._context;
-    // }
 
     return <VNodeType>vnode;
 };
