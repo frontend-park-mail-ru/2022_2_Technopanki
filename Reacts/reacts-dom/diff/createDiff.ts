@@ -97,7 +97,7 @@ const comparePrimitiveTypeChildren = (
                     update: [['textContent', newNode.props.children]],
                 },
                 [],
-                oldNode,
+                newNode,
             );
         }
     }
@@ -116,11 +116,12 @@ const updateChild = (
     oldChild: VNodeType & { props: { children: VNodeType } },
     newChild: VNodeType & { props: { children: VNodeType } },
 ): Operation => {
-    return update(
-        attrUpdater,
-        [createDiff(oldChild.props.children, newChild.props.children)],
-        newChild,
-    );
+    return createDiff(oldChild.props.children, newChild.props.children);
+    // return update(
+    //     attrUpdater,
+    //     [createDiff(oldChild.props.children, newChild.props.children)],
+    //     newChild,
+    // );
 };
 
 /**
@@ -186,6 +187,8 @@ const createDiffComponent = (oldNode: VNodeType, newNode: VNodeType) => {
 
 const createDiffContext = (oldNode: Context<any>, newNode: Context<any>) => {
     newNode._domElement = oldNode._domElement;
+
+    // TODO: Wait for Provider change
     setContextValue(<Context<any>>newNode);
 
     // The context object will always store

@@ -9,6 +9,7 @@ import {
 } from '../shared/common';
 import {
     COMPONENT_ELEMENT_SYMBOL,
+    CONTEXT_ELEMENT_SYMBOL,
     DOM_ELEMENT_SYMBOL,
     getUniqueSymbol,
     PROVIDER_ELEMENT_SYMBOL,
@@ -25,17 +26,20 @@ const createNodeFromObject = (
     props: PropsType & { children: ChildrenType },
     maybeKey: KeyType | null | undefined,
 ): VNodeType => {
-    const vnode = type;
+    const vnode = { ...type };
     vnode.props = { ...vnode.props, ...props };
     // TODO: fix bug with key and context
-    // if (maybeKey) {
-    //     vnode.key = maybeKey;
-    // }
+    vnode.key = maybeKey ?? getUniqueSymbol();
 
     // Update context value
     if (vnode.$$typeof === PROVIDER_ELEMENT_SYMBOL) {
+        type._context.value = vnode.props.value;
         vnode._context.value = vnode.props.value;
     }
+
+    // if (vnode.$$typeof === CONTEXT_ELEMENT_SYMBOL) {
+    //     vnode.props.value = type._context;
+    // }
 
     return <VNodeType>vnode;
 };

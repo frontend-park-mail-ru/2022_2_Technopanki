@@ -1,7 +1,6 @@
 import { Component } from '../Reacts/index';
 import { createRoot } from '../Reacts/index';
 import { createContext } from '../Reacts/reacts/context/context';
-import { Context } from '../Reacts/reacts/context/index';
 import Test from './components/test';
 
 // Router.addRoutePath('/', Main);
@@ -15,6 +14,8 @@ import Test from './components/test';
 //
 // authenticateUser().then(() => Router.render(location.pathname));
 
+const MyContext = createContext('hello world');
+
 class Header extends Component<{ count: number }> {
     render() {
         return (
@@ -25,7 +26,7 @@ class Header extends Component<{ count: number }> {
     }
 }
 
-class Card extends Component<{ name: string; context: Context<any> }> {
+class Card extends Component<{ name: string }> {
     componentDidMount() {
         console.log('componentDidMount called!');
     }
@@ -50,9 +51,9 @@ class Card extends Component<{ name: string; context: Context<any> }> {
                 }
             >
                 <h1 key={2}>{this.props.name}</h1>
-                <this.props.context.Consumer key={1}>
-                    {(value: string) => <p key={'text'}>{value}</p>}
-                </this.props.context.Consumer>
+                <MyContext.Consumer key={1}>
+                    {(value: string) => <p>{value}</p>}
+                </MyContext.Consumer>
             </div>
         );
     }
@@ -85,10 +86,9 @@ class App extends Component<
     };
 
     render() {
-        const Context = createContext('hello world');
         return (
             <div className={'main'}>
-                <Context.Provider value={this.state.str}>
+                <MyContext.Provider value={this.state.str}>
                     <Header key={'header'} count={this.state.data.length} />
                     <button
                         key={'button'}
@@ -127,15 +127,11 @@ class App extends Component<
                     >
                         Set provider to random value
                     </button>
-                    {this.state.data.map((item, index) => (
-                        <Card
-                            context={Context}
-                            key={item.id}
-                            name={item.name}
-                        />
+                    {this.state.data.map(item => (
+                        <Card key={item.id} name={item.name} />
                     ))}
                     <Test key={'test'} />
-                </Context.Provider>
+                </MyContext.Provider>
             </div>
         );
     }
