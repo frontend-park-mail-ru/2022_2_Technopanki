@@ -1,30 +1,30 @@
-@import '../../../styles/colors.scss';
+@import '../../../styles/globals.scss';
 
 .btn {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 10px 12px;
-  gap: 12px;
+  padding: var(--padding-sm);
+  color: var(--background-900);
   background: var(--background-0);
-  border: 1px solid var(--background-100);
-  box-shadow: var(--shadow-small);
-  border-radius: 12px;
+  border: var(--border-default);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--border-radius-md);
   transition: var(--transition-sfast);
   &:hover {
-    box-shadow: var(--shadow-big);
+    box-shadow: var(--shadow-lg);
   }
 }
 
 .btn-primary-blue {
   background-color: var(--primary-blue);
   color: var(--background-0);
-  border: 1px solid var(--primary-blue);
+  border: var(--border-blue);
 }
 
 .btn-primary-dark {
   background-color: var(--background-900);
   color: var(--background-0);
-  border: 1px solid var(--background-900);
+  border: var(--border-dark);
 }

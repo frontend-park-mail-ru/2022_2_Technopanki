@@ -1,6 +1,6 @@
 export const setTheme = () => {
     const theme = localStorage.getItem('theme') ?? 'light';
-    if (theme === 'light') {
+    if (theme === 'dark') {
         document.documentElement.style.setProperty('--background-900', '#fff');
         document.documentElement.style.setProperty(
             '--background-800',
@@ -38,7 +38,7 @@ export const setTheme = () => {
             '--background-50',
             '#464651',
         );
-        document.documentElement.style.setProperty('--background-0', '#33333c');
+        document.documentElement.style.setProperty('--background-0', '#0F0F0F');
     } else {
         document.documentElement.style.setProperty('--background-0', '#fff');
         document.documentElement.style.setProperty(
