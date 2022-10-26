@@ -44,7 +44,7 @@ export interface ComponentType {
     componentDidUpdate(): void;
     componentWillUnmount(): void;
 
-    unmout(): void;
+    unmount(): void;
     render(): VNodeType;
 }
 

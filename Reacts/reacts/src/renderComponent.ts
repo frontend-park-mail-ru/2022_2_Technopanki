@@ -1,14 +1,13 @@
 import { Component } from './Component';
 import { COMPONENT_NODE_SYMBOL } from '../../shared/index';
 import { rerenderNode } from '../../reacts-dom/index';
+import { VNodeType } from '../../shared/common';
+import { ReactsNode } from './index';
 
 export function rerenderComponent(component: Component<any, any>) {
     if (component.rootDomRef && component.prevRenderVNodeRef) {
         const VDomElement = component.render();
-        if (
-            VDomElement.$$typeof.description ===
-            COMPONENT_NODE_SYMBOL.description
-        ) {
+        if (VDomElement.$$typeof === COMPONENT_NODE_SYMBOL) {
             VDomElement._instance = component;
         }
         rerenderNode(
@@ -17,7 +16,7 @@ export function rerenderComponent(component: Component<any, any>) {
             component.prevRenderVNodeRef,
             VDomElement,
         );
-        component.prevRenderVNodeRef = VDomElement;
+        (<VNodeType>component.prevRenderVNodeRef) = VDomElement;
     } else {
         throw new Error(
             `rootDomRef or prevRenderVNodeRef is empty. component: ${component}`,
