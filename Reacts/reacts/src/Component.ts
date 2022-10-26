@@ -4,7 +4,7 @@ import { PropsType, VNodeType } from '../../shared/common';
 
 export abstract class Component<P extends PropsType = {}, S = {}> {
     readonly props: Readonly<P>;
-    abstract state: Readonly<S>;
+    state: Readonly<S> | {} = {};
 
     rootDomRef?: HTMLElement;
     prevRenderVNodeRef?: VNodeType;

@@ -216,8 +216,8 @@ const applyChildrenDiff = (
 
         if (childUpdater.type === REMOVE_OPERATION) {
             childElem.remove();
-            // TODO спросить у Вити
-            // (<Remove>childUpdater).node._instance?.unmout();
+            (<Remove>childUpdater).node._instance?.componentWillUnmount();
+            (<Remove>childUpdater).node._instance?.unmount();
             offset -= 1;
             continue;
         }
