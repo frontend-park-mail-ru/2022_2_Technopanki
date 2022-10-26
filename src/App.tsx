@@ -2,7 +2,8 @@ import { Component } from '../Reacts/index';
 import { createRoot } from '../Reacts/index';
 import { createContext } from '../Reacts/reacts/context/context';
 import ButtonText from './components/UIkit/buttons/ButtonText';
-
+import './styles/globals.scss';
+import { setTheme, toggleTheme } from './toggleTheme';
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
 // Router.addRoutePath('/signin', SignIn);
@@ -87,6 +88,8 @@ class App extends Component<
     };
 
     render() {
+        setTheme();
+
         return (
             <div className={'main'}>
                 <MyContext.Provider value={this.state.str}>
@@ -131,14 +134,7 @@ class App extends Component<
                     {this.state.data.map(item => (
                         <Card key={item.id} name={item.name} />
                     ))}
-                    <ButtonText
-                        onClick={() => {
-                            document.documentElement.style.setProperty(
-                                '--background-0',
-                                '#000',
-                            );
-                        }}
-                    >
+                    <ButtonText key={'theme_button'} onClick={toggleTheme}>
                         Change background color!
                     </ButtonText>
                 </MyContext.Provider>

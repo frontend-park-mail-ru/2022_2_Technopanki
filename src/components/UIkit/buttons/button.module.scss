@@ -16,3 +16,15 @@
     box-shadow: var(--shadow-big);
   }
 }
+
+.btn-primary-blue {
+  background-color: var(--primary-blue);
+  color: var(--background-0);
+  border: 1px solid var(--primary-blue);
+}
+
+.btn-primary-dark {
+  background-color: var(--background-900);
+  color: var(--background-0);
+  border: 1px solid var(--background-900);
+}
