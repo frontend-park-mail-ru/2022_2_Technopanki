@@ -1,13 +1,16 @@
-import { ComponentClass } from './index';
+import { ComponentClass, ReactsNode } from './index';
 import { rerenderComponent } from './renderComponent';
-import { PropsType } from '../../shared/common';
+import { PropsType, VNodeType } from '../../shared/common';
 
-export class Component<P extends PropsType = {}, S = {}> extends ComponentClass<
-    P,
-    S
-> {
-    constructor(props: P | Readonly<P>) {
-        super(props);
+export class Component<P extends PropsType = {}, S = {}> {
+    readonly props: Readonly<P>;
+    state: Readonly<S> | undefined;
+
+    rootDomRef?: HTMLElement;
+    prevRenderVNodeRef?: VNodeType;
+
+    constructor(props: Readonly<P> | P) {
+        this.props = props;
     }
 
     setState<K extends keyof S>(
@@ -37,4 +40,6 @@ export class Component<P extends PropsType = {}, S = {}> extends ComponentClass<
     unmount(): void {
         console.log('unmount');
     }
+
+    render(): ReactsNode<P>;
 }

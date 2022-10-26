@@ -14,6 +14,7 @@ import Test from './components/test';
 //
 // authenticateUser().then(() => Router.render(location.pathname));
 
+// const store = createStore(reducers);
 const MyContext = createContext('hello world');
 
 class Header extends Component<{ count: number }> {
