@@ -1,7 +1,7 @@
 import { Component } from '../Reacts/index';
 import { createRoot } from '../Reacts/index';
 import { createContext } from '../Reacts/reacts/context/context';
-import ButtonText from './components/buttons/ButtonText';
+import ButtonText from './components/UIkit/buttons/ButtonText';
 
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
@@ -131,7 +131,16 @@ class App extends Component<
                     {this.state.data.map(item => (
                         <Card key={item.id} name={item.name} />
                     ))}
-                    <ButtonText>Hello world!</ButtonText>
+                    <ButtonText
+                        onClick={() => {
+                            document.documentElement.style.setProperty(
+                                '--background-0',
+                                '#000',
+                            );
+                        }}
+                    >
+                        Change background color!
+                    </ButtonText>
                 </MyContext.Provider>
             </div>
         );

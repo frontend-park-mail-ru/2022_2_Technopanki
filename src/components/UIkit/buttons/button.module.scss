@@ -1,0 +1,18 @@
+@import '../../../styles/colors.scss';
+
+.btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 12px;
+  gap: 12px;
+  background: var(--background-0);
+  border: 1px solid var(--background-100);
+  box-shadow: var(--shadow-small);
+  border-radius: 12px;
+  transition: var(--transition-sfast);
+  &:hover {
+    box-shadow: var(--shadow-big);
+  }
+}
