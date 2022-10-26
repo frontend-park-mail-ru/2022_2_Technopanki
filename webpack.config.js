@@ -22,13 +22,13 @@ module.exports = {
                 exclude: /node_modules/,
             },
             {
-                test: /\.s[ac]css$/,
+                test: /\.s[ac]ss$/,
                 use: ['style-loader', 'css-loader', 'sass-loader'],
             },
         ],
     },
     resolve: {
-        extensions: ['.d.ts', '.ts', '.tsx', '.js'],
+        extensions: ['.d.ts', '.ts', '.tsx', '.js', '.scss'],
     },
     output: {
         filename: 'js/[name].js',

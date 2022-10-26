@@ -1,7 +1,7 @@
 import { Component } from '../Reacts/index';
 import { createRoot } from '../Reacts/index';
 import { createContext } from '../Reacts/reacts/context/context';
-import Test from './components/test';
+import ButtonText from './components/buttons/ButtonText';
 
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
@@ -131,7 +131,7 @@ class App extends Component<
                     {this.state.data.map(item => (
                         <Card key={item.id} name={item.name} />
                     ))}
-                    <Test key={'test'} />
+                    <ButtonText>Hello world!</ButtonText>
                 </MyContext.Provider>
             </div>
         );
