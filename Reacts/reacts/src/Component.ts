@@ -2,9 +2,9 @@ import { ComponentClass, ReactsNode } from './index';
 import { rerenderComponent } from './renderComponent';
 import { PropsType, VNodeType } from '../../shared/common';
 
-export class Component<P extends PropsType = {}, S = {}> {
+export abstract class Component<P extends PropsType = {}, S = {}> {
     readonly props: Readonly<P>;
-    state: Readonly<S> | undefined;
+    abstract state: Readonly<S>;
 
     rootDomRef?: HTMLElement;
     prevRenderVNodeRef?: VNodeType;
@@ -36,10 +36,7 @@ export class Component<P extends PropsType = {}, S = {}> {
 
     // Unmounting
     componentWillUnmount(): void {}
+    unmount(): void {}
 
-    unmount(): void {
-        console.log('unmount');
-    }
-
-    render(): ReactsNode<P>;
+    abstract render(): ReactsNode<P>;
 }
