@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
     "module": "ES6",
-    "target": "es5",
-    "sourceMap": true,
+    "target": "ES5",
     "jsx": "preserve",
     "strict": true,
-    "moduleResolution": "path",
+    "moduleResolution": "path"
   },
   "exclude": [
     "node_modules"

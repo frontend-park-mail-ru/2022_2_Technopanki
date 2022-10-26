@@ -2,6 +2,10 @@ import { Component } from '../Reacts/index';
 import { createRoot } from '../Reacts/index';
 import { createContext } from '../Reacts/reacts/context/context';
 import Test from './components/test';
+import { createStore } from '../Fluxs/createStore';
+import { Reducer } from '../Fluxs/types/reducer';
+import Card from './Card';
+import createConnect from '../Reacts/reacts-flux/connect';
 
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
@@ -14,9 +18,6 @@ import Test from './components/test';
 //
 // authenticateUser().then(() => Router.render(location.pathname));
 
-// const store = createStore(reducers);
-const MyContext = createContext('hello world');
-
 class Header extends Component<{ count: number }> {
     render() {
         return (
@@ -27,38 +28,19 @@ class Header extends Component<{ count: number }> {
     }
 }
 
-class Card extends Component<{ name: string }> {
-    componentDidMount() {
-        console.log('componentDidMount called!');
+const reducer: Reducer = (state, action) => {
+    switch (action.type) {
+        case 'SET_RANDOM':
+            return { ...state, value: `${Math.random() * Date.now()}` };
+        case 'HELLO_WORLD':
+            return { ...state, value: 'Hello world!' };
     }
+};
 
-    componentDidUpdate() {
-        console.log('componentDidUpdate called!');
-    }
+const store = createStore(reducer, { value: 'Initial store value' });
+export const connect = createConnect(store);
 
-    componentWillUnmount() {
-        console.log('componentWillUnmount called!');
-    }
-
-    unmount() {
-        console.log('unmount called!');
-    }
-
-    render() {
-        return (
-            <div
-                style={
-                    'padding: 8px, border: 1px solid #000, border-radius: 8px, margin-top: 8px'
-                }
-            >
-                <h1 key={2}>{this.props.name}</h1>
-                <MyContext.Consumer key={1}>
-                    {(value: string) => <p>{value}</p>}
-                </MyContext.Consumer>
-            </div>
-        );
-    }
-}
+export const MyContext = createContext('hello world');
 
 class App extends Component<
     {},
