@@ -45,7 +45,8 @@ export const attributes: { [key: string]: string } = {
     align: 'align',
     dir: 'dir',
     style: 'style',
+    type: 'type',
+    placeholder: 'placeholder',
     alt: 'alt',
     input: 'input',
-    placeholder: 'placeholder',
 };
