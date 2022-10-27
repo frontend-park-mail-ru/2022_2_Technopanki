@@ -15,7 +15,7 @@ export default class Footer extends Component {
                 </div>
                 <div
                     key={'headline'}
-                    className={'w-100 flex justify-content-center'}
+                    className={`w-100 flex justify-content-center ${styles.tagline}`}
                 >
                     <h5>Создай свою команду, найди свою миссию</h5>
                 </div>

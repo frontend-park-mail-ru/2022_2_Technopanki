@@ -9,11 +9,11 @@
   color: var(--background-900);
   background: var(--background-0);
   border: var(--border-default);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-grey-sm);
   border-radius: var(--border-radius-md);
   transition: var(--transition-sfast);
   &:hover {
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-grey-md);
   }
 }
 
@@ -21,6 +21,10 @@
   background-color: var(--primary-blue);
   border: var(--border-blue);
   color: var(--white);
+  box-shadow: var(--shadow-blue-sm);
+  &:hover {
+    box-shadow: var(--shadow-blue-md);
+  }
 }
 
 .btn-primary {

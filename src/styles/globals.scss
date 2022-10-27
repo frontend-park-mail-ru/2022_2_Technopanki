@@ -1,4 +1,5 @@
 @import './screens';
+// TODO: переделать на импорты из dist
 @import 'https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap';
 
 :root {
@@ -20,8 +21,11 @@
   --background-0: #fff;
   --background-body: #fff;
 
-  --shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-grey-sm: 0 4px 8px rgba(0, 0, 0, 0.04);
+  --shadow-grey-md: 0px 6px 20px rgba(0, 0, 0, 0.08);
+  --shadow-grey-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-blue-md: 0px 4px 8px rgba(28, 52, 236, 0.16);
+  --shadow-blue-lg: 0px 4px 16px rgba(28, 52, 236, 0.24);
 
   --transition-sfast: 0.15s;
   --transition-fast: 0.2s;
@@ -49,11 +53,22 @@
   --gap-24: 24px;
   --gap-40: 40px;
 
+  --opacity-5: 5%;
+  --opacity-25: 25%;
+  --opacity-50: 50%;
+  --opacity-75: 75%;
+  --opacity-90: 90%;
+  --opacity-100: 100%;
+
   --padding-screen-sm: 0 16px;
   --padding-screen-md: 0 120px;
   --padding-screen-lg: 0 240px;
   --padding-screen-xlg: 0 15vw;
   --padding-screen-xxlg: 0 25vw;
+}
+
+::selection {
+  background: var(--primary-purple);
 }
 
 // TODO
@@ -72,6 +87,7 @@ body {
   left: 0;
   top: 0;
   margin: 0;
+  font-size: 14px;
 }
 
 h1 {
