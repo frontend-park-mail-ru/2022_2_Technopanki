@@ -38,7 +38,11 @@ export const setTheme = () => {
             '--background-50',
             '#464651',
         );
-        document.documentElement.style.setProperty('--background-0', '#0F0F0F');
+        document.documentElement.style.setProperty('--background-0', '#33333c');
+        document.documentElement.style.setProperty(
+            '--background-body',
+            '#0F0F0F',
+        );
     } else {
         document.documentElement.style.setProperty('--background-0', '#fff');
         document.documentElement.style.setProperty(
@@ -81,6 +85,7 @@ export const setTheme = () => {
             '--background-900',
             '#33333c',
         );
+        document.documentElement.style.setProperty('--background-body', '#fff');
     }
 };
 

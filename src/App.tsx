@@ -1,9 +1,11 @@
 import { Component } from '../Reacts/index';
 import { createRoot } from '../Reacts/index';
 import { createContext } from '../Reacts/reacts/context/context';
-import ButtonText from './components/UI-kit/buttons/ButtonText';
 import './styles/globals.scss';
 import { setTheme, toggleTheme } from './toggleTheme';
+import Button from './components/UI-kit/buttons/Button';
+import ButtonPrimaryBlue from './components/UI-kit/buttons/ButtonPrimaryBlue';
+import ButtonPrimary from './components/UI-kit/buttons/ButtonPrimary';
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
 // Router.addRoutePath('/signin', SignIn);
@@ -90,7 +92,7 @@ class App extends Component<
                         key={'buttons'}
                         style={'display: flex; flex-direction: row; gap: 8px'}
                     >
-                        <ButtonText
+                        <Button
                             key={'button'}
                             onClick={() =>
                                 this.setState(state => {
@@ -103,8 +105,8 @@ class App extends Component<
                             }
                         >
                             Add item to list
-                        </ButtonText>
-                        <ButtonText
+                        </Button>
+                        <Button
                             key={'delete'}
                             onClick={() =>
                                 this.setState(state => {
@@ -114,8 +116,8 @@ class App extends Component<
                             }
                         >
                             Delete last line
-                        </ButtonText>
-                        <ButtonText
+                        </Button>
+                        <ButtonPrimaryBlue
                             onClick={() =>
                                 this.setState(state => {
                                     state.str = `Random number: ${
@@ -126,10 +128,13 @@ class App extends Component<
                             }
                         >
                             Set provider to random value
-                        </ButtonText>
-                        <ButtonText key={'theme_button'} onClick={toggleTheme}>
+                        </ButtonPrimaryBlue>
+                        <ButtonPrimary
+                            key={'theme_button'}
+                            onClick={toggleTheme}
+                        >
                             Change background color!
-                        </ButtonText>
+                        </ButtonPrimary>
                     </div>
                     {this.state.data.map(item => (
                         <Card key={item.id} name={item.name} />

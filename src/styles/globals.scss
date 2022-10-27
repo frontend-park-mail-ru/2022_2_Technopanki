@@ -4,6 +4,7 @@
 }
 
 :root {
+  --white: #fff;
   --primary-blue: #1c34ec;
   --primary-red: #f32a2a;
   --primary-purple: #97a2fb;
@@ -19,6 +20,7 @@
   --background-100: #dadae0;
   --background-50: #f8f8f8;
   --background-0: #fff;
+  --background-body: #fff;
 
   --shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.04);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
@@ -53,7 +55,7 @@
 //}
 
 body {
-  background-color: var(--background-0);
+  background-color: var(--background-body);
   color: var(--background-900);
   font-family: 'Inter';
 }

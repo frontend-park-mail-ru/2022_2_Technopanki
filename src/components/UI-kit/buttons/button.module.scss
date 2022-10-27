@@ -19,11 +19,11 @@
 
 .btn-primary-blue {
   background-color: var(--primary-blue);
-  color: var(--background-0);
   border: var(--border-blue);
+  color: var(--white);
 }
 
-.btn-primary-dark {
+.btn-primary {
   background-color: var(--background-900);
   color: var(--background-0);
   border: var(--border-dark);
