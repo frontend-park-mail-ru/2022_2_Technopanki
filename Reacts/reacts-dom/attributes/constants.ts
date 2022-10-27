@@ -45,4 +45,5 @@ export const attributes: { [key: string]: string } = {
     align: 'align',
     dir: 'dir',
     style: 'style',
+    alt: 'alt',
 };

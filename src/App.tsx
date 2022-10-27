@@ -6,6 +6,7 @@ import { setTheme, toggleTheme } from './toggleTheme';
 import Button from './components/UI-kit/buttons/Button';
 import ButtonPrimaryBlue from './components/UI-kit/buttons/ButtonPrimaryBlue';
 import ButtonPrimary from './components/UI-kit/buttons/ButtonPrimary';
+import Footer from './components/UI-kit/footer/Footer';
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
 // Router.addRoutePath('/signin', SignIn);
@@ -139,6 +140,7 @@ class App extends Component<
                     {this.state.data.map(item => (
                         <Card key={item.id} name={item.name} />
                     ))}
+                    <Footer />
                 </MyContext.Provider>
             </div>
         );
