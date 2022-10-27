@@ -43,6 +43,11 @@
   --border-dark: 1px solid var(--background-900);
 
   --padding-sm: 10px 12px;
+
+  --font-size-sm: 14px;
+
+  --input-height: 54px;
+  --input-padding: 16px 16px;
 }
 
 // TODO
@@ -106,4 +111,25 @@ h6 {
   font-size: 12px;
   line-height: 15px;
   letter-spacing: -0.01em;
+}
+
+input, textarea {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--input-padding);
+  gap: 10px;
+  height: var(--input-height);
+  background: var(--background-0);
+  border: var(--border-default);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-sm);
+}
+
+label {
+  font-family: Inter, sans-serif;
+  font-size: var(--font-size-sm);
+  color: var(--background-700);
 }

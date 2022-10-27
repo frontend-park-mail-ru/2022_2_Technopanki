@@ -6,6 +6,7 @@ import { setTheme, toggleTheme } from './toggleTheme';
 import Button from './components/UI-kit/buttons/Button';
 import ButtonPrimaryBlue from './components/UI-kit/buttons/ButtonPrimaryBlue';
 import ButtonPrimary from './components/UI-kit/buttons/ButtonPrimary';
+import Input from './components/UI-kit/forms/Input';
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
 // Router.addRoutePath('/signin', SignIn);
@@ -79,6 +80,13 @@ class App extends Component<
 
         return (
             <div className={'main'}>
+                <Input
+                    key={'input'}
+                    type={'text'}
+                    placeholder={'placeholder'}
+                >
+                    <p key={'label'}>Label</p>
+                </Input>
                 <MyContext.Provider value={this.state.str}>
                     <h1 key={'h1'}>Example text</h1>
                     <h2 key={'h2'}>Example text</h2>
