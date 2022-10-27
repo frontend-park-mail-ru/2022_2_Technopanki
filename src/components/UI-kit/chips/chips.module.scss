@@ -1,0 +1,9 @@
+@import '../../../styles/globals';
+
+.chips {
+  padding: 6px;
+  max-height: 27px;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--background-50);
+  color: var(--background-500);
+}

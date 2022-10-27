@@ -7,6 +7,7 @@ import Button from './components/UI-kit/buttons/Button';
 import ButtonPrimaryBlue from './components/UI-kit/buttons/ButtonPrimaryBlue';
 import ButtonPrimary from './components/UI-kit/buttons/ButtonPrimary';
 import Footer from './components/UI-kit/footer/Footer';
+import ChipsTemp from './components/ChipsTemp';
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
 // Router.addRoutePath('/signin', SignIn);
@@ -89,6 +90,7 @@ class App extends Component<
                         <h5 key={'h5'}>Example text</h5>
                         <h6 key={'h6'}>Example text</h6>
                         <p key={'p'}>Example text</p>
+                        <ChipsTemp key={'chips'} />
                         <Header key={'header'} count={this.state.data.length} />
                         <div
                             key={'buttons'}
