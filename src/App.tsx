@@ -80,68 +80,72 @@ class App extends Component<
 
         return (
             <div className={'main'}>
-                <MyContext.Provider value={this.state.str}>
-                    <h1 key={'h1'}>Example text</h1>
-                    <h2 key={'h2'}>Example text</h2>
-                    <h3 key={'h3'}>Example text</h3>
-                    <h4 key={'h4'}>Example text</h4>
-                    <h5 key={'h5'}>Example text</h5>
-                    <h6 key={'h6'}>Example text</h6>
-                    <p key={'p'}>Example text</p>
-                    <Header key={'header'} count={this.state.data.length} />
-                    <div
-                        key={'buttons'}
-                        style={'display: flex; flex-direction: row; gap: 8px'}
-                    >
-                        <Button
-                            key={'button'}
-                            onClick={() =>
-                                this.setState(state => {
-                                    state.data.push({
-                                        id: state.data.length + 1,
-                                        name: 'New item',
-                                    });
-                                    return state;
-                                })
+                <div key={'provider'} className={'provider screen-responsive'}>
+                    <MyContext.Provider value={this.state.str}>
+                        <h1 key={'h1'}>Example text</h1>
+                        <h2 key={'h2'}>Example text</h2>
+                        <h3 key={'h3'}>Example text</h3>
+                        <h4 key={'h4'}>Example text</h4>
+                        <h5 key={'h5'}>Example text</h5>
+                        <h6 key={'h6'}>Example text</h6>
+                        <p key={'p'}>Example text</p>
+                        <Header key={'header'} count={this.state.data.length} />
+                        <div
+                            key={'buttons'}
+                            style={
+                                'display: flex; flex-direction: row; gap: 8px'
                             }
                         >
-                            Add item to list
-                        </Button>
-                        <Button
-                            key={'delete'}
-                            onClick={() =>
-                                this.setState(state => {
-                                    state.data.pop();
-                                    return state;
-                                })
-                            }
-                        >
-                            Delete last line
-                        </Button>
-                        <ButtonPrimaryBlue
-                            onClick={() =>
-                                this.setState(state => {
-                                    state.str = `Random number: ${
-                                        Math.random() * Date.now()
-                                    }`;
-                                    return state;
-                                })
-                            }
-                        >
-                            Set provider to random value
-                        </ButtonPrimaryBlue>
-                        <ButtonPrimary
-                            key={'theme_button'}
-                            onClick={toggleTheme}
-                        >
-                            Change background color!
-                        </ButtonPrimary>
-                    </div>
-                    {this.state.data.map(item => (
-                        <Card key={item.id} name={item.name} />
-                    ))}
-                    <Footer />
-                </MyContext.Provider>
+                            <Button
+                                key={'button'}
+                                onClick={() =>
+                                    this.setState(state => {
+                                        state.data.push({
+                                            id: state.data.length + 1,
+                                            name: 'New item',
+                                        });
+                                        return state;
+                                    })
+                                }
+                            >
+                                Add item to list
+                            </Button>
+                            <Button
+                                key={'delete'}
+                                onClick={() =>
+                                    this.setState(state => {
+                                        state.data.pop();
+                                        return state;
+                                    })
+                                }
+                            >
+                                Delete last line
+                            </Button>
+                            <ButtonPrimaryBlue
+                                onClick={() =>
+                                    this.setState(state => {
+                                        state.str = `Random number: ${
+                                            Math.random() * Date.now()
+                                        }`;
+                                        return state;
+                                    })
+                                }
+                            >
+                                Set provider to random value
+                            </ButtonPrimaryBlue>
+                            <ButtonPrimary
+                                key={'theme_button'}
+                                onClick={toggleTheme}
+                            >
+                                Change background color!
+                            </ButtonPrimary>
+                        </div>
+                        {this.state.data.map(item => (
+                            <Card key={item.id} name={item.name} />
+                        ))}
+                    </MyContext.Provider>
+                </div>
+                <Footer key={'footer'} />
             </div>
         );
     }

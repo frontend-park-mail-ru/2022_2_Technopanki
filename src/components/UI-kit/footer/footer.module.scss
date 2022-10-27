@@ -1,9 +1,19 @@
 @import '../../../styles/globals';
 
 .footer {
-  position: absolute;
+  margin-top: 40px;
   background-color: var(--background-50);
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.item {
+  cursor: pointer;
+  &:hover {
+    opacity: 0.75;
+  }
+  &:active {
+    color: var(--background-900);
+  }
 }
