@@ -1,7 +1,5 @@
-@font-face {
-  font-family: "Inter";
-  src: url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
-}
+@import './screens';
+@import 'https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap';
 
 :root {
   --white: #fff;
@@ -44,10 +42,18 @@
 
   --padding-sm: 10px 12px;
 
-  --font-size-sm: 14px;
+  --gap-4: 4px;
+  --gap-8: 8px;
+  --gap-12: 12px;
+  --gap-16: 16px;
+  --gap-24: 24px;
+  --gap-40: 40px;
 
-  --input-height: 54px;
-  --input-padding: 16px 16px;
+  --padding-screen-sm: 0 16px;
+  --padding-screen-md: 0 120px;
+  --padding-screen-lg: 0 240px;
+  --padding-screen-xlg: 0 15vw;
+  --padding-screen-xxlg: 0 25vw;
 }
 
 // TODO
@@ -63,6 +69,9 @@ body {
   background-color: var(--background-body);
   color: var(--background-900);
   font-family: 'Inter';
+  left: 0;
+  top: 0;
+  margin: 0;
 }
 
 h1 {
@@ -113,23 +122,94 @@ h6 {
   letter-spacing: -0.01em;
 }
 
-input, textarea {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--input-padding);
-  gap: 10px;
-  height: var(--input-height);
-  background: var(--background-0);
-  border: var(--border-default);
-  border-radius: var(--border-radius-md);
-  font-size: var(--font-size-sm);
+.w-25 {
+  width: 25%;
 }
 
-label {
-  font-family: Inter, sans-serif;
-  font-size: var(--font-size-sm);
-  color: var(--background-700);
+.w-50 {
+  width: 50%;
+}
+
+.w-75 {
+  width: 75%;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.g-4 {
+  gap: var(--gap-4)
+}
+
+.g-8 {
+  gap: var(--gap-8)
+}
+
+.g-12 {
+  gap: var(--gap-12)
+}
+
+.g-16 {
+  gap: var(--gap-16)
+}
+
+.g-24 {
+  gap: var(--gap-24)
+}
+
+.g-40 {
+  gap: var(--gap-40)
+}
+
+.flex {
+  display: flex;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.align-items-start {
+  align-items: flex-start;
+}
+
+.align-items-end {
+  align-items: flex-end;
+}
+
+.align-items-stretch {
+  align-items: stretch;
+}
+
+.justify-content-start {
+  justify-content: start;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-end {
+  justify-content: end;
+}
+
+.justify-content-space-between {
+  justify-content: space-between;
+}
+
+.justify-content-space-around {
+  justify-content: space-around;
+}
+
+.justify-content-space-evenly {
+  justify-content: space-evenly;
 }

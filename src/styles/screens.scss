@@ -4,3 +4,21 @@ $screen-md: 992px;
 $screen-lg: 1500px;
 $screen-xlg: 2000px;
 $screen-xxlg: 3656px;
+
+.screen-responsive {
+  @media (max-width: $screen-sm) {
+    padding: var(--padding-screen-sm);
+  }
+  @media (min-width: $screen-sm) and (max-width: $screen-md){
+    padding: var(--padding-screen-md);
+  }
+  @media (min-width: $screen-md) and (max-width: $screen-lg){
+    padding: var(--padding-screen-lg);
+  }
+  @media (min-width: $screen-lg) and (max-width: $screen-xlg){
+    padding: var(--padding-screen-xlg);
+  }
+  @media (min-width: $screen-xlg) and (max-width: $screen-xxlg){
+    padding: var(--padding-screen-xxlg);
+  }
+}
