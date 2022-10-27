@@ -23,7 +23,21 @@ module.exports = {
             },
             {
                 test: /\.s[ac]ss$/,
-                use: ['style-loader', 'css-loader', 'sass-loader'],
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'resolve-url-loader', // https://webpack.js.org/loaders/sass-loader/#problems-with-url
+                    'sass-loader',
+                ],
+            },
+            {
+                test: /\.ttf$/,
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: 'assets/fonts/[name].[ext]',
+                    },
+                },
             },
         ],
     },

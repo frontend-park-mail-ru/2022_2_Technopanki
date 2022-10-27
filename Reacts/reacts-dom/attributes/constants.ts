@@ -46,4 +46,6 @@ export const attributes: { [key: string]: string } = {
     dir: 'dir',
     style: 'style',
     alt: 'alt',
+    input: 'input',
+    placeholder: 'placeholder',
 };
