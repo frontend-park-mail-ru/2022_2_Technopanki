@@ -8,7 +8,7 @@ import ButtonPrimaryBlue from './components/UI-kit/buttons/ButtonPrimaryBlue';
 import ButtonPrimary from './components/UI-kit/buttons/ButtonPrimary';
 import Footer from './components/UI-kit/footer/Footer';
 import ChipsTemp from './components/ChipsTemp';
-import createConnect from '../Reacts/reacts-flux/connect';
+import createConnect from '../Reacts/reacts-fluxs/connect';
 import { createStore } from '../Fluxs/store';
 import { Action } from '../Fluxs/types/action';
 import Card from './Card';
