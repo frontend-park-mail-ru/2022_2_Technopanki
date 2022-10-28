@@ -8,6 +8,9 @@ import ButtonPrimaryBlue from './components/UI-kit/buttons/ButtonPrimaryBlue';
 import ButtonPrimary from './components/UI-kit/buttons/ButtonPrimary';
 import Footer from './components/UI-kit/footer/Footer';
 import ChipsTemp from './components/ChipsTemp';
+import createConnect, { connect } from '../Reacts/reacts-flux/connect';
+import { createStore } from '../Fluxs/createStore';
+import { Action } from '../Fluxs/types/action';
 
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
@@ -146,6 +149,7 @@ class App extends Component<
                         {this.state.data.map(item => (
                             <Card key={item.id} name={item.name} />
                         ))}
+                        <p key={'flux'}>{this.props.value}</p>
                     </MyContext.Provider>
                 </div>
                 <Footer key={'footer'} />
@@ -155,4 +159,5 @@ class App extends Component<
 }
 
 const root = createRoot(document.querySelector('#root'));
-root.render(<App />);
+const RootNode = connect()(App);
+root.render(<RootNode />);
