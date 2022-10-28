@@ -39,6 +39,7 @@
   --border-radius-md: 12px;
   --border-radius-lg: 16px;
   --border-radius-xl: 24px;
+  --border-radius-max: 100%;
 
   --border-default: 1px solid var(--background-100);
   --border-blue: 1px solid var(--primary-blue);
@@ -189,6 +190,26 @@ p {
   gap: var(--gap-40)
 }
 
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.none {
+  display: none;
+}
+
+.block {
+  display: block;
+}
+
+.inline {
+  display: inline;
+}
+
 .flex {
   display: flex;
 }
@@ -239,4 +260,74 @@ p {
 
 .justify-content-space-evenly {
   justify-content: space-evenly;
+}
+
+.padding-4 {
+  padding: 4px;
+}
+
+.background {
+  &-0 {
+    background-color: var(--background-0);
+  }
+  &-50 {
+    background-color: var(--background-50);
+  }
+  &-100 {
+    background-color: var(--background-100);
+  }
+  &-200 {
+    background-color: var(--background-200);
+  }
+  &-300 {
+    background-color: var(--background-300);
+  }
+  &-400 {
+    background-color: var(--background-400);
+  }
+  &-500 {
+    background-color: var(--background-500);
+  }
+  &-600 {
+    background-color: var(--background-600);
+  }
+  &-700 {
+    background-color: var(--background-700);
+  }
+  &-800 {
+    background-color: var(--background-800);
+  }
+  &-900 {
+    background-color: var(--background-900);
+  }
+}
+
+.rounded {
+  &-sm {
+    border-radius: var(--border-radius-sm);
+  }
+  &-md {
+    border-radius: var(--border-radius-md);
+  }
+  &-lg {
+    border-radius: var(--border-radius-lg);
+  }
+  &-xl {
+    border-radius: var(--border-radius-xl);
+  }
+  &-max {
+    border-radius: var(--border-radius-max);
+  }
+}
+
+.cursor {
+  &-default {
+    cursor: default;
+  }
+  &-help {
+    cursor: help;
+  }
+  &-pointer {
+    cursor: pointer;
+  }
 }

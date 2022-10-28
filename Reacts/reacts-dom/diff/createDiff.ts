@@ -48,7 +48,7 @@ const compareAttributes = (
         update: newNodeWithoutChildren.filter(
             ([attr, value]) =>
                 oldNodeAttrNames.indexOf(attr) !== -1 &&
-                oldNodeAttrNames.find(
+                oldNodeWithoutChildren.find(
                     node => node[0] === attr && node[1] !== value,
                 ),
         ),
@@ -115,12 +115,12 @@ const updateChild = (
     oldChild: VNodeType & { props: { children: VNodeType } },
     newChild: VNodeType & { props: { children: VNodeType } },
 ): Operation => {
-    return createDiff(oldChild.props.children, newChild.props.children);
-    // return update(
-    //     attrUpdater,
-    //     [createDiff(oldChild.props.children, newChild.props.children)],
-    //     newChild,
-    // );
+    // return createDiff(oldChild.props.children, newChild.props.children);
+    return update(
+        attrUpdater,
+        [createDiff(oldChild.props.children, newChild.props.children)],
+        newChild,
+    );
 };
 
 /**
@@ -223,8 +223,6 @@ export const createDiff = (
     if (oldNode.$$typeof !== newNode.$$typeof) {
         return replace(oldNode, newNode);
     }
-
-    // if ()
 
     switch (oldNode.$$typeof) {
         case DOM_NODE_SYMBOL:

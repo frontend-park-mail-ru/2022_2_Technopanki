@@ -1,4 +1,4 @@
-import { ComponentClass, ReactsNode } from './index';
+import { ReactsNode } from './index';
 import { rerenderComponent } from './renderComponent';
 import { PropsType, VNodeType } from '../../shared/common';
 

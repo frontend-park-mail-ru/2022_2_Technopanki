@@ -84,6 +84,8 @@ const createDomNode = (
         case 'h5':
         case 'h6':
         case 'p':
+        case 'a':
+        case 'label':
             if (Array.isArray(props.children)) {
                 props.children = props.children.join('');
             }
@@ -136,6 +138,7 @@ export const createVNode = (
         props.children = resolveArraysInChildren(props.children);
     }
 
+    console.log('sd');
     switch (typeof type) {
         case 'object':
             return createNodeFromObject(type, props, maybeKey);
