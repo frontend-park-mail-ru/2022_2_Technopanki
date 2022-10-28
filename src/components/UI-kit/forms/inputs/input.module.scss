@@ -1,0 +1,29 @@
+@import '../../../../styles/globals.scss';
+
+.input {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gap-8);
+  padding: var(--input-padding);
+  height: var(--input-height);
+  background: var(--background-0);
+  border: var(--border-default);
+  border-radius: var(--border-radius-md);
+  transition: var(--transition-sfast);
+  outline: none;
+  &::placeholder {
+    font-size: var(--input-font-size);
+  }
+  &:focus {
+    outline: var(--border-blue);
+    outline-width: 2px;
+  }
+}
+
+.label {
+  font-size: var(--input-font-size);
+  color: var(--background-600);
+}

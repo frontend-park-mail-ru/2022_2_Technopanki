@@ -8,7 +8,8 @@ import ButtonPrimaryBlue from './components/UI-kit/buttons/ButtonPrimaryBlue';
 import ButtonPrimary from './components/UI-kit/buttons/ButtonPrimary';
 import Footer from './components/UI-kit/footer/Footer';
 import ChipsTemp from './components/ChipsTemp';
-
+import Input from './components/UI-kit/forms/inputs/Input';
+import Header from './components/UI-kit/header/Header';
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
 // Router.addRoutePath('/signin', SignIn);
@@ -24,12 +25,12 @@ import ChipsTemp from './components/ChipsTemp';
 
 const MyContext = createContext('hello world');
 
-class Header extends Component<{ count: number }> {
+class Counter extends Component<{ count: number }> {
     render() {
         return (
-            <header className={'main__header'}>
+            <div className={'main__header'}>
                 <p>Number of items: {this.props.count.toString()}</p>
-            </header>
+            </div>
         );
     }
 }
@@ -82,6 +83,7 @@ class App extends Component<
 
         return (
             <div className={'main'}>
+                <Header key={'header'} />
                 <div key={'provider'} className={'provider screen-responsive'}>
                     <MyContext.Provider value={this.state.str}>
                         <h1 key={'h1'}>Example text</h1>
@@ -91,8 +93,15 @@ class App extends Component<
                         <h5 key={'h5'}>Example text</h5>
                         <h6 key={'h6'}>Example text</h6>
                         <p key={'p'}>Example text</p>
+                        <Input
+                            key={'input'}
+                            type={'text'}
+                            placeholder={'type smth..'}
+                        >
+                            <p>Label</p>
+                        </Input>
                         <ChipsTemp key={'chips'} />
-                        <Header key={'header'} count={this.state.data.length} />
+                        <Counter key={'counter'} count={this.state.data.length} />
                         <div
                             key={'buttons'}
                             style={
