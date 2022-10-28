@@ -33,9 +33,9 @@ class Card extends Component<{ name: string }> {
             >
                 <h3 key={2}>{this.props.name}</h3>
                 <MyContext.Consumer key={1}>
-                    {(value: string) => <p>{value}</p>}
+                    {(value: string) => <p>Context value: {value}</p>}
                 </MyContext.Consumer>
-                <p key={'flux'}>Value from flux: {this.props.value}</p>
+                <p key={'flux'}>Flux value: {this.props.value}</p>
             </div>
         );
     }

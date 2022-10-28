@@ -103,7 +103,7 @@ class App extends Component<
                             <ButtonPrimaryBlue
                                 onClick={() =>
                                     this.setState(state => {
-                                        state.str = `Random number: ${
+                                        state.str = `${
                                             Math.random() * Date.now()
                                         }`;
                                         return state;
@@ -112,18 +112,18 @@ class App extends Component<
                             >
                                 Set provider to random value
                             </ButtonPrimaryBlue>
+                            <ButtonPrimaryBlue
+                                key={'dispatch'}
+                                onClick={() => dispatch({ type: 'RANDOM' })}
+                            >
+                                Send 'RANDOM' action in store
+                            </ButtonPrimaryBlue>
                             <ButtonPrimary
                                 key={'theme_button'}
                                 onClick={toggleTheme}
                             >
                                 Change background color!
                             </ButtonPrimary>
-                            <Button
-                                key={'dispatch'}
-                                onClick={() => dispatch({ type: 'RANDOM' })}
-                            >
-                                Send 'RANDOM' action in store
-                            </Button>
                         </div>
                         {this.state.data.map(item => (
                             <Card key={item.id} name={item.name} />
