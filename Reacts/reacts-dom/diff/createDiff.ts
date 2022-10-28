@@ -1,4 +1,4 @@
-import { PropsType, VNodeType } from '../../shared/common';
+import { ChildrenType, PropsType, VNodeType } from '../../shared/common';
 import { AttributeUpdater, Operation } from './index';
 import {
     emptyAttrUpdate,
@@ -10,11 +10,16 @@ import {
 } from './operations';
 import {
     COMPONENT_ELEMENT_SYMBOL,
+    CONSUMER_ELEMENT_SYMBOL,
+    CONTEXT_ELEMENT_SYMBOL,
+    CONTEXT_TYPE,
     DOM_ELEMENT_SYMBOL,
+    PROVIDER_ELEMENT_SYMBOL,
 } from '../../shared/index';
 import { childrenDiff } from './childrenDiff';
+import { Context } from '../../reacts/context/index';
+import { setContextValue } from '../../reacts/context/context';
 
-// TODO: add list of attributes
 /**
  * A function that looks for which attributes to add, remove or change
  * @param oldNodeProps
@@ -62,6 +67,11 @@ const isPrimitiveTypeChildren = (
     );
 };
 
+/**
+ * Compare 2 primitive nodes and returns operation
+ * @param oldNode
+ * @param newNode
+ */
 const comparePrimitiveTypeChildren = (
     oldNode: VNodeType,
     newNode: VNodeType,
@@ -103,10 +113,14 @@ const comparePrimitiveTypeChildren = (
  */
 const updateChild = (
     attrUpdater: AttributeUpdater,
-    oldChild: VNodeType,
-    newChild: VNodeType,
+    oldChild: VNodeType & { props: { children: VNodeType } },
+    newChild: VNodeType & { props: { children: VNodeType } },
 ): Operation => {
-    return update(attrUpdater, [createDiff(oldChild, newChild)], oldChild);
+    return update(
+        attrUpdater,
+        [createDiff(oldChild.props.children, newChild.props.children)],
+        newChild,
+    );
 };
 
 /**
@@ -117,13 +131,20 @@ const updateChild = (
  */
 const updateChildren = (
     attrUpdater: AttributeUpdater,
-    oldNode: VNodeType,
-    newNode: VNodeType,
+    oldNode: VNodeType & { props: { children: VNodeType | VNodeType[] } },
+    newNode: VNodeType & { props: { children: VNodeType | VNodeType[] } },
 ): Operation => {
+    if (
+        !Array.isArray(oldNode.props.children) &&
+        !Array.isArray(newNode.props.children)
+    ) {
+        // @ts-ignore we checked thad oldNode and newNode children are not arrays
+        return updateChild(attrUpdater, oldNode, newNode);
+    }
+
     return update(
         attrUpdater,
         childrenDiff(
-            // @ts-ignore node.type guaranteed to be typeof VNodeType or [VNodeType]
             Array.isArray(oldNode.props.children)
                 ? oldNode.props.children
                 : [oldNode.props.children],
@@ -131,8 +152,60 @@ const updateChildren = (
                 ? newNode.props.children
                 : [newNode.props.children],
         ),
-        oldNode,
+        newNode,
     );
+};
+
+const createDiffDOM = (oldNode: VNodeType, newNode: VNodeType) => {
+    const attrUpdate = compareAttributes(oldNode.props, newNode.props);
+    newNode._domElement = oldNode._domElement;
+
+    if (isPrimitiveTypeChildren(oldNode, newNode)) {
+        return comparePrimitiveTypeChildren(oldNode, newNode);
+    }
+
+    // because we checked the primitive types above in the code,
+    // primitive types cannot get into this call
+    return updateChildren(
+        attrUpdate,
+        <VNodeType & { props: { children: VNodeType | VNodeType[] } }>oldNode,
+        <VNodeType & { props: { children: VNodeType | VNodeType[] } }>newNode,
+    );
+};
+
+const createDiffComponent = (oldNode: VNodeType, newNode: VNodeType) => {
+    if (oldNode.type !== newNode.type) {
+        return replace(newNode);
+    } else {
+        const attrUpdate = compareAttributes(oldNode.props, newNode.props);
+        newNode._domElement = oldNode._domElement;
+        // @ts-ignore children type guaranteed to be typeof VNodeType | VNodeType[]
+        return updateChildren(attrUpdate, oldNode, newNode);
+    }
+};
+
+const createDiffContext = (oldNode: Context<any>, newNode: Context<any>) => {
+    newNode._domElement = oldNode._domElement;
+    setContextValue(<Context<any>>newNode);
+
+    // The context object will always store
+    // a vnode or an array of vnodes in children.
+    return updateChildren(
+        emptyAttrUpdate,
+        <VNodeType & { props: { children: VNodeType | VNodeType[] } }>oldNode,
+        <VNodeType & { props: { children: VNodeType | VNodeType[] } }>newNode,
+    );
+};
+
+const createDiffProvider = (oldNode: VNodeType, newNode: VNodeType) => {
+    newNode._domElement = oldNode._domElement;
+    if (__DEV__) {
+        if (typeof newNode.props.children === 'string') {
+            throw new Error("Provider can't have strings as children");
+        }
+    }
+    // @ts-ignore children type guaranteed to be typeof VNodeType | VNodeType[]
+    return updateChildren(emptyAttrUpdate, oldNode, newNode);
 };
 
 /**
@@ -149,60 +222,25 @@ export const createDiff = (
         return replace(newNode);
     }
 
-    if (
-        oldNode.$$typeof === DOM_ELEMENT_SYMBOL &&
-        newNode.$$typeof === DOM_ELEMENT_SYMBOL
-    ) {
-        const attrUpdate = compareAttributes(oldNode.props, newNode.props);
+    // if ()
 
-        if (isPrimitiveTypeChildren(oldNode, newNode)) {
-            return comparePrimitiveTypeChildren(oldNode, newNode);
-        }
-
-        if (
-            !Array.isArray(oldNode.props.children) &&
-            !Array.isArray(newNode.props.children)
-        ) {
-            return updateChild(
-                attrUpdate,
-                // @ts-ignore node.type guaranteed to be typeof VNodeType
-                oldNode.props.children,
-                newNode.props.children,
+    switch (oldNode.$$typeof) {
+        case DOM_ELEMENT_SYMBOL:
+            return createDiffDOM(oldNode, newNode);
+        case COMPONENT_ELEMENT_SYMBOL:
+            return createDiffComponent(oldNode, newNode);
+        case CONTEXT_ELEMENT_SYMBOL:
+            return createDiffContext(
+                <Context<any>>oldNode,
+                <Context<any>>newNode,
             );
-        }
-
-        return updateChildren(attrUpdate, oldNode, newNode);
-    } else if (
-        oldNode.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description &&
-        newNode.$$typeof.description === COMPONENT_ELEMENT_SYMBOL.description
-    ) {
-        if (oldNode.type !== newNode.type) {
-            return replace(newNode);
-        } else {
-            const attrUpdate = compareAttributes(oldNode.props, newNode.props);
-            if (
-                !Array.isArray(oldNode.props.children) &&
-                !Array.isArray(newNode.props.children)
-            ) {
-                return update(
-                    attrUpdate,
-                    [
-                        createDiff(
-                            // @ts-ignore children guaranteed not to be undefined (checked in isPrimitiveTypeChildren)
-                            oldNode.props.children,
-                            newNode.props.children,
-                        ),
-                    ],
-                    oldNode,
-                );
+        case PROVIDER_ELEMENT_SYMBOL:
+            return createDiffProvider(oldNode, newNode);
+        default:
+            if (__DEV__) {
+                console.error('undefined node type: ', newNode, oldNode);
+                throw new Error('undefined node type');
             }
-
-            return updateChildren(attrUpdate, oldNode, newNode);
-        }
-    } else {
-        // @ts-ignore TODO: for now just return diff from children
-        return createDiff(oldNode.props.children, newNode.props.children);
+            return skip();
     }
-
-    return skip();
 };

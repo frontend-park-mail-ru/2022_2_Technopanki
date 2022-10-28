@@ -1,28 +1,27 @@
 import {
     ChildrenType,
     ComponentConstructor,
-    ComponentType,
-    PropsType,
     VNodeType,
 } from '../../shared/common';
-import { COMPONENT_ELEMENT_SYMBOL, DOM_ELEMENT_SYMBOL } from '../../shared';
-
-// TODO: rework to setAttributes
-export const setAttributes = (element: HTMLElement, props: PropsType) => {
-    for (let attr in props) {
-        if (attr !== 'children') {
-            // @ts-ignore
-            element[attr] = props[attr];
-        }
-    }
-};
+import {
+    COMPONENT_ELEMENT_SYMBOL,
+    CONTEXT_ELEMENT_SYMBOL,
+    DOM_ELEMENT_SYMBOL,
+    PROVIDER_ELEMENT_SYMBOL,
+} from '../../shared/index';
+import { setProps } from '../attributes/index';
+import { Context } from '../../reacts/context/index';
+import { setContextValue } from '../../reacts/context/context';
 
 /**
  * Renders children in DOM
  * @param element
  * @param children
  */
-const renderChildren = (element: HTMLElement, children: ChildrenType) => {
+const renderChildren = (
+    element: HTMLElement,
+    children: ChildrenType | undefined,
+) => {
     if (children) {
         if (typeof children === 'string') {
             element.innerText = children;
@@ -52,7 +51,7 @@ const renderDomElement = (node: VNodeType & { type: string }): HTMLElement => {
     const element = document.createElement(node.type);
     node._domElement = element;
 
-    setAttributes(element, node.props);
+    setProps(element, node.props);
     if (node.props.children) {
         renderChildren(element, node.props.children);
     }
@@ -67,17 +66,48 @@ const renderDomElement = (node: VNodeType & { type: string }): HTMLElement => {
  */
 const renderComponent = (
     root: HTMLElement,
-    node: VNodeType & { type: ComponentConstructor },
-): ComponentType => {
-    const instance = new node.type(node.props);
-
+    node: VNodeType & {
+        props: { children: VNodeType };
+        type: ComponentConstructor;
+    },
+) => {
     // Set instance fields
     node._domElement = root;
-    instance.rootDomRef = root;
-    instance.prevRenderVNodeRef = instance.render();
+    if (node._instance) {
+        node._instance.rootDomRef = root;
+        node._instance.prevRenderVNodeRef = node.props.children;
+    } else {
+        if (__DEV__) {
+            console.error('component node dont have instance: ', node);
+            throw new Error('component node dont have instance');
+        }
+    }
 
-    renderNode(root, instance.prevRenderVNodeRef);
-    return instance;
+    renderChildren(root, node.props.children);
+};
+
+/**
+ * Creates Provider virtual dom node and renders it children
+ * @param root
+ * @param node
+ */
+const renderProvider = (root: HTMLElement, node: VNodeType) => {
+    node._domElement = root;
+    renderChildren(root, node.props.children);
+};
+
+/**
+ * Creates Context(Consumer) virtual dom node and renders it children
+ * @param root
+ * @param node
+ */
+const renderContext = (root: HTMLElement, node: Context<any>) => {
+    node._domElement = root;
+    setContextValue(<Context<any>>node);
+
+    // @ts-ignore in setContextValue we called a function
+    // and assigned the children a specific value
+    renderChildren(root, node.props.children);
 };
 
 /**
@@ -86,15 +116,26 @@ const renderComponent = (
  * @param node
  */
 export const renderNode = (root: HTMLElement, node: VNodeType) => {
-    if (node.$$typeof === DOM_ELEMENT_SYMBOL) {
-        // @ts-ignore node.type guaranteed to be typeof string
-        root.appendChild(renderDomElement(node));
-    } else if (node.$$typeof === COMPONENT_ELEMENT_SYMBOL) {
-        // @ts-ignore node.type guaranteed to be typeof ComponentConstructor
-        renderComponent(root, node);
-    } else {
-        if (node.props.children) {
-            renderChildren(root, node.props.children);
-        }
+    switch (node.$$typeof) {
+        case DOM_ELEMENT_SYMBOL:
+            // @ts-ignore node.type guaranteed to be typeof string
+            root.appendChild(renderDomElement(node));
+            break;
+        case COMPONENT_ELEMENT_SYMBOL:
+            // @ts-ignore node.type guaranteed to be typeof ComponentConstructor
+            renderComponent(root, node);
+            break;
+        case PROVIDER_ELEMENT_SYMBOL:
+            renderProvider(root, node);
+            break;
+        case CONTEXT_ELEMENT_SYMBOL:
+            // @ts-ignore node type is Context
+            renderContext(root, node);
+            break;
+        default:
+            if (__DEV__) {
+                console.error('node: ', node);
+                throw new Error('undefined type of node');
+            }
     }
 };

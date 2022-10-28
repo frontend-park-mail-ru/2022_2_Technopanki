@@ -33,7 +33,7 @@ export const setValidInput = (event, inputName) => {
 };
 
 /**
- * Clear all events from .invalid-input
+ * Clear all attributes from .invalid-input
  * @param {SubmitEvent} event
  */
 export const clearAllInputs = event => {

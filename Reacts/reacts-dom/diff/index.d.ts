@@ -21,6 +21,7 @@ export interface Operation {
         | VNodeType[]
         | AttributeUpdater
         | Operation[]
+        | Operation
         | string;
 }
 
@@ -30,12 +31,12 @@ export interface Update extends Operation {
     node: VNodeType;
 }
 
-export interface Replace extends Operation {
-    node: VNodeType;
-}
-
 export interface Remove extends Operation {}
 
 export interface Insert extends Operation {
-    node: VNodeType | VNodeType[];
+    node: VNodeType;
+}
+
+export interface Replace extends Operation {
+    insert: Insert;
 }

@@ -11,6 +11,7 @@ import {
     COMPONENT_ELEMENT_SYMBOL,
     DOM_ELEMENT_SYMBOL,
     getUniqueSymbol,
+    PROVIDER_ELEMENT_SYMBOL,
 } from '../shared/index';
 
 /**
@@ -24,19 +25,19 @@ const createNodeFromObject = (
     props: PropsType & { children: ChildrenType },
     maybeKey: KeyType | null | undefined,
 ): VNodeType => {
-    const vnode: VNodeType = {
-        $$typeof: type.$$typeof,
-        type: type.type,
-        props: { ...type.props, ...props },
-        key: maybeKey ? maybeKey : getUniqueSymbol(),
-    };
+    const vnode = type;
+    vnode.props = { ...vnode.props, ...props };
+    // TODO: fix bug with key and context
+    // if (maybeKey) {
+    //     vnode.key = maybeKey;
+    // }
 
-    if (typeof vnode.props.children === 'function') {
-        // @ts-ignore
-        vnode.props.children = vnode.props.children(vnode.props.value);
+    // Update context value
+    if (vnode.$$typeof === PROVIDER_ELEMENT_SYMBOL) {
+        vnode._context.value = vnode.props.value;
     }
 
-    return vnode;
+    return <VNodeType>vnode;
 };
 
 /**
@@ -54,12 +55,12 @@ const createComponentNode = (
         $$typeof: COMPONENT_ELEMENT_SYMBOL,
         type,
         props,
-        key: !maybeKey ? getUniqueSymbol() : maybeKey,
+        key: maybeKey ?? getUniqueSymbol(),
+        _domElement: undefined,
     };
 
-    // @ts-ignore vnode.type guaranteed to be typeof ComponentConstructor
-    vnode._instance = new vnode.type(props);
-    vnode.props.children = vnode._instance?.render();
+    vnode._instance = new (<ComponentConstructor>vnode.type)(props);
+    vnode.props.children = vnode._instance.render();
 
     return vnode;
 };
@@ -75,36 +76,27 @@ const createDomNode = (
     props: PropsType & { children: ChildrenType },
     maybeKey: KeyType | null | undefined,
 ): VNodeType => {
-    return {
-        $$typeof: DOM_ELEMENT_SYMBOL,
-        type,
-        props,
-        key: !maybeKey ? getUniqueSymbol() : maybeKey,
-    };
-};
-
-/**
- * Creates virtual dom node from type of text DOM node in a type
- * @param type
- * @param props
- * @param maybeKey
- */
-const createTextNode = (
-    type: string,
-    props: PropsType & { children: ChildrenType },
-    maybeKey: KeyType | null | undefined,
-): VNodeType => {
     // To concatenate a string. An example where it is needed: <p>Number of items: {this.props.count.toString()}</p>
     // In this case, the props will be: props = {children: ['Number of items: ', '2'], ...}
-    if (Array.isArray(props.children)) {
-        props.children = props.children.join('');
+    switch (type) {
+        case 'h1':
+        case 'h2':
+        case 'h3':
+        case 'h4':
+        case 'h5':
+        case 'h6':
+        case 'p':
+            if (Array.isArray(props.children)) {
+                props.children = props.children.join('');
+            }
     }
 
     return {
         $$typeof: DOM_ELEMENT_SYMBOL,
         type,
         props,
-        key: !maybeKey ? getUniqueSymbol() : maybeKey,
+        key: maybeKey ?? getUniqueSymbol(),
+        _domElement: undefined,
     };
 };
 
@@ -115,10 +107,8 @@ const createTextNode = (
  * ))}
  * @param children
  */
-const resolveArraysInChildren = (
-    children: (VNodeType | string)[],
-): (VNodeType | string)[] => {
-    const newChildren: (VNodeType | string)[] = [];
+const resolveArraysInChildren = (children: VNodeType[]): VNodeType[] => {
+    const newChildren: VNodeType[] = [];
     children.forEach(elem => {
         if (Array.isArray(elem)) {
             elem.forEach(item => {
@@ -128,6 +118,7 @@ const resolveArraysInChildren = (
             newChildren.push(elem);
         }
     });
+
     return newChildren;
 };
 
@@ -147,23 +138,12 @@ export const createVNode = (
         props.children = resolveArraysInChildren(props.children);
     }
 
-    if (typeof type === 'object') {
-        return createNodeFromObject(type, props, maybeKey);
-    } else if (typeof type === 'string') {
-        if (
-            type === 'h1' ||
-            type === 'h2' ||
-            type === 'h3' ||
-            type === 'h4' ||
-            type === 'h5' ||
-            type === 'h6' ||
-            type === 'p'
-        ) {
-            return createTextNode(type, props, maybeKey);
-        } else {
+    switch (typeof type) {
+        case 'object':
+            return createNodeFromObject(type, props, maybeKey);
+        case 'string':
             return createDomNode(type, props, maybeKey);
-        }
-    } else {
-        return createComponentNode(type, props, maybeKey);
+        default:
+            return createComponentNode(type, props, maybeKey);
     }
 };

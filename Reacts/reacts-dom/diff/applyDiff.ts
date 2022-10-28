@@ -1,17 +1,17 @@
 import { AttributeUpdater, Insert, Operation, Replace, Update } from './index';
 import {
+    insert,
     INSERT_OPERATION,
     REMOVE_OPERATION,
     REPLACE_OPERATION,
     SKIP_OPERATION,
     UPDATE_OPERATION,
 } from './operations';
-import { setAttributes } from '../render/renderNode';
 import { VNodeType } from '../../shared/common';
-import {
-    COMPONENT_ELEMENT_SYMBOL,
-    DOM_ELEMENT_SYMBOL,
-} from '../../shared/index';
+import { CONTEXT_ELEMENT_SYMBOL, DOM_ELEMENT_SYMBOL } from '../../shared/index';
+import { setProps } from '../attributes/index';
+import { setContextValue } from '../../reacts/context/context';
+import { Context } from '../../reacts/context/index';
 
 /**
  * Creates DOM node from node and replaces element with this node
@@ -23,7 +23,8 @@ const replaceElement = (
     node: VNodeType & { type: string },
 ): void => {
     const newElement = document.createElement(node.type);
-    setAttributes(newElement, node.props);
+    node._domElement = newElement;
+    setProps(newElement, node.props);
     element.replaceWith(newElement);
 };
 
@@ -39,7 +40,6 @@ const updateElementAttributes = (
         childrenUpdater: Operation[];
     },
 ): void => {
-    // TODO refactor and add setAttribute maybe
     operation.attrUpdater.set.forEach(
         // @ts-ignore
         ([attr, value]) => element.setAttribute(attr, value),
@@ -53,39 +53,68 @@ const updateElementAttributes = (
 
 const insertChildren = (
     element: HTMLElement,
-    children: VNodeType | VNodeType[],
+    children: VNodeType | VNodeType[] | undefined | null,
     beforeElement: HTMLElement | null = null,
 ) => {
+    if (!children) {
+        return;
+    }
+
     Array.isArray(children)
-        ? children.forEach(child =>
-              insertElement(element, child, beforeElement),
-          )
-        : insertElement(element, children, beforeElement);
+        ? children.forEach(child => insertNode(element, child, beforeElement))
+        : insertNode(element, children, beforeElement);
 };
 
-const insertElement = (
+const insertDomNode = (
     element: HTMLElement,
     node: VNodeType,
     beforeElement: HTMLElement | null = null,
 ) => {
-    if (node.$$typeof === DOM_ELEMENT_SYMBOL) {
-        const newElement = document.createElement(<string>node.type);
-        setAttributes(newElement, node.props);
+    const newElement = document.createElement(<string>node.type);
+    node._domElement = newElement;
+    setProps(newElement, node.props);
 
-        if (node.props.children) {
-            if (typeof node.props.children === 'string') {
-                newElement.innerText = node.props.children;
-            } else {
-                insertChildren(newElement, node.props.children);
-            }
+    if (node.props.children) {
+        if (typeof node.props.children === 'string') {
+            newElement.innerText = node.props.children;
+        } else {
+            insertChildren(newElement, node.props.children);
         }
+    }
 
-        element.insertBefore(newElement, beforeElement);
+    element.insertBefore(newElement, beforeElement);
+};
+
+const insertContextNode = (
+    element: HTMLElement,
+    node: VNodeType,
+    beforeElement: HTMLElement | null = null,
+) => {
+    setContextValue(<Context<any>>node);
+    // @ts-ignore context cannot have children of type string
+    insertChildren(element, node.props.children, beforeElement);
+    if (__DEV__) {
+        if (typeof node.props.children === 'string') {
+            throw new Error('Context children type = string');
+        }
+    }
+};
+
+const insertNode = (
+    element: HTMLElement,
+    node: VNodeType,
+    beforeElement: HTMLElement | null = null,
+) => {
+    // We must remember to set _domElement in node
+    node._domElement = element;
+
+    if (node.$$typeof === DOM_ELEMENT_SYMBOL) {
+        insertDomNode(element, node, beforeElement);
+    } else if (node.$$typeof === CONTEXT_ELEMENT_SYMBOL) {
+        insertContextNode(element, node, beforeElement);
     } else {
         // TODO
-        if (node.props.children) {
-            insertChildren(element, node.props.children, beforeElement);
-        }
+        insertChildren(element, node.props.children, beforeElement);
     }
 };
 
@@ -94,37 +123,40 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
         return;
     }
 
-    if (
-        operation.type === REPLACE_OPERATION &&
-        typeof (<Replace>operation).node.type === 'string'
-    ) {
-        replaceElement(element, (<Replace>operation).node);
+    if (operation.type === INSERT_OPERATION) {
+        insertNode(element, (<Insert>operation).node);
+    }
+
+    if (operation.type === REMOVE_OPERATION) {
+        element.remove();
+    }
+
+    if (operation.type === REPLACE_OPERATION) {
+        element.remove();
+        insertNode(element, (<Replace>operation).insert.node);
         return;
     }
 
     if (operation.type === UPDATE_OPERATION) {
         updateElementAttributes(element, <Update>operation);
 
-        if (operation.childrenUpdater) {
-            applyChildrenDiff(
-                element,
-                (<Update>operation).childrenUpdater,
-                (<Update>operation).node.$$typeof,
-            );
-        }
-    }
-
-    if (operation.type === INSERT_OPERATION) {
-        insertElement(element, <VNodeType>(<Insert>operation).node);
+        applyChildrenDiff(
+            (<Update>operation).node._domElement,
+            (<Update>operation).childrenUpdater,
+        );
     }
 
     return element;
 };
 
-export const applyChildrenDiff = (
+/**
+ * For each of the children applies the operation
+ * @param element
+ * @param diffOperations
+ */
+const applyChildrenDiff = (
     element: HTMLElement,
     diffOperations: Operation[],
-    nodeType?: Symbol,
 ) => {
     let offset = 0;
     for (let i = 0; i < diffOperations.length; ++i) {
@@ -134,12 +166,15 @@ export const applyChildrenDiff = (
         const childUpdater = diffOperations[i];
         const childElem = element.childNodes[i + offset] as HTMLElement;
 
+        if (childUpdater.type === REPLACE_OPERATION) {
+            childElem.remove();
+            offset -= 1;
+            const temp = element.childNodes[i + offset] as HTMLElement;
+            insertNode(element, <VNodeType>(<Insert>childUpdater).node, temp);
+        }
+
         if (childUpdater.type === INSERT_OPERATION) {
-            insertElement(
-                element,
-                <VNodeType>(<Insert>childUpdater).node,
-                childElem,
-            );
+            insertNode(element, (<Insert>childUpdater).node, childElem);
             continue;
         }
 
@@ -149,11 +184,9 @@ export const applyChildrenDiff = (
             continue;
         }
 
-        // @ts-ignore TODO
+        // TODO
         if (childUpdater.type === UPDATE_OPERATION) {
-            nodeType === COMPONENT_ELEMENT_SYMBOL
-                ? applyDiff(element, childUpdater)
-                : applyDiff(childElem, childUpdater);
+            applyDiff((<Update>childUpdater).node._domElement, childUpdater);
         }
     }
 };

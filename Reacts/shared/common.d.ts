@@ -6,7 +6,11 @@ export type JSXVnodeType = {
 };
 export type JSXElementType = string | ComponentConstructor | JSXVnodeType;
 
-type PropType = Function | string | null | undefined;
+type PropType =
+    | ((ev: keyof HTMLElementEventMap) => any)
+    | string
+    | null
+    | undefined;
 export type PropsType = { [key: string]: PropType } | {};
 export type ChildrenType = VNodeType[] | VNodeType | string | null;
 
@@ -17,7 +21,7 @@ export type VNodeType = {
     key: KeyType;
 
     _instance?: ComponentType;
-    _domElement?: HTMLElement;
+    _domElement: HTMLElement;
 
     // ---------
     // TODO
