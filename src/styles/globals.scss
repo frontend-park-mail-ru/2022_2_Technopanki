@@ -1,6 +1,6 @@
 @import './screens';
 // TODO: переделать на импорты из dist
-@import 'https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap';
+@import "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap";
 
 :root {
   --white: #fff;
@@ -112,6 +112,7 @@ h3 {
   font-size: 32px;
   line-height: 39px;
   letter-spacing: -0.02em;
+  margin: 24px 0;
 }
 
 h4 {
@@ -120,6 +121,7 @@ h4 {
   font-size: 24px;
   line-height: 29px;
   letter-spacing: -0.02em;
+  margin: 20px 0;
 }
 
 h5 {
@@ -128,6 +130,7 @@ h5 {
   font-size: 16px;
   line-height: 19px;
   letter-spacing: -0.02em;
+  margin: 16px 0;
 }
 
 h6 {
@@ -136,6 +139,14 @@ h6 {
   font-size: 12px;
   line-height: 15px;
   letter-spacing: -0.01em;
+  margin: 16px 0;
+}
+
+p {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: -0.02em;
 }
 
 .w-25 {

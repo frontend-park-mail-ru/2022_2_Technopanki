@@ -26,7 +26,8 @@ module.exports = {
                 use: [
                     'style-loader',
                     'css-loader',
-                    'resolve-url-loader', // https://webpack.js.org/loaders/sass-loader/#problems-with-url
+                    'postcss-loader',
+                    // 'resolve-url-loader', // https://webpack.js.org/loaders/sass-loader/#problems-with-url
                     'sass-loader',
                 ],
             },
