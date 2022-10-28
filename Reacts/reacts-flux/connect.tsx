@@ -15,7 +15,6 @@ export default function createConnect(store: StoreType) {
                 }
 
                 componentDidMount() {
-                    console.log('hello');
                     this.unsubscribe = store.subscribe(
                         this.handleChange.bind(this),
                     );

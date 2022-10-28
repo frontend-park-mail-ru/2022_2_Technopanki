@@ -9,7 +9,7 @@ import ButtonPrimary from './components/UI-kit/buttons/ButtonPrimary';
 import Footer from './components/UI-kit/footer/Footer';
 import ChipsTemp from './components/ChipsTemp';
 import createConnect from '../Reacts/reacts-flux/connect';
-import { createStore } from '../Fluxs/createStore';
+import { createStore } from '../Fluxs/store';
 import { Action } from '../Fluxs/types/action';
 import Card from './Card';
 import { dispatch } from './store/index';
