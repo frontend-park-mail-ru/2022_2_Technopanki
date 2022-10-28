@@ -8,9 +8,11 @@ import ButtonPrimaryBlue from './components/UI-kit/buttons/ButtonPrimaryBlue';
 import ButtonPrimary from './components/UI-kit/buttons/ButtonPrimary';
 import Footer from './components/UI-kit/footer/Footer';
 import ChipsTemp from './components/ChipsTemp';
-import createConnect, { connect } from '../Reacts/reacts-flux/connect';
+import createConnect from '../Reacts/reacts-flux/connect';
 import { createStore } from '../Fluxs/createStore';
 import { Action } from '../Fluxs/types/action';
+import Card from './Card';
+import { dispatch } from './store/index';
 
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
@@ -25,7 +27,7 @@ import { Action } from '../Fluxs/types/action';
 
 // const store = createStore(reducers);
 
-const MyContext = createContext('hello world');
+export const MyContext = createContext('hello world');
 
 class Header extends Component<{ count: number }> {
     render() {
@@ -36,53 +38,6 @@ class Header extends Component<{ count: number }> {
         );
     }
 }
-
-class Card extends Component<{ name: string }> {
-    componentDidMount() {
-        console.log('componentDidMount called!');
-    }
-
-    componentDidUpdate() {
-        console.log('componentDidUpdate called!');
-    }
-
-    componentWillUnmount() {
-        console.log('componentWillUnmount called!');
-    }
-
-    unmount() {
-        console.log('unmount called!');
-    }
-
-    render() {
-        return (
-            <div>
-                <h3 key={2}>{this.props.name}</h3>
-                <MyContext.Consumer key={1}>
-                    {(value: string) => <p>{value}</p>}
-                </MyContext.Consumer>
-            </div>
-        );
-    }
-}
-
-const reducer = (state: any, action: Action): any => {
-    switch (action.type) {
-        case 'HELLO':
-            return { ...state, value: 'hello world!' };
-        case 'RANDOM':
-            return {
-                ...state,
-                value: `Random number: ${Math.random() * Date.now()}`,
-            };
-        default:
-            if (__DEV__) {
-                throw new Error('undefined type of action');
-            }
-    }
-};
-
-const state = createStore(reducer, { value: 'hello' });
 
 class App extends Component<
     {},
@@ -117,7 +72,7 @@ class App extends Component<
                         <div
                             key={'buttons'}
                             style={
-                                'display: flex; flex-direction: row; gap: 8px'
+                                'display: flex; flex-direction: row; gap: 8px; flex-wrap: wrap'
                             }
                         >
                             <Button
@@ -163,6 +118,12 @@ class App extends Component<
                             >
                                 Change background color!
                             </ButtonPrimary>
+                            <Button
+                                key={'dispatch'}
+                                onClick={() => dispatch({ type: 'RANDOM' })}
+                            >
+                                Send 'RANDOM' action in store
+                            </Button>
                         </div>
                         {this.state.data.map(item => (
                             <Card key={item.id} name={item.name} />

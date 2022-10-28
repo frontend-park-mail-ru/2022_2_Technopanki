@@ -1,36 +1,33 @@
 import { Reducer } from './types/reducer';
 import { Action } from './types/action';
-import { Store } from './types/store';
+import { StoreType } from './types/store';
 
-export function createStore<S = any>(
-    reducer: Reducer<S>,
-    initialState: S,
-): Store {
-    let state = initialState;
-    let currentReducer = reducer;
-    let listeners: (() => void)[] = [];
+export default class Store<S = any> implements StoreType {
+    state: S;
+    currentReducer: Reducer;
+    listeners: (() => void)[] = [];
 
-    function getState(): S {
-        return state;
+    constructor(reducer: Reducer, initialState: S, listeners: (() => void)[]) {
+        this.state = initialState;
+        this.currentReducer = reducer;
+        this.listeners = listeners;
     }
 
-    function subscribe(listener: () => void) {
-        listeners.push(listener);
+    dispatch(action: Action): void {
+        this.state = this.currentReducer(this.state, action);
+        this.listeners.forEach(listener => listener());
+    }
 
-        return function unsubscribe() {
-            const index = listeners.indexOf(listener);
-            listeners.splice(index, 1);
+    subscribe(listener: () => void): Function {
+        this.listeners.push(listener);
+
+        return () => {
+            const index = this.listeners.indexOf(listener);
+            this.listeners.splice(index, 1);
         };
     }
 
-    function dispatch(action: Action) {
-        state = currentReducer(state, action);
-        listeners.forEach(listener => listener());
+    getState(): S {
+        return this.state;
     }
-
-    return {
-        dispatch: dispatch,
-        subscribe: subscribe,
-        getState: getState,
-    };
 }
