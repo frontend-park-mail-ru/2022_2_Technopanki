@@ -8,7 +8,7 @@ declare global {
         }
 
         interface ElementClass {
-            render: any;
+            render: Function;
         }
 
         interface ElementAttributesProperty {
