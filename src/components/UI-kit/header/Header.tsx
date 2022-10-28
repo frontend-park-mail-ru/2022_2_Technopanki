@@ -1,0 +1,80 @@
+import { Component } from '../../../../Reacts/index';
+import styles from './header.module.scss';
+
+
+export default class Header extends Component {
+    // cur = document.getElementById('item1')
+    setActive = (event: MouseEvent) => {
+        let cur = document.querySelector(`.${styles.item__active}`)
+        let target = event.target as Element;
+
+        if (cur !== null && target !== cur) {
+            cur.classList.remove(`${styles.item__active}`)
+            target.classList.add(`${styles.item__active}`)
+        }
+    }
+
+    render() {
+        return (
+            <header>
+                <div
+                    className={`flex row align-items-center justify-content-space-evenly ${styles.header}`}
+                >
+                    <div
+                        className={`flex g-8 align-items-center`}
+                    >
+                        <img alt="Jobflow" />
+                    </div>
+                    <div
+                        id={'links-group'}
+                        className={`flex g-16`}
+                    >
+                        <p
+                            key={'item1'}
+                            id={'item1'}
+                            className={`${styles.item__def} ${styles.item__active}`}
+                            onClick={this.setActive}
+                        >
+                            Вакансии
+                        </p>
+                        <p
+                            key={'item2'}
+                            id={'item2'}
+                            className={styles.item__def}
+                            onClick={this.setActive}
+                        >
+                            Соискатели
+                        </p>
+                        <p
+                            key={'item3'}
+                            id={'item3'}
+                            className={styles.item__def}
+                            onClick={this.setActive}
+                        >
+                            Создать резюме
+                        </p>
+                    </div>
+
+                    <div
+                        className={'flex g-24 align-items-center'}
+                    >
+                        <p
+                            key={'login-link'}
+                            className={styles.item__def}
+                        >
+                            Войти
+                        </p>
+                        <p
+                            key={'signin-link'}
+                            className={styles.signup}
+                        >
+                            Зарегистрироваться
+                        </p>
+                    </div>
+                </div>
+            </header>
+        );
+    }
+}
+
+

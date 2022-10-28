@@ -1,0 +1,39 @@
+@import '../../../styles/globals.scss';
+
+.header {
+  border-bottom: var(--border-light);
+  left: 0;
+  top: 0;
+  height: 56px;
+  font-size: 14px;
+}
+
+.item__def {
+  cursor: pointer;
+  color: var(--background-700);
+  transition: var(--transition-sfast);
+  &:hover {
+    color: var(--background-500);
+  }
+}
+
+.item__active {
+  cursor: pointer;
+  color: var(--background-900);
+  text-shadow: var(--shadow-header);
+  &:hover {
+    color: var(--background-900);
+  }
+}
+
+.signup {
+  cursor: pointer;
+  color: var(--background-900);
+  transition: var(--transition-sfast);
+  &:hover {
+    color: var(--background-700);
+  }
+}
+
+
+
