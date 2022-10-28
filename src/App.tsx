@@ -66,6 +66,24 @@ class Card extends Component<{ name: string }> {
     }
 }
 
+const reducer = (state: any, action: Action): any => {
+    switch (action.type) {
+        case 'HELLO':
+            return { ...state, value: 'hello world!' };
+        case 'RANDOM':
+            return {
+                ...state,
+                value: `Random number: ${Math.random() * Date.now()}`,
+            };
+        default:
+            if (__DEV__) {
+                throw new Error('undefined type of action');
+            }
+    }
+};
+
+const state = createStore(reducer, { value: 'hello' });
+
 class App extends Component<
     {},
     { data: { id: number; name: string }[]; str: string }
@@ -149,7 +167,6 @@ class App extends Component<
                         {this.state.data.map(item => (
                             <Card key={item.id} name={item.name} />
                         ))}
-                        <p key={'flux'}>{this.props.value}</p>
                     </MyContext.Provider>
                 </div>
                 <Footer key={'footer'} />
@@ -159,5 +176,4 @@ class App extends Component<
 }
 
 const root = createRoot(document.querySelector('#root'));
-const RootNode = connect()(App);
-root.render(<RootNode />);
+root.render(<App />);

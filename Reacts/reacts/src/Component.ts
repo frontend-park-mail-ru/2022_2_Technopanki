@@ -24,7 +24,7 @@ export abstract class Component<P extends PropsType = {}, S = {}> {
             callback();
         }
 
-        rerenderComponent(this);
+        this.forceUpdate();
     }
 
     // Mounting
@@ -33,6 +33,9 @@ export abstract class Component<P extends PropsType = {}, S = {}> {
     // Updating
     shouldComponentUpdate(nextProps: P | Readonly<P>, nextState?: S): void {}
     componentDidUpdate(): void {}
+    forceUpdate(): void {
+        rerenderComponent(this);
+    }
 
     // Unmounting
     componentWillUnmount(): void {}

@@ -1,11 +1,8 @@
 import { Component } from '../Reacts/index';
 import { MyContext } from './App';
 import createConnect from '../Reacts/reacts-flux/connect';
-import { createStore } from "../Fluxs/createStore";
+import { createStore } from '../Fluxs/createStore';
 
-const connect = ;
-
-@connect
 class Card extends Component<{ name: string }> {
     componentDidMount() {
         console.log('componentDidMount called!');
