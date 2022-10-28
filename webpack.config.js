@@ -22,13 +22,28 @@ module.exports = {
                 exclude: /node_modules/,
             },
             {
-                test: /\.s[ac]css$/,
-                use: ['style-loader', 'css-loader', 'sass-loader'],
+                test: /\.s[ac]ss$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'postcss-loader',
+                    // 'resolve-url-loader', // https://webpack.js.org/loaders/sass-loader/#problems-with-url
+                    'sass-loader',
+                ],
+            },
+            {
+                test: /\.ttf$/,
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: 'assets/fonts/[name].[ext]',
+                    },
+                },
             },
         ],
     },
     resolve: {
-        extensions: ['.d.ts', '.ts', '.tsx', '.js'],
+        extensions: ['.d.ts', '.ts', '.tsx', '.js', '.scss'],
     },
     output: {
         filename: 'js/[name].js',

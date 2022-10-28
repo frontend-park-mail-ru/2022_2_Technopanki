@@ -9,7 +9,6 @@ import {
 } from '../shared/common';
 import {
     COMPONENT_NODE_SYMBOL,
-    CONTEXT_NODE_SYMBOL,
     DOM_NODE_SYMBOL,
     getUniqueSymbol,
     PROVIDER_NODE_SYMBOL,

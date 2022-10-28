@@ -1,0 +1,27 @@
+@import '../../../styles/globals';
+
+.footer {
+  margin-top: 40px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  background-color: var(--background-50);
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.tagline {
+  @media (max-width: $screen-lg) {
+    display: none;
+  }
+}
+
+.item {
+  cursor: pointer;
+  &:hover {
+    opacity: 0.75;
+  }
+  &:active {
+    color: var(--background-900);
+  }
+}

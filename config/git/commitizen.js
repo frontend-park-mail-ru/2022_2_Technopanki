@@ -32,6 +32,7 @@ module.exports = {
     // Область. Она характеризует фрагмент кода, которую затронули изменения
     scopes: [
         { name: 'components' },
+        { name: 'UI-kit' },
         { name: 'views' },
         { name: 'services' },
         { name: 'server' },

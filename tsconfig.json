@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true,
     "module": "ES6",
-    "target": "ES5",
+    "target": "es5",
+    "sourceMap": true,
     "jsx": "preserve",
     "strict": true,
-    "moduleResolution": "path"
+    "moduleResolution": "path",
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules"
+      }
+    ]
   },
   "exclude": [
     "node_modules"

@@ -1,11 +1,13 @@
 import { Component } from '../Reacts/index';
 import { createRoot } from '../Reacts/index';
 import { createContext } from '../Reacts/reacts/context/context';
-import Test from './components/test';
-import { createStore } from '../Fluxs/createStore';
-import { Reducer } from '../Fluxs/types/reducer';
-import Card from './Card';
-import createConnect from '../Reacts/reacts-flux/connect';
+import './styles/globals.scss';
+import { setTheme, toggleTheme } from './toggleTheme';
+import Button from './components/UI-kit/buttons/Button';
+import ButtonPrimaryBlue from './components/UI-kit/buttons/ButtonPrimaryBlue';
+import ButtonPrimary from './components/UI-kit/buttons/ButtonPrimary';
+import Footer from './components/UI-kit/footer/Footer';
+import ChipsTemp from './components/ChipsTemp';
 
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
@@ -18,6 +20,10 @@ import createConnect from '../Reacts/reacts-flux/connect';
 //
 // authenticateUser().then(() => Router.render(location.pathname));
 
+// const store = createStore(reducers);
+
+const MyContext = createContext('hello world');
+
 class Header extends Component<{ count: number }> {
     render() {
         return (
@@ -28,19 +34,34 @@ class Header extends Component<{ count: number }> {
     }
 }
 
-const reducer: Reducer = (state, action) => {
-    switch (action.type) {
-        case 'SET_RANDOM':
-            return { ...state, value: `${Math.random() * Date.now()}` };
-        case 'HELLO_WORLD':
-            return { ...state, value: 'Hello world!' };
+class Card extends Component<{ name: string }> {
+    componentDidMount() {
+        console.log('componentDidMount called!');
     }
-};
 
-const store = createStore(reducer, { value: 'Initial store value' });
-export const connect = createConnect(store);
+    componentDidUpdate() {
+        console.log('componentDidUpdate called!');
+    }
 
-export const MyContext = createContext('hello world');
+    componentWillUnmount() {
+        console.log('componentWillUnmount called!');
+    }
+
+    unmount() {
+        console.log('unmount called!');
+    }
+
+    render() {
+        return (
+            <div>
+                <h3 key={2}>{this.props.name}</h3>
+                <MyContext.Consumer key={1}>
+                    {(value: string) => <p>{value}</p>}
+                </MyContext.Consumer>
+            </div>
+        );
+    }
+}
 
 class App extends Component<
     {},
@@ -52,69 +73,82 @@ class App extends Component<
                 id: 1,
                 name: 'hello world',
             },
-            {
-                id: 2,
-                name: 'hello world',
-            },
-            {
-                id: 3,
-                name: 'hello world',
-            },
-            {
-                id: 4,
-                name: 'hello world',
-            },
         ],
         str: 'Hello world!',
     };
 
     render() {
+        setTheme();
+
         return (
             <div className={'main'}>
-                <MyContext.Provider value={this.state.str}>
-                    <Header key={'header'} count={this.state.data.length} />
-                    <button
-                        key={'button'}
-                        onClick={() =>
-                            this.setState(state => {
-                                state.data.push({
-                                    id: state.data.length + 1,
-                                    name: 'New item',
-                                });
-                                return state;
-                            })
-                        }
-                    >
-                        Add item to list
-                    </button>
-                    <button
-                        key={'delete'}
-                        onClick={() =>
-                            this.setState(state => {
-                                state.data.pop();
-                                return state;
-                            })
-                        }
-                    >
-                        Delete last line
-                    </button>
-                    <button
-                        onClick={() =>
-                            this.setState(state => {
-                                state.str = `Random number: ${
-                                    Math.random() * Date.now()
-                                }`;
-                                return state;
-                            })
-                        }
-                    >
-                        Set provider to random value
-                    </button>
-                    {this.state.data.map(item => (
-                        <Card key={item.id} name={item.name} />
-                    ))}
-                    <Test key={'test'} />
-                </MyContext.Provider>
+                <div key={'provider'} className={'provider screen-responsive'}>
+                    <MyContext.Provider value={this.state.str}>
+                        <h1 key={'h1'}>Example text</h1>
+                        <h2 key={'h2'}>Example text</h2>
+                        <h3 key={'h3'}>Example text</h3>
+                        <h4 key={'h4'}>Example text</h4>
+                        <h5 key={'h5'}>Example text</h5>
+                        <h6 key={'h6'}>Example text</h6>
+                        <p key={'p'}>Example text</p>
+                        <ChipsTemp key={'chips'} />
+                        <Header key={'header'} count={this.state.data.length} />
+                        <div
+                            key={'buttons'}
+                            style={
+                                'display: flex; flex-direction: row; gap: 8px'
+                            }
+                        >
+                            <Button
+                                key={'button'}
+                                onClick={() =>
+                                    this.setState(state => {
+                                        state.data.push({
+                                            id: state.data.length + 1,
+                                            name: 'New item',
+                                        });
+                                        return state;
+                                    })
+                                }
+                            >
+                                Add item to list
+                            </Button>
+                            <Button
+                                key={'delete'}
+                                onClick={() =>
+                                    this.setState(state => {
+                                        state.data.pop();
+                                        return state;
+                                    })
+                                }
+                            >
+                                Delete last line
+                            </Button>
+                            <ButtonPrimaryBlue
+                                onClick={() =>
+                                    this.setState(state => {
+                                        state.str = `Random number: ${
+                                            Math.random() * Date.now()
+                                        }`;
+                                        return state;
+                                    })
+                                }
+                            >
+                                Set provider to random value
+                            </ButtonPrimaryBlue>
+                            <ButtonPrimary
+                                key={'theme_button'}
+                                onClick={toggleTheme}
+                            >
+                                Change background color!
+                            </ButtonPrimary>
+                        </div>
+                        {this.state.data.map(item => (
+                            <Card key={item.id} name={item.name} />
+                        ))}
+                    </MyContext.Provider>
+                </div>
+                <Footer key={'footer'} />
             </div>
         );
     }
