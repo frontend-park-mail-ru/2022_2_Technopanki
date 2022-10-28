@@ -1,0 +1,246 @@
+import { ChildrenType, PropsType, VNodeType } from '../../shared/common';
+import { AttributeUpdater, Operation } from './index';
+import {
+    emptyAttrUpdate,
+    insert,
+    remove,
+    replace,
+    skip,
+    update,
+} from './operations';
+import {
+    COMPONENT_ELEMENT_SYMBOL,
+    CONSUMER_ELEMENT_SYMBOL,
+    CONTEXT_ELEMENT_SYMBOL,
+    CONTEXT_TYPE,
+    DOM_ELEMENT_SYMBOL,
+    PROVIDER_ELEMENT_SYMBOL,
+} from '../../shared/index';
+import { childrenDiff } from './childrenDiff';
+import { Context } from '../../reacts/context/index';
+import { setContextValue } from '../../reacts/context/context';
+
+/**
+ * A function that looks for which attributes to add, remove or change
+ * @param oldNodeProps
+ * @param newNodeProps
+ */
+const compareAttributes = (
+    oldNodeProps: PropsType,
+    newNodeProps: PropsType,
+): AttributeUpdater => {
+    const oldNodeWithoutChildren = Object.entries(oldNodeProps).filter(
+        ([attr, _]) => attr !== 'children',
+    );
+    const newNodeWithoutChildren = Object.entries(newNodeProps).filter(
+        ([attr, _]) => attr !== 'children',
+    );
+
+    const oldNodeAttrNames = oldNodeWithoutChildren.map(([attr, _]) => attr);
+    const newNodeAttrNames = newNodeWithoutChildren.map(([attr, _]) => attr);
+
+    return {
+        set: newNodeWithoutChildren.filter(
+            ([attr, _]) => oldNodeAttrNames.indexOf(attr) === -1,
+        ),
+        remove: oldNodeAttrNames.filter(
+            attr => newNodeAttrNames.indexOf(attr) === -1,
+        ),
+        update: newNodeWithoutChildren.filter(
+            ([attr, value]) =>
+                oldNodeAttrNames.indexOf(attr) !== -1 &&
+                oldNodeAttrNames.find(
+                    node => node[0] === attr && node[1] !== value,
+                ),
+        ),
+    };
+};
+
+const isPrimitiveTypeChildren = (
+    oldNode: VNodeType,
+    newNode: VNodeType,
+): boolean => {
+    return (
+        (!oldNode.props.children && !oldNode.props.children) ||
+        (typeof oldNode.props.children === 'string' &&
+            typeof newNode.props.children === 'string')
+    );
+};
+
+/**
+ * Compare 2 primitive nodes and returns operation
+ * @param oldNode
+ * @param newNode
+ */
+const comparePrimitiveTypeChildren = (
+    oldNode: VNodeType,
+    newNode: VNodeType,
+): Operation => {
+    if (!oldNode.props.children && !newNode.props.children) {
+        return skip();
+    } else if (!oldNode.props.children && newNode.props.children) {
+        return insert(newNode);
+    } else if (oldNode.props.children && !newNode.props.children) {
+        return remove();
+    }
+
+    if (
+        typeof oldNode.props.children === 'string' &&
+        typeof newNode.props.children === 'string'
+    ) {
+        if (oldNode.props.children === newNode.props.children) {
+            return skip();
+        } else {
+            return update(
+                {
+                    ...emptyAttrUpdate,
+                    update: [['textContent', newNode.props.children]],
+                },
+                [],
+                oldNode,
+            );
+        }
+    }
+
+    return skip();
+};
+
+/**
+ * Helper function for updating children as single elements
+ * @param attrUpdater
+ * @param oldChild
+ * @param newChild
+ */
+const updateChild = (
+    attrUpdater: AttributeUpdater,
+    oldChild: VNodeType & { props: { children: VNodeType } },
+    newChild: VNodeType & { props: { children: VNodeType } },
+): Operation => {
+    return update(
+        attrUpdater,
+        [createDiff(oldChild.props.children, newChild.props.children)],
+        newChild,
+    );
+};
+
+/**
+ * Helper function for updating children as arrays
+ * @param attrUpdater
+ * @param oldNode
+ * @param newNode
+ */
+const updateChildren = (
+    attrUpdater: AttributeUpdater,
+    oldNode: VNodeType & { props: { children: VNodeType | VNodeType[] } },
+    newNode: VNodeType & { props: { children: VNodeType | VNodeType[] } },
+): Operation => {
+    if (
+        !Array.isArray(oldNode.props.children) &&
+        !Array.isArray(newNode.props.children)
+    ) {
+        // @ts-ignore we checked thad oldNode and newNode children are not arrays
+        return updateChild(attrUpdater, oldNode, newNode);
+    }
+
+    return update(
+        attrUpdater,
+        childrenDiff(
+            Array.isArray(oldNode.props.children)
+                ? oldNode.props.children
+                : [oldNode.props.children],
+            Array.isArray(newNode.props.children)
+                ? newNode.props.children
+                : [newNode.props.children],
+        ),
+        newNode,
+    );
+};
+
+const createDiffDOM = (oldNode: VNodeType, newNode: VNodeType) => {
+    const attrUpdate = compareAttributes(oldNode.props, newNode.props);
+    newNode._domElement = oldNode._domElement;
+
+    if (isPrimitiveTypeChildren(oldNode, newNode)) {
+        return comparePrimitiveTypeChildren(oldNode, newNode);
+    }
+
+    // because we checked the primitive types above in the code,
+    // primitive types cannot get into this call
+    return updateChildren(
+        attrUpdate,
+        <VNodeType & { props: { children: VNodeType | VNodeType[] } }>oldNode,
+        <VNodeType & { props: { children: VNodeType | VNodeType[] } }>newNode,
+    );
+};
+
+const createDiffComponent = (oldNode: VNodeType, newNode: VNodeType) => {
+    if (oldNode.type !== newNode.type) {
+        return replace(newNode);
+    } else {
+        const attrUpdate = compareAttributes(oldNode.props, newNode.props);
+        newNode._domElement = oldNode._domElement;
+        // @ts-ignore children type guaranteed to be typeof VNodeType | VNodeType[]
+        return updateChildren(attrUpdate, oldNode, newNode);
+    }
+};
+
+const createDiffContext = (oldNode: Context<any>, newNode: Context<any>) => {
+    newNode._domElement = oldNode._domElement;
+    setContextValue(<Context<any>>newNode);
+
+    // The context object will always store
+    // a vnode or an array of vnodes in children.
+    return updateChildren(
+        emptyAttrUpdate,
+        <VNodeType & { props: { children: VNodeType | VNodeType[] } }>oldNode,
+        <VNodeType & { props: { children: VNodeType | VNodeType[] } }>newNode,
+    );
+};
+
+const createDiffProvider = (oldNode: VNodeType, newNode: VNodeType) => {
+    newNode._domElement = oldNode._domElement;
+    if (__DEV__) {
+        if (typeof newNode.props.children === 'string') {
+            throw new Error("Provider can't have strings as children");
+        }
+    }
+    // @ts-ignore children type guaranteed to be typeof VNodeType | VNodeType[]
+    return updateChildren(emptyAttrUpdate, oldNode, newNode);
+};
+
+/**
+ * Compares 2 VDom nodes and returns
+ * the operation to be performed in the real one on this node in DOM
+ * @param oldNode
+ * @param newNode
+ */
+export const createDiff = (
+    oldNode: VNodeType,
+    newNode: VNodeType,
+): Operation => {
+    if (oldNode.$$typeof !== newNode.$$typeof) {
+        return replace(newNode);
+    }
+
+    // if ()
+
+    switch (oldNode.$$typeof) {
+        case DOM_ELEMENT_SYMBOL:
+            return createDiffDOM(oldNode, newNode);
+        case COMPONENT_ELEMENT_SYMBOL:
+            return createDiffComponent(oldNode, newNode);
+        case CONTEXT_ELEMENT_SYMBOL:
+            return createDiffContext(
+                <Context<any>>oldNode,
+                <Context<any>>newNode,
+            );
+        case PROVIDER_ELEMENT_SYMBOL:
+            return createDiffProvider(oldNode, newNode);
+        default:
+            if (__DEV__) {
+                console.error('undefined node type: ', newNode, oldNode);
+                throw new Error('undefined node type');
+            }
+            return skip();
+    }
+};

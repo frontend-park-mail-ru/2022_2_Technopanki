@@ -3,9 +3,18 @@
   "version": "1.0.0",
   "description": "Проект HeadHunter команды \"Technopanki\"",
   "main": "index.js",
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "config/git/commitizen.js"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js",
+    "dev": "NODE_ENV='development' webpack",
+    "build": "NODE_ENV='production' webpack",
     "sass": "sass --watch src/styles/sass/style.scss:src/styles/css/style.css"
   },
   "repository": {
@@ -20,10 +29,31 @@
   },
   "homepage": "https://github.com/frontend-park-mail-ru/2022_2_Technopanki#readme",
   "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.3",
+    "@babel/plugin-transform-react-jsx": "^7.19.0",
+    "@babel/plugin-transform-typescript": "^7.19.3",
+    "@babel/preset-env": "^7.19.3",
+    "@babel/preset-typescript": "^7.18.6",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "babel-loader": "^8.2.5",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.7.1",
+    "cz-customizable": "^7.0.0",
     "eslint": "8.22.0",
+    "esm": "^3.2.25",
     "express": "^4.18.1",
+    "html-webpack-plugin": "^5.5.0",
+    "jsdom": "^20.0.1",
+    "jsx-runtime": "^1.2.0",
     "nodemon": "^2.0.20",
     "prettier": "^2.7.1",
-    "sass": "^1.55.0"
+    "sass": "^1.55.0",
+    "sass-loader": "^13.1.0",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.4.1",
+    "typescript": "^4.8.4",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
   }
 }
