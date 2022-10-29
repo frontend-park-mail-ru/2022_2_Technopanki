@@ -43,6 +43,10 @@ export const setTheme = () => {
             '--background-body',
             '#0F0F0F',
         );
+        document.documentElement.style.setProperty(
+            '--background-body-80',
+            'rgba(15, 15, 15, 0.8);',
+        );
     } else {
         document.documentElement.style.setProperty('--background-0', '#fff');
         document.documentElement.style.setProperty(
@@ -86,6 +90,10 @@ export const setTheme = () => {
             '#33333c',
         );
         document.documentElement.style.setProperty('--background-body', '#fff');
+        document.documentElement.style.setProperty(
+            '--background-body-80',
+            'rgba(255, 255, 255, 0.8);',
+        );
     }
 };
 

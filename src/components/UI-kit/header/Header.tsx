@@ -15,14 +15,20 @@ export default class Header extends Component {
 
     render() {
         return (
-            <header>
+            <header
+                className={`x-0 t-0 border-bottom-light fixed screen-responsive ${styles.header}`}
+            >
                 <div
-                    className={`flex row align-items-center justify-content-space-evenly ${styles.header}`}
+                    className={`flex h-100 row align-items-center justify-content-space-evenly`}
                 >
-                    <div className={`flex g-8 align-items-center`}>
+                    <div className={`flex w-100 g-8 align-items-center`}>
                         <img alt="Jobflow" />
                     </div>
-                    <div id={'links-group'} className={`flex g-16`}>
+                    <div
+                        id={'links-group'}
+                        className={`flex justify-content-center w-100 g-16`}
+                    >
+                        {/*TODO переделать на Link в роутере*/}
                         <p
                             key={'item1'}
                             id={'item1'}
@@ -49,7 +55,7 @@ export default class Header extends Component {
                         </p>
                     </div>
 
-                    <div className={'flex g-24 align-items-center'}>
+                    <div className={'flex g-24 w-100 justify-content-end'}>
                         <p key={'login-link'} className={styles.item__def}>
                             Войти
                         </p>
