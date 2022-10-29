@@ -17,7 +17,7 @@ module.exports = {
                 exclude: /node_modules/,
             },
             {
-                test: /\.tsx?$/,F
+                test: /\.tsx?$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
             },
