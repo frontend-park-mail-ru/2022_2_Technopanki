@@ -28,17 +28,13 @@ module.exports = {
                     'css-loader',
                     'postcss-loader',
                     // 'resolve-url-loader', // https://webpack.js.org/loaders/sass-loader/#problems-with-url
+                    'resolve-url-loader',
                     'sass-loader',
                 ],
             },
             {
-                test: /\.(ttf)$/,
-                use: {
-                    loader: 'file-loader',
-                    options: {
-                        name: 'assets/fonts/[name].[ext]',
-                    },
-                },
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                type: 'asset/resource',
             },
             {
                 test: /\.svg$/,
