@@ -138,7 +138,6 @@ export const createVNode = (
         props.children = resolveArraysInChildren(props.children);
     }
 
-    console.log('sd');
     switch (typeof type) {
         case 'object':
             return createNodeFromObject(type, props, maybeKey);

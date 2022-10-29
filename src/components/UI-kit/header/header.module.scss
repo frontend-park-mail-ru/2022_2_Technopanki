@@ -1,10 +1,19 @@
 @import '../../../styles/globals.scss';
 
 .header {
-  height: 56px;
+  height: var(--header-height);
   font-size: 14px;
-  background-color: var(--test);
+  background-color: var(--background-body-80);
   backdrop-filter: blur(20px);
+  z-index: 900;
+}
+
+.logo {
+  svg {
+    fill: var(--background-900);
+    height: 16px;
+    width: auto;
+  }
 }
 
 .item__def {

@@ -1,109 +1,12 @@
 export const setTheme = () => {
     const theme = localStorage.getItem('theme') ?? 'light';
-    if (theme === 'dark') {
-        document.documentElement.style.setProperty('--background-900', '#fff');
-        document.documentElement.style.setProperty(
-            '--background-800',
-            '#f8f8f8',
-        );
-        document.documentElement.style.setProperty(
-            '--background-700',
-            '#dadae0',
-        );
-        document.documentElement.style.setProperty(
-            '--background-600',
-            '#c3c3cb',
-        );
-        document.documentElement.style.setProperty(
-            '--background-500',
-            '#adadb7',
-        );
-        document.documentElement.style.setProperty(
-            '--background-400',
-            '#9797a2',
-        );
-        document.documentElement.style.setProperty(
-            '--background-300',
-            '#81818e',
-        );
-        document.documentElement.style.setProperty(
-            '--background-200',
-            '#6d6d7a',
-        );
-        document.documentElement.style.setProperty(
-            '--background-100',
-            '#595965',
-        );
-        document.documentElement.style.setProperty(
-            '--background-50',
-            '#464651',
-        );
-        document.documentElement.style.setProperty('--background-0', '#33333c');
-        document.documentElement.style.setProperty(
-            '--background-body',
-            '#0F0F0F',
-        );
-        document.documentElement.style.setProperty(
-            '--background-body-80',
-            'rgba(15, 15, 15, 0.8);',
-        );
-    } else {
-        document.documentElement.style.setProperty('--background-0', '#fff');
-        document.documentElement.style.setProperty(
-            '--background-50',
-            '#f8f8f8',
-        );
-        document.documentElement.style.setProperty(
-            '--background-100',
-            '#dadae0',
-        );
-        document.documentElement.style.setProperty(
-            '--background-200',
-            '#c3c3cb',
-        );
-        document.documentElement.style.setProperty(
-            '--background-300',
-            '#adadb7',
-        );
-        document.documentElement.style.setProperty(
-            '--background-400',
-            '#9797a2',
-        );
-        document.documentElement.style.setProperty(
-            '--background-500',
-            '#81818e',
-        );
-        document.documentElement.style.setProperty(
-            '--background-600',
-            '#6d6d7a',
-        );
-        document.documentElement.style.setProperty(
-            '--background-700',
-            '#595965',
-        );
-        document.documentElement.style.setProperty(
-            '--background-800',
-            '#464651',
-        );
-        document.documentElement.style.setProperty(
-            '--background-900',
-            '#33333c',
-        );
-        document.documentElement.style.setProperty('--background-body', '#fff');
-        document.documentElement.style.setProperty(
-            '--background-body-80',
-            'rgba(255, 255, 255, 0.8);',
-        );
-    }
-};
-
-export const setTheme2 = () => {
-    const theme = localStorage.getItem('theme') ?? 'light';
     if (theme === 'light') {
+        // @ts-ignore
         document.querySelector(':root').removeAttribute('theme');
         // @ts-ignore
         document.querySelector(':root').setAttribute('theme', 'light');
     } else {
+        // @ts-ignore
         document.querySelector(':root').removeAttribute('theme');
         // @ts-ignore
         document.querySelector(':root').setAttribute('theme', 'dark');

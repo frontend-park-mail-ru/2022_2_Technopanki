@@ -15,14 +15,24 @@ export const setProps = (element: HTMLElement, props: PropsType) => {
                 }
                 element.addEventListener(events[name], value);
             } else {
-                element.setAttribute(
-                    attributes[name],
-                    <string>(<unknown>value),
-                );
-                if (__DEV__) {
-                    if (typeof value === 'function') {
-                        console.error('typeof value == function. value', value);
-                        throw new Error('Invalid event type');
+                if (name === 'dangerouslySetInnerHTML') {
+                    // NOTE: this is being dangerous
+                    element.innerHTML = <string>(
+                        (<{ __html: string }>(<unknown>value)).__html
+                    );
+                } else {
+                    element.setAttribute(
+                        attributes[name],
+                        <string>(<unknown>value),
+                    );
+                    if (__DEV__) {
+                        if (typeof value === 'function') {
+                            console.error(
+                                'typeof value == function. value',
+                                value,
+                            );
+                            throw new Error('Invalid event type');
+                        }
                     }
                 }
             }

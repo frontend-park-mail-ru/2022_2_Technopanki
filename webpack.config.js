@@ -32,13 +32,17 @@ module.exports = {
                 ],
             },
             {
-                test: /\.ttf$/,
+                test: /\.(ttf)$/,
                 use: {
                     loader: 'file-loader',
                     options: {
                         name: 'assets/fonts/[name].[ext]',
                     },
                 },
+            },
+            {
+                test: /\.svg$/,
+                loader: 'svg-inline-loader',
             },
         ],
     },
@@ -48,6 +52,7 @@ module.exports = {
     output: {
         filename: 'js/[name].js',
         path: path.resolve(__dirname, 'dist'),
+        publicPath: '',
     },
     devtool: 'source-map',
     plugins: [

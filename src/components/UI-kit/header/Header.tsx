@@ -1,4 +1,5 @@
 import { Component } from '../../../../Reacts/index';
+import Logo from '../../../static/assets/Jobflow.svg';
 import styles from './header.module.scss';
 
 export default class Header extends Component {
@@ -21,10 +22,13 @@ export default class Header extends Component {
                 <div
                     className={`flex h-100 row align-items-center justify-content-space-evenly`}
                 >
-                    <div className={`flex w-100 g-8 align-items-center`}>
-                        <img alt="Jobflow" />
-                    </div>
                     <div
+                        key={'logo'}
+                        className={`flex w-100 g-8 align-items-center h-16 ${styles.logo}`}
+                        dangerouslySetInnerHTML={{ __html: Logo }}
+                    ></div>
+                    <div
+                        key={'items'}
                         id={'links-group'}
                         className={`flex justify-content-center w-100 g-16`}
                     >
@@ -55,7 +59,10 @@ export default class Header extends Component {
                         </p>
                     </div>
 
-                    <div className={'flex g-24 w-100 justify-content-end'}>
+                    <div
+                        key={'login'}
+                        className={'flex g-24 w-100 justify-content-end'}
+                    >
                         <p key={'login-link'} className={styles.item__def}>
                             Войти
                         </p>

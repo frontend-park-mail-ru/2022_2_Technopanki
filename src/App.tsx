@@ -2,7 +2,7 @@ import { Component } from '../Reacts/index';
 import { createRoot } from '../Reacts/index';
 import { createContext } from '../Reacts/reacts/context/context';
 import './styles/globals.scss';
-import { setTheme2, toggleTheme } from './toggleTheme';
+import { setTheme, toggleTheme } from './toggleTheme';
 import Button from './components/UI-kit/buttons/Button';
 import ButtonPrimaryBlue from './components/UI-kit/buttons/ButtonPrimaryBlue';
 import ButtonPrimary from './components/UI-kit/buttons/ButtonPrimary';
@@ -10,6 +10,7 @@ import Footer from './components/UI-kit/footer/Footer';
 import ChipsTemp from './components/ChipsTemp';
 import Input from './components/UI-kit/forms/inputs/Input';
 import Header from './components/UI-kit/header/Header';
+import ArrowButton from './components/UI-kit/buttons/ArrowButton';
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
 // Router.addRoutePath('/signin', SignIn);
@@ -79,8 +80,7 @@ class App extends Component<
     };
 
     render() {
-        setTheme2();
-
+        setTheme();
         return (
             <div className={'main'}>
                 <Header key={'header'} />
@@ -155,6 +155,7 @@ class App extends Component<
                                 Change background color!
                             </ButtonPrimary>
                         </div>
+                        <ArrowButton onClick={() => {}} />
                         {this.state.data.map(item => (
                             <Card key={item.id} name={item.name} />
                         ))}

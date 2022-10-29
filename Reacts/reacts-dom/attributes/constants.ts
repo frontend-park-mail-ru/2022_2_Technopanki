@@ -49,4 +49,9 @@ export const attributes: { [key: string]: string } = {
     placeholder: 'placeholder',
     alt: 'alt',
     input: 'input',
+    src: 'src',
+    inline: 'inline',
+    height: 'height',
+    width: 'width',
+    dangerouslySetInnerHTML: 'dangerouslySetInnerHTML',
 };

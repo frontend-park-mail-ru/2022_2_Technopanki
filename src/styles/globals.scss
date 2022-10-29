@@ -14,8 +14,7 @@
   --background-50: #464651;
   --background-0: #33333c;
   --background-body: #0F0F0F;
-  --background-body-80: rgba(0, 0, 0, 0.8);
-  --test: rgba(0, 0, 0, 0.8);
+  --background-body-80: rgba(15, 15, 15, 0.8);
 }
 
 :root[theme='light'] {
@@ -32,7 +31,6 @@
   --background-0: #fff;
   --background-body: #fff;
   --background-body-80: rgba(255, 255, 255, 0.8);
-  --test: rgba(255, 255, 255, 0.8);
 }
 
 :root {
@@ -66,6 +64,8 @@
   --border-blue: 1px solid var(--primary-blue);
   --border-dark: 1px solid var(--background-900);
 
+  --padding-16: 16px;
+  --padding-32: 32px;
   --padding-sm: 10px 12px;
 
   --gap-4: 4px;
@@ -80,23 +80,16 @@
   --padding-screen-lg: 0 240px;
   --padding-screen-xlg: 0 15vw;
   --padding-screen-xxlg: 0 25vw;
+
+  --header-height: 56px;
 }
-
-// TODO
-//body[theme='light'] {
-//  colors for light theme here
-//}
-
-//body[theme='dark'] {
-//  colors for dark theme here
-//}
 
 body {
   background-color: var(--background-body);
   color: var(--background-900);
   font-family: 'Inter';
   left: 0;
-  top: 0;
+  padding-top: var(--header-height);
   margin: 0;
 }
 
@@ -222,6 +215,12 @@ h6 {
   }
   &-40 {
     gap: 40px
+  }
+}
+
+.p {
+  &-32 {
+    padding: var(--padding-32);
   }
 }
 
@@ -356,6 +355,42 @@ h6 {
   }
 }
 
+.color {
+  &-0 {
+    color: var(--background-0);
+  }
+  &-50 {
+    color: var(--background-50);
+  }
+  &-100 {
+    color: var(--background-100);
+  }
+  &-200 {
+    color: var(--background-200);
+  }
+  &-300 {
+    color: var(--background-300);
+  }
+  &-400 {
+    color: var(--background-400);
+  }
+  &-500 {
+    color: var(--background-500);
+  }
+  &-600 {
+    color: var(--background-600);
+  }
+  &-700 {
+    color: var(--background-700);
+  }
+  &-800 {
+    color: var(--background-800);
+  }
+  &-900 {
+    color: var(--background-900);
+  }
+}
+
 .rounded {
   &-sm {
     border-radius: var(--border-radius-sm);
@@ -368,6 +403,9 @@ h6 {
   }
   &-xl {
     border-radius: var(--border-radius-xl);
+  }
+  &-max {
+    border-radius: 100%;
   }
 }
 
@@ -385,5 +423,8 @@ h6 {
     &-default {
       border-bottom: var(--border-default)
     }
+  }
+  &-none {
+    border: none
   }
 }

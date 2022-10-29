@@ -1,5 +1,6 @@
 import { Component } from '../../../../Reacts/index';
 import styles from './footer.module.scss';
+import Logo from '../../../static/assets/Jobflow.svg';
 
 export default class Footer extends Component {
     render() {
@@ -11,7 +12,10 @@ export default class Footer extends Component {
                     key={'logo'}
                     className={'w-100 flex justify-content-start'}
                 >
-                    <img alt={'Jobflow'} />
+                    <div
+                        className={`flex w-100 g-8 align-items-center h-16 ${styles.logo}`}
+                        dangerouslySetInnerHTML={{ __html: Logo }}
+                    ></div>
                 </div>
                 <div
                     key={'headline'}
