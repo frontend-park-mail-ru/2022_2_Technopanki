@@ -1,18 +1,17 @@
 import { Component } from '../../../../Reacts/index';
 import styles from './header.module.scss';
 
-
 export default class Header extends Component {
     // cur = document.getElementById('item1')
     setActive = (event: MouseEvent) => {
-        let cur = document.querySelector(`.${styles.item__active}`)
+        let cur = document.querySelector(`.${styles.item__active}`);
         let target = event.target as Element;
 
         if (cur !== null && target !== cur) {
-            cur.classList.remove(`${styles.item__active}`)
-            target.classList.add(`${styles.item__active}`)
+            cur.classList.remove(`${styles.item__active}`);
+            target.classList.add(`${styles.item__active}`);
         }
-    }
+    };
 
     render() {
         return (
@@ -20,15 +19,10 @@ export default class Header extends Component {
                 <div
                     className={`flex row align-items-center justify-content-space-evenly ${styles.header}`}
                 >
-                    <div
-                        className={`flex g-8 align-items-center`}
-                    >
+                    <div className={`flex g-8 align-items-center`}>
                         <img alt="Jobflow" />
                     </div>
-                    <div
-                        id={'links-group'}
-                        className={`flex g-16`}
-                    >
+                    <div id={'links-group'} className={`flex g-16`}>
                         <p
                             key={'item1'}
                             id={'item1'}
@@ -55,19 +49,11 @@ export default class Header extends Component {
                         </p>
                     </div>
 
-                    <div
-                        className={'flex g-24 align-items-center'}
-                    >
-                        <p
-                            key={'login-link'}
-                            className={styles.item__def}
-                        >
+                    <div className={'flex g-24 align-items-center'}>
+                        <p key={'login-link'} className={styles.item__def}>
                             Войти
                         </p>
-                        <p
-                            key={'signin-link'}
-                            className={styles.signup}
-                        >
+                        <p key={'signin-link'} className={styles.signup}>
                             Зарегистрироваться
                         </p>
                     </div>
@@ -76,5 +62,3 @@ export default class Header extends Component {
         );
     }
 }
-
-
