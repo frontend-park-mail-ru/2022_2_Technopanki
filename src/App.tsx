@@ -2,7 +2,7 @@ import { Component } from '../Reacts/index';
 import { createRoot } from '../Reacts/index';
 import { createContext } from '../Reacts/reacts/context/context';
 import './styles/globals.scss';
-import { setTheme, toggleTheme } from './toggleTheme';
+import { setTheme2, toggleTheme } from './toggleTheme';
 import Button from './components/UI-kit/buttons/Button';
 import ButtonPrimaryBlue from './components/UI-kit/buttons/ButtonPrimaryBlue';
 import ButtonPrimary from './components/UI-kit/buttons/ButtonPrimary';
@@ -79,7 +79,7 @@ class App extends Component<
     };
 
     render() {
-        setTheme();
+        setTheme2();
 
         return (
             <div className={'main'}>
@@ -101,7 +101,10 @@ class App extends Component<
                             <p>Label</p>
                         </Input>
                         <ChipsTemp key={'chips'} />
-                        <Counter key={'counter'} count={this.state.data.length} />
+                        <Counter
+                            key={'counter'}
+                            count={this.state.data.length}
+                        />
                         <div
                             key={'buttons'}
                             style={

@@ -97,6 +97,19 @@ export const setTheme = () => {
     }
 };
 
+export const setTheme2 = () => {
+    const theme = localStorage.getItem('theme') ?? 'light';
+    if (theme === 'light') {
+        document.querySelector(':root').removeAttribute('theme');
+        // @ts-ignore
+        document.querySelector(':root').setAttribute('theme', 'light');
+    } else {
+        document.querySelector(':root').removeAttribute('theme');
+        // @ts-ignore
+        document.querySelector(':root').setAttribute('theme', 'dark');
+    }
+};
+
 export const toggleTheme = () => {
     const theme = localStorage.getItem('theme') ?? 'light';
     if (theme === 'light') {

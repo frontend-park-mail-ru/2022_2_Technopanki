@@ -1,12 +1,24 @@
 @import './screens';
 @import 'https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap';
 
-:root {
-  --white: #fff;
-  --primary-blue: #1c34ec;
-  --primary-red: #f32a2a;
-  --primary-purple: #97a2fb;
+:root[theme='dark'] {
+  --background-900: #fff;
+  --background-800: #f8f8f8;
+  --background-700: #dadae0;
+  --background-600: #c3c3cb;
+  --background-500: #adadb7;
+  --background-400: #9797a2;
+  --background-300: #81818e;
+  --background-200: #6d6d7a;
+  --background-100: #595965;
+  --background-50: #464651;
+  --background-0: #33333c;
+  --background-body: #0F0F0F;
+  --background-body-80: rgba(0, 0, 0, 0.8);
+  --test: rgba(0, 0, 0, 0.8);
+}
 
+:root[theme='light'] {
   --background-900: #33333c;
   --background-800: #464651;
   --background-700: #595965;
@@ -19,8 +31,15 @@
   --background-50: #f8f8f8;
   --background-0: #fff;
   --background-body: #fff;
-  // Second number in colors means % opacity
   --background-body-80: rgba(255, 255, 255, 0.8);
+  --test: rgba(255, 255, 255, 0.8);
+}
+
+:root {
+  --white: #fff;
+  --primary-blue: #1c34ec;
+  --primary-red: #f32a2a;
+  --primary-purple: #97a2fb;
 
   --shadow-grey-sm: 0 4px 8px rgba(0, 0, 0, 0.04);
   --shadow-grey-md: 0px 6px 20px rgba(0, 0, 0, 0.08);
