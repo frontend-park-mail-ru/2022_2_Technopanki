@@ -123,7 +123,7 @@ class App extends Component<
                                     })
                                 }
                             >
-                                Add item to list
+                                Add new line
                             </Button>
                             <Button
                                 key={'delete'}

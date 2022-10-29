@@ -27,7 +27,6 @@ module.exports = {
                     'style-loader',
                     'css-loader',
                     'postcss-loader',
-                    // 'resolve-url-loader', // https://webpack.js.org/loaders/sass-loader/#problems-with-url
                     'resolve-url-loader',
                     'sass-loader',
                 ],
@@ -51,6 +50,10 @@ module.exports = {
         publicPath: '',
     },
     devtool: 'source-map',
+    devServer: {
+        static: './dist',
+        hot: true,
+    },
     plugins: [
         new CopyPlugin({
             patterns: ['server/server.js', './src/static/index.html'],
