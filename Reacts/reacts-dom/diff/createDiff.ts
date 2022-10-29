@@ -16,7 +16,7 @@ import {
     PROVIDER_NODE_SYMBOL,
 } from '../../shared/index';
 import { childrenDiff } from './childrenDiff';
-import { Context } from '../../reacts/context/index';
+import { Context } from '../../reacts/context';
 import { setContextValue } from '../../reacts/context/context';
 
 /**

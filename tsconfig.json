@@ -5,7 +5,7 @@
     "sourceMap": true,
     "jsx": "preserve",
     "strict": true,
-    "moduleResolution": "path",
+    "moduleResolution": "node",
     "plugins": [
       {
         "name": "typescript-plugin-css-modules"

@@ -1,4 +1,4 @@
-import { Component } from '../../Reacts/index';
+import { Component } from '../../Reacts';
 import Chips from './UI-kit/chips/Chips';
 import Dropdown from './UI-kit/dropdown/Dropdown';
 

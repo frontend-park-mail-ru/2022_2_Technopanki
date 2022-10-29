@@ -5,7 +5,7 @@ import {
     Remove,
     Replace,
     Update,
-} from './index';
+} from './';
 import { VNodeType } from '../../shared/common';
 
 export const SKIP_OPERATION = 'skip';

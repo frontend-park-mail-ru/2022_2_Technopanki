@@ -1,5 +1,5 @@
-import { Component } from '../Reacts/index';
-import { createRoot } from '../Reacts/index';
+import { Component } from '../Reacts';
+import { createRoot } from '../Reacts';
 import { createContext } from '../Reacts/reacts/context/context';
 import './styles/globals.scss';
 import { setTheme, toggleTheme } from './toggleTheme';

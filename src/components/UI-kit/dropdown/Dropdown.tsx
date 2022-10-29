@@ -1,4 +1,4 @@
-import { Component } from '../../../../Reacts/index';
+import { Component } from '../../../../Reacts';
 import { VNodeType } from '../../../../Reacts/shared/common';
 import styles from './dropdown.module.scss';
 

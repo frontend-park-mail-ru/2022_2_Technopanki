@@ -1,4 +1,4 @@
-import { Component } from '../../../../Reacts/index';
+import { Component } from '../../../../Reacts';
 import Arrow from '../../../static/icons/arrow.svg';
 import styles from './button.module.scss';
 

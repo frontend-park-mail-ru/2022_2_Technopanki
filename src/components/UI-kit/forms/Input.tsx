@@ -1,4 +1,4 @@
-import { Component } from '../../../../Reacts/index';
+import { Component } from '../../../../Reacts';
 import styles from './input.module.scss';
 
 export default class Input extends Component<{

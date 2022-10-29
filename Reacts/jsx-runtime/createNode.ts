@@ -12,7 +12,7 @@ import {
     DOM_NODE_SYMBOL,
     getUniqueSymbol,
     PROVIDER_NODE_SYMBOL,
-} from '../shared/index';
+} from '../shared';
 
 /**
  * Creates virtual dom node from object in a type

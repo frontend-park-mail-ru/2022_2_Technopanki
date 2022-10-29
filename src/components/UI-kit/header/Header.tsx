@@ -1,4 +1,4 @@
-import { Component } from '../../../../Reacts/index';
+import { Component } from '../../../../Reacts';
 import Logo from '../../../static/assets/Jobflow.svg';
 import styles from './header.module.scss';
 
