@@ -84,6 +84,10 @@
   --header-height: 56px;
 }
 
+::selection {
+  background-color: var(--primary-purple);
+}
+
 body {
   background-color: var(--background-body);
   color: var(--background-900);
