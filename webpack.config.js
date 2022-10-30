@@ -36,6 +36,10 @@ module.exports = {
                 type: 'asset/resource',
             },
             {
+                test: /\.(png|jpe?g)$/i,
+                loader: 'file-loader',
+            },
+            {
                 test: /\.svg$/,
                 loader: 'svg-inline-loader',
             },

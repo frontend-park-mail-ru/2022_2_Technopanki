@@ -46,12 +46,22 @@
   &:hover {
     background-color: var(--background-0);
     border: 2px solid var(--background-900);
+    box-shadow: var(--shadow-grey-md);
     path {
       fill: var(--background-900);
     }
   }
 }
 
-.btn-arrow__outline svg path {
-  fill: var(--background-900);
+.btn-arrow__outline {
+  &:hover {
+    background-color: var(--background-900);
+    box-shadow: var(--shadow-grey-md);
+    path {
+      fill: var(--background-0);
+    }
+  }
+  svg path {
+    fill: var(--background-900);
+  }
 }

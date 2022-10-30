@@ -98,7 +98,6 @@ body {
   color: var(--background-900);
   font-family: 'Inter';
   left: 0;
-  padding-top: var(--header-height);
   margin: 0;
 }
 
@@ -154,6 +153,10 @@ h6 {
 
 p {
   margin: 0;
+}
+
+.hidden {
+  overflow: hidden;
 }
 
 .x-0 {
@@ -246,6 +249,9 @@ p {
   }
   &-24 {
     gap: 24px
+  }
+  &-32 {
+    gap: 32px;
   }
   &-40 {
     gap: 40px
