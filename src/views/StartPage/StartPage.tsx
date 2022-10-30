@@ -3,12 +3,18 @@ import ArrowButton from '../../components/UI-kit/buttons/ArrowButton';
 import styles from './startPage.module.scss';
 import Button from '../../components/UI-kit/buttons/Button';
 import ArrowButtonOutline from '../../components/UI-kit/buttons/ArrowButtonOutline';
+import Header from '../../components/UI-kit/header/Header';
+import ArrowButtonWithText from '../../components/UI-kit/buttons/ArrowButtonWithText';
 
 export default class StartPage extends Component {
     render() {
         return (
             <div className={'grid columns g-24 screen-responsive'}>
-                <div className={'col-6 flex column g-32 content'}>
+                <Header key={'header'} />
+                <div
+                    key={'content'}
+                    className={'col-6 flex column g-32 content'}
+                >
                     <div className={'flex column g-16'}>
                         <h3 className={styles.header}>
                             Начни строить свою карьеру прямо сейчас!
@@ -20,7 +26,9 @@ export default class StartPage extends Component {
                             должности стоит нацелиться.
                         </p>
                     </div>
-                    <ArrowButtonOutline />
+                    <ArrowButtonWithText>
+                        <p>Создать аккаунт</p>
+                    </ArrowButtonWithText>
                 </div>
                 <div className={'col-6'}>
                     <p>Some text</p>

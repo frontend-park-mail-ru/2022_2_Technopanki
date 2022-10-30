@@ -5,12 +5,10 @@ import styles from './button.module.scss';
 export default class ArrowButton extends Component<{ onClick?: Function }> {
     render() {
         return (
-            <div>
-                <button
-                    className={`background-900 rounded-max border-none ${styles['btn-arrow']}`}
-                    dangerouslySetInnerHTML={{ __html: Arrow }}
-                />
-            </div>
+            <button
+                className={`background-900 rounded-max border-none cursor-pointer ${styles['btn-arrow']}`}
+                dangerouslySetInnerHTML={{ __html: Arrow }}
+            />
         );
     }
 }

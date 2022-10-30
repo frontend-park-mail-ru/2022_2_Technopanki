@@ -35,11 +35,19 @@
 
 .btn-arrow {
   padding: 10px;
-  svg {
+  border: 2px solid var(--background-900);
+  > svg {
     height: 12px;
     width: 12px;
     path {
       fill: var(--background-0);
+    }
+  }
+  &:hover {
+    background-color: var(--background-0);
+    border: 2px solid var(--background-900);
+    path {
+      fill: var(--background-900);
     }
   }
 }
