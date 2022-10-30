@@ -11,6 +11,7 @@ import ChipsTemp from './components/ChipsTemp';
 import Input from './components/UI-kit/forms/inputs/Input';
 import Header from './components/UI-kit/header/Header';
 import ArrowButton from './components/UI-kit/buttons/ArrowButton';
+import TextBlock from './components/UI-kit/text/TextBlock';
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
 // Router.addRoutePath('/signin', SignIn);
@@ -93,6 +94,14 @@ class App extends Component<
                         <h5 key={'h5'}>Example text</h5>
                         <h6 key={'h6'}>Example text</h6>
                         <p key={'p'}>Example text</p>
+                        <TextBlock
+                            headline={'This is example of default text block'}
+                            content={`Мы помогаем людям объединяться для того, что для них действительно важно. С нами ты будешь создавать и развивать сервисы для миллионов пользователей, которые помогают общаться, работать, учиться, решать бытовые задачи и развлекаться. Для нас важно делать технологии доступными для каждого и постоянно совершенствовать наши продукты.
+
+Наша команда — это профессионалы из разных сфер, которые умеют реализовывать необычные и сложные идеи и задачи. Обмениваясь опытом, мы создаём новые идеи и достигаем большего.
+
+Если ты любишь решать сложные задачи, экспериментировать и создавать продукты для миллионов пользователей — присоединяйся, чтобы вместе развивать интернет и определять его будущее.`}
+                        />
                         <Input
                             key={'input'}
                             type={'text'}
@@ -107,9 +116,7 @@ class App extends Component<
                         />
                         <div
                             key={'buttons'}
-                            style={
-                                'display: flex; flex-direction: row; gap: 8px'
-                            }
+                            className={'flex flex-grow row g-8'}
                         >
                             <Button
                                 key={'button'}

@@ -1,6 +1,6 @@
 import { Component } from '../../../../Reacts';
 import styles from './footer.module.scss';
-import Logo from '../../../static/assets/Jobflow.svg';
+import Logo from '../../../static/assets/JobflowDefault.svg';
 
 export default class Footer extends Component {
     render() {
