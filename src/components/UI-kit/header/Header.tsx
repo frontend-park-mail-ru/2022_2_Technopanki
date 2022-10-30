@@ -64,7 +64,7 @@ export default class Header extends Component {
                     </div>
                     <div
                         key={'login'}
-                        className={`flex g-24 w-100 justify-content-end ${styles.auth}`}
+                        className={`flex g-24 w-100 align-items-center justify-content-end ${styles.auth}`}
                     >
                         <div
                             key={'theme_toggle'}
