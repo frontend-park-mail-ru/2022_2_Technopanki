@@ -12,7 +12,7 @@ export default class StartPage extends Component {
         return (
             <div
                 className={
-                    'grid h-100vh columns g-24 relative hidden screen-responsive'
+                    'grid h-100vh columns g-24 relative screen-responsive'
                 }
             >
                 <Header key={'header'} />
