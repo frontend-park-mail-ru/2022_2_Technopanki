@@ -11,7 +11,7 @@ class Dispatcher {
     }
 
     dispatch(action: Action) {
-        this.callbacks.map(callback => callback(action));
+        this.callbacks.forEach(callback => callback(action));
     }
 }
 
