@@ -12,6 +12,8 @@ import Input from './components/UI-kit/forms/inputs/Input';
 import Header from './components/UI-kit/header/Header';
 import ArrowButton from './components/UI-kit/buttons/ArrowButton';
 import TextBlock from './components/UI-kit/text/TextBlock';
+import IconInput from './components/UI-kit/forms/inputs/IconInput';
+import Location from './static/icons/location_input.svg'
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
 // Router.addRoutePath('/signin', SignIn);
@@ -109,6 +111,13 @@ class App extends Component<
                         >
                             Label
                         </Input>
+                        <IconInput
+                            icon={Location}
+                            type={'text'}
+                            placeholder={'type smth..'}
+                        >
+                            Location
+                        </IconInput>
                         <ChipsTemp key={'chips'} />
                         <Counter
                             key={'counter'}
