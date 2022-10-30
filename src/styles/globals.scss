@@ -15,6 +15,7 @@
   --background-0: #33333c;
   --background-body: #0F0F0F;
   --background-body-80: rgba(15, 15, 15, 0.8);
+  //--background-modal: rgba(255, 255, 255, 0.4);
 }
 
 :root[theme='light'] {
@@ -31,6 +32,7 @@
   --background-0: #fff;
   --background-body: #fff;
   --background-body-80: rgba(255, 255, 255, 0.8);
+  //--background-modal: rgba(15, 15, 15, 0.4);
 }
 
 :root {
@@ -38,6 +40,8 @@
   --primary-blue: #1c34ec;
   --primary-red: #f32a2a;
   --primary-purple: #97a2fb;
+
+  --background-modal: rgba(15, 15, 15, 0.4);
 
   --shadow-grey-sm: 0 4px 8px rgba(0, 0, 0, 0.04);
   --shadow-grey-md: 0px 6px 20px rgba(0, 0, 0, 0.08);
@@ -248,8 +252,17 @@ p {
 }
 
 .p {
+  &-16 {
+    padding: var(--padding-16);
+  }
+  &-24 {
+    padding: var(--padding-24);
+  }
   &-32 {
     padding: var(--padding-32);
+  }
+  &-40 {
+    padding: var(--padding-40);
   }
 }
 
