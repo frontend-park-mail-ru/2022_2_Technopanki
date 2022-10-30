@@ -12,7 +12,7 @@ import Input from './components/UI-kit/forms/inputs/Input';
 import Header from './components/UI-kit/header/Header';
 import ArrowButton from './components/UI-kit/buttons/ArrowButton';
 import TextBlock from './components/UI-kit/text/TextBlock';
-import StartPage from './views/StartPage';
+import StartPage from './views/StartPage/StartPage';
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
 // Router.addRoutePath('/signin', SignIn);
@@ -177,6 +177,7 @@ import StartPage from './views/StartPage';
 
 class App extends Component {
     render() {
+        setTheme();
         return <StartPage />;
     }
 }
