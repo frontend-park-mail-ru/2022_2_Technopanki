@@ -8,7 +8,7 @@ export default class ArrowButtonOutline extends Component<{
     render() {
         return (
             <button
-                className={`background-0 rounded-max cursor-pointer border-none ${styles['btn-arrow']} ${styles['btn-arrow__outline']}`}
+                className={`background-0 rounded-max cursor-pointer border-none flex align-items-center justify-content-center ${styles['btn-arrow']} ${styles['btn-arrow__outline']}`}
                 dangerouslySetInnerHTML={{ __html: Arrow }}
             />
         );

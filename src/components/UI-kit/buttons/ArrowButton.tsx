@@ -6,7 +6,7 @@ export default class ArrowButton extends Component<{ onClick?: Function }> {
     render() {
         return (
             <button
-                className={`background-900 rounded-max border-none cursor-pointer ${styles['btn-arrow']}`}
+                className={`background-900 rounded-max border-none cursor-pointer flex align-items-center justify-content-center ${styles['btn-arrow']}`}
                 dangerouslySetInnerHTML={{ __html: Arrow }}
             />
         );

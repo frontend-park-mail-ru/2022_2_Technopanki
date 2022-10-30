@@ -2,7 +2,9 @@ import { Component } from '../../../../Reacts';
 import Logo from '../../../static/assets/Jobflow.svg';
 import styles from './header.module.scss';
 import MenuIcon from '../../../static/icons/menu.svg';
+import ThemeIcon from '../../../static/icons/theme.svg';
 import ModalWindow from '../modalWindow/ModalWindow';
+import { toggleTheme } from '../../../toggleTheme';
 
 // TODO: refactor
 export default class Header extends Component {
@@ -64,6 +66,14 @@ export default class Header extends Component {
                         key={'login'}
                         className={`flex g-24 w-100 justify-content-end ${styles.auth}`}
                     >
+                        <div
+                            key={'theme_toggle'}
+                            onClick={() => toggleTheme()}
+                            className={styles.theme}
+                            dangerouslySetInnerHTML={{
+                                __html: ThemeIcon,
+                            }}
+                        />
                         <p key={'login-link'} className={styles.item__def}>
                             Войти
                         </p>
@@ -119,20 +129,19 @@ export default class Header extends Component {
                                 <div
                                     key={'login'}
                                     className={`flex column g-24 w-100 justify-content-end`}
+                                ></div>
+                                <p
+                                    key={'login-link'}
+                                    className={styles.item__def}
                                 >
-                                    <p
-                                        key={'login-link'}
-                                        className={styles.item__def}
-                                    >
-                                        Войти
-                                    </p>
-                                    <p
-                                        key={'signin-link'}
-                                        className={styles.signup}
-                                    >
-                                        Зарегистрироваться
-                                    </p>
-                                </div>
+                                    Войти
+                                </p>
+                                <p
+                                    key={'signin-link'}
+                                    className={styles.signup}
+                                >
+                                    Зарегистрироваться
+                                </p>
                             </div>
                         }
                     />
