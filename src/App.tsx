@@ -1,6 +1,6 @@
 import { Component } from '../Reacts';
 import { createRoot } from '../Reacts';
-import { createContext } from '../Reacts/reacts/context/context';
+import { createContext } from '../Reacts';
 import './styles/globals.scss';
 import { setTheme, toggleTheme } from './toggleTheme';
 import Button from './components/UI-kit/buttons/Button';
@@ -107,7 +107,7 @@ class App extends Component<
                             type={'text'}
                             placeholder={'type smth..'}
                         >
-                            <p>Label</p>
+                            Label
                         </Input>
                         <ChipsTemp key={'chips'} />
                         <Counter

@@ -1,8 +1,7 @@
-import { Component } from '../../../../../Reacts';
+import { Component } from '../../../../../Reacts/index';
 import styles from './input.module.scss';
 
-export default class Input extends Component<{
-    id: string
+export default class Textarea extends Component<{
     type: string
     placeholder: string
     children: string;
@@ -14,13 +13,11 @@ export default class Input extends Component<{
             >
                 <label
                     className={`${styles.label}`}
-                    for={this.props.id}
                 >
                     {this.props.children}
                 </label>
-                <input
-                    className={`${styles.input}`}
-                    id={this.props.id}
+                <textarea
+                    className={`${styles.input} ${styles.textarea}`}
                     type={this.props.type}
                     placeholder={this.props.placeholder}
                 />

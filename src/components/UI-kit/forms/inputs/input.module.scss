@@ -7,7 +7,7 @@
   justify-content: space-between;
   align-items: center;
   gap: var(--gap-8);
-  padding: var(--input-padding);
+  padding: var(--padding-16);
   height: var(--input-height);
   background: var(--background-0);
   border: var(--border-default);
@@ -21,6 +21,10 @@
     outline: var(--border-blue);
     outline-width: 2px;
   }
+}
+
+.textarea {
+  font-family: Inter, sans-serif;
 }
 
 .label {

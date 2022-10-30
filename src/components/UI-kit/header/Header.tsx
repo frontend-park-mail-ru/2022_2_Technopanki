@@ -5,7 +5,6 @@ import MenuIcon from '../../../static/icons/menu.svg';
 import ModalWindow from '../ModalWindow/ModalWindow';
 
 export default class Header extends Component {
-    // cur = document.getElementById('item1')
     setActive = (event: MouseEvent) => {
         let cur = document.querySelector(`.${styles.item__active}`);
         let target = event.target as Element;
