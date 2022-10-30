@@ -19,7 +19,7 @@ export default class StartPage extends Component {
                 <div
                     key={'content'}
                     className={
-                        'col-md-6 col-12 justify-content-center flex column g-32'
+                        'col-md-6 col-12 h-100vh justify-content-center flex column g-32'
                     }
                 >
                     <div
