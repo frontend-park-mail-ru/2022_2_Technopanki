@@ -1,4 +1,5 @@
 @import '../../../styles/globals.scss';
+@import '../../../styles/screens';
 
 .header {
   height: var(--header-height);
@@ -13,6 +14,12 @@
     fill: var(--background-900);
     height: 24px;
     width: auto;
+  }
+}
+
+.items {
+  @media (max-width: $screen-md) {
+    display: none;
   }
 }
 
@@ -34,12 +41,26 @@
   }
 }
 
+.auth {
+  @media (max-width: $screen-md) {
+    display: none;
+  }
+}
+
 .signup {
   cursor: pointer;
   color: var(--background-900);
   transition: var(--transition-sfast);
   &:hover {
     color: var(--background-700);
+  }
+}
+
+.menu_icon {
+  height: 24px;
+  width: 24px;
+  @media (min-width: $screen-md) {
+    display: none;
   }
 }
 

@@ -1,6 +1,7 @@
 import { Component } from '../../../../Reacts';
 import Logo from '../../../static/assets/Jobflow.svg';
 import styles from './header.module.scss';
+import MenuIcon from '../../../static/icons/menu.svg';
 
 export default class Header extends Component {
     // cur = document.getElementById('item1')
@@ -30,7 +31,7 @@ export default class Header extends Component {
                     <div
                         key={'items'}
                         id={'links-group'}
-                        className={`flex justify-content-center w-100 g-16`}
+                        className={`flex justify-content-center w-100 g-16 ${styles.items}`}
                     >
                         {/*TODO переделать на Link в роутере*/}
                         <p
@@ -61,7 +62,7 @@ export default class Header extends Component {
 
                     <div
                         key={'login'}
-                        className={'flex g-24 w-100 justify-content-end'}
+                        className={`flex g-24 w-100 justify-content-end ${styles.auth}`}
                     >
                         <p key={'login-link'} className={styles.item__def}>
                             Войти
@@ -70,6 +71,11 @@ export default class Header extends Component {
                             Зарегистрироваться
                         </p>
                     </div>
+                    <div
+                        key={'navIcon'}
+                        className={`flex g-24 w-100 justify-content-end ${styles.menu_icon}`}
+                        dangerouslySetInnerHTML={{ __html: MenuIcon }}
+                    ></div>
                 </div>
             </header>
         );
