@@ -36,8 +36,10 @@
 .btn-arrow {
   padding: 10px;
   svg {
-    fill: var(--background-0);
     height: 12px;
     width: 12px;
+    path {
+      fill: var(--background-0);
+    }
   }
 }
