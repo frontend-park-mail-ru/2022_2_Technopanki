@@ -1,5 +1,6 @@
 @import './screens';
 @import './fonts';
+@import './columns';
 
 :root[theme='dark'] {
   --background-900: #fff;
@@ -81,7 +82,7 @@
 
   --padding-screen-sm: 0 16px;
   --padding-screen-md: 0 120px;
-  --padding-screen-lg: 0 240px;
+  --padding-screen-lg: 0 10vw;
   --padding-screen-xlg: 0 15vw;
   --padding-screen-xxlg: 0 25vw;
 
@@ -353,40 +354,6 @@ p {
 
 .grid {
   display: grid;
-}
-
-.columns {
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-}
-
-.col {
-  &-auto {
-    grid-column: span auto;
-  }
-  &-1 {
-    grid-column: span 1;
-  }
-  &-2 {
-    grid-column: span 2;
-  }
-  &-3 {
-    grid-column: span 3;
-  }
-  &-4 {
-    grid-column: span 4;
-  }
-  &-5 {
-    grid-column: span 5;
-  }
-  &-6 {
-    grid-column: span 6;
-  }
-  &-7{
-    grid-column: span 7;
-  }
-  &-8{
-    grid-column: span 8;
-  }
 }
 
 .cursor {

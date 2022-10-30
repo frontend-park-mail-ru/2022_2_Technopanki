@@ -1,3 +1,5 @@
+@import '../../styles/screens';
+
 .header {
   margin: 0px;
   letter-spacing: -0.03em;
@@ -17,5 +19,11 @@
     path {
       fill: var(--background-900);
     }
+  }
+}
+
+.picture {
+  @media (max-width: $screen-lg) {
+    display: none;
   }
 }

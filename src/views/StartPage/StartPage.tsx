@@ -1,8 +1,5 @@
 import { Component } from '../../../Reacts';
-import ArrowButton from '../../components/UI-kit/buttons/ArrowButton';
 import styles from './startPage.module.scss';
-import Button from '../../components/UI-kit/buttons/Button';
-import ArrowButtonOutline from '../../components/UI-kit/buttons/ArrowButtonOutline';
 import Header from '../../components/UI-kit/header/Header';
 import ArrowButtonWithText from '../../components/UI-kit/buttons/ArrowButtonWithText';
 import ArrowButtonWithTextOutline from '../../components/UI-kit/buttons/ArrowButtonWithTextOutline';
@@ -22,12 +19,12 @@ export default class StartPage extends Component {
                 <div
                     key={'content'}
                     className={
-                        'col-6 justify-content-center flex column g-32 content'
+                        'col-md-6 col-12 justify-content-center flex column g-32'
                     }
                 >
                     <div
                         key={'logo'}
-                        className={`flex w-100 g-8 align-items-center h-16 ${styles.logo}`}
+                        className={`flex g-8 align-items-center h-16 ${styles.logo}`}
                         dangerouslySetInnerHTML={{ __html: Logo }}
                     ></div>
                     <div key={'content'} className={'flex column g-16'}>
@@ -50,7 +47,7 @@ export default class StartPage extends Component {
                         </ArrowButtonWithTextOutline>
                     </div>
                 </div>
-                <div className={'col-6 flex h-100 align-items-center'}>
+                <div className={`col-md-6 col-0 flex h-100 align-items-center`}>
                     <div className={'absolute r-0'}>
                         <img className={''} src={img} />
                     </div>
