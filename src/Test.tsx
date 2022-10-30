@@ -1,5 +1,4 @@
 import { Component } from '../Reacts';
-import { createRoot } from '../Reacts';
 import { createContext } from '../Reacts/reacts/context/context';
 import './styles/globals.scss';
 import { setTheme, toggleTheme } from './toggleTheme';
@@ -12,6 +11,7 @@ import Input from './components/UI-kit/forms/inputs/Input';
 import Header from './components/UI-kit/header/Header';
 import ArrowButton from './components/UI-kit/buttons/ArrowButton';
 import TextBlock from './components/UI-kit/text/TextBlock';
+import Card from './Card';
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
 // Router.addRoutePath('/signin', SignIn);
@@ -25,42 +25,13 @@ import TextBlock from './components/UI-kit/text/TextBlock';
 
 // const store = createStore(reducers);
 
-const MyContext = createContext('hello world');
+export const MyContext = createContext('hello world');
 
 class Counter extends Component<{ count: number }> {
     render() {
         return (
             <div className={'main__header'}>
                 <p>Number of items: {this.props.count.toString()}</p>
-            </div>
-        );
-    }
-}
-
-class Card extends Component<{ name: string }> {
-    componentDidMount() {
-        console.log('componentDidMount called!');
-    }
-
-    componentDidUpdate() {
-        console.log('componentDidUpdate called!');
-    }
-
-    componentWillUnmount() {
-        console.log('componentWillUnmount called!');
-    }
-
-    unmount() {
-        console.log('unmount called!');
-    }
-
-    render() {
-        return (
-            <div>
-                <h3 key={2}>{this.props.name}</h3>
-                <MyContext.Consumer key={1}>
-                    {(value: string) => <p>{value}</p>}
-                </MyContext.Consumer>
             </div>
         );
     }
