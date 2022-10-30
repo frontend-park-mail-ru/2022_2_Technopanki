@@ -4,10 +4,10 @@ import {
     VNodeType,
 } from '../../shared/common';
 import {
-    COMPONENT_ELEMENT_SYMBOL,
-    CONTEXT_ELEMENT_SYMBOL,
-    DOM_ELEMENT_SYMBOL,
-    PROVIDER_ELEMENT_SYMBOL,
+    COMPONENT_NODE_SYMBOL,
+    CONTEXT_NODE_SYMBOL,
+    DOM_NODE_SYMBOL,
+    PROVIDER_NODE_SYMBOL,
 } from '../../shared/index';
 import { setProps } from '../attributes/index';
 import { Context } from '../../reacts/context/index';
@@ -84,6 +84,9 @@ const renderComponent = (
     }
 
     renderChildren(root, node.props.children);
+
+    // @ts-ignore in development build we throw error
+    node._instance?.componentDidMount();
 };
 
 /**
@@ -117,18 +120,18 @@ const renderContext = (root: HTMLElement, node: Context<any>) => {
  */
 export const renderNode = (root: HTMLElement, node: VNodeType) => {
     switch (node.$$typeof) {
-        case DOM_ELEMENT_SYMBOL:
+        case DOM_NODE_SYMBOL:
             // @ts-ignore node.type guaranteed to be typeof string
             root.appendChild(renderDomElement(node));
             break;
-        case COMPONENT_ELEMENT_SYMBOL:
+        case COMPONENT_NODE_SYMBOL:
             // @ts-ignore node.type guaranteed to be typeof ComponentConstructor
             renderComponent(root, node);
             break;
-        case PROVIDER_ELEMENT_SYMBOL:
+        case PROVIDER_NODE_SYMBOL:
             renderProvider(root, node);
             break;
-        case CONTEXT_ELEMENT_SYMBOL:
+        case CONTEXT_NODE_SYMBOL:
             // @ts-ignore node type is Context
             renderContext(root, node);
             break;

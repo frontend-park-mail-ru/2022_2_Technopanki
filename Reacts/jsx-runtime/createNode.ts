@@ -8,10 +8,10 @@ import {
     VNodeType,
 } from '../shared/common';
 import {
-    COMPONENT_ELEMENT_SYMBOL,
-    DOM_ELEMENT_SYMBOL,
+    COMPONENT_NODE_SYMBOL,
+    DOM_NODE_SYMBOL,
     getUniqueSymbol,
-    PROVIDER_ELEMENT_SYMBOL,
+    PROVIDER_NODE_SYMBOL,
 } from '../shared/index';
 
 /**
@@ -25,15 +25,13 @@ const createNodeFromObject = (
     props: PropsType & { children: ChildrenType },
     maybeKey: KeyType | null | undefined,
 ): VNodeType => {
-    const vnode = type;
+    const vnode = { ...type };
     vnode.props = { ...vnode.props, ...props };
-    // TODO: fix bug with key and context
-    // if (maybeKey) {
-    //     vnode.key = maybeKey;
-    // }
+    vnode.key = maybeKey ?? getUniqueSymbol();
 
     // Update context value
-    if (vnode.$$typeof === PROVIDER_ELEMENT_SYMBOL) {
+    if (vnode.$$typeof === PROVIDER_NODE_SYMBOL) {
+        type._context.value = vnode.props.value;
         vnode._context.value = vnode.props.value;
     }
 
@@ -52,7 +50,7 @@ const createComponentNode = (
     maybeKey: KeyType | null | undefined,
 ): VNodeType => {
     const vnode: VNodeType = {
-        $$typeof: COMPONENT_ELEMENT_SYMBOL,
+        $$typeof: COMPONENT_NODE_SYMBOL,
         type,
         props,
         key: maybeKey ?? getUniqueSymbol(),
@@ -92,7 +90,7 @@ const createDomNode = (
     }
 
     return {
-        $$typeof: DOM_ELEMENT_SYMBOL,
+        $$typeof: DOM_NODE_SYMBOL,
         type,
         props,
         key: maybeKey ?? getUniqueSymbol(),

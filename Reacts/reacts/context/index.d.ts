@@ -5,6 +5,7 @@ import {
     VNodeType,
 } from '../../shared/common';
 
+// @ts-ignore
 export interface Context<T extends PropType> extends VNodeType {
     props: { children?: Function | ChildrenType } & PropsType;
     value: T;

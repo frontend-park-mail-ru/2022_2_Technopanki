@@ -4,10 +4,7 @@ export const CONTEXT_TYPE = 'context';
 
 export const getUniqueSymbol = () => Symbol('key');
 
-// TODO: rename to _NODE_SYMBOL
-export const DOM_ELEMENT_SYMBOL = Symbol.for('dom');
-export const COMPONENT_ELEMENT_SYMBOL = Symbol.for('component');
-export const TEMP_ELEMENT_SYMBOL = Symbol.for('temp');
-export const CONTEXT_ELEMENT_SYMBOL = Symbol.for('context');
-export const PROVIDER_ELEMENT_SYMBOL = Symbol.for('provider');
-export const CONSUMER_ELEMENT_SYMBOL = Symbol.for('consumer');
+export const DOM_NODE_SYMBOL = Symbol.for('dom');
+export const COMPONENT_NODE_SYMBOL = Symbol.for('component');
+export const CONTEXT_NODE_SYMBOL = Symbol.for(CONTEXT_TYPE);
+export const PROVIDER_NODE_SYMBOL = Symbol.for(PROVIDER_TYPE);

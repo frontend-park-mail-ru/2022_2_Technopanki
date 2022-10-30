@@ -1,4 +1,11 @@
-import { AttributeUpdater, Insert, Operation, Replace, Update } from './index';
+import {
+    AttributeUpdater,
+    Insert,
+    Operation,
+    Remove,
+    Replace,
+    Update,
+} from './index';
 import {
     insert,
     INSERT_OPERATION,
@@ -8,7 +15,11 @@ import {
     UPDATE_OPERATION,
 } from './operations';
 import { VNodeType } from '../../shared/common';
-import { CONTEXT_ELEMENT_SYMBOL, DOM_ELEMENT_SYMBOL } from '../../shared/index';
+import {
+    COMPONENT_NODE_SYMBOL,
+    CONTEXT_NODE_SYMBOL,
+    DOM_NODE_SYMBOL,
+} from '../../shared/index';
 import { setProps } from '../attributes/index';
 import { setContextValue } from '../../reacts/context/context';
 import { Context } from '../../reacts/context/index';
@@ -108,14 +119,36 @@ const insertNode = (
     // We must remember to set _domElement in node
     node._domElement = element;
 
-    if (node.$$typeof === DOM_ELEMENT_SYMBOL) {
+    if (node.$$typeof === DOM_NODE_SYMBOL) {
         insertDomNode(element, node, beforeElement);
-    } else if (node.$$typeof === CONTEXT_ELEMENT_SYMBOL) {
+    } else if (node.$$typeof === CONTEXT_NODE_SYMBOL) {
         insertContextNode(element, node, beforeElement);
+    } else if (node.$$typeof === COMPONENT_NODE_SYMBOL) {
+        insertChildren(element, node.props.children, beforeElement);
+        if (node._instance) {
+            node._instance.rootDomRef = element;
+            node._instance.prevRenderVNodeRef = node.props.children;
+            node._instance.componentDidMount();
+        } else {
+            if (__DEV__) {
+                throw new Error('component node dont have instance');
+            }
+        }
     } else {
-        // TODO
         insertChildren(element, node.props.children, beforeElement);
     }
+};
+
+const replaceNode = (
+    element: HTMLElement,
+    oldNode: VNodeType,
+    newNode: VNodeType,
+    beforeElement: HTMLElement | null = null,
+) => {
+    insertNode(element, newNode, beforeElement);
+    element.remove();
+    oldNode._instance?.unmout();
+    newNode._instance?.componentDidMount();
 };
 
 export const applyDiff = (element: HTMLElement, operation: Operation) => {
@@ -125,15 +158,21 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
 
     if (operation.type === INSERT_OPERATION) {
         insertNode(element, (<Insert>operation).node);
+        return;
     }
 
     if (operation.type === REMOVE_OPERATION) {
         element.remove();
+        (<Remove>operation).node._instance?.unmout();
+        return;
     }
 
     if (operation.type === REPLACE_OPERATION) {
-        element.remove();
-        insertNode(element, (<Replace>operation).insert.node);
+        replaceNode(
+            element,
+            (<Replace>operation).remove.node,
+            (<Replace>operation).insert.node,
+        );
         return;
     }
 
@@ -144,6 +183,8 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
             (<Update>operation).node._domElement,
             (<Update>operation).childrenUpdater,
         );
+
+        (<Update>operation).node._instance?.componentDidUpdate();
     }
 
     return element;
@@ -167,10 +208,13 @@ const applyChildrenDiff = (
         const childElem = element.childNodes[i + offset] as HTMLElement;
 
         if (childUpdater.type === REPLACE_OPERATION) {
-            childElem.remove();
+            replaceNode(
+                childElem,
+                (<Replace>childUpdater).remove.node,
+                (<Replace>childUpdater).insert.node,
+            );
             offset -= 1;
-            const temp = element.childNodes[i + offset] as HTMLElement;
-            insertNode(element, <VNodeType>(<Insert>childUpdater).node, temp);
+            continue;
         }
 
         if (childUpdater.type === INSERT_OPERATION) {
@@ -180,13 +224,19 @@ const applyChildrenDiff = (
 
         if (childUpdater.type === REMOVE_OPERATION) {
             childElem.remove();
+            (<Remove>childUpdater).node._instance?.componentWillUnmount();
+            (<Remove>childUpdater).node._instance?.unmount();
             offset -= 1;
             continue;
         }
 
-        // TODO
         if (childUpdater.type === UPDATE_OPERATION) {
             applyDiff((<Update>childUpdater).node._domElement, childUpdater);
+            continue;
+        }
+
+        if (__DEV__) {
+            throw new Error('undefined operation');
         }
     }
 };

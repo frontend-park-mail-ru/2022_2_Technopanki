@@ -9,12 +9,11 @@ import {
     update,
 } from './operations';
 import {
-    COMPONENT_ELEMENT_SYMBOL,
-    CONSUMER_ELEMENT_SYMBOL,
-    CONTEXT_ELEMENT_SYMBOL,
+    COMPONENT_NODE_SYMBOL,
+    CONTEXT_NODE_SYMBOL,
     CONTEXT_TYPE,
-    DOM_ELEMENT_SYMBOL,
-    PROVIDER_ELEMENT_SYMBOL,
+    DOM_NODE_SYMBOL,
+    PROVIDER_NODE_SYMBOL,
 } from '../../shared/index';
 import { childrenDiff } from './childrenDiff';
 import { Context } from '../../reacts/context/index';
@@ -81,7 +80,7 @@ const comparePrimitiveTypeChildren = (
     } else if (!oldNode.props.children && newNode.props.children) {
         return insert(newNode);
     } else if (oldNode.props.children && !newNode.props.children) {
-        return remove();
+        return remove(oldNode);
     }
 
     if (
@@ -97,7 +96,7 @@ const comparePrimitiveTypeChildren = (
                     update: [['textContent', newNode.props.children]],
                 },
                 [],
-                oldNode,
+                newNode,
             );
         }
     }
@@ -116,11 +115,12 @@ const updateChild = (
     oldChild: VNodeType & { props: { children: VNodeType } },
     newChild: VNodeType & { props: { children: VNodeType } },
 ): Operation => {
-    return update(
-        attrUpdater,
-        [createDiff(oldChild.props.children, newChild.props.children)],
-        newChild,
-    );
+    return createDiff(oldChild.props.children, newChild.props.children);
+    // return update(
+    //     attrUpdater,
+    //     [createDiff(oldChild.props.children, newChild.props.children)],
+    //     newChild,
+    // );
 };
 
 /**
@@ -175,7 +175,7 @@ const createDiffDOM = (oldNode: VNodeType, newNode: VNodeType) => {
 
 const createDiffComponent = (oldNode: VNodeType, newNode: VNodeType) => {
     if (oldNode.type !== newNode.type) {
-        return replace(newNode);
+        return replace(oldNode, newNode);
     } else {
         const attrUpdate = compareAttributes(oldNode.props, newNode.props);
         newNode._domElement = oldNode._domElement;
@@ -186,6 +186,8 @@ const createDiffComponent = (oldNode: VNodeType, newNode: VNodeType) => {
 
 const createDiffContext = (oldNode: Context<any>, newNode: Context<any>) => {
     newNode._domElement = oldNode._domElement;
+
+    // TODO: Wait for Provider change
     setContextValue(<Context<any>>newNode);
 
     // The context object will always store
@@ -219,22 +221,22 @@ export const createDiff = (
     newNode: VNodeType,
 ): Operation => {
     if (oldNode.$$typeof !== newNode.$$typeof) {
-        return replace(newNode);
+        return replace(oldNode, newNode);
     }
 
     // if ()
 
     switch (oldNode.$$typeof) {
-        case DOM_ELEMENT_SYMBOL:
+        case DOM_NODE_SYMBOL:
             return createDiffDOM(oldNode, newNode);
-        case COMPONENT_ELEMENT_SYMBOL:
+        case COMPONENT_NODE_SYMBOL:
             return createDiffComponent(oldNode, newNode);
-        case CONTEXT_ELEMENT_SYMBOL:
+        case CONTEXT_NODE_SYMBOL:
             return createDiffContext(
                 <Context<any>>oldNode,
                 <Context<any>>newNode,
             );
-        case PROVIDER_ELEMENT_SYMBOL:
+        case PROVIDER_NODE_SYMBOL:
             return createDiffProvider(oldNode, newNode);
         default:
             if (__DEV__) {

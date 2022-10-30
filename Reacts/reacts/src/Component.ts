@@ -1,18 +1,16 @@
-import { ComponentClass } from './index';
+import { ComponentClass, ReactsNode } from './index';
 import { rerenderComponent } from './renderComponent';
-import { PropsType } from '../../shared/common';
+import { PropsType, VNodeType } from '../../shared/common';
 
-export class Component<P extends PropsType = {}, S = {}> extends ComponentClass<
-    P,
-    S
-> {
-    constructor(props: P | Readonly<P>) {
-        super(props);
-    }
+export abstract class Component<P extends PropsType = {}, S = {}> {
+    readonly props: Readonly<P>;
+    state: Readonly<S> | {} = {};
 
-    shouldComponentUpdate(props: P | Readonly<P>): boolean {
-        // TODO: refactor
-        return this.props.value === props.value;
+    rootDomRef?: HTMLElement;
+    prevRenderVNodeRef?: VNodeType;
+
+    constructor(props: Readonly<P> | P) {
+        this.props = props;
     }
 
     setState<K extends keyof S>(
@@ -26,6 +24,22 @@ export class Component<P extends PropsType = {}, S = {}> extends ComponentClass<
             callback();
         }
 
+        this.forceUpdate();
+    }
+
+    // Mounting
+    componentDidMount(): void {}
+
+    // Updating
+    shouldComponentUpdate(nextProps: P | Readonly<P>, nextState?: S): void {}
+    componentDidUpdate(): void {}
+    forceUpdate(): void {
         rerenderComponent(this);
     }
+
+    // Unmounting
+    componentWillUnmount(): void {}
+    unmount(): void {}
+
+    abstract render(): ReactsNode<P>;
 }

@@ -6,9 +6,11 @@
     "jsx": "preserve",
     "strict": true,
     "moduleResolution": "path",
-    "compilerOptions": {
-      "sourceMap": true
-    }
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules"
+      }
+    ]
   },
   "exclude": [
     "node_modules"
