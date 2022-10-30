@@ -35,9 +35,33 @@
 
 .btn-arrow {
   padding: 10px;
-  svg {
-    fill: var(--background-0);
+  border: 2px solid var(--background-900);
+  > svg {
     height: 12px;
     width: 12px;
+    path {
+      fill: var(--background-0);
+    }
+  }
+  &:hover {
+    background-color: var(--background-0);
+    border: 2px solid var(--background-900);
+    box-shadow: var(--shadow-grey-md);
+    path {
+      fill: var(--background-900);
+    }
+  }
+}
+
+.btn-arrow__outline {
+  &:hover {
+    background-color: var(--background-900);
+    box-shadow: var(--shadow-grey-md);
+    path {
+      fill: var(--background-0);
+    }
+  }
+  svg path {
+    fill: var(--background-900);
   }
 }

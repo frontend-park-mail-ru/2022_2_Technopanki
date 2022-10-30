@@ -2,8 +2,9 @@ import { Component } from '../../../../Reacts';
 import Logo from '../../../static/assets/Jobflow.svg';
 import styles from './header.module.scss';
 import MenuIcon from '../../../static/icons/menu.svg';
-import ModalWindow from '../ModalWindow/ModalWindow';
+import ModalWindow from '../modalWindow/ModalWindow';
 
+// TODO: refactor
 export default class Header extends Component {
     setActive = (event: MouseEvent) => {
         let cur = document.querySelector(`.${styles.item__active}`);

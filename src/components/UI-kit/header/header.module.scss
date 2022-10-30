@@ -11,9 +11,11 @@
 
 .logo {
   svg {
-    fill: var(--background-900);
     height: 24px;
     width: auto;
+    path {
+      fill: var(--background-900);
+    }
   }
 }
 
