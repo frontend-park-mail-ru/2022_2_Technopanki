@@ -7,7 +7,7 @@ const DEVELOPMENT = 'development';
 
 module.exports = {
     entry: {
-        main: './src/Test.tsx',
+        main: './src/App.tsx',
     },
     module: {
         rules: [

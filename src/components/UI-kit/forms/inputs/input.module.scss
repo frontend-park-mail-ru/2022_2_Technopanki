@@ -11,7 +11,7 @@
   height: var(--input-height);
   background: var(--background-0);
   border: var(--border-default);
-  border-radius: var(--border-radius-md);
+  border-radius: var(--border-radius-lg);
   transition: var(--transition-sfast);
   outline: none;
   font-size: 14px;
@@ -41,6 +41,29 @@
   width: 16px;
   padding-top: 19px;
   padding-left: 16px;
-  position: absolute;
   cursor: pointer;
+}
+
+.loup {
+  width: 16px;
+  cursor: pointer;
+}
+
+.menu {
+  right: 0;
+  padding-top: 19px;
+  padding-right: 16px;
+}
+
+.menu_data {
+  font-size: 14px;
+  color: var(--background-200);
+}
+
+.search_input {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04);
+}
+
+.search_arrow {
+  width: 6px;
 }

@@ -98,8 +98,21 @@ export default class Header extends Component {
                                 <div
                                     key={'items'}
                                     id={'links-group'}
-                                    className={`flex column justify-content-center w-100 g-16`}
+                                    className={`flex column align-items-center w-100 g-16`}
                                 >
+                                    <div
+                                        className={'flex row justify-content-center g-8'}
+                                    >
+                                        <p
+                                            className={`${styles.item__def}`}
+                                        >Вход
+                                        </p>
+                                        <p>|</p>
+                                        <p
+                                            className={`${styles.item__def}`}
+                                        >Регистрация
+                                        </p>
+                                    </div>
                                     {/*TODO переделать на Link в роутере*/}
                                     <p
                                         key={'item1'}
@@ -125,23 +138,15 @@ export default class Header extends Component {
                                     >
                                         Создать резюме
                                     </p>
+                                    <div
+                                        key={'theme_toggle'}
+                                        onClick={() => toggleTheme()}
+                                        className={styles.theme}
+                                        dangerouslySetInnerHTML={{
+                                            __html: ThemeIcon,
+                                        }}
+                                    />
                                 </div>
-                                <div
-                                    key={'login'}
-                                    className={`flex column g-24 w-100 justify-content-end`}
-                                ></div>
-                                <p
-                                    key={'login-link'}
-                                    className={styles.item__def}
-                                >
-                                    Войти
-                                </p>
-                                <p
-                                    key={'signin-link'}
-                                    className={styles.signup}
-                                >
-                                    Зарегистрироваться
-                                </p>
                             </div>
                         }
                     />

@@ -3,7 +3,7 @@ import styles from './input.module.scss';
 
 export default class IconInput extends Component<{
     id: string
-    icon: any
+    icon: string
     type: string
     placeholder: string
     children: string;

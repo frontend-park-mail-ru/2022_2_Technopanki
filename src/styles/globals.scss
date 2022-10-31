@@ -70,6 +70,7 @@
   --border-dark: 1px solid var(--background-900);
 
   --padding-16: 16px;
+  --padding-24: 24px;
   --padding-32: 32px;
   --padding-sm: 10px 12px;
 
@@ -100,7 +101,6 @@ body {
   font-family: 'Inter';
   left: 0;
   margin: 0;
-  overflow: hidden;
 }
 
 h1 {
@@ -237,9 +237,18 @@ p {
 }
 
 .g {
+  &-2 {
+    gap: 2px
+  }
+
   &-4 {
     gap: 4px
   }
+
+  &-6 {
+    gap: 6px
+  }
+
   &-8 {
     gap: 8px
   }
@@ -317,6 +326,24 @@ p {
   }
 }
 
+.vertical-align {
+  &-top {
+    vertical-align: top;
+  }
+  &-bottom {
+    vertical-align: bottom;
+  }
+  &-text-top {
+    vertical-align: text-top;
+  }
+  &-text-bottom {
+    vertical-align: text-bottom;
+  }
+  &-middle {
+    vertical-align: middle;
+  }
+}
+
 .align-items {
   &-center {
     align-items: center;
@@ -355,6 +382,10 @@ p {
 
 .grid {
   display: grid;
+}
+
+.grid-template-columns {
+  grid-template-columns: 40px auto 20%;
 }
 
 .cursor {
