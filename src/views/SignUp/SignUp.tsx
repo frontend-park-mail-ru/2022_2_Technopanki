@@ -27,6 +27,7 @@ import {
     setValidInput,
 } from '../../services/validation/formValidation';
 import { VNodeType } from '../../../Reacts/shared/common';
+import navigator from '../../router/navigator';
 
 type SignUpField = {
     id: string;
@@ -101,6 +102,7 @@ export default class SignUp extends Component<
                 errorMessage: '',
             },
         },
+        toggleType: 'applicant',
     };
 
     validateField = (
@@ -225,6 +227,21 @@ export default class SignUp extends Component<
         }
 
         this.setState(() => newState);
+
+        if (validFlag) {
+            fetch('http://localhost:8080/auth/sign-up', {
+                method: 'POST',
+                body: JSON.stringify({
+                    email: formData.get('email'),
+                    password: formData.get('password'),
+                    name: formData.get('name'),
+                    surname: formData.get('surname'),
+                    user_type: formData.get('toggle'),
+                }),
+            })
+                .then(() => navigator.navigate('/'))
+                .catch(err => console.log(err));
+        }
     };
 
     render() {
@@ -261,21 +278,73 @@ export default class SignUp extends Component<
                         <div key={'toggle'} className={'flex column g-12'}>
                             <RadioButton
                                 key={'toggle1'}
-                                checked={true}
+                                checked={this.state.toggleType === 'applicant'}
                                 id={'applicant'}
                                 name={'toggle'}
                                 value={'applicant'}
                                 required={true}
+                                onClick={() => {
+                                    this.setState(state => ({
+                                        inputs: {
+                                            email: state.inputs.email,
+                                            password: state.inputs.password,
+                                            repeatPassword:
+                                                state.inputs.repeatPassword,
+                                            name: {
+                                                id: 'name',
+                                                type: 'text',
+                                                label: 'Имя',
+                                                placeholder: 'Иван',
+                                                value: null,
+                                                required: true,
+                                                error: false,
+                                                errorMessage: '',
+                                            },
+                                            surname: {
+                                                id: 'surname',
+                                                type: 'text',
+                                                label: 'Фамилия',
+                                                placeholder: 'Иванов',
+                                                value: null,
+                                                required: true,
+                                                error: false,
+                                                errorMessage: '',
+                                            },
+                                        },
+                                        toggleType: 'applicant',
+                                    }));
+                                }}
                             >
                                 Я соискатель
                             </RadioButton>
                             <RadioButton
                                 key={'toggle2'}
-                                checked={false}
+                                checked={this.state.toggleType === 'employer'}
                                 id={'employer'}
                                 name={'toggle'}
                                 value={'employer'}
                                 required={true}
+                                onClick={() => {
+                                    this.setState(state => ({
+                                        inputs: {
+                                            email: state.inputs.email,
+                                            password: state.inputs.password,
+                                            repeatPassword:
+                                                state.inputs.repeatPassword,
+                                            company_name: {
+                                                id: 'companyName',
+                                                type: 'text',
+                                                label: 'Название компании',
+                                                placeholder: 'Company',
+                                                value: null,
+                                                required: true,
+                                                error: false,
+                                                errorMessage: '',
+                                            },
+                                        },
+                                        toggleType: 'employer',
+                                    }));
+                                }}
                             >
                                 Я работодатель
                             </RadioButton>
@@ -299,45 +368,3 @@ export default class SignUp extends Component<
         );
     }
 }
-
-/*
-<Input
-                                id={'password'}
-                                type={'password'}
-                                name={'password'}
-                                key={'password'}
-                                placeholder={'**********'}
-                                required={true}
-                            >
-                                Пароль
-                            </Input>
-                            <Input
-                                id={'repeat_password'}
-                                type={'password'}
-                                name={'repeat_password'}
-                                key={'password'}
-                                placeholder={'**********'}
-                                required={true}
-                            >
-                                Повторите пароль
-                            </Input>
-                            <Input
-                                id={'name'}
-                                type={'text'}
-                                name={'name'}
-                                key={'name'}
-                                placeholder={'Иван'}
-                                required={true}
-                            >
-                                Имя
-                            </Input>
-                            <Input
-                                id={'surname'}
-                                type={'text'}
-                                name={'surname'}
-                                key={'surname'}
-                                placeholder={'Иванов'}
-                            >
-                                Фамилия
-                            </Input>
- */

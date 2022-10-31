@@ -7,10 +7,14 @@ export default class RadioButton extends Component<{
     name: string;
     value: string;
     children: string;
+    onClick?: Function;
 }> {
     render() {
         return (
-            <div className={`flex row g-8 align-items-center ${styles.radio}`}>
+            <div
+                onClick={this.props.onClick}
+                className={`flex row g-8 align-items-center ${styles.radio}`}
+            >
                 {this.props.checked ? (
                     <input
                         className={`rounded-max ${styles.radio_input}`}
