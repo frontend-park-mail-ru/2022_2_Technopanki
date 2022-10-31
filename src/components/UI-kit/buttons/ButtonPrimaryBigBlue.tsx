@@ -1,7 +1,7 @@
 import { Component } from '../../../../Reacts';
 import styles from './button.module.scss';
 
-export default class ButtonPrimaryBlue extends Component<{
+export default class ButtonPrimaryBigBlue extends Component<{
     onClick?: Function;
     children: string;
 }> {
@@ -9,7 +9,7 @@ export default class ButtonPrimaryBlue extends Component<{
         return (
             <button
                 onClick={this.props.onClick}
-                className={`${styles.btn} ${styles['btn-primary-blue']}`}
+                className={`${styles.btn} ${styles['btn-primary-blue__big']}`}
             >
                 {this.props.children}
             </button>

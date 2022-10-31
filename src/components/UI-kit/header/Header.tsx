@@ -5,6 +5,7 @@ import MenuIcon from '../../../static/icons/menu.svg';
 import ThemeIcon from '../../../static/icons/theme.svg';
 import ModalWindow from '../modalWindow/ModalWindow';
 import { toggleTheme } from '../../../toggleTheme';
+import Link from '../../Link/Link';
 
 // TODO: refactor
 export default class Header extends Component {
@@ -68,18 +69,34 @@ export default class Header extends Component {
                     >
                         <div
                             key={'theme_toggle'}
-                            onClick={() => toggleTheme()}
+                            onClick={toggleTheme}
                             className={styles.theme}
                             dangerouslySetInnerHTML={{
                                 __html: ThemeIcon,
                             }}
                         />
-                        <p key={'login-link'} className={styles.item__def}>
-                            Войти
-                        </p>
-                        <p key={'signin-link'} className={styles.signup}>
-                            Зарегистрироваться
-                        </p>
+                        <Link
+                            to={'/signin'}
+                            content={
+                                <p
+                                    key={'signin-link'}
+                                    className={styles.item__def}
+                                >
+                                    Войти
+                                </p>
+                            }
+                        />
+                        <Link
+                            to={'/signup'}
+                            content={
+                                <p
+                                    key={'signup-link'}
+                                    className={styles.signup}
+                                >
+                                    Зарегистрироваться
+                                </p>
+                            }
+                        />
                     </div>
                     <ModalWindow
                         key={'navIcon'}
@@ -130,18 +147,28 @@ export default class Header extends Component {
                                     key={'login'}
                                     className={`flex column g-24 w-100 justify-content-end`}
                                 ></div>
-                                <p
-                                    key={'login-link'}
-                                    className={styles.item__def}
-                                >
-                                    Войти
-                                </p>
-                                <p
-                                    key={'signin-link'}
-                                    className={styles.signup}
-                                >
-                                    Зарегистрироваться
-                                </p>
+                                <Link
+                                    to={'/signin'}
+                                    content={
+                                        <p
+                                            key={'signin-link'}
+                                            className={styles.item__def}
+                                        >
+                                            Войти
+                                        </p>
+                                    }
+                                />
+                                <Link
+                                    to={'/signup'}
+                                    content={
+                                        <p
+                                            key={'signup-link'}
+                                            className={styles.signup}
+                                        >
+                                            Зарегистрироваться
+                                        </p>
+                                    }
+                                />
                             </div>
                         }
                     />

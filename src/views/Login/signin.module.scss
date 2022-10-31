@@ -1,0 +1,51 @@
+@import '../../styles/screens';
+
+.form_block {
+  @media (min-width: $screen-lg) {
+    min-width: 360px;
+    padding-right: 180px;
+  }
+}
+
+.form_link {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--background-500);
+  &:hover {
+    color: var(--background-700);
+  }
+}
+
+.description {
+  padding-top: var(--header-height);
+  padding-left: 40px;
+  overflow: hidden;
+  // IMPORTANT: we explicitly specify the color
+  background-color: #f8f8f8;
+}
+
+.description_text {
+  padding-right: 40px;
+}
+
+.description_header {
+  color: #33333c;
+}
+
+.description_p {
+  color: #595965;
+}
+
+.description_illustration {
+  width: 100%;
+  bottom: -24px;
+  > svg {
+    width: 100%;
+    max-height: 600px;
+    @media (max-height: 750px) {
+      display: none;
+    }
+  }
+}

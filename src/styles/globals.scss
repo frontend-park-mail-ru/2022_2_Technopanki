@@ -39,16 +39,18 @@
 :root {
   --white: #fff;
   --primary-blue: #1c34ec;
+  --primary-blue-darker: #162ab6;
   --primary-red: #f32a2a;
   --primary-purple: #97a2fb;
 
   --background-modal: rgba(15, 15, 15, 0.4);
 
+  --shadow-grey-xs: 0 4px 4px rgba(0, 0, 0, 0.02);
   --shadow-grey-sm: 0 4px 8px rgba(0, 0, 0, 0.04);
   --shadow-grey-md: 0px 6px 20px rgba(0, 0, 0, 0.08);
   --shadow-grey-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
-  --shadow-blue-md: 0px 4px 8px rgba(28, 52, 236, 0.16);
-  --shadow-blue-lg: 0px 4px 16px rgba(28, 52, 236, 0.24);
+  --shadow-blue-md: 0px 4px 16px rgba(28, 52, 236, 0.16);
+  --shadow-blue-lg: 0px 4px 24px rgba(28, 52, 236, 0.24);
   --shadow-header: 0 0 .45px #333, 0 0 .45px #333;
 
   --transition-sfast: 0.15s;
@@ -69,6 +71,7 @@
   --border-blue: 1px solid var(--primary-blue);
   --border-dark: 1px solid var(--background-900);
 
+  --padding-8: 8px;
   --padding-16: 16px;
   --padding-32: 32px;
   --padding-sm: 10px 12px;
@@ -100,7 +103,6 @@ body {
   font-family: 'Inter';
   left: 0;
   margin: 0;
-  overflow: hidden;
 }
 
 h1 {
@@ -117,6 +119,8 @@ h2 {
   font-size: 48px;
   line-height: 50px;
   letter-spacing: -0.02em;
+  margin-top: 4px;
+  margin-bottom: 4px;
 }
 
 h3 {
@@ -125,6 +129,8 @@ h3 {
   font-size: 32px;
   line-height: 39px;
   letter-spacing: -0.02em;
+  margin-top: 4px;
+  margin-bottom: 4px;
 }
 
 h4 {
@@ -133,6 +139,8 @@ h4 {
   font-size: 24px;
   line-height: 29px;
   letter-spacing: -0.02em;
+  margin-top: 4px;
+  margin-bottom: 4px;
 }
 
 h5 {
@@ -141,6 +149,8 @@ h5 {
   font-size: 16px;
   line-height: 19px;
   letter-spacing: -0.02em;
+  margin-top: 4px;
+  margin-bottom: 4px;
 }
 
 h6 {
@@ -155,10 +165,36 @@ h6 {
 
 p {
   margin: 0;
+  line-height: 22px;
+  font-size: 14px;
 }
 
 .hidden {
   overflow: hidden;
+}
+
+.l-0 {
+  &-0 {
+    left: 0;
+  }
+  &-16 {
+    left: 16px;
+  }
+  &-24 {
+    left: 24px;
+  }
+}
+
+.r-0 {
+  &-0 {
+    right: 0;
+  }
+  &-16 {
+    right: 16px;
+  }
+  &-24 {
+    right: 24px;
+  }
 }
 
 .x-0 {
@@ -173,6 +209,10 @@ p {
 
 .t-0 {
   top: 0;
+}
+
+.b-0 {
+  bottom: 0;
 }
 
 .mx {
@@ -229,10 +269,10 @@ p {
     height: 100%;
   }
   &-50vh {
-    height: 50vh;
+    min-height: 50vh;
   }
   &-100vh {
-    height: 100vh;
+    min-height: 100vh;
   }
 }
 
@@ -485,5 +525,20 @@ p {
   }
   &-none {
     border: none
+  }
+}
+
+.inner-svg {
+  &-h {
+    &-16 {
+      > svg {
+        height: 16px;
+      }
+    }
+    &-24 {
+      > svg {
+        height: 24px;
+      }
+    }
   }
 }

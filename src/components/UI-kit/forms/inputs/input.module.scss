@@ -8,10 +8,10 @@
   align-items: center;
   gap: var(--gap-8);
   padding: var(--padding-16);
-  height: var(--input-height);
   background: var(--background-0);
   border: var(--border-default);
   border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-grey-xs);
   transition: var(--transition-sfast);
   outline: none;
   font-size: 14px;
@@ -29,7 +29,7 @@
 }
 
 .label {
-  font-size: var(--input-font-size);
+  font-size: 14px;
   color: var(--background-600);
 }
 

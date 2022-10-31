@@ -1,18 +1,11 @@
 import { Component } from '../Reacts';
-import { createRoot } from '../Reacts';
-import { createContext } from '../Reacts';
 import './styles/globals.scss';
 import { setTheme, toggleTheme } from './toggleTheme';
-import Button from './components/UI-kit/buttons/Button';
-import ButtonPrimaryBlue from './components/UI-kit/buttons/ButtonPrimaryBlue';
-import ButtonPrimary from './components/UI-kit/buttons/ButtonPrimary';
-import Footer from './components/UI-kit/footer/Footer';
-import ChipsTemp from './components/ChipsTemp';
-import Input from './components/UI-kit/forms/inputs/Input';
-import Header from './components/UI-kit/header/Header';
-import ArrowButton from './components/UI-kit/buttons/ArrowButton';
-import TextBlock from './components/UI-kit/text/TextBlock';
 import StartPage from './views/StartPage/StartPage';
+// TODO: rename navigator
+import router from './router/navigator';
+import SignIn from './views/Login/SignIn';
+
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
 // Router.addRoutePath('/signin', SignIn);
@@ -177,10 +170,14 @@ import StartPage from './views/StartPage/StartPage';
 
 class App extends Component {
     render() {
-        setTheme();
         return <StartPage />;
     }
 }
 
-const root = createRoot(document.querySelector('#root'));
-root.render(<App />);
+router.addNewPath('/', <App />);
+router.addNewPath('/start', <StartPage />);
+router.addNewPath('/signin', <SignIn />);
+// router.setFallback('/404', <NotFound />);
+router.navigate(location.pathname);
+
+setTheme();

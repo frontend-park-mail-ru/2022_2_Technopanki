@@ -12,7 +12,7 @@ export default class StartPage extends Component {
         return (
             <div
                 className={
-                    'grid h-100vh columns g-24 relative screen-responsive'
+                    'grid h-100vh columns g-24 hidden relative screen-responsive'
                 }
             >
                 <Header key={'header'} />
@@ -49,7 +49,7 @@ export default class StartPage extends Component {
                 </div>
                 <div className={`col-md-6 col-0 flex h-100 align-items-center`}>
                     <div className={'absolute r-0'}>
-                        <img className={''} src={img} />
+                        <img src={img} />
                     </div>
                 </div>
             </div>

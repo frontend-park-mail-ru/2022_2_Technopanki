@@ -7,7 +7,7 @@ const DEVELOPMENT = 'development';
 
 module.exports = {
     entry: {
-        main: './src/Test.tsx',
+        main: './src/App.tsx',
     },
     module: {
         rules: [
@@ -57,6 +57,7 @@ module.exports = {
     devServer: {
         static: './dist',
         hot: true,
+        allowedHosts: 'all',
     },
     plugins: [
         new CopyPlugin({
