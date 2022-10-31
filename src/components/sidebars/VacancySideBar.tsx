@@ -1,46 +1,53 @@
 import { Component } from '../../../Reacts';
 import SideBar from '../UI-kit/sideBar/SideBar';
-import MapIcon from '../../static/icons/map.svg';
-import UsersIcon from '../../static/icons/users.svg';
-import Chips from '../UI-kit/chips/Chips';
 import IconField from './utils/IconField';
+import MapIcon from '../../static/icons/map.svg';
+import Chips from '../UI-kit/chips/Chips';
 
-export default class EmployerProfileSideBar extends Component<
+export default class VacancySideBar extends Component<
     {},
     {
         chipsData: string[];
     }
 > {
     state = {
-        chipsData: [
-            'Информационные технологии',
-            'Интернет',
-            'Социальные технологии',
-            'SMM',
-            'Системная интеграция',
-        ],
+        chipsData: ['JavaScript', 'Git', 'CSS3', 'HTML5', 'React', 'Redux'],
     };
+
     render() {
         return (
             <SideBar
                 content={[
                     {
-                        header: 'Информация о компании',
+                        header: 'Заработная плата',
+                        inside: (
+                            <p className={'font-size-24 bold'}>
+                                240.000 руб/мес
+                            </p>
+                        ),
+                    },
+                    {
+                        header: 'Требуемый опыт работы',
+                        inside: <p className={'font-size-24 bold'}>3-6 лет</p>,
+                    },
+                    {
+                        header: 'Информация о вакансии',
                         inside: (
                             <div className={'flex column g-16'}>
+                                <IconField icon={MapIcon} content={'Москва'} />
                                 <IconField
                                     icon={MapIcon}
-                                    content={'Москва, Санкт-Петербург'}
+                                    content={'40 часов в неделю'}
                                 />
                                 <IconField
-                                    icon={UsersIcon}
-                                    content={'10.000 человек'}
+                                    icon={MapIcon}
+                                    content={'Смешанный формат'}
                                 />
                             </div>
                         ),
                     },
                     {
-                        header: 'Сфера деятельности',
+                        header: 'Профессиональные навыки',
                         inside: (
                             <div className={'flex row g-8 flex-wrap'}>
                                 {this.state.chipsData.map(item => (

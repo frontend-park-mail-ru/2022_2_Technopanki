@@ -11,6 +11,7 @@ import ArrowButtonWithText from '../../../components/UI-kit/buttons/ArrowButtonW
 import Footer from '../../../components/UI-kit/footer/Footer';
 import ProfileHeader from '../../../components/ProfileHeader/ProfileHeader';
 import EmployerProfileSideBar from '../../../components/sidebars/EmployerProfileSideBar';
+import Link from '../../../components/Link/Link';
 
 export default class Profile extends Component {
     render() {
@@ -31,7 +32,7 @@ export default class Profile extends Component {
                         </div>
                     }
                 />
-                <div className={'columns'}>
+                <div className={'columns g-24'}>
                     <div className={'col-12 col-md-9 flex column g-40'}>
                         <TextBlock
                             headline={'Описание'}
@@ -52,7 +53,10 @@ export default class Profile extends Component {
                                     </ArrowButtonWithText>
                                 </button>
                                 <div>
-                                    <p>asad</p>
+                                    <Link
+                                        to={'/vacancy'}
+                                        content={<p>asad</p>}
+                                    />
                                 </div>
                             </div>
                         </div>

@@ -7,6 +7,7 @@ import router from './router/navigator';
 import SignUp from './views/SignUp/SignUp';
 import SignIn from './views/SignIn/SignIn';
 import Profile from './views/Employer/Profile/Profile';
+import Vacancy from './views/Employer/Vacancy';
 
 class App extends Component {
     render() {
@@ -19,6 +20,7 @@ router.addNewPath('/start', <StartPage />);
 router.addNewPath('/signup', <SignUp />);
 router.addNewPath('/signin', <SignIn />);
 router.addNewPath('/employer', <Profile />);
+router.addNewPath('/vacancy', <Vacancy />);
 // router.setFallback('/404', <NotFound />);
 router.navigate(location.pathname);
 

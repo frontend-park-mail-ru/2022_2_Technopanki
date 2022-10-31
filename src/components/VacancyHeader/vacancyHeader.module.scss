@@ -1,0 +1,21 @@
+@import "../../styles/screens";
+
+.company {
+  @media (max-width: $screen-md) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-24);
+  }
+}
+
+.companyImg {
+  height: 64px;
+  width: 64px;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--primary-blue);
+}
+
+.companyName {
+  font-size: 18px;
+  font-weight: 500;
+}
