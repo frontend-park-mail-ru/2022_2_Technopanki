@@ -1,8 +1,9 @@
 import network from '../lib/network';
+import { SERVER_URL, SIGN_UP_URL } from '../utils/constants';
 
 export const SignUpService = async (formData: FormData) => {
     return await network.POST(
-        SIGN_UP_URL,
+        SERVER_URL + SIGN_UP_URL,
         [],
         JSON.stringify({
             email: formData.get('email'),

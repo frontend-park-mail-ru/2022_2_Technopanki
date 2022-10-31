@@ -1,5 +1,7 @@
 class Network {
     async GET(url: string, headers: HeadersInit, credentials: boolean = true) {
+        console.info(`GET request. URL: ${url}`);
+
         const response = await fetch(url, {
             method: 'GET',
             headers: headers,
@@ -20,6 +22,8 @@ class Network {
         payload: string,
         credentials: boolean = true,
     ) {
+        console.info(`GET request. URL: ${url}; Payload: ${payload}`);
+
         const response = await fetch(url, {
             method: 'POST',
             headers: headers,
@@ -41,6 +45,8 @@ class Network {
         payload: string,
         credentials: boolean = true,
     ) {
+        console.info(`GET request. URL: ${url}; Payload: ${payload}`);
+
         const response = await fetch(url, {
             method: 'POST',
             headers: headers,
@@ -61,6 +67,8 @@ class Network {
         headers: HeadersInit,
         credentials: boolean = true,
     ) {
+        console.info(`GET request. URL: ${url}`);
+
         const response = await fetch(url, {
             method: 'POST',
             headers: headers,
