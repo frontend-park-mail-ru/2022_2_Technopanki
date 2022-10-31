@@ -71,6 +71,7 @@
   --border-radius-md: 12px;
   --border-radius-lg: 16px;
   --border-radius-xl: 24px;
+  --border-radius-max: 50%;
 
   --border-light: 1px solid var(--background-50);
   --border-default: 1px solid var(--background-100);
@@ -162,7 +163,7 @@ h5 {
 
 h6 {
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 12px;
   line-height: 15px;
   letter-spacing: -0.01em;
@@ -348,10 +349,16 @@ p {
 
 .column {
   flex-direction: column;
+  &-reverse {
+    flex-direction: column-reverse;
+  }
 }
 
 .row {
   flex-direction: row;
+  &-reverse {
+    flex-direction: row-reverse;
+  }
 }
 
 .flex-wrap {
@@ -511,7 +518,7 @@ p {
     border-radius: var(--border-radius-xl);
   }
   &-max {
-    border-radius: 50%;
+    border-radius: var(--border-radius-max);
   }
 }
 
@@ -535,6 +542,10 @@ p {
   }
 }
 
+.border-dashed {
+  border-style: dashed;
+}
+
 .inner-svg {
   &-h {
     &-16 {
@@ -545,6 +556,83 @@ p {
     &-24 {
       > svg {
         height: 24px;
+      }
+    }
+  }
+  &-0 {
+    > svg {
+      > path {
+        fill: var(--background-0);
+      }
+    }
+  }
+  &-50 {
+    > svg {
+      > path {
+        background: var(--background-50);
+      }
+    }
+  }
+  &-100 {
+    > svg {
+      > path {
+        fill: var(--background-100);
+      }
+    }
+  }
+  &-200 {
+    > svg {
+      > path {
+        border-color: var(--background-200);
+      }
+    }
+  }
+  &-300 {
+    > svg {
+      > path {
+        fill: var(--background-300);
+      }
+    }
+  }
+  &-400 {
+    > svg {
+      > path {
+        fill: var(--background-400);
+      }
+    }
+  }
+  &-500 {
+    > svg {
+      > path {
+        fill: var(--background-500);
+      }
+    }
+  }
+  &-600 {
+    > svg {
+      > path {
+        fill: var(--background-600);
+      }
+    }
+  }
+  &-700 {
+    > svg {
+      > path {
+        fill: var(--background-700);
+      }
+    }
+  }
+  &-800 {
+    > svg {
+      > path {
+        fill: var(--background-800);
+      }
+    }
+  }
+  &-900 {
+    > svg {
+      > path {
+        fill: var(--background-900);
       }
     }
   }

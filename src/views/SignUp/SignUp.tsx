@@ -40,7 +40,7 @@ type SignUpField = {
 };
 
 export default class SignUp extends Component<
-    { children: VNodeType },
+    {},
     {
         inputs: {
             [key: string]: SignUpField;

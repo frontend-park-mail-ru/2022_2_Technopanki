@@ -14,6 +14,7 @@
   transition: var(--transition-sfast);
   font-weight: 600;
   cursor: pointer;
+  max-height: 42px;
   &:hover {
     box-shadow: var(--shadow-grey-md);
   }
@@ -81,5 +82,15 @@
   }
   svg path {
     fill: var(--background-900);
+  }
+}
+
+.btn-icon {
+  > svg {
+    height: 20px;
+    width: 20px;
+    > path {
+      fill: var(--background-900)
+    }
   }
 }
