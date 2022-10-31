@@ -13,7 +13,9 @@ export const setProps = (element: HTMLElement, props: PropsType) => {
                         throw new Error('Invalid event type');
                     }
                 }
-                element.addEventListener(events[name], value);
+                if (value) {
+                    element.addEventListener(events[name], value);
+                }
             } else {
                 if (name === 'dangerouslySetInnerHTML') {
                     // NOTE: this is being dangerous
@@ -21,10 +23,12 @@ export const setProps = (element: HTMLElement, props: PropsType) => {
                         (<{ __html: string }>(<unknown>value)).__html
                     );
                 } else {
-                    element.setAttribute(
-                        attributes[name],
-                        <string>(<unknown>value),
-                    );
+                    if (value) {
+                        element.setAttribute(
+                            attributes[name],
+                            <string>(<unknown>value),
+                        );
+                    }
                     if (__DEV__) {
                         if (typeof value === 'function') {
                             console.error(
