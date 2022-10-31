@@ -8,16 +8,16 @@ import {
     validateEmail,
     validatePasswordLength,
     validatePasswordSymbols,
-} from '../../services/validation/validation';
+} from '../../utils/validation/validation';
 import {
     setInvalidInput,
     setValidInput,
-} from '../../services/validation/formValidation';
+} from '../../utils/validation/formValidation';
 import {
     EMAIL_ERROR,
     PASSWORD_LENGTH_ERROR,
     PASSWORD_SYMBOLS_ERROR,
-} from '../../services/validation/messages';
+} from '../../utils/validation/messages';
 
 export default class SignIn extends Component {
     onSubmit = async (e: SubmitEvent) => {

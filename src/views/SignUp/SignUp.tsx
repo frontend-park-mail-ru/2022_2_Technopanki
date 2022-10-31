@@ -14,18 +14,18 @@ import {
     PASSWORD_SYMBOLS_ERROR,
     SURNAME_LENGTH_ERROR,
     SURNAME_SYMBOLS_ERROR,
-} from '../../services/validation/messages';
+} from '../../utils/validation/messages';
 import {
     validateEmail,
     validateNameLength,
     validateNameSymbols,
     validatePasswordLength,
     validatePasswordSymbols,
-} from '../../services/validation/validation';
+} from '../../utils/validation/validation';
 import {
     setInvalidInput,
     setValidInput,
-} from '../../services/validation/formValidation';
+} from '../../utils/validation/formValidation';
 import { VNodeType } from '../../../Reacts/shared/common';
 import navigator from '../../router/navigator';
 
