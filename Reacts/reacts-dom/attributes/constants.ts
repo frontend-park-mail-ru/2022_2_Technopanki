@@ -59,4 +59,5 @@ export const attributes: { [key: string]: string } = {
     value: 'value',
     checked: 'checked',
     for: 'for',
+    required: 'required',
 };

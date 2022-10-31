@@ -1,11 +1,14 @@
 import { Component } from '../../../../../Reacts';
 import styles from './input.module.scss';
 
+// TODO: перенести вывод сообщений об ошиках в input
 export default class Input extends Component<{
     id: string;
     type: string;
     placeholder: string;
     children: string;
+    name: string;
+    required?: boolean;
 }> {
     render() {
         return (
@@ -17,13 +20,27 @@ export default class Input extends Component<{
                 >
                     {this.props.children}
                 </label>
-                <input
-                    key={'input'}
-                    className={`${styles.input}`}
-                    id={this.props.id}
-                    type={this.props.type}
-                    placeholder={this.props.placeholder}
-                />
+                {this.props.required ? (
+                    <input
+                        key={'input'}
+                        className={`${styles.input}`}
+                        id={this.props.id}
+                        type={this.props.type}
+                        name={this.props.name}
+                        placeholder={this.props.placeholder}
+                        required
+                    />
+                ) : (
+                    <input
+                        key={'input'}
+                        className={`${styles.input}`}
+                        id={this.props.id}
+                        type={this.props.type}
+                        name={this.props.name}
+                        placeholder={this.props.placeholder}
+                    />
+                )}
+                <p className={`form__input-error-${this.props.name}`}></p>
             </div>
         );
     }

@@ -15,12 +15,24 @@
   transition: var(--transition-sfast);
   outline: none;
   font-size: 14px;
+  color: var(--background-900);
   &::placeholder {
     font-size: var(--input-font-size);
   }
   &:focus {
     outline: var(--border-blue);
     outline-width: 2px;
+  }
+  &[error='true'] {
+    color: var(--primary-red);
+    border: var(--border-red);
+    background-color: var(--background-red);
+    box-shadow: var(--shadow-red-md);
+    + p {
+      font-weight: 600;
+      font-size: 12px;
+      color: var(--primary-red);
+    }
   }
 }
 
