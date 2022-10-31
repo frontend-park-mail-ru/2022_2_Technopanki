@@ -8,43 +8,96 @@ import {
     validateEmail,
     validatePasswordLength,
     validatePasswordSymbols,
-} from '../../services/validation/validation';
+} from '../../utils/validation/validation';
 import {
     setInvalidInput,
     setValidInput,
-} from '../../services/validation/formValidation';
+} from '../../utils/validation/formValidation';
 import {
     EMAIL_ERROR,
     PASSWORD_LENGTH_ERROR,
     PASSWORD_SYMBOLS_ERROR,
-} from '../../services/validation/messages';
+} from '../../utils/validation/messages';
+import { AuthField, validateField } from '../SignUp/SignUp';
+import { SignUpService } from '../../services/signUpService';
+import navigator from '../../router/navigator';
+import { signInService } from '../../services/signInService';
 
-export default class SignIn extends Component {
+export default class SignIn extends Component<
+    {},
+    {
+        inputs: {
+            [key: string]: AuthField;
+        };
+    }
+> {
+    state = {
+        inputs: {
+            email: {
+                id: 'email',
+                type: 'email',
+                label: 'Email',
+                placeholder: 'example@mail.ru',
+                value: null,
+                required: true,
+                error: false,
+                errorMessage: '',
+            },
+            password: {
+                id: 'password',
+                type: 'password',
+                label: 'Пароль',
+                placeholder: '*********',
+                value: null,
+                required: true,
+                error: false,
+                errorMessage: '',
+            },
+        },
+    };
     onSubmit = async (e: SubmitEvent) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         let validFlag = true;
+        let newState = this.state;
 
-        if (validateEmail(formData.get('email'))) {
-            setValidInput(e, 'email');
-        } else {
-            setInvalidInput(e, 'email', EMAIL_ERROR);
+        if (
+            !validateField(
+                formData.get('email') as Exclude<FormDataEntryValue, File>,
+                newState.inputs['email'],
+                validateEmail,
+                EMAIL_ERROR,
+            )
+        ) {
+            validFlag = false;
+        }
+        if (
+            !validateField(
+                formData.get('password') as Exclude<FormDataEntryValue, File>,
+                newState.inputs['password'],
+                validatePasswordSymbols,
+                PASSWORD_SYMBOLS_ERROR,
+            )
+        ) {
+            validFlag = false;
+        }
+        if (
+            !validateField(
+                formData.get('password') as Exclude<FormDataEntryValue, File>,
+                newState.inputs['password'],
+                validatePasswordLength,
+                PASSWORD_LENGTH_ERROR,
+            )
+        ) {
             validFlag = false;
         }
 
-        if (!validatePasswordLength(formData.get('password'))) {
-            setInvalidInput(e, 'password', PASSWORD_LENGTH_ERROR);
-            validFlag = false;
-        } else if (!validatePasswordSymbols(formData.get('password'))) {
-            setValidInput(e, 'password');
-            setInvalidInput(e, 'password', PASSWORD_SYMBOLS_ERROR);
-            validFlag = false;
-        } else {
-            setValidInput(e, 'password');
-        }
+        this.setState(() => newState);
 
-        if (!validFlag) {
-            return;
+        if (validFlag) {
+            signInService(formData)
+                .then(() => navigator.navigate('/'))
+                .catch(err => console.log(err));
         }
     };
 
@@ -61,26 +114,22 @@ export default class SignIn extends Component {
                     >
                         <h5 key={'header'}>Войти</h5>
                         <div key={'inputs'} className={'flex column g-16'}>
-                            <Input
-                                id={'email'}
-                                type={'email'}
-                                name={'email'}
-                                key={'email'}
-                                placeholder={'example@mail.ru'}
-                                required={true}
-                            >
-                                Email
-                            </Input>
-                            <Input
-                                id={'password'}
-                                type={'password'}
-                                name={'password'}
-                                key={'password'}
-                                placeholder={'**********'}
-                                required={true}
-                            >
-                                Пароль
-                            </Input>
+                            {Object.entries(this.state.inputs).map(
+                                ([name, value]) => (
+                                    <Input
+                                        key={value.id}
+                                        id={value.id}
+                                        type={value.type}
+                                        placeholder={value.placeholder}
+                                        label={value.label}
+                                        name={name}
+                                        required={value.required}
+                                        value={value.value}
+                                        error={value.error}
+                                        errorMessage={value.errorMessage}
+                                    />
+                                ),
+                            )}
                         </div>
                         <ButtonPrimaryBigBlue key={'button'}>
                             Войти

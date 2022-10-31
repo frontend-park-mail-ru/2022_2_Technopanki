@@ -14,21 +14,42 @@ import {
     PASSWORD_SYMBOLS_ERROR,
     SURNAME_LENGTH_ERROR,
     SURNAME_SYMBOLS_ERROR,
-} from '../../services/validation/messages';
+} from '../../utils/validation/messages';
 import {
     validateEmail,
     validateNameLength,
     validateNameSymbols,
     validatePasswordLength,
     validatePasswordSymbols,
-} from '../../services/validation/validation';
-import {
-    setInvalidInput,
-    setValidInput,
-} from '../../services/validation/formValidation';
-import { VNodeType } from '../../../Reacts/shared/common';
+} from '../../utils/validation/validation';
+import navigator from '../../router/navigator';
+import { SignUpService } from '../../services/signUpService';
 
-type SignUpField = {
+export const validateField = (
+    formDataElement: Exclude<FormDataEntryValue, File>,
+    field: AuthField,
+    validate: (data: string) => boolean,
+    errorMessage: string,
+): boolean => {
+    if (formDataElement) {
+        field.value = formDataElement;
+
+        if (validate(formDataElement)) {
+            if (errorMessage === field.errorMessage) {
+                field.error = false;
+                field.errorMessage = '';
+            }
+            return true;
+        }
+        field.error = true;
+        field.errorMessage = errorMessage;
+        return false;
+    }
+
+    return true;
+};
+
+export type AuthField = {
     id: string;
     type: string;
     label: string;
@@ -43,11 +64,11 @@ export default class SignUp extends Component<
     {},
     {
         inputs: {
-            [key: string]: SignUpField;
+            [key: string]: AuthField;
         };
     }
 > {
-    // input name is inputs[name]
+    // input applicant_name is inputs[applicant_name]
     state = {
         inputs: {
             email: {
@@ -80,8 +101,8 @@ export default class SignUp extends Component<
                 error: false,
                 errorMessage: '',
             },
-            name: {
-                id: 'name',
+            applicant_name: {
+                id: 'applicant_name',
                 type: 'text',
                 label: 'Имя',
                 placeholder: 'Иван',
@@ -90,8 +111,8 @@ export default class SignUp extends Component<
                 error: false,
                 errorMessage: '',
             },
-            surname: {
-                id: 'surname',
+            applicant_surname: {
+                id: 'applicant_surname',
                 type: 'text',
                 label: 'Фамилия',
                 placeholder: 'Иванов',
@@ -101,41 +122,17 @@ export default class SignUp extends Component<
                 errorMessage: '',
             },
         },
-    };
-
-    validateField = (
-        formDataElement: Exclude<FormDataEntryValue, File>,
-        field: SignUpField,
-        validate: (data: string) => boolean,
-        errorMessage: string,
-    ): boolean => {
-        if (formDataElement) {
-            field.value = formDataElement;
-
-            if (validate(formDataElement)) {
-                if (errorMessage === field.errorMessage) {
-                    field.error = false;
-                    field.errorMessage = '';
-                }
-                return true;
-            }
-            field.error = true;
-            field.errorMessage = errorMessage;
-            return false;
-        }
-
-        return true;
+        toggleType: 'applicant',
     };
 
     onSubmit = async (e: SubmitEvent) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         let validFlag = true;
-
         let newState = this.state;
 
         if (
-            !this.validateField(
+            !validateField(
                 formData.get('email') as Exclude<FormDataEntryValue, File>,
                 newState.inputs['email'],
                 validateEmail,
@@ -145,7 +142,7 @@ export default class SignUp extends Component<
             validFlag = false;
         }
         if (
-            !this.validateField(
+            !validateField(
                 formData.get('password') as Exclude<FormDataEntryValue, File>,
                 newState.inputs['password'],
                 validatePasswordSymbols,
@@ -155,7 +152,7 @@ export default class SignUp extends Component<
             validFlag = false;
         }
         if (
-            !this.validateField(
+            !validateField(
                 formData.get('password') as Exclude<FormDataEntryValue, File>,
                 newState.inputs['password'],
                 validatePasswordLength,
@@ -165,7 +162,7 @@ export default class SignUp extends Component<
             validFlag = false;
         }
         if (
-            !this.validateField(
+            !validateField(
                 formData.get('repeatPassword') as Exclude<
                     FormDataEntryValue,
                     File
@@ -184,9 +181,12 @@ export default class SignUp extends Component<
             validFlag = false;
         }
         if (
-            !this.validateField(
-                formData.get('name') as Exclude<FormDataEntryValue, File>,
-                newState.inputs['name'],
+            !validateField(
+                formData.get('applicant_name') as Exclude<
+                    FormDataEntryValue,
+                    File
+                >,
+                newState.inputs['applicant_name'],
                 validateNameLength,
                 NAME_LENGTH_ERROR,
             )
@@ -194,9 +194,12 @@ export default class SignUp extends Component<
             validFlag = false;
         }
         if (
-            !this.validateField(
-                formData.get('name') as Exclude<FormDataEntryValue, File>,
-                newState.inputs['name'],
+            !validateField(
+                formData.get('applicant_name') as Exclude<
+                    FormDataEntryValue,
+                    File
+                >,
+                newState.inputs['applicant_name'],
                 validateNameSymbols,
                 NAME_SYMBOLS_ERROR,
             )
@@ -204,9 +207,12 @@ export default class SignUp extends Component<
             validFlag = false;
         }
         if (
-            !this.validateField(
-                formData.get('surname') as Exclude<FormDataEntryValue, File>,
-                newState.inputs['surname'],
+            !validateField(
+                formData.get('applicant_surname') as Exclude<
+                    FormDataEntryValue,
+                    File
+                >,
+                newState.inputs['applicant_surname'],
                 validateNameLength,
                 SURNAME_LENGTH_ERROR,
             )
@@ -214,9 +220,12 @@ export default class SignUp extends Component<
             validFlag = false;
         }
         if (
-            !this.validateField(
-                formData.get('surname') as Exclude<FormDataEntryValue, File>,
-                newState.inputs['surname'],
+            !validateField(
+                formData.get('applicant_surname') as Exclude<
+                    FormDataEntryValue,
+                    File
+                >,
+                newState.inputs['applicant_surname'],
                 validateNameSymbols,
                 SURNAME_SYMBOLS_ERROR,
             )
@@ -225,6 +234,12 @@ export default class SignUp extends Component<
         }
 
         this.setState(() => newState);
+
+        if (validFlag) {
+            SignUpService(formData)
+                .then(() => navigator.navigate('/'))
+                .catch(err => console.log(err));
+        }
     };
 
     render() {
@@ -261,21 +276,73 @@ export default class SignUp extends Component<
                         <div key={'toggle'} className={'flex column g-12'}>
                             <RadioButton
                                 key={'toggle1'}
-                                checked={true}
+                                checked={this.state.toggleType === 'applicant'}
                                 id={'applicant'}
                                 name={'toggle'}
                                 value={'applicant'}
                                 required={true}
+                                onClick={() => {
+                                    this.setState(state => ({
+                                        inputs: {
+                                            email: state.inputs.email,
+                                            password: state.inputs.password,
+                                            repeatPassword:
+                                                state.inputs.repeatPassword,
+                                            applicant_name: {
+                                                id: 'applicant_name',
+                                                type: 'text',
+                                                label: 'Имя',
+                                                placeholder: 'Иван',
+                                                value: null,
+                                                required: true,
+                                                error: false,
+                                                errorMessage: '',
+                                            },
+                                            applicant_surname: {
+                                                id: 'applicant_surname',
+                                                type: 'text',
+                                                label: 'Фамилия',
+                                                placeholder: 'Иванов',
+                                                value: null,
+                                                required: true,
+                                                error: false,
+                                                errorMessage: '',
+                                            },
+                                        },
+                                        toggleType: 'applicant',
+                                    }));
+                                }}
                             >
                                 Я соискатель
                             </RadioButton>
                             <RadioButton
                                 key={'toggle2'}
-                                checked={false}
+                                checked={this.state.toggleType === 'employer'}
                                 id={'employer'}
                                 name={'toggle'}
                                 value={'employer'}
                                 required={true}
+                                onClick={() => {
+                                    this.setState(state => ({
+                                        inputs: {
+                                            email: state.inputs.email,
+                                            password: state.inputs.password,
+                                            repeatPassword:
+                                                state.inputs.repeatPassword,
+                                            company_name: {
+                                                id: 'companyName',
+                                                type: 'text',
+                                                label: 'Название компании',
+                                                placeholder: 'Company',
+                                                value: null,
+                                                required: true,
+                                                error: false,
+                                                errorMessage: '',
+                                            },
+                                        },
+                                        toggleType: 'employer',
+                                    }));
+                                }}
                             >
                                 Я работодатель
                             </RadioButton>
@@ -299,45 +366,3 @@ export default class SignUp extends Component<
         );
     }
 }
-
-/*
-<Input
-                                id={'password'}
-                                type={'password'}
-                                name={'password'}
-                                key={'password'}
-                                placeholder={'**********'}
-                                required={true}
-                            >
-                                Пароль
-                            </Input>
-                            <Input
-                                id={'repeat_password'}
-                                type={'password'}
-                                name={'repeat_password'}
-                                key={'password'}
-                                placeholder={'**********'}
-                                required={true}
-                            >
-                                Повторите пароль
-                            </Input>
-                            <Input
-                                id={'name'}
-                                type={'text'}
-                                name={'name'}
-                                key={'name'}
-                                placeholder={'Иван'}
-                                required={true}
-                            >
-                                Имя
-                            </Input>
-                            <Input
-                                id={'surname'}
-                                type={'text'}
-                                name={'surname'}
-                                key={'surname'}
-                                placeholder={'Иванов'}
-                            >
-                                Фамилия
-                            </Input>
- */
