@@ -48,7 +48,7 @@ export default class SignUp extends Component<
         };
     }
 > {
-    // input name is inputs[name]
+    // input applicant_name is inputs[applicant_name]
     state = {
         inputs: {
             email: {
@@ -81,8 +81,8 @@ export default class SignUp extends Component<
                 error: false,
                 errorMessage: '',
             },
-            name: {
-                id: 'name',
+            applicant_name: {
+                id: 'applicant_name',
                 type: 'text',
                 label: 'Имя',
                 placeholder: 'Иван',
@@ -91,8 +91,8 @@ export default class SignUp extends Component<
                 error: false,
                 errorMessage: '',
             },
-            surname: {
-                id: 'surname',
+            applicant_surname: {
+                id: 'applicant_surname',
                 type: 'text',
                 label: 'Фамилия',
                 placeholder: 'Иванов',
@@ -187,8 +187,11 @@ export default class SignUp extends Component<
         }
         if (
             !this.validateField(
-                formData.get('name') as Exclude<FormDataEntryValue, File>,
-                newState.inputs['name'],
+                formData.get('applicant_name') as Exclude<
+                    FormDataEntryValue,
+                    File
+                >,
+                newState.inputs['applicant_name'],
                 validateNameLength,
                 NAME_LENGTH_ERROR,
             )
@@ -197,8 +200,11 @@ export default class SignUp extends Component<
         }
         if (
             !this.validateField(
-                formData.get('name') as Exclude<FormDataEntryValue, File>,
-                newState.inputs['name'],
+                formData.get('applicant_name') as Exclude<
+                    FormDataEntryValue,
+                    File
+                >,
+                newState.inputs['applicant_name'],
                 validateNameSymbols,
                 NAME_SYMBOLS_ERROR,
             )
@@ -207,8 +213,11 @@ export default class SignUp extends Component<
         }
         if (
             !this.validateField(
-                formData.get('surname') as Exclude<FormDataEntryValue, File>,
-                newState.inputs['surname'],
+                formData.get('applicant_surname') as Exclude<
+                    FormDataEntryValue,
+                    File
+                >,
+                newState.inputs['applicant_surname'],
                 validateNameLength,
                 SURNAME_LENGTH_ERROR,
             )
@@ -217,8 +226,11 @@ export default class SignUp extends Component<
         }
         if (
             !this.validateField(
-                formData.get('surname') as Exclude<FormDataEntryValue, File>,
-                newState.inputs['surname'],
+                formData.get('applicant_surname') as Exclude<
+                    FormDataEntryValue,
+                    File
+                >,
+                newState.inputs['applicant_surname'],
                 validateNameSymbols,
                 SURNAME_SYMBOLS_ERROR,
             )
@@ -229,13 +241,22 @@ export default class SignUp extends Component<
         this.setState(() => newState);
 
         if (validFlag) {
+            console.log(
+                JSON.stringify({
+                    email: formData.get('email'),
+                    password: formData.get('password'),
+                    applicant_name: formData.get('applicant_name'),
+                    applicant_surname: formData.get('applicant_surname'),
+                    user_type: formData.get('toggle'),
+                }),
+            );
             fetch('http://localhost:8080/auth/sign-up', {
                 method: 'POST',
                 body: JSON.stringify({
                     email: formData.get('email'),
                     password: formData.get('password'),
-                    name: formData.get('name'),
-                    surname: formData.get('surname'),
+                    applicant_name: formData.get('applicant_name'),
+                    applicant_surname: formData.get('applicant_surname'),
                     user_type: formData.get('toggle'),
                 }),
             })
@@ -290,8 +311,8 @@ export default class SignUp extends Component<
                                             password: state.inputs.password,
                                             repeatPassword:
                                                 state.inputs.repeatPassword,
-                                            name: {
-                                                id: 'name',
+                                            applicant_name: {
+                                                id: 'applicant_name',
                                                 type: 'text',
                                                 label: 'Имя',
                                                 placeholder: 'Иван',
@@ -300,8 +321,8 @@ export default class SignUp extends Component<
                                                 error: false,
                                                 errorMessage: '',
                                             },
-                                            surname: {
-                                                id: 'surname',
+                                            applicant_surname: {
+                                                id: 'applicant_surname',
                                                 type: 'text',
                                                 label: 'Фамилия',
                                                 placeholder: 'Иванов',
@@ -321,7 +342,7 @@ export default class SignUp extends Component<
                                 key={'toggle2'}
                                 checked={this.state.toggleType === 'employer'}
                                 id={'employer'}
-                                name={'toggle'}
+                                applicant_name={'toggle'}
                                 value={'employer'}
                                 required={true}
                                 onClick={() => {
