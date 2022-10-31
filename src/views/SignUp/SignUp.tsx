@@ -28,6 +28,7 @@ import {
 } from '../../utils/validation/formValidation';
 import { VNodeType } from '../../../Reacts/shared/common';
 import navigator from '../../router/navigator';
+import { SignUpService } from '../../services/signUpService';
 
 type SignUpField = {
     id: string;
@@ -241,25 +242,7 @@ export default class SignUp extends Component<
         this.setState(() => newState);
 
         if (validFlag) {
-            console.log(
-                JSON.stringify({
-                    email: formData.get('email'),
-                    password: formData.get('password'),
-                    applicant_name: formData.get('applicant_name'),
-                    applicant_surname: formData.get('applicant_surname'),
-                    user_type: formData.get('toggle'),
-                }),
-            );
-            fetch('http://localhost:8080/auth/sign-up', {
-                method: 'POST',
-                body: JSON.stringify({
-                    email: formData.get('email'),
-                    password: formData.get('password'),
-                    applicant_name: formData.get('applicant_name'),
-                    applicant_surname: formData.get('applicant_surname'),
-                    user_type: formData.get('toggle'),
-                }),
-            })
+            SignUpService(formData)
                 .then(() => navigator.navigate('/'))
                 .catch(err => console.log(err));
         }
