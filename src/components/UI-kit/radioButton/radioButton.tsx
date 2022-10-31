@@ -1,17 +1,37 @@
 import { Component } from '../../../../Reacts';
+import styles from './radio.module.scss';
 
-export default class RadioButton extends Component {
+export default class RadioButton extends Component<{
+    checked: boolean;
+    id: string;
+    name: string;
+    value: string;
+    children: string;
+}> {
     render() {
         return (
-            <div>
-                <input
-                    checked={this.props.checked}
-                    id={this.props.id}
-                    type={'radio'}
-                    name={this.props.name}
-                    value={this.props.value}
-                />
-                <label htmlFor={this.props.id}>{this.props.children}</label>
+            <div className={`flex row g-8 align-items-center ${styles.radio}`}>
+                {this.props.checked ? (
+                    <input
+                        className={`rounded-max ${styles.radio_input}`}
+                        checked
+                        id={this.props.id}
+                        type={'radio'}
+                        name={this.props.name}
+                        value={this.props.value}
+                    />
+                ) : (
+                    <input
+                        className={`rounded-max ${styles.radio_input}`}
+                        id={this.props.id}
+                        type={'radio'}
+                        name={this.props.name}
+                        value={this.props.value}
+                    />
+                )}
+                <label className={`${styles.radio_label}`} for={this.props.id}>
+                    {this.props.children}
+                </label>
             </div>
         );
     }

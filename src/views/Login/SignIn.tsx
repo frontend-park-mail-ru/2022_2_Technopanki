@@ -5,6 +5,7 @@ import Logo from '../../static/assets/JobflowDefault.svg';
 import Illustration from '../../static/assets/illustration.svg';
 import Link from '../../components/Link/Link';
 import ButtonPrimaryBigBlue from '../../components/UI-kit/buttons/ButtonPrimaryBigBlue';
+import RadioButton from '../../components/UI-kit/radioButton/radioButton';
 
 export default class SignIn extends Component {
     render() {
@@ -51,6 +52,26 @@ export default class SignIn extends Component {
                             >
                                 Фамилия
                             </Input>
+                        </div>
+                        <div key={'toggle'} className={'flex column g-12'}>
+                            <RadioButton
+                                key={'toggle1'}
+                                checked={true}
+                                id={'applicant'}
+                                name={'toggle'}
+                                value={'applicant'}
+                            >
+                                Я соискатель
+                            </RadioButton>
+                            <RadioButton
+                                key={'toggle2'}
+                                checked={false}
+                                id={'employer'}
+                                name={'toggle'}
+                                value={'employer'}
+                            >
+                                Я работодатель
+                            </RadioButton>
                         </div>
                         <ButtonPrimaryBigBlue key={'button'}>
                             Создать аккаунт
