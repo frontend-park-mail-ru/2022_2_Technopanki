@@ -4,11 +4,12 @@ import { setTheme, toggleTheme } from './toggleTheme';
 import StartPage from './views/StartPage/StartPage';
 // TODO: rename navigator
 import router from './router/navigator';
-import SignIn from './views/Login/SignIn';
+import SignUp from './views/SignUp/SignUp';
+import SignIn from './views/SignIn/SignIn';
 
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
-// Router.addRoutePath('/signin', SignIn);
+// Router.addRoutePath('/signin', SignUp);
 // Router.addRoutePath('/vacancies', Vacancies);
 //
 // window.addEventListener('popstate', () => {
@@ -176,6 +177,7 @@ class App extends Component {
 
 router.addNewPath('/', <App />);
 router.addNewPath('/start', <StartPage />);
+router.addNewPath('/signup', <SignUp />);
 router.addNewPath('/signin', <SignIn />);
 // router.setFallback('/404', <NotFound />);
 router.navigate(location.pathname);

@@ -1,13 +1,12 @@
 import { Component } from '../../../Reacts';
 import Input from '../../components/UI-kit/forms/inputs/Input';
-import styles from './signin.module.scss';
-import Logo from '../../static/assets/JobflowDefault.svg';
-import Illustration from '../../static/assets/illustration.svg';
+import styles from './signup.module.scss';
 import Link from '../../components/Link/Link';
 import ButtonPrimaryBigBlue from '../../components/UI-kit/buttons/ButtonPrimaryBigBlue';
 import RadioButton from '../../components/UI-kit/radioButton/radioButton';
+import Description from '../../components/auth/Description';
 
-export default class SignIn extends Component {
+export default class SignUp extends Component {
     render() {
         return (
             <div className={'grid h-100vh columns'}>
@@ -77,7 +76,7 @@ export default class SignIn extends Component {
                             Создать аккаунт
                         </ButtonPrimaryBigBlue>
                         <Link
-                            to={'/signup'}
+                            to={'/signin'}
                             content={
                                 <p className={styles.form_link}>
                                     Уже есть аккаунт? Войти
@@ -86,31 +85,7 @@ export default class SignIn extends Component {
                         />
                     </form>
                 </div>
-                <div
-                    className={`col-md-6 col-0 ${styles.description} relative`}
-                >
-                    <div
-                        className={`flex column g-24 ${styles.description_text}`}
-                    >
-                        <div
-                            className={'inner-svg-h-16'}
-                            dangerouslySetInnerHTML={{ __html: Logo }}
-                        ></div>
-                        <h3 className={styles.description_header}>
-                            Создай свою команду. Найди свою миссию
-                        </h3>
-                        <p className={styles.description_p}>
-                            Мы создаем передовые технологии на всех доступных
-                            платформах для того, чтобы работодатели могли быстро
-                            найти подходящего сотрудника, а соискатели — хорошую
-                            работу.
-                        </p>
-                    </div>
-                    <div
-                        className={`absolute l-24 r-0 b-0 ${styles.description_illustration}`}
-                        dangerouslySetInnerHTML={{ __html: Illustration }}
-                    ></div>
-                </div>
+                <Description />
             </div>
         );
     }
