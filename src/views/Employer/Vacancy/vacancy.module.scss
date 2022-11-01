@@ -10,3 +10,18 @@
 .header {
   margin-top: var(--header-height);
 }
+
+.vacancy_dropdown {
+  width: 400px;
+}
+
+.dropdown_name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--background-500);
+}
+
+.dropdown_resumeHeader {
+  font-size: 14px;
+  font-weight: 600;
+}
