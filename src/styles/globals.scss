@@ -295,6 +295,9 @@ p {
   &-64 {
     margin-top: 64px;
   }
+  &-header {
+    margin-top: var(--header-height);
+  }
 }
 
 .mb {
