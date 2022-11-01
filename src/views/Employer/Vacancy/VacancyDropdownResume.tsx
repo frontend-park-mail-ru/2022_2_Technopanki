@@ -38,7 +38,7 @@ export default class VacancyDropdownResume extends Component<{
     render() {
         return (
             <div
-                className={`flex hidden z-10 column g-0 rounded-md shadow-md ${styles.vacancy_dropdown}`}
+                className={`flex hidden column g-0 background-0 rounded-md shadow-md ${styles.vacancy_dropdown}`}
             >
                 {this.props.resume.map(resume => (
                     <Resume

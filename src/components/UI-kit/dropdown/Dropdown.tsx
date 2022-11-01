@@ -35,7 +35,7 @@ export default class Dropdown extends Component<
                             this.state.isOpen
                                 ? `flex-${this.props.direction}`
                                 : 'none'
-                        } ${styles.hidden}`}
+                        } mt-8`}
                     >
                         {this.props.hidden}
                     </div>
