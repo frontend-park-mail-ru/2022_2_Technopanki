@@ -1,7 +1,7 @@
 import { Component } from '../../../../Reacts';
 import Header from '../../../components/UI-kit/header/Header';
 import styles from './vacancy.module.scss';
-import VacancyHeader from '../../../components/VacancyHeader';
+import VacancyHeader from '../../../components/VacancyHat';
 import TextBlock from '../../../components/UI-kit/text/TextBlock';
 import VacancySideBar from '../../../components/sidebars/VacancySideBar';
 import Footer from '../../../components/UI-kit/footer/Footer';

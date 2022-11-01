@@ -28,7 +28,10 @@ export default class Profile extends Component {
                             <ButtonIcon icon={PhoneIcon} />
                             <ButtonIcon icon={MailIcon} />
                             <ButtonPrimary>Хочу здесь работать</ButtonPrimary>
-                            <Button>Настройки</Button>
+                            <Link
+                                to={'/settings'}
+                                content={<Button>Настройки</Button>}
+                            />
                         </div>
                     }
                 />
