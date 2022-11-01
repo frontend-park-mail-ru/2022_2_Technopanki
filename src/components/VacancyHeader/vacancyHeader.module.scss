@@ -1,6 +1,8 @@
 @import "../../styles/screens";
 
 .company {
+  margin-top: 64px;
+  margin-bottom: 40px;
   @media (max-width: $screen-md) {
     flex-direction: column;
     align-items: flex-start;

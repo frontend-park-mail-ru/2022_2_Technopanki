@@ -4,6 +4,7 @@ import styles from './vacancy.module.scss';
 import VacancyHeader from '../../../components/VacancyHeader';
 import TextBlock from '../../../components/UI-kit/text/TextBlock';
 import VacancySideBar from '../../../components/sidebars/VacancySideBar';
+import Footer from '../../../components/UI-kit/footer/Footer';
 
 export default class Vacancy extends Component {
     render() {
@@ -64,6 +65,7 @@ export default class Vacancy extends Component {
                         <VacancySideBar />
                     </div>
                 </div>
+                {/*<Footer />*/}
             </div>
         );
     }

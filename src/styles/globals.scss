@@ -12,8 +12,8 @@
   --background-300: #81818e;
   --background-200: #6d6d7a;
   --background-100: #595965;
-  --background-50: #464651;
-  --background-0: #33333c;
+  --background-50: #33333c;
+  --background-0: #26262d;
   --background-body: #0F0F0F;
   --background-body-80: rgba(15, 15, 15, 0.8);
 
@@ -46,7 +46,7 @@
   --primary-blue-darker: #162ab6;
   --primary-red: #f32a2a;
   --background-red: rgba(243, 42, 42, 0.12);
-  --primary-purple: #97a2fb;
+  --primary-purple: rgba(128, 137, 215, 0.5);
 
   --background-modal: rgba(15, 15, 15, 0.4);
 
@@ -400,6 +400,11 @@ p {
   &-40 {
     padding: var(--padding-40);
   }
+  &t {
+    &-3 {
+      padding-top: 3px;
+    }
+  }
 }
 
 .relative {
@@ -635,6 +640,11 @@ p {
     &-24 {
       > svg {
         height: 24px;
+      }
+    }
+    &-40 {
+      > svg {
+        height: 40px;
       }
     }
   }

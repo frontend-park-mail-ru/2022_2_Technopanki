@@ -65,7 +65,7 @@ export default class Profile extends Component {
                         <EmployerProfileSideBar />
                     </div>
                 </div>
-                <Footer />
+                {/*<Footer />*/}
             </div>
         );
     }

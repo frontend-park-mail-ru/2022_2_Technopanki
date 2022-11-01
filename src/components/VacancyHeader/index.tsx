@@ -10,7 +10,7 @@ export default class VacancyHeader extends Component<{
     render() {
         return (
             <div
-                className={`flex w-100 row mx-64 align-items-center justify-content-space-between ${styles.company}`}
+                className={`flex w-100 row align-items-center justify-content-space-between ${styles.company}`}
             >
                 <div className={`flex align-items-center row g-16`}>
                     <img
