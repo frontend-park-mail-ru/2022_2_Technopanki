@@ -3,13 +3,11 @@ import styles from './vacancies.module.scss'
 import Location from '../../static/icons/location.svg'
 import Clock from '../../static/icons/clock.svg'
 import Calendar from '../../static/icons/calendar.svg'
-import SmallArrow from '../../static/icons/small_arrow.svg'
+import ArrowDown from '../../static/icons/small_arrow_down.svg'
+import ArrowUp from '../../static/icons/small_arrow_up.svg'
+import Hr from '../../static/icons/hr.svg'
 import ArrowButtonWithTextOutline from '../../components/UI-kit/buttons/ArrowButtonWithTextOutline';
-
-enum Format {
-    Mixed = 'Смешанный формат',
-    Remote = 'Удаленный формат'
-}
+import { VNodeType } from '../../../Reacts/shared/common';
 
 export default class Vacancy extends Component<{
     name: string
@@ -19,8 +17,21 @@ export default class Vacancy extends Component<{
     location: string
     format: string
     hours: string
+},
+{
+    isOpen: boolean
+}>{
+    state = {
+        isOpen: false
+    }
 
-}> {
+    handleDetails = (e: MouseEvent) => {
+        this.setState(state => ({
+            ...state,
+            isOpen: !this.state.isOpen
+        }))
+    }
+
     render() {
         return (
             <div
@@ -28,7 +39,7 @@ export default class Vacancy extends Component<{
             >
                 <div
                     key={'vacancy-icon'}
-                    className={`${styles.icon}`}
+                    className={`cursor-pointer ${styles.icon}`}
                     dangerouslySetInnerHTML={{ __html: this.props.icon }}
                 />
                 <div
@@ -37,7 +48,7 @@ export default class Vacancy extends Component<{
                 >
                     <h4
                         key={'vacancy-name'}
-                        className={`${styles.vacancy_name}`}
+                        className={`cursor-pointer ${styles.vacancy_name}`}
                     >
                         { this.props.name }
                     </h4>
@@ -113,14 +124,38 @@ export default class Vacancy extends Component<{
                 >
                     <p
                         className={`cursor-pointer ${styles.details_text}`}
+                        onClick={this.handleDetails}
                     >
                         Детали
                     </p>
                     <div
                         className={`cursor-pointer ${styles.arrow}`}
-                        dangerouslySetInnerHTML={{ __html: SmallArrow }}
+                        dangerouslySetInnerHTML={
+                            this.state.isOpen ?
+                            { __html: ArrowUp } : { __html: ArrowDown }
+                        }
+                        onClick={this.handleDetails}
                     />
                 </div>
+                {this.state.isOpen ? (
+                    <div
+                        className={`flex column g-12 ${styles.description}`}
+                    >
+                        <div
+                            className={'w-100'}
+                            dangerouslySetInnerHTML={{ __html: Hr }}
+                        />
+                        <h5
+                            className={'mx-0'}
+                        >Описание вакансии</h5>
+                        <p
+                            className={styles.description_text}
+                        >
+                            Мы помогаем людям объединяться для того, что для них действительно важно. С нами ты будешь создавать и развивать сервисы для миллионов пользователей, которые помогают общаться, работать, учиться, решать бытовые задачи и развлекаться. Для нас важно делать технологии доступными для каждого и постоянно совершенствовать наши продукты...
+                        </p>
+                    </div>
+                )
+                    : <p></p>}
             </div>
         )
     }
