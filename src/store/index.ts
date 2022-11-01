@@ -1,11 +1,11 @@
-import { store } from './testStore';
 import createConnect from '../../Reacts/reacts-fluxs/connect';
 import dispatcher from '../../Fluxs/dispatcher';
-import { randomDispatcher } from './testDispatcher';
+import { storeDispatcher } from './dispatcher';
+import { userStore } from './user/store';
 
-dispatcher.register(randomDispatcher);
+dispatcher.register(storeDispatcher);
 
 const dispatch = dispatcher.dispatch.bind(dispatcher);
-const connect = createConnect(store);
+const userConnect = createConnect(userStore);
 
-export { connect, dispatch };
+export { userConnect, dispatch };
