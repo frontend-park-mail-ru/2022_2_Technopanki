@@ -18,11 +18,11 @@ export default class VacancySettingsHat extends Component<{
                 rightSideContent={
                     <CancelSaveButtons
                         onCancel={() => {
-                            navigator.navigate('/employer');
+                            navigator.navigate('/vacancy');
                         }}
                         onSave={() => {
                             alert('saved');
-                            navigator.navigate('/employer');
+                            navigator.navigate('/vacancy');
                         }}
                     />
                 }

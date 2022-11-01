@@ -8,7 +8,8 @@ import SignUp from './views/SignUp/SignUp';
 import SignIn from './views/SignIn/SignIn';
 import Profile from './views/Employer/Profile/Profile';
 import Vacancy from './views/Employer/Vacancy';
-import EmployerSettings from './views/Employer/Settings';
+import EmployerSettings from './views/Employer/Vacancy/VacancySettings';
+import VacancySettings from './views/Employer/Vacancy/VacancySettings';
 
 class App extends Component {
     render() {
@@ -23,7 +24,7 @@ router.addNewPath('/signup', <SignUp />);
 router.addNewPath('/signin', <SignIn />);
 router.addNewPath('/employer', <Profile />);
 router.addNewPath('/vacancy', <Vacancy />);
-router.addNewPath('/settings', <EmployerSettings />);
+router.addNewPath('/vacancy/settings', <VacancySettings />);
 // router.setFallback('/404', <NotFound />);
 router.navigate(location.pathname);
 

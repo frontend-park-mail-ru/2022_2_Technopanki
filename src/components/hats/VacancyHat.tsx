@@ -5,6 +5,7 @@ import ButtonPrimary from '../UI-kit/buttons/ButtonPrimary';
 import Dropdown from '../UI-kit/dropdown/Dropdown';
 import VacancyDropdownResume from '../../views/Employer/Vacancy/VacancyDropdownResume';
 import Hat from '../UI-kit/hat/Hat';
+import Link from '../Link/Link';
 
 export default class VacancyHat extends Component<{
     imgSrc: string;
@@ -39,7 +40,10 @@ export default class VacancyHat extends Component<{
                     <div className={'flex row flex-wrap g-12'}>
                         {/*TODO: добавить уловие по типу пользователя рендер кнопок*/}
                         <Button>Посмотреть отклики на вакансию</Button>
-                        <Button>Настройки</Button>
+                        <Link
+                            to={'/vacancy/settings'}
+                            content={<Button>Настройки</Button>}
+                        />
                         <Dropdown
                             hidden={
                                 <VacancyDropdownResume
