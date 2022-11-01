@@ -7,6 +7,7 @@ import HeaderModal from './HeaderModal';
 import { userConnect } from '../../../store';
 import { StoreType } from '../../../../Fluxs/types/store';
 import { UserStore } from '../../../store/user/types';
+import HeaderUserInfo from './HeaderUserInfo';
 
 type HeaderProps = {
     name: string;
@@ -25,23 +26,24 @@ class HeaderProfile extends Component<HeaderProps> {
         return (
             <div className={'flex-wrap w-100'}>
                 <div
-                    className={`flex row w-100 align-items-center justify-content-end ${styles.auth}`}
+                    className={`flex row w-100 g-40 align-items-center justify-content-end ${styles.auth}`}
                 >
+                    <div
+                        key={'theme_toggle'}
+                        onClick={toggleTheme}
+                        className={'inner-svg-h-24'}
+                        dangerouslySetInnerHTML={{
+                            __html: ThemeIcon,
+                        }}
+                    />
                     {this.props.authorized ? (
-                        <div className={'flex row g-24 align-items-center'}>
-                            <p>{this.props.name}</p>
-                            <p>{this.props.surname}</p>
-                        </div>
+                        <HeaderUserInfo
+                            imgSrc={'./'}
+                            name={this.props.name}
+                            surname={this.props.surname}
+                        />
                     ) : (
                         <div className={'flex row g-24 align-items-center'}>
-                            <div
-                                key={'theme_toggle'}
-                                onClick={toggleTheme}
-                                className={'inner-svg-h-24'}
-                                dangerouslySetInnerHTML={{
-                                    __html: ThemeIcon,
-                                }}
-                            />
                             <Link
                                 to={'/signin'}
                                 content={

@@ -192,6 +192,20 @@ p {
   }
 }
 
+.text {
+  &-align {
+    &-left {
+      text-align: left;
+    }
+    &-center {
+      text-align: center;
+    }
+    &-right {
+      text-align: right;
+    }
+  }
+}
+
 .bold {
   font-weight: 600;
 }
