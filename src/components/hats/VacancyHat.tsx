@@ -1,6 +1,6 @@
 import { Component } from '../../../Reacts';
 import Button from '../UI-kit/buttons/Button';
-import styles from './vacancyHeader.module.scss';
+import styles from './vacancyHat.module.scss';
 import ButtonPrimary from '../UI-kit/buttons/ButtonPrimary';
 import Dropdown from '../UI-kit/dropdown/Dropdown';
 import VacancyDropdownResume from '../../views/Employer/Vacancy/VacancyDropdownResume';

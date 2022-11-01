@@ -1,7 +1,7 @@
 import { Component } from '../../../../Reacts';
 import Header from '../../../components/UI-kit/header/Header';
 import styles from '../Vacancy/vacancy.module.scss';
-import VacancyHeader from '../../../components/VacancyHat';
+import VacancyHat from '../../../components/hats/VacancyHat';
 
 export default class EmployerSettings extends Component {
     render() {
@@ -10,7 +10,7 @@ export default class EmployerSettings extends Component {
                 <Header />
                 <div className={'columns g-24'}>
                     <div className={`col-12`}>
-                        <VacancyHeader
+                        <VacancyHat
                             imgSrc={'./'}
                             companyName={'VK'}
                             description={'Место встречи профессионалов'}
