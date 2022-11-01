@@ -16,7 +16,6 @@ export function rerenderComponent(component: Component<any, any>) {
             component.prevRenderVNodeRef,
             VDomElement,
         );
-        console.log('asd');
         (<VNodeType>component.prevRenderVNodeRef) = VDomElement;
     } else {
         throw new Error(

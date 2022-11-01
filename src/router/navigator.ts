@@ -45,7 +45,6 @@ class Navigator {
     }
 
     navigate(to: string) {
-        console.log('asd');
         if (this.navMap.has(to)) {
             // @ts-ignore we checked for
             this.router.navigate(this.navMap.get(to));

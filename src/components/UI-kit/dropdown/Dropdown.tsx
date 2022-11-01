@@ -11,7 +11,6 @@ export default class Dropdown extends Component<
     };
 
     render() {
-        console.log(this.props.children);
         return (
             <div
                 className={`relative flex column g-4 ${

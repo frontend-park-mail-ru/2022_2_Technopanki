@@ -9,7 +9,6 @@ import Link from '../../components/Link/Link';
 
 export default class StartPage extends Component {
     render() {
-        console.log(img);
         return (
             <div
                 className={

@@ -17,12 +17,6 @@ type HeaderProps = {
 
 class HeaderProfile extends Component<HeaderProps> {
     render() {
-        if (this.props.authorized) {
-            console.log('Authorized!!!  ');
-            console.log(this.props);
-        } else {
-            console.log('Not Authorized');
-        }
         return (
             <div className={'flex-wrap w-100'}>
                 <div
