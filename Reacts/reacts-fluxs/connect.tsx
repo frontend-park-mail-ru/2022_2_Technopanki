@@ -20,6 +20,7 @@ export default function createConnect(store: StoreType) {
                 }
 
                 componentDidMount() {
+                    this.handleChange();
                     this.unsubscribe = store.subscribe(
                         this.handleChange.bind(this),
                     );
@@ -30,6 +31,7 @@ export default function createConnect(store: StoreType) {
                 }
 
                 handleChange() {
+                    console.log(store);
                     this.forceUpdate();
                 }
             };

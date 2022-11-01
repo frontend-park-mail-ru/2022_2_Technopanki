@@ -60,7 +60,7 @@ const isPrimitiveTypeChildren = (
     newNode: VNodeType,
 ): boolean => {
     return (
-        (!oldNode.props.children && !oldNode.props.children) ||
+        (!oldNode.props.children && !newNode.props.children) ||
         (typeof oldNode.props.children === 'string' &&
             typeof newNode.props.children === 'string')
     );

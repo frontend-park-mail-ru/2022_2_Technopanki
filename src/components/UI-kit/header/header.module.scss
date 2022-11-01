@@ -19,12 +19,6 @@
   }
 }
 
-.theme {
-  svg {
-    height: 24px;
-  }
-}
-
 .items {
   @media (max-width: $screen-md) {
     display: none;

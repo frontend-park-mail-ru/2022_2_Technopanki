@@ -672,7 +672,7 @@ p {
   &-200 {
     > svg {
       > path {
-        border-color: var(--background-200);
+        fill: var(--background-200);
       }
     }
   }

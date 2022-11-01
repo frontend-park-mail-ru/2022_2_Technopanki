@@ -5,6 +5,9 @@ export const userReducer: Reducer<UserStore, UserAction> = (
     state: UserStore,
     action: UserAction,
 ): UserStore => {
+    console.info('reducer action');
+    console.info(action);
+    console.info(state);
     switch (action.type) {
         case 'SIGN_UP':
         case 'SIGN_IN':
