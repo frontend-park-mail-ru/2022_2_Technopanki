@@ -10,18 +10,15 @@ import {
     validatePasswordSymbols,
 } from '../../utils/validation/validation';
 import {
-    setInvalidInput,
-    setValidInput,
-} from '../../utils/validation/formValidation';
-import {
     EMAIL_ERROR,
     PASSWORD_LENGTH_ERROR,
     PASSWORD_SYMBOLS_ERROR,
 } from '../../utils/validation/messages';
 import { AuthField, validateField } from '../SignUp/SignUp';
-import { SignUpService } from '../../services/signUpService';
 import navigator from '../../router/navigator';
 import { signInService } from '../../services/signInService';
+import { dispatch } from '../../store';
+import { userActions } from '../../store/user/action';
 
 export default class SignIn extends Component<
     {},
@@ -96,8 +93,16 @@ export default class SignIn extends Component<
 
         if (validFlag) {
             signInService(formData)
-                .then(() => navigator.navigate('/'))
-                .catch(err => console.log(err));
+                .then(response => {
+                    dispatch(
+                        userActions.SIGN_IN(
+                            response.body.name,
+                            response.body.surname,
+                        ),
+                    );
+                    navigator.navigate('/');
+                })
+                .catch(err => console.error(err));
         }
     };
 
