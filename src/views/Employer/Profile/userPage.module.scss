@@ -1,0 +1,13 @@
+@import '../../../styles/screens';
+
+.vacancies_button {
+  width: 100%;
+  border: var(--border-default);
+  background-color: var(--background-body);
+  border-style: dashed;
+  padding: 24px;
+  border-radius: var(--border-radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
