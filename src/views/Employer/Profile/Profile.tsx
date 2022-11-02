@@ -5,15 +5,111 @@ import Button from '../../../components/UI-kit/buttons/Button';
 import ButtonIcon from '../../../components/UI-kit/buttons/ButtonIcon';
 import PhoneIcon from '../../../static/icons/phone.svg';
 import MailIcon from '../../../static/icons/mail.svg';
+import VKLogo from '../../../static/icons/logos/VK.svg';
 import ButtonPrimary from '../../../components/UI-kit/buttons/ButtonPrimary';
 import TextBlock from '../../../components/UI-kit/text/TextBlock';
 import ArrowButtonWithText from '../../../components/UI-kit/buttons/ArrowButtonWithText';
-import Footer from '../../../components/UI-kit/footer/Footer';
 import ProfileHeader from '../../../components/ProfileHeader/ProfileHeader';
 import EmployerProfileSideBar from '../../../components/sidebars/EmployerProfileSideBar';
 import Link from '../../../components/Link/Link';
+import Vacancy, {
+    VacancyCardPropsType,
+} from '../../../components/UI-kit/vacancy/VacancyCard';
 
-export default class Profile extends Component {
+export default class Profile extends Component<
+    {},
+    { vacancies: VacancyCardPropsType[] }
+> {
+    state = {
+        vacancies: [
+            {
+                name: 'Middle Frontend developer ',
+                icon: VKLogo,
+                salary: '260.000',
+                currency: 'руб',
+                location: 'Москва',
+                format: 'Смешанный формат',
+                hours: '40 часов в неделю',
+                description:
+                    'Мы помогаем людям объединяться для того, что для них\n' +
+                    'действительно важно. С нами ты будешь создавать и\n' +
+                    'развивать сервисы для миллионов пользователей,\n' +
+                    'которые помогают общаться, работать, учиться, решать\n' +
+                    'бытовые задачи и развлекаться. Для нас важно делать\n' +
+                    'технологии доступными для каждого и постоянно\n' +
+                    'совершенствовать наши продукты...',
+            },
+            {
+                name: 'Middle Frontend developer ',
+                icon: VKLogo,
+                salary: '260.000',
+                currency: 'руб',
+                location: 'Москва',
+                format: 'Смешанный формат',
+                hours: '40 часов в неделю',
+                description:
+                    'Мы помогаем людям объединяться для того, что для них\n' +
+                    'действительно важно. С нами ты будешь создавать и\n' +
+                    'развивать сервисы для миллионов пользователей,\n' +
+                    'которые помогают общаться, работать, учиться, решать\n' +
+                    'бытовые задачи и развлекаться. Для нас важно делать\n' +
+                    'технологии доступными для каждого и постоянно\n' +
+                    'совершенствовать наши продукты...',
+            },
+            {
+                name: 'Middle Frontend developer ',
+                icon: VKLogo,
+                salary: '260.000',
+                currency: 'руб',
+                location: 'Москва',
+                format: 'Смешанный формат',
+                hours: '40 часов в неделю',
+                description:
+                    'Мы помогаем людям объединяться для того, что для них\n' +
+                    'действительно важно. С нами ты будешь создавать и\n' +
+                    'развивать сервисы для миллионов пользователей,\n' +
+                    'которые помогают общаться, работать, учиться, решать\n' +
+                    'бытовые задачи и развлекаться. Для нас важно делать\n' +
+                    'технологии доступными для каждого и постоянно\n' +
+                    'совершенствовать наши продукты...',
+            },
+            {
+                name: 'Middle Frontend developer ',
+                icon: VKLogo,
+                salary: '260.000',
+                currency: 'руб',
+                location: 'Москва',
+                format: 'Смешанный формат',
+                hours: '40 часов в неделю',
+                description:
+                    'Мы помогаем людям объединяться для того, что для них\n' +
+                    'действительно важно. С нами ты будешь создавать и\n' +
+                    'развивать сервисы для миллионов пользователей,\n' +
+                    'которые помогают общаться, работать, учиться, решать\n' +
+                    'бытовые задачи и развлекаться. Для нас важно делать\n' +
+                    'технологии доступными для каждого и постоянно\n' +
+                    'совершенствовать наши продукты...',
+            },
+            {
+                name: 'Middle Frontend developer ',
+                icon: VKLogo,
+                salary: '260.000',
+                currency: 'руб',
+                location: 'Москва',
+                format: 'Смешанный формат',
+                hours: '40 часов в неделю',
+                description:
+                    'Мы помогаем людям объединяться для того, что для них\n' +
+                    'действительно важно. С нами ты будешь создавать и\n' +
+                    'развивать сервисы для миллионов пользователей,\n' +
+                    'которые помогают общаться, работать, учиться, решать\n' +
+                    'бытовые задачи и развлекаться. Для нас важно делать\n' +
+                    'технологии доступными для каждого и постоянно\n' +
+                    'совершенствовать наши продукты...',
+            },
+        ],
+    };
+
     render() {
         return (
             <div className={'screen-responsive flex column g-40'}>
@@ -55,11 +151,19 @@ export default class Profile extends Component {
                                         Добавить вакансию
                                     </ArrowButtonWithText>
                                 </button>
-                                <div>
-                                    <Link
-                                        to={'/vacancy'}
-                                        content={<p>asad</p>}
-                                    />
+                                <div className={'flex column g-16'}>
+                                    {this.state.vacancies.map(vacancy => (
+                                        <Vacancy
+                                            name={vacancy.name}
+                                            icon={vacancy.icon}
+                                            salary={vacancy.salary}
+                                            currency={vacancy.currency}
+                                            location={vacancy.location}
+                                            format={vacancy.format}
+                                            hours={vacancy.hours}
+                                            description={vacancy.description}
+                                        />
+                                    ))}
                                 </div>
                             </div>
                         </div>
