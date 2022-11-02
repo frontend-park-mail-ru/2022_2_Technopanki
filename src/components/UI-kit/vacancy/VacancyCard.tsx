@@ -82,8 +82,6 @@ export default class VacancyCard extends Component<
         }));
     };
 
-    date = new Date(this.props.date).toUTCString()
-
     render() {
         return (
             <div
@@ -181,14 +179,14 @@ export default class VacancyCard extends Component<
                             {this.props.description}
                         </p>
                         <p className={styles.date}>
-                            {`${this.date[5] === '0'?
-                                this.date.slice(6, 7):
-                                this.date.slice(5, 7)
+                            {`${this.props.date[8] === '0'?
+                                this.props.date.slice(9, 10):
+                                this.props.date.slice(8, 10)
                             } ${
                                 this.months.find(
                                     m=>m.date === this.props.date.slice(5, 7)
                                 ).name
-                            } ${this.date.slice(12, 16)} • ${this.date.slice(17, 22)}`}
+                            } ${this.props.date.slice(0, 4)} • ${this.date.slice(11, 16)}`}
                         </p>
                     </div>
                 ) : (
