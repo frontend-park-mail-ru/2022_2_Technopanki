@@ -11,7 +11,7 @@ import Vacancy from './views/Employer/Vacancy';
 import EmployerSettings from './views/Employer/Vacancy/VacancySettings';
 import VacancySettings from './views/Employer/Vacancy/VacancySettings';
 import ProfileSettings from './views/Employer/Profile/ProfileSettings';
-import ApplicantSettings from './views/Applicant/ProfileSettings/ProfileSettings';
+import ApplicantSettings from './views/Applicant/Profile/ProfileSettings';
 
 class App extends Component {
     render() {

@@ -1,6 +1,6 @@
 import { Component } from '../../../../Reacts';
 import Header from '../../../components/UI-kit/header/Header';
-import VacancySettingsHat from '../../../components/hats/VacancySettingsHat';
+import SettingsHat from '../../../components/hats/SettingsHat';
 import Input from '../../../components/UI-kit/forms/inputs/Input';
 import Form, { FormSectionType } from '../../../components/UI-kit/forms/Form';
 import CancelSaveButtons from '../../../components/CancelSaveButtons/CancelSaveButtons';
@@ -13,7 +13,7 @@ import YouTubeLogo from '../../../static/icons/logos/YouTubeColor.svg';
 import InstagramLogo from '../../../static/icons/logos/InstagramColor.svg';
 import FileInput from '../../../components/UI-kit/forms/inputs/FileInput';
 
-class AvatarSettings extends Component<{}, { previewSrc: string }> {
+export class AvatarSettings extends Component<{}, { previewSrc: string }> {
     setPreview = (event: InputEvent) => {
         // @ts-ignore
         const [file] = event.target.files;
@@ -74,11 +74,11 @@ class AboutCompany extends Component {
                 </div>
                 <div className={'col-12 col-md-4'}>
                     <Input
-                        id={'sity'}
+                        id={'city'}
                         type={'text'}
                         placeholder={'Москва'}
                         label={'Местоположение компании'}
-                        name={'sity'}
+                        name={'city'}
                     />
                 </div>
             </div>
@@ -86,7 +86,7 @@ class AboutCompany extends Component {
     }
 }
 
-class SocialNetworks extends Component {
+export class SocialNetworks extends Component {
     render() {
         return (
             <div className={'columns g-16'}>
@@ -155,7 +155,7 @@ class SocialNetworks extends Component {
     }
 }
 
-class Password extends Component {
+export class Password extends Component {
     render() {
         return (
             <div className={'columns g-16'}>
@@ -215,9 +215,9 @@ export default class ProfileSettings extends Component<
                 <Header />
                 <div className={'columns g-24'}>
                     <div className={`col-12 mt-header`}>
-                        <VacancySettingsHat
+                        <SettingsHat
                             imgSrc={'./'}
-                            companyName={'VK'}
+                            name={'VK'}
                             description={'Место встречи профессионалов'}
                         />
                     </div>

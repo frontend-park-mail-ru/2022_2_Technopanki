@@ -23,9 +23,14 @@ export default class Hat extends Component<HatPropsType> {
                         alt={'logo'}
                     />
                     <div className={'flex column'}>
-                        <p className={styles.content_name}>
-                            {this.props.name} {this.props.surname}
-                        </p>
+                        <div className={'flex row g-4'}>
+                            <p className={styles.content_name}>
+                                {this.props.name}
+                            </p>
+                            <p className={styles.content_name}>
+                                {this.props.surname}
+                            </p>
+                        </div>
                         <p>{this.props.description}</p>
                     </div>
                 </div>

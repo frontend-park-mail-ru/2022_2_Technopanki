@@ -1,7 +1,7 @@
 import { Component } from '../../../../Reacts';
 import Header from '../../../components/UI-kit/header/Header';
 import VacancyHat from '../../../components/hats/VacancyHat';
-import VacancySettingsHat from '../../../components/hats/VacancySettingsHat';
+import SettingsHat from '../../../components/hats/SettingsHat';
 import Form, { FormSectionType } from '../../../components/UI-kit/forms/Form';
 import Input from '../../../components/UI-kit/forms/inputs/Input';
 import CancelSaveButtons from '../../../components/CancelSaveButtons/CancelSaveButtons';
@@ -135,9 +135,9 @@ export default class VacancySettings extends Component<
                 <Header />
                 <div className={'columns g-24'}>
                     <div className={`col-12 mt-header`}>
-                        <VacancySettingsHat
+                        <SettingsHat
                             imgSrc={'./'}
-                            companyName={'VK'}
+                            name={'VK'}
                             description={'Место встречи профессионалов'}
                         />
                     </div>
