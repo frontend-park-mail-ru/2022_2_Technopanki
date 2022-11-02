@@ -9,16 +9,19 @@ import Hr from '../../../static/icons/hr.svg';
 import ArrowButtonWithTextOutline from '../buttons/ArrowButtonWithTextOutline';
 import { VNodeType } from '../../../../Reacts/shared/common';
 
-export default class Vacancy extends Component<
-    {
-        name: string;
-        icon: string;
-        salary: string;
-        currency: string;
-        location: string;
-        format: string;
-        hours: string;
-    },
+export type VacancyCardPropsType = {
+    name: string;
+    icon: string;
+    salary: string;
+    currency: string;
+    location: string;
+    format: string;
+    hours: string;
+    description: string;
+};
+
+export default class VacancyCard extends Component<
+    VacancyCardPropsType,
     {
         isOpen: boolean;
     }
@@ -128,13 +131,7 @@ export default class Vacancy extends Component<
                         />
                         <h5 className={'mx-0'}>Описание вакансии</h5>
                         <p className={styles.description_text}>
-                            Мы помогаем людям объединяться для того, что для них
-                            действительно важно. С нами ты будешь создавать и
-                            развивать сервисы для миллионов пользователей,
-                            которые помогают общаться, работать, учиться, решать
-                            бытовые задачи и развлекаться. Для нас важно делать
-                            технологии доступными для каждого и постоянно
-                            совершенствовать наши продукты...
+                            {this.props.description}
                         </p>
                     </div>
                 ) : (

@@ -1,10 +1,10 @@
 import { Component } from '../../../Reacts';
 import styles from './vacancies.module.scss';
 import Header from '../../components/UI-kit/header/Header';
-import Vacancy from '../../components/UI-kit/vacancy/Vacancy';
 import VK from '../../static/icons/vk_logo.svg';
 import SearchInput from '../../components/UI-kit/forms/inputs/SearchInput';
 import Footer from '../../components/UI-kit/footer/Footer';
+import VacancyCard from '../../components/UI-kit/vacancy/VacancyCard';
 
 export default class Vacancies extends Component {
     render() {
@@ -16,7 +16,7 @@ export default class Vacancies extends Component {
                 >
                     <h2 className={'mx-0'}>Поиск</h2>
                     <SearchInput />
-                    <Vacancy
+                    <VacancyCard
                         name={'Фронтенд-разработчик'}
                         icon={VK}
                         salary={'260.000'}
@@ -25,7 +25,7 @@ export default class Vacancies extends Component {
                         format={'удаленно'}
                         hours={'40 часов в неделю'}
                     />
-                    <Vacancy
+                    <VacancyCard
                         name={'Фронтенд-разработчик'}
                         icon={VK}
                         salary={'260.000'}
@@ -34,7 +34,7 @@ export default class Vacancies extends Component {
                         format={'удаленно'}
                         hours={'40 часов в неделю'}
                     />
-                    <Vacancy
+                    <VacancyCard
                         name={'Фронтенд-разработчик'}
                         icon={VK}
                         salary={'260.000'}
@@ -43,7 +43,7 @@ export default class Vacancies extends Component {
                         format={'удаленно'}
                         hours={'40 часов в неделю'}
                     />
-                    <Vacancy
+                    <VacancyCard
                         name={'Фронтенд-разработчик'}
                         icon={VK}
                         salary={'260.000'}
