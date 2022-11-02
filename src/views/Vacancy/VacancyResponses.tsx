@@ -5,7 +5,6 @@ import VacancyResponsesHat from './VacancyResponsesHat';
 import styles from './vacancy.module.scss';
 import ResumeList from '../../components/UI-kit/resumeList/ResumeList';
 import VacancySideBar from '../../components/sidebars/VacancySideBar';
-import { VNodeType } from '../../../Reacts/shared/common';
 import Chips from '../../components/UI-kit/chips/Chips';
 
 export default class VacancyResponses extends Component {
@@ -123,6 +122,7 @@ export default class VacancyResponses extends Component {
             },
         ],
     };
+
     render() {
         return (
             <div className={'screen-responsive relative hidden g-24'}>
@@ -137,7 +137,8 @@ export default class VacancyResponses extends Component {
                         />
                     </div>
                     <h3 className={'col-12'}>Отклики на вакансию</h3>
-                    <div className={'col-12 col-md-9'}>
+                    <div className={'col-12 col-md-9 column g-16'}>
+                        <h6>Отклики на вакансию</h6>
                         <ResumeList resume={this.state.responses} />
                     </div>
                     <div className={'col-12 col-md-3'}>
