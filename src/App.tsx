@@ -23,16 +23,58 @@ class App extends Component {
 router.disableScrollRestoration();
 
 // TODO: переделать роутер: на каждый путь будет еще один роутер, который определит, на какую страницу перекинуть
-router.addNewPath('/', <App />);
-router.addNewPath('/start', <StartPage />);
-router.addNewPath('/signup', <SignUp />);
-router.addNewPath('/signin', <SignIn />);
-router.addNewPath('/employer', <Profile />);
-router.addNewPath('/employer/settings', <ProfileSettings />);
-router.addNewPath('/vacancy', <Vacancy />);
-router.addNewPath('/vacancy/settings', <VacancySettings />);
-router.addNewPath('/vacancy/responses', <VacancyResponses />);
-router.addNewPath('/vacancies', <Vacancies />);
+router.addNewPath(
+    { path: '/', validator: (url: string) => url === '/' },
+    <App />,
+);
+router.addNewPath(
+    { path: '/start', validator: (url: string) => url === '/start' },
+    <StartPage />,
+);
+router.addNewPath(
+    { path: '/signup', validator: (url: string) => url === '/signup' },
+    <SignUp />,
+);
+router.addNewPath(
+    { path: '/signin', validator: (url: string) => url === '/signin' },
+    <SignIn />,
+);
+router.addNewPath(
+    { path: '/employer', validator: (url: string) => url === '/employer' },
+    <Profile />,
+);
+router.addNewPath(
+    {
+        path: '/employer/settings',
+        validator: (url: string) => url === '/employer/settings',
+    },
+    <ProfileSettings />,
+);
+router.addNewPath(
+    {
+        path: '/vacancy',
+        validator: (url: string) => /vacancy\/[1-9]+/.test(url),
+    },
+    <Vacancy />,
+);
+router.addNewPath(
+    {
+        path: '/vacancy/settings',
+        validator: (url: string) => url === 'vacancy/settings',
+    },
+    <VacancySettings />,
+);
+router.addNewPath(
+    {
+        path: '/vacancy/responses',
+        validator: (url: string) => url === 'vacancy/responses',
+    },
+    <VacancyResponses />,
+);
+router.addNewPath(
+    { path: '/vacancies', validator: (url: string) => url === 'vacancies' },
+    <Vacancies />,
+);
 // router.setFallback('/404', <NotFound />);
 router.navigate(location.pathname);
 

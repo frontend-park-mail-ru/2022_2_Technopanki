@@ -6,7 +6,6 @@ export type Path = {
 
 export type Options = {
     pop: boolean;
-    urlParams: string;
 };
 
 export interface RouterType {

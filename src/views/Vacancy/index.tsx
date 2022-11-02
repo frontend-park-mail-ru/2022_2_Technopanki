@@ -6,7 +6,15 @@ import VacancySideBar from '../../components/sidebars/VacancySideBar';
 import VacancyHat from './VacancyHat';
 import Footer from '../../components/UI-kit/footer/Footer';
 
-export default class Vacancy extends Component<{ vacancyID: string }> {
+export default class Vacancy extends Component {
+    getDataFromServer() {
+        const vacancyID = location.pathname;
+    }
+
+    componentDidMount() {
+        this.getDataFromServer();
+    }
+
     render() {
         return (
             <div className={'screen-responsive relative hidden g-24'}>

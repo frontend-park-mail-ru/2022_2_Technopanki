@@ -4,8 +4,14 @@ import { Path } from './types';
 import { RootType } from '../../Reacts/reacts-dom/root';
 import { VNodeType } from '../../Reacts/shared/common';
 
+export type PathType = {
+    path: string;
+    validator: (url: string) => boolean;
+};
+
 class Navigator {
-    private navMap: {url: string, options: Options}[] = [];
+    private navMap = new Map<string, Path>();
+    private urls: PathType[] = [];
     private fallback?: Path;
     private router = Router;
     private root: RootType;
@@ -17,13 +23,14 @@ class Navigator {
             : this.router.disableScrollRestoration();
 
         window.addEventListener('popstate', (e: PopStateEvent) => {
-            this.router.navigate({
-                path: location.pathname,
-                callback: () => this.navMap[location.pathname]?.callback(),
-                options: {
-                    pop: true,
-                },
-            });
+            this.navigate(location.pathname, true);
+            // this.router.navigate({
+            //     path: location.pathname,
+            //     callback: () => this.navMap.get(location.pathname)?.callback(),
+            //     options: {
+            //         pop: true,
+            //     },
+            // });
         });
     }
 
@@ -37,27 +44,27 @@ class Navigator {
         this.fallback.callback = () => this.root.render(fallbackComponent);
     }
 
-    addNewPath(path: string, component: VNodeType) {
-        this.navMap.set(path, {
-            path: path,
+    addNewPath(path: PathType, component: VNodeType) {
+        this.urls.push(path);
+        this.navMap.set(path.path, {
+            path: path.path,
             callback: () => this.root.render(component),
         });
     }
 
-    navigate(to: string, urlParams?: string) {
-        if (this.navMap.has(to)) {
-            // @ts-ignore we checked for
-            this.router.navigate(this.navMap.get(to).);
-            return;
-        }
+    navigate(to: string, pop: boolean = false) {
+        const url = this.urls.find(url => url.validator(to));
 
-        if (this.fallback) {
+        if (url) {
+            this.router.navigate(
+                // @ts-ignore we checked for
+                { ...this.navMap.get(url.path), options: { pop: pop } },
+                to.slice(url.path.length, to.length),
+            );
+        } else {
+            // @ts-ignore we checked for
             this.router.navigate(this.fallback);
         }
-    }
-
-    goBack() {
-        history.back();
     }
 }
 
