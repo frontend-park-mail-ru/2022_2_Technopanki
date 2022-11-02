@@ -11,12 +11,40 @@ import FacebookLogo from '../../../static/icons/logos/FacebookColor.svg';
 import TelegramLogo from '../../../static/icons/logos/TelegramColor.svg';
 import YouTubeLogo from '../../../static/icons/logos/YouTubeColor.svg';
 import InstagramLogo from '../../../static/icons/logos/InstagramColor.svg';
+import FileInput from '../../../components/UI-kit/forms/inputs/FileInput';
 
-class AvatarSettings extends Component {
+class AvatarSettings extends Component<{}, { previewSrc: string }> {
+    setPreview = (event: InputEvent) => {
+        // @ts-ignore
+        const [file] = event.target.files;
+        const fileUrl = URL.createObjectURL(file);
+
+        this.setState(state => ({ ...state, previewSrc: fileUrl }));
+    };
+
+    state = {
+        previewSrc: './',
+    };
+
     render() {
         return (
-            <div>
-                <p>Test</p>
+            <div className={'columns g-16'}>
+                <div key={'preview'} className={'col-12 col-md-3'}>
+                    <img
+                        height={64}
+                        width={64}
+                        id={'preview_img'}
+                        alt={'preview'}
+                        src={this.state.previewSrc}
+                    />
+                </div>
+                <div key={'input'} className={'col-12 col-md-9'}>
+                    <FileInput
+                        id={'file'}
+                        label={'Загрузить новую фотогрфию'}
+                        onUpload={this.setPreview}
+                    />
+                </div>
             </div>
         );
     }
@@ -25,7 +53,7 @@ class AvatarSettings extends Component {
 class AboutCompany extends Component {
     render() {
         return (
-            <div className={'columns g-24'}>
+            <div className={'columns g-16'}>
                 <div className={'col-12'}>
                     <Input
                         id={'company_name'}
@@ -35,13 +63,13 @@ class AboutCompany extends Component {
                         name={'company_name'}
                     />
                 </div>
-                <div className={'col-12 col-md-4'}>
+                <div className={'col-12 col-md-8'}>
                     <Input
-                        id={'sity'}
+                        id={'description'}
                         type={'text'}
-                        placeholder={'Москва'}
+                        placeholder={'Hello world!'}
                         label={'Слоган'}
-                        name={'sity'}
+                        name={'description'}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -61,7 +89,7 @@ class AboutCompany extends Component {
 class SocialNetworks extends Component {
     render() {
         return (
-            <div className={'columns g-24'}>
+            <div className={'columns g-16'}>
                 <div className={'col-12 col-md-4'}>
                     <IconInput
                         id={'vk'}
@@ -130,7 +158,7 @@ class SocialNetworks extends Component {
 class Password extends Component {
     render() {
         return (
-            <div className={'columns g-24'}>
+            <div className={'columns g-16'}>
                 <div className={'col-12 col-md-4'}>
                     <Input
                         id={'company_name'}

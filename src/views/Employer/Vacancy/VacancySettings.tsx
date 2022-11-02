@@ -142,7 +142,7 @@ export default class VacancySettings extends Component<
                         />
                     </div>
                     <h3 className={'col-12'}>Настройки вакансии</h3>
-                    <div className={'col-12'}>
+                    <div className={'col-12 col-md-9'}>
                         <Form
                             sections={this.state.sections}
                             submitComponent={

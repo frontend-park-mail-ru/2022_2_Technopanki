@@ -57,3 +57,15 @@
   position: absolute;
   cursor: pointer;
 }
+
+.file_label {
+  font-weight: 500;
+  color: var(--background-700);
+}
+
+.file_input {
+  opacity: 0;
+  position: absolute;
+}
+
+
