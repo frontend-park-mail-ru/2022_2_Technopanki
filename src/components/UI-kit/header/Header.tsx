@@ -6,6 +6,7 @@ import ThemeIcon from '../../../static/icons/theme.svg';
 import ModalWindow from '../modalWindow/ModalWindow';
 import { toggleTheme } from '../../../toggleTheme';
 import Link from '../../Link/Link';
+import JobflowLogo from '../JobflowLogo';
 
 // TODO: refactor
 export default class Header extends Component {
@@ -27,11 +28,7 @@ export default class Header extends Component {
                 <div
                     className={`flex h-100 row align-items-center justify-content-space-evenly`}
                 >
-                    <div
-                        key={'logo'}
-                        className={`flex w-100 g-8 align-items-center h-16 ${styles.logo}`}
-                        dangerouslySetInnerHTML={{ __html: Logo }}
-                    ></div>
+                    <JobflowLogo />
                     <div
                         key={'items'}
                         id={'links-group'}
