@@ -10,14 +10,16 @@ import ArrowButtonWithTextOutline from '../buttons/ArrowButtonWithTextOutline';
 import { VNodeType } from '../../../../Reacts/shared/common';
 
 export type VacancyCardPropsType = {
-    name: string;
-    icon: string;
-    salary: string;
-    currency: string;
-    location: string;
-    format: string;
-    hours: string;
+    title: string;
     description: string;
+    salary: string;
+    currency?: string;
+    employer: string;
+    icon: string;
+    location: string;
+    format?: string;
+    hours?: string;
+    date: string;
 };
 
 export default class VacancyCard extends Component<
@@ -30,12 +32,57 @@ export default class VacancyCard extends Component<
         isOpen: false,
     };
 
+    months = [
+        {
+            date: '01',
+            name: 'января'
+        },
+        {
+            date: '02',
+            name: 'февраля'
+        },
+        {
+            date: '03',
+            name: 'марта'
+        },
+        {
+            date: '04',
+            name: 'апреля'
+        },
+        {
+            date: '05',
+            name: 'мая' },
+        {
+            date: '06',
+            name: 'июня' },
+        {
+            date: '07',
+            name: 'июля' },
+        {
+            date: '08',
+            name: 'августа' },
+        {
+            date: '09',
+            name: 'сентября' },
+        {
+            date: '10',
+            name: 'октября' },
+        {
+            date: '11',
+            name: 'ноября' },
+        {
+            date: '12',
+            name: 'декабря' },
+    ]
+
     handleDetails = (e: MouseEvent) => {
         this.setState(state => ({
             ...state,
             isOpen: !this.state.isOpen,
         }));
     };
+
+    date = new Date(this.props.date).toUTCString()
 
     render() {
         return (
@@ -55,7 +102,7 @@ export default class VacancyCard extends Component<
                         key={'vacancy-name'}
                         className={`cursor-pointer ${styles.vacancy_name}`}
                     >
-                        {this.props.name}
+                        {this.props.title}
                     </h4>
                     <div
                         key={'vacancy-metadata'}
@@ -95,7 +142,7 @@ export default class VacancyCard extends Component<
                     className={'flex row g-4 mx-0 justify-content-end'}
                 >
                     <h4 className={`mx-0 ${styles.salary}`}>
-                        {`${this.props.salary}${this.props.currency}`}
+                        {`${this.props.salary}`}
                     </h4>
                     <h4 className={`mx-0 ${styles.per_month}`}>в месяц</h4>
                 </div>
@@ -132,6 +179,16 @@ export default class VacancyCard extends Component<
                         <h5 className={'mx-0'}>Описание вакансии</h5>
                         <p className={styles.description_text}>
                             {this.props.description}
+                        </p>
+                        <p className={styles.date}>
+                            {`${this.date[5] === '0'?
+                                this.date.slice(6, 7):
+                                this.date.slice(5, 7)
+                            } ${
+                                this.months.find(
+                                    m=>m.date === this.props.date.slice(5, 7)
+                                ).name
+                            } ${this.date.slice(12, 16)} • ${this.date.slice(17, 22)}`}
                         </p>
                     </div>
                 ) : (

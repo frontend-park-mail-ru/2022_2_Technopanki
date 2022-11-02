@@ -17,7 +17,7 @@ export default class Vacancies extends Component {
                     <h2 className={'mx-0'}>Поиск</h2>
                     <SearchInput />
                     <VacancyCard
-                        name={'Фронтенд-разработчик'}
+                        title={'Фронтенд-разработчик'}
                         icon={VK}
                         salary={'260.000'}
                         currency={'₽'}
@@ -26,7 +26,7 @@ export default class Vacancies extends Component {
                         hours={'40 часов в неделю'}
                     />
                     <VacancyCard
-                        name={'Фронтенд-разработчик'}
+                        title={'Фронтенд-разработчик'}
                         icon={VK}
                         salary={'260.000'}
                         currency={'₽'}
@@ -35,7 +35,7 @@ export default class Vacancies extends Component {
                         hours={'40 часов в неделю'}
                     />
                     <VacancyCard
-                        name={'Фронтенд-разработчик'}
+                        title={'Фронтенд-разработчик'}
                         icon={VK}
                         salary={'260.000'}
                         currency={'₽'}
@@ -44,7 +44,7 @@ export default class Vacancies extends Component {
                         hours={'40 часов в неделю'}
                     />
                     <VacancyCard
-                        name={'Фронтенд-разработчик'}
+                        title={'Фронтенд-разработчик'}
                         icon={VK}
                         salary={'260.000'}
                         currency={'₽'}
