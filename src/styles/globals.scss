@@ -94,11 +94,11 @@
   --gap-24: 24px;
   --gap-40: 40px;
 
-  --padding-screen-sm: 0 16px;
-  --padding-screen-md: 0 120px;
-  --padding-screen-lg: 0 10vw;
-  --padding-screen-xlg: 0 15vw;
-  --padding-screen-xxlg: 0 25vw;
+  --padding-screen-sm: 16px;
+  --padding-screen-md: 120px;
+  --padding-screen-lg: 10vw;
+  --padding-screen-xlg: 15vw;
+  --padding-screen-xxlg: 25vw;
 
   --header-height: 56px;
   --input-height: 54px;
@@ -416,7 +416,7 @@ p {
       padding-top: 3px;
     }
   }
-  &x {
+  &y {
     &-16 {
       padding-top: var(--padding-16);
       padding-bottom: var(--padding-16);

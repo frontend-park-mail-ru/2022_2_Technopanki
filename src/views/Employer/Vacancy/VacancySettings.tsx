@@ -8,6 +8,7 @@ import CancelSaveButtons from '../../../components/CancelSaveButtons/CancelSaveB
 import Description from '../../../components/auth/Description';
 import EmployerProfileSideBar from '../../../components/sidebars/EmployerProfileSideBar';
 import Textarea from '../../../components/UI-kit/forms/inputs/Textarea';
+import Footer from '../../../components/UI-kit/footer/Footer';
 
 class AboutVacancy extends Component {
     render() {
@@ -156,6 +157,7 @@ export default class VacancySettings extends Component<
                         />
                     </div>
                 </div>
+                <Footer />
             </div>
         );
     }

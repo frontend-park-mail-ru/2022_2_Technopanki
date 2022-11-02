@@ -1,22 +1,15 @@
 import { Component } from '../../../../Reacts';
 import styles from './footer.module.scss';
 import Logo from '../../../static/assets/JobflowDefault.svg';
+import JobflowLogo from '../JobflowLogo';
 
 export default class Footer extends Component {
     render() {
         return (
             <footer
-                className={`flex row screen-responsive align-items-center justify-content-space-evenly ${styles.footer}`}
+                className={`flex mt-40 py-24 row align-items-center justify-content-space-evenly`}
             >
-                <div
-                    key={'logo'}
-                    className={'w-100 flex justify-content-start'}
-                >
-                    <div
-                        className={`flex w-100 g-8 align-items-center h-16 ${styles.logo}`}
-                        dangerouslySetInnerHTML={{ __html: Logo }}
-                    ></div>
-                </div>
+                <JobflowLogo />
                 <div
                     key={'headline'}
                     className={`w-100 flex justify-content-center ${styles.tagline}`}
@@ -25,7 +18,7 @@ export default class Footer extends Component {
                 </div>
                 <div
                     key={'items'}
-                    className={'w-100 g-24 flex row justify-content-end'}
+                    className={`w-100 g-24 flex row justify-content-end ${styles.items}`}
                 >
                     <p key={'item1'} className={styles.item}>
                         Главная

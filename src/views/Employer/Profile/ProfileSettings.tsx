@@ -13,6 +13,7 @@ import YouTubeLogo from '../../../static/icons/logos/YouTubeColor.svg';
 import InstagramLogo from '../../../static/icons/logos/InstagramColor.svg';
 import FileInput from '../../../components/UI-kit/forms/inputs/FileInput';
 import navigator from '../../../router/navigator';
+import Footer from '../../../components/UI-kit/footer/Footer';
 
 class AvatarSettings extends Component<{}, { previewSrc: string }> {
     setPreview = (event: InputEvent) => {
@@ -242,6 +243,7 @@ export default class ProfileSettings extends Component<
                         />
                     </div>
                 </div>
+                <Footer />
             </div>
         );
     }
