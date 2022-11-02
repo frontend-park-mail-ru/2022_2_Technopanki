@@ -12,6 +12,8 @@ import EmployerSettings from './views/Employer/Vacancy/VacancySettings';
 import VacancySettings from './views/Employer/Vacancy/VacancySettings';
 import ProfileSettings from './views/Employer/Profile/ProfileSettings';
 import ApplicantSettings from './views/Applicant/Profile/ProfileSettings';
+import Resume from './views/Applicant/Resume/Resume';
+import ResumeSettings from './views/Applicant/Resume/ResumeSettings';
 
 class App extends Component {
     render() {
@@ -29,6 +31,8 @@ router.addNewPath('/employer/settings', <ProfileSettings />);
 router.addNewPath('/vacancy', <Vacancy />);
 router.addNewPath('/vacancy/settings', <VacancySettings />);
 router.addNewPath('/applicant/settings', <ApplicantSettings />)
+router.addNewPath('/applicant/resume', <Resume />)
+router.addNewPath('/applicant/resume/settings', <ResumeSettings />)
 // router.setFallback('/404', <NotFound />);
 router.navigate(location.pathname);
 
