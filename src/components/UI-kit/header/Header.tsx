@@ -37,14 +37,19 @@ export default class Header extends Component {
                         className={`flex justify-content-center w-100 g-16 ${styles.items}`}
                     >
                         {/*TODO переделать на Link в роутере*/}
-                        <p
-                            key={'item1'}
-                            id={'item1'}
-                            className={`${styles.item__def} ${styles.item__active}`}
-                            onClick={this.setActive}
-                        >
-                            Вакансии
-                        </p>
+                        <Link
+                            to={'/vacancies'}
+                            content={
+                                <p
+                                    key={'item1'}
+                                    id={'item1'}
+                                    className={`${styles.item__def} ${styles.item__active}`}
+                                    onClick={this.setActive}
+                                >
+                                    Вакансии
+                                </p>
+                            }
+                        />
                         <p
                             key={'item2'}
                             id={'item2'}

@@ -5,7 +5,7 @@ import { RootType } from '../../Reacts/reacts-dom/root';
 import { VNodeType } from '../../Reacts/shared/common';
 
 class Navigator {
-    private navMap = new Map<string, Path>();
+    private navMap: {url: string, options: Options}[] = [];
     private fallback?: Path;
     private router = Router;
     private root: RootType;
@@ -19,7 +19,7 @@ class Navigator {
         window.addEventListener('popstate', (e: PopStateEvent) => {
             this.router.navigate({
                 path: location.pathname,
-                callback: () => this.navMap.get(location.pathname)?.callback(),
+                callback: () => this.navMap[location.pathname]?.callback(),
                 options: {
                     pop: true,
                 },
@@ -44,10 +44,10 @@ class Navigator {
         });
     }
 
-    navigate(to: string) {
+    navigate(to: string, urlParams?: string) {
         if (this.navMap.has(to)) {
             // @ts-ignore we checked for
-            this.router.navigate(this.navMap.get(to));
+            this.router.navigate(this.navMap.get(to).);
             return;
         }
 

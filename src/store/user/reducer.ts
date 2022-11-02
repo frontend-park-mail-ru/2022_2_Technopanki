@@ -1,13 +1,11 @@
-import { AuthAction, UserAction, UserStore } from './types';
+import { AuthAction, UserStore } from './types';
 import { Reducer } from '../../../Fluxs/types/reducer';
+import { Action } from '../../../Fluxs/types/action';
 
-export const userReducer: Reducer<UserStore, UserAction> = (
+export const userReducer: Reducer<UserStore> = (
     state: UserStore,
-    action: UserAction,
+    action: Action,
 ): UserStore => {
-    console.info('reducer action');
-    console.info(action);
-    console.info(state);
     switch (action.type) {
         case 'SIGN_UP':
         case 'SIGN_IN':
@@ -18,6 +16,6 @@ export const userReducer: Reducer<UserStore, UserAction> = (
                 authorized: true,
             };
         default:
-            throw new Error('undefined action type');
+            return state;
     }
 };

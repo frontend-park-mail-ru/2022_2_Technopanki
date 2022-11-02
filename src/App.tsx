@@ -12,6 +12,7 @@ import EmployerSettings from './views/Vacancy/VacancySettings';
 import VacancySettings from './views/Vacancy/VacancySettings';
 import ProfileSettings from './views/Employer/ProfileSettings';
 import VacancyResponses from './views/Vacancy/VacancyResponses';
+import Vacancies from './views/Vacancies/Vacancies';
 
 class App extends Component {
     render() {
@@ -31,6 +32,7 @@ router.addNewPath('/employer/settings', <ProfileSettings />);
 router.addNewPath('/vacancy', <Vacancy />);
 router.addNewPath('/vacancy/settings', <VacancySettings />);
 router.addNewPath('/vacancy/responses', <VacancyResponses />);
+router.addNewPath('/vacancies', <Vacancies />);
 // router.setFallback('/404', <NotFound />);
 router.navigate(location.pathname);
 

@@ -83,6 +83,24 @@ class AboutCompany extends Component {
                         name={'sity'}
                     />
                 </div>
+                <div className={'col-12 col-md-4'}>
+                    <Input
+                        id={'phone'}
+                        type={'text'}
+                        placeholder={'+7 (999) 999-99-99'}
+                        label={'Телефон'}
+                        name={'phone'}
+                    />
+                </div>
+                <div className={'col-12 col-md-4'}>
+                    <Input
+                        id={'email'}
+                        type={'text'}
+                        placeholder={'example@mail.ru'}
+                        label={'Email'}
+                        name={'email'}
+                    />
+                </div>
             </div>
         );
     }

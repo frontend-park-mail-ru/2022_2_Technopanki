@@ -25,7 +25,7 @@ import {
 import navigator from '../../router/navigator';
 import { SignUpService } from '../../services/signUpService';
 import { dispatch } from '../../store';
-import { userActions } from '../../store/user/action';
+import { userActions } from '../../store/user/actions';
 
 export const validateField = (
     formDataElement: Exclude<FormDataEntryValue, File>,

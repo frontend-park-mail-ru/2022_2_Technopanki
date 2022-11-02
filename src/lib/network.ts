@@ -6,7 +6,6 @@ class Network {
             method: 'GET',
             headers: headers,
             credentials: credentials ? 'include' : 'omit',
-            mode: 'no-cors',
         });
 
         return {
@@ -23,14 +22,11 @@ class Network {
         payload: string,
         credentials: boolean = true,
     ) {
-        console.info(`POST request. URL: ${url}; Payload: ${payload}`);
-
         const response = await fetch(url, {
             method: 'POST',
             headers: headers,
             body: payload,
             credentials: credentials ? 'include' : 'omit',
-            mode: 'no-cors',
         });
 
         return {

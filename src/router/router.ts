@@ -21,7 +21,11 @@ class Router implements RouterType {
      */
     navigate(to: Path) {
         if (!to.options || !to.options.pop) {
-            window.history.pushState(to.options, '', to.path);
+            window.history.pushState(
+                to.options,
+                '',
+                to.path + to.options?.urlParams,
+            );
         }
 
         to.callback();

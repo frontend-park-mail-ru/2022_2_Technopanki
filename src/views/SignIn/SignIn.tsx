@@ -18,7 +18,7 @@ import { AuthField, validateField } from '../SignUp/SignUp';
 import navigator from '../../router/navigator';
 import { signInService } from '../../services/signInService';
 import { dispatch } from '../../store';
-import { userActions } from '../../store/user/action';
+import { userActions } from '../../store/user/actions';
 
 export default class SignIn extends Component<
     {},

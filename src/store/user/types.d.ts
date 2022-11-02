@@ -1,16 +1,11 @@
-import { Action } from '../../../Fluxs/types/action';
-
 export type UserStore = {
     name: string;
     surname: string;
     authorized: boolean;
 };
 
-export interface UserAction extends Action<string> {
-    store: 'USER';
-}
-
-export interface AuthAction extends UserAction {
+export interface AuthAction {
+    type: string;
     name: string;
     surname: string;
 }

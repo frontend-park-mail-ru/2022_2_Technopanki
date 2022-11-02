@@ -6,8 +6,9 @@ export type Path = {
 
 export type Options = {
     pop: boolean;
+    urlParams: string;
 };
 
 export interface RouterType {
-    navigate(to: Path, options?: Options): void;
+    navigate(to: Path): void;
 }
