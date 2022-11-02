@@ -3,7 +3,7 @@ import Button from '../UI-kit/buttons/Button';
 import styles from './vacancyHat.module.scss';
 import ButtonPrimary from '../UI-kit/buttons/ButtonPrimary';
 import Dropdown from '../UI-kit/dropdown/Dropdown';
-import VacancyDropdownResume from '../../views/Employer/Vacancy/VacancyDropdownResume';
+import VacancyDropdownResume from '../../views/Vacancy/VacancyDropdownResume';
 import Hat from '../UI-kit/hat/Hat';
 import Link from '../Link/Link';
 

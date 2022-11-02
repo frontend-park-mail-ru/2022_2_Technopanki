@@ -64,21 +64,21 @@ export default class VacancySideBar extends Component<
                     {
                         header: 'Социальные сети',
                         inside: (
-                            <div className={'flex row g-24'}>
+                            <div className={'flex row g-16'}>
                                 <div
-                                    className={'inner-svg-h-40 inner-svg-200'}
+                                    className={'inner-svg-h-24 inner-svg-200'}
                                     dangerouslySetInnerHTML={{
                                         __html: VKIcon,
                                     }}
                                 ></div>
                                 <div
-                                    className={'inner-svg-h-40 inner-svg-200'}
+                                    className={'inner-svg-h-24 inner-svg-200'}
                                     dangerouslySetInnerHTML={{
                                         __html: FacebookIcon,
                                     }}
                                 ></div>
                                 <div
-                                    className={'inner-svg-h-40 inner-svg-200'}
+                                    className={'inner-svg-h-24 inner-svg-200'}
                                     dangerouslySetInnerHTML={{
                                         __html: TelegramIcon,
                                     }}

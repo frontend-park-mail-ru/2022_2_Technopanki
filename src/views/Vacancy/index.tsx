@@ -1,10 +1,10 @@
-import { Component } from '../../../../Reacts';
-import Header from '../../../components/UI-kit/header/Header';
+import { Component } from '../../../Reacts';
+import Header from '../../components/UI-kit/header/Header';
 import styles from './vacancy.module.scss';
-import TextBlock from '../../../components/UI-kit/text/TextBlock';
-import VacancySideBar from '../../../components/sidebars/VacancySideBar';
-import VacancyHat from '../../../components/hats/VacancyHat';
-import Footer from '../../../components/UI-kit/footer/Footer';
+import TextBlock from '../../components/UI-kit/text/TextBlock';
+import VacancySideBar from '../../components/sidebars/VacancySideBar';
+import VacancyHat from '../../components/hats/VacancyHat';
+import Footer from '../../components/UI-kit/footer/Footer';
 
 export default class Vacancy extends Component {
     render() {

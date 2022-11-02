@@ -4,6 +4,9 @@ import MapIcon from '../../static/icons/map.svg';
 import UsersIcon from '../../static/icons/users.svg';
 import Chips from '../UI-kit/chips/Chips';
 import IconField from './utils/IconField';
+import VKIcon from '../../static/icons/logos/VK.svg';
+import FacebookIcon from '../../static/icons/logos/Facebook.svg';
+import TelegramIcon from '../../static/icons/logos/Telegram.svg';
 
 export default class EmployerProfileSideBar extends Component<
     {},
@@ -46,6 +49,31 @@ export default class EmployerProfileSideBar extends Component<
                                 {this.state.chipsData.map(item => (
                                     <Chips>{item}</Chips>
                                 ))}
+                            </div>
+                        ),
+                    },
+                    {
+                        header: 'Социальные сети',
+                        inside: (
+                            <div className={'flex row g-16'}>
+                                <div
+                                    className={'inner-svg-h-24 inner-svg-200'}
+                                    dangerouslySetInnerHTML={{
+                                        __html: VKIcon,
+                                    }}
+                                ></div>
+                                <div
+                                    className={'inner-svg-h-24 inner-svg-200'}
+                                    dangerouslySetInnerHTML={{
+                                        __html: FacebookIcon,
+                                    }}
+                                ></div>
+                                <div
+                                    className={'inner-svg-h-24 inner-svg-200'}
+                                    dangerouslySetInnerHTML={{
+                                        __html: TelegramIcon,
+                                    }}
+                                ></div>
                             </div>
                         ),
                     },

@@ -1,21 +1,21 @@
-import { Component } from '../../../../Reacts';
-import Header from '../../../components/UI-kit/header/Header';
+import { Component } from '../../../Reacts';
+import Header from '../../components/UI-kit/header/Header';
 import styles from './userPage.module.scss';
-import Button from '../../../components/UI-kit/buttons/Button';
-import ButtonIcon from '../../../components/UI-kit/buttons/ButtonIcon';
-import PhoneIcon from '../../../static/icons/phone.svg';
-import MailIcon from '../../../static/icons/mail.svg';
-import VKLogo from '../../../static/icons/logos/VK.svg';
-import ButtonPrimary from '../../../components/UI-kit/buttons/ButtonPrimary';
-import TextBlock from '../../../components/UI-kit/text/TextBlock';
-import ArrowButtonWithText from '../../../components/UI-kit/buttons/ArrowButtonWithText';
-import ProfileHeader from '../../../components/ProfileHeader/ProfileHeader';
-import EmployerProfileSideBar from '../../../components/sidebars/EmployerProfileSideBar';
-import Link from '../../../components/Link/Link';
+import Button from '../../components/UI-kit/buttons/Button';
+import ButtonIcon from '../../components/UI-kit/buttons/ButtonIcon';
+import PhoneIcon from '../../static/icons/phone.svg';
+import MailIcon from '../../static/icons/mail.svg';
+import VKLogo from '../../static/icons/logos/VK.svg';
+import ButtonPrimary from '../../components/UI-kit/buttons/ButtonPrimary';
+import TextBlock from '../../components/UI-kit/text/TextBlock';
+import ArrowButtonWithText from '../../components/UI-kit/buttons/ArrowButtonWithText';
+import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
+import EmployerProfileSideBar from '../../components/sidebars/EmployerProfileSideBar';
+import Link from '../../components/Link/Link';
 import Vacancy, {
     VacancyCardPropsType,
-} from '../../../components/UI-kit/vacancy/VacancyCard';
-import Footer from '../../../components/UI-kit/footer/Footer';
+} from '../../components/UI-kit/vacancy/VacancyCard';
+import Footer from '../../components/UI-kit/footer/Footer';
 
 export default class Profile extends Component<
     {},

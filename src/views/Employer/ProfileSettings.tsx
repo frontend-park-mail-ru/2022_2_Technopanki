@@ -1,19 +1,19 @@
-import { Component } from '../../../../Reacts';
-import Header from '../../../components/UI-kit/header/Header';
-import SettingsHat from '../../../components/hats/SettingsHat';
-import Input from '../../../components/UI-kit/forms/inputs/Input';
-import Form, { FormSectionType } from '../../../components/UI-kit/forms/Form';
-import CancelSaveButtons from '../../../components/CancelSaveButtons/CancelSaveButtons';
-import IconInput from '../../../components/UI-kit/forms/inputs/IconInput';
-import VKLogo from '../../../static/icons/logos/VKColor.svg';
-import TwitterLogo from '../../../static/icons/logos/TwitterColor.svg';
-import FacebookLogo from '../../../static/icons/logos/FacebookColor.svg';
-import TelegramLogo from '../../../static/icons/logos/TelegramColor.svg';
-import YouTubeLogo from '../../../static/icons/logos/YouTubeColor.svg';
-import InstagramLogo from '../../../static/icons/logos/InstagramColor.svg';
-import FileInput from '../../../components/UI-kit/forms/inputs/FileInput';
-import navigator from '../../../router/navigator';
-import Footer from '../../../components/UI-kit/footer/Footer';
+import { Component } from '../../../Reacts';
+import Header from '../../components/UI-kit/header/Header';
+import SettingsHat from '../../components/hats/SettingsHat';
+import Input from '../../components/UI-kit/forms/inputs/Input';
+import Form, { FormSectionType } from '../../components/UI-kit/forms/Form';
+import CancelSaveButtons from '../../components/CancelSaveButtons/CancelSaveButtons';
+import IconInput from '../../components/UI-kit/forms/inputs/IconInput';
+import VKLogo from '../../static/icons/logos/VKColor.svg';
+import TwitterLogo from '../../static/icons/logos/TwitterColor.svg';
+import FacebookLogo from '../../static/icons/logos/FacebookColor.svg';
+import TelegramLogo from '../../static/icons/logos/TelegramColor.svg';
+import YouTubeLogo from '../../static/icons/logos/YouTubeColor.svg';
+import InstagramLogo from '../../static/icons/logos/InstagramColor.svg';
+import FileInput from '../../components/UI-kit/forms/inputs/FileInput';
+import navigator from '../../router/navigator';
+import Footer from '../../components/UI-kit/footer/Footer';
 
 class AvatarSettings extends Component<{}, { previewSrc: string }> {
     setPreview = (event: InputEvent) => {

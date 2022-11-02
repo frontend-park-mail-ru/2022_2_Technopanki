@@ -1,5 +1,5 @@
-import { Component } from '../../../../Reacts';
-import ArrowButton from '../../../components/UI-kit/buttons/ArrowButton';
+import { Component } from '../../../Reacts';
+import ArrowButton from '../../components/UI-kit/buttons/ArrowButton';
 import styles from './vacancy.module.scss';
 
 type ResumeType = {
@@ -15,7 +15,7 @@ class Resume extends Component<ResumeType> {
         return (
             <div
                 className={
-                    'flex row border-tb-light justify-content-space-between p-16'
+                    'flex row border-tb-light align-items-center justify-content-space-between p-16'
                 }
             >
                 <div className={'flex column'}>

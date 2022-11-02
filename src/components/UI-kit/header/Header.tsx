@@ -2,6 +2,7 @@ import { Component } from '../../../../Reacts';
 import Logo from '../../../static/assets/Jobflow.svg';
 import styles from './header.module.scss';
 import HeaderProfile from './HeaderProfile';
+import JobflowLogo from '../JobflowLogo';
 
 // TODO: refactor
 export default class Header extends Component {
@@ -25,9 +26,10 @@ export default class Header extends Component {
                 >
                     <div
                         key={'logo'}
-                        className={`flex w-100 g-8 align-items-center h-16 ${styles.logo}`}
-                        dangerouslySetInnerHTML={{ __html: Logo }}
-                    ></div>
+                        className={`flex w-100 align-items-center`}
+                    >
+                        <JobflowLogo />
+                    </div>
                     <div
                         key={'items'}
                         id={'links-group'}

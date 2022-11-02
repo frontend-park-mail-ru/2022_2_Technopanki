@@ -6,11 +6,11 @@ import StartPage from './views/StartPage/StartPage';
 import router from './router/navigator';
 import SignUp from './views/SignUp/SignUp';
 import SignIn from './views/SignIn/SignIn';
-import Profile from './views/Employer/Profile/Profile';
-import Vacancy from './views/Employer/Vacancy';
-import EmployerSettings from './views/Employer/Vacancy/VacancySettings';
-import VacancySettings from './views/Employer/Vacancy/VacancySettings';
-import ProfileSettings from './views/Employer/Profile/ProfileSettings';
+import Profile from './views/Employer/Profile';
+import Vacancy from './views/Vacancy';
+import EmployerSettings from './views/Vacancy/VacancySettings';
+import VacancySettings from './views/Vacancy/VacancySettings';
+import ProfileSettings from './views/Employer/ProfileSettings';
 
 class App extends Component {
     render() {
