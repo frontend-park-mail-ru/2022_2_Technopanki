@@ -1,6 +1,6 @@
 import { Component } from '../../../Reacts';
 import Header from '../../components/UI-kit/header/Header';
-import VacancyHat from '../../components/hats/VacancyHat';
+import VacancyHat from './VacancyHat';
 import SettingsHat from '../../components/hats/SettingsHat';
 import Form, { FormSectionType } from '../../components/UI-kit/forms/Form';
 import Input from '../../components/UI-kit/forms/inputs/Input';

@@ -1,11 +1,10 @@
 import { Component } from '../../../Reacts';
-import Button from '../UI-kit/buttons/Button';
-import styles from './vacancyHat.module.scss';
-import ButtonPrimary from '../UI-kit/buttons/ButtonPrimary';
-import Dropdown from '../UI-kit/dropdown/Dropdown';
-import VacancyDropdownResume from '../../views/Vacancy/VacancyDropdownResume';
-import Hat from '../UI-kit/hat/Hat';
-import Link from '../Link/Link';
+import Button from '../../components/UI-kit/buttons/Button';
+import ButtonPrimary from '../../components/UI-kit/buttons/ButtonPrimary';
+import Dropdown from '../../components/UI-kit/dropdown/Dropdown';
+import VacancyDropdownResume from './VacancyDropdownResume';
+import Hat from '../../components/UI-kit/hat/Hat';
+import Link from '../../components/Link/Link';
 
 export default class VacancyHat extends Component<{
     imgSrc: string;
@@ -39,7 +38,12 @@ export default class VacancyHat extends Component<{
                 rightSideContent={
                     <div className={'flex row flex-wrap g-12'}>
                         {/*TODO: добавить уловие по типу пользователя рендер кнопок*/}
-                        <Button>Посмотреть отклики на вакансию</Button>
+                        <Link
+                            to={'/vacancy/responses'}
+                            content={
+                                <Button>Посмотреть отклики на вакансию</Button>
+                            }
+                        />
                         <Link
                             to={'/vacancy/settings'}
                             content={<Button>Настройки</Button>}

@@ -11,6 +11,7 @@ import Vacancy from './views/Vacancy';
 import EmployerSettings from './views/Vacancy/VacancySettings';
 import VacancySettings from './views/Vacancy/VacancySettings';
 import ProfileSettings from './views/Employer/ProfileSettings';
+import VacancyResponses from './views/Vacancy/VacancyResponses';
 
 class App extends Component {
     render() {
@@ -19,7 +20,7 @@ class App extends Component {
 }
 
 // TODO: переделать роутер: на каждый путь будет еще один роутер, который определит, на какую страницу перекинуть
-router.addNewPath('/', <App />);
+router.addNewPath('/', <VacancyResponses />);
 router.addNewPath('/start', <StartPage />);
 router.addNewPath('/signup', <SignUp />);
 router.addNewPath('/signin', <SignIn />);
@@ -27,6 +28,7 @@ router.addNewPath('/employer', <Profile />);
 router.addNewPath('/employer/settings', <ProfileSettings />);
 router.addNewPath('/vacancy', <Vacancy />);
 router.addNewPath('/vacancy/settings', <VacancySettings />);
+router.addNewPath('/vacancy/responses', <VacancyResponses />);
 // router.setFallback('/404', <NotFound />);
 router.navigate(location.pathname);
 
