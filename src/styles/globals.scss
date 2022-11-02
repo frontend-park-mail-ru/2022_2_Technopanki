@@ -81,11 +81,13 @@
 
   --padding-8: 8px;
   --padding-16: 16px;
+  --padding-24: 24px;
   --padding-32: 32px;
   --padding-40: 40px;
   --padding-sm: 10px 12px;
 
   --gap-4: 4px;
+  --gap-6: 6px;
   --gap-8: 8px;
   --gap-12: 12px;
   --gap-16: 16px;
@@ -371,6 +373,11 @@ p {
   &-4 {
     gap: 4px
   }
+
+  &-6 {
+    gap: 6px;
+  }
+
   &-8 {
     gap: 8px
   }
@@ -546,6 +553,10 @@ p {
 
 .grid {
   display: grid;
+}
+
+.grid-template-columns {
+  grid-template-columns: 40px auto 20%;
 }
 
 .cursor {
