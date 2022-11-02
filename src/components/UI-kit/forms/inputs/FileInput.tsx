@@ -13,7 +13,7 @@ export default class FileInput extends Component<{
                 <label
                     key={'label'}
                     className={
-                        'flex row g-12 pointer justify-content-center align-items-center background-0 border-dashed border-default rounded-md p-40'
+                        'flex row g-12 cursor-pointer justify-content-center align-items-center background-0 border-dashed border-default rounded-md p-40'
                     }
                     for={this.props.id}
                 >

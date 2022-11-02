@@ -14,7 +14,10 @@ export default class Link extends Component<{
 
     render() {
         return (
-            <a className={styles.link} onClick={this.onClick}>
+            <a
+                className={`cursor-pointer ${styles.link}`}
+                onClick={this.onClick}
+            >
                 {this.props.content}
             </a>
         );

@@ -28,7 +28,9 @@ export default class Header extends Component {
                 <div
                     className={`flex h-100 row align-items-center justify-content-space-evenly`}
                 >
-                    <JobflowLogo />
+                    <div className={'w-100 flex column justify-content-center'}>
+                        <Link to={'/'} content={<JobflowLogo />} />
+                    </div>
                     <div
                         key={'items'}
                         id={'links-group'}

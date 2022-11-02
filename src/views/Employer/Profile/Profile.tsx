@@ -153,15 +153,23 @@ export default class Profile extends Component<
                                 </button>
                                 <div className={'flex column g-16'}>
                                     {this.state.vacancies.map(vacancy => (
-                                        <Vacancy
-                                            name={vacancy.name}
-                                            icon={vacancy.icon}
-                                            salary={vacancy.salary}
-                                            currency={vacancy.currency}
-                                            location={vacancy.location}
-                                            format={vacancy.format}
-                                            hours={vacancy.hours}
-                                            description={vacancy.description}
+                                        // TODO: убрать Link
+                                        <Link
+                                            to={'/vacancy'}
+                                            content={
+                                                <Vacancy
+                                                    name={vacancy.name}
+                                                    icon={vacancy.icon}
+                                                    salary={vacancy.salary}
+                                                    currency={vacancy.currency}
+                                                    location={vacancy.location}
+                                                    format={vacancy.format}
+                                                    hours={vacancy.hours}
+                                                    description={
+                                                        vacancy.description
+                                                    }
+                                                />
+                                            }
                                         />
                                     ))}
                                 </div>
