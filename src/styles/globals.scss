@@ -195,6 +195,20 @@ p {
   }
 }
 
+.text {
+  &-align {
+    &-left {
+      text-align: left;
+    }
+    &-center {
+      text-align: center;
+    }
+    &-right {
+      text-align: right;
+    }
+  }
+}
+
 .bold {
   font-weight: 600;
 }
@@ -744,7 +758,7 @@ p {
   &-200 {
     > svg {
       > path {
-        border-color: var(--background-200);
+        fill: var(--background-200);
       }
     }
   }

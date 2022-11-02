@@ -10,7 +10,11 @@ export default class Store<S = any> implements StoreType {
     currentReducer: Reducer;
     listeners: (() => void)[] = [];
 
-    constructor(reducer: Reducer, initialState: S, listeners: (() => void)[]) {
+    constructor(
+        reducer: Reducer,
+        initialState: S,
+        listeners: (() => void)[] = [],
+    ) {
         this.state = initialState;
         this.currentReducer = reducer;
         this.listeners = listeners;

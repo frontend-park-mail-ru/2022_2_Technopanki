@@ -9,10 +9,13 @@
   z-index: 50;
 }
 
-.theme {
-  cursor: pointer;
+.logo {
   svg {
     height: 24px;
+    width: auto;
+    path {
+      fill: var(--background-900);
+    }
   }
 }
 

@@ -24,6 +24,8 @@ import {
 } from '../../utils/validation/validation';
 import navigator from '../../router/navigator';
 import { SignUpService } from '../../services/signUpService';
+import { dispatch } from '../../store';
+import { userActions } from '../../store/user/action';
 
 export const validateField = (
     formDataElement: Exclude<FormDataEntryValue, File>,
@@ -237,7 +239,17 @@ export default class SignUp extends Component<
 
         if (validFlag) {
             SignUpService(formData)
-                .then(() => navigator.navigate('/'))
+                .then(() => {
+                    dispatch(
+                        userActions.SIGN_UP(
+                            formData.get('applicant_name') ||
+                                formData.get('company_name') ||
+                                '',
+                            formData.get('applicant_surname'),
+                        ),
+                    );
+                    navigator.navigate('/');
+                })
                 .catch(err => console.log(err));
         }
     };
