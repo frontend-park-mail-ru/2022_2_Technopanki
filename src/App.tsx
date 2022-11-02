@@ -19,8 +19,10 @@ class App extends Component {
     }
 }
 
+router.disableScrollRestoration();
+
 // TODO: переделать роутер: на каждый путь будет еще один роутер, который определит, на какую страницу перекинуть
-router.addNewPath('/', <VacancyResponses />);
+router.addNewPath('/', <App />);
 router.addNewPath('/start', <StartPage />);
 router.addNewPath('/signup', <SignUp />);
 router.addNewPath('/signin', <SignIn />);

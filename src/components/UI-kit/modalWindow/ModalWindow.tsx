@@ -21,7 +21,9 @@ export default class ModalWindow extends Component<
 
         return (
             <div>
-                <div onClick={this.toggleModal}>{this.props.content}</div>
+                <div className={'cursor-pointer'} onClick={this.toggleModal}>
+                    {this.props.content}
+                </div>
                 <div
                     onClick={this.toggleModal}
                     className={`${

@@ -63,7 +63,9 @@ class HeaderProfile extends Component<HeaderProps> {
                         </div>
                     )}
                 </div>
-                <HeaderModal />
+                <div className={'w-100 flex row justify-content-end'}>
+                    <HeaderModal />
+                </div>
             </div>
         );
     }

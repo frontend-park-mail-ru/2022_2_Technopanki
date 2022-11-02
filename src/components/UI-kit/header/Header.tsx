@@ -3,6 +3,7 @@ import Logo from '../../../static/assets/Jobflow.svg';
 import styles from './header.module.scss';
 import HeaderProfile from './HeaderProfile';
 import JobflowLogo from '../JobflowLogo';
+import Link from '../../Link/Link';
 
 // TODO: refactor
 export default class Header extends Component {
@@ -28,7 +29,7 @@ export default class Header extends Component {
                         key={'logo'}
                         className={`flex w-100 align-items-center`}
                     >
-                        <JobflowLogo />
+                        <Link to={'/'} content={<JobflowLogo />} />
                     </div>
                     <div
                         key={'items'}

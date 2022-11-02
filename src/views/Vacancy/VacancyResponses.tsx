@@ -138,7 +138,7 @@ export default class VacancyResponses extends Component {
                     </div>
                     <h3 className={'col-12'}>Отклики на вакансию</h3>
                     <div className={'col-12 col-md-9 column g-16'}>
-                        <h6>Отклики на вакансию</h6>
+                        <h6>Фронтенд-разработчик (VK Play)</h6>
                         <ResumeList resume={this.state.responses} />
                     </div>
                     <div className={'col-12 col-md-3'}>

@@ -27,9 +27,8 @@ class Navigator {
         });
     }
 
-    disableScrollRestoration(): Navigator {
+    disableScrollRestoration() {
         this.router.disableScrollRestoration();
-        return this;
     }
 
     setFallback(fallbackPath: string, fallbackComponent: VNodeType) {
@@ -65,4 +64,4 @@ class Navigator {
 export default new Navigator(
     document.querySelector('#root') || document.body,
     true,
-).disableScrollRestoration();
+);
