@@ -27,8 +27,9 @@ class Navigator {
         });
     }
 
-    disableScrollRestoration() {
+    disableScrollRestoration(): Navigator {
         this.router.disableScrollRestoration();
+        return this;
     }
 
     setFallback(fallbackPath: string, fallbackComponent: VNodeType) {
@@ -45,7 +46,6 @@ class Navigator {
     }
 
     navigate(to: string) {
-        console.log('asd');
         if (this.navMap.has(to)) {
             // @ts-ignore we checked for
             this.router.navigate(this.navMap.get(to));
@@ -56,9 +56,13 @@ class Navigator {
             this.router.navigate(this.fallback);
         }
     }
+
+    goBack() {
+        history.back();
+    }
 }
 
 export default new Navigator(
     document.querySelector('#root') || document.body,
     true,
-);
+).disableScrollRestoration();

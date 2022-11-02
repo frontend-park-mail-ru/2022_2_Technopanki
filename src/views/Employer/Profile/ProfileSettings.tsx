@@ -1,6 +1,6 @@
 import { Component } from '../../../../Reacts';
 import Header from '../../../components/UI-kit/header/Header';
-import VacancySettingsHat from '../../../components/hats/VacancySettingsHat';
+import SettingsHat from '../../../components/hats/SettingsHat';
 import Input from '../../../components/UI-kit/forms/inputs/Input';
 import Form, { FormSectionType } from '../../../components/UI-kit/forms/Form';
 import CancelSaveButtons from '../../../components/CancelSaveButtons/CancelSaveButtons';
@@ -12,6 +12,7 @@ import TelegramLogo from '../../../static/icons/logos/TelegramColor.svg';
 import YouTubeLogo from '../../../static/icons/logos/YouTubeColor.svg';
 import InstagramLogo from '../../../static/icons/logos/InstagramColor.svg';
 import FileInput from '../../../components/UI-kit/forms/inputs/FileInput';
+import navigator from '../../../router/navigator';
 
 class AvatarSettings extends Component<{}, { previewSrc: string }> {
     setPreview = (event: InputEvent) => {
@@ -215,9 +216,10 @@ export default class ProfileSettings extends Component<
                 <Header />
                 <div className={'columns g-24'}>
                     <div className={`col-12 mt-header`}>
-                        <VacancySettingsHat
+                        <SettingsHat
                             imgSrc={'./'}
-                            companyName={'VK'}
+                            name={'VK'}
+                            surname={''}
                             description={'Место встречи профессионалов'}
                         />
                     </div>
@@ -227,8 +229,13 @@ export default class ProfileSettings extends Component<
                             sections={this.state.sections}
                             submitComponent={
                                 <CancelSaveButtons
-                                    onCancel={() => {}}
-                                    onSave={() => {}}
+                                    onCancel={() => {
+                                        navigator.navigate('/employer');
+                                    }}
+                                    onSave={() => {
+                                        alert('saved!');
+                                        navigator.navigate('/employer');
+                                    }}
                                 />
                             }
                             onSubmit={this.submitForm}
