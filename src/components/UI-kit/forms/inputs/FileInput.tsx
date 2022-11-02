@@ -1,5 +1,5 @@
 import { Component } from '../../../../../Reacts';
-import DownloadIcon from '../../../../static/icons/Icon.svg';
+import DownloadIcon from '../../../../static/icons/Download.svg';
 import styles from './input.module.scss';
 
 export default class FileInput extends Component<{

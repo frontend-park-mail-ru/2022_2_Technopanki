@@ -1,3 +1,3 @@
 <svg width="6" height="4" viewBox="0 0 6 4" fill="none" xmlns="http://www.w3.org/2000/svg" style="padding-bottom: 4px">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0.558905L0.487262 0L3 2.88219L5.51274 0L6 0.558905L3 4L0 0.558905Z" fill="#9797A2"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0.558905L0.487262 0L3 2.88219L5.51274 0L6 0.558905L3 4L0 0.558905Z" fill="var(--background-300)"/>
 </svg>
