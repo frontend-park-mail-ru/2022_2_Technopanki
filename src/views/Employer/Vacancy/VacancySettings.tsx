@@ -108,11 +108,7 @@ class VacancyDescription extends Component {
 
 export default class VacancySettings extends Component<
     {},
-    {
-        state: {
-            sections: FormSectionType[];
-        };
-    }
+    { sections: FormSectionType[] }
 > {
     state = {
         sections: [
@@ -146,7 +142,7 @@ export default class VacancySettings extends Component<
                         />
                     </div>
                     <h3 className={'col-12'}>Настройки вакансии</h3>
-                    <div className={'col-12 col-md-9'}>
+                    <div className={'col-12'}>
                         <Form
                             sections={this.state.sections}
                             submitComponent={
@@ -157,9 +153,6 @@ export default class VacancySettings extends Component<
                             }
                             onSubmit={this.submitForm}
                         />
-                    </div>
-                    <div className={'col-12 col-md-3'}>
-                        <EmployerProfileSideBar />
                     </div>
                 </div>
             </div>
