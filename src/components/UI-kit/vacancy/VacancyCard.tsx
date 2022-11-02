@@ -186,7 +186,7 @@ export default class VacancyCard extends Component<
                                 this.months.find(
                                     m=>m.date === this.props.date.slice(5, 7)
                                 ).name
-                            } ${this.props.date.slice(0, 4)} • ${this.date.slice(11, 16)}`}
+                            } ${this.props.date.slice(0, 4)} • ${this.props.date.slice(11, 16)}`}
                         </p>
                     </div>
                 ) : (
