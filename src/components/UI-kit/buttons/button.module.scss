@@ -32,3 +32,14 @@
   color: var(--background-0);
   border: var(--border-dark);
 }
+
+.btn-arrow {
+  padding: 10px;
+  svg {
+    height: 12px;
+    width: 12px;
+    path {
+      fill: var(--background-0);
+    }
+  }
+}

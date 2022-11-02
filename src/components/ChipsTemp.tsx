@@ -1,5 +1,6 @@
-import { Component } from '../../Reacts/index';
+import { Component } from '../../Reacts';
 import Chips from './UI-kit/chips/Chips';
+import Dropdown from './UI-kit/dropdown/Dropdown';
 
 export default class ChipsTemp extends Component<
     any,
@@ -48,7 +49,19 @@ export default class ChipsTemp extends Component<
                 <h3 key={'header'}>Chips component</h3>
                 <div key={'div'} className={'flex row g-8'}>
                     {this.state.data.map(item => (
-                        <Chips key={item.id}>{item.name}</Chips>
+                        <Dropdown
+                            key={item.id}
+                            hidden={
+                                <div
+                                    className={
+                                        'padding-4 background-50 rounded-md'
+                                    }
+                                >
+                                    <p>This is chips element</p>
+                                </div>
+                            }
+                            content={<Chips>{item.name}</Chips>}
+                        ></Dropdown>
                     ))}
                 </div>
             </div>

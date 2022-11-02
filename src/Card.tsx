@@ -1,5 +1,5 @@
 import { Component } from '../Reacts/index';
-import { MyContext } from './App';
+import { MyContext } from './Test';
 import { StoreType } from '../Fluxs/types/store';
 import { connect } from './store/index';
 

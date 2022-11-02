@@ -7,7 +7,7 @@ const DEVELOPMENT = 'development';
 
 module.exports = {
     entry: {
-        main: './src/App.tsx',
+        main: './src/Test.tsx',
     },
     module: {
         rules: [
@@ -27,18 +27,17 @@ module.exports = {
                     'style-loader',
                     'css-loader',
                     'postcss-loader',
-                    // 'resolve-url-loader', // https://webpack.js.org/loaders/sass-loader/#problems-with-url
+                    'resolve-url-loader',
                     'sass-loader',
                 ],
             },
             {
-                test: /\.ttf$/,
-                use: {
-                    loader: 'file-loader',
-                    options: {
-                        name: 'assets/fonts/[name].[ext]',
-                    },
-                },
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                type: 'asset/resource',
+            },
+            {
+                test: /\.svg$/,
+                loader: 'svg-inline-loader',
             },
         ],
     },
@@ -48,8 +47,13 @@ module.exports = {
     output: {
         filename: 'js/[name].js',
         path: path.resolve(__dirname, 'dist'),
+        publicPath: '',
     },
     devtool: 'source-map',
+    devServer: {
+        static: './dist',
+        hot: true,
+    },
     plugins: [
         new CopyPlugin({
             patterns: ['server/server.js', './src/static/index.html'],

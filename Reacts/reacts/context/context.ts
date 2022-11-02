@@ -1,4 +1,4 @@
-import { Context } from './index';
+import { Context } from './';
 import { PropType } from '../../shared/common';
 import {
     CONTEXT_NODE_SYMBOL,

@@ -1,4 +1,4 @@
-import { ComponentClass, ReactsNode } from './index';
+import { ReactsNode } from './index';
 import { rerenderComponent } from './renderComponent';
 import { PropsType, VNodeType } from '../../shared/common';
 
@@ -24,7 +24,7 @@ export abstract class Component<P extends PropsType = {}, S = {}> {
             callback();
         }
 
-        this.forceUpdate();
+        rerenderComponent(this);
     }
 
     // Mounting
@@ -33,9 +33,6 @@ export abstract class Component<P extends PropsType = {}, S = {}> {
     // Updating
     shouldComponentUpdate(nextProps: P | Readonly<P>, nextState?: S): void {}
     componentDidUpdate(): void {}
-    forceUpdate(): void {
-        rerenderComponent(this);
-    }
 
     // Unmounting
     componentWillUnmount(): void {}

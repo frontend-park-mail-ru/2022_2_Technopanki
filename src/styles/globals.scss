@@ -1,13 +1,24 @@
 @import './screens';
-// TODO: переделать на импорты из dist
-@import "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap";
+@import './fonts';
 
-:root {
-  --white: #fff;
-  --primary-blue: #1c34ec;
-  --primary-red: #f32a2a;
-  --primary-purple: #97a2fb;
+:root[theme='dark'] {
+  --background-900: #fff;
+  --background-800: #f8f8f8;
+  --background-700: #dadae0;
+  --background-600: #c3c3cb;
+  --background-500: #adadb7;
+  --background-400: #9797a2;
+  --background-300: #81818e;
+  --background-200: #6d6d7a;
+  --background-100: #595965;
+  --background-50: #464651;
+  --background-0: #33333c;
+  --background-body: #0F0F0F;
+  --background-body-80: rgba(15, 15, 15, 0.8);
+  //--background-modal: rgba(255, 255, 255, 0.4);
+}
 
+:root[theme='light'] {
   --background-900: #33333c;
   --background-800: #464651;
   --background-700: #595965;
@@ -20,12 +31,24 @@
   --background-50: #f8f8f8;
   --background-0: #fff;
   --background-body: #fff;
+  --background-body-80: rgba(255, 255, 255, 0.8);
+  //--background-modal: rgba(15, 15, 15, 0.4);
+}
+
+:root {
+  --white: #fff;
+  --primary-blue: #1c34ec;
+  --primary-red: #f32a2a;
+  --primary-purple: #97a2fb;
+
+  --background-modal: rgba(15, 15, 15, 0.4);
 
   --shadow-grey-sm: 0 4px 8px rgba(0, 0, 0, 0.04);
   --shadow-grey-md: 0px 6px 20px rgba(0, 0, 0, 0.08);
   --shadow-grey-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
   --shadow-blue-md: 0px 4px 8px rgba(28, 52, 236, 0.16);
   --shadow-blue-lg: 0px 4px 16px rgba(28, 52, 236, 0.24);
+  --shadow-header: 0 0 .45px #333, 0 0 .45px #333;
 
   --transition-sfast: 0.15s;
   --transition-fast: 0.2s;
@@ -40,10 +63,13 @@
   --border-radius-lg: 16px;
   --border-radius-xl: 24px;
 
+  --border-light: 1px solid var(--background-50);
   --border-default: 1px solid var(--background-100);
   --border-blue: 1px solid var(--primary-blue);
   --border-dark: 1px solid var(--background-900);
 
+  --padding-16: 16px;
+  --padding-32: 32px;
   --padding-sm: 10px 12px;
 
   --gap-4: 4px;
@@ -53,41 +79,27 @@
   --gap-24: 24px;
   --gap-40: 40px;
 
-  --opacity-5: 5%;
-  --opacity-25: 25%;
-  --opacity-50: 50%;
-  --opacity-75: 75%;
-  --opacity-90: 90%;
-  --opacity-100: 100%;
-
   --padding-screen-sm: 0 16px;
   --padding-screen-md: 0 120px;
   --padding-screen-lg: 0 240px;
   --padding-screen-xlg: 0 15vw;
   --padding-screen-xxlg: 0 25vw;
+
+  --header-height: 56px;
+  --input-height: 54px;
 }
 
 ::selection {
-  background: var(--primary-purple);
+  background-color: var(--primary-purple);
 }
-
-// TODO
-//body[theme='light'] {
-//  colors for light theme here
-//}
-
-//body[theme='dark'] {
-//  colors for dark theme here
-//}
 
 body {
   background-color: var(--background-body);
   color: var(--background-900);
   font-family: 'Inter';
   left: 0;
-  top: 0;
+  padding-top: var(--header-height);
   margin: 0;
-  font-size: 14px;
 }
 
 h1 {
@@ -112,7 +124,6 @@ h3 {
   font-size: 32px;
   line-height: 39px;
   letter-spacing: -0.02em;
-  margin: 24px 0;
 }
 
 h4 {
@@ -121,7 +132,6 @@ h4 {
   font-size: 24px;
   line-height: 29px;
   letter-spacing: -0.02em;
-  margin: 20px 0;
 }
 
 h5 {
@@ -130,7 +140,6 @@ h5 {
   font-size: 16px;
   line-height: 19px;
   letter-spacing: -0.02em;
-  margin: 16px 0;
 }
 
 h6 {
@@ -139,54 +148,143 @@ h6 {
   font-size: 12px;
   line-height: 15px;
   letter-spacing: -0.01em;
-  margin: 16px 0;
+  margin-top: 4px;
+  margin-bottom: 4px;
 }
 
 p {
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 22px;
-  letter-spacing: -0.02em;
+  margin: 0;
 }
 
-.w-25 {
-  width: 25%;
+.x-0 {
+  left: 0;
+  right: 0;
 }
 
-.w-50 {
-  width: 50%;
+.y-0 {
+  top: 0;
+  bottom: 0;
 }
 
-.w-75 {
-  width: 75%;
+.t-0 {
+  top: 0;
 }
 
-.w-100 {
-  width: 100%;
+.mx {
+  &-0 {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  &-4 {
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+  &-8 {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  &-16 {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
 }
 
-.g-4 {
-  gap: var(--gap-4)
+.w {
+  &-25 {
+    width: 25%;
+  }
+  &-50 {
+    width: 50%;
+  }
+  &-75 {
+    width: 75%;
+  }
+  &-100 {
+    width: 100%;
+  }
+  &-50vw {
+    width: 50vw;
+  }
+  &-100vw {
+    width: 100vw;
+  }
 }
 
-.g-8 {
-  gap: var(--gap-8)
+.h {
+  &-25 {
+    height: 25%;
+  }
+  &-50 {
+    height: 50%;
+  }
+  &-75 {
+    height: 75%;
+  }
+  &-100 {
+    height: 100%;
+  }
+  &-50vh {
+    height: 50vh;
+  }
+  &-100vh {
+    height: 100vh;
+  }
 }
 
-.g-12 {
-  gap: var(--gap-12)
+.g {
+  &-4 {
+    gap: 4px
+  }
+  &-8 {
+    gap: 8px
+  }
+  &-12 {
+    gap: 12px
+  }
+  &-16 {
+    gap: 16px
+  }
+  &-24 {
+    gap: 24px
+  }
+  &-40 {
+    gap: 40px
+  }
 }
 
-.g-16 {
-  gap: var(--gap-16)
+.p {
+  &-16 {
+    padding: var(--padding-16);
+  }
+  &-24 {
+    padding: var(--padding-24);
+  }
+  &-32 {
+    padding: var(--padding-32);
+  }
+  &-40 {
+    padding: var(--padding-40);
+  }
 }
 
-.g-24 {
-  gap: var(--gap-24)
+.relative {
+  position: relative;
 }
 
-.g-40 {
-  gap: var(--gap-40)
+.absolute {
+  position: absolute;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.none {
+  display: none;
+}
+
+.block {
+  display: block;
 }
 
 .flex {
@@ -201,42 +299,175 @@ p {
   flex-direction: row;
 }
 
-.align-items-center {
-  align-items: center;
+.flex-grow {
+  &-1 {
+    flex-grow: 1;
+  }
 }
 
-.align-items-start {
-  align-items: flex-start;
+.align-items {
+  &-center {
+    align-items: center;
+  }
+  &-start {
+    align-items: flex-start;
+  }
+  &-end {
+    align-items: flex-end;
+  }
+  &-strech {
+    align-items: stretch;
+  }
 }
 
-.align-items-end {
-  align-items: flex-end;
+.justify-content {
+  &-start {
+    justify-content: flex-start;
+  }
+  &-center {
+    justify-content: center;
+  }
+  &-end {
+    justify-content: flex-end;
+  }
+  &-space-between {
+    justify-content: space-between;
+  }
+  &-space-evenly {
+     justify-content: space-evenly;
+  }
+  &-space-around {
+    justify-content: space-around;
+  }
 }
 
-.align-items-stretch {
-  align-items: stretch;
+.cursor {
+  &-pointer {
+    cursor: pointer;
+  }
+  &-default {
+    cursor: default;
+  }
+  &-help {
+    cursor: help;
+  }
 }
 
-.justify-content-start {
-  justify-content: start;
+.padding {
+  &-4 {
+    padding: 4px;
+  }
+  &-8 {
+    padding: 8px;
+  }
 }
 
-.justify-content-center {
-  justify-content: center;
+.background {
+  &-0 {
+    background-color: var(--background-0);
+  }
+  &-50 {
+    background-color: var(--background-50);
+  }
+  &-100 {
+    background-color: var(--background-100);
+  }
+  &-200 {
+    background-color: var(--background-200);
+  }
+  &-300 {
+    background-color: var(--background-300);
+  }
+  &-400 {
+    background-color: var(--background-400);
+  }
+  &-500 {
+    background-color: var(--background-500);
+  }
+  &-600 {
+    background-color: var(--background-600);
+  }
+  &-700 {
+    background-color: var(--background-700);
+  }
+  &-800 {
+    background-color: var(--background-800);
+  }
+  &-900 {
+    background-color: var(--background-900);
+  }
 }
 
-.justify-content-end {
-  justify-content: end;
+.color {
+  &-0 {
+    color: var(--background-0);
+  }
+  &-50 {
+    color: var(--background-50);
+  }
+  &-100 {
+    color: var(--background-100);
+  }
+  &-200 {
+    color: var(--background-200);
+  }
+  &-300 {
+    color: var(--background-300);
+  }
+  &-400 {
+    color: var(--background-400);
+  }
+  &-500 {
+    color: var(--background-500);
+  }
+  &-600 {
+    color: var(--background-600);
+  }
+  &-700 {
+    color: var(--background-700);
+  }
+  &-800 {
+    color: var(--background-800);
+  }
+  &-900 {
+    color: var(--background-900);
+  }
 }
 
-.justify-content-space-between {
-  justify-content: space-between;
+.rounded {
+  &-sm {
+    border-radius: var(--border-radius-sm);
+  }
+  &-md {
+    border-radius: var(--border-radius-md);
+  }
+  &-lg {
+    border-radius: var(--border-radius-lg);
+  }
+  &-xl {
+    border-radius: var(--border-radius-xl);
+  }
+  &-max {
+    border-radius: 100%;
+  }
 }
 
-.justify-content-space-around {
-  justify-content: space-around;
-}
-
-.justify-content-space-evenly {
-  justify-content: space-evenly;
+.border {
+  &-light {
+    border: var(--border-light);
+  }
+  &-default {
+    border: var(--border-default)
+  }
+  &-bottom {
+    &-light {
+      border-bottom: var(--border-light);
+    }
+    &-default {
+      border-bottom: var(--border-default)
+    }
+  }
+  &-none {
+    border: none
+  }
 }

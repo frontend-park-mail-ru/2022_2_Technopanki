@@ -12,7 +12,7 @@ type PropType =
     | null
     | undefined;
 export type PropsType = { [key: string]: PropType } | {};
-export type ChildrenType = VNodeType[] | VNodeType | string | null;
+export type ChildrenType = VNodeType[] | VNodeType | string | number | null;
 
 export type VNodeType = {
     $$typeof: Symbol;

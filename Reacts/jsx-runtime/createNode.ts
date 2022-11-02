@@ -12,7 +12,7 @@ import {
     DOM_NODE_SYMBOL,
     getUniqueSymbol,
     PROVIDER_NODE_SYMBOL,
-} from '../shared/index';
+} from '../shared';
 
 /**
  * Creates virtual dom node from object in a type
@@ -84,6 +84,8 @@ const createDomNode = (
         case 'h5':
         case 'h6':
         case 'p':
+        case 'a':
+        case 'label':
             if (Array.isArray(props.children)) {
                 props.children = props.children.join('');
             }

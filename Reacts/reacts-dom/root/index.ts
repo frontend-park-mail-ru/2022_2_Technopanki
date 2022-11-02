@@ -24,6 +24,7 @@ class Root implements RootType {
      * @param node
      */
     render(node: VNodeType): void {
+        this.root.innerHTML = '';
         renderNode(this.root, node);
     }
 

@@ -10,6 +10,15 @@
   bottom: 0;
 }
 
+.logo {
+  svg {
+    height: 16px;
+    width: auto;
+    fill: var(--background-50);
+  }
+}
+
+
 .tagline {
   @media (max-width: $screen-lg) {
     display: none;

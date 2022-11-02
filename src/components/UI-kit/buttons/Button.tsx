@@ -1,8 +1,8 @@
-import { Component } from '../../../../Reacts/index';
+import { Component } from '../../../../Reacts';
 import styles from './button.module.scss';
 
 export default class Button extends Component<{
-    onClick: Function;
+    onClick?: Function;
     children: string;
 }> {
     render() {

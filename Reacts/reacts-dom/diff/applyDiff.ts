@@ -125,15 +125,7 @@ const insertNode = (
         insertContextNode(element, node, beforeElement);
     } else if (node.$$typeof === COMPONENT_NODE_SYMBOL) {
         insertChildren(element, node.props.children, beforeElement);
-        if (node._instance) {
-            node._instance.rootDomRef = element;
-            node._instance.prevRenderVNodeRef = node.props.children;
-            node._instance.componentDidMount();
-        } else {
-            if (__DEV__) {
-                throw new Error('component node dont have instance');
-            }
-        }
+        node._instance?.componentDidMount();
     } else {
         insertChildren(element, node.props.children, beforeElement);
     }

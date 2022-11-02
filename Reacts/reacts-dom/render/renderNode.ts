@@ -8,9 +8,9 @@ import {
     CONTEXT_NODE_SYMBOL,
     DOM_NODE_SYMBOL,
     PROVIDER_NODE_SYMBOL,
-} from '../../shared/index';
-import { setProps } from '../attributes/index';
-import { Context } from '../../reacts/context/index';
+} from '../../shared';
+import { setProps } from '../attributes';
+import { Context } from '../../reacts/context';
 import { setContextValue } from '../../reacts/context/context';
 
 /**
