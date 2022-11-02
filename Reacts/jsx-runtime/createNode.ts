@@ -85,10 +85,18 @@ const createDomNode = (
         case 'h6':
         case 'p':
         case 'a':
-        case 'label':
             if (Array.isArray(props.children)) {
                 props.children = props.children.join('');
             }
+            break;
+        case 'label':
+            if (
+                Array.isArray(props.children) &&
+                typeof props.children[0] === 'string'
+            ) {
+                props.children = props.children.join('');
+            }
+            break;
     }
 
     return {

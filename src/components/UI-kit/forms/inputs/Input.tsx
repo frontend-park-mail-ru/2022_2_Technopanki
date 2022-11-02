@@ -15,7 +15,7 @@ export default class Input extends Component<{
 }> {
     render() {
         return (
-            <div className={'flex column g-8'}>
+            <div className={'flex w-100 column g-8'}>
                 <label
                     key={'label'}
                     className={`${styles.label}`}

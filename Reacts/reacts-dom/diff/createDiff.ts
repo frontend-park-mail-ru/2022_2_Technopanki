@@ -72,10 +72,14 @@ const isPrimitiveTypeChildren = (
  * @param newNode
  */
 const comparePrimitiveTypeChildren = (
+    attrUpdater: AttributeUpdater,
     oldNode: VNodeType,
     newNode: VNodeType,
 ): Operation => {
     if (!oldNode.props.children && !newNode.props.children) {
+        if (attrUpdater !== emptyAttrUpdate) {
+            return update(attrUpdater, [], newNode);
+        }
         return skip();
     } else if (!oldNode.props.children && newNode.props.children) {
         return insert(newNode);
@@ -161,7 +165,7 @@ const createDiffDOM = (oldNode: VNodeType, newNode: VNodeType) => {
     newNode._domElement = oldNode._domElement;
 
     if (isPrimitiveTypeChildren(oldNode, newNode)) {
-        return comparePrimitiveTypeChildren(oldNode, newNode);
+        return comparePrimitiveTypeChildren(attrUpdate, oldNode, newNode);
     }
 
     // because we checked the primitive types above in the code,

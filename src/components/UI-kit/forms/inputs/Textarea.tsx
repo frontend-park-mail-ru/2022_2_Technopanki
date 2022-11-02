@@ -2,18 +2,14 @@ import { Component } from '../../../../../Reacts/index';
 import styles from './input.module.scss';
 
 export default class Textarea extends Component<{
-    type: string
-    placeholder: string
+    type?: string;
+    placeholder: string;
     children: string;
 }> {
     render() {
         return (
-            <div
-                className={'flex column g-8'}
-            >
-                <label
-                    className={`${styles.label}`}
-                >
+            <div className={'flex w-100 column g-8'}>
+                <label className={`${styles.label}`}>
                     {this.props.children}
                 </label>
                 <textarea
@@ -22,6 +18,6 @@ export default class Textarea extends Component<{
                     placeholder={this.props.placeholder}
                 />
             </div>
-        )
+        );
     }
 }

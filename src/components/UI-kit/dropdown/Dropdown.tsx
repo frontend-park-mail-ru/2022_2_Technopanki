@@ -3,7 +3,11 @@ import { VNodeType } from '../../../../Reacts/shared/common';
 import styles from './dropdown.module.scss';
 
 export default class Dropdown extends Component<
-    { children: VNodeType; hidden: VNodeType; content: VNodeType },
+    {
+        hidden: VNodeType;
+        content: VNodeType;
+        direction: 'left' | 'center' | 'right';
+    },
     { isOpen: boolean }
 > {
     state = {
@@ -28,8 +32,10 @@ export default class Dropdown extends Component<
                 <div key={'hidden'} className={'relative cursor-default'}>
                     <div
                         className={`absolute ${
-                            this.state.isOpen ? 'block' : 'none'
-                        } ${styles.hidden}`}
+                            this.state.isOpen
+                                ? `flex-${this.props.direction}`
+                                : 'none'
+                        } mt-8`}
                     >
                         {this.props.hidden}
                     </div>

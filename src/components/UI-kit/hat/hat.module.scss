@@ -1,0 +1,23 @@
+@import "../../../styles/screens";
+
+.hat_content {
+  margin-top: 64px;
+  margin-bottom: 40px;
+  @media (max-width: $screen-md) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-24);
+  }
+}
+
+.content_img {
+  height: 64px;
+  width: 64px;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--primary-blue);
+}
+
+.content_name {
+  font-size: 18px;
+  font-weight: 500;
+}

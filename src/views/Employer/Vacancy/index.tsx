@@ -1,10 +1,9 @@
 import { Component } from '../../../../Reacts';
 import Header from '../../../components/UI-kit/header/Header';
 import styles from './vacancy.module.scss';
-import VacancyHeader from '../../../components/VacancyHeader';
 import TextBlock from '../../../components/UI-kit/text/TextBlock';
 import VacancySideBar from '../../../components/sidebars/VacancySideBar';
-import Footer from '../../../components/UI-kit/footer/Footer';
+import VacancyHat from '../../../components/hats/VacancyHat';
 
 export default class Vacancy extends Component {
     render() {
@@ -12,9 +11,9 @@ export default class Vacancy extends Component {
             <div className={'screen-responsive relative hidden g-24'}>
                 <Header />
                 <div className={styles.header_substrate}></div>
-                <div className={'columns g-24'}>
+                <div className={'columns mt-header g-24'}>
                     <div className={`col-12 ${styles.header}`}>
-                        <VacancyHeader
+                        <VacancyHat
                             imgSrc={'./'}
                             companyName={'VK'}
                             description={'Место встречи профессионалов'}
