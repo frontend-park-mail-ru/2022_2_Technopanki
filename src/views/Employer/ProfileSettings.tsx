@@ -249,11 +249,11 @@ export default class ProfileSettings extends Component<
                             submitComponent={
                                 <CancelSaveButtons
                                     onCancel={() => {
-                                        navigator.navigate('/employer');
+                                        navigator.navigate('/employer/1');
                                     }}
                                     onSave={() => {
                                         alert('saved!');
-                                        navigator.navigate('/employer');
+                                        navigator.navigate('/employer/1');
                                     }}
                                 />
                             }

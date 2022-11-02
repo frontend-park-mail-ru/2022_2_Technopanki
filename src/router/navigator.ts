@@ -24,13 +24,6 @@ class Navigator {
 
         window.addEventListener('popstate', (e: PopStateEvent) => {
             this.navigate(location.pathname, true);
-            // this.router.navigate({
-            //     path: location.pathname,
-            //     callback: () => this.navMap.get(location.pathname)?.callback(),
-            //     options: {
-            //         pop: true,
-            //     },
-            // });
         });
     }
 
@@ -50,6 +43,12 @@ class Navigator {
             path: path.path,
             callback: () => this.root.render(component),
         });
+    }
+
+    addNewPaths(paths: { path: PathType; component: VNodeType }[]) {
+        paths.forEach(({ path, component }) =>
+            this.addNewPath(path, component),
+        );
     }
 
     navigate(to: string, pop: boolean = false) {
