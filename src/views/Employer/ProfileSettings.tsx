@@ -15,12 +15,13 @@ import FileInput from '../../components/UI-kit/forms/inputs/FileInput';
 import navigator from '../../router/navigator';
 import Footer from '../../components/UI-kit/footer/Footer';
 import { sendProfileImg } from '../../services/imageService';
-import EmployerProfileSideBar from '../../components/sidebars/EmployerProfileSideBar';
-import { defaultProfileState, EmployerProfile } from './Profile';
 import { employerProfileService } from '../../services/employerProfileService';
 import { userStore } from '../../store/user/store';
+import { defaultProfileState } from '../../store/profile/store';
+import { EmployerProfile } from '../../store/profile/types';
+import { profileConnect } from '../../store';
 
-class AvatarSettings extends Component<
+class AvatarSettingsComponent extends Component<
     { previewSrc: string },
     { previewSrc: string }
 > {
@@ -60,7 +61,15 @@ class AvatarSettings extends Component<
     }
 }
 
-class AboutCompany extends Component<{
+const AvatarSettings = profileConnect(store => {
+    const state = store.getState();
+
+    return {
+        previewSrc: state.previewSrc,
+    };
+})(AvatarSettingsComponent);
+
+class AboutCompanyComponent extends Component<{
     name: string;
     status: string;
     description: string;
@@ -80,6 +89,7 @@ class AboutCompany extends Component<{
                         label={'Название компании'}
                         name={'name'}
                         value={this.props.name}
+                        required={true}
                     />
                 </div>
                 <div className={'col-12 col-md-8'}>
@@ -90,6 +100,7 @@ class AboutCompany extends Component<{
                         label={'Слоган'}
                         name={'description'}
                         value={this.props.description}
+                        required={true}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -100,6 +111,7 @@ class AboutCompany extends Component<{
                         label={'Местоположение компании'}
                         name={'location'}
                         value={this.props.location}
+                        required={true}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -110,6 +122,7 @@ class AboutCompany extends Component<{
                         label={'Телефон'}
                         name={'phone'}
                         value={this.props.phone}
+                        required={true}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -120,6 +133,7 @@ class AboutCompany extends Component<{
                         label={'Email'}
                         name={'email'}
                         value={this.props.email}
+                        required={true}
                     />
                 </div>
             </div>
@@ -127,7 +141,20 @@ class AboutCompany extends Component<{
     }
 }
 
-class SocialNetworks extends Component<{
+const AboutCompany = profileConnect(store => {
+    const state = store.getState();
+
+    return {
+        name: state.name,
+        status: state.status,
+        description: state.description,
+        location: state.location,
+        phone: state.phone,
+        email: state.email,
+    };
+})(AboutCompanyComponent);
+
+class SocialNetworksComponent extends Component<{
     vk?: string;
     facebook?: string;
     telegram?: string;
@@ -209,6 +236,19 @@ class SocialNetworks extends Component<{
     }
 }
 
+const SocialNetworks = profileConnect(store => {
+    const state = store.getState();
+
+    return {
+        vk: state.socialNetworks.vk,
+        facebook: state.socialNetworks.facebook,
+        telegram: state.socialNetworks.telegram,
+        youtube: state.socialNetworks.youtube,
+        twitter: state.socialNetworks.twitter,
+        instagram: state.socialNetworks.instagram,
+    };
+})(SocialNetworksComponent);
+
 class Password extends Component {
     render() {
         return (
@@ -260,70 +300,19 @@ export default class ProfileSettings extends Component<
             ?.dispatchEvent(document.createEvent('submit'));
     };
 
-    getDataFromServer() {
-        const employerID = userStore.getState().id;
-        console.log(employerID);
-        employerProfileService.getProfileData(employerID).then(body => {
-            this.setState(state => ({
-                ...state,
-                profile: {
-                    ...state.profile,
-                    id: body.id,
-                    name: body.company_name,
-                    status: body.status,
-                    description: body.description,
-                    phone: body.phone,
-                    email: body.email,
-                    companyCity: body.company_city,
-                    companySize: body.company_size.toString(),
-                    fieldOfActivity: body.field_of_activity,
-                    socialNetworks: {
-                        vk: body.socialNetworks.vk,
-                        facebook: body.socialNetworks.facebook,
-                        telegram: body.socialNetworks.telegram,
-                    },
-                },
-            }));
-        });
-    }
-
-    componentDidMount() {
-        this.getDataFromServer();
-    }
-
     render() {
         const sections = [
             {
                 header: 'Аватарка',
-                content: (
-                    <AvatarSettings previewSrc={this.state.profile.avatarSrc} />
-                ),
+                content: <AvatarSettings />,
             },
             {
                 header: 'О компании',
-                content: (
-                    <AboutCompany
-                        phone={this.state.profile.phone}
-                        name={this.state.profile.name}
-                        status={this.state.profile.status}
-                        description={this.state.profile.description}
-                        email={this.state.profile.email}
-                        location={this.state.profile.location}
-                    />
-                ),
+                content: <AboutCompany />,
             },
             {
                 header: 'Социальные сети',
-                content: (
-                    <SocialNetworks
-                        vk={this.state.profile.socialNetworks.vk}
-                        twitter={this.state.profile.socialNetworks.twitter}
-                        youtube={this.state.profile.socialNetworks.youtube}
-                        telegram={this.state.profile.socialNetworks.telegram}
-                        facebook={this.state.profile.socialNetworks.facebook}
-                        instagram={this.state.profile.socialNetworks.instagram}
-                    />
-                ),
+                content: <SocialNetworks />,
             },
             {
                 header: 'Смена пароля',
