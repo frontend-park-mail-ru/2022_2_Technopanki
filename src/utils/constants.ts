@@ -7,8 +7,7 @@ export const SERVER_URLS = {
     VACANCIES: SERVER_URL + 'vacancies/',
     VACANCY: SERVER_URL + 'api/vacancy/',
 
-    USER: SERVER_URL + 'api/user/safety/',
-    USER_PREVIEW: (userID: string) =>
-        SERVER_URL + 'api/user/' + userID + '/preview',
+    USER: SERVER_URL + 'api/user/',
+    USER_SAFE: SERVER_URL + 'api/user/safety/',
     IMAGE: SERVER_URL + 'api/image',
 };

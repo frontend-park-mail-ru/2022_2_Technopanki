@@ -15,8 +15,17 @@ import FileInput from '../../components/UI-kit/forms/inputs/FileInput';
 import navigator from '../../router/navigator';
 import Footer from '../../components/UI-kit/footer/Footer';
 import { sendProfileImg } from '../../services/imageService';
+import { employerProfileService } from '../../services/employerProfileService';
+import { userStore } from '../../store/user/store';
+import { defaultProfileState } from '../../store/profile/store';
+import { EmployerProfile } from '../../store/profile/types';
+import { profileConnect } from '../../store';
+import Textarea from '../../components/UI-kit/forms/inputs/Textarea';
 
-class AvatarSettings extends Component<{}, { previewSrc: string }> {
+class AvatarSettingsComponent extends Component<
+    { previewSrc: string },
+    { previewSrc: string }
+> {
     setPreview = (event: InputEvent) => {
         // @ts-ignore
         const [file] = event.target.files;
@@ -26,7 +35,7 @@ class AvatarSettings extends Component<{}, { previewSrc: string }> {
     };
 
     state = {
-        previewSrc: './',
+        previewSrc: this.props.previewSrc,
     };
 
     render() {
@@ -43,7 +52,7 @@ class AvatarSettings extends Component<{}, { previewSrc: string }> {
                 </div>
                 <div key={'input'} className={'col-12 col-md-9'}>
                     <FileInput
-                        id={'file'}
+                        id={'img'}
                         label={'Загрузить новую фотогрфию'}
                         onUpload={this.setPreview}
                     />
@@ -53,35 +62,67 @@ class AvatarSettings extends Component<{}, { previewSrc: string }> {
     }
 }
 
-class AboutCompany extends Component {
+const AvatarSettings = profileConnect(store => {
+    const state = store.getState();
+
+    return {
+        previewSrc: state.previewSrc,
+    };
+})(AvatarSettingsComponent);
+
+class AboutCompanyComponent extends Component<{
+    name: string;
+    status: string;
+    description: string;
+    location: string;
+    phone: string;
+    email: string;
+}> {
     render() {
+        console.log(this.props);
         return (
             <div className={'columns g-16'}>
                 <div className={'col-12'}>
                     <Input
-                        id={'company_name'}
+                        id={'employer_name'}
                         type={'text'}
                         placeholder={'Company name'}
                         label={'Название компании'}
-                        name={'company_name'}
+                        name={'name'}
+                        value={this.props.name}
+                        required={true}
                     />
                 </div>
                 <div className={'col-12 col-md-8'}>
                     <Input
-                        id={'description'}
+                        id={'status'}
                         type={'text'}
                         placeholder={'Hello world!'}
-                        label={'Слоган'}
+                        label={'Статус'}
+                        name={'status'}
+                        value={this.props.status}
+                        required={true}
+                    />
+                </div>
+                <div className={'col-12'}>
+                    <Textarea
+                        id={'description'}
+                        placeholder={'Напишите здесь описание Вашей компании'}
+                        label={'Описание'}
                         name={'description'}
+                        value={this.props.description}
+                        required={true}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
                     <Input
-                        id={'sity'}
+                        id={'location'}
                         type={'text'}
                         placeholder={'Москва'}
                         label={'Местоположение компании'}
-                        name={'sity'}
+                        name={'location'}
+                        value={this.props.location}
+                        required={true}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -91,6 +132,8 @@ class AboutCompany extends Component {
                         placeholder={'+7 (999) 999-99-99'}
                         label={'Телефон'}
                         name={'phone'}
+                        value={this.props.phone}
+                        required={true}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -100,6 +143,8 @@ class AboutCompany extends Component {
                         placeholder={'example@mail.ru'}
                         label={'Email'}
                         name={'email'}
+                        value={this.props.email}
+                        required={true}
                     />
                 </div>
             </div>
@@ -107,7 +152,27 @@ class AboutCompany extends Component {
     }
 }
 
-class SocialNetworks extends Component {
+const AboutCompany = profileConnect(store => {
+    const state = store.getState();
+
+    return {
+        name: state.name,
+        status: state.status,
+        description: state.description,
+        location: state.location,
+        phone: state.phone,
+        email: state.email,
+    };
+})(AboutCompanyComponent);
+
+class SocialNetworksComponent extends Component<{
+    vk?: string;
+    facebook?: string;
+    telegram?: string;
+    youtube?: string;
+    twitter?: string;
+    instagram?: string;
+}> {
     render() {
         return (
             <div className={'columns g-16'}>
@@ -119,6 +184,7 @@ class SocialNetworks extends Component {
                         icon={VKLogo}
                         label={''}
                         name={'vk'}
+                        value={this.props.vk}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -129,6 +195,7 @@ class SocialNetworks extends Component {
                         icon={TwitterLogo}
                         label={''}
                         name={'twitter'}
+                        value={this.props.twitter}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -139,6 +206,7 @@ class SocialNetworks extends Component {
                         icon={FacebookLogo}
                         label={''}
                         name={'facebook'}
+                        value={this.props.facebook}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -149,6 +217,7 @@ class SocialNetworks extends Component {
                         icon={TelegramLogo}
                         label={''}
                         name={'telegram'}
+                        value={this.props.telegram}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -159,6 +228,7 @@ class SocialNetworks extends Component {
                         icon={InstagramLogo}
                         label={''}
                         name={'instagram'}
+                        value={this.props.instagram}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -169,12 +239,26 @@ class SocialNetworks extends Component {
                         icon={YouTubeLogo}
                         label={''}
                         name={'youtube'}
+                        value={this.props.youtube}
                     />
                 </div>
             </div>
         );
     }
 }
+
+const SocialNetworks = profileConnect(store => {
+    const state = store.getState();
+
+    return {
+        vk: state.socialNetworks.vk,
+        facebook: state.socialNetworks.facebook,
+        telegram: state.socialNetworks.telegram,
+        youtube: state.socialNetworks.youtube,
+        twitter: state.socialNetworks.twitter,
+        instagram: state.socialNetworks.instagram,
+    };
+})(SocialNetworksComponent);
 
 class Password extends Component {
     render() {
@@ -182,20 +266,20 @@ class Password extends Component {
             <div className={'columns g-16'}>
                 <div className={'col-12 col-md-4'}>
                     <Input
-                        id={'company_name'}
+                        id={'password'}
                         type={'password'}
-                        placeholder={'Company name'}
+                        placeholder={'********'}
                         label={'Новый пароль'}
-                        name={'company_name'}
+                        name={'password'}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
                     <Input
-                        id={'sity'}
+                        id={'repeat_password'}
                         type={'password'}
-                        placeholder={'Москва'}
-                        label={'Повторите пароль'}
-                        name={'sity'}
+                        placeholder={'********'}
+                        label={'Повторите новый пароль'}
+                        name={'repeat_password'}
                     />
                 </div>
             </div>
@@ -203,12 +287,35 @@ class Password extends Component {
     }
 }
 
-export default class ProfileSettings extends Component<
-    {},
-    { sections: FormSectionType[] }
+class ProfileSettingsComponent extends Component<
+    { profileID: string },
+    { profile: EmployerProfile; sections: FormSectionType[] }
 > {
     state = {
-        sections: [
+        profile: defaultProfileState,
+    };
+
+    submitForm = (e: SubmitEvent) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+
+        employerProfileService
+            .updateProfile(this.props.profileID, formData)
+            .then(() => {
+                navigator.navigate('/');
+            })
+            .catch(err => console.error(err));
+    };
+
+    // TODO
+    submitEvent = () => {
+        this.rootDomRef
+            ?.querySelector('form')
+            ?.dispatchEvent(document.createEvent('submit'));
+    };
+
+    render() {
+        const sections = [
             {
                 header: 'Аватарка',
                 content: <AvatarSettings />,
@@ -225,35 +332,25 @@ export default class ProfileSettings extends Component<
                 header: 'Смена пароля',
                 content: <Password />,
             },
-        ],
-    };
+        ];
 
-    submitForm = (e: SubmitEvent) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-
-        sendProfileImg(formData.get('file')).then(body => {
-            console.log(body);
-        });
-    };
-
-    render() {
         return (
             <div className={'screen-responsive relative hidden'}>
                 <Header />
                 <div className={'columns g-24'}>
                     <div className={`col-12 mt-header`}>
                         <SettingsHat
-                            imgSrc={'./'}
-                            name={'VK'}
+                            imgSrc={this.state.profile.avatarSrc}
+                            name={this.state.profile.name}
                             surname={''}
-                            description={'Место встречи профессионалов'}
+                            status={this.state.profile.status}
+                            submit={this.submitEvent}
                         />
                     </div>
                     <h3 className={'col-12'}>Настройки профиля</h3>
                     <div className={'col-12 col-md-9'}>
                         <Form
-                            sections={this.state.sections}
+                            sections={sections}
                             submitComponent={
                                 <CancelSaveButtons
                                     onCancel={() => {
@@ -270,3 +367,11 @@ export default class ProfileSettings extends Component<
         );
     }
 }
+
+export default profileConnect(store => {
+    const state = store.getState();
+
+    return {
+        id: state.id,
+    };
+})(ProfileSettingsComponent);

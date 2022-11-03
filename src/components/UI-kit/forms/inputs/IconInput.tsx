@@ -8,6 +8,7 @@ export default class IconInput extends Component<{
     placeholder: string;
     label: string;
     name: string;
+    value?: string;
 }> {
     render() {
         return (
@@ -26,6 +27,7 @@ export default class IconInput extends Component<{
                         type={this.props.type}
                         placeholder={this.props.placeholder}
                         name={this.props.name}
+                        value={this.props.value}
                     />
                 </div>
             </div>

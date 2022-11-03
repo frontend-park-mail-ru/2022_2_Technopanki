@@ -18,29 +18,13 @@ import Vacancy, {
 import Footer from '../../components/UI-kit/footer/Footer';
 import { employerProfileService } from '../../services/employerProfileService';
 import { userStore } from '../../store/user/store';
+import { EmployerProfile } from '../../store/profile/types';
+import { dispatch, profileConnect } from '../../store';
+import { profileActions } from '../../store/profile/actions';
 
-type EmployerProfile = {
-    id: string;
-    bannerSrc: string;
-    avatarSrc: string;
-    name: string;
-    status: string;
-    description: string;
-    phone: string;
-    email: string;
-    companyCity: string;
-    companySize: string;
-    fieldOfActivity: string[];
-    socialNetworks: {
-        vk: string | null | undefined;
-        facebook: string | null | undefined;
-        telegram: string | null | undefined;
-    };
-};
-
-export default class Profile extends Component<
-    {},
-    { vacancies: VacancyCardPropsType[]; profile: EmployerProfile }
+class Profile extends Component<
+    EmployerProfile,
+    { vacancies: VacancyCardPropsType[] }
 > {
     state = {
         vacancies: [
@@ -105,51 +89,35 @@ export default class Profile extends Component<
                     'Мы помогаем людям объединяться для того, что для них действительно важно. С нами ты будешь создавать и развивать сервисы для миллионов пользователей, которые помогают общаться, работать, учиться, решать бытовые задачи и развлекаться. Для нас важно делать технологии доступными для каждого и постоянно совершенствовать наши продукты...',
             },
         ],
-        profile: {
-            id: '',
-            bannerSrc: '',
-            avatarSrc: '',
-            name: '',
-            status: '',
-            description: '',
-            phone: '',
-            email: '',
-            companyCity: '',
-            companySize: '',
-            fieldOfActivity: [],
-            socialNetworks: {
-                vk: '',
-                facebook: '',
-                telegram: '',
-            },
-        },
     };
 
     getDataFromServer() {
         const employerID = location.pathname.split('/').at(-1);
-        console.log(employerID);
         employerProfileService.getProfileData(employerID).then(body => {
-            this.setState(state => ({
-                ...state,
-                profile: {
-                    ...state.profile,
-                    id: body.id,
-                    name: body.company_name,
-                    status: body.status,
-                    description: body.description,
-                    phone: body.phone,
-                    email: body.email,
-                    companyCity: body.company_city,
-                    companySize: body.company_size.toString(),
-                    fieldOfActivity: body.field_of_activity,
-                    socialNetworks: {
-                        vk: body.socialNetworks.vk,
-                        facebook: body.socialNetworks.facebook,
-                        telegram: body.socialNetworks.telegram,
-                    },
-                },
-            }));
+            dispatch(profileActions.update({ ...body, id: employerID }));
         });
+        // employerProfileService.getProfileData(employerID).then(body => {
+        //     this.setState(state => ({
+        //         ...state,
+        //         profile: {
+        //             ...props,
+        //             id: body.id,
+        //             name: body.company_name,
+        //             status: body.status,
+        //             description: body.description,
+        //             phone: body.phone,
+        //             email: body.email,
+        //             companyCity: body.company_city,
+        //             companySize: body.company_size.toString(),
+        //             fieldOfActivity: body.field_of_activity,
+        //             socialNetworks: {
+        //                 vk: body.socialNetworks.vk,
+        //                 facebook: body.socialNetworks.facebook,
+        //                 telegram: body.socialNetworks.telegram,
+        //             },
+        //         },
+        //     }));
+        // });
     }
 
     componentDidMount() {
@@ -162,16 +130,16 @@ export default class Profile extends Component<
                 <Header key={'header'} />
                 <ProfileHeader
                     key={'profile_header'}
-                    bannerSrc={this.state.profile.bannerSrc}
-                    avatarSrc={this.state.profile.avatarSrc}
-                    name={this.state.profile.name}
-                    status={this.state.profile.status}
+                    bannerSrc={this.props.bannerSrc}
+                    avatarSrc={this.props.avatarSrc}
+                    name={this.props.name}
+                    status={this.props.status}
                     buttons={
                         <div className={'flex flex-wrap row g-16'}>
                             <ButtonIcon
                                 onClick={() => {
                                     navigator.clipboard
-                                        .writeText(this.state.profile.phone)
+                                        .writeText(this.props.phone)
                                         .then(() => console.log('copied!'))
                                         .catch(err => console.error(err));
                                 }}
@@ -180,7 +148,7 @@ export default class Profile extends Component<
                             <ButtonIcon
                                 onClick={() => {
                                     navigator.clipboard
-                                        .writeText(this.state.profile.email)
+                                        .writeText(this.props.email)
                                         .then(() => console.log('copied!'))
                                         .catch(err => console.error(err));
                                 }}
@@ -194,8 +162,7 @@ export default class Profile extends Component<
                             ) : (
                                 <p className={'none'}></p>
                             )}
-                            {userStore.getState().id ===
-                                this.state.profile.id &&
+                            {userStore.getState().id === this.props.id &&
                             userStore.getState().userType === 'employer' ? (
                                 <Link
                                     to={'/employer/settings'}
@@ -211,7 +178,7 @@ export default class Profile extends Component<
                     <div className={'col-12 col-md-9 flex column g-40'}>
                         <TextBlock
                             headline={'Описание'}
-                            content={this.state.profile.description}
+                            content={this.props.description}
                         />
                         <div className={'flex column g-16'}>
                             <h6>Вакансии</h6>
@@ -248,10 +215,10 @@ export default class Profile extends Component<
                     </div>
                     <div key={'sidebar'} className={'col-12 col-md-3'}>
                         <EmployerProfileSideBar
-                            city={this.state.profile.companyCity}
-                            companySize={this.state.profile.companySize}
-                            fieldOfActivity={this.state.profile.fieldOfActivity}
-                            socialNetworks={this.state.profile.socialNetworks}
+                            city={this.props.location}
+                            companySize={this.props.size}
+                            fieldOfActivity={this.props.fieldOfActivity}
+                            socialNetworks={this.props.socialNetworks}
                         />
                     </div>
                 </div>
@@ -260,3 +227,5 @@ export default class Profile extends Component<
         );
     }
 }
+
+export default profileConnect(state => state.getState())(Profile);

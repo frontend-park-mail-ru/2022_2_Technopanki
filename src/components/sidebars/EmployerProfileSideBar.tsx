@@ -7,33 +7,16 @@ import IconField from './utils/IconField';
 import VKIcon from '../../static/icons/logos/VK.svg';
 import FacebookIcon from '../../static/icons/logos/Facebook.svg';
 import TelegramIcon from '../../static/icons/logos/Telegram.svg';
+import { EmployerSocialNetworks } from '../../store/profile/types';
 
 type EmployerProfileSideBarProps = {
     city: string;
     companySize: string;
     fieldOfActivity: string[];
-    socialNetworks: {
-        vk: string | null | undefined;
-        facebook: string | null | undefined;
-        telegram: string | null | undefined;
-    };
+    socialNetworks: EmployerSocialNetworks;
 };
 
-export default class EmployerProfileSideBar extends Component<
-    EmployerProfileSideBarProps,
-    {
-        chipsData: string[];
-    }
-> {
-    state = {
-        chipsData: [
-            'Информационные технологии',
-            'Интернет',
-            'Социальные технологии',
-            'SMM',
-            'Системная интеграция',
-        ],
-    };
+export default class EmployerProfileSideBar extends Component<EmployerProfileSideBarProps> {
     render() {
         return (
             <SideBar
@@ -59,7 +42,7 @@ export default class EmployerProfileSideBar extends Component<
                         header: 'Сфера деятельности',
                         inside: (
                             <div className={'flex row g-8 flex-wrap'}>
-                                {this.props.fieldOfActivity.map(item => (
+                                {this.props.fieldOfActivity?.map(item => (
                                     <Chips>{item}</Chips>
                                 ))}
                             </div>
@@ -69,7 +52,7 @@ export default class EmployerProfileSideBar extends Component<
                         header: 'Социальные сети',
                         inside: (
                             <div className={'flex row g-16'}>
-                                {this.props.socialNetworks.vk ? (
+                                {this.props.socialNetworks?.vk ? (
                                     <a href={this.props.socialNetworks.vk}>
                                         <div
                                             className={
@@ -83,7 +66,7 @@ export default class EmployerProfileSideBar extends Component<
                                 ) : (
                                     <p></p>
                                 )}
-                                {this.props.socialNetworks.facebook ? (
+                                {this.props.socialNetworks?.facebook ? (
                                     <a
                                         href={
                                             this.props.socialNetworks.facebook
@@ -101,7 +84,7 @@ export default class EmployerProfileSideBar extends Component<
                                 ) : (
                                     <p></p>
                                 )}
-                                {this.props.socialNetworks.telegram ? (
+                                {this.props.socialNetworks?.telegram ? (
                                     <a
                                         href={
                                             this.props.socialNetworks.telegram
