@@ -72,6 +72,10 @@ export default class Profile extends Component {
                                         to={'/applicant/resume/settings'}
                                         content={<p>resume settings</p>}
                                     />
+                                    <Link
+                                        to={'/applicant'}
+                                        content={<p>applicant</p>}
+                                    />
                                 </div>
                             </div>
                         </div>
