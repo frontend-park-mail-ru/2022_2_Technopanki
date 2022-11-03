@@ -6,7 +6,7 @@ type HatPropsType = {
     imgSrc: string;
     name: string;
     surname: string;
-    description: string;
+    status: string;
     rightSideContent: VNodeType;
 };
 
@@ -26,7 +26,7 @@ export default class Hat extends Component<HatPropsType> {
                         <p className={styles.content_name}>
                             {this.props.name} {this.props.surname}
                         </p>
-                        <p>{this.props.description}</p>
+                        <p>{this.props.status}</p>
                     </div>
                 </div>
                 {this.props.rightSideContent}

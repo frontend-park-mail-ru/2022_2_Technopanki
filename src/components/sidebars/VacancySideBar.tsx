@@ -9,16 +9,14 @@ import VKIcon from '../../static/icons/logos/VK.svg';
 import FacebookIcon from '../../static/icons/logos/Facebook.svg';
 import TelegramIcon from '../../static/icons/logos/Telegram.svg';
 
-export default class VacancySideBar extends Component<
-    {},
-    {
-        chipsData: string[];
-    }
-> {
-    state = {
-        chipsData: ['JavaScript', 'Git', 'CSS3', 'HTML5', 'React', 'Redux'],
-    };
-
+export default class VacancySideBar extends Component<{
+    salary: string;
+    experience: string;
+    location: string;
+    format: string;
+    hours: string;
+    skills: string[];
+}> {
     render() {
         return (
             <SideBar
@@ -27,26 +25,33 @@ export default class VacancySideBar extends Component<
                         header: 'Заработная плата',
                         inside: (
                             <p className={'font-size-24 bold'}>
-                                240.000 руб/мес
+                                {this.props.salary}
                             </p>
                         ),
                     },
                     {
                         header: 'Требуемый опыт работы',
-                        inside: <p className={'font-size-24 bold'}>3-6 лет</p>,
+                        inside: (
+                            <p className={'font-size-24 bold'}>
+                                {this.props.experience}
+                            </p>
+                        ),
                     },
                     {
                         header: 'Информация о вакансии',
                         inside: (
                             <div className={'flex column g-16'}>
-                                <IconField icon={MapIcon} content={'Москва'} />
+                                <IconField
+                                    icon={MapIcon}
+                                    content={this.props.location}
+                                />
                                 <IconField
                                     icon={CalendarIcon}
-                                    content={'40 часов в неделю'}
+                                    content={this.props.hours}
                                 />
                                 <IconField
                                     icon={ClockIcon}
-                                    content={'Смешанный формат'}
+                                    content={this.props.format}
                                 />
                             </div>
                         ),
@@ -55,37 +60,37 @@ export default class VacancySideBar extends Component<
                         header: 'Профессиональные навыки',
                         inside: (
                             <div className={'flex row g-8 flex-wrap'}>
-                                {this.state.chipsData.map(item => (
+                                {this.props.skills?.map(item => (
                                     <Chips>{item}</Chips>
                                 ))}
                             </div>
                         ),
                     },
-                    {
-                        header: 'Социальные сети',
-                        inside: (
-                            <div className={'flex row g-16'}>
-                                <div
-                                    className={'inner-svg-h-24 inner-svg-200'}
-                                    dangerouslySetInnerHTML={{
-                                        __html: VKIcon,
-                                    }}
-                                ></div>
-                                <div
-                                    className={'inner-svg-h-24 inner-svg-200'}
-                                    dangerouslySetInnerHTML={{
-                                        __html: FacebookIcon,
-                                    }}
-                                ></div>
-                                <div
-                                    className={'inner-svg-h-24 inner-svg-200'}
-                                    dangerouslySetInnerHTML={{
-                                        __html: TelegramIcon,
-                                    }}
-                                ></div>
-                            </div>
-                        ),
-                    },
+                    // {
+                    //     header: 'Социальные сети',
+                    //     inside: (
+                    //         <div className={'flex row g-16'}>
+                    //             <div
+                    //                 className={'inner-svg-h-24 inner-svg-200'}
+                    //                 dangerouslySetInnerHTML={{
+                    //                     __html: VKIcon,
+                    //                 }}
+                    //             ></div>
+                    //             <div
+                    //                 className={'inner-svg-h-24 inner-svg-200'}
+                    //                 dangerouslySetInnerHTML={{
+                    //                     __html: FacebookIcon,
+                    //                 }}
+                    //             ></div>
+                    //             <div
+                    //                 className={'inner-svg-h-24 inner-svg-200'}
+                    //                 dangerouslySetInnerHTML={{
+                    //                     __html: TelegramIcon,
+                    //                 }}
+                    //             ></div>
+                    //         </div>
+                    //     ),
+                    // },
                 ]}
             />
         );

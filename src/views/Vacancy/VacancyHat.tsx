@@ -5,36 +5,46 @@ import Dropdown from '../../components/UI-kit/dropdown/Dropdown';
 import VacancyDropdownResume from './VacancyDropdownResume';
 import Hat from '../../components/UI-kit/hat/Hat';
 import Link from '../../components/Link/Link';
+import { vacancyService } from '../../services/vacancyService';
 
-export default class VacancyHat extends Component<{
-    imgSrc: string;
-    companyName: string;
-    description: string;
-}> {
+export default class VacancyHat extends Component<
+    {
+        creatorID: string;
+    },
+    {
+        creatorImgSrc: string;
+        companyName: string;
+        status: string;
+    }
+> {
     state = {
-        resume: [
-            {
-                name: 'Vladislav',
-                surname: 'Kirpichov',
-                resumeHeader: 'Frontend developer',
-                src: './',
-            },
-            {
-                name: 'Vladislav',
-                surname: 'Kirpichov',
-                resumeHeader: 'Backend developer',
-                src: './',
-            },
-        ],
+        creatorImgSrc: '',
+        companyName: '',
+        status: '',
     };
+
+    getCreatorDataFromServer = () => {
+        vacancyService.getVacancyHatData(this.props.creatorID).then(body => {
+            this.setState(state => ({
+                ...state,
+                creatorImgSrc: body.creator_img_src,
+                companyName: body.company_name,
+                status: body.status,
+            }));
+        });
+    };
+
+    componentDidMount() {
+        this.getCreatorDataFromServer();
+    }
 
     render() {
         return (
             <Hat
-                imgSrc={this.props.imgSrc}
-                name={this.props.companyName}
+                imgSrc={this.state.creatorImgSrc}
+                name={this.state.companyName}
                 surname={''}
-                description={this.props.description}
+                status={this.state.status}
                 rightSideContent={
                     <div className={'flex row flex-wrap g-12'}>
                         {/*TODO: добавить уловие по типу пользователя рендер кнопок*/}
@@ -49,11 +59,7 @@ export default class VacancyHat extends Component<{
                             content={<Button>Настройки</Button>}
                         />
                         <Dropdown
-                            hidden={
-                                <VacancyDropdownResume
-                                    resume={this.state.resume}
-                                />
-                            }
+                            hidden={<VacancyDropdownResume resume={[]} />}
                             content={
                                 <ButtonPrimary>Отправить резюме</ButtonPrimary>
                             }

@@ -9,25 +9,39 @@ import { vacancyStore } from '../../store/vacancy/store';
 import { dispatch, vacancyConnect } from '../../store';
 import { vacancyService } from '../../services/vacancyService';
 import { vacancyActions } from '../../store/vacancy/actions';
+import { VacancyState } from '../../store/vacancy/type';
 
-class Vacancy extends Component<{
+type VacancyPropsType = {
+    id?: string;
+    postedByUserID: string;
     title: string;
     description: string;
-}> {
+    tasks: string;
+    requirements: string;
+    extra: string;
+    sideBar: {
+        salary: string;
+        experience: string;
+        location: string;
+        format: string;
+        hours: string;
+        skills: string[];
+    };
+};
+
+class Vacancy extends Component<VacancyPropsType> {
     getDataFromServer() {
         // Мы точно уверены что путь будет vacancy/{0,9}+
-        const vacancyID = location.pathname.split('/').at(-1);
+        const vacancyID = this.props.id || location.pathname.split('/').at(-1);
         console.log(`VacancyID: ${vacancyID}`);
 
-        vacancyService(vacancyID as string).then(data => {
-            console.log(data);
-            dispatch(vacancyActions.update(data));
+        vacancyService.getVacancyData(vacancyID as string).then(body => {
+            dispatch(vacancyActions.update(body));
         });
     }
 
     componentDidMount() {
         this.getDataFromServer();
-        console.log(this.props);
     }
 
     render() {
@@ -37,11 +51,7 @@ class Vacancy extends Component<{
                 <div className={styles.header_substrate}></div>
                 <div className={'columns mt-header g-24'}>
                     <div className={`col-12 ${styles.header}`}>
-                        <VacancyHat
-                            imgSrc={'./'}
-                            companyName={'VK'}
-                            description={'Место встречи профессионалов'}
-                        />
+                        <VacancyHat creatorID={this.props.postedByUserID} />
                     </div>
                     <h3 className={'col-12'}>{this.props.title}</h3>
                     <div className={'col-12 col-md-9 flex column g-40'}>
@@ -51,35 +61,26 @@ class Vacancy extends Component<{
                         />
                         <TextBlock
                             headline={'Задачи'}
-                            content={
-                                'разработка новой и поддержка существующей функциональности для проекта vkplay.live\n' +
-                                'ревью кода (делаем это всей командой)\n' +
-                                'участие в проектировании архитектуры фронтенда\n' +
-                                'участие в обсуждении реализации и планировании задач'
-                            }
+                            content={this.props.tasks}
                         />
                         <TextBlock
                             headline={'Требования'}
-                            content={
-                                'отличные знания JavaScript\n' +
-                                'уверенные навыки кроссбраузерной и адаптивной верстки (HTML5, CSS3, SCSS/LESS)\n' +
-                                'опыт использования React, Redux\n' +
-                                'опыт работы с git'
-                            }
+                            content={this.props.requirements}
                         />
                         <TextBlock
                             headline={'Будет плюсом'}
-                            content={
-                                'знание TypeScript;\n' +
-                                'опыт работы с Node.js;\n' +
-                                'знание других языков программирования;\n' +
-                                'навыки в области безопасности клиентских web-приложений;\n' +
-                                'профиль на GitHub с личными проектами.'
-                            }
+                            content={this.props.extra}
                         />
                     </div>
                     <div className={'col-12 col-md-3'}>
-                        <VacancySideBar />
+                        <VacancySideBar
+                            salary={this.props.sideBar.salary}
+                            experience={this.props.sideBar.experience}
+                            location={this.props.sideBar.location}
+                            format={this.props.sideBar.format}
+                            hours={this.props.sideBar.hours}
+                            skills={this.props.sideBar.skills}
+                        />
                     </div>
                 </div>
                 <Footer />
@@ -88,6 +89,24 @@ class Vacancy extends Component<{
     }
 }
 
-export default vacancyConnect(store => {
-    return store.getState();
+export default vacancyConnect((store, props) => {
+    const storeState = store.getState() as VacancyState;
+
+    return {
+        id: props.id || storeState.id,
+        postedByUserID: storeState.postedByUserID,
+        title: storeState.title,
+        description: storeState.description,
+        tasks: storeState.tasks,
+        requirements: storeState.requirements,
+        extra: storeState.extra,
+        sideBar: {
+            salary: storeState.salary,
+            experience: storeState.experience,
+            location: storeState.location,
+            format: storeState.format,
+            hours: storeState.hours,
+            skills: storeState.skills,
+        },
+    };
 })(Vacancy);
