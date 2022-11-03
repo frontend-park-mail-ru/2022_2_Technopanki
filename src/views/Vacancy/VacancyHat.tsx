@@ -25,8 +25,7 @@ export default class VacancyHat extends Component<
 
     getCreatorDataFromServer = () => {
         vacancyService.getVacancyHatData(this.props.creatorID).then(body => {
-            this.setState(state => ({
-                ...state,
+            this.setState(() => ({
                 creatorImgSrc: body.creator_img_src,
                 companyName: body.company_name,
                 status: body.status,

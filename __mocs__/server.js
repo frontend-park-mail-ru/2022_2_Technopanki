@@ -98,6 +98,14 @@ app.get('/api/user/safety/:id', (req, res) => {
     }
 });
 
+app.get('/api/user/:id/preview', (req, res) => {
+    res.json({
+        creator_img_src: './',
+        company_name: 'VK',
+        status: 'Место встречи профессионалов',
+    });
+});
+
 app.get('/api/vacancy/:id', (req, res) => {
     res.json({
         id: req.params.id,
