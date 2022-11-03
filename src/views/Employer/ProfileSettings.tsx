@@ -20,6 +20,7 @@ import { userStore } from '../../store/user/store';
 import { defaultProfileState } from '../../store/profile/store';
 import { EmployerProfile } from '../../store/profile/types';
 import { profileConnect } from '../../store';
+import Textarea from '../../components/UI-kit/forms/inputs/Textarea';
 
 class AvatarSettingsComponent extends Component<
     { previewSrc: string },
@@ -51,7 +52,7 @@ class AvatarSettingsComponent extends Component<
                 </div>
                 <div key={'input'} className={'col-12 col-md-9'}>
                     <FileInput
-                        id={'file'}
+                        id={'img'}
                         label={'Загрузить новую фотогрфию'}
                         onUpload={this.setPreview}
                     />
@@ -94,10 +95,20 @@ class AboutCompanyComponent extends Component<{
                 </div>
                 <div className={'col-12 col-md-8'}>
                     <Input
-                        id={'description'}
+                        id={'status'}
                         type={'text'}
                         placeholder={'Hello world!'}
-                        label={'Слоган'}
+                        label={'Статус'}
+                        name={'status'}
+                        value={this.props.status}
+                        required={true}
+                    />
+                </div>
+                <div className={'col-12'}>
+                    <Textarea
+                        id={'description'}
+                        placeholder={'Напишите здесь описание Вашей компании'}
+                        label={'Описание'}
                         name={'description'}
                         value={this.props.description}
                         required={true}
@@ -276,8 +287,8 @@ class Password extends Component {
     }
 }
 
-export default class ProfileSettings extends Component<
-    {},
+class ProfileSettingsComponent extends Component<
+    { profileID: string },
     { profile: EmployerProfile; sections: FormSectionType[] }
 > {
     state = {
@@ -288,9 +299,12 @@ export default class ProfileSettings extends Component<
         e.preventDefault();
         const formData = new FormData(e.target);
 
-        sendProfileImg(formData.get('file')).then(body => {
-            console.log(body);
-        });
+        employerProfileService
+            .updateProfile(this.props.profileID, formData)
+            .then(() => {
+                navigator.navigate('/');
+            })
+            .catch(err => console.error(err));
     };
 
     // TODO
@@ -353,3 +367,11 @@ export default class ProfileSettings extends Component<
         );
     }
 }
+
+export default profileConnect(store => {
+    const state = store.getState();
+
+    return {
+        id: state.id,
+    };
+})(ProfileSettingsComponent);

@@ -85,6 +85,7 @@ const createDomNode = (
         case 'h6':
         case 'p':
         case 'a':
+        case 'textarea':
             if (Array.isArray(props.children)) {
                 props.children = props.children.join('');
             }
