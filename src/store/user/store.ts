@@ -1,9 +1,11 @@
 import Store from '../../../Fluxs/store';
 import { userReducer } from './reducer';
-import { UserStore } from './types';
+import { UserState } from './types';
 
-export const userStore = new Store<UserStore>(userReducer, {
+export const userStore = new Store<UserState>(userReducer, {
+    id: null,
     name: '',
     surname: '',
+    userType: null,
     authorized: false,
 });

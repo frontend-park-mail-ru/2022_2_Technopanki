@@ -17,10 +17,30 @@ import Vacancy, {
 } from '../../components/UI-kit/vacancy/VacancyCard';
 import Footer from '../../components/UI-kit/footer/Footer';
 import { employerProfileService } from '../../services/employerProfileService';
+import { userStore } from '../../store/user/store';
+
+type EmployerProfile = {
+    id: string;
+    bannerSrc: string;
+    avatarSrc: string;
+    name: string;
+    status: string;
+    description: string;
+    phone: string;
+    email: string;
+    companyCity: string;
+    companySize: string;
+    fieldOfActivity: string[];
+    socialNetworks: {
+        vk: string | null | undefined;
+        facebook: string | null | undefined;
+        telegram: string | null | undefined;
+    };
+};
 
 export default class Profile extends Component<
     {},
-    { vacancies: VacancyCardPropsType[] }
+    { vacancies: VacancyCardPropsType[]; profile: EmployerProfile }
 > {
     state = {
         vacancies: [
@@ -86,23 +106,47 @@ export default class Profile extends Component<
             },
         ],
         profile: {
+            id: '',
             bannerSrc: '',
             avatarSrc: '',
             name: '',
+            status: '',
             description: '',
+            phone: '',
+            email: '',
+            companyCity: '',
+            companySize: '',
+            fieldOfActivity: [],
+            socialNetworks: {
+                vk: '',
+                facebook: '',
+                telegram: '',
+            },
         },
     };
 
     getDataFromServer() {
         const employerID = location.pathname.split('/').at(-1);
+        console.log(employerID);
         employerProfileService.getProfileData(employerID).then(body => {
             this.setState(state => ({
                 ...state,
                 profile: {
-                    bannerSrc: state.bannerSrc,
-                    avatarSrc: state.avatarSrc,
+                    ...state.profile,
+                    id: body.id,
                     name: body.company_name,
+                    status: body.status,
                     description: body.description,
+                    phone: body.phone,
+                    email: body.email,
+                    companyCity: body.company_city,
+                    companySize: body.company_size.toString(),
+                    fieldOfActivity: body.field_of_activity,
+                    socialNetworks: {
+                        vk: body.socialNetworks.vk,
+                        facebook: body.socialNetworks.facebook,
+                        telegram: body.socialNetworks.telegram,
+                    },
                 },
             }));
         });
@@ -121,16 +165,45 @@ export default class Profile extends Component<
                     bannerSrc={this.state.profile.bannerSrc}
                     avatarSrc={this.state.profile.avatarSrc}
                     name={this.state.profile.name}
-                    description={this.state.profile.description}
+                    status={this.state.profile.status}
                     buttons={
                         <div className={'flex flex-wrap row g-16'}>
-                            <ButtonIcon icon={PhoneIcon} />
-                            <ButtonIcon icon={MailIcon} />
-                            <ButtonPrimary>Хочу здесь работать</ButtonPrimary>
-                            <Link
-                                to={'/employer/settings'}
-                                content={<Button>Настройки</Button>}
+                            <ButtonIcon
+                                onClick={() => {
+                                    navigator.clipboard
+                                        .writeText(this.state.profile.phone)
+                                        .then(() => console.log('copied!'))
+                                        .catch(err => console.error(err));
+                                }}
+                                icon={PhoneIcon}
                             />
+                            <ButtonIcon
+                                onClick={() => {
+                                    navigator.clipboard
+                                        .writeText(this.state.profile.email)
+                                        .then(() => console.log('copied!'))
+                                        .catch(err => console.error(err));
+                                }}
+                                icon={MailIcon}
+                            />
+                            {userStore.getState().authorized &&
+                            userStore.getState().userType === 'applicant' ? (
+                                <ButtonPrimary>
+                                    Хочу здесь работать
+                                </ButtonPrimary>
+                            ) : (
+                                <p className={'none'}></p>
+                            )}
+                            {userStore.getState().id ===
+                                this.state.profile.id &&
+                            userStore.getState().userType === 'employer' ? (
+                                <Link
+                                    to={'/employer/settings'}
+                                    content={<Button>Настройки</Button>}
+                                />
+                            ) : (
+                                <p className={'none'}></p>
+                            )}
                         </div>
                     }
                 />
@@ -138,13 +211,7 @@ export default class Profile extends Component<
                     <div className={'col-12 col-md-9 flex column g-40'}>
                         <TextBlock
                             headline={'Описание'}
-                            content={
-                                'Мы помогаем людям объединяться для того, что для них действительно важно. С нами ты будешь создавать и развивать сервисы для миллионов пользователей, которые помогают общаться, работать, учиться, решать бытовые задачи и развлекаться. Для нас важно делать технологии доступными для каждого и постоянно совершенствовать наши продукты.\n' +
-                                '\n' +
-                                'Наша команда — это профессионалы из разных сфер, которые умеют реализовывать необычные и сложные идеи и задачи. Обмениваясь опытом, мы создаём новые идеи и достигаем большего.\n' +
-                                '\n' +
-                                'Если ты любишь решать сложные задачи, экспериментировать и создавать продукты для миллионов пользователей — присоединяйся, чтобы вместе развивать интернет и определять его будущее.'
-                            }
+                            content={this.state.profile.description}
                         />
                         <div className={'flex column g-16'}>
                             <h6>Вакансии</h6>
@@ -180,7 +247,12 @@ export default class Profile extends Component<
                         </div>
                     </div>
                     <div key={'sidebar'} className={'col-12 col-md-3'}>
-                        <EmployerProfileSideBar />
+                        <EmployerProfileSideBar
+                            city={this.state.profile.companyCity}
+                            companySize={this.state.profile.companySize}
+                            fieldOfActivity={this.state.profile.fieldOfActivity}
+                            socialNetworks={this.state.profile.socialNetworks}
+                        />
                     </div>
                 </div>
                 <Footer />

@@ -60,4 +60,5 @@ export const attributes: { [key: string]: string } = {
     checked: 'checked',
     for: 'for',
     required: 'required',
+    href: 'href',
 };

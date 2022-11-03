@@ -8,8 +8,19 @@ import VKIcon from '../../static/icons/logos/VK.svg';
 import FacebookIcon from '../../static/icons/logos/Facebook.svg';
 import TelegramIcon from '../../static/icons/logos/Telegram.svg';
 
+type EmployerProfileSideBarProps = {
+    city: string;
+    companySize: string;
+    fieldOfActivity: string[];
+    socialNetworks: {
+        vk: string | null | undefined;
+        facebook: string | null | undefined;
+        telegram: string | null | undefined;
+    };
+};
+
 export default class EmployerProfileSideBar extends Component<
-    {},
+    EmployerProfileSideBarProps,
     {
         chipsData: string[];
     }
@@ -33,11 +44,13 @@ export default class EmployerProfileSideBar extends Component<
                             <div className={'flex column g-16'}>
                                 <IconField
                                     icon={MapIcon}
-                                    content={'Москва, Санкт-Петербург'}
+                                    content={this.props.city}
                                 />
                                 <IconField
                                     icon={UsersIcon}
-                                    content={'10.000 человек'}
+                                    content={
+                                        this.props.companySize + ' человек'
+                                    }
                                 />
                             </div>
                         ),
@@ -46,7 +59,7 @@ export default class EmployerProfileSideBar extends Component<
                         header: 'Сфера деятельности',
                         inside: (
                             <div className={'flex row g-8 flex-wrap'}>
-                                {this.state.chipsData.map(item => (
+                                {this.props.fieldOfActivity.map(item => (
                                     <Chips>{item}</Chips>
                                 ))}
                             </div>
@@ -56,24 +69,56 @@ export default class EmployerProfileSideBar extends Component<
                         header: 'Социальные сети',
                         inside: (
                             <div className={'flex row g-16'}>
-                                <div
-                                    className={'inner-svg-h-24 inner-svg-200'}
-                                    dangerouslySetInnerHTML={{
-                                        __html: VKIcon,
-                                    }}
-                                ></div>
-                                <div
-                                    className={'inner-svg-h-24 inner-svg-200'}
-                                    dangerouslySetInnerHTML={{
-                                        __html: FacebookIcon,
-                                    }}
-                                ></div>
-                                <div
-                                    className={'inner-svg-h-24 inner-svg-200'}
-                                    dangerouslySetInnerHTML={{
-                                        __html: TelegramIcon,
-                                    }}
-                                ></div>
+                                {this.props.socialNetworks.vk ? (
+                                    <a href={this.props.socialNetworks.vk}>
+                                        <div
+                                            className={
+                                                'cursor-pointer inner-svg-h-24 inner-svg-200'
+                                            }
+                                            dangerouslySetInnerHTML={{
+                                                __html: VKIcon,
+                                            }}
+                                        ></div>
+                                    </a>
+                                ) : (
+                                    <p></p>
+                                )}
+                                {this.props.socialNetworks.facebook ? (
+                                    <a
+                                        href={
+                                            this.props.socialNetworks.facebook
+                                        }
+                                    >
+                                        <div
+                                            className={
+                                                'cursor-pointer inner-svg-h-24 inner-svg-200'
+                                            }
+                                            dangerouslySetInnerHTML={{
+                                                __html: FacebookIcon,
+                                            }}
+                                        ></div>
+                                    </a>
+                                ) : (
+                                    <p></p>
+                                )}
+                                {this.props.socialNetworks.telegram ? (
+                                    <a
+                                        href={
+                                            this.props.socialNetworks.telegram
+                                        }
+                                    >
+                                        <div
+                                            className={
+                                                'cursor-pointer inner-svg-h-24 inner-svg-200'
+                                            }
+                                            dangerouslySetInnerHTML={{
+                                                __html: TelegramIcon,
+                                            }}
+                                        ></div>
+                                    </a>
+                                ) : (
+                                    <p></p>
+                                )}
                             </div>
                         ),
                     },

@@ -8,6 +8,7 @@ import ArrowUp from '../../../static/icons/small_arrow_up.svg';
 import Hr from '../../../static/icons/hr.svg';
 import ArrowButtonWithTextOutline from '../buttons/ArrowButtonWithTextOutline';
 import { VNodeType } from '../../../../Reacts/shared/common';
+import Link from '../../Link/Link';
 
 export type VacancyCardPropsType = {
     name: string;
@@ -42,10 +43,17 @@ export default class VacancyCard extends Component<
             <div
                 className={`grid grid-template-columns g-16 rounded-lg p-24 ${styles.vacancy}`}
             >
-                <div
-                    key={'vacancy-icon'}
-                    className={`cursor-pointer ${styles.icon}`}
-                    dangerouslySetInnerHTML={{ __html: this.props.icon }}
+                <Link
+                    to={'/employer/2'}
+                    content={
+                        <div
+                            key={'vacancy-icon'}
+                            className={`cursor-pointer ${styles.icon}`}
+                            dangerouslySetInnerHTML={{
+                                __html: this.props.icon,
+                            }}
+                        />
+                    }
                 />
                 <div
                     key={'vacancy-data'}

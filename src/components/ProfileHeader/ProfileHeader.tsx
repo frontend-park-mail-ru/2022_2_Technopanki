@@ -6,7 +6,7 @@ export default class ProfileHeader extends Component<{
     bannerSrc: string;
     avatarSrc: string;
     name: string;
-    description: string;
+    status: string;
     buttons: VNodeType;
 }> {
     render() {
@@ -24,7 +24,7 @@ export default class ProfileHeader extends Component<{
                         />
                         <div className={`flex column g-4`}>
                             <h3>{this.props.name}</h3>
-                            <p>{this.props.description}</p>
+                            <p>{this.props.status}</p>
                         </div>
                     </div>
                     {this.props.buttons}

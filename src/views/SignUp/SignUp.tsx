@@ -240,13 +240,16 @@ export default class SignUp extends Component<
         if (validFlag) {
             authService
                 .signUp(formData)
-                .then(() => {
+                .then(response => {
                     dispatch(
                         userActions.SIGN_UP(
+                            // TODO: id
+                            response.body.id,
                             formData.get('applicant_name') ||
                                 formData.get('company_name') ||
                                 '',
                             formData.get('applicant_surname'),
+                            formData.get('toggle'),
                         ),
                     );
                     navigator.navigate('/');

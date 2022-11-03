@@ -6,8 +6,6 @@ import SearchInput from '../../components/UI-kit/forms/inputs/SearchInput';
 import Footer from '../../components/UI-kit/footer/Footer';
 import VacancyCard from '../../components/UI-kit/vacancy/VacancyCard';
 import Link from '../../components/Link/Link';
-import network from '../../lib/network';
-import { SERVER_URL, SERVER_URLS } from '../../utils/constants';
 
 export default class Vacancies extends Component {
     state = {};

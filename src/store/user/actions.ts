@@ -1,14 +1,28 @@
-import { AuthAction } from './types';
+import { AuthAction, UserType } from './types';
 
 export const userActions = {
-    SIGN_UP: (name: string, surname: string): AuthAction => ({
+    SIGN_UP: (
+        id: string,
+        name: string,
+        surname: string,
+        userType: UserType,
+    ): AuthAction => ({
         type: 'SIGN_UP',
+        id,
         name,
         surname,
+        userType,
     }),
-    SIGN_IN: (name: string, surname: string): AuthAction => ({
+    SIGN_IN: (
+        id: string,
+        name: string,
+        surname: string,
+        userType: UserType,
+    ): AuthAction => ({
         type: 'SIGN_IN',
+        id,
         name,
         surname,
+        userType,
     }),
 };
