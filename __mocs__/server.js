@@ -27,7 +27,7 @@ app.post('/auth/sign-in', (req, res) => {
     res.status(200).send();
 });
 
-app.get('/api/user/safety', (req, res) => {
+app.get('/api/user/safety/:id', (req, res) => {
     console.log(req.headers);
     res.status(200);
     res.json({
@@ -77,6 +77,17 @@ app.get('/api/vacancy/2', (req, res) => {
         location: 'Москва',
         isActive: true,
     });
+
+    res.status(200).send();
+});
+
+app.post('/api/image', (req, res) => {
+    console.log(req.data);
+    console.log(
+        res.json({
+            payload: 'hello world!',
+        }),
+    );
 
     res.status(200).send();
 });

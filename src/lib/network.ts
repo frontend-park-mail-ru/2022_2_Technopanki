@@ -19,7 +19,7 @@ class Network {
     async POST(
         url: string,
         headers: HeadersInit,
-        payload: string,
+        payload: string | File,
         credentials: boolean = true,
     ) {
         const response = await fetch(url, {

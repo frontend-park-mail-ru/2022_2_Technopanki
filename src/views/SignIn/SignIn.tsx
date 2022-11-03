@@ -16,9 +16,9 @@ import {
 } from '../../utils/validation/messages';
 import { AuthField, validateField } from '../SignUp/SignUp';
 import navigator from '../../router/navigator';
-import { signInService } from '../../services/signInService';
 import { dispatch } from '../../store';
 import { userActions } from '../../store/user/actions';
+import { authService } from '../../services/authService';
 
 export default class SignIn extends Component<
     {},
@@ -92,7 +92,8 @@ export default class SignIn extends Component<
         this.setState(() => newState);
 
         if (validFlag) {
-            signInService(formData)
+            authService
+                .signIn(formData)
                 .then(response => {
                     dispatch(
                         userActions.SIGN_IN(

@@ -66,7 +66,7 @@ export default class Header extends Component {
                             Создать резюме
                         </p>
                     </div>
-                    <HeaderProfile />
+                    <HeaderProfile key={'profile'} />
                 </div>
             </header>
         );

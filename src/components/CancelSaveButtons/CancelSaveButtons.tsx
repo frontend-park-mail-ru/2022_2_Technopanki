@@ -3,8 +3,8 @@ import Button from '../UI-kit/buttons/Button';
 import ButtonPrimary from '../UI-kit/buttons/ButtonPrimary';
 
 export default class CancelSaveButtons extends Component<{
-    onCancel: Function;
-    onSave: Function;
+    onCancel?: Function;
+    onSave?: Function;
 }> {
     render() {
         return (

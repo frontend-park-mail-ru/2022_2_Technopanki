@@ -20,6 +20,7 @@ class HeaderProfile extends Component<HeaderProps> {
         return (
             <div className={'flex-wrap w-100'}>
                 <div
+                    key={'data'}
                     className={`flex row w-100 g-40 align-items-center justify-content-end ${styles.auth}`}
                 >
                     <div
@@ -32,12 +33,16 @@ class HeaderProfile extends Component<HeaderProps> {
                     />
                     {this.props.authorized ? (
                         <HeaderUserInfo
+                            key={'info'}
                             imgSrc={'./'}
                             name={this.props.name}
                             surname={this.props.surname}
                         />
                     ) : (
-                        <div className={'flex row g-24 align-items-center'}>
+                        <div
+                            key={'login'}
+                            className={'flex row g-24 align-items-center'}
+                        >
                             <Link
                                 to={'/signin'}
                                 content={
@@ -63,7 +68,10 @@ class HeaderProfile extends Component<HeaderProps> {
                         </div>
                     )}
                 </div>
-                <div className={'w-100 flex row justify-content-end'}>
+                <div
+                    key={'modal'}
+                    className={'w-100 flex row justify-content-end'}
+                >
                     <HeaderModal />
                 </div>
             </div>

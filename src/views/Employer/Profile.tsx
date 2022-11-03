@@ -94,7 +94,8 @@ export default class Profile extends Component<
     };
 
     getDataFromServer() {
-        employerProfileService().then(body => {
+        const employerID = location.pathname.split('/').at(-1);
+        employerProfileService.getProfileData(employerID).then(body => {
             this.setState(state => ({
                 ...state,
                 profile: {

@@ -2,9 +2,9 @@ import network from '../lib/network';
 import { SERVER_URLS } from '../utils/constants';
 import { headers } from './headers';
 
-export const vacancyService = (vacancyID: string) => {
+export const sendProfileImg = (payload: File) => {
     return network
-        .GET(SERVER_URLS.VACANCY + vacancyID, headers.jsonHeader)
+        .POST(SERVER_URLS.IMAGE, headers.imgHeader, payload)
         .then(response => {
             if (response.status > 399) {
                 throw response.status;

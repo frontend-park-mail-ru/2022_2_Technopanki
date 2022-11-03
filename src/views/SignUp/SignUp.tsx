@@ -23,9 +23,9 @@ import {
     validatePasswordSymbols,
 } from '../../utils/validation/validation';
 import navigator from '../../router/navigator';
-import { SignUpService } from '../../services/signUpService';
 import { dispatch } from '../../store';
 import { userActions } from '../../store/user/actions';
+import { authService } from '../../services/authService';
 
 export const validateField = (
     formDataElement: Exclude<FormDataEntryValue, File>,
@@ -238,7 +238,8 @@ export default class SignUp extends Component<
         this.setState(() => newState);
 
         if (validFlag) {
-            SignUpService(formData)
+            authService
+                .signUp(formData)
                 .then(() => {
                     dispatch(
                         userActions.SIGN_UP(

@@ -14,6 +14,7 @@ import InstagramLogo from '../../static/icons/logos/InstagramColor.svg';
 import FileInput from '../../components/UI-kit/forms/inputs/FileInput';
 import navigator from '../../router/navigator';
 import Footer from '../../components/UI-kit/footer/Footer';
+import { sendProfileImg } from '../../services/imageService';
 
 class AvatarSettings extends Component<{}, { previewSrc: string }> {
     setPreview = (event: InputEvent) => {
@@ -227,7 +228,14 @@ export default class ProfileSettings extends Component<
         ],
     };
 
-    submitForm = () => {};
+    submitForm = (e: SubmitEvent) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+
+        sendProfileImg(formData.get('file')).then(body => {
+            console.log(body);
+        });
+    };
 
     render() {
         return (
@@ -249,10 +257,6 @@ export default class ProfileSettings extends Component<
                             submitComponent={
                                 <CancelSaveButtons
                                     onCancel={() => {
-                                        navigator.navigate('/employer/1');
-                                    }}
-                                    onSave={() => {
-                                        alert('saved!');
                                         navigator.navigate('/employer/1');
                                     }}
                                 />
