@@ -7,7 +7,8 @@ export default class SettingsHat extends Component<{
     imgSrc: string;
     name: string;
     surname: string;
-    description: string;
+    status: string;
+    submit: Function;
 }> {
     render() {
         return (
@@ -15,16 +16,13 @@ export default class SettingsHat extends Component<{
                 imgSrc={this.props.imgSrc}
                 name={this.props.name}
                 surname={this.props.surname}
-                description={this.props.description}
+                status={this.props.status}
                 rightSideContent={
                     <CancelSaveButtons
                         onCancel={() => {
-                            navigator.goBack();
+                            navigator.navigate('/');
                         }}
-                        onSave={() => {
-                            alert('saved');
-                            navigator.goBack();
-                        }}
+                        onSave={this.props.submit}
                     />
                 }
             />

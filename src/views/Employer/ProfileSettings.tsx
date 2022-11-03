@@ -15,8 +15,15 @@ import FileInput from '../../components/UI-kit/forms/inputs/FileInput';
 import navigator from '../../router/navigator';
 import Footer from '../../components/UI-kit/footer/Footer';
 import { sendProfileImg } from '../../services/imageService';
+import EmployerProfileSideBar from '../../components/sidebars/EmployerProfileSideBar';
+import { defaultProfileState, EmployerProfile } from './Profile';
+import { employerProfileService } from '../../services/employerProfileService';
+import { userStore } from '../../store/user/store';
 
-class AvatarSettings extends Component<{}, { previewSrc: string }> {
+class AvatarSettings extends Component<
+    { previewSrc: string },
+    { previewSrc: string }
+> {
     setPreview = (event: InputEvent) => {
         // @ts-ignore
         const [file] = event.target.files;
@@ -26,7 +33,7 @@ class AvatarSettings extends Component<{}, { previewSrc: string }> {
     };
 
     state = {
-        previewSrc: './',
+        previewSrc: this.props.previewSrc,
     };
 
     render() {
@@ -53,17 +60,26 @@ class AvatarSettings extends Component<{}, { previewSrc: string }> {
     }
 }
 
-class AboutCompany extends Component {
+class AboutCompany extends Component<{
+    name: string;
+    status: string;
+    description: string;
+    location: string;
+    phone: string;
+    email: string;
+}> {
     render() {
+        console.log(this.props);
         return (
             <div className={'columns g-16'}>
                 <div className={'col-12'}>
                     <Input
-                        id={'company_name'}
+                        id={'employer_name'}
                         type={'text'}
                         placeholder={'Company name'}
                         label={'Название компании'}
-                        name={'company_name'}
+                        name={'name'}
+                        value={this.props.name}
                     />
                 </div>
                 <div className={'col-12 col-md-8'}>
@@ -73,15 +89,17 @@ class AboutCompany extends Component {
                         placeholder={'Hello world!'}
                         label={'Слоган'}
                         name={'description'}
+                        value={this.props.description}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
                     <Input
-                        id={'sity'}
+                        id={'location'}
                         type={'text'}
                         placeholder={'Москва'}
                         label={'Местоположение компании'}
-                        name={'sity'}
+                        name={'location'}
+                        value={this.props.location}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -91,6 +109,7 @@ class AboutCompany extends Component {
                         placeholder={'+7 (999) 999-99-99'}
                         label={'Телефон'}
                         name={'phone'}
+                        value={this.props.phone}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -100,6 +119,7 @@ class AboutCompany extends Component {
                         placeholder={'example@mail.ru'}
                         label={'Email'}
                         name={'email'}
+                        value={this.props.email}
                     />
                 </div>
             </div>
@@ -107,7 +127,14 @@ class AboutCompany extends Component {
     }
 }
 
-class SocialNetworks extends Component {
+class SocialNetworks extends Component<{
+    vk?: string;
+    facebook?: string;
+    telegram?: string;
+    youtube?: string;
+    twitter?: string;
+    instagram?: string;
+}> {
     render() {
         return (
             <div className={'columns g-16'}>
@@ -119,6 +146,7 @@ class SocialNetworks extends Component {
                         icon={VKLogo}
                         label={''}
                         name={'vk'}
+                        value={this.props.vk}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -129,6 +157,7 @@ class SocialNetworks extends Component {
                         icon={TwitterLogo}
                         label={''}
                         name={'twitter'}
+                        value={this.props.twitter}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -139,6 +168,7 @@ class SocialNetworks extends Component {
                         icon={FacebookLogo}
                         label={''}
                         name={'facebook'}
+                        value={this.props.facebook}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -149,6 +179,7 @@ class SocialNetworks extends Component {
                         icon={TelegramLogo}
                         label={''}
                         name={'telegram'}
+                        value={this.props.telegram}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -159,6 +190,7 @@ class SocialNetworks extends Component {
                         icon={InstagramLogo}
                         label={''}
                         name={'instagram'}
+                        value={this.props.instagram}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -169,6 +201,7 @@ class SocialNetworks extends Component {
                         icon={YouTubeLogo}
                         label={''}
                         name={'youtube'}
+                        value={this.props.youtube}
                     />
                 </div>
             </div>
@@ -182,20 +215,20 @@ class Password extends Component {
             <div className={'columns g-16'}>
                 <div className={'col-12 col-md-4'}>
                     <Input
-                        id={'company_name'}
+                        id={'password'}
                         type={'password'}
-                        placeholder={'Company name'}
+                        placeholder={'********'}
                         label={'Новый пароль'}
-                        name={'company_name'}
+                        name={'password'}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
                     <Input
-                        id={'sity'}
+                        id={'repeat_password'}
                         type={'password'}
-                        placeholder={'Москва'}
-                        label={'Повторите пароль'}
-                        name={'sity'}
+                        placeholder={'********'}
+                        label={'Повторите новый пароль'}
+                        name={'repeat_password'}
                     />
                 </div>
             </div>
@@ -205,27 +238,10 @@ class Password extends Component {
 
 export default class ProfileSettings extends Component<
     {},
-    { sections: FormSectionType[] }
+    { profile: EmployerProfile; sections: FormSectionType[] }
 > {
     state = {
-        sections: [
-            {
-                header: 'Аватарка',
-                content: <AvatarSettings />,
-            },
-            {
-                header: 'О компании',
-                content: <AboutCompany />,
-            },
-            {
-                header: 'Социальные сети',
-                content: <SocialNetworks />,
-            },
-            {
-                header: 'Смена пароля',
-                content: <Password />,
-            },
-        ],
+        profile: defaultProfileState,
     };
 
     submitForm = (e: SubmitEvent) => {
@@ -237,23 +253,101 @@ export default class ProfileSettings extends Component<
         });
     };
 
+    // TODO
+    submitEvent = () => {
+        this.rootDomRef
+            ?.querySelector('form')
+            ?.dispatchEvent(document.createEvent('submit'));
+    };
+
+    getDataFromServer() {
+        const employerID = userStore.getState().id;
+        console.log(employerID);
+        employerProfileService.getProfileData(employerID).then(body => {
+            this.setState(state => ({
+                ...state,
+                profile: {
+                    ...state.profile,
+                    id: body.id,
+                    name: body.company_name,
+                    status: body.status,
+                    description: body.description,
+                    phone: body.phone,
+                    email: body.email,
+                    companyCity: body.company_city,
+                    companySize: body.company_size.toString(),
+                    fieldOfActivity: body.field_of_activity,
+                    socialNetworks: {
+                        vk: body.socialNetworks.vk,
+                        facebook: body.socialNetworks.facebook,
+                        telegram: body.socialNetworks.telegram,
+                    },
+                },
+            }));
+        });
+    }
+
+    componentDidMount() {
+        this.getDataFromServer();
+    }
+
     render() {
+        const sections = [
+            {
+                header: 'Аватарка',
+                content: (
+                    <AvatarSettings previewSrc={this.state.profile.avatarSrc} />
+                ),
+            },
+            {
+                header: 'О компании',
+                content: (
+                    <AboutCompany
+                        phone={this.state.profile.phone}
+                        name={this.state.profile.name}
+                        status={this.state.profile.status}
+                        description={this.state.profile.description}
+                        email={this.state.profile.email}
+                        location={this.state.profile.location}
+                    />
+                ),
+            },
+            {
+                header: 'Социальные сети',
+                content: (
+                    <SocialNetworks
+                        vk={this.state.profile.socialNetworks.vk}
+                        twitter={this.state.profile.socialNetworks.twitter}
+                        youtube={this.state.profile.socialNetworks.youtube}
+                        telegram={this.state.profile.socialNetworks.telegram}
+                        facebook={this.state.profile.socialNetworks.facebook}
+                        instagram={this.state.profile.socialNetworks.instagram}
+                    />
+                ),
+            },
+            {
+                header: 'Смена пароля',
+                content: <Password />,
+            },
+        ];
+
         return (
             <div className={'screen-responsive relative hidden'}>
                 <Header />
                 <div className={'columns g-24'}>
                     <div className={`col-12 mt-header`}>
                         <SettingsHat
-                            imgSrc={'./'}
-                            name={'VK'}
+                            imgSrc={this.state.profile.avatarSrc}
+                            name={this.state.profile.name}
                             surname={''}
-                            description={'Место встречи профессионалов'}
+                            status={this.state.profile.status}
+                            submit={this.submitEvent}
                         />
                     </div>
                     <h3 className={'col-12'}>Настройки профиля</h3>
                     <div className={'col-12 col-md-9'}>
                         <Form
-                            sections={this.state.sections}
+                            sections={sections}
                             submitComponent={
                                 <CancelSaveButtons
                                     onCancel={() => {

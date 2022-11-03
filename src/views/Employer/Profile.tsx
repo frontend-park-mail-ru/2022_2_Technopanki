@@ -19,7 +19,16 @@ import Footer from '../../components/UI-kit/footer/Footer';
 import { employerProfileService } from '../../services/employerProfileService';
 import { userStore } from '../../store/user/store';
 
-type EmployerProfile = {
+export type EmployerSocialNetworks = {
+    vk?: string;
+    facebook?: string;
+    telegram?: string;
+    youtube?: string;
+    twitter?: string;
+    instagram?: string;
+};
+
+export type EmployerProfile = {
     id: string;
     bannerSrc: string;
     avatarSrc: string;
@@ -28,14 +37,32 @@ type EmployerProfile = {
     description: string;
     phone: string;
     email: string;
-    companyCity: string;
-    companySize: string;
+    location: string;
+    size: string;
     fieldOfActivity: string[];
+    socialNetworks: EmployerSocialNetworks;
+};
+
+export const defaultProfileState = {
+    id: '',
+    bannerSrc: '',
+    avatarSrc: '',
+    name: '',
+    status: '',
+    description: '',
+    phone: '',
+    email: '',
+    location: '',
+    companySize: '',
+    fieldOfActivity: [],
     socialNetworks: {
-        vk: string | null | undefined;
-        facebook: string | null | undefined;
-        telegram: string | null | undefined;
-    };
+        vk: undefined,
+        facebook: undefined,
+        telegram: undefined,
+        youtube: undefined,
+        twitter: undefined,
+        instagram: undefined,
+    },
 };
 
 export default class Profile extends Component<
@@ -105,29 +132,11 @@ export default class Profile extends Component<
                     'Мы помогаем людям объединяться для того, что для них действительно важно. С нами ты будешь создавать и развивать сервисы для миллионов пользователей, которые помогают общаться, работать, учиться, решать бытовые задачи и развлекаться. Для нас важно делать технологии доступными для каждого и постоянно совершенствовать наши продукты...',
             },
         ],
-        profile: {
-            id: '',
-            bannerSrc: '',
-            avatarSrc: '',
-            name: '',
-            status: '',
-            description: '',
-            phone: '',
-            email: '',
-            companyCity: '',
-            companySize: '',
-            fieldOfActivity: [],
-            socialNetworks: {
-                vk: '',
-                facebook: '',
-                telegram: '',
-            },
-        },
+        profile: defaultProfileState,
     };
 
     getDataFromServer() {
         const employerID = location.pathname.split('/').at(-1);
-        console.log(employerID);
         employerProfileService.getProfileData(employerID).then(body => {
             this.setState(state => ({
                 ...state,
