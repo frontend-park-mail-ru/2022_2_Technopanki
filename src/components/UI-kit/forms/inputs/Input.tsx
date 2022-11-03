@@ -5,13 +5,15 @@ import styles from './input.module.scss';
 export default class Input extends Component<{
     id: string;
     type: string;
-    placeholder: string;
+    placeholder?: string;
     label: string;
     name: string;
     value?: string;
     required?: boolean;
     error?: boolean;
     errorMessage?: string;
+    min?: string;
+    max?: string;
 }> {
     render() {
         return (

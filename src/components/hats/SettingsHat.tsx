@@ -6,8 +6,9 @@ import navigator from '../../router/navigator';
 export default class SettingsHat extends Component<{
     imgSrc: string;
     name: string;
-    surname: string;
+    surname?: string;
     description: string;
+    to: string
 }> {
     render() {
         return (
@@ -19,11 +20,11 @@ export default class SettingsHat extends Component<{
                 rightSideContent={
                     <CancelSaveButtons
                         onCancel={() => {
-                            navigator.goBack();
+                            navigator.navigate(this.props.to);
                         }}
                         onSave={() => {
                             alert('saved');
-                            navigator.goBack();
+                            navigator.navigate(this.props.to);
                         }}
                     />
                 }
