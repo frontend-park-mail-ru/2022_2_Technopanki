@@ -9,5 +9,7 @@ export const SERVER_URLS = {
 
     USER: SERVER_URL + 'api/user/',
     USER_SAFE: SERVER_URL + 'api/user/safety/',
+    USER_PREVIEW: (userID: string) =>
+        SERVER_URL + 'api/user/' + userID + '/preview',
     IMAGE: SERVER_URL + 'api/image',
 };
