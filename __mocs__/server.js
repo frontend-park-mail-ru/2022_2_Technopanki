@@ -27,4 +27,20 @@ app.post('/auth/sign-in', (req, res) => {
     res.status(200).send();
 });
 
+app.get('/api/user/safety', (req, res) => {
+    console.log(req.headers);
+    res.status(200);
+    res.json({
+        user_type: 'employer',
+        description: 'Hello world!',
+        date_of_birth: null,
+        image: '',
+        applicant_name: null,
+        applicant_surname: null,
+        company_name: 'VK',
+        business_type: '',
+        company_website_url: '',
+    });
+});
+
 app.listen(PORT);

@@ -16,6 +16,7 @@ import Vacancy, {
     VacancyCardPropsType,
 } from '../../components/UI-kit/vacancy/VacancyCard';
 import Footer from '../../components/UI-kit/footer/Footer';
+import { employerProfileService } from '../../services/employerProfileService';
 
 export default class Profile extends Component<
     {},
@@ -79,17 +80,42 @@ export default class Profile extends Component<
                     'Мы помогаем людям объединяться для того, что для них действительно важно. С нами ты будешь создавать и развивать сервисы для миллионов пользователей, которые помогают общаться, работать, учиться, решать бытовые задачи и развлекаться. Для нас важно делать технологии доступными для каждого и постоянно совершенствовать наши продукты...',
             },
         ],
+        profile: {
+            bannerSrc: '',
+            avatarSrc: '',
+            name: '',
+            description: '',
+        },
     };
+
+    getDataFromServer() {
+        employerProfileService().then(body => {
+            this.setState(state => ({
+                ...state,
+                profile: {
+                    bannerSrc: state.bannerSrc,
+                    avatarSrc: state.avatarSrc,
+                    name: body.company_name,
+                    description: body.description,
+                },
+            }));
+        });
+    }
+
+    componentDidMount() {
+        this.getDataFromServer();
+    }
 
     render() {
         return (
             <div className={'screen-responsive flex column g-40'}>
-                <Header />
+                <Header key={'header'} />
                 <ProfileHeader
-                    bannerSrc={'./'}
-                    avatarSrc={'./'}
-                    name={'VK'}
-                    description={'Место встречи профессионалов'}
+                    key={'profile_header'}
+                    bannerSrc={this.state.profile.bannerSrc}
+                    avatarSrc={this.state.profile.avatarSrc}
+                    name={this.state.profile.name}
+                    description={this.state.profile.description}
                     buttons={
                         <div className={'flex flex-wrap row g-16'}>
                             <ButtonIcon icon={PhoneIcon} />
@@ -102,7 +128,7 @@ export default class Profile extends Component<
                         </div>
                     }
                 />
-                <div className={'columns g-24'}>
+                <div key={'text'} className={'columns g-24'}>
                     <div className={'col-12 col-md-9 flex column g-40'}>
                         <TextBlock
                             headline={'Описание'}
@@ -147,7 +173,7 @@ export default class Profile extends Component<
                             </div>
                         </div>
                     </div>
-                    <div className={'col-12 col-md-3'}>
+                    <div key={'sidebar'} className={'col-12 col-md-3'}>
                         <EmployerProfileSideBar />
                     </div>
                 </div>

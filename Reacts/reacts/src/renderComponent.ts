@@ -2,7 +2,6 @@ import { Component } from './Component';
 import { COMPONENT_NODE_SYMBOL } from '../../shared/index';
 import { rerenderNode } from '../../reacts-dom/index';
 import { VNodeType } from '../../shared/common';
-import { ReactsNode } from './index';
 
 export function rerenderComponent(component: Component<any, any>) {
     if (component.rootDomRef && component.prevRenderVNodeRef) {

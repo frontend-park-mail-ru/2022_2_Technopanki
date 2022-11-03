@@ -9,8 +9,9 @@ import { StoreType } from '../../Fluxs/types/store';
 export default function createConnect(store: StoreType) {
     return function (mapStateToProps: MapStateToProps) {
         return function (WrappedComponent: Function) {
-            return class Wrapper extends Component<any, any> {
+            return class Wrapper extends Component<any> {
                 unsubscribe: Function = () => {};
+
                 render() {
                     return (
                         <WrappedComponent

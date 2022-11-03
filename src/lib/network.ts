@@ -11,7 +11,7 @@ class Network {
         return {
             status: response.status,
             body: await response.json().catch(err => {
-                console.error(err);
+                console.error(err, response);
                 return {};
             }),
         };
