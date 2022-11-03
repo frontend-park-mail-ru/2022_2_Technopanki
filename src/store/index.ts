@@ -8,3 +8,4 @@ dispatcher.register(vacancyStore.dispatch.bind(vacancyStore));
 
 export const dispatch = dispatcher.dispatch.bind(dispatcher);
 export const userConnect = createConnect(userStore);
+export const vacancyConnect = createConnect(vacancyStore);

@@ -125,8 +125,15 @@ const insertNode = (
         insertContextNode(element, node, beforeElement);
     } else if (node.$$typeof === COMPONENT_NODE_SYMBOL) {
         insertChildren(element, node.props.children, beforeElement);
-        node._instance.prevRenderVNodeRef = node.props.children;
-        node._instance.rootDomRef = element;
+        if (node._instance) {
+            node._instance.prevRenderVNodeRef = node.props
+                .children as VNodeType;
+            node._instance.rootDomRef = element;
+        } else {
+            if (__DEV__) {
+                throw new Error('node instance is not set');
+            }
+        }
         node._instance?.componentDidMount();
     } else {
         insertChildren(element, node.props.children, beforeElement);

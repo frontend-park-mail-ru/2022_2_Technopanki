@@ -5,14 +5,29 @@ import TextBlock from '../../components/UI-kit/text/TextBlock';
 import VacancySideBar from '../../components/sidebars/VacancySideBar';
 import VacancyHat from './VacancyHat';
 import Footer from '../../components/UI-kit/footer/Footer';
+import { vacancyStore } from '../../store/vacancy/store';
+import { dispatch, vacancyConnect } from '../../store';
+import { vacancyService } from '../../services/vacancyService';
+import { vacancyActions } from '../../store/vacancy/actions';
 
-export default class Vacancy extends Component {
+class Vacancy extends Component<{
+    title: string;
+    description: string;
+}> {
     getDataFromServer() {
-        const vacancyID = location.pathname;
+        // Мы точно уверены что путь будет vacancy/{0,9}+
+        const vacancyID = location.pathname.split('/').at(-1);
+        console.log(`VacancyID: ${vacancyID}`);
+
+        vacancyService(vacancyID as string).then(data => {
+            console.log(data);
+            dispatch(vacancyActions.update(data));
+        });
     }
 
     componentDidMount() {
         this.getDataFromServer();
+        console.log(this.props);
     }
 
     render() {
@@ -28,17 +43,11 @@ export default class Vacancy extends Component {
                             description={'Место встречи профессионалов'}
                         />
                     </div>
-                    <h3 className={'col-12'}>Фронтенд-разработчик (VK Play)</h3>
+                    <h3 className={'col-12'}>{this.props.title}</h3>
                     <div className={'col-12 col-md-9 flex column g-40'}>
                         <TextBlock
                             headline={'Описание'}
-                            content={
-                                'Мы помогаем людям объединяться для того, что для них действительно важно. С нами ты будешь создавать и развивать сервисы для миллионов пользователей, которые помогают общаться, работать, учиться, решать бытовые задачи и развлекаться. Для нас важно делать технологии доступными для каждого и постоянно совершенствовать наши продукты.\n' +
-                                '\n' +
-                                'Наша команда — это профессионалы из разных сфер, которые умеют реализовывать необычные и сложные идеи и задачи. Обмениваясь опытом, мы создаём новые идеи и достигаем большего.\n' +
-                                '\n' +
-                                'Если ты любишь решать сложные задачи, экспериментировать и создавать продукты для миллионов пользователей — присоединяйся, чтобы вместе развивать интернет и определять его будущее.'
-                            }
+                            content={this.props.description}
                         />
                         <TextBlock
                             headline={'Задачи'}
@@ -78,3 +87,7 @@ export default class Vacancy extends Component {
         );
     }
 }
+
+export default vacancyConnect(store => {
+    return store.getState();
+})(Vacancy);
