@@ -11,6 +11,8 @@ import Textarea from '../../components/UI-kit/forms/inputs/Textarea';
 import Footer from '../../components/UI-kit/footer/Footer';
 import { vacancyConnect } from '../../store';
 import { VacancyState } from '../../store/vacancy/type';
+import { vacancyService } from '../../services/vacancyService';
+import navigator from '../../router/navigator';
 
 class AboutVacancyComponent extends Component<{
     title: string;
@@ -179,8 +181,8 @@ const VacancyDescription = vacancyConnect(store => {
     };
 })(VacancyDescriptionComponent);
 
-export default class VacancySettings extends Component<
-    {},
+class VacancySettings extends Component<
+    { id: string },
     { sections: FormSectionType[] }
 > {
     state = {
@@ -200,7 +202,17 @@ export default class VacancySettings extends Component<
         ],
     };
 
-    submitForm = () => {};
+    submitForm = (e: SubmitEvent) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+
+        vacancyService
+            .updateVacancy(this.props.id, formData)
+            .then(() => {
+                navigator.navigate('/vacancy/' + this.props.id);
+            })
+            .catch(err => console.error(err));
+    };
 
     render() {
         return (
@@ -232,3 +244,7 @@ export default class VacancySettings extends Component<
         );
     }
 }
+
+export default vacancyConnect(store => ({
+    id: store.getState().id,
+}))(VacancySettings);
