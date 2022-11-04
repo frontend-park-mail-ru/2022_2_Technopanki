@@ -43,13 +43,15 @@ app.get('/api/user/safety/:id', (req, res) => {
 });
 
 app.post('/api/user', (req, res) => {
-    console.log();
+    console.log(req.body.field_of_activity);
 
     if (req.body.id === 2) {
         users.specialUser = { ...users.specialUser, ...req.body };
     } else {
         users.user = { ...users.user, ...req.body };
     }
+
+    console.log(users.user);
 
     res.status(200);
 });

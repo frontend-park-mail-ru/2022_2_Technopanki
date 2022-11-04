@@ -71,6 +71,55 @@ const AvatarSettings = profileConnect(store => {
     };
 })(AvatarSettingsComponent);
 
+class FieldOfActivity extends Component<
+    { fieldOfActivity: string[] },
+    {
+        fieldOfActivity: string[];
+    }
+> {
+    state = {
+        fieldOfActivity: this.props.fieldOfActivity,
+    };
+
+    deleteItem = (index: number) => {
+        console.log(this.state);
+        this.setState(state => ({
+            ...state,
+            fieldOfActivity: [
+                ...state.fieldOfActivity.slice(0, index),
+                ...state.fieldOfActivity.slice(index + 1),
+            ],
+        }));
+        console.log(this.state);
+    };
+
+    addItem = (value: string) => {
+        this.setState(state => ({
+            ...state,
+            fieldOfActivity: [...state.fieldOfActivity, value],
+        }));
+    };
+
+    render() {
+        return (
+            <div>
+                <input
+                    className={'none'}
+                    name={'field_of_activity'}
+                    value={this.state.fieldOfActivity}
+                />
+                <ChipsInput
+                    id={'fieldOfActivity'}
+                    label={'Область деятельности'}
+                    items={this.state.fieldOfActivity}
+                    deleteItem={this.deleteItem.bind(this)}
+                    addItem={this.addItem.bind(this)}
+                />
+            </div>
+        );
+    }
+}
+
 class AboutCompanyComponent extends Component<{
     name: string;
     status: string;
@@ -78,6 +127,7 @@ class AboutCompanyComponent extends Component<{
     location: string;
     phone: string;
     email: string;
+    fieldOfActivity: string[];
 }> {
     render() {
         return (
@@ -148,10 +198,8 @@ class AboutCompanyComponent extends Component<{
                     />
                 </div>
                 <div className={'col-12'}>
-                    <ChipsInput
-                        label={'Сфера деятельности'}
-                        id={'field_of_activity'}
-                        initialItems={['hello', 'world']}
+                    <FieldOfActivity
+                        fieldOfActivity={this.props.fieldOfActivity}
                     />
                 </div>
             </div>
@@ -169,6 +217,7 @@ const AboutCompany = profileConnect(store => {
         location: state.location,
         phone: state.phone,
         email: state.email,
+        fieldOfActivity: state.fieldOfActivity,
     };
 })(AboutCompanyComponent);
 
@@ -305,12 +354,6 @@ class ProfileSettingsComponent extends Component<
     submitForm = (e: SubmitEvent) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        formData.append(
-            'field_of_activity',
-            document.querySelector('#field_of_activity').getAttribute('items'),
-        );
-
-        console.log(formData.get('field_of_activity'));
 
         employerProfileService
             .updateProfile(this.props.profileID, formData)

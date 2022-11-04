@@ -2,37 +2,13 @@ import { Component } from '../../../../../Reacts';
 import Chips from '../../chips/Chips';
 import styles from './input.module.scss';
 
-export default class ChipsInput extends Component<
-    {
-        id: string;
-        label: string;
-        initialItems: string[];
-    },
-    {
-        items: string[];
-    }
-> {
-    state = {
-        items: this.props.initialItems,
-    };
-
-    deleteItem = (index: number) => {
-        this.setState(state => ({
-            ...state,
-            items: [
-                ...state.items.slice(0, index),
-                ...state.items.slice(index + 1, -1),
-            ],
-        }));
-    };
-
-    addItem = (value: string) => {
-        this.setState(state => ({
-            ...state,
-            items: [...state.items, value],
-        }));
-    };
-
+export default class ChipsInput extends Component<{
+    id: string;
+    label: string;
+    items: string[];
+    deleteItem: (index: number) => void;
+    addItem: (item: string) => void;
+}> {
     render() {
         return (
             <div className={'flex column g-8'}>
@@ -40,10 +16,10 @@ export default class ChipsInput extends Component<
                     {this.props.label}
                 </label>
                 <div key={'chips'} className={'flex row flex-wrap g-8'}>
-                    {this.state.items?.map((item, index: number) => (
+                    {this.props.items?.map((item, index: number) => (
                         <Chips
                             key={index}
-                            onDelete={() => this.deleteItem(index)}
+                            onDelete={() => this.props.deleteItem(index)}
                             withDelete={true}
                         >
                             {item}
@@ -53,8 +29,10 @@ export default class ChipsInput extends Component<
                         id={this.props.id}
                         className={styles.chips_input}
                         key={'input'}
-                        items={this.state.items}
-                        onChange={(e: Event) => this.addItem(e.target.value)}
+                        placeholder={'Type here...'}
+                        onChange={(e: Event) =>
+                            this.props.addItem(e.target.value)
+                        }
                     />
                 </div>
             </div>
