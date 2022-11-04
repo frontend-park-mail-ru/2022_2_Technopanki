@@ -97,11 +97,11 @@ class AdditionalInformationComponent extends Component<{
                 </div>
                 <div className={'col-12 col-md-4'}>
                     <Input
-                        id={' format'}
+                        id={'format'}
                         type={'text'}
                         placeholder={'Смешанный формат'}
                         label={'Формат работы'}
-                        name={' format'}
+                        name={'format'}
                         value={this.props.format}
                     />
                 </div>

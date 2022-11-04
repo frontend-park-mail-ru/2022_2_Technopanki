@@ -9,8 +9,9 @@ import VKIcon from '../../static/icons/logos/VK.svg';
 import FacebookIcon from '../../static/icons/logos/Facebook.svg';
 import TelegramIcon from '../../static/icons/logos/Telegram.svg';
 import RenderWithCondition from '../RenderWithCondition';
+import { vacancyConnect } from '../../store';
 
-export default class VacancySideBar extends Component<{
+class VacancySideBar extends Component<{
     salary: string;
     experience: string;
     location: string;
@@ -112,3 +113,16 @@ export default class VacancySideBar extends Component<{
         );
     }
 }
+
+export default vacancyConnect(store => {
+    const storeState = store.getState();
+
+    return {
+        salary: storeState.salary,
+        experience: storeState.experience,
+        location: storeState.location,
+        format: storeState.format,
+        hours: storeState.hours,
+        skills: storeState.skills,
+    };
+})(VacancySideBar);

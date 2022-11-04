@@ -2,19 +2,22 @@ import { Component } from '../../../Reacts';
 import Hat from '../../components/UI-kit/hat/Hat';
 import Button from '../../components/UI-kit/buttons/Button';
 import Link from '../../components/Link/Link';
+import { userConnect } from '../../store';
+import { UserState } from '../../store/user/types';
 
-export default class VacancyResponsesHat extends Component<{
+class VacancyResponsesHat extends Component<{
+    name: string;
+    status: string;
+    // ---
     imgSrc: string;
-    companyName: string;
-    description: string;
 }> {
     render() {
         return (
             <Hat
                 imgSrc={this.props.imgSrc}
-                name={this.props.companyName}
+                name={this.props.name}
                 surname={''}
-                description={this.props.description}
+                status={this.props.status}
                 rightSideContent={
                     <div className={'flex row g-16'}>
                         <Link
@@ -31,3 +34,13 @@ export default class VacancyResponsesHat extends Component<{
         );
     }
 }
+
+export default userConnect((store, props) => {
+    const state: UserState = store.getState();
+
+    return {
+        name: state.name,
+        status: props.status,
+        imgSrc: props.imgSrc,
+    };
+})(VacancyResponsesHat);

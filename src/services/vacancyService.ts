@@ -43,7 +43,7 @@ export const vacancyService: Service = {
                     salary: formData.get('salary'),
                     location: formData.get('location'),
                     experience: formData.get('experience'),
-                    hours: formData.get('hours'),
+                    hours: formData.get('schedule'),
                     format: formData.get('format'),
                 }),
             )

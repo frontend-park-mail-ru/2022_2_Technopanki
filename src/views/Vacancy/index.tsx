@@ -73,14 +73,7 @@ class Vacancy extends Component<VacancyPropsType> {
                         />
                     </div>
                     <div className={'col-12 col-md-3'}>
-                        <VacancySideBar
-                            salary={this.props.sideBar.salary}
-                            experience={this.props.sideBar.experience}
-                            location={this.props.sideBar.location}
-                            format={this.props.sideBar.format}
-                            hours={this.props.sideBar.hours}
-                            skills={this.props.sideBar.skills}
-                        />
+                        <VacancySideBar />
                     </div>
                 </div>
                 <Footer />
@@ -100,13 +93,5 @@ export default vacancyConnect((store, props) => {
         tasks: storeState.tasks,
         requirements: storeState.requirements,
         extra: storeState.extra,
-        sideBar: {
-            salary: storeState.salary,
-            experience: storeState.experience,
-            location: storeState.location,
-            format: storeState.format,
-            hours: storeState.hours,
-            skills: storeState.skills,
-        },
     };
 })(Vacancy);

@@ -130,11 +130,7 @@ export default class VacancyResponses extends Component {
                 <div></div>
                 <div className={'columns mt-header g-24'}>
                     <div className={`col-12 ${styles.header}`}>
-                        <VacancyResponsesHat
-                            imgSrc={'./'}
-                            companyName={'VK'}
-                            description={'Место встречи профессионалов'}
-                        />
+                        <VacancyResponsesHat />
                     </div>
                     <h3 className={'col-12'}>Отклики на вакансию</h3>
                     <div className={'col-12 col-md-9 column g-16'}>
