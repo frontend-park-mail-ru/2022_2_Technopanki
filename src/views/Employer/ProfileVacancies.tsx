@@ -29,7 +29,7 @@ export default class ProfileVacancies extends Component<
             .then(body => {
                 console.log(body);
                 this.setState(() => ({
-                    vacancies: body.vacancies,
+                    vacancies: body,
                 }));
             })
             .catch(err => console.error(err));

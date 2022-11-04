@@ -18,11 +18,11 @@ export const profileReducer: Reducer<ProfileState> = (
                 phone: action.state.contact_number,
                 email: action.state.email,
                 // fieldOfActivity: action.state.field_of_activity,
-                socialNetworks: {
-                    vk: action.state.socialNetworks.vk,
-                    facebook: action.state.socialNetworks.facebook,
-                    telegram: action.state.socialNetworks.telegram,
-                },
+                // socialNetworks: {
+                //     vk: action.state.vk,
+                //     facebook: action.state.socialNetworks.facebook,
+                //     telegram: action.state.socialNetworks.telegram,
+                // },
             };
         default:
             return state;

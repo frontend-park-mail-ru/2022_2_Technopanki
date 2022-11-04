@@ -4,6 +4,7 @@ import { ProfileState } from './types';
 
 export const defaultProfileState: ProfileState = {
     id: '',
+    profileType: '',
     bannerSrc: '',
     avatarSrc: '',
     name: '',

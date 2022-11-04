@@ -9,6 +9,7 @@ export type EmployerSocialNetworks = {
 
 export type EmployerProfile = {
     id: string;
+    profileType: string;
     bannerSrc: string;
     avatarSrc: string;
     name: string;

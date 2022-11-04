@@ -344,7 +344,7 @@ class Password extends Component {
 }
 
 class ProfileSettingsComponent extends Component<
-    { profileID: string },
+    { profileID: string; profileType: string },
     { profile: EmployerProfile; sections: FormSectionType[] }
 > {
     state = {
@@ -429,5 +429,6 @@ export default profileConnect(store => {
 
     return {
         id: state.id,
+        profileType: state.profile_type,
     };
 })(ProfileSettingsComponent);
