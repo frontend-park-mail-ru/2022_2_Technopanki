@@ -1,25 +1,39 @@
 import { Component } from '../Reacts';
-import './styles/globals.scss';
-import { setTheme, toggleTheme } from './toggleTheme';
-import StartPage from './views/StartPage/StartPage';
-// TODO: rename navigator
 import router from './router/navigator';
-import SignUp from './views/SignUp/SignUp';
-import SignIn from './views/SignIn/SignIn';
+import Test from './Test';
+import Link from './components/Link';
+import Button from './components/UI-kit/buttons/Button';
 
 class App extends Component {
     render() {
-        return <StartPage />;
+        return (
+            <div>
+                <p>Hello from main page!</p>
+                <Link
+                    to={'/test'}
+                    content={
+                        <Button>
+                            <p>Go to test page</p>
+                        </Button>
+                    }
+                />
+            </div>
+        );
     }
 }
 
-console.log('hello');
+class NotFound extends Component {
+    render() {
+        return (
+            <div>
+                <p>404 page not found</p>
+            </div>
+        );
+    }
+}
 
 router.addNewPath('/', <App />);
-router.addNewPath('/start', <StartPage />);
-router.addNewPath('/signup', <SignUp />);
-router.addNewPath('/signin', <SignIn />);
-// router.setFallback('/404', <NotFound />);
+router.addNewPath('/test', <Test />);
+router.setFallback('/404', <NotFound />);
+console.log(location.pathname);
 router.navigate(location.pathname);
-
-setTheme();
