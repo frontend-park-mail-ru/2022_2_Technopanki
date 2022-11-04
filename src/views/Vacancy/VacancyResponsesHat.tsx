@@ -2,9 +2,8 @@ import { Component } from '../../../Reacts';
 import Hat from '../../components/UI-kit/hat/Hat';
 import Button from '../../components/UI-kit/buttons/Button';
 import Link from '../../components/Link/Link';
-import { profileConnect, userConnect } from '../../store';
-import { UserState } from '../../store/user/types';
 import { ProfileState } from '../../store/profile/types';
+import { profileConnect } from '../../store';
 
 class VacancyResponsesHat extends Component<{
     name: string;

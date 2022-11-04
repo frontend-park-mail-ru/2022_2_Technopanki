@@ -13,6 +13,7 @@ import { vacancyConnect } from '../../store';
 import { VacancyState } from '../../store/vacancy/type';
 import { vacancyService } from '../../services/vacancyService';
 import navigator from '../../router/navigator';
+import ChipsInput from '../../components/UI-kit/forms/inputs/ChipsInput';
 
 class AboutVacancyComponent extends Component<{
     title: string;
@@ -67,10 +68,58 @@ const AboutVacancy = vacancyConnect((store, props) => {
     };
 })(AboutVacancyComponent);
 
+class Skills extends Component<
+    { skills: string[] },
+    {
+        skills: string[];
+    }
+> {
+    state = {
+        skills: this.props.skills,
+    };
+
+    deleteItem = (index: number) => {
+        this.setState(state => ({
+            ...state,
+            skills: [
+                ...state.skills.slice(0, index),
+                ...state.skills.slice(index + 1),
+            ],
+        }));
+    };
+
+    addItem = (value: string) => {
+        this.setState(state => ({
+            ...state,
+            skills: [...state.skills, value],
+        }));
+    };
+
+    render() {
+        return (
+            <div>
+                <input
+                    className={'none'}
+                    name={'skills'}
+                    value={this.state.skills}
+                />
+                <ChipsInput
+                    id={'skillsChips'}
+                    label={'Область деятельности'}
+                    items={this.state.skills}
+                    deleteItem={this.deleteItem.bind(this)}
+                    addItem={this.addItem.bind(this)}
+                />
+            </div>
+        );
+    }
+}
+
 class AdditionalInformationComponent extends Component<{
     location: string;
     schedule: string;
     format: string;
+    skills: string[];
 }> {
     render() {
         return (
@@ -105,6 +154,9 @@ class AdditionalInformationComponent extends Component<{
                         value={this.props.format}
                     />
                 </div>
+                <div className={'col-12'}>
+                    <Skills skills={this.props.skills} />
+                </div>
             </div>
         );
     }
@@ -117,6 +169,7 @@ const AdditionalInformation = vacancyConnect(store => {
         location: state.location,
         schedule: state.hours,
         format: state.format,
+        skills: state.skills,
     };
 })(AdditionalInformationComponent);
 

@@ -45,6 +45,7 @@ export const vacancyService: Service = {
                     experience: formData.get('experience'),
                     hours: formData.get('schedule'),
                     format: formData.get('format'),
+                    skills: formData.get('skills').toString().split(','),
                 }),
             )
             .then(response => {
