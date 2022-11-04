@@ -429,6 +429,6 @@ export default profileConnect(store => {
 
     return {
         id: state.id,
-        profileType: state.profile_type,
+        profileType: state.profileType,
     };
 })(ProfileSettingsComponent);
