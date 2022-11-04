@@ -2,9 +2,20 @@ import network from '../lib/network';
 import { SERVER_URL, SERVER_URLS } from '../utils/constants';
 import { headers } from './headers';
 import { Service } from './types';
-import vacancy from '../views/Vacancy';
 
 export const vacancyService: Service = {
+    getAllVacancies: () => {
+        return network
+            .GET(SERVER_URLS.VACANCY, headers.jsonHeader)
+            .then(response => {
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            });
+    },
+
     getVacancyData: (vacancyID: string) => {
         return network
             .GET(SERVER_URLS.VACANCY + vacancyID, headers.jsonHeader)
