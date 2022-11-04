@@ -32,7 +32,7 @@ export default class Vacancies extends Component<
             .getAllVacancies()
             .then(body => {
                 this.setState(() => ({
-                    vacancies: body.vacancies,
+                    vacancies: body,
                 }));
             })
             .catch(err => console.error(err));
