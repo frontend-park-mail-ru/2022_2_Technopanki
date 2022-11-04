@@ -25,6 +25,7 @@ export const employerProfileService: Service = {
 
     // TODO: написать конвертер
     updateProfile: async (profileID: string, formData: FormData) => {
+        dispatch(startLoading());
         return await network
             .POST(
                 SERVER_URLS.USER,
@@ -51,6 +52,7 @@ export const employerProfileService: Service = {
                 }),
             )
             .then(response => {
+                dispatch(stopLoading());
                 if (response.status > 399) {
                     throw response.status;
                 }

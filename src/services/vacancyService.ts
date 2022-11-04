@@ -12,6 +12,7 @@ export const vacancyService: Service = {
             .GET(SERVER_URLS.VACANCIES, headers.jsonHeader)
             .then(response => {
                 if (response.status > 399) {
+                    dispatch(stopLoading());
                     throw response.status;
                 }
 
@@ -21,30 +22,37 @@ export const vacancyService: Service = {
     },
 
     getVacancyData: (vacancyID: string) => {
+        dispatch(startLoading());
         return network
             .GET(SERVER_URLS.VACANCY + vacancyID, headers.jsonHeader)
             .then(response => {
                 if (response.status > 399) {
+                    dispatch(stopLoading());
                     throw response.status;
                 }
 
+                dispatch(stopLoading());
                 return response.body;
             });
     },
 
     getVacancyHatData: (userID: string) => {
+        dispatch(startLoading());
         return network
             .GET(SERVER_URLS.USER_PREVIEW(userID), headers.jsonHeader)
             .then(response => {
                 if (response.status > 399) {
+                    dispatch(stopLoading());
                     throw response.status;
                 }
 
+                dispatch(stopLoading());
                 return response.body;
             });
     },
 
     updateVacancy: (vacancyID: string, formData: FormData) => {
+        dispatch(startLoading());
         return network
             .PUT(
                 SERVER_URLS.VACANCY + vacancyID,
