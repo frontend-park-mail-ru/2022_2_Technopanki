@@ -8,6 +8,7 @@ import Chips from '../UI-kit/chips/Chips';
 import VKIcon from '../../static/icons/logos/VK.svg';
 import FacebookIcon from '../../static/icons/logos/Facebook.svg';
 import TelegramIcon from '../../static/icons/logos/Telegram.svg';
+import RenderWithCondition from '../RenderWithCondition';
 
 export default class VacancySideBar extends Component<{
     salary: string;
@@ -41,17 +42,32 @@ export default class VacancySideBar extends Component<{
                         header: 'Информация о вакансии',
                         inside: (
                             <div className={'flex column g-16'}>
-                                <IconField
-                                    icon={MapIcon}
-                                    content={this.props.location}
+                                <RenderWithCondition
+                                    condition={!!this.props.location}
+                                    onSuccess={
+                                        <IconField
+                                            icon={MapIcon}
+                                            content={this.props.location}
+                                        />
+                                    }
                                 />
-                                <IconField
-                                    icon={CalendarIcon}
-                                    content={this.props.hours}
+                                <RenderWithCondition
+                                    condition={!!this.props.hours}
+                                    onSuccess={
+                                        <IconField
+                                            icon={CalendarIcon}
+                                            content={this.props.hours}
+                                        />
+                                    }
                                 />
-                                <IconField
-                                    icon={ClockIcon}
-                                    content={this.props.format}
+                                <RenderWithCondition
+                                    condition={!!this.props.format}
+                                    onSuccess={
+                                        <IconField
+                                            icon={ClockIcon}
+                                            content={this.props.format}
+                                        />
+                                    }
                                 />
                             </div>
                         ),

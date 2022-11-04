@@ -6,10 +6,17 @@ import VacancyDropdownResume from './VacancyDropdownResume';
 import Hat from '../../components/UI-kit/hat/Hat';
 import Link from '../../components/Link/Link';
 import { vacancyService } from '../../services/vacancyService';
+import { userConnect } from '../../store';
+import RenderWithCondition from '../../components/RenderWithCondition';
+import ButtonNotActive from '../../components/UI-kit/buttons/ButtonNotActive';
+import { UserState } from '../../store/user/types';
 
-export default class VacancyHat extends Component<
+class VacancyHat extends Component<
     {
         creatorID: string;
+        userID: string;
+        userType: string;
+        authorized: boolean;
     },
     {
         creatorImgSrc: string;
@@ -47,22 +54,56 @@ export default class VacancyHat extends Component<
                 rightSideContent={
                     <div className={'flex row flex-wrap g-12'}>
                         {/*TODO: добавить уловие по типу пользователя рендер кнопок*/}
-                        <Link
-                            to={'/vacancy/responses'}
-                            content={
-                                <Button>Посмотреть отклики на вакансию</Button>
+                        <RenderWithCondition
+                            condition={
+                                this.props.userID === this.props.creatorID
+                            }
+                            onSuccess={
+                                <Link
+                                    to={'/vacancy/responses'}
+                                    content={
+                                        <Button>
+                                            Посмотреть отклики на вакансию
+                                        </Button>
+                                    }
+                                />
                             }
                         />
-                        <Link
-                            to={'/vacancy/settings'}
-                            content={<Button>Настройки</Button>}
-                        />
-                        <Dropdown
-                            hidden={<VacancyDropdownResume resume={[]} />}
-                            content={
-                                <ButtonPrimary>Отправить резюме</ButtonPrimary>
+                        <RenderWithCondition
+                            condition={
+                                this.props.userID === this.props.creatorID
                             }
-                            direction={'right'}
+                            onSuccess={
+                                <Link
+                                    to={'/vacancy/settings'}
+                                    content={<Button>Настройки</Button>}
+                                />
+                            }
+                        />
+                        <RenderWithCondition
+                            condition={this.props.userType === 'applicant'}
+                            onSuccess={
+                                <Dropdown
+                                    hidden={
+                                        <VacancyDropdownResume resume={[]} />
+                                    }
+                                    content={
+                                        <ButtonPrimary>
+                                            Отправить резюме
+                                        </ButtonPrimary>
+                                    }
+                                    direction={'right'}
+                                />
+                            }
+                        />
+                        <RenderWithCondition
+                            condition={!this.props.authorized}
+                            onSuccess={
+                                <ButtonNotActive>
+                                    Зарегестрируйтесь или войдите чтобы
+                                    отправить резюме
+                                </ButtonNotActive>
+                            }
                         />
                     </div>
                 }
@@ -70,3 +111,15 @@ export default class VacancyHat extends Component<
         );
     }
 }
+
+export default userConnect((store, props) => {
+    const state: UserState = store.getState();
+    console.log(state);
+
+    return {
+        creatorID: props.creatorID,
+        userID: state.id,
+        userType: state.userType,
+        authorized: state.authorized,
+    };
+})(VacancyHat);

@@ -54,6 +54,10 @@
   font-weight: 500;
 }
 
+.btn__not-active {
+  background-color: var(--background-50);
+  color: var(--background-500);
+}
 
 .btn-arrow {
   height: 36px;

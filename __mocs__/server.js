@@ -65,7 +65,7 @@ app.get('/api/user/:id/preview', (req, res) => {
 app.get('/api/vacancy/:id', (req, res) => {
     res.json({
         id: req.params.id,
-        postedByUserID: '2',
+        postedByUserID: '1',
         jobType: 'hello',
         title: 'Фронтенд-разработчик (VK Play)',
         description:
