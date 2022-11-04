@@ -2,8 +2,8 @@ $screen-xsm: 576px;
 $screen-sm: 768px;
 $screen-md: 992px;
 $screen-lg: 1500px;
-$screen-xlg: 2000px;
-$screen-xxlg: 3656px;
+$screen-xl: 2000px;
+$screen-xxl: 3656px;
 
 .screen-responsive {
   @media (max-width: $screen-sm) {
@@ -15,10 +15,108 @@ $screen-xxlg: 3656px;
   @media (min-width: $screen-md) and (max-width: $screen-lg){
     padding: var(--padding-screen-lg);
   }
-  @media (min-width: $screen-lg) and (max-width: $screen-xlg){
+  @media (min-width: $screen-lg) and (max-width: $screen-xl){
     padding: var(--padding-screen-xlg);
   }
-  @media (min-width: $screen-xlg) and (max-width: $screen-xxlg){
+  @media (min-width: $screen-xl) and (max-width: $screen-xxl){
     padding: var(--padding-screen-xxlg);
+  }
+}
+
+.columns {
+  grid-template-columns: repeat(12, 1fr);
+}
+
+@mixin sizes($screen) {
+  &-auto {
+    grid-column: span auto;
+  }
+  &-0 {
+    @media (min-width: $screen) {
+      grid-column: auto;
+      visibility: hidden;
+    }
+  }
+  &-1 {
+    @media (min-width: $screen) {
+      grid-column: span 1;
+      visibility: visible;
+    }
+  }
+  &-2 {
+    @media (min-width: $screen) {
+      grid-column: span 2;
+      visibility: visible;
+    }
+  }
+  &-3 {
+    @media (min-width: $screen) {
+      grid-column: span 3;
+      visibility: visible;
+    }
+  }
+  &-4 {
+    @media (min-width: $screen) {
+      grid-column: span 4;
+      visibility: visible;
+    }
+  }
+  &-5 {
+    @media (min-width: $screen) {
+      grid-column: span 5;
+      visibility: visible;
+    }
+  }
+  &-6 {
+    @media (min-width: $screen) {
+      grid-column: span 6;
+      visibility: visible;
+    }
+  }
+  &-7{
+    @media (min-width: $screen) {
+      grid-column: span 7;
+      visibility: visible;
+    }
+  }
+  &-8{
+    @media (min-width: $screen) {
+      grid-column: span 8;
+      visibility: visible;
+    }
+  }
+  &-9{
+    @media (min-width: $screen) {
+      grid-column: span 9;
+      visibility: visible;
+    }
+  }
+  &-10{
+    @media (min-width: $screen) {
+      grid-column: span 10;
+      visibility: visible;
+    }
+  }
+  &-11{
+    @media (min-width: $screen) {
+      grid-column: span 11;
+      visibility: visible;
+    }
+  }
+  &-12{
+    @media (min-width: $screen) {
+      grid-column: span 12;
+      visibility: visible;
+    }
+  }
+}
+
+.col {
+  @include sizes(0);
+  &-sm {
+    @include sizes($screen-sm);
+  }
+  &-md {
+    @include sizes($screen-md);
   }
 }

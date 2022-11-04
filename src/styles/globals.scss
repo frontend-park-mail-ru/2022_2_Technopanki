@@ -1,5 +1,6 @@
 @import './screens';
 @import './fonts';
+@import './columns';
 
 :root[theme='dark'] {
   --background-900: #fff;
@@ -81,7 +82,7 @@
 
   --padding-screen-sm: 0 16px;
   --padding-screen-md: 0 120px;
-  --padding-screen-lg: 0 240px;
+  --padding-screen-lg: 0 10vw;
   --padding-screen-xlg: 0 15vw;
   --padding-screen-xxlg: 0 25vw;
 
@@ -98,8 +99,8 @@ body {
   color: var(--background-900);
   font-family: 'Inter';
   left: 0;
-  padding-top: var(--header-height);
   margin: 0;
+  overflow: hidden;
 }
 
 h1 {
@@ -154,6 +155,10 @@ h6 {
 
 p {
   margin: 0;
+}
+
+.hidden {
+  overflow: hidden;
 }
 
 .x-0 {
@@ -247,6 +252,9 @@ p {
   &-24 {
     gap: 24px
   }
+  &-32 {
+    gap: 32px;
+  }
   &-40 {
     gap: 40px
   }
@@ -299,6 +307,10 @@ p {
   flex-direction: row;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .flex-grow {
   &-1 {
     flex-grow: 1;
@@ -339,6 +351,10 @@ p {
   &-space-around {
     justify-content: space-around;
   }
+}
+
+.grid {
+  display: grid;
 }
 
 .cursor {
@@ -448,7 +464,7 @@ p {
     border-radius: var(--border-radius-xl);
   }
   &-max {
-    border-radius: 100%;
+    border-radius: 50%;
   }
 }
 

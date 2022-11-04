@@ -14,6 +14,7 @@
   border-radius: var(--border-radius-md);
   transition: var(--transition-sfast);
   outline: none;
+  font-size: 14px;
   &::placeholder {
     font-size: var(--input-font-size);
   }
@@ -30,4 +31,16 @@
 .label {
   font-size: var(--input-font-size);
   color: var(--background-600);
+}
+
+.icon_cursor{
+  padding-left: 45px;
+}
+
+.icon {
+  width: 16px;
+  padding-top: 19px;
+  padding-left: 16px;
+  position: absolute;
+  cursor: pointer;
 }
