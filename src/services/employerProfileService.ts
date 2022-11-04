@@ -3,12 +3,13 @@ import { SERVER_URLS } from '../utils/constants';
 import { Service } from './types';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
+import { requestHeaders } from './headers';
 
 export const employerProfileService: Service = {
     getProfileData: async (profileID: string) => {
         dispatch(startLoading());
         return await network
-            .GET(SERVER_URLS.USER_SAFE + profileID, headers.jsonHeader)
+            .GET(SERVER_URLS.USER_SAFE + profileID, requestHeaders.jsonHeader)
             .then(response => {
                 if (response.status > 399) {
                     throw response.status;

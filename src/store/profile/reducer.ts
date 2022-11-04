@@ -15,11 +15,9 @@ export const profileReducer: Reducer<ProfileState> = (
                 name: action.state.company_name,
                 status: action.state.status,
                 description: action.state.description,
-                phone: action.state.phone,
+                phone: action.state.contact_number,
                 email: action.state.email,
-                location: action.state.company_city,
-                size: action.state.company_size.toString(),
-                fieldOfActivity: action.state.field_of_activity,
+                // fieldOfActivity: action.state.field_of_activity,
                 socialNetworks: {
                     vk: action.state.socialNetworks.vk,
                     facebook: action.state.socialNetworks.facebook,

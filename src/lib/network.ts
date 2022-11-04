@@ -1,17 +1,25 @@
 import { requestHeaders } from '../services/headers';
 
 class Network {
+    // TODO
+    // private getResponse = (
+    //     method: string,
+    //     url: string,
+    //     cors: boolean = true,
+    //     headers: HeadersInit,
+    //     credentials: boolean,
+    // ) => {};
+
     async GET(
         url: string,
-        cors: boolean = true,
         headers: HeadersInit = requestHeaders.jsonHeader,
         credentials: boolean = true,
     ) {
         const response = await fetch(url, {
             method: 'GET',
             headers: headers,
-            mode: cors ? 'cors' : 'no-cors',
-            credentials: credentials ? 'include' : 'omit',
+            mode: 'cors',
+            credentials: 'include',
         });
 
         return {
@@ -32,8 +40,8 @@ class Network {
             method: 'PUT',
             headers: headers,
             body: payload,
-            mode: cors ? 'cors' : 'no-cors',
-            credentials: credentials ? 'include' : 'omit',
+            mode: 'cors',
+            credentials: 'include',
         });
 
         return {
@@ -54,8 +62,8 @@ class Network {
             method: 'POST',
             headers: headers,
             body: payload,
-            mode: cors ? 'cors' : 'no-cors',
-            credentials: credentials ? 'include' : 'omit',
+            mode: 'cors',
+            credentials: 'include',
         });
 
         return {
@@ -74,8 +82,8 @@ class Network {
         const response = await fetch(url, {
             method: 'POST',
             headers: headers,
-            mode: cors ? 'cors' : 'no-cors',
-            credentials: credentials ? 'include' : 'omit',
+            mode: 'cors',
+            credentials: 'include',
         });
 
         return {

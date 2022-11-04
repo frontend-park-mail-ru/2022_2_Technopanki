@@ -3,12 +3,13 @@ import { SERVER_URLS } from '../utils/constants';
 import { Service } from './types';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
+import { requestHeaders } from './headers';
 
 export const vacancyService: Service = {
     getAllVacancies: () => {
         dispatch(startLoading());
         return network
-            .GET(SERVER_URLS.VACANCIES, headers.jsonHeader)
+            .GET(SERVER_URLS.VACANCIES, requestHeaders.jsonHeader)
             .then(response => {
                 if (response.status > 399) {
                     dispatch(stopLoading());
@@ -23,7 +24,7 @@ export const vacancyService: Service = {
     getVacancyData: (vacancyID: string) => {
         dispatch(startLoading());
         return network
-            .GET(SERVER_URLS.VACANCY + vacancyID, headers.jsonHeader)
+            .GET(SERVER_URLS.VACANCY + vacancyID, requestHeaders.jsonHeader)
             .then(response => {
                 if (response.status > 399) {
                     dispatch(stopLoading());
@@ -38,7 +39,7 @@ export const vacancyService: Service = {
     getVacancyHatData: (userID: string) => {
         dispatch(startLoading());
         return network
-            .GET(SERVER_URLS.USER_PREVIEW(userID), headers.jsonHeader)
+            .GET(SERVER_URLS.USER_PREVIEW(userID), requestHeaders.jsonHeader)
             .then(response => {
                 if (response.status > 399) {
                     dispatch(stopLoading());
