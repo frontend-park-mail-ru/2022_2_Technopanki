@@ -6,9 +6,9 @@ import { startLoading, stopLoading } from '../store/loading/actions';
 import { requestHeaders } from './headers';
 
 export const vacancyService: Service = {
-    getAllVacancies: () => {
+    getAllVacancies: async () => {
         dispatch(startLoading());
-        return network
+        return await network
             .GET(SERVER_URLS.VACANCIES, requestHeaders.jsonHeader)
             .then(response => {
                 if (response.status > 399) {
@@ -21,9 +21,9 @@ export const vacancyService: Service = {
             });
     },
 
-    getVacancyData: (vacancyID: string) => {
+    getVacancyData: async (vacancyID: string) => {
         dispatch(startLoading());
-        return network
+        return await network
             .GET(SERVER_URLS.VACANCY + vacancyID, requestHeaders.jsonHeader)
             .then(response => {
                 if (response.status > 399) {
@@ -36,9 +36,9 @@ export const vacancyService: Service = {
             });
     },
 
-    getVacancyHatData: (userID: string) => {
+    getVacancyHatData: async (userID: string) => {
         dispatch(startLoading());
-        return network
+        return await network
             .GET(SERVER_URLS.USER_PREVIEW(userID), requestHeaders.jsonHeader)
             .then(response => {
                 if (response.status > 399) {
@@ -51,9 +51,9 @@ export const vacancyService: Service = {
             });
     },
 
-    updateVacancy: (vacancyID: string, formData: FormData) => {
+    updateVacancy: async (vacancyID: string, formData: FormData) => {
         dispatch(startLoading());
-        return network
+        return await network
             .PUT(
                 SERVER_URLS.VACANCY + vacancyID,
                 JSON.stringify({
@@ -79,8 +79,8 @@ export const vacancyService: Service = {
             });
     },
 
-    createVacancy: (formData: FormData) => {
-        return network
+    createVacancy: async (formData: FormData) => {
+        return await network
             .POST(
                 SERVER_URLS.VACANCY_NEW,
                 JSON.stringify({
