@@ -99,11 +99,22 @@ app.get('/api/user/safety/:id', (req, res) => {
 });
 
 app.get('/api/user/:id/preview', (req, res) => {
-    res.json({
+    const applicantPreview = {
         creator_img_src: './',
-        company_name: 'VK',
-        status: 'Место встречи профессионалов',
-    });
+        name: 'Sonya',
+        surname: 'Sitnichenko',
+        status: 'BMSTU student'
+    }
+
+    if (req.params.id === '3') {
+        res.json(applicantPreview);
+    } else {
+        res.json({
+            creator_img_src: './',
+            company_name: 'VK',
+            status: 'Место встречи профессионалов',
+        });
+    }
 });
 
 app.get('/api/vacancy/:id', (req, res) => {
@@ -176,7 +187,7 @@ app.post('/api/image', (req, res) => {
 app.get('/api/resume/:id', (req, res) => {
     res.json({
         id: req.params.id,
-        postedByUserID: 2,
+        postedByUserID: 3,
         title: 'Фронтенд-разработчик',
         description:
             'В последние годы проходил обучение без возможности работать. Владею продвинутыми знаниями Bootstrap, Javascript, Vue.js. Работал с нативным PHP, MVC-фреймворком Laravel, Android Studio\n' +
