@@ -1,0 +1,39 @@
+@import '../../styles/screens';
+
+.description {
+  padding-top: 64px;
+  padding-left: 64px;
+  overflow: hidden;
+  // IMPORTANT: we explicitly specify the color
+  background-color: #f8f8f8;
+}
+
+.description_text {
+  padding-right: 64px;
+  @media (min-width: $screen-lg) {
+    padding-right: 10vw;
+  }
+  @media (min-width: $screen-xl) {
+    padding-right: 20vw;
+  }
+}
+
+.description_header {
+  color: #33333c;
+}
+
+.description_p {
+  color: #595965;
+}
+
+.description_illustration {
+  width: 100%;
+  bottom: -24px;
+  > svg {
+    width: 100%;
+    max-height: 600px;
+    @media (max-height: 750px) {
+      display: none;
+    }
+  }
+}

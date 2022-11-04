@@ -14,7 +14,7 @@ import TextBlock from './components/UI-kit/text/TextBlock';
 import Card from './Card';
 // Router.addRoutePath('/', Main);
 // Router.addRoutePath('/signup', SignUp);
-// Router.addRoutePath('/signin', SignIn);
+// Router.addRoutePath('/signin', SignUp);
 // Router.addRoutePath('/vacancies', Vacancies);
 //
 // window.addEventListener('popstate', () => {

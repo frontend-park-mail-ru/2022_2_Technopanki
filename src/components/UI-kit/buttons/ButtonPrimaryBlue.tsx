@@ -2,7 +2,7 @@ import { Component } from '../../../../Reacts';
 import styles from './button.module.scss';
 
 export default class ButtonPrimaryBlue extends Component<{
-    onClick: Function;
+    onClick?: Function;
     children: string;
 }> {
     render() {

@@ -54,4 +54,10 @@ export const attributes: { [key: string]: string } = {
     height: 'height',
     width: 'width',
     dangerouslySetInnerHTML: 'dangerouslySetInnerHTML',
+    htmlFor: 'htmlFor',
+    name: 'name',
+    value: 'value',
+    checked: 'checked',
+    for: 'for',
+    required: 'required',
 };

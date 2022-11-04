@@ -12,6 +12,8 @@
   box-shadow: var(--shadow-grey-sm);
   border-radius: var(--border-radius-md);
   transition: var(--transition-sfast);
+  font-weight: 600;
+  cursor: pointer;
   &:hover {
     box-shadow: var(--shadow-grey-md);
   }
@@ -22,7 +24,21 @@
   border: var(--border-blue);
   color: var(--white);
   box-shadow: var(--shadow-blue-sm);
+  border: var(--border-blue);
   &:hover {
+    background-color: var(--primary-blue-darker);
+    box-shadow: var(--shadow-blue-md);
+  }
+}
+
+.btn-primary-blue__big {
+  width: 100%;
+  padding: var(--padding-16);
+  color: var(--white);
+  border: var(--border-blue);
+  background-color: var(--primary-blue);
+  &:hover {
+    background-color: var(--primary-blue-darker);
     box-shadow: var(--shadow-blue-md);
   }
 }
@@ -32,6 +48,7 @@
   color: var(--background-0);
   border: var(--border-dark);
 }
+
 
 .btn-arrow {
   height: 36px;

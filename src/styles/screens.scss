@@ -34,79 +34,79 @@ $screen-xxl: 3656px;
   &-0 {
     @media (min-width: $screen) {
       grid-column: auto;
-      visibility: hidden;
+      display: none;
     }
   }
   &-1 {
     @media (min-width: $screen) {
       grid-column: span 1;
-      visibility: visible;
+      display: flex;
     }
   }
   &-2 {
     @media (min-width: $screen) {
       grid-column: span 2;
-      visibility: visible;
+      display: flex;
     }
   }
   &-3 {
     @media (min-width: $screen) {
       grid-column: span 3;
-      visibility: visible;
+      display: flex;
     }
   }
   &-4 {
     @media (min-width: $screen) {
       grid-column: span 4;
-      visibility: visible;
+      display: flex;
     }
   }
   &-5 {
     @media (min-width: $screen) {
       grid-column: span 5;
-      visibility: visible;
+      display: flex;
     }
   }
   &-6 {
     @media (min-width: $screen) {
       grid-column: span 6;
-      visibility: visible;
+      display: flex;
     }
   }
   &-7{
     @media (min-width: $screen) {
       grid-column: span 7;
-      visibility: visible;
+      display: flex;
     }
   }
   &-8{
     @media (min-width: $screen) {
       grid-column: span 8;
-      visibility: visible;
+      display: flex;
     }
   }
   &-9{
     @media (min-width: $screen) {
       grid-column: span 9;
-      visibility: visible;
+      display: flex;
     }
   }
   &-10{
     @media (min-width: $screen) {
       grid-column: span 10;
-      visibility: visible;
+      display: flex;
     }
   }
   &-11{
     @media (min-width: $screen) {
       grid-column: span 11;
-      visibility: visible;
+      display: flex;
     }
   }
   &-12{
     @media (min-width: $screen) {
       grid-column: span 12;
-      visibility: visible;
+      display: flex;
     }
   }
 }

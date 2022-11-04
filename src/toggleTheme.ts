@@ -1,14 +1,14 @@
 export const setTheme = () => {
     const theme = localStorage.getItem('theme') ?? 'light';
     if (theme === 'light') {
-        // @ts-ignore we have :root on page => it can not be null
+        // @ts-ignore
         document.querySelector(':root').removeAttribute('theme');
-        // @ts-ignore we have :root on page => it can not be null
+        // @ts-ignore
         document.querySelector(':root').setAttribute('theme', 'light');
     } else {
-        // @ts-ignore we have :root on page => it can not be null
+        // @ts-ignore
         document.querySelector(':root').removeAttribute('theme');
-        // @ts-ignore we have :root on page => it can not be null
+        // @ts-ignore
         document.querySelector(':root').setAttribute('theme', 'dark');
     }
 };

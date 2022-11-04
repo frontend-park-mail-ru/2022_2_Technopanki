@@ -1,0 +1,19 @@
+@import '../../styles/screens';
+
+.form_block {
+  @media (min-width: $screen-lg) {
+    min-width: 360px;
+    padding-right: 180px;
+  }
+}
+
+.form_link {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--background-500);
+  &:hover {
+    color: var(--background-700);
+  }
+}
