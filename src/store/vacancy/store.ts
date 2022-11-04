@@ -3,14 +3,14 @@ import { VacancyState } from './type';
 import { vacancyReducer } from './reducer';
 
 export const defaultVacancy: VacancyState = {
-    id: 'test',
-    postedByUserID: 'test',
-    jobType: 'test',
-    title: 'test',
-    createdDate: 'test',
-    description: 'test',
-    salary: 'test',
-    location: 'test',
+    id: '',
+    postedByUserID: '',
+    jobType: '',
+    title: '',
+    createdDate: '',
+    description: '',
+    salary: '',
+    location: '',
     isActive: true,
     tasks: '',
     requirements: '',

@@ -52,6 +52,13 @@ export const ROUTER_PATHS: { path: PathType; component: VNodeType }[] = [
     },
     {
         path: {
+            path: '/vacancy/new',
+            validator: (url: string) => url === '/vacancy/new',
+        },
+        component: <VacancySettings isNew={true} />,
+    },
+    {
+        path: {
             path: '/vacancy/settings',
             validator: (url: string) => url === '/vacancy/settings',
         },

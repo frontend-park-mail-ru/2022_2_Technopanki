@@ -22,6 +22,7 @@ import { EmployerProfile } from '../../store/profile/types';
 import { dispatch, profileConnect } from '../../store';
 import { profileActions } from '../../store/profile/actions';
 import Preloader from '../../components/UI-kit/prelodaer/Preloader';
+import { vacancyActions } from '../../store/vacancy/actions';
 
 class Profile extends Component<
     EmployerProfile,
@@ -164,9 +165,17 @@ class Profile extends Component<
                             <h6>Вакансии</h6>
                             <div className={'flex column g-16'}>
                                 <button className={styles.vacancies_button}>
-                                    <ArrowButtonWithText>
-                                        Добавить вакансию
-                                    </ArrowButtonWithText>
+                                    <Link
+                                        to={'/vacancy/new'}
+                                        onClick={() =>
+                                            dispatch(vacancyActions.clear())
+                                        }
+                                        content={
+                                            <ArrowButtonWithText>
+                                                Добавить вакансию
+                                            </ArrowButtonWithText>
+                                        }
+                                    />
                                 </button>
                                 <div className={'flex column g-16'}>
                                     {this.state.vacancies.map(vacancy => (

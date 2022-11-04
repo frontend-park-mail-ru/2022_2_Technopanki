@@ -235,7 +235,7 @@ const VacancyDescription = vacancyConnect(store => {
 })(VacancyDescriptionComponent);
 
 class VacancySettings extends Component<
-    { id: string },
+    { id: string; isNew?: boolean },
     { sections: FormSectionType[] }
 > {
     state = {
@@ -259,12 +259,18 @@ class VacancySettings extends Component<
         e.preventDefault();
         const formData = new FormData(e.target);
 
-        vacancyService
-            .updateVacancy(this.props.id, formData)
-            .then(() => {
-                navigator.navigate('/vacancy/' + this.props.id);
-            })
-            .catch(err => console.error(err));
+        if (this.props.isNew) {
+            vacancyService
+                .createVacancy(formData)
+                .then(body => navigator.navigate('/vacancy/' + body.id));
+        } else {
+            vacancyService
+                .updateVacancy(this.props.id, formData)
+                .then(() => {
+                    navigator.navigate('/vacancy/' + this.props.id);
+                })
+                .catch(err => console.error(err));
+        }
     };
 
     render() {
@@ -298,6 +304,7 @@ class VacancySettings extends Component<
     }
 }
 
-export default vacancyConnect(store => ({
+export default vacancyConnect((store, props) => ({
     id: store.getState().id,
+    isNew: props.isNew,
 }))(VacancySettings);

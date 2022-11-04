@@ -56,4 +56,32 @@ export const vacancyService: Service = {
                 return response.body;
             });
     },
+
+    createVacancy: (formData: FormData) => {
+        return network
+            .POST(
+                SERVER_URLS.VACANCY_NEW,
+                headers.jsonHeader,
+                JSON.stringify({
+                    title: formData.get('title'),
+                    description: formData.get('description'),
+                    tasks: formData.get('tasks'),
+                    requirements: formData.get('requirements'),
+                    extra: formData.get('extra'),
+                    salary: formData.get('salary'),
+                    location: formData.get('location'),
+                    experience: formData.get('experience'),
+                    hours: formData.get('schedule'),
+                    format: formData.get('format'),
+                    skills: formData.get('skills').toString().split(','),
+                }),
+            )
+            .then(response => {
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            });
+    },
 };

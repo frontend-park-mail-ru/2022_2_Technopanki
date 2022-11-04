@@ -3,7 +3,7 @@ const cors = require('cors');
 const PORT = 8080;
 
 const users = require('./user.js');
-let { defaultVacancy } = require('./vacancy.js');
+let { defaultVacancy, vacancies } = require('./vacancy.js');
 
 const corsOptions = {
     credentials: true, // This is important.
@@ -78,31 +78,18 @@ app.put('/api/vacancy/:id', (req, res) => {
     res.status(200).send();
 });
 
-app.get('/api/vacancy/new', (req, res) => {
-    res.json({
-        id: '2',
-        postedByUserID: '2',
-        jobType: 'hello',
-        title: 'Это пример новой вакансии!\n',
-        createdDate: '21.02.2022',
-        description: 'Hello world!',
-        salary: '240.000',
-        location: 'Москва',
-        isActive: true,
-    });
+app.post('/api/vacancy/new', (req, res) => {
+    vacancies.push(req.body);
+    console.log(vacancies[vacancies.length - 1]);
 
     res.status(200).send();
 });
 
 app.post('/api/image', (req, res) => {
     console.log(req.data);
-    console.log(
-        res.json({
-            payload: 'hello world!',
-        }),
-    );
-
-    res.status(200).send();
+    res.json({
+        id: vacancies.length,
+    });
 });
 
 app.listen(PORT);
