@@ -173,4 +173,31 @@ app.post('/api/image', (req, res) => {
     res.status(200).send();
 });
 
+app.get('/api/resume/:id', (req, res) => {
+    res.json({
+        id: req.params.id,
+        postedByUserID: 2,
+        title: 'Фронтенд-разработчик',
+        description:
+            'В последние годы проходил обучение без возможности работать. Владею продвинутыми знаниями Bootstrap, Javascript, Vue.js. Работал с нативным PHP, MVC-фреймворком Laravel, Android Studio\n' +
+            'Мой GitHub: https://github.com/IvanProtsenko\n' +
+            'Реализовал проект в рамках Школы IT-решений. Проходил месячную стажировку в КРОК инкорпорейтед\n' +
+            'Более года работал с проектами на node.js,\n' +
+            'Работал с mongodb, web-socket, express.js, участвовал в исправлении npm-модуля\n' +
+            'Имеется опыт работы с школьниками, читаю лекции в технопарке МАИ\n' +
+            'Дважды призёр Rucode',
+        university:
+            'МГТУ им. Баумана',
+        faculty:
+            'Информационное управление, Информационные системы и технологии',
+        status:
+            'Неоконченное высшее',
+        // For sidebar
+        location: 'Москва',
+        dateOfBirth: '21.02.2002',
+        skills: ['JavaScript', 'Git', 'CSS3', 'HTML5', 'React'],
+        isActive: true,
+    });
+});
+
 app.listen(PORT);
