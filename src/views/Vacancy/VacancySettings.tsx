@@ -138,9 +138,7 @@ export default class VacancySettings extends Component<
                     <div className={`col-12 mt-header`}>
                         <SettingsHat
                             imgSrc={'./'}
-                            name={'VK'}
-                            surname={''}
-                            description={'Место встречи профессионалов'}
+                            status={'Место встречи профессионалов'}
                         />
                     </div>
                     <h3 className={'col-12'}>Настройки вакансии</h3>

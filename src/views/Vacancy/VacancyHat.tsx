@@ -114,7 +114,6 @@ class VacancyHat extends Component<
 
 export default userConnect((store, props) => {
     const state: UserState = store.getState();
-    console.log(state);
 
     return {
         creatorID: props.creatorID,
