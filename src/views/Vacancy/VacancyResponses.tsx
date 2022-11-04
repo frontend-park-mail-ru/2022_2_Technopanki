@@ -6,8 +6,11 @@ import styles from './vacancy.module.scss';
 import ResumeList from '../../components/UI-kit/resumeList/ResumeList';
 import VacancySideBar from '../../components/sidebars/VacancySideBar';
 import Chips from '../../components/UI-kit/chips/Chips';
+import { vacancyConnect } from '../../store';
 
-export default class VacancyResponses extends Component {
+class VacancyResponses extends Component<{
+    title: string;
+}> {
     state = {
         responses: [
             {
@@ -132,9 +135,9 @@ export default class VacancyResponses extends Component {
                     <div className={`col-12 ${styles.header}`}>
                         <VacancyResponsesHat />
                     </div>
-                    <h3 className={'col-12'}>Отклики на вакансию</h3>
+                    <h3 className={'col-12'}>{this.props.title}</h3>
                     <div className={'col-12 col-md-9 column g-16'}>
-                        <h6>Фронтенд-разработчик (VK Play)</h6>
+                        <h6>Отклики на вакансию</h6>
                         <ResumeList resume={this.state.responses} />
                     </div>
                     <div className={'col-12 col-md-3'}>
@@ -146,3 +149,9 @@ export default class VacancyResponses extends Component {
         );
     }
 }
+
+export default vacancyConnect(store => {
+    return {
+        title: store.getState().title,
+    };
+})(VacancyResponses);

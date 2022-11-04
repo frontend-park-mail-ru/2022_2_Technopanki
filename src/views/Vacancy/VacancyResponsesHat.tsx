@@ -2,8 +2,9 @@ import { Component } from '../../../Reacts';
 import Hat from '../../components/UI-kit/hat/Hat';
 import Button from '../../components/UI-kit/buttons/Button';
 import Link from '../../components/Link/Link';
-import { userConnect } from '../../store';
+import { profileConnect, userConnect } from '../../store';
 import { UserState } from '../../store/user/types';
+import { ProfileState } from '../../store/profile/types';
 
 class VacancyResponsesHat extends Component<{
     name: string;
@@ -35,12 +36,12 @@ class VacancyResponsesHat extends Component<{
     }
 }
 
-export default userConnect((store, props) => {
-    const state: UserState = store.getState();
+export default profileConnect((store, props) => {
+    const state: ProfileState = store.getState();
 
     return {
         name: state.name,
-        status: props.status,
-        imgSrc: props.imgSrc,
+        status: state.status,
+        imgSrc: state.avatarSrc,
     };
 })(VacancyResponsesHat);
