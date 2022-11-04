@@ -2,7 +2,6 @@ import network from '../lib/network';
 import { SERVER_URLS } from '../utils/constants';
 import { headers } from './headers';
 import { Service } from './types';
-import { ProfileState } from '../store/profile/types';
 
 export const employerProfileService: Service = {
     getProfileData: async (profileID: string) => {
@@ -22,6 +21,7 @@ export const employerProfileService: Service = {
 
     // TODO: написать конвертер
     updateProfile: async (profileID: string, formData: FormData) => {
+        console.log(formData.get('field_of_activity'));
         return await network
             .POST(
                 SERVER_URLS.USER,
@@ -36,6 +36,10 @@ export const employerProfileService: Service = {
                     email: formData.get('email'),
                     company_city: formData.get('location'),
                     company_size: 10000,
+                    field_of_activity: formData
+                        .get('field_of_activity')
+                        .toString()
+                        .split(','),
                     socialNetworks: {
                         vk: formData.get('vk'),
                         facebook: formData.get('facebook'),

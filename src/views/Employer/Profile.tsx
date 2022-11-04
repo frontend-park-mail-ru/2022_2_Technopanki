@@ -96,28 +96,6 @@ class Profile extends Component<
         employerProfileService.getProfileData(employerID).then(body => {
             dispatch(profileActions.update({ ...body, id: employerID }));
         });
-        // employerProfileService.getProfileData(employerID).then(body => {
-        //     this.setState(state => ({
-        //         ...state,
-        //         profile: {
-        //             ...props,
-        //             id: body.id,
-        //             name: body.company_name,
-        //             status: body.status,
-        //             description: body.description,
-        //             phone: body.phone,
-        //             email: body.email,
-        //             companyCity: body.company_city,
-        //             companySize: body.company_size.toString(),
-        //             fieldOfActivity: body.field_of_activity,
-        //             socialNetworks: {
-        //                 vk: body.socialNetworks.vk,
-        //                 facebook: body.socialNetworks.facebook,
-        //                 telegram: body.socialNetworks.telegram,
-        //             },
-        //         },
-        //     }));
-        // });
     }
 
     componentDidMount() {

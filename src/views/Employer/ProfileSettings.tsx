@@ -21,6 +21,7 @@ import { defaultProfileState } from '../../store/profile/store';
 import { EmployerProfile } from '../../store/profile/types';
 import { profileConnect } from '../../store';
 import Textarea from '../../components/UI-kit/forms/inputs/Textarea';
+import ChipsInput from '../../components/UI-kit/forms/inputs/ChipsInput';
 
 class AvatarSettingsComponent extends Component<
     { previewSrc: string },
@@ -70,6 +71,55 @@ const AvatarSettings = profileConnect(store => {
     };
 })(AvatarSettingsComponent);
 
+class FieldOfActivity extends Component<
+    { fieldOfActivity: string[] },
+    {
+        fieldOfActivity: string[];
+    }
+> {
+    state = {
+        fieldOfActivity: this.props.fieldOfActivity,
+    };
+
+    deleteItem = (index: number) => {
+        console.log(this.state);
+        this.setState(state => ({
+            ...state,
+            fieldOfActivity: [
+                ...state.fieldOfActivity.slice(0, index),
+                ...state.fieldOfActivity.slice(index + 1),
+            ],
+        }));
+        console.log(this.state);
+    };
+
+    addItem = (value: string) => {
+        this.setState(state => ({
+            ...state,
+            fieldOfActivity: [...state.fieldOfActivity, value],
+        }));
+    };
+
+    render() {
+        return (
+            <div>
+                <input
+                    className={'none'}
+                    name={'field_of_activity'}
+                    value={this.state.fieldOfActivity}
+                />
+                <ChipsInput
+                    id={'fieldOfActivity'}
+                    label={'Область деятельности'}
+                    items={this.state.fieldOfActivity}
+                    deleteItem={this.deleteItem.bind(this)}
+                    addItem={this.addItem.bind(this)}
+                />
+            </div>
+        );
+    }
+}
+
 class AboutCompanyComponent extends Component<{
     name: string;
     status: string;
@@ -77,9 +127,9 @@ class AboutCompanyComponent extends Component<{
     location: string;
     phone: string;
     email: string;
+    fieldOfActivity: string[];
 }> {
     render() {
-        console.log(this.props);
         return (
             <div className={'columns g-16'}>
                 <div className={'col-12'}>
@@ -147,6 +197,11 @@ class AboutCompanyComponent extends Component<{
                         required={true}
                     />
                 </div>
+                <div className={'col-12'}>
+                    <FieldOfActivity
+                        fieldOfActivity={this.props.fieldOfActivity}
+                    />
+                </div>
             </div>
         );
     }
@@ -162,6 +217,7 @@ const AboutCompany = profileConnect(store => {
         location: state.location,
         phone: state.phone,
         email: state.email,
+        fieldOfActivity: state.fieldOfActivity,
     };
 })(AboutCompanyComponent);
 
