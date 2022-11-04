@@ -9,17 +9,24 @@ import Description from '../../components/auth/Description';
 import EmployerProfileSideBar from '../../components/sidebars/EmployerProfileSideBar';
 import Textarea from '../../components/UI-kit/forms/inputs/Textarea';
 import Footer from '../../components/UI-kit/footer/Footer';
+import { vacancyConnect } from '../../store';
+import { VacancyState } from '../../store/vacancy/type';
 
-class AboutVacancy extends Component {
+class AboutVacancyComponent extends Component<{
+    title: string;
+    salary: string;
+    experience: string;
+}> {
     render() {
         return (
             <div className={'flex column g-16'}>
                 <Input
-                    id={'name'}
+                    id={'title'}
                     type={'text'}
                     placeholder={'Фронтенд-разработчик (VK Play)'}
                     label={'Название вакансии'}
-                    name={'employer_name'}
+                    name={'title'}
+                    value={this.props.title}
                 />
                 <div className={'columns g-24'}>
                     <div className={'col-12 col-md-4'}>
@@ -27,8 +34,9 @@ class AboutVacancy extends Component {
                             id={'salary'}
                             type={'text'}
                             placeholder={'100.000'}
-                            label={'Заработная плата'}
+                            label={'Заработная плата (руб/мес)'}
                             name={'salary'}
+                            value={this.props.salary}
                         />
                     </div>
                     <div className={'col-12 col-md-4'}>
@@ -38,6 +46,7 @@ class AboutVacancy extends Component {
                             placeholder={'3-6'}
                             label={'Требуемый опыт работы'}
                             name={'experience'}
+                            value={this.props.experience}
                         />
                     </div>
                 </div>
@@ -46,17 +55,32 @@ class AboutVacancy extends Component {
     }
 }
 
-class AdditionalInformation extends Component {
+const AboutVacancy = vacancyConnect((store, props) => {
+    const state: VacancyState = store.getState();
+
+    return {
+        title: state.title,
+        salary: state.salary,
+        experience: state.experience,
+    };
+})(AboutVacancyComponent);
+
+class AdditionalInformationComponent extends Component<{
+    location: string;
+    schedule: string;
+    format: string;
+}> {
     render() {
         return (
             <div className={'columns g-24'}>
                 <div className={'col-12 col-md-4'}>
                     <Input
-                        id={'sity'}
+                        id={'location'}
                         type={'text'}
                         placeholder={'Москва'}
                         label={'Город работы'}
-                        name={'sity'}
+                        name={'location'}
+                        value={this.props.location}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -66,6 +90,7 @@ class AdditionalInformation extends Component {
                         placeholder={'40 часов в неделю'}
                         label={'График работы'}
                         name={'schedule'}
+                        value={this.props.schedule}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -75,6 +100,7 @@ class AdditionalInformation extends Component {
                         placeholder={'Смешанный формат'}
                         label={'Формат работы'}
                         name={' format'}
+                        value={this.props.format}
                     />
                 </div>
             </div>
@@ -82,30 +108,76 @@ class AdditionalInformation extends Component {
     }
 }
 
-class VacancyDescription extends Component {
+const AdditionalInformation = vacancyConnect(store => {
+    const state: VacancyState = store.getState();
+
+    return {
+        location: state.location,
+        schedule: state.hours,
+        format: state.format,
+    };
+})(AdditionalInformationComponent);
+
+class VacancyDescriptionComponent extends Component<{
+    description: string;
+    tasks: string;
+    requirements: string;
+    extra: string;
+}> {
     render() {
         return (
             <div className={'columns g-24'}>
                 <div className={'col-12'}>
-                    <Textarea placeholder={'Описание вакансии'}>
-                        Описание вакансии
-                    </Textarea>
+                    <Textarea
+                        id={'description'}
+                        label={'Описание вакансии'}
+                        name={'description'}
+                        placeholder={'Описание вакансии'}
+                        value={this.props.description}
+                    />
                 </div>
                 <div className={'col-12'}>
-                    <Textarea placeholder={'Задачи'}>Задачи</Textarea>
+                    <Textarea
+                        id={'tasks'}
+                        label={'Задачи'}
+                        name={'tasks'}
+                        placeholder={'Задачи'}
+                        value={this.props.tasks}
+                    />
                 </div>
                 <div className={'col-12'}>
-                    <Textarea placeholder={'Требования'}>Требования</Textarea>
+                    <Textarea
+                        id={'requirements'}
+                        label={'Требования'}
+                        name={'requirements'}
+                        placeholder={'Требования'}
+                        value={this.props.requirements}
+                    />
                 </div>
                 <div className={'col-12'}>
-                    <Textarea placeholder={'Будет плюсом'}>
-                        Будет плюсом
-                    </Textarea>
+                    <Textarea
+                        id={'extra'}
+                        label={'Будет плюсом'}
+                        name={'extra'}
+                        placeholder={'Будет плюсом'}
+                        value={this.props.extra}
+                    />
                 </div>
             </div>
         );
     }
 }
+
+const VacancyDescription = vacancyConnect(store => {
+    const state: VacancyState = store.getState();
+
+    return {
+        description: state.description,
+        tasks: state.tasks,
+        requirements: state.requirements,
+        extra: state.extra,
+    };
+})(VacancyDescriptionComponent);
 
 export default class VacancySettings extends Component<
     {},
