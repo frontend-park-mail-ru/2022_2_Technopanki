@@ -426,8 +426,14 @@ p {
     padding: var(--padding-40);
   }
   &t {
+    &-2 {
+      padding-top: 2px;
+    }
     &-3 {
       padding-top: 3px;
+    }
+    &-4 {
+      padding-top: 4px;
     }
   }
   &y {
@@ -600,15 +606,6 @@ p {
   }
   &-help {
     cursor: help;
-  }
-}
-
-.padding {
-  &-4 {
-    padding: 4px;
-  }
-  &-8 {
-    padding: 8px;
   }
 }
 

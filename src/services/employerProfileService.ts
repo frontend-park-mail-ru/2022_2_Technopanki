@@ -36,6 +36,7 @@ export const employerProfileService: Service = {
                     email: formData.get('email'),
                     company_city: formData.get('location'),
                     company_size: 10000,
+                    field_of_activity: formData.get('field_of_activity'),
                     socialNetworks: {
                         vk: formData.get('vk'),
                         facebook: formData.get('facebook'),

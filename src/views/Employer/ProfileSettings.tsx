@@ -21,6 +21,7 @@ import { defaultProfileState } from '../../store/profile/store';
 import { EmployerProfile } from '../../store/profile/types';
 import { profileConnect } from '../../store';
 import Textarea from '../../components/UI-kit/forms/inputs/Textarea';
+import ChipsInput from '../../components/UI-kit/forms/inputs/ChipsInput';
 
 class AvatarSettingsComponent extends Component<
     { previewSrc: string },
@@ -79,7 +80,6 @@ class AboutCompanyComponent extends Component<{
     email: string;
 }> {
     render() {
-        console.log(this.props);
         return (
             <div className={'columns g-16'}>
                 <div className={'col-12'}>
@@ -145,6 +145,13 @@ class AboutCompanyComponent extends Component<{
                         name={'email'}
                         value={this.props.email}
                         required={true}
+                    />
+                </div>
+                <div className={'col-12'}>
+                    <ChipsInput
+                        label={'Сфера деятельности'}
+                        id={'field_of_activity'}
+                        initialItems={['hello', 'world']}
                     />
                 </div>
             </div>
@@ -298,6 +305,12 @@ class ProfileSettingsComponent extends Component<
     submitForm = (e: SubmitEvent) => {
         e.preventDefault();
         const formData = new FormData(e.target);
+        formData.append(
+            'field_of_activity',
+            document.querySelector('#field_of_activity').getAttribute('items'),
+        );
+
+        console.log(formData.get('field_of_activity'));
 
         employerProfileService
             .updateProfile(this.props.profileID, formData)
