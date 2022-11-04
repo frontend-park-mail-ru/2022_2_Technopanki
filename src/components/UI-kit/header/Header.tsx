@@ -3,6 +3,7 @@ import styles from './header.module.scss';
 import HeaderProfile from './HeaderProfile';
 import JobflowLogo from '../JobflowLogo';
 import Link from '../../Link/Link';
+import Preloader from '../prelodaer/Preloader';
 
 // TODO: refactor
 export default class Header extends Component {
@@ -19,10 +20,11 @@ export default class Header extends Component {
     render() {
         return (
             <header
-                className={`x-0 t-0 border-bottom-light fixed screen-responsive ${styles.header}`}
+                className={`x-0 t-0 border-bottom-light fixed ${styles.header}`}
             >
+                <Preloader />
                 <div
-                    className={`flex h-100 row align-items-center justify-content-space-evenly`}
+                    className={`flex h-100 screen-responsive row align-items-center justify-content-space-evenly`}
                 >
                     <div
                         key={'logo'}

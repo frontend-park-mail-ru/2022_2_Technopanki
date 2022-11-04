@@ -36,7 +36,12 @@ let defaultVacancy = {
     skills: ['JavaScript', 'Git', 'CSS3', 'HTML5', 'React'],
 };
 
-let vacancies = [];
+let vacancies = [
+    defaultVacancy,
+    defaultVacancy,
+    defaultVacancy,
+    defaultVacancy,
+];
 
 module.exports = {
     defaultVacancy,

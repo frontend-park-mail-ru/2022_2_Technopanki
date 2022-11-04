@@ -65,6 +65,13 @@ app.get('/api/user/:id/preview', (req, res) => {
     });
 });
 
+app.get('/api/vacancies/', (req, res) => {
+    console.log(req);
+    res.json({
+        vacancies,
+    });
+});
+
 app.get('/api/vacancy/:id', (req, res) => {
     res.json(defaultVacancy);
 });

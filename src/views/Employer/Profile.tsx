@@ -23,74 +23,15 @@ import { dispatch, profileConnect } from '../../store';
 import { profileActions } from '../../store/profile/actions';
 import Preloader from '../../components/UI-kit/prelodaer/Preloader';
 import { vacancyActions } from '../../store/vacancy/actions';
+import { vacancyService } from '../../services/vacancyService';
+import ProfileVacancies from './ProfileVacancies';
 
 class Profile extends Component<
     EmployerProfile,
     { vacancies: VacancyCardPropsType[] }
 > {
     state = {
-        vacancies: [
-            {
-                id: 1,
-                name: 'Middle Frontend developer ',
-                icon: VKLogo,
-                salary: '260.000',
-                currency: 'руб',
-                location: 'Москва',
-                format: 'Смешанный формат',
-                hours: '40 часов в неделю',
-                description:
-                    'Мы помогаем людям объединяться для того, что для них действительно важно. С нами ты будешь создавать и развивать сервисы для миллионов пользователей, которые помогают общаться, работать, учиться, решать бытовые задачи и развлекаться. Для нас важно делать технологии доступными для каждого и постоянно совершенствовать наши продукты...',
-            },
-            {
-                id: 2,
-                name: 'Middle Frontend developer ',
-                icon: VKLogo,
-                salary: '260.000',
-                currency: 'руб',
-                location: 'Москва',
-                format: 'Смешанный формат',
-                hours: '40 часов в неделю',
-                description:
-                    'Мы помогаем людям объединяться для того, что для них действительно важно. С нами ты будешь создавать и развивать сервисы для миллионов пользователей, которые помогают общаться, работать, учиться, решать бытовые задачи и развлекаться. Для нас важно делать технологии доступными для каждого и постоянно совершенствовать наши продукты...',
-            },
-            {
-                id: 3,
-                name: 'Middle Frontend developer ',
-                icon: VKLogo,
-                salary: '260.000',
-                currency: 'руб',
-                location: 'Москва',
-                format: 'Смешанный формат',
-                hours: '40 часов в неделю',
-                description:
-                    'Мы помогаем людям объединяться для того, что для них действительно важно. С нами ты будешь создавать и развивать сервисы для миллионов пользователей, которые помогают общаться, работать, учиться, решать бытовые задачи и развлекаться. Для нас важно делать технологии доступными для каждого и постоянно совершенствовать наши продукты...',
-            },
-            {
-                id: 4,
-                name: 'Middle Frontend developer ',
-                icon: VKLogo,
-                salary: '260.000',
-                currency: 'руб',
-                location: 'Москва',
-                format: 'Смешанный формат',
-                hours: '40 часов в неделю',
-                description:
-                    'Мы помогаем людям объединяться для того, что для них действительно важно. С нами ты будешь создавать и развивать сервисы для миллионов пользователей, которые помогают общаться, работать, учиться, решать бытовые задачи и развлекаться. Для нас важно делать технологии доступными для каждого и постоянно совершенствовать наши продукты...',
-            },
-            {
-                id: 5,
-                name: 'Middle Frontend developer ',
-                icon: VKLogo,
-                salary: '260.000',
-                currency: 'руб',
-                location: 'Москва',
-                format: 'Смешанный формат',
-                hours: '40 часов в неделю',
-                description:
-                    'Мы помогаем людям объединяться для того, что для них действительно важно. С нами ты будешь создавать и развивать сервисы для миллионов пользователей, которые помогают общаться, работать, учиться, решать бытовые задачи и развлекаться. Для нас важно делать технологии доступными для каждого и постоянно совершенствовать наши продукты...',
-            },
-        ],
+        vacancies: [],
     };
 
     getDataFromServer() {
@@ -107,7 +48,6 @@ class Profile extends Component<
     render() {
         return (
             <div className={'screen-responsive flex column g-40'}>
-                <Preloader />
                 <Header key={'header'} />
                 <ProfileHeader
                     key={'profile_header'}
@@ -156,15 +96,22 @@ class Profile extends Component<
                     }
                 />
                 <div key={'text'} className={'columns g-24'}>
-                    <div className={'col-12 col-md-9 flex column g-40'}>
+                    <div
+                        key={'desc'}
+                        className={'col-12 col-md-9 flex column g-40'}
+                    >
                         <TextBlock
+                            key={'desc'}
                             headline={'Описание'}
                             content={this.props.description}
                         />
-                        <div className={'flex column g-16'}>
-                            <h6>Вакансии</h6>
-                            <div className={'flex column g-16'}>
-                                <button className={styles.vacancies_button}>
+                        <div key={'vacancies'} className={'flex column g-16'}>
+                            <h6 key={'header'}>Вакансии</h6>
+                            <div key={'info'} className={'flex column g-16'}>
+                                <button
+                                    key={'link'}
+                                    className={styles.vacancies_button}
+                                >
                                     <Link
                                         to={'/vacancy/new'}
                                         onClick={() =>
@@ -177,27 +124,13 @@ class Profile extends Component<
                                         }
                                     />
                                 </button>
-                                <div className={'flex column g-16'}>
-                                    {this.state.vacancies.map(vacancy => (
-                                        // TODO: убрать Link
-                                        <Link
-                                            to={`/vacancy/${vacancy.id}`}
-                                            content={
-                                                <Vacancy
-                                                    name={vacancy.name}
-                                                    icon={vacancy.icon}
-                                                    salary={vacancy.salary}
-                                                    currency={vacancy.currency}
-                                                    location={vacancy.location}
-                                                    format={vacancy.format}
-                                                    hours={vacancy.hours}
-                                                    description={
-                                                        vacancy.description
-                                                    }
-                                                />
-                                            }
-                                        />
-                                    ))}
+                                <div
+                                    key={'vacancies'}
+                                    className={'flex column g-16'}
+                                >
+                                    <ProfileVacancies
+                                        profileID={this.props.id}
+                                    />
                                 </div>
                             </div>
                         </div>

@@ -25,7 +25,6 @@ export const employerProfileService: Service = {
 
     // TODO: написать конвертер
     updateProfile: async (profileID: string, formData: FormData) => {
-        console.log(formData.get('field_of_activity'));
         return await network
             .POST(
                 SERVER_URLS.USER,

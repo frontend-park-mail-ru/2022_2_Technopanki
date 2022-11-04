@@ -1,17 +1,21 @@
 import network from '../lib/network';
-import { SERVER_URL, SERVER_URLS } from '../utils/constants';
+import { SERVER_URLS } from '../utils/constants';
 import { headers } from './headers';
 import { Service } from './types';
+import { dispatch } from '../store';
+import { startLoading, stopLoading } from '../store/loading/actions';
 
 export const vacancyService: Service = {
     getAllVacancies: () => {
+        dispatch(startLoading());
         return network
-            .GET(SERVER_URLS.VACANCY, headers.jsonHeader)
+            .GET(SERVER_URLS.VACANCIES, headers.jsonHeader)
             .then(response => {
                 if (response.status > 399) {
                     throw response.status;
                 }
 
+                dispatch(stopLoading());
                 return response.body;
             });
     },
