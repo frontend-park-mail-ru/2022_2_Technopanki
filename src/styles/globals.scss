@@ -474,6 +474,15 @@ p {
   }
 }
 
+.opacity {
+  &-0 {
+    opacity: 0;
+  }
+  &-100 {
+    opacity: 100;
+  }
+}
+
 .relative {
   position: relative;
 }

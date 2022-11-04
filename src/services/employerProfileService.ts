@@ -2,9 +2,12 @@ import network from '../lib/network';
 import { SERVER_URLS } from '../utils/constants';
 import { headers } from './headers';
 import { Service } from './types';
+import { dispatch } from '../store';
+import { startLoading, stopLoading } from '../store/loading/actions';
 
 export const employerProfileService: Service = {
     getProfileData: async (profileID: string) => {
+        dispatch(startLoading());
         return await network
             .GET(SERVER_URLS.USER_SAFE + profileID, headers.jsonHeader)
             .then(response => {
@@ -12,6 +15,7 @@ export const employerProfileService: Service = {
                     throw response.status;
                 }
 
+                dispatch(stopLoading());
                 return response.body;
             });
     },

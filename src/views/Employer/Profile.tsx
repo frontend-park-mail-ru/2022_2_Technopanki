@@ -21,6 +21,7 @@ import { userStore } from '../../store/user/store';
 import { EmployerProfile } from '../../store/profile/types';
 import { dispatch, profileConnect } from '../../store';
 import { profileActions } from '../../store/profile/actions';
+import Preloader from '../../components/UI-kit/prelodaer/Preloader';
 
 class Profile extends Component<
     EmployerProfile,
@@ -105,6 +106,7 @@ class Profile extends Component<
     render() {
         return (
             <div className={'screen-responsive flex column g-40'}>
+                <Preloader />
                 <Header key={'header'} />
                 <ProfileHeader
                     key={'profile_header'}
