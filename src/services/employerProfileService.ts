@@ -1,6 +1,5 @@
 import network from '../lib/network';
 import { SERVER_URLS } from '../utils/constants';
-import { headers } from './headers';
 import { Service } from './types';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
@@ -29,7 +28,6 @@ export const employerProfileService: Service = {
         return await network
             .POST(
                 SERVER_URLS.USER,
-                headers.jsonHeader,
                 JSON.stringify({
                     id: profileID,
                     description: formData.get('description'),

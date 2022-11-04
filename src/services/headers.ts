@@ -1,6 +1,6 @@
 import { HeadersType } from './types';
 
-export const headers: HeadersType = {
+export const requestHeaders: HeadersType = {
     jsonHeader: { 'Content-type': 'application/json' },
     imgHeader: { 'Content-Type': 'multipart/form-data' },
 };

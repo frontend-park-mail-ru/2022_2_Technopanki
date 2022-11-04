@@ -1,8 +1,16 @@
+import { requestHeaders } from '../services/headers';
+
 class Network {
-    async GET(url: string, headers: HeadersInit, credentials: boolean = true) {
+    async GET(
+        url: string,
+        cors: boolean = true,
+        headers: HeadersInit = requestHeaders.jsonHeader,
+        credentials: boolean = true,
+    ) {
         const response = await fetch(url, {
             method: 'GET',
             headers: headers,
+            mode: cors ? 'cors' : 'no-cors',
             credentials: credentials ? 'include' : 'omit',
         });
 
@@ -14,16 +22,17 @@ class Network {
             }),
         };
     }
-    async POST(
+    async PUT(
         url: string,
-        headers: HeadersInit,
-        payload: string | File,
+        payload: string,
+        headers: HeadersInit = requestHeaders.jsonHeader,
         credentials: boolean = true,
     ) {
         const response = await fetch(url, {
-            method: 'POST',
+            method: 'PUT',
             headers: headers,
             body: payload,
+            mode: cors ? 'cors' : 'no-cors',
             credentials: credentials ? 'include' : 'omit',
         });
 
@@ -35,16 +44,17 @@ class Network {
             }),
         };
     }
-    async PUT(
+    async POST(
         url: string,
-        headers: HeadersInit,
-        payload: string,
+        payload: string | File,
+        headers: HeadersInit = requestHeaders.jsonHeader,
         credentials: boolean = true,
     ) {
         const response = await fetch(url, {
-            method: 'PUT',
+            method: 'POST',
             headers: headers,
             body: payload,
+            mode: cors ? 'cors' : 'no-cors',
             credentials: credentials ? 'include' : 'omit',
         });
 
@@ -58,12 +68,13 @@ class Network {
     }
     async DELETE(
         url: string,
-        headers: HeadersInit,
+        headers: HeadersInit = requestHeaders.jsonHeader,
         credentials: boolean = true,
     ) {
         const response = await fetch(url, {
             method: 'POST',
             headers: headers,
+            mode: cors ? 'cors' : 'no-cors',
             credentials: credentials ? 'include' : 'omit',
         });
 

@@ -98,8 +98,8 @@ export default class SignIn extends Component<
                     dispatch(
                         userActions.SIGN_IN(
                             response.body.id,
-                            response.body.name,
-                            response.body.surname,
+                            response.body.applicant_name,
+                            response.body.applicant_surname,
                             response.body.user_type,
                         ),
                     );

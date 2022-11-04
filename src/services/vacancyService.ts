@@ -1,6 +1,5 @@
 import network from '../lib/network';
 import { SERVER_URLS } from '../utils/constants';
-import { headers } from './headers';
 import { Service } from './types';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
@@ -56,7 +55,6 @@ export const vacancyService: Service = {
         return network
             .PUT(
                 SERVER_URLS.VACANCY + vacancyID,
-                headers.jsonHeader,
                 JSON.stringify({
                     title: formData.get('title'),
                     description: formData.get('description'),
@@ -84,7 +82,6 @@ export const vacancyService: Service = {
         return network
             .POST(
                 SERVER_URLS.VACANCY_NEW,
-                headers.jsonHeader,
                 JSON.stringify({
                     title: formData.get('title'),
                     description: formData.get('description'),
