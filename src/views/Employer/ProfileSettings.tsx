@@ -194,11 +194,7 @@ class AboutCompanyComponent extends Component<{
                         value={this.props.email}
                     />
                 </div>
-                <div className={'col-12'}>
-                    <FieldOfActivity
-                        fieldOfActivity={this.props.fieldOfActivity}
-                    />
-                </div>
+                <div className={'col-12'}></div>
             </div>
         );
     }
