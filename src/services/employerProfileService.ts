@@ -27,17 +27,37 @@ export const employerProfileService: Service = {
     updateProfileImg: async (formData: FormData) => {
         dispatch(startLoading());
 
-        // todo: нормальный урл + FormData
-        return await network
-            .POST(SERVER_URLS.IMAGE, formData, { 'Content-Type': undefined })
-            .then(response => {
-                dispatch(stopLoading());
-                if (response.status > 399) {
-                    throw response.status;
-                }
+        const options = {
+            method: 'POST',
+            headers: requestHeaders.imgHeader,
+            body: formData,
+            mode: 'cors',
+            credentials: 'include',
+        };
 
-                return response;
-            });
+        delete options.headers['Content-Type'];
+
+        const response = await fetch(SERVER_URLS.IMAGE, options);
+
+        return {
+            status: response.status,
+            body: await response.json().catch(err => {
+                console.error(err);
+                return {};
+            }),
+        };
+
+        // todo: нормальный урл + FormData
+        // return await network
+        //     .POST(SERVER_URLS.IMAGE, formData, requestHeaders.imgHeader)
+        //     .then(response => {
+        //         dispatch(stopLoading());
+        //         if (response.status > 399) {
+        //             throw response.status;
+        //         }
+        //
+        //         return response;
+        //     });
     },
 
     // TODO: написать конвертер
