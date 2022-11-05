@@ -45,7 +45,7 @@ class Network {
     }
     async POST(
         url: string,
-        payload: string | File,
+        payload: string | File | FormData,
         headers: HeadersInit = requestHeaders.jsonHeader,
         credentials: boolean = true,
     ) {

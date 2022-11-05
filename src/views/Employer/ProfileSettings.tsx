@@ -53,7 +53,7 @@ class AvatarSettingsComponent extends Component<
                 </div>
                 <div key={'input'} className={'col-12 col-md-9'}>
                     <FileInput
-                        id={'img'}
+                        id={'avatar'}
                         label={'Загрузить новую фотогрфию'}
                         onUpload={this.setPreview}
                     />
@@ -120,7 +120,7 @@ class FieldOfActivity extends Component<
     }
 }
 
-// TODO: убрать поле location
+// todo: убрать поле location + убрать чипсы
 class AboutCompanyComponent extends Component<{
     name: string;
     status: string;

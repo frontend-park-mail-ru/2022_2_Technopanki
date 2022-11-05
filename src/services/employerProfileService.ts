@@ -4,7 +4,7 @@ import { Service } from './types';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
 import { requestHeaders } from './headers';
-import headerProfile from '../components/UI-kit/header/HeaderProfile';
+import Form from '../components/UI-kit/forms/Form';
 
 export const employerProfileService: Service = {
     getProfileData: async (profileID: string) => {
@@ -24,11 +24,12 @@ export const employerProfileService: Service = {
     // TODO: доделать когда Аким сделаем ручку
     getVacancies: async (profileID: string) => {},
 
-    updateProfileImg: async (img: File) => {
+    updateProfileImg: async (formData: FormData) => {
         dispatch(startLoading());
 
+        // todo: нормальный урл
         return await network
-            .POST(SERVER_URLS.IMAGE, img, requestHeaders.imgHeader)
+            .POST(SERVER_URLS.IMAGE, formData, requestHeaders.imgHeader)
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
