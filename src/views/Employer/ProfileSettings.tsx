@@ -353,6 +353,11 @@ class ProfileSettingsComponent extends Component<
         formData.append('user_type', this.props.profileType);
 
         employerProfileService
+            .updateProfileImg(formData.get('img'))
+            .then(body => console.log(body))
+            .catch(err => console.error(err));
+
+        employerProfileService
             .updateProfile(
                 this.props.profileID,
                 this.props.profileType,

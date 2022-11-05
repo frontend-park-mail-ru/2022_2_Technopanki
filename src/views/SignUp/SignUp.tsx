@@ -246,7 +246,7 @@ export default class SignUp extends Component<
         this.setState(() => newState);
 
         authService
-            .signIn(formData)
+            .signUp(formData)
             .then(body => {
                 dispatch(
                     userActions.SIGN_UP(

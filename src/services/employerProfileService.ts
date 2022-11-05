@@ -1,9 +1,10 @@
 import network from '../lib/network';
-import { SERVER_URLS } from '../utils/constants';
+import { SERVER_URL, SERVER_URLS } from '../utils/constants';
 import { Service } from './types';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
 import { requestHeaders } from './headers';
+import headerProfile from '../components/UI-kit/header/HeaderProfile';
 
 export const employerProfileService: Service = {
     getProfileData: async (profileID: string) => {
@@ -22,6 +23,25 @@ export const employerProfileService: Service = {
 
     // TODO: доделать когда Аким сделаем ручку
     getVacancies: async (profileID: string) => {},
+
+    updateProfileImg: async (img: File) => {
+        dispatch(startLoading());
+
+        return await network
+            .POST(
+                SERVER_URL + '/api/user/image/',
+                img,
+                requestHeaders.imgHeader,
+            )
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response;
+            });
+    },
 
     // TODO: написать конвертер
     updateProfile: async (
