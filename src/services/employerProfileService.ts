@@ -27,9 +27,9 @@ export const employerProfileService: Service = {
     updateProfileImg: async (formData: FormData) => {
         dispatch(startLoading());
 
-        // todo: нормальный урл
+        // todo: нормальный урл + FormData
         return await network
-            .POST(SERVER_URLS.IMAGE, formData, requestHeaders.imgHeader)
+            .POST(SERVER_URLS.IMAGE, formData, undefined)
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
