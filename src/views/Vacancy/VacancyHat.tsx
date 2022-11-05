@@ -33,12 +33,9 @@ class VacancyHat extends Component<
 
     getCreatorDataFromServer = () => {
         if (this.props.postedByUserID) {
-            console.log('postedByUserID: ', this.props.postedByUserID);
             vacancyService
                 .getVacancyHatData(this.props.postedByUserID)
                 .then(body => {
-                    console.log('VACANCY HAT');
-                    console.log(body);
                     this.setState(() => ({
                         creatorImgSrc: body.creator_img_src,
                         companyName: body.company_name,

@@ -53,7 +53,7 @@ class Vacancy extends Component<VacancyPropsType> {
                     className={styles.header_substrate}
                 ></div>
                 <div key={'user'} className={'columns mt-header g-24'}>
-                    <div key={'user'} className={`col-12 ${styles.header}`}>
+                    <div className={`col-12 ${styles.header}`}>
                         <VacancyHat
                             postedByUserID={this.props.postedByUserID}
                         />
