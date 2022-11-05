@@ -359,7 +359,7 @@ class ProfileSettingsComponent extends Component<
                 formData,
             )
             .then(() => {
-                navigator.navigate('/');
+                navigator.goBack();
             })
             .catch(err => console.error(err));
     };

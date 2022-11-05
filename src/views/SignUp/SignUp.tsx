@@ -27,6 +27,11 @@ import { dispatch } from '../../store';
 import { userActions } from '../../store/user/actions';
 import { authService } from '../../services/authService';
 
+export const setFieldAsInvalid = (field: AuthField, errorMessage: string) => {
+    field.error = true;
+    field.errorMessage = errorMessage;
+};
+
 export const validateField = (
     formDataElement: Exclude<FormDataEntryValue, File>,
     field: AuthField,
@@ -37,18 +42,21 @@ export const validateField = (
         field.value = formDataElement;
 
         if (validate(formDataElement)) {
-            if (errorMessage === field.errorMessage) {
+            if (
+                errorMessage === field.errorMessage ||
+                field.errorMessage === ''
+            ) {
                 field.error = false;
                 field.errorMessage = '';
+                return true;
             }
-            return true;
+            return false;
         }
-        field.error = true;
-        field.errorMessage = errorMessage;
+        setFieldAsInvalid(field, errorMessage);
         return false;
     }
 
-    return true;
+    return false;
 };
 
 export type AuthField = {
@@ -237,24 +245,26 @@ export default class SignUp extends Component<
 
         this.setState(() => newState);
 
-        if (validFlag) {
-            authService
-                .signUp(formData)
-                .then(body => {
-                    dispatch(
-                        userActions.SIGN_UP(
-                            body.id.toString(),
-                            (formData.get('toggle') as string) === 'applicant'
-                                ? (formData.get('applicant_name') as string)
-                                : (formData.get('company_name') as string),
-                            formData.get('applicant_surname') as string,
-                            formData.get('toggle') as 'applicant' | 'employer',
-                        ),
-                    );
-                    navigator.navigate('/');
-                })
-                .catch(err => console.error(err));
-        }
+        authService
+            .signIn(formData)
+            .then(body => {
+                dispatch(
+                    userActions.SIGN_UP(
+                        body.id.toString(),
+                        (formData.get('toggle') as string) === 'applicant'
+                            ? (formData.get('applicant_name') as string)
+                            : (formData.get('company_name') as string),
+                        formData.get('applicant_surname') as string,
+                        formData.get('toggle') as 'applicant' | 'employer',
+                    ),
+                );
+                navigator.goBack();
+            })
+            .catch(body => {
+                setFieldAsInvalid(newState.inputs[body.type], body.message);
+                this.setState(() => newState);
+                setFieldAsInvalid(newState.inputs[body.type], '');
+            });
     };
 
     render() {

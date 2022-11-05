@@ -16,8 +16,9 @@ export const authService: Service = {
                 }),
             )
             .then(response => {
+                dispatch(stopLoading());
                 if (response.status > 399) {
-                    throw response.status;
+                    throw response.body;
                 }
                 return response.body;
             });
@@ -41,7 +42,7 @@ export const authService: Service = {
                 dispatch(stopLoading());
 
                 if (response.status > 399) {
-                    throw response.status;
+                    throw response.body;
                 }
 
                 return response.body;

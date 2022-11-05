@@ -65,6 +65,10 @@ class Navigator {
             this.router.navigate(this.fallback);
         }
     }
+
+    goBack() {
+        history.back();
+    }
 }
 
 export default new Navigator(

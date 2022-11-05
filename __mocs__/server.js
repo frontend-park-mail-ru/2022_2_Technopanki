@@ -23,10 +23,29 @@ app.post('/auth/sign-up', (req, res) => {
 });
 
 app.post('/auth/sign-in', (req, res) => {
+    if (req.body.email === 'test@mail.ru') {
+        res.status(400);
+        res.json({
+            message: 'Пользователь с таким email уже существует',
+            type: 'email',
+        });
+        return;
+    }
+
+    if (req.body.password === '12345vv!!') {
+        res.status(400);
+        res.json({
+            message: 'Ошибка в пароле',
+            type: 'password',
+        });
+        return;
+    }
+
     res.json({
         id: '2',
-        name: 'Vladislav',
-        surname: 'Kirpichov',
+        applicant_name: 'Vladislav',
+        applicant_surname: 'Kirpichov',
+        company_name: 'VK',
         user_type: 'applicant',
     });
 });
