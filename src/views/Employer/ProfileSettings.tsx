@@ -299,18 +299,18 @@ class SocialNetworksComponent extends Component<{
     }
 }
 
-const SocialNetworks = profileConnect(store => {
-    const state = store.getState();
-
-    return {
-        vk: state.socialNetworks.vk,
-        facebook: state.socialNetworks.facebook,
-        telegram: state.socialNetworks.telegram,
-        youtube: state.socialNetworks.youtube,
-        twitter: state.socialNetworks.twitter,
-        instagram: state.socialNetworks.instagram,
-    };
-})(SocialNetworksComponent);
+// const SocialNetworks = profileConnect(store => {
+//     const state = store.getState();
+//
+//     return {
+//         vk: state.socialNetworks.vk,
+//         facebook: state.socialNetworks.facebook,
+//         telegram: state.socialNetworks.telegram,
+//         youtube: state.socialNetworks.youtube,
+//         twitter: state.socialNetworks.twitter,
+//         instagram: state.socialNetworks.instagram,
+//     };
+// })(SocialNetworksComponent);
 
 class Password extends Component {
     render() {
@@ -386,10 +386,10 @@ class ProfileSettingsComponent extends Component<
                 header: 'О компании',
                 content: <AboutCompany />,
             },
-            {
-                header: 'Социальные сети',
-                content: <SocialNetworks />,
-            },
+            // {
+            //     header: 'Социальные сети',
+            //     content: <SocialNetworks />,
+            // },
             {
                 header: 'Смена пароля',
                 content: <Password />,
@@ -432,6 +432,7 @@ class ProfileSettingsComponent extends Component<
 
 export default profileConnect(store => {
     const state = store.getState();
+    console.log('profileConnect', state);
 
     return {
         id: state.id,
