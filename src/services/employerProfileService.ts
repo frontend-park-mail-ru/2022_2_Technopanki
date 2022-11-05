@@ -28,11 +28,7 @@ export const employerProfileService: Service = {
         dispatch(startLoading());
 
         return await network
-            .POST(
-                SERVER_URL + '/api/user/image/',
-                img,
-                requestHeaders.imgHeader,
-            )
+            .POST(SERVER_URLS.IMAGE, img, requestHeaders.imgHeader)
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {

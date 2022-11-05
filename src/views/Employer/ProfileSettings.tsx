@@ -17,7 +17,7 @@ import Footer from '../../components/UI-kit/footer/Footer';
 import { sendProfileImg } from '../../services/imageService';
 import { employerProfileService } from '../../services/employerProfileService';
 import { userStore } from '../../store/user/store';
-import { defaultProfileState } from '../../store/profile/store';
+import { defaultProfileState, profileStore } from '../../store/profile/store';
 import { EmployerProfile } from '../../store/profile/types';
 import { profileConnect } from '../../store';
 import Textarea from '../../components/UI-kit/forms/inputs/Textarea';
@@ -120,6 +120,7 @@ class FieldOfActivity extends Component<
     }
 }
 
+// TODO: убрать поле location
 class AboutCompanyComponent extends Component<{
     name: string;
     status: string;
@@ -217,87 +218,87 @@ const AboutCompany = profileConnect(store => {
     };
 })(AboutCompanyComponent);
 
-class SocialNetworksComponent extends Component<{
-    vk?: string;
-    facebook?: string;
-    telegram?: string;
-    youtube?: string;
-    twitter?: string;
-    instagram?: string;
-}> {
-    render() {
-        return (
-            <div className={'columns g-16'}>
-                <div className={'col-12 col-md-4'}>
-                    <IconInput
-                        id={'vk'}
-                        type={'text'}
-                        placeholder={'vk.com/'}
-                        icon={VKLogo}
-                        label={''}
-                        name={'vk'}
-                        value={this.props.vk}
-                    />
-                </div>
-                <div className={'col-12 col-md-4'}>
-                    <IconInput
-                        id={'twitter'}
-                        type={'text'}
-                        placeholder={'twitter.com/'}
-                        icon={TwitterLogo}
-                        label={''}
-                        name={'twitter'}
-                        value={this.props.twitter}
-                    />
-                </div>
-                <div className={'col-12 col-md-4'}>
-                    <IconInput
-                        id={'facebook'}
-                        type={'text'}
-                        placeholder={'Москва'}
-                        icon={FacebookLogo}
-                        label={''}
-                        name={'facebook'}
-                        value={this.props.facebook}
-                    />
-                </div>
-                <div className={'col-12 col-md-4'}>
-                    <IconInput
-                        id={'telegram'}
-                        type={'text'}
-                        placeholder={'telegram.com/'}
-                        icon={TelegramLogo}
-                        label={''}
-                        name={'telegram'}
-                        value={this.props.telegram}
-                    />
-                </div>
-                <div className={'col-12 col-md-4'}>
-                    <IconInput
-                        id={'instagram'}
-                        type={'text'}
-                        placeholder={'instagram.com/'}
-                        icon={InstagramLogo}
-                        label={''}
-                        name={'instagram'}
-                        value={this.props.instagram}
-                    />
-                </div>
-                <div className={'col-12 col-md-4'}>
-                    <IconInput
-                        id={'youtube'}
-                        type={'text'}
-                        placeholder={'youtube.com/'}
-                        icon={YouTubeLogo}
-                        label={''}
-                        name={'youtube'}
-                        value={this.props.youtube}
-                    />
-                </div>
-            </div>
-        );
-    }
-}
+// class SocialNetworksComponent extends Component<{
+//     vk?: string;
+//     facebook?: string;
+//     telegram?: string;
+//     youtube?: string;
+//     twitter?: string;
+//     instagram?: string;
+// }> {
+//     render() {
+//         return (
+//             <div className={'columns g-16'}>
+//                 <div className={'col-12 col-md-4'}>
+//                     <IconInput
+//                         id={'vk'}
+//                         type={'text'}
+//                         placeholder={'vk.com/'}
+//                         icon={VKLogo}
+//                         label={''}
+//                         name={'vk'}
+//                         value={this.props.vk}
+//                     />
+//                 </div>
+//                 <div className={'col-12 col-md-4'}>
+//                     <IconInput
+//                         id={'twitter'}
+//                         type={'text'}
+//                         placeholder={'twitter.com/'}
+//                         icon={TwitterLogo}
+//                         label={''}
+//                         name={'twitter'}
+//                         value={this.props.twitter}
+//                     />
+//                 </div>
+//                 <div className={'col-12 col-md-4'}>
+//                     <IconInput
+//                         id={'facebook'}
+//                         type={'text'}
+//                         placeholder={'Москва'}
+//                         icon={FacebookLogo}
+//                         label={''}
+//                         name={'facebook'}
+//                         value={this.props.facebook}
+//                     />
+//                 </div>
+//                 <div className={'col-12 col-md-4'}>
+//                     <IconInput
+//                         id={'telegram'}
+//                         type={'text'}
+//                         placeholder={'telegram.com/'}
+//                         icon={TelegramLogo}
+//                         label={''}
+//                         name={'telegram'}
+//                         value={this.props.telegram}
+//                     />
+//                 </div>
+//                 <div className={'col-12 col-md-4'}>
+//                     <IconInput
+//                         id={'instagram'}
+//                         type={'text'}
+//                         placeholder={'instagram.com/'}
+//                         icon={InstagramLogo}
+//                         label={''}
+//                         name={'instagram'}
+//                         value={this.props.instagram}
+//                     />
+//                 </div>
+//                 <div className={'col-12 col-md-4'}>
+//                     <IconInput
+//                         id={'youtube'}
+//                         type={'text'}
+//                         placeholder={'youtube.com/'}
+//                         icon={YouTubeLogo}
+//                         label={''}
+//                         name={'youtube'}
+//                         value={this.props.youtube}
+//                     />
+//                 </div>
+//             </div>
+//         );
+//     }
+// }
 
 // const SocialNetworks = profileConnect(store => {
 //     const state = store.getState();
@@ -396,6 +397,8 @@ class ProfileSettingsComponent extends Component<
             },
         ];
 
+        console.log(profileStore.getState());
+
         return (
             <div className={'screen-responsive relative hidden'}>
                 <Header />
@@ -432,7 +435,6 @@ class ProfileSettingsComponent extends Component<
 
 export default profileConnect(store => {
     const state = store.getState();
-    console.log('profileConnect', state);
 
     return {
         id: state.id,
