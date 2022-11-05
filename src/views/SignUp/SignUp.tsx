@@ -171,6 +171,7 @@ export default class SignUp extends Component<
         ) {
             validFlag = false;
         }
+        console.log(validFlag);
         if (
             !validateField(
                 formData.get('repeatPassword') as Exclude<
@@ -203,72 +204,71 @@ export default class SignUp extends Component<
         ) {
             validFlag = false;
         }
-        if (
-            !validateField(
-                formData.get('applicant_name') as Exclude<
-                    FormDataEntryValue,
-                    File
-                >,
-                newState.inputs['applicant_name'],
-                validateNameSymbols,
-                NAME_SYMBOLS_ERROR,
-            )
-        ) {
-            validFlag = false;
-        }
-        if (
-            !validateField(
-                formData.get('applicant_surname') as Exclude<
-                    FormDataEntryValue,
-                    File
-                >,
-                newState.inputs['applicant_surname'],
-                validateNameLength,
-                SURNAME_LENGTH_ERROR,
-            )
-        ) {
-            validFlag = false;
-        }
-        if (
-            !validateField(
-                formData.get('applicant_surname') as Exclude<
-                    FormDataEntryValue,
-                    File
-                >,
-                newState.inputs['applicant_surname'],
-                validateNameSymbols,
-                SURNAME_SYMBOLS_ERROR,
-            )
-        ) {
-            validFlag = false;
-        }
+        // if (
+        //     !validateField(
+        //         formData.get('applicant_name') as Exclude<
+        //             FormDataEntryValue,
+        //             File
+        //         >,
+        //         newState.inputs['applicant_name'],
+        //         validateNameSymbols,
+        //         NAME_SYMBOLS_ERROR,
+        //     )
+        // ) {
+        //     validFlag = false;
+        // }
+        // if (
+        //     this.state.toggleType === 'applicant' &&
+        //     !validateField(
+        //         formData.get('applicant_surname') as Exclude<
+        //             FormDataEntryValue,
+        //             File
+        //         >,
+        //         newState.inputs['applicant_surname'],
+        //         validateNameLength,
+        //         SURNAME_LENGTH_ERROR,
+        //     )
+        // ) {
+        //     validFlag = false;
+        // }
+        // if (
+        //     !validateField(
+        //         formData.get('applicant_surname') as Exclude<
+        //             FormDataEntryValue,
+        //             File
+        //         >,
+        //         newState.inputs['applicant_surname'],
+        //         validateNameSymbols,
+        //         SURNAME_SYMBOLS_ERROR,
+        //     )
+        // ) {
+        //     validFlag = false;
+        // }
 
         this.setState(() => newState);
 
-        if (validFlag) {
-            // todo: fix to signUp
-            authService
-                .signUp(formData)
-                .then(body => {
-                    dispatch(
-                        userActions.SIGN_UP(
-                            body.id,
-                            (formData.get('toggle') as string) === 'applicant'
-                                ? (formData.get('applicant_name') as string)
-                                : (formData.get('company_name') as string),
-                            formData.get('applicant_surname') as string,
-                            formData.get('toggle') as 'applicant' | 'employer',
-                        ),
-                    );
-                    navigator.goBack();
-                })
-                .catch(body => {
-                    console.log(body.type);
-                    setFieldAsInvalid(newState.inputs[body.type], body.message);
-                    this.setState(() => newState);
-                    setFieldAsInvalid(newState.inputs[body.type], '');
-                });
-        }
+        authService
+            .signUp(formData)
+            .then(body => {
+                dispatch(
+                    userActions.SIGN_UP(
+                        body.id,
+                        (formData.get('toggle') as string) === 'applicant'
+                            ? (formData.get('applicant_name') as string)
+                            : (formData.get('company_name') as string),
+                        formData.get('applicant_surname') as string,
+                        formData.get('toggle') as 'applicant' | 'employer',
+                    ),
+                );
+                navigator.goBack();
+            })
+            .catch(body => {
+                // todo: поправить type ошибки
+                console.log(body.type);
+                setFieldAsInvalid(newState.inputs[body.type], body.message);
+                this.setState(() => newState);
+                setFieldAsInvalid(newState.inputs[body.type], '');
+            });
     };
 
     render() {

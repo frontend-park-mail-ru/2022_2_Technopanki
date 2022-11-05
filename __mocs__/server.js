@@ -19,6 +19,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.post('/auth/sign-up', (req, res) => {
+    console.log('sign-up');
     res.json({ id: 1 });
 });
 
