@@ -9,11 +9,12 @@ export const userReducer: Reducer<UserState> = (
     switch (action.type) {
         case 'SIGN_UP':
         case 'SIGN_IN':
+            console.log(action);
             return {
                 ...state,
                 id: (<AuthAction>action).id,
-                name: (<AuthAction>action).applicant_name,
-                surname: (<AuthAction>action).applicant_surname,
+                name: (<AuthAction>action).name,
+                surname: (<AuthAction>action).surname,
                 userType: (<AuthAction>action).userType,
                 authorized: true,
             };
