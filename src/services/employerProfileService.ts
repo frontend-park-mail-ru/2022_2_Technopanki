@@ -29,7 +29,7 @@ export const employerProfileService: Service = {
 
         // todo: нормальный урл + FormData
         return await network
-            .POST(SERVER_URLS.IMAGE, formData, undefined)
+            .POST(SERVER_URLS.IMAGE, formData, { 'Content-Type': undefined })
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
