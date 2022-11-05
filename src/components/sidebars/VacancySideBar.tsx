@@ -27,7 +27,7 @@ class VacancySideBar extends Component<{
                         header: 'Заработная плата',
                         inside: (
                             <p className={'font-size-24 bold'}>
-                                {this.props.salary}
+                                {this.props.salary} руб/мес
                             </p>
                         ),
                     },

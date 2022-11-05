@@ -10,7 +10,6 @@ import TelegramIcon from '../../static/icons/logos/Telegram.svg';
 import { EmployerSocialNetworks } from '../../store/profile/types';
 
 type EmployerProfileSideBarProps = {
-    city: string;
     companySize: string;
     fieldOfActivity: string[];
     socialNetworks: EmployerSocialNetworks;
@@ -25,10 +24,6 @@ export default class EmployerProfileSideBar extends Component<EmployerProfileSid
                         header: 'Информация о компании',
                         inside: (
                             <div className={'flex column g-16'}>
-                                <IconField
-                                    icon={MapIcon}
-                                    content={this.props.city}
-                                />
                                 <IconField
                                     icon={UsersIcon}
                                     content={
