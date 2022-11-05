@@ -11,7 +11,7 @@ export const userReducer: Reducer<UserState> = (
         case 'SIGN_IN':
             return {
                 ...state,
-                id: (<AuthAction>action).id.toString(),
+                id: (<AuthAction>action).id,
                 name: (<AuthAction>action).applicant_name,
                 surname: (<AuthAction>action).applicant_surname,
                 userType: (<AuthAction>action).userType,

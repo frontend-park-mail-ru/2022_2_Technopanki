@@ -97,7 +97,7 @@ export default class SignIn extends Component<
                 .then(response => {
                     dispatch(
                         userActions.SIGN_IN(
-                            response.body.id,
+                            response.body.id.toString(),
                             response.body.applicant_name,
                             response.body.applicant_surname,
                             response.body.user_type,

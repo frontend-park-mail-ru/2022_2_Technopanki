@@ -244,7 +244,7 @@ export default class SignUp extends Component<
                     dispatch(
                         userActions.SIGN_UP(
                             // TODO: id
-                            response.body.id,
+                            response.body.id.toString(),
                             formData.get('applicant_name') ||
                                 formData.get('company_name') ||
                                 '',
