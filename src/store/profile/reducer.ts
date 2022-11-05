@@ -13,7 +13,10 @@ export const profileReducer: Reducer<ProfileState> = (
             return {
                 ...state,
                 id: action.state.id.toString(),
-                name: action.state.applicant_name || action.state.company_name,
+                name:
+                    action.state.user_type === 'applicant'
+                        ? action.state.applicant_name
+                        : action.state.company_name,
                 surname: action.state.applicant_surname,
                 status: action.state.status,
                 description: action.state.description,
