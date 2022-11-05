@@ -11,12 +11,12 @@ export const vacancyService: Service = {
         return await network
             .GET(SERVER_URLS.VACANCIES, requestHeaders.jsonHeader)
             .then(response => {
+                dispatch(stopLoading());
+                console.log(response);
                 if (response.status > 399) {
-                    dispatch(stopLoading());
                     throw response.status;
                 }
 
-                dispatch(stopLoading());
                 return response.body;
             });
     },
@@ -26,12 +26,11 @@ export const vacancyService: Service = {
         return await network
             .GET(SERVER_URLS.VACANCY + vacancyID, requestHeaders.jsonHeader)
             .then(response => {
+                dispatch(stopLoading());
                 if (response.status > 399) {
-                    dispatch(stopLoading());
                     throw response.status;
                 }
 
-                dispatch(stopLoading());
                 return response.body;
             });
     },
@@ -41,14 +40,29 @@ export const vacancyService: Service = {
         return await network
             .GET(SERVER_URLS.USER_PREVIEW(userID), requestHeaders.jsonHeader)
             .then(response => {
+                dispatch(stopLoading());
                 if (response.status > 399) {
-                    dispatch(stopLoading());
                     throw response.status;
                 }
 
-                dispatch(stopLoading());
                 return response.body;
-            });
+            })
+            .catch(err => console.error(err));
+    },
+
+    getResponses: async (vacancyID: string) => {
+        dispatch(startLoading());
+        console.log(SERVER_URLS.VACANCY_RESPONSES + vacancyID);
+        return await network
+            .GET(SERVER_URLS.VACANCY_RESPONSES + vacancyID)
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+                return response.body;
+            })
+            .catch(err => console.error(err));
     },
 
     updateVacancy: async (vacancyID: string, formData: FormData) => {
@@ -71,6 +85,7 @@ export const vacancyService: Service = {
                 }),
             )
             .then(response => {
+                dispatch(stopLoading());
                 if (response.status > 399) {
                     throw response.status;
                 }

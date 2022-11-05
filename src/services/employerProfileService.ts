@@ -24,14 +24,18 @@ export const employerProfileService: Service = {
     getVacancies: async (profileID: string) => {},
 
     // TODO: написать конвертер
-    updateProfile: async (profileID: string, formData: FormData) => {
+    updateProfile: async (
+        profileID: string,
+        profileType: string,
+        formData: FormData,
+    ) => {
         dispatch(startLoading());
         return await network
             .POST(
                 SERVER_URLS.USER,
                 JSON.stringify({
                     id: profileID,
-                    user_type: formData.get('user_type'),
+                    user_type: profileType,
                     description: formData.get('description'),
                     image: formData.get('img'),
                     status: formData.get('status'),
@@ -40,15 +44,15 @@ export const employerProfileService: Service = {
                     email: formData.get('email'),
                     company_city: formData.get('location'),
                     company_size: 10000,
-                    field_of_activity: formData
-                        .get('field_of_activity')
-                        .toString()
-                        .split(','),
-                    socialNetworks: {
-                        vk: formData.get('vk'),
-                        facebook: formData.get('facebook'),
-                        telegram: formData.get('telegram'),
-                    },
+                    // field_of_activity: formData
+                    //     .get('field_of_activity')
+                    //     .toString()
+                    //     .split(','),
+                    // socialNetworks: {
+                    //     vk: formData.get('vk'),
+                    //     facebook: formData.get('facebook'),
+                    //     telegram: formData.get('telegram'),
+                    // },
                 }),
             )
             .then(response => {

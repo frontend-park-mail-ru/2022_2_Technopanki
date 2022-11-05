@@ -137,7 +137,6 @@ class Profile extends Component<
                     </div>
                     <div key={'sidebar'} className={'col-12 col-md-3'}>
                         <EmployerProfileSideBar
-                            city={this.props.location}
                             companySize={this.props.size}
                             fieldOfActivity={this.props.fieldOfActivity}
                             socialNetworks={this.props.socialNetworks}

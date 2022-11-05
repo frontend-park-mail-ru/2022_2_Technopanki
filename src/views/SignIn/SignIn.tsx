@@ -14,7 +14,7 @@ import {
     PASSWORD_LENGTH_ERROR,
     PASSWORD_SYMBOLS_ERROR,
 } from '../../utils/validation/messages';
-import { AuthField, validateField } from '../SignUp/SignUp';
+import { AuthField, setFieldAsInvalid, validateField } from '../SignUp/SignUp';
 import navigator from '../../router/navigator';
 import { dispatch } from '../../store';
 import { userActions } from '../../store/user/actions';
@@ -94,18 +94,24 @@ export default class SignIn extends Component<
         if (validFlag) {
             authService
                 .signIn(formData)
-                .then(response => {
+                .then(body => {
                     dispatch(
                         userActions.SIGN_IN(
-                            response.body.id.toString(),
-                            response.body.applicant_name,
-                            response.body.applicant_surname,
-                            response.body.user_type,
+                            body.id,
+                            body.user_type === 'employer'
+                                ? body.company_name
+                                : body.applicant_name,
+                            body.applicant_surname,
+                            body.user_type,
                         ),
                     );
-                    navigator.navigate('/');
+                    navigator.goBack();
                 })
-                .catch(err => console.error(err));
+                .catch(body => {
+                    setFieldAsInvalid(newState.inputs[body.type], body.message);
+                    this.setState(() => newState);
+                    setFieldAsInvalid(newState.inputs[body.type], '');
+                });
         }
     };
 

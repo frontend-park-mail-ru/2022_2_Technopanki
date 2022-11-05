@@ -47,14 +47,25 @@ class Vacancy extends Component<VacancyPropsType> {
     render() {
         return (
             <div className={'screen-responsive relative hidden g-24'}>
-                <Header />
-                <div className={styles.header_substrate}></div>
-                <div className={'columns mt-header g-24'}>
+                <Header key={'header'} />
+                <div
+                    key={'substrate'}
+                    className={styles.header_substrate}
+                ></div>
+                <div key={'user'} className={'columns mt-header g-24'}>
                     <div className={`col-12 ${styles.header}`}>
-                        <VacancyHat creatorID={this.props.postedByUserID} />
+                        <VacancyHat
+                            vacancyID={this.props.id}
+                            postedByUserID={this.props.postedByUserID}
+                        />
                     </div>
-                    <h3 className={'col-12'}>{this.props.title}</h3>
-                    <div className={'col-12 col-md-9 flex column g-40'}>
+                    <h3 key={'header'} className={'col-12'}>
+                        {this.props.title}
+                    </h3>
+                    <div
+                        key={'text'}
+                        className={'col-12 col-md-9 flex column g-40'}
+                    >
                         <TextBlock
                             headline={'Описание'}
                             content={this.props.description}
@@ -72,11 +83,11 @@ class Vacancy extends Component<VacancyPropsType> {
                             content={this.props.extra}
                         />
                     </div>
-                    <div className={'col-12 col-md-3'}>
+                    <div key={'sidebar'} className={'col-12 col-md-3'}>
                         <VacancySideBar />
                     </div>
                 </div>
-                <Footer />
+                <Footer key={'footer'} />
             </div>
         );
     }
@@ -84,7 +95,6 @@ class Vacancy extends Component<VacancyPropsType> {
 
 export default vacancyConnect((store, props) => {
     const storeState = store.getState() as VacancyState;
-
     return {
         id: props.id || storeState.id,
         postedByUserID: storeState.postedByUserID,

@@ -4,13 +4,34 @@ import Button from '../../components/UI-kit/buttons/Button';
 import Link from '../../components/Link/Link';
 import { ProfileState } from '../../store/profile/types';
 import { profileConnect } from '../../store';
+import { vacancyService } from '../../services/vacancyService';
 
 class VacancyResponsesHat extends Component<{
     name: string;
     status: string;
     // ---
     imgSrc: string;
+    postedByUserID: string;
 }> {
+    getCreatorDataFromServer = () => {
+        if (this.props.postedByUserID) {
+            vacancyService
+                .getVacancyHatData(this.props.postedByUserID)
+                .then(body => {
+                    this.setState(() => ({
+                        creatorImgSrc: body.creator_img_src,
+                        companyName: body.company_name,
+                        status: body.status,
+                    }));
+                })
+                .catch(err => console.error(err));
+        }
+    };
+
+    componentDidMount() {
+        this.getCreatorDataFromServer();
+    }
+
     render() {
         return (
             <Hat
@@ -39,6 +60,7 @@ export default profileConnect((store, props) => {
     const state: ProfileState = store.getState();
 
     return {
+        postedByUserID: props.postedByUserID,
         name: state.name,
         status: state.status,
         imgSrc: state.avatarSrc,

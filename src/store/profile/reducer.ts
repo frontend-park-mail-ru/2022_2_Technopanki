@@ -9,26 +9,29 @@ export const profileReducer: Reducer<ProfileState> = (
 ): ProfileState => {
     switch (action.type) {
         case PROFILE_ACTION_TYPES.UPDATE:
-            console.log(action.state);
             return {
                 ...state,
                 id: action.state.id.toString(),
+                profileType: action.state.user_type,
                 name:
+                    action.state.user_type === 'employer'
+                        ? action.state.company_name
+                        : action.state.applicant_name,
+                surname:
                     action.state.user_type === 'applicant'
-                        ? action.state.applicant_name
-                        : action.state.company_name,
-                surname: action.state.applicant_surname,
+                        ? action.state.applicant_surname
+                        : '',
                 status: action.state.status,
                 description: action.state.description,
-                phone: action.state.contact_number,
+                phone: action.state.phone,
                 email: action.state.email,
-                profileType: action.state.user_type,
-                // fieldOfActivity: action.state.field_of_activity,
-                // socialNetworks: {
-                //     vk: action.state.vk,
-                //     facebook: action.state.socialNetworks.facebook,
-                //     telegram: action.state.socialNetworks.telegram,
-                // },
+                size: action.state.company_size.toString(),
+                fieldOfActivity: action.state.field_of_activity,
+                socialNetworks: {
+                    vk: '',
+                    facebook: '',
+                    telegram: '',
+                },
             };
         default:
             return state;

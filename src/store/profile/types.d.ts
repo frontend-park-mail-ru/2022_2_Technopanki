@@ -23,4 +23,7 @@ export type EmployerProfile = {
     socialNetworks: EmployerSocialNetworks;
 };
 
-export type ProfileState = EmployerProfile;
+export type ProfileState = EmployerProfile & {
+    profileType: string;
+    surname: string;
+};

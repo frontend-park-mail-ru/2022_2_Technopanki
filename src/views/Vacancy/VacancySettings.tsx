@@ -5,8 +5,6 @@ import SettingsHat from '../../components/hats/SettingsHat';
 import Form, { FormSectionType } from '../../components/UI-kit/forms/Form';
 import Input from '../../components/UI-kit/forms/inputs/Input';
 import CancelSaveButtons from '../../components/CancelSaveButtons/CancelSaveButtons';
-import Description from '../../components/auth/Description';
-import EmployerProfileSideBar from '../../components/sidebars/EmployerProfileSideBar';
 import Textarea from '../../components/UI-kit/forms/inputs/Textarea';
 import Footer from '../../components/UI-kit/footer/Footer';
 import { vacancyConnect } from '../../store';
@@ -267,7 +265,7 @@ class VacancySettings extends Component<
             vacancyService
                 .updateVacancy(this.props.id, formData)
                 .then(() => {
-                    navigator.navigate('/vacancy/' + this.props.id);
+                    navigator.goBack();
                 })
                 .catch(err => console.error(err));
         }
@@ -290,7 +288,7 @@ class VacancySettings extends Component<
                             sections={this.state.sections}
                             submitComponent={
                                 <CancelSaveButtons
-                                    onCancel={() => {}}
+                                    onCancel={navigator.goBack}
                                     onSave={() => {}}
                                 />
                             }

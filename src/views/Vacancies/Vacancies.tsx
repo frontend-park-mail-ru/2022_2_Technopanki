@@ -43,12 +43,16 @@ export default class Vacancies extends Component<
             <div>
                 <Header key={'header'} />
                 <div
+                    key={'vacacnies'}
                     className={`flex column g-24 relative screen-responsive ${styles.content}`}
                 >
-                    <h3 className={'mx-0'}>Поиск</h3>
-                    <SearchInput />
+                    <h3 key={'h'} className={'mx-0'}>
+                        Поиск
+                    </h3>
+                    <SearchInput key={'search'} />
                     {this.state.vacancies.map(vacancy => (
                         <VacancyCard
+                            key={vacancy.id}
                             name={vacancy.title}
                             icon={vacancy.img}
                             salary={vacancy.salary}

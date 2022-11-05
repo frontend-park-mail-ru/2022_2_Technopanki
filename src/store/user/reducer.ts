@@ -12,9 +12,12 @@ export const userReducer: Reducer<UserState> = (
             console.log(action);
             return {
                 ...state,
-                id: (<AuthAction>action).id,
+                id: (<AuthAction>action).id.toString(),
                 name: (<AuthAction>action).name,
-                surname: (<AuthAction>action).surname,
+                surname:
+                    (<AuthAction>action).userType === 'applicant'
+                        ? (<AuthAction>action).surname
+                        : '',
                 userType: (<AuthAction>action).userType,
                 authorized: true,
             };

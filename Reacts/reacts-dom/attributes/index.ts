@@ -8,7 +8,7 @@ export const setProps = (element: HTMLElement, props: PropsType) => {
         if (name !== 'children') {
             if (name.startsWith('on')) {
                 if (__DEV__) {
-                    if (typeof value !== 'function') {
+                    if (value && typeof value !== 'function') {
                         console.error('typeof value != function. value', value);
                         throw new Error('Invalid event type');
                     }
@@ -30,7 +30,7 @@ export const setProps = (element: HTMLElement, props: PropsType) => {
                         );
                     }
                     if (__DEV__) {
-                        if (typeof value === 'function') {
+                        if (value && typeof value === 'function') {
                             console.error(
                                 'typeof value == function. value',
                                 value,

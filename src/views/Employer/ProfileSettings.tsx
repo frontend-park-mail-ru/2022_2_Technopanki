@@ -181,7 +181,6 @@ class AboutCompanyComponent extends Component<{
                         label={'Телефон'}
                         name={'phone'}
                         value={this.props.phone}
-                        required={true}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -354,9 +353,13 @@ class ProfileSettingsComponent extends Component<
         formData.append('user_type', this.props.profileType);
 
         employerProfileService
-            .updateProfile(this.props.profileID, formData)
+            .updateProfile(
+                this.props.profileID,
+                this.props.profileType,
+                formData,
+            )
             .then(() => {
-                navigator.navigate('/');
+                navigator.goBack();
             })
             .catch(err => console.error(err));
     };
