@@ -245,26 +245,30 @@ export default class SignUp extends Component<
 
         this.setState(() => newState);
 
-        authService
-            .signUp(formData)
-            .then(body => {
-                dispatch(
-                    userActions.SIGN_UP(
-                        body.id,
-                        (formData.get('toggle') as string) === 'applicant'
-                            ? (formData.get('applicant_name') as string)
-                            : (formData.get('company_name') as string),
-                        formData.get('applicant_surname') as string,
-                        formData.get('toggle') as 'applicant' | 'employer',
-                    ),
-                );
-                navigator.goBack();
-            })
-            .catch(body => {
-                setFieldAsInvalid(newState.inputs[body.type], body.message);
-                this.setState(() => newState);
-                setFieldAsInvalid(newState.inputs[body.type], '');
-            });
+        if (validFlag) {
+            // todo: fix to signUp
+            authService
+                .signUp(formData)
+                .then(body => {
+                    dispatch(
+                        userActions.SIGN_UP(
+                            body.id,
+                            (formData.get('toggle') as string) === 'applicant'
+                                ? (formData.get('applicant_name') as string)
+                                : (formData.get('company_name') as string),
+                            formData.get('applicant_surname') as string,
+                            formData.get('toggle') as 'applicant' | 'employer',
+                        ),
+                    );
+                    navigator.goBack();
+                })
+                .catch(body => {
+                    console.log(body.type);
+                    setFieldAsInvalid(newState.inputs[body.type], body.message);
+                    this.setState(() => newState);
+                    setFieldAsInvalid(newState.inputs[body.type], '');
+                });
+        }
     };
 
     render() {
