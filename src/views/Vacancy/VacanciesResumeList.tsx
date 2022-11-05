@@ -16,8 +16,9 @@ class VacanciesResumeList extends Component<
             vacancyService
                 .getResponses(this.props.vacancyID)
                 .then(body => {
+                    this.state.responses = JSON.parse(JSON.stringify(body));
                     this.setState(state => {
-                        return { ...state, responses: body };
+                        return state;
                     });
                 })
                 .catch(err => console.error(err));
@@ -29,7 +30,13 @@ class VacanciesResumeList extends Component<
     }
 
     render() {
-        return <ResumeList resume={this.state.responses} />;
+        return (
+            <ResumeList
+                someNewValue={'hello world'}
+                test={() => this.state.responses}
+                resume={this.state.responses}
+            />
+        );
     }
 }
 
