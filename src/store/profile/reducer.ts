@@ -7,8 +7,6 @@ export const profileReducer: Reducer<ProfileState> = (
     state: ProfileState,
     action: Action,
 ): ProfileState => {
-    console.info('PROFILE REDUCER');
-    console.info(action);
     switch (action.type) {
         case PROFILE_ACTION_TYPES.UPDATE:
             return {
@@ -29,7 +27,7 @@ export const profileReducer: Reducer<ProfileState> = (
                 email: action.state.email,
                 // location: action.state.company_city,
                 // size: action.state.company_size.toString(),
-                // fieldOfActivity: action.state.field_of_activity,
+                fieldOfActivity: action.state.field_of_activity,
                 socialNetworks: {
                     vk: '',
                     facebook: '',

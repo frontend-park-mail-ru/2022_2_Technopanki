@@ -57,7 +57,7 @@ app.post('/api/user', (req, res) => {
     res.status(200);
 });
 
-app.get('/api/user/:id/preview', (req, res) => {
+app.get('/api/user/preview/:id', (req, res) => {
     res.json({
         creator_img_src: './',
         company_name: 'VK',
@@ -65,11 +65,9 @@ app.get('/api/user/:id/preview', (req, res) => {
     });
 });
 
-app.get('/api/vacancies/', (req, res) => {
+app.get('/api/vacancy/', (req, res) => {
     console.log(req);
-    res.json({
-        vacancies,
-    });
+    res.json(vacancies);
 });
 
 app.get('/api/vacancy/:id', (req, res) => {

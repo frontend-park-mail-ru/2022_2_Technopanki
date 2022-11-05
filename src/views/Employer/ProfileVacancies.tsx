@@ -27,9 +27,9 @@ export default class ProfileVacancies extends Component<
         vacancyService
             .getAllVacancies()
             .then(body => {
-                console.log(body);
-                this.setState(() => ({
-                    vacancies: body.vacancies,
+                this.setState(state => ({
+                    ...state,
+                    vacancies: body,
                 }));
             })
             .catch(err => console.error(err));
@@ -40,6 +40,7 @@ export default class ProfileVacancies extends Component<
             <div className={'flex column g-16'}>
                 {this.state.vacancies.map(vacancy => (
                     <Link
+                        key={vacancy.id}
                         to={`/vacancy/${vacancy.id}`}
                         content={
                             <VacancyCard

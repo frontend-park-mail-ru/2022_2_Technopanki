@@ -6,14 +6,15 @@ import VacancyDropdownResume from './VacancyDropdownResume';
 import Hat from '../../components/UI-kit/hat/Hat';
 import Link from '../../components/Link/Link';
 import { vacancyService } from '../../services/vacancyService';
-import { userConnect } from '../../store';
+import { profileConnect, userConnect } from '../../store';
 import RenderWithCondition from '../../components/RenderWithCondition';
 import ButtonNotActive from '../../components/UI-kit/buttons/ButtonNotActive';
 import { UserState } from '../../store/user/types';
+import Vacancy from './index';
 
 class VacancyHat extends Component<
     {
-        creatorID: string;
+        postedByUserID: string;
         userID: string;
         userType: string;
         authorized: boolean;
@@ -31,13 +32,21 @@ class VacancyHat extends Component<
     };
 
     getCreatorDataFromServer = () => {
-        vacancyService.getVacancyHatData(this.props.creatorID).then(body => {
-            this.setState(() => ({
-                creatorImgSrc: body.creator_img_src,
-                companyName: body.company_name,
-                status: body.status,
-            }));
-        });
+        if (this.props.postedByUserID) {
+            console.log('postedByUserID: ', this.props.postedByUserID);
+            vacancyService
+                .getVacancyHatData(this.props.postedByUserID)
+                .then(body => {
+                    console.log('VACANCY HAT');
+                    console.log(body);
+                    this.setState(() => ({
+                        creatorImgSrc: body.creator_img_src,
+                        companyName: body.company_name,
+                        status: body.status,
+                    }));
+                })
+                .catch(err => console.error(err));
+        }
     };
 
     componentDidMount() {
@@ -53,10 +62,9 @@ class VacancyHat extends Component<
                 status={this.state.status}
                 rightSideContent={
                     <div className={'flex row flex-wrap g-12'}>
-                        {/*TODO: добавить уловие по типу пользователя рендер кнопок*/}
                         <RenderWithCondition
                             condition={
-                                this.props.userID === this.props.creatorID
+                                this.props.userID === this.props.postedByUserID
                             }
                             onSuccess={
                                 <Link
@@ -71,7 +79,7 @@ class VacancyHat extends Component<
                         />
                         <RenderWithCondition
                             condition={
-                                this.props.userID === this.props.creatorID
+                                this.props.userID === this.props.postedByUserID
                             }
                             onSuccess={
                                 <Link
@@ -112,11 +120,23 @@ class VacancyHat extends Component<
     }
 }
 
+// const ProfileWrapper = profileConnect((store, props) => {
+//     const state = store.getState()
+//
+//     return {
+//         postedByUserID: state.postedByUserID,
+//         authorized: props.authorized,
+//         userID: props.id,
+//         userType: props.userType,
+//     }
+// })(VacancyHat)
+
 export default userConnect((store, props) => {
     const state: UserState = store.getState();
+    console.log('user connect vacancy: ', state);
 
     return {
-        creatorID: props.creatorID,
+        postedByUserID: props.postedByUserID,
         userID: state.id,
         userType: state.userType,
         authorized: state.authorized,
