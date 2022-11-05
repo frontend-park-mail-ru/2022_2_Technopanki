@@ -130,7 +130,6 @@ class VacancyHat extends Component<
 
 export default userConnect((store, props) => {
     const state: UserState = store.getState();
-    console.log('user connect vacancy: ', state);
 
     return {
         postedByUserID: props.postedByUserID,

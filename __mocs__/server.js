@@ -19,7 +19,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.post('/auth/sign-up', (req, res) => {
-    res.json({ id: '1' });
+    res.json({ id: 1 });
 });
 
 app.post('/auth/sign-in', (req, res) => {
@@ -41,13 +41,7 @@ app.post('/auth/sign-in', (req, res) => {
         return;
     }
 
-    res.json({
-        id: '2',
-        applicant_name: 'Vladislav',
-        applicant_surname: 'Kirpichov',
-        company_name: 'VK',
-        user_type: 'applicant',
-    });
+    res.json(users.user);
 });
 
 app.get('/api/user/safety/:id', (req, res) => {

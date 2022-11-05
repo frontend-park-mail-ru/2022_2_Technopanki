@@ -250,7 +250,7 @@ export default class SignUp extends Component<
             .then(body => {
                 dispatch(
                     userActions.SIGN_UP(
-                        body.id.toString(),
+                        body.id,
                         (formData.get('toggle') as string) === 'applicant'
                             ? (formData.get('applicant_name') as string)
                             : (formData.get('company_name') as string),

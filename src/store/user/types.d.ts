@@ -1,7 +1,7 @@
 export type UserType = 'applicant' | 'employer';
 
 export type UserState = {
-    id: string | null;
+    id: string;
     name: string;
     surname: string;
     userType: UserType | null;
@@ -10,7 +10,7 @@ export type UserState = {
 
 export interface AuthAction {
     type: string;
-    id: string | null;
+    id: string;
     name: string;
     surname: string;
     userType: UserType;
