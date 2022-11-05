@@ -354,6 +354,7 @@ class ProfileSettingsComponent extends Component<
     submitForm = (e: SubmitEvent) => {
         e.preventDefault();
         const formData = new FormData(e.target);
+        formData.append('user_type', this.props.profileType);
 
         employerProfileService
             .updateProfile(this.props.profileID, formData)

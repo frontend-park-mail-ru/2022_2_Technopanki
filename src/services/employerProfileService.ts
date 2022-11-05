@@ -31,6 +31,7 @@ export const employerProfileService: Service = {
                 SERVER_URLS.USER,
                 JSON.stringify({
                     id: profileID,
+                    user_type: formData.get('user_type'),
                     description: formData.get('description'),
                     image: formData.get('img'),
                     status: formData.get('status'),
