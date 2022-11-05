@@ -172,7 +172,6 @@ class AboutCompanyComponent extends Component<{
                         label={'Местоположение компании'}
                         name={'location'}
                         value={this.props.location}
-                        required={true}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -183,7 +182,6 @@ class AboutCompanyComponent extends Component<{
                         label={'Телефон'}
                         name={'phone'}
                         value={this.props.phone}
-                        required={true}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -194,7 +192,6 @@ class AboutCompanyComponent extends Component<{
                         label={'Email'}
                         name={'email'}
                         value={this.props.email}
-                        required={true}
                     />
                 </div>
                 <div className={'col-12'}>
@@ -344,7 +341,7 @@ class Password extends Component {
 }
 
 class ProfileSettingsComponent extends Component<
-    { profileID: string },
+    { profileID: string; profileType: string },
     { profile: EmployerProfile; sections: FormSectionType[] }
 > {
     state = {
@@ -356,7 +353,11 @@ class ProfileSettingsComponent extends Component<
         const formData = new FormData(e.target);
 
         employerProfileService
-            .updateProfile(this.props.profileID, formData)
+            .updateProfile(
+                this.props.profileID,
+                this.props.profileType,
+                formData,
+            )
             .then(() => {
                 navigator.navigate('/');
             })
@@ -429,5 +430,6 @@ export default profileConnect(store => {
 
     return {
         id: state.id,
+        profileType: state.profileType,
     };
 })(ProfileSettingsComponent);

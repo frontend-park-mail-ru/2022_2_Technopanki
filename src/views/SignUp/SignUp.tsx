@@ -240,21 +240,20 @@ export default class SignUp extends Component<
         if (validFlag) {
             authService
                 .signUp(formData)
-                .then(response => {
+                .then(body => {
                     dispatch(
                         userActions.SIGN_UP(
-                            // TODO: id
-                            response.body.id,
-                            formData.get('applicant_name') ||
-                                formData.get('company_name') ||
-                                '',
-                            formData.get('applicant_surname'),
-                            formData.get('toggle'),
+                            body.id.toString(),
+                            (formData.get('toggle') as string) === 'applicant'
+                                ? (formData.get('applicant_name') as string)
+                                : (formData.get('company_name') as string),
+                            formData.get('applicant_surname') as string,
+                            formData.get('toggle') as 'applicant' | 'employer',
                         ),
                     );
                     navigator.navigate('/');
                 })
-                .catch(err => console.log(err));
+                .catch(err => console.error(err));
         }
     };
 

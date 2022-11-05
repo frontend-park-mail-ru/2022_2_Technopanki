@@ -7,7 +7,7 @@ export const PROFILE_ACTION_TYPES = {
 
 // TODO: внести в общий тип
 export const profileActions: { [key: string]: (...data: any[]) => Action } = {
-    update: (newState: ProfileState) => ({
+    update: (newState: { [key: string]: any }) => ({
         type: PROFILE_ACTION_TYPES.UPDATE,
         state: newState,
     }),

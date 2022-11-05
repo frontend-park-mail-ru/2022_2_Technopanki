@@ -6,6 +6,8 @@ export const userReducer: Reducer<UserState> = (
     state: UserState,
     action: Action,
 ): UserState => {
+    console.info('USER REDUCER');
+    console.info(action);
     switch (action.type) {
         case 'SIGN_UP':
         case 'SIGN_IN':

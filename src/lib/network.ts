@@ -3,14 +3,13 @@ import { requestHeaders } from '../services/headers';
 class Network {
     async GET(
         url: string,
-        cors: boolean = true,
         headers: HeadersInit = requestHeaders.jsonHeader,
         credentials: boolean = true,
     ) {
         const response = await fetch(url, {
             method: 'GET',
             headers: headers,
-            mode: cors ? 'cors' : 'no-cors',
+            mode: 'cors',
             credentials: credentials ? 'include' : 'omit',
         });
 
@@ -32,7 +31,7 @@ class Network {
             method: 'PUT',
             headers: headers,
             body: payload,
-            mode: cors ? 'cors' : 'no-cors',
+            mode: 'cors',
             credentials: credentials ? 'include' : 'omit',
         });
 
@@ -54,7 +53,7 @@ class Network {
             method: 'POST',
             headers: headers,
             body: payload,
-            mode: cors ? 'cors' : 'no-cors',
+            mode: 'cors',
             credentials: credentials ? 'include' : 'omit',
         });
 
@@ -74,7 +73,7 @@ class Network {
         const response = await fetch(url, {
             method: 'POST',
             headers: headers,
-            mode: cors ? 'cors' : 'no-cors',
+            mode: 'cors',
             credentials: credentials ? 'include' : 'omit',
         });
 

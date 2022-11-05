@@ -3,12 +3,13 @@ import { SERVER_URLS } from '../utils/constants';
 import { Service } from './types';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
+import { requestHeaders } from './headers';
 
 export const vacancyService: Service = {
-    getAllVacancies: () => {
+    getAllVacancies: async () => {
         dispatch(startLoading());
-        return network
-            .GET(SERVER_URLS.VACANCIES, headers.jsonHeader)
+        return await network
+            .GET(SERVER_URLS.VACANCIES, requestHeaders.jsonHeader)
             .then(response => {
                 if (response.status > 399) {
                     dispatch(stopLoading());
@@ -20,10 +21,10 @@ export const vacancyService: Service = {
             });
     },
 
-    getVacancyData: (vacancyID: string) => {
-        dispatch(startLoading());
-        return network
-            .GET(SERVER_URLS.VACANCY + vacancyID, headers.jsonHeader)
+    getVacancyData: async (vacancyID: string) => {
+        dispatch(await startLoading());
+        return await network
+            .GET(SERVER_URLS.VACANCY + vacancyID, requestHeaders.jsonHeader)
             .then(response => {
                 if (response.status > 399) {
                     dispatch(stopLoading());
@@ -35,10 +36,10 @@ export const vacancyService: Service = {
             });
     },
 
-    getVacancyHatData: (userID: string) => {
+    getVacancyHatData: async (userID: string) => {
         dispatch(startLoading());
-        return network
-            .GET(SERVER_URLS.USER_PREVIEW(userID), headers.jsonHeader)
+        return await network
+            .GET(SERVER_URLS.USER_PREVIEW(userID), requestHeaders.jsonHeader)
             .then(response => {
                 if (response.status > 399) {
                     dispatch(stopLoading());
@@ -50,7 +51,7 @@ export const vacancyService: Service = {
             });
     },
 
-    updateVacancy: (vacancyID: string, formData: FormData) => {
+    updateVacancy: async (vacancyID: string, formData: FormData) => {
         dispatch(startLoading());
         return network
             .PUT(
@@ -78,8 +79,8 @@ export const vacancyService: Service = {
             });
     },
 
-    createVacancy: (formData: FormData) => {
-        return network
+    createVacancy: async (formData: FormData) => {
+        return await network
             .POST(
                 SERVER_URLS.VACANCY_NEW,
                 JSON.stringify({

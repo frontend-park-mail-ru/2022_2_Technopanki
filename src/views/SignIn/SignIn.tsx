@@ -94,13 +94,13 @@ export default class SignIn extends Component<
         if (validFlag) {
             authService
                 .signIn(formData)
-                .then(response => {
+                .then(body => {
                     dispatch(
                         userActions.SIGN_IN(
-                            response.body.id,
-                            response.body.applicant_name,
-                            response.body.applicant_surname,
-                            response.body.user_type,
+                            body.id.toString(),
+                            body.applicant_name,
+                            body.applicant_surname,
+                            body.user_type,
                         ),
                     );
                     navigator.navigate('/');
