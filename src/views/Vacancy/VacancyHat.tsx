@@ -15,6 +15,7 @@ import Vacancy from './index';
 class VacancyHat extends Component<
     {
         postedByUserID: string;
+        vacancyID: string;
         userID: string;
         userType: string;
         authorized: boolean;
@@ -65,7 +66,7 @@ class VacancyHat extends Component<
                             }
                             onSuccess={
                                 <Link
-                                    to={'/vacancy/responses'}
+                                    to={`/vacancy/responses/${this.props.vacancyID}`}
                                     content={
                                         <Button>
                                             Посмотреть отклики на вакансию
@@ -132,6 +133,7 @@ export default userConnect((store, props) => {
     const state: UserState = store.getState();
 
     return {
+        vacancyID: props.vacancyID,
         postedByUserID: props.postedByUserID,
         userID: state.id,
         userType: state.userType,

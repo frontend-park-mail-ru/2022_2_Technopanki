@@ -3,7 +3,7 @@ const cors = require('cors');
 const PORT = 8080;
 
 const users = require('./user.js');
-let { defaultVacancy, vacancies } = require('./vacancy.js');
+let { defaultVacancy, vacancies, responses } = require('./vacancy.js');
 
 const corsOptions = {
     credentials: true, // This is important.
@@ -72,6 +72,7 @@ app.post('/api/user', (req, res) => {
 
 app.get('/api/user/preview/:id', (req, res) => {
     res.json({
+        id: 1,
         creator_img_src: './',
         company_name: 'VK',
         status: 'Место встречи профессионалов',
@@ -79,21 +80,13 @@ app.get('/api/user/preview/:id', (req, res) => {
 });
 
 app.get('/api/vacancy/', (req, res) => {
-    console.log(req);
+    console.log('api/vacancy');
     res.json(vacancies);
 });
 
 app.get('/api/vacancy/:id', (req, res) => {
+    console.log('/api/vacancy');
     res.json(defaultVacancy);
-});
-
-app.put('/api/vacancy/:id', (req, res) => {
-    defaultVacancy = {
-        ...defaultVacancy,
-        ...req.body,
-    };
-
-    res.status(200).send();
 });
 
 app.post('/api/vacancy/new', (req, res) => {
@@ -104,10 +97,15 @@ app.post('/api/vacancy/new', (req, res) => {
 });
 
 app.post('/api/image', (req, res) => {
-    console.log(req.data);
+    console.log('/api/image');
     res.json({
         id: vacancies.length,
     });
+});
+
+app.get('/api/vacancies/responses/:id', (req, res) => {
+    console.log(req);
+    res.json(responses);
 });
 
 app.listen(PORT);

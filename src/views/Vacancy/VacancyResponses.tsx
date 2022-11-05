@@ -5,142 +5,64 @@ import VacancyResponsesHat from './VacancyResponsesHat';
 import styles from './vacancy.module.scss';
 import ResumeList from '../../components/UI-kit/resumeList/ResumeList';
 import VacancySideBar from '../../components/sidebars/VacancySideBar';
-import Chips from '../../components/UI-kit/chips/Chips';
-import { vacancyConnect } from '../../store';
+import { dispatch, vacancyConnect } from '../../store';
+import { vacancyService } from '../../services/vacancyService';
+import { vacancyActions } from '../../store/vacancy/actions';
+import VacanciesResumeList from './VacanciesResumeList';
 
-class VacancyResponses extends Component<{
-    title: string;
-}> {
+class VacancyResponses extends Component<
+    {
+        title: string;
+        postedByUserID: string;
+    },
+    { vacancyID: string }
+> {
     state = {
-        responses: [
-            {
-                id: '1',
-                imgSrc: './',
-                name: 'Владислав',
-                surname: 'Кирпичов',
-                resumeTitle: 'Фронтенд-разработчик',
-                timeThenCreated: '12 сентября 2022 • 14:30',
-                chips: <Chips>JS</Chips>,
-                resumeSrc: './',
-            },
-            {
-                id: '2',
-                imgSrc: './',
-                name: 'Владислав',
-                surname: 'Кирпичов',
-                resumeTitle: 'Фронтенд-разработчик',
-                timeThenCreated: '12 сентября 2022 • 14:30',
-                chips: <Chips>JS</Chips>,
-                resumeSrc: './',
-            },
-            {
-                id: '3',
-                imgSrc: './',
-                name: 'Владислав',
-                surname: 'Кирпичов',
-                resumeTitle: 'Фронтенд-разработчик',
-                timeThenCreated: '12 сентября 2022 • 14:30',
-                chips: <Chips>JS</Chips>,
-                resumeSrc: './',
-            },
-            {
-                id: '4',
-                imgSrc: './',
-                name: 'Владислав',
-                surname: 'Кирпичов',
-                resumeTitle: 'Фронтенд-разработчик',
-                timeThenCreated: '12 сентября 2022 • 14:30',
-                chips: <Chips>JS</Chips>,
-                resumeSrc: './',
-            },
-            {
-                id: '5',
-                imgSrc: './',
-                name: 'Владислав',
-                surname: 'Кирпичов',
-                resumeTitle: 'Фронтенд-разработчик',
-                timeThenCreated: '12 сентября 2022 • 14:30',
-                chips: <Chips>JS</Chips>,
-                resumeSrc: './',
-            },
-            {
-                id: '6',
-                imgSrc: './',
-                name: 'Владислав',
-                surname: 'Кирпичов',
-                resumeTitle: 'Фронтенд-разработчик',
-                timeThenCreated: '12 сентября 2022 • 14:30',
-                chips: <Chips>JS</Chips>,
-                resumeSrc: './',
-            },
-            {
-                id: '7',
-                imgSrc: './',
-                name: 'Владислав',
-                surname: 'Кирпичов',
-                resumeTitle: 'Фронтенд-разработчик',
-                timeThenCreated: '12 сентября 2022 • 14:30',
-                chips: <Chips>JS</Chips>,
-                resumeSrc: './',
-            },
-            {
-                id: '8',
-                imgSrc: './',
-                name: 'Владислав',
-                surname: 'Кирпичов',
-                resumeTitle: 'Фронтенд-разработчик',
-                timeThenCreated: '12 сентября 2022 • 14:30',
-                chips: <Chips>JS</Chips>,
-                resumeSrc: './',
-            },
-            {
-                id: '9',
-                imgSrc: './',
-                name: 'Владислав',
-                surname: 'Кирпичов',
-                resumeTitle: 'Фронтенд-разработчик',
-                timeThenCreated: '12 сентября 2022 • 14:30',
-                chips: <Chips>JS</Chips>,
-                resumeSrc: './',
-            },
-            {
-                id: '10',
-                imgSrc: './',
-                name: 'Владислав',
-                surname: 'Кирпичов',
-                resumeTitle: 'Фронтенд-разработчик',
-                timeThenCreated: '12 сентября 2022 • 14:30',
-                chips: <Chips>JS</Chips>,
-                resumeSrc: './',
-            },
-            {
-                id: '12',
-                imgSrc: './',
-                name: 'Владислав',
-                surname: 'Кирпичов',
-                resumeTitle: 'Фронтенд-разработчик',
-                timeThenCreated: '12 сентября 2022 • 14:30',
-                chips: <Chips>JS</Chips>,
-                resumeSrc: './',
-            },
-        ],
+        vacancyID: '',
     };
+
+    getVacancyData() {
+        if (this.state.vacancyID) {
+            vacancyService
+                .getVacancyData(this.state.vacancyID as string)
+                .then(body => {
+                    dispatch(vacancyActions.update(body));
+                });
+        }
+    }
+
+    componentDidMount() {
+        this.setState(state => ({
+            ...state,
+            vacancyID: location.pathname.split('/').at(-1) as string,
+        }));
+    }
+
+    componentDidUpdate() {
+        this.getVacancyData();
+    }
 
     render() {
         return (
             <div className={'screen-responsive relative hidden g-24'}>
-                <Header />
-                <div></div>
-                <div className={'columns mt-header g-24'}>
+                <Header key={'header'} />
+                <div key={'vacancies'} className={'columns mt-header g-24'}>
                     <div className={`col-12 ${styles.header}`}>
-                        <VacancyResponsesHat />
+                        <VacancyResponsesHat
+                            postedByUserID={this.props.postedByUserID}
+                        />
                     </div>
-                    <h3 className={'col-12'}>{this.props.title}</h3>
-                    <div className={'col-12 col-md-9 column g-16'}>
-                        <h6>Отклики на вакансию</h6>
-                        <ResumeList resume={this.state.responses} />
+                    <h3 key={'title'} className={'col-12'}>
+                        {this.props.title}
+                    </h3>
+                    <div
+                        key={'responses'}
+                        className={'col-12 col-md-9 column g-16'}
+                    >
+                        <h6 key={'asd'}>Отклики на вакансию</h6>
+                        <VacanciesResumeList />
                     </div>
-                    <div className={'col-12 col-md-3'}>
+                    <div key={'kj'} className={'col-12 col-md-3'}>
                         <VacancySideBar />
                     </div>
                 </div>
@@ -153,5 +75,6 @@ class VacancyResponses extends Component<{
 export default vacancyConnect(store => {
     return {
         title: store.getState().title,
+        postedByUserID: store.getState().postedByUserID,
     };
 })(VacancyResponses);

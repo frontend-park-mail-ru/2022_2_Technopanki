@@ -43,7 +43,24 @@ let vacancies = [
     defaultVacancy,
 ];
 
+let response = {
+    id: 1,
+    imgSrc: './',
+    name: 'Vladislav',
+    surname: 'Kirpichov',
+    resumeTitle: 'Фронтенд-разработчик',
+    timeThenCreated: '12.10.2022',
+    chips: [],
+    resumeSrc: './',
+};
+
+let responses = [];
+for (let i = 0; i < 100; ++i) {
+    responses.push(response);
+}
+
 module.exports = {
     defaultVacancy,
     vacancies,
+    responses,
 };

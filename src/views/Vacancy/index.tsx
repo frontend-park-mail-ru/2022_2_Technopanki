@@ -55,6 +55,7 @@ class Vacancy extends Component<VacancyPropsType> {
                 <div key={'user'} className={'columns mt-header g-24'}>
                     <div className={`col-12 ${styles.header}`}>
                         <VacancyHat
+                            vacancyID={this.props.id}
                             postedByUserID={this.props.postedByUserID}
                         />
                     </div>
@@ -94,9 +95,6 @@ class Vacancy extends Component<VacancyPropsType> {
 
 export default vacancyConnect((store, props) => {
     const storeState = store.getState() as VacancyState;
-
-    console.log('vacancyConnect: ', storeState);
-
     return {
         id: props.id || storeState.id,
         postedByUserID: storeState.postedByUserID,
