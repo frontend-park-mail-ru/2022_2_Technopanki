@@ -161,7 +161,6 @@ class AboutCompanyComponent extends Component<{
                         label={'Описание'}
                         name={'description'}
                         value={this.props.description}
-                        required={true}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -172,7 +171,6 @@ class AboutCompanyComponent extends Component<{
                         label={'Местоположение компании'}
                         name={'location'}
                         value={this.props.location}
-                        required={true}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -194,7 +192,6 @@ class AboutCompanyComponent extends Component<{
                         label={'Email'}
                         name={'email'}
                         value={this.props.email}
-                        required={true}
                     />
                 </div>
                 <div className={'col-12'}>
