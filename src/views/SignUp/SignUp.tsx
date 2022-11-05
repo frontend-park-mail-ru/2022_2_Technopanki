@@ -191,19 +191,19 @@ export default class SignUp extends Component<
         ) {
             validFlag = false;
         }
-        if (
-            !validateField(
-                formData.get('applicant_name') as Exclude<
-                    FormDataEntryValue,
-                    File
-                >,
-                newState.inputs['applicant_name'],
-                validateNameLength,
-                NAME_LENGTH_ERROR,
-            )
-        ) {
-            validFlag = false;
-        }
+        // if (
+        //     !validateField(
+        //         formData.get('applicant_name') as Exclude<
+        //             FormDataEntryValue,
+        //             File
+        //         >,
+        //         newState.inputs['applicant_name'],
+        //         validateNameLength,
+        //         NAME_LENGTH_ERROR,
+        //     )
+        // ) {
+        //     validFlag = false;
+        // }
         // if (
         //     !validateField(
         //         formData.get('applicant_name') as Exclude<
