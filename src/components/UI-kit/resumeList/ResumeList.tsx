@@ -47,9 +47,7 @@ export default class ResumeList extends Component<
                     </p>
                 </div>
                 <div key={'sdf'} className={'w-100'}>
-                    {this.props
-                        .test()
-                        .slice(0, this.state.limit)
+                    {this.props?.test()?.slice(0, this.state.limit)
                         .map(resume => (
                             <ResumeListItem
                                 key={resume.id}

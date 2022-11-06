@@ -33,8 +33,12 @@ class ApplicantResumeList extends Component<
     render() {
         return(
             <ResumeList
+                someNewValue={'text'}
                 resume={this.state.responses}
-                renderResponses={() => this.state.responses}
+                test={() => {
+                    console.log(this.state)
+                    return this.state.responses
+                }}
             />
         )
     }

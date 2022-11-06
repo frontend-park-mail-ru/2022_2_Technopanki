@@ -84,14 +84,14 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                                 icon={MailIcon}
                             />
                             <Link
-                                to={'resume/settings'}
+                                to={'/resume/settings'}
                                 content={
                                     <ButtonPrimary>Создать резюме</ButtonPrimary>
                                 }
                             />
                             {/*TODO: добавить путь в константы*/}
                             <Link
-                                to={'/applicant/resume/settings'}
+                                to={'/applicant/settings'}
                                 content={<Button>Настройки</Button>}
                             />
                         </div>

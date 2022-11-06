@@ -98,6 +98,8 @@ app.get('/api/user/preview/:id', (req, res) => {
         company_name: 'VK',
         status: 'Место встречи профессионалов',
     });
+});
+
 app.get('/api/user/:id/preview', (req, res) => {
     const applicantPreview = {
         creator_img_src: './',
