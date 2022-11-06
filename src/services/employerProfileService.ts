@@ -99,6 +99,10 @@ export const employerProfileService: Service = {
                 }
 
                 return response;
+            })
+            .catch(err => {
+                dispatch(stopLoading());
+                console.error(err);
             });
     },
 };

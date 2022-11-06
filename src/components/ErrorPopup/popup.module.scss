@@ -1,0 +1,19 @@
+.popup {
+  right: 24px;
+  bottom: 24px;
+  background-color: var(--background-0);
+  background: linear-gradient(90deg, rgba(255,0,0,0.08) 0%, var(--background-body-60) 60%, var(--background-body-80) 80%);
+  padding: 12px 20px;
+  border: var(--border-light);
+  transition: var(--transition-slow-0);
+}
+
+.popup_header {
+  color: var(--primary-red);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.popup_text {
+  color: var(--background-700);
+}

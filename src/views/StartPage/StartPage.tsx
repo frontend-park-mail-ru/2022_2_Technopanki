@@ -6,6 +6,7 @@ import ArrowButtonWithTextOutline from '../../components/UI-kit/buttons/ArrowBut
 import Logo from '../../static/assets/JobflowDefault.svg';
 import img from '../../static/assets/MainPicture.png';
 import Link from '../../components/Link/Link';
+import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 
 export default class StartPage extends Component {
     render() {

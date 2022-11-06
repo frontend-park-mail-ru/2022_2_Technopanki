@@ -18,10 +18,12 @@ import { sendProfileImg } from '../../services/imageService';
 import { employerProfileService } from '../../services/employerProfileService';
 import { userStore } from '../../store/user/store';
 import { defaultProfileState, profileStore } from '../../store/profile/store';
-import { EmployerProfile } from '../../store/profile/types';
-import { profileConnect } from '../../store';
+import { EmployerProfile, ProfileState } from '../../store/profile/types';
+import { dispatch, errorsConnect, profileConnect } from '../../store';
 import Textarea from '../../components/UI-kit/forms/inputs/Textarea';
 import ChipsInput from '../../components/UI-kit/forms/inputs/ChipsInput';
+import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
+import { activateError, deactivateError } from '../../store/errors/actions';
 
 class AvatarSettingsComponent extends Component<
     { previewSrc: string },
@@ -41,7 +43,7 @@ class AvatarSettingsComponent extends Component<
 
     render() {
         return (
-            <div className={'columns g-16'}>
+            <div key={'avatar'} className={'columns g-16'}>
                 <div key={'preview'} className={'col-12 col-md-3'}>
                     <img
                         height={64}
@@ -102,7 +104,7 @@ class FieldOfActivity extends Component<
 
     render() {
         return (
-            <div>
+            <div key={'fields'}>
                 <input
                     className={'none'}
                     name={'field_of_activity'}
@@ -128,21 +130,34 @@ class AboutCompanyComponent extends Component<{
     email: string;
     size: string;
 }> {
+    state = {
+        name: this.props.name,
+        status: this.props.status,
+        description: this.props.description,
+        phone: this.props.phone,
+        email: this.props.email,
+        size: this.props.size,
+    };
+
     render() {
         return (
-            <div className={'columns g-16'}>
-                <div className={'col-12'}>
+            <div key={'about'} className={'columns g-16'}>
+                <div key={'employer_name'} className={'col-12'}>
                     <Input
                         id={'employer_name'}
                         type={'text'}
                         placeholder={'Company name'}
                         label={'Название компании'}
                         name={'name'}
-                        value={this.props.name}
+                        value={this.state.name}
                         required={true}
+                        onBlur={() => {
+                            this.state.name =
+                                document.querySelector('#employer_name').value;
+                        }}
                     />
                 </div>
-                <div className={'col-12 col-md-8'}>
+                <div key={'status'} className={'col-12 col-md-8'}>
                     <Input
                         id={'status'}
                         type={'text'}
@@ -153,7 +168,7 @@ class AboutCompanyComponent extends Component<{
                         required={true}
                     />
                 </div>
-                <div className={'col-12'}>
+                <div key={'description'} className={'col-12'}>
                     <Textarea
                         id={'description'}
                         placeholder={'Напишите здесь описание Вашей компании'}
@@ -162,7 +177,7 @@ class AboutCompanyComponent extends Component<{
                         value={this.props.description}
                     />
                 </div>
-                <div className={'col-12 col-md-4'}>
+                <div key={'size'} className={'col-12 col-md-4'}>
                     <Input
                         id={'size'}
                         type={'integer'}
@@ -172,7 +187,7 @@ class AboutCompanyComponent extends Component<{
                         value={this.props.size}
                     />
                 </div>
-                <div className={'col-12 col-md-4'}>
+                <div key={'phone'} className={'col-12 col-md-4'}>
                     <Input
                         id={'phone'}
                         type={'text'}
@@ -182,7 +197,7 @@ class AboutCompanyComponent extends Component<{
                         value={this.props.phone}
                     />
                 </div>
-                <div className={'col-12 col-md-4'}>
+                <div key={'email'} className={'col-12 col-md-4'}>
                     <Input
                         id={'email'}
                         type={'text'}
@@ -192,7 +207,6 @@ class AboutCompanyComponent extends Component<{
                         value={this.props.email}
                     />
                 </div>
-                <div className={'col-12'}></div>
             </div>
         );
     }
@@ -309,7 +323,7 @@ const AboutCompany = profileConnect(store => {
 class Password extends Component {
     render() {
         return (
-            <div className={'columns g-16'}>
+            <div key={'password'} className={'columns g-16'}>
                 <div className={'col-12 col-md-4'}>
                     <Input
                         id={'password'}
@@ -317,6 +331,15 @@ class Password extends Component {
                         placeholder={'********'}
                         label={'Новый пароль'}
                         name={'password'}
+                        onBlur={() => {
+                            dispatch(
+                                activateError(
+                                    'Ошибка в пароле',
+                                    'Неверный пароль',
+                                ),
+                            );
+                            setTimeout(() => dispatch(deactivateError()), 3000);
+                        }}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -335,22 +358,27 @@ class Password extends Component {
 
 // todo: добавить валидацию на все компоненты
 class ProfileSettingsComponent extends Component<
-    { profileID: string; profileType: string },
+    { errorIsActive: boolean; profile: ProfileState },
     { profile: EmployerProfile; sections: FormSectionType[] }
 > {
     state = {
-        profile: defaultProfileState,
+        profile: this.props.profile,
     };
 
     submitForm = (e: SubmitEvent) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        formData.append('user_type', this.props.profileType);
+        formData.append('user_type', this.props.profile.profileType);
 
-        employerProfileService
-            .updateProfileImg(formData.get('img'))
-            .then(body => console.log(body))
-            .catch(err => console.error(err));
+        if (this.props.errorIsActive) {
+            console.log(this.props);
+            return;
+        }
+
+        // employerProfileService
+        //     .updateProfileImg(formData.get('img'))
+        //     .then(body => console.log(body))
+        //     .catch(err => console.error(err));
 
         employerProfileService
             .updateProfile(
@@ -379,7 +407,16 @@ class ProfileSettingsComponent extends Component<
             },
             {
                 header: 'О компании',
-                content: <AboutCompany />,
+                content: (
+                    <AboutCompanyComponent
+                        name={this.state.profile.name}
+                        status={this.state.profile.status}
+                        description={this.state.profile.description}
+                        phone={this.state.profile.phone}
+                        email={this.state.profile.email}
+                        size={this.state.profile.size}
+                    />
+                ),
             },
             // {
             //     header: 'Социальные сети',
@@ -393,9 +430,10 @@ class ProfileSettingsComponent extends Component<
 
         return (
             <div className={'screen-responsive relative hidden'}>
-                <Header />
-                <div className={'columns g-24'}>
-                    <div className={`col-12 mt-header`}>
+                <Header key={'header'} />
+                <ErrorPopup key={'popup'} />
+                <div key={'hat'} className={'columns g-24'}>
+                    <div key={'hat'} className={`col-12 mt-header`}>
                         <SettingsHat
                             imgSrc={this.state.profile.avatarSrc}
                             name={this.state.profile.name}
@@ -404,9 +442,12 @@ class ProfileSettingsComponent extends Component<
                             submit={this.submitEvent}
                         />
                     </div>
-                    <h3 className={'col-12'}>Настройки профиля</h3>
-                    <div className={'col-12 col-md-9'}>
+                    <h3 key={'header'} className={'col-12'}>
+                        Настройки профиля
+                    </h3>
+                    <div key={'form'} className={'col-12 col-md-9'}>
                         <Form
+                            key={'form'}
                             sections={sections}
                             submitComponent={
                                 <CancelSaveButtons
@@ -419,17 +460,21 @@ class ProfileSettingsComponent extends Component<
                         />
                     </div>
                 </div>
-                <Footer />
+                <Footer key={'footer'} />
             </div>
         );
     }
 }
 
-export default profileConnect(store => {
+const ProfileWrapper = profileConnect((store, props) => {
     const state = store.getState();
 
     return {
-        id: state.id,
-        profileType: state.profileType,
+        errorIsActive: props.errorIsActive,
+        profile: state,
     };
 })(ProfileSettingsComponent);
+
+export default errorsConnect(store => ({
+    errorIsActive: store.getState().isActive,
+}))(ProfileWrapper);

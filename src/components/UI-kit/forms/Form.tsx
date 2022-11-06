@@ -20,9 +20,9 @@ export default class Form extends Component<FormPropsType> {
                 className={'flex w-100 column g-24'}
             >
                 {this.props.sections.map(section => (
-                    <div className={'flex column g-16'}>
-                        <h5>{section.header}</h5>
-                        {section.content}
+                    <div key={section.header} className={'flex column g-16'}>
+                        <h5 key={'header'}>{section.header}</h5>
+                        <div key={'content'}>{section.content}</div>
                     </div>
                 ))}
                 {this.props.submitComponent}

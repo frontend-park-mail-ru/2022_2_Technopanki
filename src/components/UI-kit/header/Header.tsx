@@ -22,8 +22,9 @@ export default class Header extends Component {
             <header
                 className={`x-0 t-0 border-bottom-light fixed ${styles.header}`}
             >
-                <Preloader />
+                <Preloader key={'preloader'} />
                 <div
+                    key={'content'}
                     className={`flex h-100 screen-responsive row align-items-center justify-content-space-evenly`}
                 >
                     <div
