@@ -32,11 +32,16 @@ class HeaderProfile extends Component<HeaderProps> {
                         }}
                     />
                     {this.props.authorized ? (
-                        <HeaderUserInfo
-                            key={'info'}
-                            imgSrc={'./'}
-                            name={this.props.name}
-                            surname={this.props.surname}
+                        <Link
+                            to={'applicant/1'}
+                            content={
+                                <HeaderUserInfo
+                                    key={'info'}
+                                    imgSrc={'./'}
+                                    name={this.props.name}
+                                    surname={this.props.surname}
+                                />
+                            }
                         />
                     ) : (
                         <div

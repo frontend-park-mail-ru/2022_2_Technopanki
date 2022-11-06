@@ -1,7 +1,8 @@
 import { Component } from '../../../../../Reacts';
 import styles from './input.module.scss';
 
-export type InputPropsType = {
+// TODO: перенести вывод сообщений об ошиках в input + добавиьт onBlur
+export default class Input extends Component<{
     id: string;
     type: string;
     placeholder: string;
@@ -36,7 +37,6 @@ export default class Input extends Component<InputPropsType> {
                     placeholder={this.props.placeholder}
                     required={this.props.required}
                     value={this.props.value}
-                    onBlur={this.props.onBlur}
                 />
                 {this.props.error ? (
                     <p className={`input-error-${this.props.name}`}>

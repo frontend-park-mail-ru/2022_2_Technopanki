@@ -2,6 +2,7 @@ import { Component } from '../../../../../Reacts/index';
 import styles from './input.module.scss';
 
 export default class Textarea extends Component<{
+    type?: string;
     placeholder: string;
     id: string;
     label: string;
@@ -19,6 +20,7 @@ export default class Textarea extends Component<{
                     id={this.props.id}
                     name={this.props.name}
                     className={`${styles.input} ${styles.textarea}`}
+                    type={this.props.type}
                     placeholder={this.props.placeholder}
                 >
                     {this.props.value}
