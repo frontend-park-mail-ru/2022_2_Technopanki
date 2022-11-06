@@ -14,11 +14,19 @@ class VacancyResponsesHat extends Component<{
     postedByUserID: string;
     vacancyID: string;
 }> {
+    state = {
+        creatorImgSrc: '',
+        imgSrc: './',
+        companyName: '',
+        status: '',
+    };
+
     getCreatorDataFromServer = () => {
         if (this.props.postedByUserID) {
             vacancyService
                 .getVacancyHatData(this.props.postedByUserID)
                 .then(body => {
+                    console.log(body);
                     this.setState(() => ({
                         creatorImgSrc: body.creator_img_src,
                         companyName: body.company_name,
@@ -36,10 +44,10 @@ class VacancyResponsesHat extends Component<{
     render() {
         return (
             <Hat
-                imgSrc={this.props.imgSrc}
-                name={this.props.name}
+                imgSrc={this.state.imgSrc}
+                name={this.state.companyName}
                 surname={''}
-                status={this.props.status}
+                status={this.state.status}
                 rightSideContent={
                     <div className={'flex row g-16'}>
                         <Link

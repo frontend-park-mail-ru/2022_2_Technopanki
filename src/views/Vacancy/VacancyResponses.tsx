@@ -3,44 +3,26 @@ import Header from '../../components/UI-kit/header/Header';
 import Footer from '../../components/UI-kit/footer/Footer';
 import VacancyResponsesHat from './VacancyResponsesHat';
 import styles from './vacancy.module.scss';
-import ResumeList from '../../components/UI-kit/resumeList/ResumeList';
 import VacancySideBar from '../../components/sidebars/VacancySideBar';
-import { dispatch, vacancyConnect } from '../../store';
+import { dispatch, userConnect, vacancyConnect } from '../../store';
 import { vacancyService } from '../../services/vacancyService';
 import { vacancyActions } from '../../store/vacancy/actions';
 import VacanciesResumeList from './VacanciesResumeList';
+import RenderWithCondition from '../../components/RenderWithCondition';
 
-class VacancyResponses extends Component<
-    {
-        title: string;
-        postedByUserID: string;
-        vacancyID: string;
-    },
-    { vacancyID: string }
-> {
-    state = {
-        vacancyID: this.props.vacancyID,
-    };
-
-    getVacancyData() {
-        if (this.state.vacancyID) {
-            vacancyService
-                .getVacancyData(this.state.vacancyID as string)
-                .then(body => {
-                    dispatch(vacancyActions.update(body));
-                });
-        }
-    }
-
+class VacancyResponses extends Component<{
+    userID: string;
+    title: string;
+    postedByUserID: string;
+    vacancyID: string;
+}> {
     componentDidMount() {
-        this.setState(state => ({
-            ...state,
-            vacancyID: location.pathname.split('/').at(-1) as string,
-        }));
-    }
-
-    componentDidUpdate() {
-        this.getVacancyData();
+        console.log('did mount');
+        vacancyService
+            .getVacancyData(location.pathname.split('/').at(-1) as string)
+            .then(body => {
+                dispatch(vacancyActions.update(body));
+            });
     }
 
     render() {
@@ -48,23 +30,23 @@ class VacancyResponses extends Component<
             <div className={'screen-responsive relative hidden g-24'}>
                 <Header key={'header'} />
                 <div key={'vacancies'} className={'columns mt-header g-24'}>
-                    <div key={'hat'} className={`col-12 ${styles.header}`}>
+                    <div className={`col-12 ${styles.header}`}>
                         <VacancyResponsesHat
-                            vacancyID={this.state.vacancyID}
+                            vacancyID={this.props.vacancyID}
                             postedByUserID={this.props.postedByUserID}
                         />
                     </div>
-                    <h3 key={'title'} className={'col-12'}>
-                        {this.props.title}
-                    </h3>
-                    <div
-                        key={'responses'}
-                        className={'col-12 col-md-9 column g-16'}
-                    >
+                    <h3 className={'col-12'}>{this.props.title}</h3>
+                    <div className={'col-12 col-md-9 column g-16'}>
                         <h6 key={'asd'}>Отклики на вакансию</h6>
-                        <VacanciesResumeList />
+                        <RenderWithCondition
+                            condition={
+                                this.props.userID === this.props.postedByUserID
+                            }
+                            onSuccess={<VacanciesResumeList />}
+                        />
                     </div>
-                    <div key={'kj'} className={'col-12 col-md-3'}>
+                    <div className={'col-12 col-md-3'}>
                         <VacancySideBar />
                     </div>
                 </div>
@@ -74,10 +56,18 @@ class VacancyResponses extends Component<
     }
 }
 
+const UserWrapper = userConnect((state, props) => ({
+    userID: state.getState().id,
+    vacancyID: props.vacancyID,
+    title: props.title,
+    postedByUserID: props.postedByUserID,
+}))(VacancyResponses);
+
 export default vacancyConnect(store => {
+    console.log(store.getState());
     return {
         vacancyID: store.getState().id,
         title: store.getState().title,
         postedByUserID: store.getState().postedByUserID,
     };
-})(VacancyResponses);
+})(UserWrapper);
