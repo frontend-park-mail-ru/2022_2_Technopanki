@@ -15,10 +15,13 @@ class Network {
 
         return {
             status: response.status,
-            body: await response.json().catch(err => {
-                console.error(err, response);
-                return {};
-            }),
+            body:
+                headers === requestHeaders.jsonHeader
+                    ? await response.json().catch(err => {
+                          console.error(err, response);
+                          return {};
+                      })
+                    : await response,
         };
     }
     async PUT(

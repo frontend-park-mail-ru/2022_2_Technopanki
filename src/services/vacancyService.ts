@@ -12,7 +12,6 @@ export const vacancyService: Service = {
             .GET(SERVER_URLS.VACANCIES, requestHeaders.jsonHeader)
             .then(response => {
                 dispatch(stopLoading());
-                console.log(response);
                 if (response.status > 399) {
                     throw response.status;
                 }
@@ -52,7 +51,6 @@ export const vacancyService: Service = {
 
     getResponses: async (vacancyID: string) => {
         dispatch(startLoading());
-        console.log(SERVER_URLS.VACANCY_RESPONSES + vacancyID);
         return await network
             .GET(SERVER_URLS.VACANCY_RESPONSES + vacancyID)
             .then(response => {

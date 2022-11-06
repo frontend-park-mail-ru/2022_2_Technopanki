@@ -201,8 +201,6 @@ class ProfileSettingsComponent extends Component<{
         e.preventDefault();
         const formData = new FormData(e.target);
 
-        console.log(this.sections);
-
         let sections = this.sections;
         let isValid = true;
 
@@ -221,7 +219,6 @@ class ProfileSettingsComponent extends Component<{
             return;
         }
 
-        console.log(this.state.profile);
         employerProfileService
             .updateProfile(
                 this.state.profile.id,
@@ -229,7 +226,6 @@ class ProfileSettingsComponent extends Component<{
                 formData,
             )
             .then(() => {
-                console.log('back');
                 navigator.goBack();
             })
             .catch(err => console.error(err));
@@ -243,7 +239,6 @@ class ProfileSettingsComponent extends Component<{
     };
 
     render() {
-        console.log(this.sections);
         return (
             <div className={'screen-responsive relative hidden'}>
                 <Header key={'header'} />

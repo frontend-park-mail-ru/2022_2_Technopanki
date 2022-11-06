@@ -37,7 +37,6 @@ export default class Vacancies extends Component<
     }
 
     render() {
-        console.log(this.state.vacancies);
         return (
             <div>
                 <Header key={'header'} />

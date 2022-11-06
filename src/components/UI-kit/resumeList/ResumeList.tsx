@@ -23,20 +23,7 @@ export default class ResumeList extends Component<
         }));
     };
 
-    componentDidMount() {
-        console.log('ResumeList: ', this.state.resume);
-    }
-
-    componentDidUpdate() {
-        console.log('ResumeList: ', this.state.resume);
-    }
-
     render() {
-        console.log(
-            this.state.resume,
-            this.state.limit,
-            this.props.someNewValue,
-        );
         return (
             <div className={'w-100 g-24 hidden rounded-md border-default'}>
                 <div key={'asd'} className={'columns p-16'}>
@@ -47,7 +34,9 @@ export default class ResumeList extends Component<
                     </p>
                 </div>
                 <div key={'sdf'} className={'w-100'}>
-                    {this.props?.test()?.slice(0, this.state.limit)
+                    {this.props
+                        ?.test()
+                        ?.slice(0, this.state.limit)
                         .map(resume => (
                             <ResumeListItem
                                 key={resume.id}

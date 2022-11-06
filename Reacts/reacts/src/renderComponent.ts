@@ -10,9 +10,6 @@ export function rerenderComponent(component: Component<any, any>) {
         if (VDomElement.$$typeof === COMPONENT_NODE_SYMBOL) {
             VDomElement._instance = component;
         }
-        if (component.props.vacancyID && component.props.responses) {
-            console.log(component.prevRenderVNodeRef, VDomElement);
-        }
         rerenderNode(
             component.rootDomRef,
             // @ts-ignore if we call rerender => we have some prevRenderVNodeRef with DOM element

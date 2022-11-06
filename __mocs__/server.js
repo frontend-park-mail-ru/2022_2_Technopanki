@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const PORT = 8080;
 
 const users = require('./user.js');
@@ -16,10 +17,10 @@ const corsOptions = {
 const app = express();
 
 app.use(cors(corsOptions));
+app.use(cookieParser());
 app.use(express.json());
 
 app.post('/auth/sign-up', (req, res) => {
-    console.log('sign-up');
     if (req.body.email === 'test@mail.ru') {
         res.status(400);
         res.json({
@@ -37,6 +38,8 @@ app.post('/auth/sign-up', (req, res) => {
         });
         return;
     }
+
+    res.cookie('session', '123');
     res.json({ id: 1 });
 });
 
@@ -59,11 +62,11 @@ app.post('/auth/sign-in', (req, res) => {
         return;
     }
 
+    res.cookie('session', '123');
     res.json(users.user);
 });
 
 app.get('/api/user/safety/:id', (req, res) => {
-    console.log(req.params.id);
     console.log(users.user);
 
     res.status(200);
@@ -160,12 +163,10 @@ app.get('/api/resume/:id', (req, res) => {
             'Работал с mongodb, web-socket, express.js, участвовал в исправлении npm-модуля\n' +
             'Имеется опыт работы с школьниками, читаю лекции в технопарке МАИ\n' +
             'Дважды призёр Rucode',
-        university:
-            'МГТУ им. Баумана',
+        university: 'МГТУ им. Баумана',
         faculty:
             'Информационное управление, Информационные системы и технологии',
-        status:
-            'Неоконченное высшее',
+        status: 'Неоконченное высшее',
         // For sidebar
         location: 'Москва',
         dateOfBirth: '21.02.2002',
@@ -191,10 +192,10 @@ app.get('/api/applicant/:id', (req, res) => {
         vk: 'https://vk.com',
         facebook: 'https://facebook.com',
         telegram: 'https://t.me',
-    })
-})
+    });
+});
 
-app.get('/api/applicant/resumes/:id', (req,res)=> {
+app.get('/api/applicant/resumes/:id', (req, res) => {
     res.json([
         {
             id: '1',
@@ -226,9 +227,17 @@ app.get('/api/applicant/resumes/:id', (req,res)=> {
             skills: ['CSS3', 'HTML5', 'React'],
             resumeSrc: './',
         },
-        ]
-    )
+    ]);
+});
 
-})
+app.get('/authh', (req, res) => {
+    console.log(req.headers.cookie);
+    if (req.headers.cookie.session === '123') {
+        res.json(users.user);
+        return;
+    }
+
+    res.status(401).send();
+});
 
 app.listen(PORT);

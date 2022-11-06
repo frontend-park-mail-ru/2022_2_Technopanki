@@ -14,7 +14,6 @@ export const SERVER_URLS = {
     USER: SERVER_URL + 'api/user/safety/',
     USER_SAFE: SERVER_URL + 'api/user/safety/',
     USER_PREVIEW: (userID: string) => {
-        console.log(`USER_PREVIEW id: ${userID}`);
         return SERVER_URL + 'api/user/preview/' + userID;
     },
     VACANCY_RESPONSES: SERVER_URL + 'api/vacancies/responses/',

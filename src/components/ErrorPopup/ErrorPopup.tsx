@@ -11,7 +11,6 @@ class ErrorPopup extends Component<{
     text: string;
 }> {
     render() {
-        console.log(this.props);
         return (
             <div
                 className={`${
