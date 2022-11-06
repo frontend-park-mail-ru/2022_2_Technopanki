@@ -77,9 +77,14 @@ export default class ResumeListItem extends Component<ResumeListItemPropsType> {
                         alt={'Avatar'}
                     />
                     <div key={'data'} className={'flex column g-4'}>
-                        <p key={'name'}>
-                            {this.props.name} {this.props.surname}
-                        </p>
+                        <Link
+                            to={'/resume/1'}
+                            content={
+                                <p key={'name'}>
+                                    {this.props.name} {this.props.surname}
+                                </p>
+                            }
+                        />
                         <p key={'title'}>{this.props.resumeTitle}</p>
                     </div>
                 </div>

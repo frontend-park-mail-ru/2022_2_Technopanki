@@ -49,7 +49,7 @@ class AboutApplicant extends Component {
                 <div className={`col-12 col-md-4 ${styles.city}`}>
                     <IconInput
                         id={'city'}
-                        icon={Location}
+                        icon={'./'}
                         type={'text'}
                         placeholder={'Город'}
                         label={'Место жительства'}
@@ -65,16 +65,16 @@ export default class ApplicantSettings extends Component<
     {},
     { section: FormSectionType[] }
     >{
-    // state = {
-    //     sections: [
+    state = {
+        sections: [
     //         {
     //             header: 'Аватарка',
     //             content: <AvatarSettings />
     //         },
-    //         {
-    //             header: 'О себе',
-    //             content: <AboutApplicant />
-    //         },
+            {
+                header: 'О себе',
+                content: <AboutApplicant />
+            },
     //         {
     //             header: 'Социальные сети',
     //             content: <SocialNetworks />,
@@ -83,8 +83,8 @@ export default class ApplicantSettings extends Component<
     //             header: 'Смена пароля',
     //             content: <Password />,
     //         },
-    //     ]
-    // };
+        ]
+    };
 
     submitForm = () => {};
 

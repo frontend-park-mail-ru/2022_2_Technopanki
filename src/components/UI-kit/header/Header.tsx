@@ -66,7 +66,7 @@ export default class Header extends Component {
                             }
                         />
                         <Link
-                            to={'/resume/1'}
+                            to={'/resume/settings'}
                             content={
                                 <p
                                     key={'item3'}
