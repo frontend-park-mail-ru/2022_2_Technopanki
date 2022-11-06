@@ -120,15 +120,13 @@ class FieldOfActivity extends Component<
     }
 }
 
-// todo: убрать поле location + убрать чипсы
 class AboutCompanyComponent extends Component<{
     name: string;
     status: string;
     description: string;
-    location: string;
     phone: string;
     email: string;
-    fieldOfActivity: string[];
+    size: string;
 }> {
     render() {
         return (
@@ -166,12 +164,12 @@ class AboutCompanyComponent extends Component<{
                 </div>
                 <div className={'col-12 col-md-4'}>
                     <Input
-                        id={'location'}
-                        type={'text'}
-                        placeholder={'Москва'}
-                        label={'Местоположение компании'}
-                        name={'location'}
-                        value={this.props.location}
+                        id={'size'}
+                        type={'integer'}
+                        placeholder={'10.000'}
+                        label={'Размер компании (человек)'}
+                        name={'size'}
+                        value={this.props.size}
                     />
                 </div>
                 <div className={'col-12 col-md-4'}>
@@ -207,10 +205,9 @@ const AboutCompany = profileConnect(store => {
         name: state.name,
         status: state.status,
         description: state.description,
-        location: state.location,
         phone: state.phone,
         email: state.email,
-        fieldOfActivity: state.fieldOfActivity,
+        size: state.size,
     };
 })(AboutCompanyComponent);
 
@@ -336,6 +333,7 @@ class Password extends Component {
     }
 }
 
+// todo: добавить валидацию на все компоненты
 class ProfileSettingsComponent extends Component<
     { profileID: string; profileType: string },
     { profile: EmployerProfile; sections: FormSectionType[] }
@@ -392,8 +390,6 @@ class ProfileSettingsComponent extends Component<
                 content: <Password />,
             },
         ];
-
-        console.log(profileStore.getState());
 
         return (
             <div className={'screen-responsive relative hidden'}>

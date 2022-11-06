@@ -149,6 +149,7 @@ export default class SignUp extends Component<
                 EMAIL_ERROR,
             )
         ) {
+            console.log('set in email');
             validFlag = false;
         }
         if (
@@ -159,6 +160,7 @@ export default class SignUp extends Component<
                 PASSWORD_SYMBOLS_ERROR,
             )
         ) {
+            console.log('set in password');
             validFlag = false;
         }
         if (
@@ -169,9 +171,9 @@ export default class SignUp extends Component<
                 PASSWORD_LENGTH_ERROR,
             )
         ) {
+            console.log('set in password');
             validFlag = false;
         }
-        console.log(validFlag);
         if (
             !validateField(
                 formData.get('repeatPassword') as Exclude<
@@ -189,86 +191,126 @@ export default class SignUp extends Component<
                 PASSWORD_REPEAT_ERROR,
             )
         ) {
+            console.log('set in repeatPassword');
             validFlag = false;
         }
-        // if (
-        //     !validateField(
-        //         formData.get('applicant_name') as Exclude<
-        //             FormDataEntryValue,
-        //             File
-        //         >,
-        //         newState.inputs['applicant_name'],
-        //         validateNameLength,
-        //         NAME_LENGTH_ERROR,
-        //     )
-        // ) {
-        //     validFlag = false;
-        // }
-        // if (
-        //     !validateField(
-        //         formData.get('applicant_name') as Exclude<
-        //             FormDataEntryValue,
-        //             File
-        //         >,
-        //         newState.inputs['applicant_name'],
-        //         validateNameSymbols,
-        //         NAME_SYMBOLS_ERROR,
-        //     )
-        // ) {
-        //     validFlag = false;
-        // }
-        // if (
-        //     this.state.toggleType === 'applicant' &&
-        //     !validateField(
-        //         formData.get('applicant_surname') as Exclude<
-        //             FormDataEntryValue,
-        //             File
-        //         >,
-        //         newState.inputs['applicant_surname'],
-        //         validateNameLength,
-        //         SURNAME_LENGTH_ERROR,
-        //     )
-        // ) {
-        //     validFlag = false;
-        // }
-        // if (
-        //     !validateField(
-        //         formData.get('applicant_surname') as Exclude<
-        //             FormDataEntryValue,
-        //             File
-        //         >,
-        //         newState.inputs['applicant_surname'],
-        //         validateNameSymbols,
-        //         SURNAME_SYMBOLS_ERROR,
-        //     )
-        // ) {
-        //     validFlag = false;
-        // }
+        if (
+            this.state.toggleType === 'applicant' &&
+            !validateField(
+                formData.get('applicant_name') as Exclude<
+                    FormDataEntryValue,
+                    File
+                >,
+                newState.inputs['applicant_name'],
+                validateNameLength,
+                NAME_LENGTH_ERROR,
+            )
+        ) {
+            console.log('set in applicant_name');
+            validFlag = false;
+        }
+        if (
+            this.state.toggleType === 'applicant' &&
+            !validateField(
+                formData.get('applicant_name') as Exclude<
+                    FormDataEntryValue,
+                    File
+                >,
+                newState.inputs['applicant_name'],
+                validateNameSymbols,
+                NAME_SYMBOLS_ERROR,
+            )
+        ) {
+            console.log('set in applicant_name');
+            validFlag = false;
+        }
+        if (
+            this.state.toggleType === 'employer' &&
+            !validateField(
+                formData.get('company_name') as Exclude<
+                    FormDataEntryValue,
+                    File
+                >,
+                newState.inputs['company_name'],
+                validateNameLength,
+                NAME_LENGTH_ERROR,
+            )
+        ) {
+            console.log('set in company_name');
+            validFlag = false;
+        }
+        if (
+            this.state.toggleType === 'employer' &&
+            !validateField(
+                formData.get('company_name') as Exclude<
+                    FormDataEntryValue,
+                    File
+                >,
+                newState.inputs['company_name'],
+                validateNameSymbols,
+                NAME_SYMBOLS_ERROR,
+            )
+        ) {
+            console.log('set in applicant_name');
+            validFlag = false;
+        }
+        if (
+            this.state.toggleType === 'applicant' &&
+            !validateField(
+                formData.get('applicant_surname') as Exclude<
+                    FormDataEntryValue,
+                    File
+                >,
+                newState.inputs['applicant_surname'],
+                validateNameLength,
+                SURNAME_LENGTH_ERROR,
+            )
+        ) {
+            console.log('set in applicant_surname');
+            validFlag = false;
+        }
+        if (
+            this.state.toggleType === 'applicant' &&
+            !validateField(
+                formData.get('applicant_surname') as Exclude<
+                    FormDataEntryValue,
+                    File
+                >,
+                newState.inputs['applicant_surname'],
+                validateNameSymbols,
+                SURNAME_SYMBOLS_ERROR,
+            )
+        ) {
+            console.log('set in applicant_surname');
+            validFlag = false;
+        }
 
         this.setState(() => newState);
 
-        authService
-            .signUp(formData)
-            .then(body => {
-                dispatch(
-                    userActions.SIGN_UP(
-                        body.id,
-                        (formData.get('toggle') as string) === 'applicant'
-                            ? (formData.get('applicant_name') as string)
-                            : (formData.get('company_name') as string),
-                        formData.get('applicant_surname') as string,
-                        formData.get('toggle') as 'applicant' | 'employer',
-                    ),
-                );
-                navigator.goBack();
-            })
-            .catch(body => {
-                // todo: поправить type ошибки
-                console.log(body.type);
-                setFieldAsInvalid(newState.inputs[body.type], body.message);
-                this.setState(() => newState);
-                setFieldAsInvalid(newState.inputs[body.type], '');
-            });
+        if (validFlag) {
+            authService
+                .signUp(formData)
+                .then(body => {
+                    dispatch(
+                        userActions.SIGN_UP(
+                            body.id,
+                            (formData.get('toggle') as string) === 'applicant'
+                                ? (formData.get('applicant_name') as string)
+                                : (formData.get('company_name') as string),
+                            formData.get('applicant_surname') as string,
+                            formData.get('toggle') as 'applicant' | 'employer',
+                        ),
+                    );
+                    navigator.goBack();
+                })
+                .catch(body => {
+                    // todo: поправить type ошибки
+                    console.log(body.type);
+                    setFieldAsInvalid(newState.inputs[body.type], body.message);
+                    this.setState(() => newState);
+                    setFieldAsInvalid(newState.inputs[body.type], '');
+                });
+        }
     };
 
     render() {
@@ -359,7 +401,7 @@ export default class SignUp extends Component<
                                             repeatPassword:
                                                 state.inputs.repeatPassword,
                                             company_name: {
-                                                id: 'companyName',
+                                                id: 'company_name',
                                                 type: 'text',
                                                 label: 'Название компании',
                                                 placeholder: 'Company',

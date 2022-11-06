@@ -20,6 +20,23 @@ app.use(express.json());
 
 app.post('/auth/sign-up', (req, res) => {
     console.log('sign-up');
+    if (req.body.email === 'test@mail.ru') {
+        res.status(400);
+        res.json({
+            message: 'Пользователь с таким email уже существует',
+            type: 'email',
+        });
+        return;
+    }
+
+    if (req.body.password === '12345vv!!') {
+        res.status(400);
+        res.json({
+            message: 'Ошибка в пароле',
+            type: 'password',
+        });
+        return;
+    }
     res.json({ id: 1 });
 });
 
