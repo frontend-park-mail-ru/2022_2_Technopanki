@@ -64,6 +64,7 @@ app.post('/auth/sign-in', (req, res) => {
 
 app.get('/api/user/safety/:id', (req, res) => {
     console.log(req.params.id);
+    console.log(users.user);
 
     res.status(200);
 
@@ -80,12 +81,13 @@ app.post('/api/user', (req, res) => {
     if (req.body.id === 2) {
         users.specialUser = { ...users.specialUser, ...req.body };
     } else {
-        users.user = { ...users.user, ...req.body };
+        users.user.company_name = req.body.company_name;
+        users.user.description = req.body.description;
     }
 
     console.log(users.user);
 
-    res.status(200);
+    res.json({ status: 'ok' });
 });
 
 app.get('/api/user/preview/:id', (req, res) => {

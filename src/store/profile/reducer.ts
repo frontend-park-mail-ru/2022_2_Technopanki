@@ -7,6 +7,7 @@ export const profileReducer: Reducer<ProfileState> = (
     state: ProfileState,
     action: Action,
 ): ProfileState => {
+    console.log('PROFILE REDUCER', action);
     switch (action.type) {
         case PROFILE_ACTION_TYPES.UPDATE:
             return {

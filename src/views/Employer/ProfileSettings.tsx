@@ -1,7 +1,9 @@
 import { Component } from '../../../Reacts';
 import Header from '../../components/UI-kit/header/Header';
 import SettingsHat from '../../components/hats/SettingsHat';
-import Input from '../../components/UI-kit/forms/inputs/Input';
+import Input, {
+    InputPropsType,
+} from '../../components/UI-kit/forms/inputs/Input';
 import Form, { FormSectionType } from '../../components/UI-kit/forms/Form';
 import CancelSaveButtons from '../../components/CancelSaveButtons/CancelSaveButtons';
 import IconInput from '../../components/UI-kit/forms/inputs/IconInput';
@@ -73,320 +75,135 @@ const AvatarSettings = profileConnect(store => {
     };
 })(AvatarSettingsComponent);
 
-class FieldOfActivity extends Component<
-    { fieldOfActivity: string[] },
-    {
-        fieldOfActivity: string[];
-    }
-> {
-    state = {
-        fieldOfActivity: this.props.fieldOfActivity,
-    };
-
-    deleteItem = (index: number) => {
-        console.log(this.state);
-        this.setState(state => ({
-            ...state,
-            fieldOfActivity: [
-                ...state.fieldOfActivity.slice(0, index),
-                ...state.fieldOfActivity.slice(index + 1),
-            ],
-        }));
-        console.log(this.state);
-    };
-
-    addItem = (value: string) => {
-        this.setState(state => ({
-            ...state,
-            fieldOfActivity: [...state.fieldOfActivity, value],
-        }));
-    };
-
-    render() {
-        return (
-            <div key={'fields'}>
-                <input
-                    className={'none'}
-                    name={'field_of_activity'}
-                    value={this.state.fieldOfActivity}
-                />
-                <ChipsInput
-                    id={'fieldOfActivity'}
-                    label={'Область деятельности'}
-                    items={this.state.fieldOfActivity}
-                    deleteItem={this.deleteItem.bind(this)}
-                    addItem={this.addItem.bind(this)}
-                />
-            </div>
-        );
-    }
-}
-
-class AboutCompanyComponent extends Component<{
-    name: string;
-    status: string;
-    description: string;
-    phone: string;
-    email: string;
-    size: string;
-}> {
-    state = {
-        name: this.props.name,
-        status: this.props.status,
-        description: this.props.description,
-        phone: this.props.phone,
-        email: this.props.email,
-        size: this.props.size,
-    };
-
-    render() {
-        return (
-            <div key={'about'} className={'columns g-16'}>
-                <div key={'employer_name'} className={'col-12'}>
-                    <Input
-                        id={'employer_name'}
-                        type={'text'}
-                        placeholder={'Company name'}
-                        label={'Название компании'}
-                        name={'name'}
-                        value={this.state.name}
-                        required={true}
-                        onBlur={() => {
-                            this.state.name =
-                                document.querySelector('#employer_name').value;
-                        }}
-                    />
-                </div>
-                <div key={'status'} className={'col-12 col-md-8'}>
-                    <Input
-                        id={'status'}
-                        type={'text'}
-                        placeholder={'Hello world!'}
-                        label={'Статус'}
-                        name={'status'}
-                        value={this.props.status}
-                        required={true}
-                    />
-                </div>
-                <div key={'description'} className={'col-12'}>
-                    <Textarea
-                        id={'description'}
-                        placeholder={'Напишите здесь описание Вашей компании'}
-                        label={'Описание'}
-                        name={'description'}
-                        value={this.props.description}
-                    />
-                </div>
-                <div key={'size'} className={'col-12 col-md-4'}>
-                    <Input
-                        id={'size'}
-                        type={'integer'}
-                        placeholder={'10.000'}
-                        label={'Размер компании (человек)'}
-                        name={'size'}
-                        value={this.props.size}
-                    />
-                </div>
-                <div key={'phone'} className={'col-12 col-md-4'}>
-                    <Input
-                        id={'phone'}
-                        type={'text'}
-                        placeholder={'+7 (999) 999-99-99'}
-                        label={'Телефон'}
-                        name={'phone'}
-                        value={this.props.phone}
-                    />
-                </div>
-                <div key={'email'} className={'col-12 col-md-4'}>
-                    <Input
-                        id={'email'}
-                        type={'text'}
-                        placeholder={'example@mail.ru'}
-                        label={'Email'}
-                        name={'email'}
-                        value={this.props.email}
-                    />
-                </div>
-            </div>
-        );
-    }
-}
-
-const AboutCompany = profileConnect(store => {
-    const state = store.getState();
-
-    return {
-        name: state.name,
-        status: state.status,
-        description: state.description,
-        phone: state.phone,
-        email: state.email,
-        size: state.size,
-    };
-})(AboutCompanyComponent);
-
-// class SocialNetworksComponent extends Component<{
-//     vk?: string;
-//     facebook?: string;
-//     telegram?: string;
-//     youtube?: string;
-//     twitter?: string;
-//     instagram?: string;
-// }> {
-//     render() {
-//         return (
-//             <div className={'columns g-16'}>
-//                 <div className={'col-12 col-md-4'}>
-//                     <IconInput
-//                         id={'vk'}
-//                         type={'text'}
-//                         placeholder={'vk.com/'}
-//                         icon={VKLogo}
-//                         label={''}
-//                         name={'vk'}
-//                         value={this.props.vk}
-//                     />
-//                 </div>
-//                 <div className={'col-12 col-md-4'}>
-//                     <IconInput
-//                         id={'twitter'}
-//                         type={'text'}
-//                         placeholder={'twitter.com/'}
-//                         icon={TwitterLogo}
-//                         label={''}
-//                         name={'twitter'}
-//                         value={this.props.twitter}
-//                     />
-//                 </div>
-//                 <div className={'col-12 col-md-4'}>
-//                     <IconInput
-//                         id={'facebook'}
-//                         type={'text'}
-//                         placeholder={'Москва'}
-//                         icon={FacebookLogo}
-//                         label={''}
-//                         name={'facebook'}
-//                         value={this.props.facebook}
-//                     />
-//                 </div>
-//                 <div className={'col-12 col-md-4'}>
-//                     <IconInput
-//                         id={'telegram'}
-//                         type={'text'}
-//                         placeholder={'telegram.com/'}
-//                         icon={TelegramLogo}
-//                         label={''}
-//                         name={'telegram'}
-//                         value={this.props.telegram}
-//                     />
-//                 </div>
-//                 <div className={'col-12 col-md-4'}>
-//                     <IconInput
-//                         id={'instagram'}
-//                         type={'text'}
-//                         placeholder={'instagram.com/'}
-//                         icon={InstagramLogo}
-//                         label={''}
-//                         name={'instagram'}
-//                         value={this.props.instagram}
-//                     />
-//                 </div>
-//                 <div className={'col-12 col-md-4'}>
-//                     <IconInput
-//                         id={'youtube'}
-//                         type={'text'}
-//                         placeholder={'youtube.com/'}
-//                         icon={YouTubeLogo}
-//                         label={''}
-//                         name={'youtube'}
-//                         value={this.props.youtube}
-//                     />
-//                 </div>
-//             </div>
-//         );
-//     }
-// }
-
-// const SocialNetworks = profileConnect(store => {
-//     const state = store.getState();
-//
-//     return {
-//         vk: state.socialNetworks.vk,
-//         facebook: state.socialNetworks.facebook,
-//         telegram: state.socialNetworks.telegram,
-//         youtube: state.socialNetworks.youtube,
-//         twitter: state.socialNetworks.twitter,
-//         instagram: state.socialNetworks.instagram,
-//     };
-// })(SocialNetworksComponent);
-
-class Password extends Component {
-    render() {
-        return (
-            <div key={'password'} className={'columns g-16'}>
-                <div className={'col-12 col-md-4'}>
-                    <Input
-                        id={'password'}
-                        type={'password'}
-                        placeholder={'********'}
-                        label={'Новый пароль'}
-                        name={'password'}
-                        onBlur={() => {
-                            dispatch(
-                                activateError(
-                                    'Ошибка в пароле',
-                                    'Неверный пароль',
-                                ),
-                            );
-                            setTimeout(() => dispatch(deactivateError()), 3000);
-                        }}
-                    />
-                </div>
-                <div className={'col-12 col-md-4'}>
-                    <Input
-                        id={'repeat_password'}
-                        type={'password'}
-                        placeholder={'********'}
-                        label={'Повторите новый пароль'}
-                        name={'repeat_password'}
-                    />
-                </div>
-            </div>
-        );
-    }
-}
-
 // todo: добавить валидацию на все компоненты
 class ProfileSettingsComponent extends Component<
-    { errorIsActive: boolean; profile: ProfileState },
-    { profile: EmployerProfile; sections: FormSectionType[] }
+    ProfileState,
+    {
+        profile: EmployerProfile;
+        sections: {
+            header: string;
+            fields: {
+                [key: string]: {
+                    fieldHeader: string;
+                    props: InputPropsType;
+                };
+            };
+        }[];
+    }
 > {
     state = {
         profile: this.props.profile,
+        sections: [
+            {
+                header: 'О компании',
+                fields: {
+                    name: {
+                        size: 8,
+                        type: 'text',
+                        placeholder: 'Company name',
+                        label: 'Название компании',
+                        name: 'name',
+                        required: true,
+                        value: this.props.name,
+                        error: false,
+                        errorMessage: 'Ошибка в названии компании',
+                    },
+                    status: {
+                        size: 4,
+                        type: 'text',
+                        placeholder: 'Hello world!',
+                        label: 'Статус',
+                        name: 'status',
+                        required: true,
+                        value: this.props.status,
+                    },
+                    size: {
+                        size: 4,
+                        type: 'text',
+                        placeholder: '10.000',
+                        label: 'Размер компании',
+                        name: 'size',
+                        required: true,
+                        value: this.props.size,
+                    },
+                    phone: {
+                        size: 4,
+                        type: 'text',
+                        placeholder: '+7 (999) 999-99-99',
+                        label: 'Телефон',
+                        name: 'phone',
+                        required: true,
+                        value: this.props.phone,
+                    },
+                    email: {
+                        size: 4,
+                        type: 'text',
+                        placeholder: 'example@mail.ru',
+                        label: 'Email',
+                        name: 'email',
+                        required: true,
+                        value: this.props.email,
+                    },
+                    description: {
+                        size: 12,
+                        type: 'textarea',
+                        placeholder: undefined,
+                        label: 'Описание компании',
+                        name: 'description',
+                        required: true,
+                        value: this.props.description,
+                    },
+                },
+            },
+            {
+                header: 'Пароль',
+                fields: {
+                    password: {
+                        size: 4,
+                        type: 'password',
+                        placeholder: '********',
+                        label: 'Новый пароль',
+                        name: 'password',
+                    },
+                    repeatPassword: {
+                        size: 4,
+                        type: 'password',
+                        placeholder: '********',
+                        label: 'Повторите пароль',
+                        name: 'repeatPassword',
+                    },
+                },
+            },
+        ],
     };
 
     submitForm = (e: SubmitEvent) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        formData.append('user_type', this.props.profile.profileType);
 
-        if (this.props.errorIsActive) {
-            console.log(this.props);
+        let sections = this.state.sections;
+        let isValid = true;
+
+        if (formData.get('name').length < 5) {
+            sections.forEach(section => {
+                if (section.fields.name) {
+                    section.fields.name.error = true;
+                    section.fields.name.errorMessage = 'Ошибка в названии';
+                    isValid = false;
+                }
+            });
+        }
+
+        if (!isValid) {
+            this.setState(state => state);
             return;
         }
 
-        // employerProfileService
-        //     .updateProfileImg(formData.get('img'))
-        //     .then(body => console.log(body))
-        //     .catch(err => console.error(err));
-
+        console.log(this.props);
         employerProfileService
-            .updateProfile(
-                this.props.profileID,
-                this.props.profileType,
-                formData,
-            )
+            .updateProfile(this.props.id, this.props.profileType, formData)
             .then(() => {
+                console.log('back');
                 navigator.goBack();
             })
             .catch(err => console.error(err));
@@ -400,65 +217,78 @@ class ProfileSettingsComponent extends Component<
     };
 
     render() {
-        const sections = [
-            {
-                header: 'Аватарка',
-                content: <AvatarSettings />,
-            },
-            {
-                header: 'О компании',
-                content: (
-                    <AboutCompanyComponent
-                        name={this.state.profile.name}
-                        status={this.state.profile.status}
-                        description={this.state.profile.description}
-                        phone={this.state.profile.phone}
-                        email={this.state.profile.email}
-                        size={this.state.profile.size}
-                    />
-                ),
-            },
-            // {
-            //     header: 'Социальные сети',
-            //     content: <SocialNetworks />,
-            // },
-            {
-                header: 'Смена пароля',
-                content: <Password />,
-            },
-        ];
-
         return (
             <div className={'screen-responsive relative hidden'}>
                 <Header key={'header'} />
-                <ErrorPopup key={'popup'} />
                 <div key={'hat'} className={'columns g-24'}>
                     <div key={'hat'} className={`col-12 mt-header`}>
                         <SettingsHat
-                            imgSrc={this.state.profile.avatarSrc}
-                            name={this.state.profile.name}
+                            imgSrc={this.props.avatarSrc}
+                            name={this.props.name}
                             surname={''}
-                            status={this.state.profile.status}
+                            status={this.props.status}
                             submit={this.submitEvent}
                         />
                     </div>
                     <h3 key={'header'} className={'col-12'}>
                         Настройки профиля
                     </h3>
-                    <div key={'form'} className={'col-12 col-md-9'}>
-                        <Form
-                            key={'form'}
-                            sections={sections}
-                            submitComponent={
-                                <CancelSaveButtons
-                                    onCancel={() => {
-                                        navigator.navigate('/employer/1');
-                                    }}
-                                />
-                            }
-                            onSubmit={this.submitForm}
+                    <form
+                        onSubmit={this.submitForm}
+                        key={'form'}
+                        className={'col-12 col-md-9 column g-24'}
+                    >
+                        {this.state.sections.map(section => (
+                            <div
+                                className={'columns g-16'}
+                                key={section.header}
+                            >
+                                <h5 key={'header'} className={'col-12'}>
+                                    {section.header}
+                                </h5>
+                                {Object.entries(section.fields).map(
+                                    ([id, field]) => (
+                                        <div
+                                            key={id}
+                                            className={`col-12 col-md-${field.size.toString()}`}
+                                        >
+                                            {field.type === 'textarea' ? (
+                                                <Textarea
+                                                    key={id}
+                                                    id={id}
+                                                    placeholder={
+                                                        field.placeholder
+                                                    }
+                                                    value={field.value}
+                                                    label={field.label}
+                                                    name={field.name}
+                                                />
+                                            ) : (
+                                                <Input
+                                                    key={id}
+                                                    id={id}
+                                                    type={field.type}
+                                                    placeholder={
+                                                        field.placeholder
+                                                    }
+                                                    label={field.label}
+                                                    name={field.name}
+                                                    value={field?.value}
+                                                    error={field.error}
+                                                    errorMessage={
+                                                        field.errorMessage
+                                                    }
+                                                />
+                                            )}
+                                        </div>
+                                    ),
+                                )}
+                            </div>
+                        ))}
+                        <CancelSaveButtons
+                            onCancel={() => navigator.goBack()}
                         />
-                    </div>
+                    </form>
                 </div>
                 <Footer key={'footer'} />
             </div>
@@ -466,15 +296,10 @@ class ProfileSettingsComponent extends Component<
     }
 }
 
-const ProfileWrapper = profileConnect((store, props) => {
+export default profileConnect((store, props) => {
     const state = store.getState();
 
     return {
-        errorIsActive: props.errorIsActive,
-        profile: state,
+        ...state,
     };
 })(ProfileSettingsComponent);
-
-export default errorsConnect(store => ({
-    errorIsActive: store.getState().isActive,
-}))(ProfileWrapper);

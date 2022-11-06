@@ -18,6 +18,10 @@ export const employerProfileService: Service = {
 
                 dispatch(stopLoading());
                 return response.body;
+            })
+            .catch(err => {
+                dispatch(stopLoading());
+                console.error(err);
             });
     },
 
@@ -66,6 +70,7 @@ export const employerProfileService: Service = {
         profileType: string,
         formData: FormData,
     ) => {
+        console.log('test');
         dispatch(startLoading());
         return await network
             .POST(
@@ -74,13 +79,13 @@ export const employerProfileService: Service = {
                     id: profileID,
                     user_type: profileType,
                     description: formData.get('description'),
-                    image: formData.get('img'),
+                    // image: formData.get('img'),
                     status: formData.get('status'),
                     company_name: formData.get('name'),
                     phone: formData.get('phone'),
                     email: formData.get('email'),
-                    company_city: formData.get('location'),
-                    company_size: 10000,
+                    // company_city: formData.get('location'),
+                    // company_size: 10000,
                     // field_of_activity: formData
                     //     .get('field_of_activity')
                     //     .toString()
@@ -94,6 +99,7 @@ export const employerProfileService: Service = {
             )
             .then(response => {
                 dispatch(stopLoading());
+                console.log(response);
                 if (response.status > 399) {
                     throw response.status;
                 }

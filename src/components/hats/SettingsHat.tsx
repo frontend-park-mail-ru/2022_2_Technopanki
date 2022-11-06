@@ -24,7 +24,7 @@ class SettingsHat extends Component<{
                 rightSideContent={
                     <CancelSaveButtons
                         onCancel={() => {
-                            navigator.navigate('/');
+                            navigator.goBack();
                         }}
                         onSave={this.props.submit}
                     />
