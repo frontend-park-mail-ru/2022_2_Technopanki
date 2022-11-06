@@ -21,17 +21,21 @@ import { employerProfileService } from '../../services/employerProfileService';
 import { userStore } from '../../store/user/store';
 import { defaultProfileState, profileStore } from '../../store/profile/store';
 import { EmployerProfile, ProfileState } from '../../store/profile/types';
-import {
-    dispatch,
-    errorsConnect,
-    profileConnect,
-    userConnect,
-} from '../../store';
+import { dispatch, errorsConnect, profileConnect } from '../../store';
 import Textarea from '../../components/UI-kit/forms/inputs/Textarea';
 import ChipsInput from '../../components/UI-kit/forms/inputs/ChipsInput';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 import { activateError, deactivateError } from '../../store/errors/actions';
-import { profileActions } from '../../store/profile/actions';
+import {
+    validateEmail,
+    validateNameSymbols,
+    validatePasswordSymbols,
+} from '../../utils/validation/validation';
+import {
+    EMAIL_ERROR,
+    NAME_SYMBOLS_ERROR,
+    PASSWORD_SYMBOLS_ERROR,
+} from '../../utils/validation/messages';
 
 class AvatarSettingsComponent extends Component<
     { previewSrc: string },
@@ -82,150 +86,147 @@ const AvatarSettings = profileConnect(store => {
 })(AvatarSettingsComponent);
 
 // todo: добавить валидацию на все компоненты
-class ProfileSettingsComponent extends Component<{
-    profile: EmployerProfile;
-}> {
-    state = {
-        profile: {
-            id: '',
-            profileType: '',
-            bannerSrc: '',
-            avatarSrc: '',
-            name: '',
-            status: '',
-            description: '',
-            phone: '',
-            email: '',
-            location: '',
-            size: '',
-            fieldOfActivity: [],
-        },
-    };
-
-    sections = [
-        {
-            header: 'О компании',
+class ProfileSettingsComponent extends Component<
+    ProfileState,
+    {
+        profile: EmployerProfile;
+        sections: {
+            header: string;
             fields: {
-                name: {
-                    size: 8,
-                    type: 'text',
-                    placeholder: 'Company name',
-                    label: 'Название компании',
-                    name: 'name',
-                    required: true,
-                    value: () => this.state.profile.name,
-                    error: false,
-                    errorMessage: 'Ошибка в названии компании',
-                },
-                status: {
-                    size: 4,
-                    type: 'text',
-                    placeholder: 'Hello world!',
-                    label: 'Статус',
-                    name: 'status',
-                    required: true,
-                    value: () => this.state.profile.status,
-                },
-                size: {
-                    size: 4,
-                    type: 'text',
-                    placeholder: '10.000',
-                    label: 'Размер компании',
-                    name: 'size',
-                    required: true,
-                    value: () => this.state.profile.size,
-                },
-                phone: {
-                    size: 4,
-                    type: 'text',
-                    placeholder: '+7 (999) 999-99-99',
-                    label: 'Телефон',
-                    name: 'phone',
-                    required: true,
-                    value: () => this.state.profile.phone,
-                },
-                email: {
-                    size: 4,
-                    type: 'text',
-                    placeholder: 'example@mail.ru',
-                    label: 'Email',
-                    name: 'email',
-                    required: true,
-                    value: () => this.state.profile.email,
-                },
-                description: {
-                    size: 12,
-                    type: 'textarea',
-                    placeholder: undefined,
-                    label: 'Описание компании',
-                    name: 'description',
-                    required: true,
-                    value: () => this.state.profile.description,
-                },
-            },
-        },
-        {
-            header: 'Пароль',
-            fields: {
-                password: {
-                    size: 4,
-                    type: 'password',
-                    placeholder: '********',
-                    label: 'Новый пароль',
-                    name: 'password',
-                    value: () => undefined,
-                },
-                repeatPassword: {
-                    size: 4,
-                    type: 'password',
-                    placeholder: '********',
-                    label: 'Повторите пароль',
-                    name: 'repeatPassword',
-                    value: () => undefined,
-                },
-            },
-        },
-    ];
-
-    componentDidMount() {
-        const employerID = location.pathname.split('/').at(-1);
-        employerProfileService
-            .getProfileData(employerID)
-            .then(body => {
-                this.setState(state => ({ ...state, profile: body }));
-            })
-            .catch(err => console.error(err));
+                [key: string]: {
+                    fieldHeader: string;
+                    props: InputPropsType;
+                };
+            };
+        }[];
     }
+> {
+    state = {
+        profile: this.props,
+        sections: [
+            {
+                header: 'О компании',
+                fields: {
+                    name: {
+                        size: 8,
+                        type: 'text',
+                        placeholder: 'Company name',
+                        label: 'Название компании',
+                        name: 'name',
+                        required: true,
+                        value: this.props.name,
+                        validator: validateNameSymbols,
+                        error: false,
+                        errorMessage: NAME_SYMBOLS_ERROR,
+                    },
+                    status: {
+                        size: 4,
+                        type: 'text',
+                        placeholder: 'Hello world!',
+                        label: 'Статус',
+                        name: 'status',
+                        required: true,
+                        value: this.props.status,
+                    },
+                    size: {
+                        size: 4,
+                        type: 'text',
+                        placeholder: '10.000',
+                        label: 'Размер компании',
+                        name: 'size',
+                        required: true,
+                        value: this.props.size,
+                    },
+                    phone: {
+                        size: 4,
+                        type: 'text',
+                        placeholder: '+7 (999) 999-99-99',
+                        label: 'Телефон',
+                        name: 'phone',
+                        required: true,
+                        value: this.props.phone,
+                    },
+                    email: {
+                        size: 4,
+                        type: 'text',
+                        placeholder: 'example@mail.ru',
+                        label: 'Email',
+                        name: 'email',
+                        required: true,
+                        value: this.props.email,
+                        validator: validateEmail,
+                        error: false,
+                        errorMessage: EMAIL_ERROR,
+                    },
+                    description: {
+                        size: 12,
+                        type: 'textarea',
+                        placeholder: undefined,
+                        label: 'Описание компании',
+                        name: 'description',
+                        required: true,
+                        value: this.props.description,
+                    },
+                },
+            },
+            {
+                header: 'Пароль',
+                fields: {
+                    password: {
+                        size: 4,
+                        type: 'password',
+                        placeholder: '********',
+                        label: 'Новый пароль',
+                        name: 'password',
+                        validator: validatePasswordSymbols,
+                        error: false,
+                        errorMessage: PASSWORD_SYMBOLS_ERROR,
+                    },
+                    repeatPassword: {
+                        size: 4,
+                        type: 'password',
+                        placeholder: '********',
+                        label: 'Повторите пароль',
+                        name: 'repeatPassword',
+                    },
+                },
+            },
+        ],
+    };
 
     submitForm = (e: SubmitEvent) => {
         e.preventDefault();
         const formData = new FormData(e.target);
 
-        let sections = this.sections;
+        let sections = this.state.sections;
         let isValid = true;
 
-        if (formData.get('name').length < 5) {
+        formData.forEach((value, key) => {
             sections.forEach(section => {
-                if (section.fields.name) {
-                    section.fields.name.error = true;
-                    section.fields.name.errorMessage = 'Ошибка в названии';
-                    isValid = false;
+                if (section.fields[key]) {
+                    if (
+                        section.fields[key].validator &&
+                        !section.fields[key].validator(value)
+                    ) {
+                        section.fields[key].error = true;
+                        isValid = false;
+                    }
+                    section.fields[key].value = value;
+                    return;
                 }
             });
-        }
+        });
 
         if (!isValid) {
-            this.setState(state => state);
+            this.setState(state => ({ ...state, sections: sections }));
             return;
         }
 
+        console.log(this.props);
         employerProfileService
-            .updateProfile(
-                this.state.profile.id,
-                this.state.profile.profileType,
-                formData,
-            )
+            .updateProfile(this.props.id, this.props.profileType, formData)
             .then(() => {
+                console.log('back');
                 navigator.goBack();
             })
             .catch(err => console.error(err));
@@ -260,7 +261,7 @@ class ProfileSettingsComponent extends Component<{
                         key={'form'}
                         className={'col-12 col-md-9 column g-24'}
                     >
-                        {this.sections.map(section => (
+                        {this.state.sections.map(section => (
                             <div
                                 className={'columns g-16'}
                                 key={section.header}
@@ -281,7 +282,7 @@ class ProfileSettingsComponent extends Component<{
                                                     placeholder={
                                                         field.placeholder
                                                     }
-                                                    value={field?.value()}
+                                                    value={field.value}
                                                     label={field.label}
                                                     name={field.name}
                                                 />
@@ -295,7 +296,7 @@ class ProfileSettingsComponent extends Component<{
                                                     }
                                                     label={field.label}
                                                     name={field.name}
-                                                    value={field.value()}
+                                                    value={field?.value}
                                                     error={field.error}
                                                     errorMessage={
                                                         field.errorMessage
@@ -318,6 +319,10 @@ class ProfileSettingsComponent extends Component<{
     }
 }
 
-export default userConnect(store => ({ userID: store.getState().id }))(
-    ProfileSettingsComponent,
-);
+export default profileConnect((store, props) => {
+    const state = store.getState();
+
+    return {
+        ...state,
+    };
+})(ProfileSettingsComponent);

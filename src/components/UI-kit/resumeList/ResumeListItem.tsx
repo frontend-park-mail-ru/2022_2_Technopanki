@@ -19,45 +19,53 @@ export default class ResumeListItem extends Component<ResumeListItemPropsType> {
     months = [
         {
             date: '01',
-            name: 'января'
+            name: 'января',
         },
         {
             date: '02',
-            name: 'февраля'
+            name: 'февраля',
         },
         {
             date: '03',
-            name: 'марта'
+            name: 'марта',
         },
         {
             date: '04',
-            name: 'апреля'
+            name: 'апреля',
         },
         {
             date: '05',
-            name: 'мая' },
+            name: 'мая',
+        },
         {
             date: '06',
-            name: 'июня' },
+            name: 'июня',
+        },
         {
             date: '07',
-            name: 'июля' },
+            name: 'июля',
+        },
         {
             date: '08',
-            name: 'августа' },
+            name: 'августа',
+        },
         {
             date: '09',
-            name: 'сентября' },
+            name: 'сентября',
+        },
         {
             date: '10',
-            name: 'октября' },
+            name: 'октября',
+        },
         {
             date: '11',
-            name: 'ноября' },
+            name: 'ноября',
+        },
         {
             date: '12',
-            name: 'декабря' },
-    ]
+            name: 'декабря',
+        },
+    ];
 
     render() {
         return (
@@ -93,14 +101,20 @@ export default class ResumeListItem extends Component<ResumeListItemPropsType> {
                     className={'col-0 row align-items-center col-md-4'}
                 >
                     <p>
-                        {`${this.props.timeWhenCreated[8] === '0'?
-                            this.props.timeWhenCreated.slice(9, 10):
-                            this.props.timeWhenCreated.slice(8, 10)
+                        {`${
+                            this.props.timeWhenCreated[8] === '0'
+                                ? this.props.timeWhenCreated.slice(9, 10)
+                                : this.props.timeWhenCreated.slice(8, 10)
                         } ${
                             this.months?.find(
-                                m=>m.date === this.props.timeWhenCreated.slice(5, 7)
+                                m =>
+                                    m.date ===
+                                    this.props.timeWhenCreated.slice(5, 7),
                             ).name
-                        } ${this.props.timeWhenCreated.slice(0, 4)} • ${this.props.timeWhenCreated.slice(11, 16)}`}
+                        } ${this.props.timeWhenCreated.slice(
+                            0,
+                            4,
+                        )} • ${this.props.timeWhenCreated.slice(11, 16)}`}
                     </p>
                 </div>
                 <div
@@ -117,7 +131,10 @@ export default class ResumeListItem extends Component<ResumeListItemPropsType> {
                         'col-1 row align-items-center flex h-100 justify-content-end'
                     }
                 >
-                    <Link to={'/resume'} content={<ArrowButton />} />
+                    <Link
+                        to={`/resume/${this.props.id}`}
+                        content={<ArrowButton />}
+                    />
                 </div>
             </div>
         );
