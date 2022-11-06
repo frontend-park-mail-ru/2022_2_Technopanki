@@ -4,7 +4,7 @@ export const SERVER_URLS = {
     SIGN_UP: SERVER_URL + 'auth/sign-up/',
     SIGN_IN: SERVER_URL + 'auth/sign-in/',
 
-    VACANCIES: SERVER_URL + 'vacancies/',
+    VACANCIES: SERVER_URL + 'api/vacancy/',
     VACANCY: SERVER_URL + 'api/vacancy/',
 
     RESUME: SERVER_URL + 'api/resume/',

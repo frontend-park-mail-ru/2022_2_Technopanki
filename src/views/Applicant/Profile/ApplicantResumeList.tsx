@@ -1,6 +1,5 @@
 import { Component } from '../../../../Reacts';
 import { applicantService } from '../../../services/applicantService';
-import Resume from '../Resume/Resume';
 import ResumeList from '../../../components/UI-kit/resumeList/ResumeList';
 import { applicantConnect } from '../../../store';
 

@@ -92,7 +92,7 @@ class ProfileSettingsComponent extends Component<
     }
 > {
     state = {
-        profile: this.props.profile,
+        profile: this.props,
         sections: [
             {
                 header: 'О компании',
