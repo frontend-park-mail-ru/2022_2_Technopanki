@@ -87,16 +87,16 @@ export default class ResumeListItem extends Component<ResumeListItemPropsType> {
                     key={'time'}
                     className={'col-0 row align-items-center col-md-4'}
                 >
-                    {/*<p>*/}
-                    {/*    {`${this.props.timeWhenCreated[8] === '0'?*/}
-                    {/*        this.props.timeWhenCreated.slice(9, 10):*/}
-                    {/*        this.props.timeWhenCreated.slice(8, 10)*/}
-                    {/*    } ${*/}
-                    {/*        this.months?.find(*/}
-                    {/*            m=>m.date === this.props.timeWhenCreated.slice(5, 7)*/}
-                    {/*        ).name*/}
-                    {/*    } ${this.props.timeWhenCreated.slice(0, 4)} • ${this.props.timeWhenCreated.slice(11, 16)}`}*/}
-                    {/*</p>*/}
+                    <p>
+                        {`${this.props.timeWhenCreated[8] === '0'?
+                            this.props.timeWhenCreated.slice(9, 10):
+                            this.props.timeWhenCreated.slice(8, 10)
+                        } ${
+                            this.months?.find(
+                                m=>m.date === this.props.timeWhenCreated.slice(5, 7)
+                            ).name
+                        } ${this.props.timeWhenCreated.slice(0, 4)} • ${this.props.timeWhenCreated.slice(11, 16)}`}
+                    </p>
                 </div>
                 <div
                     key={'chips'}

@@ -17,6 +17,7 @@ class ApplicantResumeList extends Component<
                 .getResumeList(this.props.applicantID)
                 .then(body => {
                     this.state.responses = JSON.parse(JSON.stringify(body));
+                    console.log(body)
                     this.setState(state => {
                         return state;
                     });
@@ -35,7 +36,6 @@ class ApplicantResumeList extends Component<
                 someNewValue={'text'}
                 resume={this.state.responses}
                 test={() => {
-                    console.log(this.state)
                     return this.state.responses
                 }}
             />
