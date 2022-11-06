@@ -4,7 +4,6 @@ import { Service } from './types';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
 import { requestHeaders } from './headers';
-import Form from '../components/UI-kit/forms/Form';
 
 export const employerProfileService: Service = {
     getProfileData: async (profileID: string) => {

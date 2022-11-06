@@ -27,21 +27,21 @@ class ApplicantResumeList extends Component<
     }
 
     componentDidMount() {
-        this.getDataFromServer()
+        this.getDataFromServer();
     }
 
     render() {
-        return(
+        return (
             <ResumeList
                 resume={this.state.responses}
-                renderResponses={() => this.state.responses}
+                test={() => this.state.responses}
             />
-        )
+        );
     }
-};
+}
 
 export default applicantConnect(store => {
     return {
         applicantID: store.getState().id,
     };
-})(ApplicantResumeList)
+})(ApplicantResumeList);

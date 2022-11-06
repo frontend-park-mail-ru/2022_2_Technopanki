@@ -1,8 +1,7 @@
 import { Component } from '../../../../../Reacts';
 import styles from './input.module.scss';
 
-// TODO: перенести вывод сообщений об ошиках в input + добавиьт onBlur
-export default class Input extends Component<{
+export type InputPropsType = {
     id: string;
     type: string;
     placeholder: string;
