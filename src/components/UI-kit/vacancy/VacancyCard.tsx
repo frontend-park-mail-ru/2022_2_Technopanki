@@ -67,6 +67,7 @@ export default class VacancyCard extends Component<
                     >
                         {this.props.name}
                     </h4>
+                    <p key={'number'}>{this.props.id}</p>
                     <div
                         key={'vacancy-metadata'}
                         className={'flex flex-start row g-16'}
@@ -125,9 +126,7 @@ export default class VacancyCard extends Component<
                     <h4 className={`mx-0 ${styles.salary}`}>
                         {this.props.salary}
                     </h4>
-                    <h4 className={`mx-0 ${styles.per_month}`}>
-                        рублей в месяц
-                    </h4>
+                    <h4 className={`mx-0 ${styles.per_month}`}>руб/мес</h4>
                 </div>
                 <div key={'vacancy'} className={styles.link}>
                     <Link

@@ -14,11 +14,12 @@ class VacancyResponses extends Component<
     {
         title: string;
         postedByUserID: string;
+        vacancyID: string;
     },
     { vacancyID: string }
 > {
     state = {
-        vacancyID: '',
+        vacancyID: this.props.vacancyID,
     };
 
     getVacancyData() {
@@ -47,8 +48,9 @@ class VacancyResponses extends Component<
             <div className={'screen-responsive relative hidden g-24'}>
                 <Header key={'header'} />
                 <div key={'vacancies'} className={'columns mt-header g-24'}>
-                    <div className={`col-12 ${styles.header}`}>
+                    <div key={'hat'} className={`col-12 ${styles.header}`}>
                         <VacancyResponsesHat
+                            vacancyID={this.state.vacancyID}
                             postedByUserID={this.props.postedByUserID}
                         />
                     </div>
@@ -74,6 +76,7 @@ class VacancyResponses extends Component<
 
 export default vacancyConnect(store => {
     return {
+        vacancyID: store.getState().id,
         title: store.getState().title,
         postedByUserID: store.getState().postedByUserID,
     };

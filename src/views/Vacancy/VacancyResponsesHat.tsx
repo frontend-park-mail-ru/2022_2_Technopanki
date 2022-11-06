@@ -12,6 +12,7 @@ class VacancyResponsesHat extends Component<{
     // ---
     imgSrc: string;
     postedByUserID: string;
+    vacancyID: string;
 }> {
     getCreatorDataFromServer = () => {
         if (this.props.postedByUserID) {
@@ -42,11 +43,11 @@ class VacancyResponsesHat extends Component<{
                 rightSideContent={
                     <div className={'flex row g-16'}>
                         <Link
-                            to={'/vacancy'}
+                            to={`/vacancy/${this.props.vacancyID}`}
                             content={<Button>Вернуться к вакансии</Button>}
                         />
                         <Link
-                            to={'/vacancy/settings'}
+                            to={`/vacancy/settings/${this.props.vacancyID}`}
                             content={<Button>Настройки</Button>}
                         />
                     </div>
@@ -60,6 +61,7 @@ export default profileConnect((store, props) => {
     const state: ProfileState = store.getState();
 
     return {
+        vacancyID: props.vacancyID,
         postedByUserID: props.postedByUserID,
         name: state.name,
         status: state.status,

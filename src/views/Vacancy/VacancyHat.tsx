@@ -82,7 +82,7 @@ class VacancyHat extends Component<
                             }
                             onSuccess={
                                 <Link
-                                    to={'/vacancy/settings'}
+                                    to={`/vacancy/settings/${this.props.vacancyID}`}
                                     content={<Button>Настройки</Button>}
                                 />
                             }

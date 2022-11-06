@@ -10,7 +10,7 @@ export default class Vacancies extends Component<
     {},
     {
         vacancies: {
-            id: string;
+            id: string | number;
             title: string;
             img: string;
             salary: string;
@@ -30,13 +30,14 @@ export default class Vacancies extends Component<
             .getAllVacancies()
             .then(body => {
                 this.setState(() => ({
-                    vacancies: body,
+                    vacancies: [...body],
                 }));
             })
             .catch(err => console.error(err));
     }
 
     render() {
+        console.log(this.state.vacancies);
         return (
             <div>
                 <Header key={'header'} />
@@ -50,8 +51,8 @@ export default class Vacancies extends Component<
                     <SearchInput key={'search'} />
                     {this.state.vacancies.map(vacancy => (
                         <VacancyCard
-                            key={vacancy.id}
-                            id={vacancy.id}
+                            key={vacancy.id.toString()}
+                            id={vacancy.id.toString()}
                             name={vacancy.title}
                             icon={vacancy.img}
                             salary={vacancy.salary}

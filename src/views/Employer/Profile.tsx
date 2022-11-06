@@ -86,7 +86,7 @@ class Profile extends Component<
                             {userStore.getState().id === this.props.id &&
                             userStore.getState().userType === 'employer' ? (
                                 <Link
-                                    to={'/employer/settings'}
+                                    to={`/employer/settings/${this.props.id}`}
                                     content={<Button>Настройки</Button>}
                                 />
                             ) : (
