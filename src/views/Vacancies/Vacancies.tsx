@@ -64,7 +64,9 @@ export default class Vacancies extends Component<
                         />
                     ))}
                 </div>
-                <Footer key={'footer'} />
+                <div className={'screen-responsive'}>
+                    <Footer key={'footer'} />
+                </div>
             </div>
         );
     }

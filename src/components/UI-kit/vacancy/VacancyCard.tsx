@@ -67,7 +67,6 @@ export default class VacancyCard extends Component<
                     >
                         {this.props.name}
                     </h4>
-                    <p key={'number'}>{this.props.id}</p>
                     <div
                         key={'vacancy-metadata'}
                         className={'flex flex-start row g-16'}

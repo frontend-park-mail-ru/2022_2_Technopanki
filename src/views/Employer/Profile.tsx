@@ -21,9 +21,7 @@ import { userStore } from '../../store/user/store';
 import { EmployerProfile } from '../../store/profile/types';
 import { dispatch, profileConnect } from '../../store';
 import { profileActions } from '../../store/profile/actions';
-import Preloader from '../../components/UI-kit/prelodaer/Preloader';
 import { vacancyActions } from '../../store/vacancy/actions';
-import { vacancyService } from '../../services/vacancyService';
 import ProfileVacancies from './ProfileVacancies';
 
 class Profile extends Component<

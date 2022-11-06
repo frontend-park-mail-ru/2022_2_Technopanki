@@ -2,6 +2,7 @@ import { Component } from '../../../../Reacts';
 import styles from './footer.module.scss';
 import Logo from '../../../static/assets/JobflowDefault.svg';
 import JobflowLogo from '../JobflowLogo';
+import Link from '../../Link/Link';
 
 export default class Footer extends Component {
     render() {
@@ -20,15 +21,31 @@ export default class Footer extends Component {
                     key={'items'}
                     className={`w-100 g-24 flex row justify-content-end ${styles.items}`}
                 >
-                    <p key={'item1'} className={styles.item}>
-                        Главная
-                    </p>
-                    <p key={'item2'} className={styles.item}>
-                        Все вакансии
-                    </p>
-                    <p key={'item3'} className={styles.item}>
-                        Создать резюме
-                    </p>
+                    <Link
+                        to={'/vacancies'}
+                        content={
+                            <p key={'item1'} className={styles.item}>
+                                Вакансии
+                            </p>
+                        }
+                    />
+                    <Link
+                        to={'/applicant/1'}
+                        content={
+                            <p key={'item2'} className={styles.item}>
+                                Соискатели
+                            </p>
+                        }
+                    />
+
+                    <Link
+                        to={'/applicant/1'}
+                        content={
+                            <p key={'item3'} className={styles.item}>
+                                Создать резюме
+                            </p>
+                        }
+                    />
                 </div>
             </footer>
         );
