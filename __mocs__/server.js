@@ -208,6 +208,9 @@ app.get('/api/resume/:id', (req, res) => {
         location: 'Москва',
         dateOfBirth: '21.02.2002',
         skills: ['JavaScript', 'Git', 'CSS3', 'HTML5', 'React'],
+        vk: 'https://vk.com',
+        facebook: 'https://facebook.com',
+        telegram: 'https://t.me',
         isActive: true,
     });
 });
@@ -223,6 +226,9 @@ app.get('/api/applicant/:id', (req, res) => {
         location: 'Москва',
         dateOfBirth: '21.02.2002',
         skills: ['JavaScript', 'Git', 'CSS3', 'HTML5', 'React'],
+        vk: 'https://vk.com',
+        facebook: 'https://facebook.com',
+        telegram: 'https://t.me',
     })
 })
 

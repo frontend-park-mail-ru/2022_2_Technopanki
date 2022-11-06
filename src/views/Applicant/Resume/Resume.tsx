@@ -25,7 +25,12 @@ type ResumePropsType = {
         location: string;
         dateOfBirth: string;
         skills: string[];
-    };
+    },
+    socialNetworks: {
+        vk: string | null | undefined;
+        facebook: string | null | undefined;
+        telegram: string | null | undefined;
+    }
 }
 
 class Resume extends Component<ResumePropsType>{
@@ -68,6 +73,7 @@ class Resume extends Component<ResumePropsType>{
                             location={this.props.sideBar.location}
                             dateOfBirth={this.props.sideBar.dateOfBirth}
                             skills={this.props.sideBar.skills}
+                            socialNetworks={this.props.socialNetworks}
                         />
                     </div>
                 </div>
@@ -95,5 +101,10 @@ export default resumeConnect((store, props) => {
             dateOfBirth: storeState.dateOfBirth,
             skills: storeState.skills,
         },
+        socialNetworks: {
+            vk: storeState.vk,
+            facebook: storeState.facebook,
+            telegram: storeState.telegram,
+        }
     }
 })(Resume);

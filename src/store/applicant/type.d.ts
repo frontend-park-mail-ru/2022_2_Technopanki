@@ -12,4 +12,7 @@ export type ProfileState = {
     location: string;
     dateOfBirth: string;
     skills: string[];
+    vk: string | null | undefined;
+    facebook: string | null | undefined;
+    telegram: string | null | undefined;
 }

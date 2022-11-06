@@ -13,6 +13,9 @@ export const defaultResume: ResumeState = {
     // Sidebar
     location: 'test',
     dateOfBirth: 'test',
+    vk: 'test',
+    facebook: 'test',
+    telegram: 'test',
     isActive: true,
 }
 

@@ -9,11 +9,18 @@ import VKIcon from '../../static/icons/logos/VK.svg';
 import FacebookIcon from '../../static/icons/logos/Facebook.svg';
 import TelegramIcon from '../../static/icons/logos/Telegram.svg';
 
-export default class ResumeSidebar extends Component<{
+type ResumeSidebarProps = {
     location: string;
     dateOfBirth: string;
     skills: string[];
-}> {
+    socialNetworks: {
+        vk: string | null | undefined;
+        facebook: string | null | undefined;
+        telegram: string | null | undefined;
+    };
+};
+
+export default class ResumeSidebar extends Component<ResumeSidebarProps> {
     render() {
         return (
             <SideBar
@@ -44,24 +51,56 @@ export default class ResumeSidebar extends Component<{
                         header: 'Социальные сети',
                         inside: (
                             <div className={'flex row g-24'}>
-                                <div
-                                    className={'inner-svg-h-40 inner-svg-200'}
-                                    dangerouslySetInnerHTML={{
-                                        __html: VKIcon,
-                                    }}
-                                ></div>
-                                <div
-                                    className={'inner-svg-h-40 inner-svg-200'}
-                                    dangerouslySetInnerHTML={{
-                                        __html: FacebookIcon,
-                                    }}
-                                ></div>
-                                <div
-                                    className={'inner-svg-h-40 inner-svg-200'}
-                                    dangerouslySetInnerHTML={{
-                                        __html: TelegramIcon,
-                                    }}
-                                ></div>
+                                {this.props.socialNetworks.vk ? (
+                                    <a href={this.props.socialNetworks.vk}>
+                                        <div
+                                            className={
+                                                'cursor-pointer inner-svg-h-24 inner-svg-200'
+                                            }
+                                            dangerouslySetInnerHTML={{
+                                                __html: VKIcon,
+                                            }}
+                                        ></div>
+                                    </a>
+                                ) : (
+                                    <p></p>
+                                )}
+                                {this.props.socialNetworks.facebook ? (
+                                    <a
+                                        href={
+                                            this.props.socialNetworks.facebook
+                                        }
+                                    >
+                                        <div
+                                            className={
+                                                'cursor-pointer inner-svg-h-24 inner-svg-200'
+                                            }
+                                            dangerouslySetInnerHTML={{
+                                                __html: FacebookIcon,
+                                            }}
+                                        ></div>
+                                    </a>
+                                ) : (
+                                    <p></p>
+                                )}
+                                {this.props.socialNetworks.telegram ? (
+                                    <a
+                                        href={
+                                            this.props.socialNetworks.telegram
+                                        }
+                                    >
+                                        <div
+                                            className={
+                                                'cursor-pointer inner-svg-h-24 inner-svg-200'
+                                            }
+                                            dangerouslySetInnerHTML={{
+                                                __html: TelegramIcon,
+                                            }}
+                                        ></div>
+                                    </a>
+                                ) : (
+                                    <p></p>
+                                )}
                             </div>
                         ),
                     },

@@ -14,6 +14,9 @@ export const defaultApplicantProfile: ProfileState ={
     location: 'test',
     dateOfBirth: 'test',
     skills: ['test'],
+    vk: 'test',
+    facebook: 'test',
+    telegram: 'test',
 }
 
 export const applicantProfileStore = new Store<ProfileState>(

@@ -17,6 +17,7 @@ import { applicantConnect, dispatch } from '../../../store';
 import { applicantActions } from '../../../store/applicant/actions';
 import { ProfileState } from '../../../store/applicant/type';
 import ApplicantResumeList from './ApplicantResumeList';
+import Footer from '../../../components/UI-kit/footer/Footer';
 
 type ApplicantPropsType = {
     id: string;
@@ -31,16 +32,21 @@ type ApplicantPropsType = {
         dateOfBirth: string;
         skills: string[];
     };
+    socialNetworks: {
+        vk: string | null | undefined;
+        facebook: string | null | undefined;
+        telegram: string | null | undefined;
+    };
 }
 
 class ApplicantProfile extends Component<ApplicantPropsType> {
     getDataFromServer() {
-        const applicantID = this.props.id || location.pathname.split('/').at(-1)
+        const applicantID = location.pathname.split('/').at(-1)
 
         applicantService.getApplicantData(applicantID as string)
             .then(body => {
                 dispatch(applicantActions.update(body))
-            })
+            });
     }
 
     componentDidMount() {
@@ -100,9 +106,11 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                             location={this.props.sideBar.location}
                             dateOfBirth={this.props.sideBar.dateOfBirth}
                             skills={this.props.sideBar.skills}
+                            socialNetworks={this.props.socialNetworks}
                         />
                     </div>
                 </div>
+                <Footer />
             </div>
         )
     }
@@ -123,6 +131,11 @@ export default applicantConnect((store, props) => {
             location: storeState.location,
             dateOfBirth: storeState.dateOfBirth,
             skills: storeState.skills,
+        },
+        socialNetworks: {
+            vk: storeState.vk,
+            facebook: storeState.facebook,
+            telegram: storeState.telegram,
         },
     }
 })(ApplicantProfile);
