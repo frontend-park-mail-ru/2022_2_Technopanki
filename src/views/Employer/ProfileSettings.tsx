@@ -210,6 +210,8 @@ class ProfileSettingsComponent extends Component<
                     ) {
                         section.fields[key].error = true;
                         isValid = false;
+                    } else {
+                        section.fields[key].error = false;
                     }
                     section.fields[key].value = value;
                     return;
@@ -230,13 +232,6 @@ class ProfileSettingsComponent extends Component<
                 navigator.goBack();
             })
             .catch(err => console.error(err));
-    };
-
-    // TODO
-    submitEvent = () => {
-        this.rootDomRef
-            ?.querySelector('form')
-            ?.dispatchEvent(document.createEvent('submit'));
     };
 
     render() {
