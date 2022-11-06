@@ -1,11 +1,9 @@
 import { Component } from '../../../Reacts';
 import styles from './vacancies.module.scss';
 import Header from '../../components/UI-kit/header/Header';
-import VK from '../../static/icons/vk_logo.svg';
 import SearchInput from '../../components/UI-kit/forms/inputs/SearchInput';
 import Footer from '../../components/UI-kit/footer/Footer';
 import VacancyCard from '../../components/UI-kit/vacancy/VacancyCard';
-import Link from '../../components/Link/Link';
 import { vacancyService } from '../../services/vacancyService';
 
 export default class Vacancies extends Component<

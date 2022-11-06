@@ -58,6 +58,7 @@ class VacancyHat extends Component<
                 name={this.state.companyName}
                 surname={''}
                 status={this.state.status}
+                linkTo={`/employer/${this.props.postedByUserID}`}
                 rightSideContent={
                     <div className={'flex row flex-wrap g-12'}>
                         <RenderWithCondition

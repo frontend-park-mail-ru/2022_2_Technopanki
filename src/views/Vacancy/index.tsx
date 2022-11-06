@@ -96,7 +96,7 @@ class Vacancy extends Component<VacancyPropsType> {
 export default vacancyConnect((store, props) => {
     const storeState = store.getState() as VacancyState;
     return {
-        id: props.id || storeState.id,
+        id: storeState.id,
         postedByUserID: storeState.postedByUserID,
         title: storeState.title,
         description: storeState.description,

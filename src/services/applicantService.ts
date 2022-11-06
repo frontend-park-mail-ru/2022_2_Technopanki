@@ -7,7 +7,7 @@ import { applicantActions } from '../store/applicant/actions';
 
 export const applicantService: Service = {
     getApplicantData: async (applicantID: string) => {
-        return network
+        return await network
             .GET(SERVER_URLS.APPLICANT + applicantID, requestHeaders.jsonHeader)
             .then(response => {
                 if (response.status > 399) {
@@ -19,18 +19,28 @@ export const applicantService: Service = {
     },
 
     getResumeList: async (applicantID: string) => {
-        return network
+        return await network
             .GET(
                 SERVER_URLS.APPLICANT_RESUMES + applicantID,
                 requestHeaders.jsonHeader,
             )
             .then(response => {
                 if (response.status > 399) {
-                    console.log('1');
                     throw response.status;
                 }
 
-                console.log(response.body);
+                return response.body;
+            });
+    },
+
+    getResumePreviewList: async (applicantID: string) => {
+        return await network
+            .GET(SERVER_URLS.APPLICANT_RESUMES + applicantID)
+            .then(response => {
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
                 return response.body;
             });
     },

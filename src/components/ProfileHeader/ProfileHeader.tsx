@@ -1,8 +1,10 @@
 import { Component } from '../../../Reacts';
 import styles from './profileHeader.module.scss';
 import { VNodeType } from '../../../Reacts/shared/common';
+import Link from '../Link/Link';
 
 export default class ProfileHeader extends Component<{
+    profileID: string;
     bannerSrc: string;
     avatarSrc: string;
     name: string;
@@ -13,10 +15,10 @@ export default class ProfileHeader extends Component<{
     render() {
         return (
             <div className={`flex column ${styles.profile}`}>
-                <div className={styles.profile_banner}>
+                <div key={'banner'} className={styles.profile_banner}>
                     <img src={this.props.bannerSrc} alt={'banner'} />
                 </div>
-                <div className={styles.profile_content}>
+                <div key={'content'} className={styles.profile_content}>
                     <div className={styles.info}>
                         <img
                             className={styles.info__avatar}
@@ -24,11 +26,13 @@ export default class ProfileHeader extends Component<{
                             alt={'avatar'}
                         />
                         <div className={`flex column g-4`}>
-                            <h3>{this.props.name} {this.props.surname}</h3>
+                            <h3>
+                                {this.props.name} {this.props.surname}
+                            </h3>
                             <p>{this.props.status}</p>
                         </div>
                     </div>
-                    {this.props.buttons}
+                    <div key={'buttons'}>{this.props.buttons}</div>
                 </div>
             </div>
         );
