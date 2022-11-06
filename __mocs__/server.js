@@ -160,10 +160,12 @@ app.get('/api/resume/:id', (req, res) => {
             'Работал с mongodb, web-socket, express.js, участвовал в исправлении npm-модуля\n' +
             'Имеется опыт работы с школьниками, читаю лекции в технопарке МАИ\n' +
             'Дважды призёр Rucode',
-        university: 'МГТУ им. Баумана',
+        university:
+            'МГТУ им. Баумана',
         faculty:
             'Информационное управление, Информационные системы и технологии',
-        status: 'Неоконченное высшее',
+        status:
+            'Неоконченное высшее',
         // For sidebar
         location: 'Москва',
         dateOfBirth: '21.02.2002',
@@ -189,10 +191,10 @@ app.get('/api/applicant/:id', (req, res) => {
         vk: 'https://vk.com',
         facebook: 'https://facebook.com',
         telegram: 'https://t.me',
-    });
-});
+    })
+})
 
-app.get('/api/applicant/resumes/:id', (req, res) => {
+app.get('/api/applicant/resumes/:id', (req,res)=> {
     res.json([
         {
             id: '1',
@@ -224,7 +226,9 @@ app.get('/api/applicant/resumes/:id', (req, res) => {
             skills: ['CSS3', 'HTML5', 'React'],
             resumeSrc: './',
         },
-    ]);
-});
+        ]
+    )
+
+})
 
 app.listen(PORT);

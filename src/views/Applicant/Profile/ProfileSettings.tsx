@@ -8,12 +8,12 @@ import ButtonPrimary from '../../../components/UI-kit/buttons/ButtonPrimary';
 import Link from '../../../components/Link/Link';
 import Button from '../../../components/UI-kit/buttons/Button';
 import SettingsHat from '../../../components/hats/SettingsHat';
-import ProfileSettings, { AvatarSettings, Password, SocialNetworks } from '../../Employer/Profile/ProfileSettings';
+// import ProfileSettings, { AvatarSettings, Password, SocialNetworks } from '../../Employer/ProfileSettings';
 import Form, { FormSectionType } from '../../../components/UI-kit/forms/Form';
 import Input from '../../../components/UI-kit/forms/inputs/Input';
 import CancelSaveButtons from '../../../components/CancelSaveButtons/CancelSaveButtons';
 import IconInput from '../../../components/UI-kit/forms/inputs/IconInput';
-import Location from '../../../static/icons/location_input.svg'
+// import Location from '../../../static/icons/location_input.svg'
 import styles from './profileSettings.module.scss'
 
 class AboutApplicant extends Component {
@@ -65,26 +65,26 @@ export default class ApplicantSettings extends Component<
     {},
     { section: FormSectionType[] }
     >{
-    state = {
-        sections: [
-            {
-                header: 'Аватарка',
-                content: <AvatarSettings />
-            },
-            {
-                header: 'О себе',
-                content: <AboutApplicant />
-            },
-            {
-                header: 'Социальные сети',
-                content: <SocialNetworks />,
-            },
-            {
-                header: 'Смена пароля',
-                content: <Password />,
-            },
-        ]
-    };
+    // state = {
+    //     sections: [
+    //         {
+    //             header: 'Аватарка',
+    //             content: <AvatarSettings />
+    //         },
+    //         {
+    //             header: 'О себе',
+    //             content: <AboutApplicant />
+    //         },
+    //         {
+    //             header: 'Социальные сети',
+    //             content: <SocialNetworks />,
+    //         },
+    //         {
+    //             header: 'Смена пароля',
+    //             content: <Password />,
+    //         },
+    //     ]
+    // };
 
     submitForm = () => {};
 

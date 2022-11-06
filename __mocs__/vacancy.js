@@ -49,7 +49,7 @@ let response = {
     name: 'Vladislav',
     surname: 'Kirpichov',
     resumeTitle: 'Фронтенд-разработчик',
-    timeThenCreated: '12.10.2022',
+    timeThenCreated: '2022-09-09T00:00Z',
     chips: [],
     resumeSrc: './',
 };

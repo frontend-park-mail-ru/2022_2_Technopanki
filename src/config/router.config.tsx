@@ -11,6 +11,8 @@ import VacancyResponses from '../views/Vacancy/VacancyResponses';
 import Vacancies from '../views/Vacancies/Vacancies';
 import Resume from '../views/Applicant/Resume/Resume';
 import ApplicantProfile from '../views/Applicant/Profile/Profile';
+import ApplicantSettings from '../views/Applicant/Profile/ProfileSettings';
+import ResumeSettings from '../views/Applicant/Resume/ResumeSettings';
 
 export const ROUTER_PATHS: { path: PathType; component: VNodeType }[] = [
     {
@@ -92,6 +94,20 @@ export const ROUTER_PATHS: { path: PathType; component: VNodeType }[] = [
             path: '/applicant',
             validator: (url: string) => /applicant\/[1-9]+/.test(url)
         },
-        component: <ApplicantProfile />
+        component: <ApplicantProfile />,
+    },
+    {
+        path: {
+            path: '/applicant/settings',
+            validator: (url: string) => url === '/applicant/settings'
+        },
+        component: <ApplicantSettings />,
+    },
+    {
+        path: {
+            path: '/resume/settings',
+            validator: (url: string) => url === '/resume/settings'
+        },
+        component: <ResumeSettings />,
     }
 ];

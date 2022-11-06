@@ -54,11 +54,10 @@ export default class ApplicantHat extends Component<
                 rightSideContent={
                     <div className={'flex row flex-wrap g-12'}>
                         {/*TODO: добавить уловие по типу пользователя рендер кнопок*/}
-                        <ButtonIcon icon={PhoneIcon} />
-                        <ButtonIcon icon={MailIcon} />
-                        <ButtonIcon icon={ResumeIcon}>
-                            Скачать резюме в PDF
-                        </ButtonIcon>
+                        <Link
+                            to={'/resume/settings'}
+                            content={<Button>Настройки</Button>}
+                        />
                     </div>
                 }
             />
