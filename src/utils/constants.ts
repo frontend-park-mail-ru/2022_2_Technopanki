@@ -17,5 +17,8 @@ export const SERVER_URLS = {
         console.log(`USER_PREVIEW id: ${userID}`);
         return SERVER_URL + 'api/user/preview/' + userID;
     },
+    VACANCY_RESPONSES: SERVER_URL + 'api/vacancies/responses/',
+    VACANCY_NEW: SERVER_URL + 'api/vacancy/new/',
+
     IMAGE: SERVER_URL + 'api/user/image/',
 };
