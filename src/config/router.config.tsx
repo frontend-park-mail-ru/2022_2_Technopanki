@@ -43,7 +43,7 @@ export const ROUTER_PATHS: { path: PathType; component: VNodeType }[] = [
     {
         path: {
             path: '/employer/settings',
-            validator: (url: string) => url === '/employer/settings',
+            validator: (url: string) => /employer\/settings\/[1-9]+/.test(url),
         },
         component: <ProfileSettings />,
     },
@@ -64,7 +64,7 @@ export const ROUTER_PATHS: { path: PathType; component: VNodeType }[] = [
     {
         path: {
             path: '/vacancy/settings',
-            validator: (url: string) => url === '/vacancy/settings',
+            validator: (url: string) => /vacancy\/settings\/[1-9]+/.test(url),
         },
         component: <VacancySettings />,
     },
@@ -85,29 +85,29 @@ export const ROUTER_PATHS: { path: PathType; component: VNodeType }[] = [
     {
         path: {
             path: '/resume',
-            validator: (url: string) => /resume\/[1-9]+/.test(url)
+            validator: (url: string) => /resume\/[1-9]+/.test(url),
         },
         component: <Resume />,
     },
     {
         path: {
             path: '/applicant',
-            validator: (url: string) => /applicant\/[1-9]+/.test(url)
+            validator: (url: string) => /applicant\/[1-9]+/.test(url),
         },
         component: <ApplicantProfile />,
     },
     {
         path: {
             path: '/applicant/settings',
-            validator: (url: string) => url === '/applicant/settings'
+            validator: (url: string) => url === '/applicant/settings',
         },
         component: <ApplicantSettings />,
     },
     {
         path: {
             path: '/resume/settings',
-            validator: (url: string) => url === '/resume/settings'
+            validator: (url: string) => url === '/resume/settings',
         },
         component: <ResumeSettings />,
-    }
+    },
 ];

@@ -45,6 +45,7 @@ export default class VacancyCard extends Component<
                 className={`grid grid-template-columns g-16 rounded-lg p-24 ${styles.vacancy}`}
             >
                 <Link
+                    key={'link'}
                     to={'/employer/2'}
                     content={
                         <div
@@ -58,7 +59,7 @@ export default class VacancyCard extends Component<
                 />
                 <div
                     key={'vacancy-data'}
-                    className={'flex flex-start column g-2'}
+                    className={'flex flex-start column g-4'}
                 >
                     <h4
                         key={'vacancy-name'}
@@ -70,30 +71,48 @@ export default class VacancyCard extends Component<
                         key={'vacancy-metadata'}
                         className={'flex flex-start row g-16'}
                     >
-                        <div className={'flex row align-items-center g-6'}>
+                        <div
+                            key={'location'}
+                            className={'flex row align-items-center g-6'}
+                        >
                             <div
+                                key={'meta'}
                                 className={`${styles.metadata_icon}`}
                                 dangerouslySetInnerHTML={{ __html: Location }}
                             />
-                            <div className={`${styles.metadata}`}>
+                            <div
+                                key={'location'}
+                                className={`${styles.metadata}`}
+                            >
                                 {this.props.location}
                             </div>
                         </div>
-                        <div className={'flex row align-items-center g-6'}>
+                        <div
+                            key={'clock'}
+                            className={'flex row align-items-center g-6'}
+                        >
                             <div
+                                key={'clock'}
                                 className={`${styles.metadata_icon}`}
                                 dangerouslySetInnerHTML={{ __html: Clock }}
                             />
-                            <div className={`${styles.metadata}`}>
+                            <div
+                                key={'format'}
+                                className={`${styles.metadata}`}
+                            >
                                 {this.props.format}
                             </div>
                         </div>
-                        <div className={'flex row align-items-center g-6'}>
+                        <div
+                            key={'icon'}
+                            className={'flex row align-items-center g-6'}
+                        >
                             <div
+                                key={'icon'}
                                 className={`${styles.metadata_icon}`}
                                 dangerouslySetInnerHTML={{ __html: Calendar }}
                             />
-                            <div className={`${styles.metadata}`}>
+                            <div key={'hours'} className={`${styles.metadata}`}>
                                 {this.props.hours}
                             </div>
                         </div>
@@ -104,11 +123,11 @@ export default class VacancyCard extends Component<
                     className={'flex row g-4 mx-0 justify-content-end'}
                 >
                     <h4 className={`mx-0 ${styles.salary}`}>
-                        {`${this.props.salary}${this.props.currency}`}
+                        {this.props.salary}
                     </h4>
-                    <h4 className={`mx-0 ${styles.per_month}`}>в месяц</h4>
+                    <h4 className={`mx-0 ${styles.per_month}`}>руб/мес</h4>
                 </div>
-                <div className={styles.link}>
+                <div key={'vacancy'} className={styles.link}>
                     <Link
                         to={`/vacancy/${this.props.id}`}
                         content={
@@ -119,23 +138,27 @@ export default class VacancyCard extends Component<
                     />
                 </div>
                 <div
+                    key={'details'}
                     className={`flex row g-4 justify-content-end align-items-end ${styles.details}`}
                 >
-                    <p
-                        className={`cursor-pointer ${styles.details_text}`}
-                        onClick={this.handleDetails}
-                    >
-                        Детали
-                    </p>
                     <div
-                        className={`cursor-pointer ${styles.arrow}`}
-                        dangerouslySetInnerHTML={
-                            this.state.isOpen
-                                ? { __html: ArrowUp }
-                                : { __html: ArrowDown }
+                        className={
+                            'flex align-items-end g-8 justify-content-center cursor-pointer'
                         }
                         onClick={this.handleDetails}
-                    />
+                    >
+                        <p className={`${styles.details_text}`}>Детали</p>
+                        <div
+                            className={`${
+                                this.state.isOpen ? 'pb-2' : 'pb-4'
+                            } ${styles.arrow}`}
+                            dangerouslySetInnerHTML={
+                                this.state.isOpen
+                                    ? { __html: ArrowUp }
+                                    : { __html: ArrowDown }
+                            }
+                        />
+                    </div>
                 </div>
                 {this.state.isOpen ? (
                     <div className={`flex column g-12 ${styles.description}`}>

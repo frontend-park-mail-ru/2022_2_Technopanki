@@ -33,7 +33,6 @@ class Vacancy extends Component<VacancyPropsType> {
     getDataFromServer() {
         // Мы точно уверены что путь будет vacancy/{0,9}+
         const vacancyID = this.props.id || location.pathname.split('/').at(-1);
-        console.log(`VacancyID: ${vacancyID}`);
 
         vacancyService.getVacancyData(vacancyID as string).then(body => {
             dispatch(vacancyActions.update(body));
@@ -96,7 +95,7 @@ class Vacancy extends Component<VacancyPropsType> {
 export default vacancyConnect((store, props) => {
     const storeState = store.getState() as VacancyState;
     return {
-        id: props.id || storeState.id,
+        id: storeState.id,
         postedByUserID: storeState.postedByUserID,
         title: storeState.title,
         description: storeState.description,

@@ -9,7 +9,6 @@ export const userReducer: Reducer<UserState> = (
     switch (action.type) {
         case 'SIGN_UP':
         case 'SIGN_IN':
-            console.log(action);
             return {
                 ...state,
                 id: (<AuthAction>action).id.toString(),

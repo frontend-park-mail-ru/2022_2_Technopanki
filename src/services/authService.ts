@@ -1,6 +1,6 @@
 import { Service } from './types';
 import network from '../lib/network';
-import { SERVER_URLS } from '../utils/constants';
+import { SERVER_URL, SERVER_URLS } from '../utils/constants';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
 
@@ -46,6 +46,25 @@ export const authService: Service = {
                 }
 
                 return response.body;
+            });
+    },
+
+    auth: async () => {
+        dispatch(startLoading());
+        return network
+            .GET(SERVER_URL + 'authh', [])
+            .then(response => {
+                dispatch(stopLoading());
+
+                if (response.status > 399) {
+                    throw response.body;
+                }
+
+                return response.body;
+            })
+            .catch(err => {
+                dispatch(stopLoading());
+                console.error(err);
             });
     },
 };

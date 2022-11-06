@@ -39,21 +39,17 @@ export default class ProfileVacancies extends Component<
         return (
             <div className={'flex column g-16'}>
                 {this.state.vacancies.map(vacancy => (
-                    <Link
-                        key={vacancy.id}
-                        to={`/vacancy/${vacancy.id}`}
-                        content={
-                            <VacancyCard
-                                name={vacancy.title}
-                                icon={vacancy.img}
-                                salary={vacancy.salary}
-                                currency={vacancy.currency}
-                                location={vacancy.location}
-                                format={vacancy.format}
-                                hours={vacancy.hours}
-                                description={vacancy.description}
-                            />
-                        }
+                    <VacancyCard
+                        key={vacancy.id.toString()}
+                        id={vacancy.id.toString()}
+                        name={vacancy.title}
+                        icon={vacancy.img}
+                        salary={vacancy.salary}
+                        currency={vacancy.currency}
+                        location={vacancy.location}
+                        format={vacancy.format}
+                        hours={vacancy.hours}
+                        description={vacancy.description}
                     />
                 ))}
             </div>

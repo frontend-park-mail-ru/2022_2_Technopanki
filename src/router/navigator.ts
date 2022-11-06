@@ -55,7 +55,6 @@ class Navigator {
         const url = this.urls.find(url => url.validator(to));
 
         if (url) {
-            console.log('NAVIGATOR: ', url);
             this.router.navigate(
                 // @ts-ignore we checked for
                 { ...this.navMap.get(url.path), options: { pop: pop } },

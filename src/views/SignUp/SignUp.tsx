@@ -149,7 +149,6 @@ export default class SignUp extends Component<
                 EMAIL_ERROR,
             )
         ) {
-            console.log('set in email');
             validFlag = false;
         }
         if (
@@ -160,7 +159,6 @@ export default class SignUp extends Component<
                 PASSWORD_SYMBOLS_ERROR,
             )
         ) {
-            console.log('set in password');
             validFlag = false;
         }
         if (
@@ -171,7 +169,6 @@ export default class SignUp extends Component<
                 PASSWORD_LENGTH_ERROR,
             )
         ) {
-            console.log('set in password');
             validFlag = false;
         }
         if (
@@ -191,7 +188,6 @@ export default class SignUp extends Component<
                 PASSWORD_REPEAT_ERROR,
             )
         ) {
-            console.log('set in repeatPassword');
             validFlag = false;
         }
         if (
@@ -206,7 +202,6 @@ export default class SignUp extends Component<
                 NAME_LENGTH_ERROR,
             )
         ) {
-            console.log('set in applicant_name');
             validFlag = false;
         }
         if (
@@ -221,7 +216,6 @@ export default class SignUp extends Component<
                 NAME_SYMBOLS_ERROR,
             )
         ) {
-            console.log('set in applicant_name');
             validFlag = false;
         }
         if (
@@ -236,7 +230,6 @@ export default class SignUp extends Component<
                 NAME_LENGTH_ERROR,
             )
         ) {
-            console.log('set in company_name');
             validFlag = false;
         }
         if (
@@ -251,7 +244,6 @@ export default class SignUp extends Component<
                 NAME_SYMBOLS_ERROR,
             )
         ) {
-            console.log('set in applicant_name');
             validFlag = false;
         }
         if (
@@ -266,7 +258,6 @@ export default class SignUp extends Component<
                 SURNAME_LENGTH_ERROR,
             )
         ) {
-            console.log('set in applicant_surname');
             validFlag = false;
         }
         if (
@@ -281,7 +272,6 @@ export default class SignUp extends Component<
                 SURNAME_SYMBOLS_ERROR,
             )
         ) {
-            console.log('set in applicant_surname');
             validFlag = false;
         }
 
@@ -305,7 +295,6 @@ export default class SignUp extends Component<
                 })
                 .catch(body => {
                     // todo: поправить type ошибки
-                    console.log(body.type);
                     setFieldAsInvalid(newState.inputs[body.type], body.message);
                     this.setState(() => newState);
                     setFieldAsInvalid(newState.inputs[body.type], '');

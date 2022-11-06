@@ -1,18 +1,16 @@
 import { Component } from '../../../Reacts';
 import styles from './vacancies.module.scss';
 import Header from '../../components/UI-kit/header/Header';
-import VK from '../../static/icons/vk_logo.svg';
 import SearchInput from '../../components/UI-kit/forms/inputs/SearchInput';
 import Footer from '../../components/UI-kit/footer/Footer';
 import VacancyCard from '../../components/UI-kit/vacancy/VacancyCard';
-import Link from '../../components/Link/Link';
 import { vacancyService } from '../../services/vacancyService';
 
 export default class Vacancies extends Component<
     {},
     {
         vacancies: {
-            id: string;
+            id: string | number;
             title: string;
             img: string;
             salary: string;
@@ -32,7 +30,7 @@ export default class Vacancies extends Component<
             .getAllVacancies()
             .then(body => {
                 this.setState(() => ({
-                    vacancies: body,
+                    vacancies: [...body],
                 }));
             })
             .catch(err => console.error(err));
@@ -52,8 +50,8 @@ export default class Vacancies extends Component<
                     <SearchInput key={'search'} />
                     {this.state.vacancies.map(vacancy => (
                         <VacancyCard
-                            key={vacancy.id}
-                            id={vacancy.id}
+                            key={vacancy.id.toString()}
+                            id={vacancy.id.toString()}
                             name={vacancy.title}
                             icon={vacancy.img}
                             salary={vacancy.salary}
@@ -65,7 +63,9 @@ export default class Vacancies extends Component<
                         />
                     ))}
                 </div>
-                <Footer key={'footer'} />
+                <div className={'screen-responsive'}>
+                    <Footer key={'footer'} />
+                </div>
             </div>
         );
     }

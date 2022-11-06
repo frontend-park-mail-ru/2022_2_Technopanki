@@ -69,7 +69,6 @@ export const employerProfileService: Service = {
         profileType: string,
         formData: FormData,
     ) => {
-        console.log('test');
         dispatch(startLoading());
         return await network
             .POST(
@@ -98,7 +97,6 @@ export const employerProfileService: Service = {
             )
             .then(response => {
                 dispatch(stopLoading());
-                console.log(response);
                 if (response.status > 399) {
                     throw response.status;
                 }

@@ -1,6 +1,8 @@
 import { Component } from '../../../Reacts';
 import ArrowButton from '../../components/UI-kit/buttons/ArrowButton';
 import styles from './vacancy.module.scss';
+import { userConnect } from '../../store';
+import { applicantService } from '../../services/applicantService';
 
 type ResumeType = {
     name: string;
@@ -32,15 +34,26 @@ class Resume extends Component<ResumeType> {
     }
 }
 
-export default class VacancyDropdownResume extends Component<{
-    resume: ResumeType[];
-}> {
+class VacancyDropdownResume extends Component<
+    { userID: string },
+    { resume: ResumeType[] }
+> {
+    state = {
+        resume: [],
+    };
+
+    componentDidMount() {
+        applicantService.getResumePreviewList().then(body => {
+            this.setState(state => ({ ...state, resume: body }));
+        });
+    }
+
     render() {
         return (
             <div
                 className={`flex hidden column g-0 background-0 rounded-md shadow-md ${styles.vacancy_dropdown}`}
             >
-                {this.props.resume.map(resume => (
+                {this.state.resume.map(resume => (
                     <Resume
                         name={resume.name}
                         surname={resume.surname}
@@ -52,3 +65,7 @@ export default class VacancyDropdownResume extends Component<{
         );
     }
 }
+
+export default userConnect(store => ({ userID: store.getState().id }))(
+    VacancyDropdownResume,
+);

@@ -17,7 +17,6 @@ class ApplicantResumeList extends Component<
                 .getResumeList(this.props.applicantID)
                 .then(body => {
                     this.state.responses = JSON.parse(JSON.stringify(body));
-                    console.log(body)
                     this.setState(state => {
                         return state;
                     });
@@ -27,24 +26,24 @@ class ApplicantResumeList extends Component<
     }
 
     componentDidMount() {
-        this.getDataFromServer()
+        this.getDataFromServer();
     }
 
     render() {
-        return(
+        return (
             <ResumeList
                 someNewValue={'text'}
                 resume={this.state.responses}
                 test={() => {
-                    return this.state.responses
+                    return this.state.responses;
                 }}
             />
-        )
+        );
     }
-};
+}
 
 export default applicantConnect(store => {
     return {
         applicantID: store.getState().id,
     };
-})(ApplicantResumeList)
+})(ApplicantResumeList);
