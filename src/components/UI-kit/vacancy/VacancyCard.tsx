@@ -11,6 +11,7 @@ import { VNodeType } from '../../../../Reacts/shared/common';
 import Link from '../../Link/Link';
 
 export type VacancyCardPropsType = {
+    id: string;
     name: string;
     icon: string;
     salary: string;
@@ -108,9 +109,14 @@ export default class VacancyCard extends Component<
                     <h4 className={`mx-0 ${styles.per_month}`}>в месяц</h4>
                 </div>
                 <div className={styles.link}>
-                    <ArrowButtonWithTextOutline key={'vacancy-link'}>
-                        <p>Посмотреть вакансию</p>
-                    </ArrowButtonWithTextOutline>
+                    <Link
+                        to={`/vacancy/${this.props.id}`}
+                        content={
+                            <ArrowButtonWithTextOutline key={'vacancy-link'}>
+                                <p>Посмотреть вакансию</p>
+                            </ArrowButtonWithTextOutline>
+                        }
+                    />
                 </div>
                 <div
                     className={`flex row g-4 justify-content-end align-items-end ${styles.details}`}

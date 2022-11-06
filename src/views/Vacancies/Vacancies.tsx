@@ -53,6 +53,7 @@ export default class Vacancies extends Component<
                     {this.state.vacancies.map(vacancy => (
                         <VacancyCard
                             key={vacancy.id}
+                            id={vacancy.id}
                             name={vacancy.title}
                             icon={vacancy.img}
                             salary={vacancy.salary}

@@ -49,7 +49,7 @@ export default class StartPage extends Component {
                             }
                         />
                         <Link
-                            to={'/employer/1'}
+                            to={'/vacancies'}
                             content={
                                 <ArrowButtonWithTextOutline key={'2'}>
                                     <p>Посмотреть все вакансии</p>

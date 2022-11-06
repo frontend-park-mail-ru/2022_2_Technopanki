@@ -6,10 +6,11 @@ import Link from '../../Link/Link';
 import HeaderModal from './HeaderModal';
 import { userConnect } from '../../../store';
 import { StoreType } from '../../../../Fluxs/types/store';
-import { UserStore } from '../../../store/user/types';
+import { UserState } from '../../../store/user/types';
 import HeaderUserInfo from './HeaderUserInfo';
 
 type HeaderProps = {
+    id: string;
     name: string;
     surname: string;
     authorized: boolean;
@@ -33,7 +34,7 @@ class HeaderProfile extends Component<HeaderProps> {
                     />
                     {this.props.authorized ? (
                         <Link
-                            to={'applicant/1'}
+                            to={`/applicant/${this.props.id}`}
                             content={
                                 <HeaderUserInfo
                                     key={'info'}
@@ -84,8 +85,9 @@ class HeaderProfile extends Component<HeaderProps> {
     }
 }
 
-export default userConnect((store: StoreType<UserStore>): HeaderProps => {
+export default userConnect((store: StoreType<UserState>): HeaderProps => {
     return {
+        id: store.getState().id,
         name: store.getState().name,
         surname: store.getState().surname,
         authorized: store.getState().authorized,
