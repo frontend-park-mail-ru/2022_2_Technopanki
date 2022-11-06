@@ -49,22 +49,32 @@ export default class Header extends Component {
                                 </p>
                             }
                         />
-                        <p
-                            key={'item2'}
-                            id={'item2'}
-                            className={styles.item__def}
-                            onClick={this.setActive}
-                        >
-                            Соискатели
-                        </p>
-                        <p
-                            key={'item3'}
-                            id={'item3'}
-                            className={styles.item__def}
-                            onClick={this.setActive}
-                        >
-                            Создать резюме
-                        </p>
+                        <Link
+                            to={'/applicant/1'}
+                            content={
+                                <p
+                                    key={'item2'}
+                                    id={'item2'}
+                                    className={styles.item__def}
+                                    onClick={this.setActive}
+                                >
+                                    Соискатели
+                                </p>
+                            }
+                        />
+                        <Link
+                            to={'/resume/1'}
+                            content={
+                                <p
+                                    key={'item3'}
+                                    id={'item3'}
+                                    className={styles.item__def}
+                                    onClick={this.setActive}
+                                >
+                                    Создать резюме
+                                </p>
+                            }
+                        />
                     </div>
                     <HeaderProfile key={'profile'} />
                 </div>

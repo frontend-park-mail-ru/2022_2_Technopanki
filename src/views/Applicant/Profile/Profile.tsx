@@ -10,21 +10,41 @@ import ProfileHeader from '../../../components/ProfileHeader/ProfileHeader';
 import Chips from '../../../components/UI-kit/chips/Chips';
 import ResumeList from '../../../components/UI-kit/resumeList/ResumeList';
 import ResumeSidebar from '../../../components/sidebars/ResumeSidebar';
+import { VNodeType } from '../../../../Reacts/shared/common';
+import { ResumeListItemPropsType } from '../../../components/UI-kit/resumeList/ResumeListItem';
+import { applicantService } from '../../../services/applicantService';
+import { applicantConnect, dispatch } from '../../../store';
+import { applicantActions } from '../../../store/applicant/actions';
+import { ProfileState } from '../../../store/applicant/type';
+import ApplicantResumeList from './ApplicantResumeList';
 
-export default class ApplicantProfile extends Component {
-    state = {
-        MyResumes: [
-            {
-                id: '1',
-                imgSrc: './',
-                name: 'Кутищев',
-                surname: 'Данил',
-                resumeTitle: 'Инженер-электроник',
-                timeWhenCreated: '2022-09-22T14:35Z',
-                chips: <Chips>JS</Chips>,
-                resumeSrc: './',
-            },
-        ]
+type ApplicantPropsType = {
+    id: string;
+    imgSrc: string;
+    name: string;
+    surname: string;
+    status: string;
+    phone: string;
+    email: string;
+    sideBar: {
+        location: string;
+        dateOfBirth: string;
+        skills: string[];
+    };
+}
+
+class ApplicantProfile extends Component<ApplicantPropsType> {
+    getDataFromServer() {
+        const applicantID = this.props.id || location.pathname.split('/').at(-1)
+
+        applicantService.getApplicantData(applicantID as string)
+            .then(body => {
+                dispatch(applicantActions.update(body))
+            })
+    }
+
+    componentDidMount() {
+        this.getDataFromServer()
     }
 
     render() {
@@ -34,13 +54,36 @@ export default class ApplicantProfile extends Component {
                 <ProfileHeader
                     bannerSrc={'./'}
                     avatarSrc={'./'}
-                    name={'Данил Кутищев'}
-                    description={'Студент МГТУ, специалист по схемотехнике'}
+                    name={this.props.name}
+                    surname={this.props.surname}
+                    status={this.props.status}
                     buttons={
                         <div className={'flex flex-wrap row g-16'}>
-                            <ButtonIcon icon={PhoneIcon} />
-                            <ButtonIcon icon={MailIcon} />
-                            <ButtonPrimary>Создать резюме</ButtonPrimary>
+                            <ButtonIcon
+                                onClick={()=>{
+                                    navigator.clipboard
+                                        .writeText(this.props.phone)
+                                        .then(() => alert('copied!'))
+                                        .catch(err => console.error(err));
+                                }}
+                                icon={PhoneIcon}
+                            />
+                            <ButtonIcon
+                                onClick={()=>{
+                                    navigator.clipboard
+                                        .writeText(this.props.email)
+                                        .then(() => alert('copied!'))
+                                        .catch(err => console.error(err));
+                                }}
+                                icon={MailIcon}
+                            />
+                            <Link
+                                to={'resume/settings'}
+                                content={
+                                    <ButtonPrimary>Создать резюме</ButtonPrimary>
+                                }
+                            />
+                            {/*TODO: добавить путь в константы*/}
                             <Link
                                 to={'/applicant/resume/settings'}
                                 content={<Button>Настройки</Button>}
@@ -50,13 +93,36 @@ export default class ApplicantProfile extends Component {
                 />
                 <div className={'columns g-24'}>
                     <div className={'col-12 col-md-9 column g-16'}>
-                        <ResumeList resume={this.state.MyResumes} />
+                        <ApplicantResumeList />
                     </div>
                     <div className={'col-12 col-md-3'}>
-                        <ResumeSidebar />
+                        <ResumeSidebar
+                            location={this.props.sideBar.location}
+                            dateOfBirth={this.props.sideBar.dateOfBirth}
+                            skills={this.props.sideBar.skills}
+                        />
                     </div>
                 </div>
             </div>
         )
     }
 }
+
+export default applicantConnect((store, props) => {
+    const storeState = store.getState() as ProfileState;
+
+    return {
+        id: props.id || storeState.id,
+        name: storeState.name,
+        surname: storeState.surname,
+        status: storeState.status,
+        phone: storeState.phone,
+        email: storeState.email,
+        resumeList: storeState.resumeList,
+        sideBar: {
+            location: storeState.location,
+            dateOfBirth: storeState.dateOfBirth,
+            skills: storeState.skills,
+        },
+    }
+})(ApplicantProfile);

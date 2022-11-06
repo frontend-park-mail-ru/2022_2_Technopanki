@@ -2,6 +2,7 @@ import { Component } from '../../../../Reacts';
 import { VNodeType } from '../../../../Reacts/shared/common';
 import Link from '../../Link/Link';
 import ArrowButton from '../buttons/ArrowButton';
+import Chips from '../chips/Chips';
 
 export type ResumeListItemPropsType = {
     id: string;
@@ -10,7 +11,7 @@ export type ResumeListItemPropsType = {
     surname: string;
     resumeTitle: string;
     timeWhenCreated: string;
-    chips: VNodeType;
+    skills: string[];
     resumeSrc: string;
 };
 
@@ -101,7 +102,9 @@ export default class ResumeListItem extends Component<ResumeListItemPropsType> {
                     key={'chips'}
                     className={'col-0 row align-items-center col-sm-5 col-md-3'}
                 >
-                    <p>chips</p>
+                    {this.props.skills?.map(item => (
+                        <Chips>{item}</Chips>
+                    ))}
                 </div>
                 <div
                     key={'button'}

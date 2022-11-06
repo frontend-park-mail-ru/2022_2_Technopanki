@@ -4,10 +4,12 @@ import ResumeListItem, { ResumeListItemPropsType } from './ResumeListItem';
 export default class ResumeList extends Component<
     {
         resume: ResumeListItemPropsType[];
+        renderResponses: Function;
     },
     { limit: number }
 > {
     state = {
+        resume: JSON.parse(JSON.stringify(this.props.resume)),
         limit: 6,
     };
 
@@ -19,6 +21,14 @@ export default class ResumeList extends Component<
             limit: state.limit + this.limitConstant,
         }));
     };
+
+    componentDidMount() {
+        console.log('ResumeList: ', this.state.resume);
+    }
+
+    componentDidUpdate() {
+        console.log('ResumeList: ', this.state.resume);
+    }
 
     render() {
         return (
@@ -41,8 +51,8 @@ export default class ResumeList extends Component<
                                 name={resume.name}
                                 surname={resume.surname}
                                 resumeTitle={resume.resumeTitle}
-                                timeThenCreated={resume.timeThenCreated}
-                                chips={resume.chips}
+                                timeWhenCreated={resume.timeWhenCreated}
+                                skills={resume.skills}
                                 resumeSrc={resume.resumeSrc}
                             />
                         ))}

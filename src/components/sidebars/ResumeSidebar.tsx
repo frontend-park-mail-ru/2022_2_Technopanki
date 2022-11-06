@@ -9,16 +9,11 @@ import VKIcon from '../../static/icons/logos/VK.svg';
 import FacebookIcon from '../../static/icons/logos/Facebook.svg';
 import TelegramIcon from '../../static/icons/logos/Telegram.svg';
 
-export default class ResumeSidebar extends Component<
-    {},
-    {
-        chipsData: string[];
-    }
-    > {
-    state = {
-        chipsData: ['JavaScript', 'Git', 'CSS3', 'HTML5', 'React', 'Redux'],
-    };
-
+export default class ResumeSidebar extends Component<{
+    location: string;
+    dateOfBirth: string;
+    skills: string[];
+}> {
     render() {
         return (
             <SideBar
@@ -27,19 +22,19 @@ export default class ResumeSidebar extends Component<
                         header: 'Город проживания',
                         inside: (
                             <p className={'font-size-24 bold'}>
-                                Москва
+                                {this.props.location}
                             </p>
                         ),
                     },
                     {
                         header: 'Дата рождения',
-                        inside: <p className={'font-size-24 bold'}>22.11.2022</p>,
+                        inside: <p className={'font-size-24 bold'}>{this.props.dateOfBirth}</p>,
                     },
                     {
                         header: 'Профессиональные навыки',
                         inside: (
                             <div className={'flex row g-8 flex-wrap'}>
-                                {this.state.chipsData.map(item => (
+                                {this.props.skills?.map(item => (
                                     <Chips>{item}</Chips>
                                 ))}
                             </div>

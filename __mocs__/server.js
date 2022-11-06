@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+// const Chips = require('../../src/components/UI-kit/chips/Chips.js');
 const PORT = 8080;
 
 const corsOptions = {
@@ -210,5 +211,56 @@ app.get('/api/resume/:id', (req, res) => {
         isActive: true,
     });
 });
+
+app.get('/api/applicant/:id', (req, res) => {
+    res.json({
+        id: req.params.id,
+        name: 'Sofya',
+        surname: 'Sitnichenko',
+        status: 'BMSTU student',
+        phone: '+7-999-999-99-99',
+        email: 'example@mail.ru',
+        location: 'Москва',
+        dateOfBirth: '21.02.2002',
+        skills: ['JavaScript', 'Git', 'CSS3', 'HTML5', 'React'],
+    })
+})
+
+app.get('/api/applicant/resumes/:id', (req,res)=> {
+    res.json([
+        {
+            id: '1',
+            imgSrc: './',
+            name: 'Владислав',
+            surname: 'Кирпичов',
+            resumeTitle: 'Фронтенд-разработчик',
+            timeWhenCreated: '2022-09-08T14:35Z',
+            skills: ['CSS3', 'HTML5', 'React'],
+            resumeSrc: './',
+        },
+        {
+            id: '2',
+            imgSrc: './',
+            name: 'Владислав',
+            surname: 'Кирпичов',
+            resumeTitle: 'Фронтенд-разработчик',
+            timeWhenCreated: '2022-09-08T14:35Z',
+            skills: ['CSS3', 'HTML5', 'React'],
+            resumeSrc: './',
+        },
+        {
+            id: '3',
+            imgSrc: './',
+            name: 'Владислав',
+            surname: 'Кирпичов',
+            resumeTitle: 'Фронтенд-разработчик',
+            timeWhenCreated: '2022-09-08T14:35Z',
+            skills: ['CSS3', 'HTML5', 'React'],
+            resumeSrc: './',
+        },
+        ]
+    )
+
+})
 
 app.listen(PORT);

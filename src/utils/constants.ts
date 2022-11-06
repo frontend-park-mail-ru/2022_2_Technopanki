@@ -7,6 +7,10 @@ export const SERVER_URLS = {
     VACANCIES: SERVER_URL + 'vacancies/',
     VACANCY: SERVER_URL + 'api/vacancy/',
 
+    RESUME: SERVER_URL + 'api/resume/',
+    APPLICANT: SERVER_URL + 'api/applicant/',
+    APPLICANT_RESUMES: SERVER_URL + 'api/applicant/resumes/',
+
     USER: SERVER_URL + 'api/user/safety/',
     USER_PREVIEW: (userID: string) =>
         SERVER_URL + 'api/user/' + userID + '/preview',
