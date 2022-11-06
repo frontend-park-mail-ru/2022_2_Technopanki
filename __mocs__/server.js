@@ -230,9 +230,15 @@ app.get('/api/applicant/resumes/:id', (req, res) => {
     ]);
 });
 
+app.get('/api/user/image', (req, res) => {
+    console.log(req.body);
+
+    res.status(200);
+});
+
 app.get('/authh', (req, res) => {
-    console.log(req.headers.cookie);
-    if (req.headers.cookie.session === '123') {
+    if (req.headers.cookie.split(' ')[1].split('=')[1] === '123') {
+        console.log('right cookie');
         res.json(users.user);
         return;
     }

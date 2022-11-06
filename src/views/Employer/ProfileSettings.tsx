@@ -36,6 +36,7 @@ import {
     NAME_SYMBOLS_ERROR,
     PASSWORD_SYMBOLS_ERROR,
 } from '../../utils/validation/messages';
+import FormSection from '../../components/UI-kit/forms/FormSection';
 
 class AvatarSettingsComponent extends Component<
     { previewSrc: string },
@@ -224,7 +225,10 @@ class ProfileSettingsComponent extends Component<
             return;
         }
 
-        console.log(this.props);
+        employerProfileService
+            .updateProfileImg(formData)
+            .then(() => console.log('send image to server'));
+
         employerProfileService
             .updateProfile(this.props.id, this.props.profileType, formData)
             .then(() => {
@@ -256,51 +260,18 @@ class ProfileSettingsComponent extends Component<
                         key={'form'}
                         className={'col-12 col-md-9 column g-24'}
                     >
+                        <div key={'avatar'} className={'w-100'}>
+                            <AvatarSettings key={'avatar'} />
+                        </div>
                         {this.state.sections.map(section => (
                             <div
                                 className={'columns g-16'}
                                 key={section.header}
                             >
-                                <h5 key={'header'} className={'col-12'}>
-                                    {section.header}
-                                </h5>
-                                {Object.entries(section.fields).map(
-                                    ([id, field]) => (
-                                        <div
-                                            key={id}
-                                            className={`col-12 col-md-${field.size.toString()}`}
-                                        >
-                                            {field.type === 'textarea' ? (
-                                                <Textarea
-                                                    key={id}
-                                                    id={id}
-                                                    placeholder={
-                                                        field.placeholder
-                                                    }
-                                                    value={field.value}
-                                                    label={field.label}
-                                                    name={field.name}
-                                                />
-                                            ) : (
-                                                <Input
-                                                    key={id}
-                                                    id={id}
-                                                    type={field.type}
-                                                    placeholder={
-                                                        field.placeholder
-                                                    }
-                                                    label={field.label}
-                                                    name={field.name}
-                                                    value={field?.value}
-                                                    error={field.error}
-                                                    errorMessage={
-                                                        field.errorMessage
-                                                    }
-                                                />
-                                            )}
-                                        </div>
-                                    ),
-                                )}
+                                <FormSection
+                                    header={section.header}
+                                    fields={section.fields}
+                                />
                             </div>
                         ))}
                         <CancelSaveButtons
