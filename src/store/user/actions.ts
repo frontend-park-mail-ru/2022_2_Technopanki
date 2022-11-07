@@ -30,4 +30,7 @@ export const userActions = {
         name,
         surname,
     }),
+    LOGOUT: () => ({
+        type: 'LOGOUT',
+    }),
 };

@@ -68,4 +68,18 @@ export const authService: Service = {
                 console.error(err);
             });
     },
+
+    logout: async () => {
+        dispatch(startLoading());
+
+        return network
+            .GET(SERVER_URLS.LOGOUT, [])
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+            })
+            .catch(err => console.error(err));
+    },
 };

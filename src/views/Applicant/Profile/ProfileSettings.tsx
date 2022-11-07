@@ -40,6 +40,8 @@ import { applicantProfileService } from '../../../services/applicantService';
 import Textarea from '../../../components/UI-kit/forms/inputs/Textarea';
 import Footer from '../../../components/UI-kit/footer/Footer';
 import FileInput from '../../../components/UI-kit/forms/inputs/FileInput';
+import { authService } from '../../../services/authService';
+import { userActions } from '../../../store/user/actions';
 
 class AvatarSettingsComponent extends Component<
     { previewSrc: string },
@@ -256,6 +258,16 @@ class ApplicantSettings extends Component<
             .catch(err => console.error(err));
     };
 
+    logout = () => {
+        authService
+            .logout()
+            .then(() => {
+                dispatch(userActions.LOGOUT());
+                navigator.navigate('/');
+            })
+            .catch(err => console.error(err));
+    };
+
     render() {
         return (
             <div className={'screen-responsive relative'}>
@@ -334,6 +346,7 @@ class ApplicantSettings extends Component<
                         ))}
                     </form>
                 </div>
+                <Button onClick={this.logout}>Выйти</Button>
                 <CancelSaveButtons onCancel={() => navigator.goBack()} />
                 <Footer key={'footer'} />
             </div>

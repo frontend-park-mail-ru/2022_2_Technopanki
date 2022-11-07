@@ -3,7 +3,8 @@ export const SERVER_URL = 'http://localhost:8080/';
 export const SERVER_URLS = {
     SIGN_UP: SERVER_URL + 'auth/sign-up',
     SIGN_IN: SERVER_URL + 'auth/sign-in',
-    AUTH: SERVER_URL + 'auth',
+    AUTH: SERVER_URL + 'auth/',
+    LOGOUT: SERVER_URL + 'auth/logout/',
 
     VACANCIES: SERVER_URL + 'api/vacancy/',
     VACANCY: SERVER_URL + 'api/vacancy/',

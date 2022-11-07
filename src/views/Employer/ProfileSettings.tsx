@@ -46,6 +46,8 @@ import FormSection from '../../components/UI-kit/forms/FormSection';
 import { profileActions } from '../../store/profile/actions';
 import RenderWithCondition from '../../components/RenderWithCondition';
 import { userActions } from '../../store/user/actions';
+import { authService } from '../../services/authService';
+import Button from '../../components/UI-kit/buttons/Button';
 
 class AvatarSettingsComponent extends Component<
     { previewSrc: string },
@@ -269,6 +271,16 @@ class ProfileSettingsComponent extends Component<
         console.log('update', this.props, this);
     }
 
+    logout = () => {
+        authService
+            .logout()
+            .then(() => {
+                dispatch(userActions.LOGOUT());
+                navigator.navigate('/');
+            })
+            .catch(err => console.error(err));
+    };
+
     render() {
         console.log('ON RENDER PROPS: ', this.props);
         return (
@@ -307,6 +319,7 @@ class ProfileSettingsComponent extends Component<
                         />
                     </form>
                 </div>
+                <Button onClick={this.logout}>Выйти</Button>
                 <Footer key={'footer'} />
             </div>
         );

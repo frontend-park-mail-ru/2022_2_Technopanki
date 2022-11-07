@@ -26,6 +26,14 @@ export const userReducer: Reducer<UserState> = (
                 name: action.name,
                 surname: action.surname,
             };
+        case 'LOGOUT':
+            return {
+                id: '',
+                name: '',
+                surname: '',
+                userType: null,
+                authorized: false,
+            };
         default:
             return state;
     }
