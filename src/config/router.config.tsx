@@ -99,7 +99,7 @@ export const ROUTER_PATHS: { path: PathType; component: VNodeType }[] = [
     {
         path: {
             path: '/applicant/settings',
-            validator: (url: string) => url === '/applicant/settings',
+            validator: (url: string) => /applicant\/settings\/[1-9]+/.test(url),
         },
         component: <ApplicantSettings />,
     },

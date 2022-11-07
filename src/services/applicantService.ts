@@ -21,7 +21,7 @@ export const applicantProfileService: Service = {
     },
 
     updateProfile: async (
-        profileID: string,
+        applicantID: string,
         profileType: string,
         formData: FormData,
     ) => {
@@ -30,7 +30,7 @@ export const applicantProfileService: Service = {
             .POST(
                 SERVER_URLS.USER,
                 JSON.stringify({
-                    id: profileID,
+                    id: applicantID,
                     user_type: profileType,
                     name: formData.get('name'),
                     surname: formData.get('surname'),

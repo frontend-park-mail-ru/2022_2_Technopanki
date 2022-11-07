@@ -87,14 +87,12 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                             <Link
                                 to={'/resume/settings'}
                                 content={
-                                    <ButtonPrimary>
-                                        Создать резюме
-                                    </ButtonPrimary>
+                                    <ButtonPrimary>Создать резюме</ButtonPrimary>
                                 }
                             />
                             {/*TODO: добавить путь в константы*/}
                             <Link
-                                to={'/applicant/settings'}
+                                to={'/applicant/settings/1'}
                                 content={<Button>Настройки</Button>}
                             />
                         </div>
@@ -119,23 +117,23 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
     }
 }
 
-export default applicantConnect((storeState: ProfileState, props) => {
+export default applicantConnect((state: ProfileState, props) => {
     return {
-        id: props.id ? props.id : storeState.id,
-        name: storeState.applicant_name,
-        surname: storeState.applicant_surname,
-        status: storeState.status,
-        phone: storeState.contact_number,
-        email: storeState.email,
+        id: props.id ? props.id : state.id,
+        name: state.applicant_name,
+        surname: state.applicant_surname,
+        status: state.status,
+        phone: state.contact_number,
+        email: state.email,
         sideBar: {
-            location: storeState.location,
-            dateOfBirth: storeState.date_of_birth,
-            skills: storeState.skills,
+            location: state.location,
+            dateOfBirth: state.date_of_birth,
+            skills: state.skills,
         },
         socialNetworks: {
-            vk: storeState.vk,
-            facebook: storeState.facebook,
-            telegram: storeState.telegram,
+            vk: state.vk,
+            facebook: state.facebook,
+            telegram: state.telegram,
         },
     };
 })(ApplicantProfile);
