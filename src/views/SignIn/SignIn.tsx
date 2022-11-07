@@ -108,9 +108,12 @@ export default class SignIn extends Component<
                     navigator.goBack();
                 })
                 .catch(body => {
-                    setFieldAsInvalid(newState.inputs[body.type], body.message);
+                    setFieldAsInvalid(
+                        newState.inputs[body.descriptors[0]],
+                        body.error,
+                    );
                     this.setState(() => newState);
-                    setFieldAsInvalid(newState.inputs[body.type], '');
+                    setFieldAsInvalid(newState.inputs[body.descriptors[0]], '');
                 });
         }
     };
