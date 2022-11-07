@@ -23,24 +23,28 @@ router.addNewPath(
 );
 router.addNewPaths(ROUTER_PATHS);
 // router.setFallback('/404', <NotFound />);
-authService
-    .auth()
-    .then(body => {
-        console.log(body);
-        dispatch(
-            userActions.SIGN_IN(
-                body.id,
-                body.user_type === 'employer'
-                    ? body.company_name
-                    : body.applicant_name,
-                body.applicant_surname,
-                body.user_type,
-            ),
-        );
-        router.navigate(location.pathname);
-    })
-    .catch(err => {
-        console.error(err);
-        router.navigate(location.pathname);
-    });
+// authService
+//     .auth()
+//     .then(body => {
+//         console.log(body);
+//         dispatch(
+//             userActions.SIGN_IN(
+//                 body.id,
+//                 body.user_type === 'employer'
+//                     ? body.company_name
+//                     : body.applicant_name,
+//                 body.applicant_surname,
+//                 body.user_type,
+//             ),
+//         );
+//         router.navigate(location.pathname);
+//     })
+//     .catch(err => {
+//         console.error(err);
+//         router.navigate(location.pathname);
+//     });
+
+// TODO: ВЕРНУТЬ ОБРАТНО
+router.navigate(location.pathname);
+
 setTheme();
