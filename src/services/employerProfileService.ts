@@ -31,7 +31,7 @@ export const employerProfileService: Service = {
         const options = {
             method: 'POST',
             headers: requestHeaders.imgHeader,
-            body: formData,
+            body: formData.get('avatar'),
             mode: 'cors' as RequestMode,
             credentials: 'include' as RequestCredentials,
         };
