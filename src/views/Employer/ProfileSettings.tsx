@@ -239,6 +239,7 @@ class ProfileSettingsComponent extends Component<
             this.state.sections[1].fields.repeatPassword.value
         ) {
             this.state.sections[1].fields.repeatPassword.error = true;
+            isValid = false;
         }
 
         if (!isValid) {
