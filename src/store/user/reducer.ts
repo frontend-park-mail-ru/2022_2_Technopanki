@@ -20,6 +20,12 @@ export const userReducer: Reducer<UserState> = (
                 userType: (<AuthAction>action).userType,
                 authorized: true,
             };
+        case 'UPDATE_USER':
+            return {
+                ...state,
+                name: action.name,
+                surname: action.surname,
+            };
         default:
             return state;
     }

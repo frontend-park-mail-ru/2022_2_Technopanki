@@ -32,6 +32,7 @@ import ChipsInput from '../../components/UI-kit/forms/inputs/ChipsInput';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 import { activateError, deactivateError } from '../../store/errors/actions';
 import {
+    validateCompanyName,
     validateEmail,
     validateNameSymbols,
     validatePasswordSymbols,
@@ -44,6 +45,7 @@ import {
 import FormSection from '../../components/UI-kit/forms/FormSection';
 import { profileActions } from '../../store/profile/actions';
 import RenderWithCondition from '../../components/RenderWithCondition';
+import { userActions } from '../../store/user/actions';
 
 class AvatarSettingsComponent extends Component<
     { previewSrc: string },
@@ -108,7 +110,7 @@ class ProfileSettingsComponent extends Component<
     }
 > {
     state = {
-        profile: profileStore.getState(),
+        profile: { ...this.props },
         sections: [
             {
                 header: 'О компании',
@@ -121,7 +123,7 @@ class ProfileSettingsComponent extends Component<
                         name: 'name',
                         required: true,
                         value: this.props.name,
-                        validator: validateNameSymbols,
+                        validator: validateCompanyName,
                         error: false,
                         errorMessage: NAME_SYMBOLS_ERROR,
                     },
@@ -212,7 +214,9 @@ class ProfileSettingsComponent extends Component<
                 if (section.fields[key]) {
                     if (
                         section.fields[key].validator &&
-                        !section.fields[key].validator(value)
+                        !section.fields[key].validator(value) &&
+                        (section.fields[key].required ||
+                            section.fields[key].value)
                     ) {
                         section.fields[key].error = true;
                         isValid = false;
@@ -237,10 +241,13 @@ class ProfileSettingsComponent extends Component<
         employerProfileService
             .updateProfile(
                 this.state.profile.id,
-                this.props.profileType,
+                this.state.profile.profileType,
                 formData,
             )
             .then(() => {
+                dispatch(
+                    userActions.updateName(formData.get('name') as string, ''),
+                );
                 navigator.goBack();
             })
             .catch(err => console.error(err));
@@ -268,7 +275,7 @@ class ProfileSettingsComponent extends Component<
             <div className={'screen-responsive relative hidden'}>
                 <Header key={'header'} />
                 <div key={'hat'} className={'columns g-24'}>
-                    <div key={'hat'} className={`col-12 mt-header`}>
+                    <div className={`col-12 mt-header`}>
                         <SettingsHat
                             imgSrc={this.props.avatarSrc}
                             name={this.props.name}
@@ -277,12 +284,9 @@ class ProfileSettingsComponent extends Component<
                             submit={this.submitEvent}
                         />
                     </div>
-                    <h3 key={'h'} className={'col-12'}>
-                        Настройки профиля
-                    </h3>
+                    <h3 className={'col-12'}>Настройки профиля</h3>
                     <form
-                        key={'form'}
-                        onSubmit={this.submitForm}
+                        onSubmit={this.submitForm.bind(this)}
                         className={'col-12 col-md-9 column g-24'}
                     >
                         <div key={'avatar'} className={'w-100'}>
@@ -309,11 +313,11 @@ class ProfileSettingsComponent extends Component<
     }
 }
 
-// const UserWrapper = userConnect((state, props) => {
-//     return { userID: state.id, ...props };
-// })(ProfileSettingsComponent);
+const UserWrapper = userConnect((state, props) => {
+    return { userID: state.id, ...props };
+})(ProfileSettingsComponent);
 
 export default profileConnect((state, props) => {
     console.log('called settings connect');
     return { ...state };
-})(ProfileSettingsComponent);
+})(UserWrapper);
