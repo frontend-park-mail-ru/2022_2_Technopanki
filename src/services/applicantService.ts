@@ -28,12 +28,12 @@ export const applicantProfileService: Service = {
         dispatch(startLoading());
         return await network
             .POST(
-                SERVER_URL.USER,
+                SERVER_URLS.USER,
                 JSON.stringify({
                     id: profileID,
                     user_type: profileType,
                     name: formData.get('name'),
-                    surname: form_data.get('surname'),
+                    surname: formData.get('surname'),
                     status: formData.get('status'),
                     dateOfBirth: formData.get('dateOfBirth'),
                     location: formData.get('location'),
