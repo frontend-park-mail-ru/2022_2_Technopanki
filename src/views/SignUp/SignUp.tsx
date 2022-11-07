@@ -16,6 +16,7 @@ import {
     SURNAME_SYMBOLS_ERROR,
 } from '../../utils/validation/messages';
 import {
+    validateCompanyName,
     validateEmail,
     validateNameLength,
     validateNameSymbols,
@@ -240,7 +241,7 @@ export default class SignUp extends Component<
                     File
                 >,
                 newState.inputs['company_name'],
-                validateNameSymbols,
+                validateCompanyName,
                 NAME_SYMBOLS_ERROR,
             )
         ) {

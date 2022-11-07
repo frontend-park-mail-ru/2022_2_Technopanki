@@ -33,7 +33,7 @@ export const validateEmail = (email: string): boolean => {
  * @returns {boolean}
  */
 export const validateNameLength = (name: string): boolean => {
-    return 3 <= name.length && name.length <= 20;
+    return 3 <= name.length && name.length <= 30;
 };
 
 /**
