@@ -50,6 +50,7 @@ import { userActions } from '../../store/user/actions';
 import { authService } from '../../services/authService';
 import Button from '../../components/UI-kit/buttons/Button';
 import ButtonPrimary from '../../components/UI-kit/buttons/ButtonPrimary';
+import ButtonRed from '../../components/UI-kit/buttons/ButtonRed';
 
 class AvatarSettingsComponent extends Component<
     { previewSrc: string },
@@ -324,13 +325,19 @@ class ProfileSettingsComponent extends Component<
                                 fields={section.fields}
                             />
                         ))}
-                        <ButtonPrimary>Сохранить</ButtonPrimary>
-                        <input type={'text'} />
+                        <div>
+                            <ButtonPrimary type={'submit'}>
+                                Сохранить
+                            </ButtonPrimary>
+                        </div>
                     </form>
                 </div>
-                <Button key={'logout'} onClick={this.logout}>
-                    Выйти
-                </Button>
+                <div className={'flex row g-16 mt-40'}>
+                    <Button>Пропустить</Button>
+                    <ButtonRed key={'logout'} onClick={this.logout}>
+                        Выйти
+                    </ButtonRed>
+                </div>
                 <Footer key={'footer'} />
             </div>
         );

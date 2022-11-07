@@ -99,3 +99,10 @@
     width: 20px;
   }
 }
+
+.btn-red {
+  border: var(--border-red);
+  background-color: var(--background-red);
+  color: var(--primary-red);
+  font-weight: 600;
+}
