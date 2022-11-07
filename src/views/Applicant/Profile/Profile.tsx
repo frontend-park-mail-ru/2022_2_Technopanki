@@ -12,7 +12,7 @@ import ResumeList from '../../../components/UI-kit/resumeList/ResumeList';
 import ResumeSidebar from '../../../components/sidebars/ResumeSidebar';
 import { VNodeType } from '../../../../Reacts/shared/common';
 import { ResumeListItemPropsType } from '../../../components/UI-kit/resumeList/ResumeListItem';
-import { applicantService } from '../../../services/applicantService';
+import { applicantProfileService } from '../../../services/applicantService';
 import { applicantConnect, dispatch } from '../../../store';
 import { applicantActions } from '../../../store/applicant/actions';
 import { ProfileState } from '../../../store/applicant/type';
@@ -37,23 +37,24 @@ type ApplicantPropsType = {
         facebook: string | null | undefined;
         telegram: string | null | undefined;
     };
-};
+}
 
 class ApplicantProfile extends Component<ApplicantPropsType> {
     getDataFromServer() {
-        const applicantID = location.pathname.split('/').at(-1);
+        const applicantID = location.pathname.split('/').at(-1)
 
-        applicantService.getApplicantData(applicantID as string).then(body => {
-            dispatch(applicantActions.update(body));
-        });
+        applicantProfileService.getApplicantData(applicantID as string)
+            .then(body => {
+                dispatch(applicantActions.update(body))
+            });
     }
 
     componentDidMount() {
-        this.getDataFromServer();
+        this.getDataFromServer()
     }
 
     render() {
-        return (
+        return(
             <div className={'screen-responsive flex column g-40'}>
                 <Header />
                 <ProfileHeader
@@ -65,7 +66,7 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                     buttons={
                         <div className={'flex flex-wrap row g-16'}>
                             <ButtonIcon
-                                onClick={() => {
+                                onClick={()=>{
                                     navigator.clipboard
                                         .writeText(this.props.phone)
                                         .then(() => alert('copied!'))
@@ -74,7 +75,7 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                                 icon={PhoneIcon}
                             />
                             <ButtonIcon
-                                onClick={() => {
+                                onClick={()=>{
                                     navigator.clipboard
                                         .writeText(this.props.email)
                                         .then(() => alert('copied!'))
@@ -85,9 +86,7 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                             <Link
                                 to={'/resume/settings'}
                                 content={
-                                    <ButtonPrimary>
-                                        Создать резюме
-                                    </ButtonPrimary>
+                                    <ButtonPrimary>Создать резюме</ButtonPrimary>
                                 }
                             />
                             {/*TODO: добавить путь в константы*/}
@@ -113,13 +112,13 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                 </div>
                 <Footer />
             </div>
-        );
+        )
     }
 }
 
 export default applicantConnect((storeState, props) => {
     return {
-        id: props.id || storeState.id,
+        id: props.id ? props.id : storeState.id,
         name: storeState.name,
         surname: storeState.surname,
         status: storeState.status,

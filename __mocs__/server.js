@@ -95,13 +95,25 @@ app.post('/api/user/safety/:id', (req, res) => {
 
 // TODO: поменять путь
 app.get('/api/user/preview/:id', (req, res) => {
-    res.json({
-        id: 1,
+    const applicantPreview = {
         creator_img_src: './',
-        company_name: 'VK',
-        status: 'Место встречи профессионалов',
-    });
+        name: 'Sonya',
+        surname: 'Sitnichenko',
+        status: 'BMSTU student',
+    };
+
+    if (req.params.id === '3') {
+        res.json(applicantPreview);
+    } else {
+        res.json({
+            id: 1,
+            creator_img_src: './',
+            company_name: 'VK',
+            status: 'Место встречи профессионалов',
+        });
+    }
 });
+
 app.get('/api/user/:id/preview', (req, res) => {
     const applicantPreview = {
         creator_img_src: './',
