@@ -32,8 +32,8 @@ export const applicantProfileService: Service = {
                 JSON.stringify({
                     id: parseInt(applicantID),
                     user_type: profileType,
-                    name: formData.get('name'),
-                    surname: formData.get('surname'),
+                    applicant_name: formData.get('name'),
+                    applicant_surname: formData.get('surname'),
                     status: formData.get('status'),
                     date_of_birth: formData.get('dateOfBirth'),
                     location: formData.get('location'),
