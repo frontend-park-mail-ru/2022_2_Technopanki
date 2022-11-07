@@ -1,5 +1,5 @@
 import { Component } from '../../../../Reacts';
-import { applicantService } from '../../../services/applicantService';
+import { applicantProfileService } from '../../../services/applicantService';
 import ResumeList from '../../../components/UI-kit/resumeList/ResumeList';
 import { applicantConnect } from '../../../store';
 
@@ -13,7 +13,7 @@ class ApplicantResumeList extends Component<
 
     getDataFromServer() {
         if (this.props.applicantID) {
-            applicantService
+            applicantProfileService
                 .getResumeList(this.props.applicantID)
                 .then(body => {
                     this.state.responses = JSON.parse(JSON.stringify(body));

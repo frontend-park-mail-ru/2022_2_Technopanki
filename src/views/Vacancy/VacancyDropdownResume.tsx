@@ -2,7 +2,7 @@ import { Component } from '../../../Reacts';
 import ArrowButton from '../../components/UI-kit/buttons/ArrowButton';
 import styles from './vacancy.module.scss';
 import { userConnect } from '../../store';
-import { applicantService } from '../../services/applicantService';
+import { applicantProfileService } from '../../services/applicantService';
 
 type ResumeType = {
     name: string;
@@ -43,7 +43,7 @@ class VacancyDropdownResume extends Component<
     };
 
     componentDidMount() {
-        applicantService.getResumePreviewList().then(body => {
+        applicantProfileService.getResumePreviewList().then(body => {
             this.setState(state => ({ ...state, resume: body }));
         });
     }

@@ -12,7 +12,7 @@ import ResumeList from '../../../components/UI-kit/resumeList/ResumeList';
 import ResumeSidebar from '../../../components/sidebars/ResumeSidebar';
 import { VNodeType } from '../../../../Reacts/shared/common';
 import { ResumeListItemPropsType } from '../../../components/UI-kit/resumeList/ResumeListItem';
-import { applicantService } from '../../../services/applicantService';
+import { applicantProfileService } from '../../../services/applicantService';
 import { applicantConnect, dispatch } from '../../../store';
 import { applicantActions } from '../../../store/applicant/actions';
 import { ProfileState } from '../../../store/applicant/type';
@@ -43,7 +43,7 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
     getDataFromServer() {
         const applicantID = location.pathname.split('/').at(-1)
 
-        applicantService.getApplicantData(applicantID as string)
+        applicantProfileService.getApplicantData(applicantID as string)
             .then(body => {
                 dispatch(applicantActions.update(body))
             });
