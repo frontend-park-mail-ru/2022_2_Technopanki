@@ -153,6 +153,11 @@ const replaceNode = (
     beforeElement: HTMLElement | null = null,
 ) => {
     insertNode(element, newNode, beforeElement);
+    Object.entries(oldNode.props).forEach(([key, value]) => {
+        if (key.startsWith('on') && value) {
+            element.removeEventListener(events[key], value as Function);
+        }
+    });
     element.remove();
     oldNode._instance?.unmount();
     newNode._instance?.componentDidMount();
@@ -169,6 +174,13 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
     }
 
     if (operation.type === REMOVE_OPERATION) {
+        Object.entries((<Remove>operation).node.props).forEach(
+            ([key, value]) => {
+                if (key.startsWith('on') && value) {
+                    element.removeEventListener(events[key], value as Function);
+                }
+            },
+        );
         element.remove();
         (<Remove>operation).node._instance?.unmount();
         return;

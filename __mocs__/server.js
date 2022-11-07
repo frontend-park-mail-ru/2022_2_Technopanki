@@ -138,6 +138,14 @@ app.post('/api/vacancy/new', (req, res) => {
     res.status(200).send();
 });
 
+app.put('/api/vacancy/:id', (req, res) => {
+    console.log(vacancies);
+    vacancies[req.params.id].title = req.body.title;
+    console.log(vacancies);
+
+    res.status(200).send();
+});
+
 app.post('/api/image', (req, res) => {
     console.log('/api/image');
     res.json({

@@ -1,6 +1,5 @@
 import { Component } from '../../../Reacts';
 import Header from '../../components/UI-kit/header/Header';
-import VacancyHat from './VacancyHat';
 import SettingsHat from '../../components/hats/SettingsHat';
 import Form, { FormSectionType } from '../../components/UI-kit/forms/Form';
 import Input from '../../components/UI-kit/forms/inputs/Input';
@@ -8,10 +7,8 @@ import CancelSaveButtons from '../../components/CancelSaveButtons/CancelSaveButt
 import Textarea from '../../components/UI-kit/forms/inputs/Textarea';
 import Footer from '../../components/UI-kit/footer/Footer';
 import { vacancyConnect } from '../../store';
-import { VacancyState } from '../../store/vacancy/type';
 import { vacancyService } from '../../services/vacancyService';
 import navigator from '../../router/navigator';
-import ChipsInput from '../../components/UI-kit/forms/inputs/ChipsInput';
 
 class AboutVacancyComponent extends Component<{
     title: string;
@@ -64,52 +61,52 @@ const AboutVacancy = vacancyConnect((state, props) => {
     };
 })(AboutVacancyComponent);
 
-class Skills extends Component<
-    { skills: string[] },
-    {
-        skills: string[];
-    }
-> {
-    state = {
-        skills: this.props.skills,
-    };
-
-    deleteItem = (index: number) => {
-        this.setState(state => ({
-            ...state,
-            skills: [
-                ...state.skills.slice(0, index),
-                ...state.skills.slice(index + 1),
-            ],
-        }));
-    };
-
-    addItem = (value: string) => {
-        this.setState(state => ({
-            ...state,
-            skills: [...state.skills, value],
-        }));
-    };
-
-    render() {
-        return (
-            <div>
-                <input
-                    className={'none'}
-                    name={'skills'}
-                    value={this.state.skills}
-                />
-                <ChipsInput
-                    id={'skillsChips'}
-                    label={'Область деятельности'}
-                    items={this.state.skills}
-                    deleteItem={this.deleteItem.bind(this)}
-                    addItem={this.addItem.bind(this)}
-                />
-            </div>
-        );
-    }
-}
+// class Skills extends Component<
+//     { skills: string[] },
+//     {
+//         skills: string[];
+//     }
+// > {
+//     state = {
+//         skills: this.props.skills,
+//     };
+//
+//     deleteItem = (index: number) => {
+//         this.setState(state => ({
+//             ...state,
+//             skills: [
+//                 ...state.skills.slice(0, index),
+//                 ...state.skills.slice(index + 1),
+//             ],
+//         }));
+//     };
+//
+//     addItem = (value: string) => {
+//         this.setState(state => ({
+//             ...state,
+//             skills: [...state.skills, value],
+//         }));
+//     };
+//
+//     render() {
+//         return (
+//             <div>
+//                 <input
+//                     className={'none'}
+//                     name={'skills'}
+//                     value={this.state.skills}
+//                 />
+//                 <ChipsInput
+//                     id={'skillsChips'}
+//                     label={'Область деятельности'}
+//                     items={this.state.skills}
+//                     deleteItem={this.deleteItem.bind(this)}
+//                     addItem={this.addItem.bind(this)}
+//                 />
+//             </div>
+//         );
+//     }
+// }
 
 class AdditionalInformationComponent extends Component<{
     location: string;
@@ -149,9 +146,6 @@ class AdditionalInformationComponent extends Component<{
                         name={'format'}
                         value={this.props.format}
                     />
-                </div>
-                <div className={'col-12'}>
-                    <Skills skills={this.props.skills} />
                 </div>
             </div>
         );
@@ -274,11 +268,17 @@ class VacancySettings extends Component<
                         <SettingsHat
                             imgSrc={'./'}
                             status={'Место встречи профессионалов'}
+                            submit={() =>
+                                document
+                                    .querySelector('#vacancy_form')
+                                    .dispatchEvent(new Event('submit'))
+                            }
                         />
                     </div>
                     <h3 className={'col-12'}>Настройки вакансии</h3>
                     <div className={'col-12 col-md-9'}>
                         <Form
+                            id={'vacancy_form'}
                             sections={this.state.sections}
                             submitComponent={
                                 <CancelSaveButtons
@@ -286,7 +286,7 @@ class VacancySettings extends Component<
                                     onSave={() => {}}
                                 />
                             }
-                            onSubmit={this.submitForm}
+                            onSubmit={this.submitForm.bind(this)}
                         />
                     </div>
                 </div>
