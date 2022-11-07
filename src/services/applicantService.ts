@@ -21,7 +21,7 @@ export const applicantProfileService: Service = {
     },
 
     updateProfile: async (
-        applicantID: string,
+        applicantID: number,
         profileType: string,
         formData: FormData,
     ) => {
@@ -35,11 +35,10 @@ export const applicantProfileService: Service = {
                     name: formData.get('name'),
                     surname: formData.get('surname'),
                     status: formData.get('status'),
-                    dateOfBirth: formData.get('dateOfBirth'),
+                    date_of_birth: formData.get('dateOfBirth'),
                     location: formData.get('location'),
-                    phone: formData.get('phone'),
+                    contact_number: formData.get('phone'),
                     email: formData.get('email'),
-                    company_size: formData.get('size'),
                 }),
             )
             .then(response => {
