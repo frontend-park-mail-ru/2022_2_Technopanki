@@ -18,7 +18,6 @@ import { applicantActions } from '../../../store/applicant/actions';
 import { ProfileState } from '../../../store/applicant/type';
 import ApplicantResumeList from './ApplicantResumeList';
 import Footer from '../../../components/UI-kit/footer/Footer';
-import { ApplicantProfileType } from '../../../store/profile/types';
 
 type ApplicantPropsType = {
     id: string;
@@ -38,24 +37,25 @@ type ApplicantPropsType = {
         facebook: string | null | undefined;
         telegram: string | null | undefined;
     };
-}
+};
 
 class ApplicantProfile extends Component<ApplicantPropsType> {
     getDataFromServer() {
-        const applicantID = location.pathname.split('/').at(-1)
+        const applicantID = location.pathname.split('/').at(-1);
 
-        applicantProfileService.getApplicantData(applicantID as string)
+        applicantProfileService
+            .getApplicantData(applicantID as string)
             .then(body => {
-                dispatch(applicantActions.update(body))
+                dispatch(applicantActions.update(body));
             });
     }
 
     componentDidMount() {
-        this.getDataFromServer()
+        this.getDataFromServer();
     }
 
     render() {
-        return(
+        return (
             <div className={'screen-responsive flex column g-40'}>
                 <Header />
                 <ProfileHeader
@@ -67,7 +67,7 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                     buttons={
                         <div className={'flex flex-wrap row g-16'}>
                             <ButtonIcon
-                                onClick={()=>{
+                                onClick={() => {
                                     navigator.clipboard
                                         .writeText(this.props.phone)
                                         .then(() => alert('copied!'))
@@ -76,7 +76,7 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                                 icon={PhoneIcon}
                             />
                             <ButtonIcon
-                                onClick={()=>{
+                                onClick={() => {
                                     navigator.clipboard
                                         .writeText(this.props.email)
                                         .then(() => alert('copied!'))
@@ -113,7 +113,7 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                 </div>
                 <Footer />
             </div>
-        )
+        );
     }
 }
 
@@ -135,5 +135,5 @@ export default applicantConnect((state: ProfileState, props) => {
             facebook: state.facebook,
             telegram: state.telegram,
         },
-    }
+    };
 })(ApplicantProfile);
