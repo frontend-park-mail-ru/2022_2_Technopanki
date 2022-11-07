@@ -26,7 +26,9 @@ export const profileReducer: Reducer<ProfileState> = (
                 phone: action.state.phone,
                 email: action.state.email,
                 // TODO: тернарник на size
-                size: action.state.company_size.toString(),
+                size: action.state.company_size
+                    ? action.state.company_size.toString()
+                    : '',
                 fieldOfActivity: action.state.field_of_activity,
                 // socialNetworks: {
                 //     vk: '',
