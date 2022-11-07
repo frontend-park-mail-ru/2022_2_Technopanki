@@ -1,4 +1,5 @@
 export const SERVER_URL = 'http://localhost:8080/';
+export const IMAGE_URL = SERVER_URL + 'data/image/';
 
 export const SERVER_URLS = {
     SIGN_UP: SERVER_URL + 'auth/sign-up',

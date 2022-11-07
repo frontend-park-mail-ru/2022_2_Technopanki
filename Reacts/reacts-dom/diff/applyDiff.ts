@@ -186,6 +186,7 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
         );
         element.remove();
         (<Remove>operation).node._instance?.unmount();
+
         return;
     }
 

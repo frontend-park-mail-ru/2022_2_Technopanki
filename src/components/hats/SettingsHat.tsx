@@ -10,6 +10,7 @@ class SettingsHat extends Component<{
     name: string;
     surname: string;
     // Props
+    postedByUserID: string;
     status: string;
     imgSrc: string;
     submit: Function;
@@ -19,6 +20,7 @@ class SettingsHat extends Component<{
             <Hat
                 imgSrc={this.props.imgSrc}
                 name={this.props.name}
+                linkTo={`/employer/${this.props.postedByUserID}`}
                 surname={this.props.surname}
                 status={this.props.status}
                 rightSideContent={
@@ -36,6 +38,7 @@ export default userConnect((state, props) => {
     return {
         name: state.name,
         surname: state.surname,
+        postedByUserID: props.postedByUserID,
         status: props.status,
         imgSrc: props.imgSrc,
         submit: props.submit,

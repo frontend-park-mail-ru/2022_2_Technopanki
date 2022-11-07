@@ -5,7 +5,6 @@ import ThemeIcon from '../../../static/icons/theme.svg';
 import Link from '../../Link/Link';
 import HeaderModal from './HeaderModal';
 import { userConnect } from '../../../store';
-import { StoreType } from '../../../../Fluxs/types/store';
 import { UserState } from '../../../store/user/types';
 import HeaderUserInfo from './HeaderUserInfo';
 
@@ -45,6 +44,7 @@ class HeaderProfile extends Component<HeaderProps> {
                                     key={'info'}
                                     imgSrc={'./'}
                                     name={this.props.name}
+                                    вшы
                                     surname={this.props.surname}
                                 />
                             }

@@ -49,6 +49,7 @@ import RenderWithCondition from '../../components/RenderWithCondition';
 import { userActions } from '../../store/user/actions';
 import { authService } from '../../services/authService';
 import Button from '../../components/UI-kit/buttons/Button';
+import ButtonPrimary from '../../components/UI-kit/buttons/ButtonPrimary';
 
 class AvatarSettingsComponent extends Component<
     { previewSrc: string },
@@ -215,7 +216,6 @@ class ProfileSettingsComponent extends Component<
         let isValid = true;
 
         formData.forEach((value, key) => {
-            console.log('asdf');
             sections.forEach(section => {
                 if (section.fields[key]) {
                     if (
@@ -277,11 +277,6 @@ class ProfileSettingsComponent extends Component<
         this.getDataFromServer();
     }
 
-    componentDidUpdate() {
-        console.log('BEFORE PROFILE STATE: ', profileStore.getState());
-        console.log('update', this.props, this);
-    }
-
     logout = () => {
         authService
             .logout()
@@ -293,12 +288,11 @@ class ProfileSettingsComponent extends Component<
     };
 
     render() {
-        console.log('ON RENDER PROPS: ', this.props);
         return (
             <div className={'screen-responsive relative hidden'}>
                 <Header key={'header'} />
                 <div key={'hat'} className={'columns g-24'}>
-                    <div className={`col-12 mt-header`}>
+                    <div key={'settings'} className={`col-12 mt-header`}>
                         <SettingsHat
                             imgSrc={this.props.avatarSrc}
                             name={this.props.name}
@@ -307,8 +301,11 @@ class ProfileSettingsComponent extends Component<
                             submit={this.submitEvent}
                         />
                     </div>
-                    <h3 className={'col-12'}>Настройки профиля</h3>
+                    <h3 key={'h'} className={'col-12'}>
+                        Настройки профиля
+                    </h3>
                     <form
+                        key={'form'}
                         onSubmit={this.submitForm.bind(this)}
                         className={'col-12 col-md-9 column g-24'}
                     >
@@ -322,15 +319,13 @@ class ProfileSettingsComponent extends Component<
                                 fields={section.fields}
                             />
                         ))}
-                        <CancelSaveButtons
-                            key={'buttons'}
-                            onCancel={() =>
-                                navigator.navigate(`/employer/${this.props.id}`)
-                            }
-                        />
+                        <ButtonPrimary>Сохранить</ButtonPrimary>
+                        <input type={'text'} />
                     </form>
                 </div>
-                <Button onClick={this.logout}>Выйти</Button>
+                <Button key={'logout'} onClick={this.logout}>
+                    Выйти
+                </Button>
                 <Footer key={'footer'} />
             </div>
         );

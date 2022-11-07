@@ -221,7 +221,7 @@ const VacancyDescription = vacancyConnect(state => {
 })(VacancyDescriptionComponent);
 
 class VacancySettings extends Component<
-    { id: string; isNew?: boolean },
+    { id: string; postedByUserID: string; isNew?: boolean },
     { sections: FormSectionType[] }
 > {
     state = {
@@ -268,6 +268,7 @@ class VacancySettings extends Component<
                         <SettingsHat
                             imgSrc={'./'}
                             status={'Место встречи профессионалов'}
+                            postedByUserID={this.props.postedByUserID}
                             submit={() =>
                                 document
                                     .querySelector('#vacancy_form')
@@ -298,5 +299,6 @@ class VacancySettings extends Component<
 
 export default vacancyConnect((state, props) => ({
     id: state.id,
+    postedByUserID: state.postedByUserID,
     isNew: props.isNew,
 }))(VacancySettings);

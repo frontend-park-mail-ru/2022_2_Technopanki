@@ -10,7 +10,7 @@ export default class CancelSaveButtons extends Component<{
         return (
             <div className={'flex row g-12'}>
                 <Button onClick={this.props.onCancel}>Пропустить</Button>
-                <ButtonPrimary type={'submit'} onClick={this.props.onSave}>
+                <ButtonPrimary onClick={this.props.onSave}>
                     Сохранить
                 </ButtonPrimary>
             </div>
