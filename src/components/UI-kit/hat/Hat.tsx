@@ -19,7 +19,6 @@ export default class Hat extends Component<HatPropsType> {
                 className={`flex w-100 row align-items-center justify-content-space-between ${styles.hat_content}`}
             >
                 <Link
-                    key={'link'}
                     to={this.props.linkTo}
                     content={
                         <div
@@ -41,7 +40,7 @@ export default class Hat extends Component<HatPropsType> {
                         </div>
                     }
                 />
-                <div key={'rightSide'}>{this.props.rightSideContent}</div>
+                <div>{this.props.rightSideContent}</div>
             </div>
         );
     }

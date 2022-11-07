@@ -44,6 +44,7 @@ import {
 import FormSection from '../../components/UI-kit/forms/FormSection';
 import { profileActions } from '../../store/profile/actions';
 import RenderWithCondition from '../../components/RenderWithCondition';
+import { userActions } from '../../store/user/actions';
 
 class AvatarSettingsComponent extends Component<
     { previewSrc: string },
@@ -108,7 +109,7 @@ class ProfileSettingsComponent extends Component<
     }
 > {
     state = {
-        profile: profileStore.getState(),
+        profile: { ...this.props },
         sections: [
             {
                 header: 'О компании',
@@ -241,6 +242,14 @@ class ProfileSettingsComponent extends Component<
                 formData,
             )
             .then(() => {
+                dispatch(
+                    userActions.SIGN_UP(
+                        this.state.profile.userID,
+                        formData.get('name') as string,
+                        formData.get('applicant_surname') as string,
+                        formData.get('toggle') as 'applicant' | 'employer',
+                    ),
+                );
                 navigator.goBack();
             })
             .catch(err => console.error(err));
@@ -282,7 +291,7 @@ class ProfileSettingsComponent extends Component<
                     </h3>
                     <form
                         key={'form'}
-                        onSubmit={this.submitForm}
+                        onSubmit={this.submitForm.bind(this)}
                         className={'col-12 col-md-9 column g-24'}
                     >
                         <div key={'avatar'} className={'w-100'}>
@@ -309,11 +318,11 @@ class ProfileSettingsComponent extends Component<
     }
 }
 
-// const UserWrapper = userConnect((state, props) => {
-//     return { userID: state.id, ...props };
-// })(ProfileSettingsComponent);
+const UserWrapper = userConnect((state, props) => {
+    return { userID: state.id, ...props };
+})(ProfileSettingsComponent);
 
 export default profileConnect((state, props) => {
     console.log('called settings connect');
     return { ...state };
-})(ProfileSettingsComponent);
+})(UserWrapper);

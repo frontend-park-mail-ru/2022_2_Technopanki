@@ -19,6 +19,7 @@ import { childrenDiff } from './childrenDiff';
 import { Context } from '../../reacts/context';
 import { setContextValue } from '../../reacts/context/context';
 
+// TODO: rename to props
 /**
  * A function that looks for which attributes to add, remove or change
  * @param oldNodeProps
@@ -38,20 +39,31 @@ const compareAttributes = (
     const oldNodeAttrNames = oldNodeWithoutChildren.map(([attr, _]) => attr);
     const newNodeAttrNames = newNodeWithoutChildren.map(([attr, _]) => attr);
 
+    const update = newNodeWithoutChildren.filter(
+        ([attr, value]) =>
+            oldNodeAttrNames.indexOf(attr) !== -1 &&
+            oldNodeWithoutChildren.find(
+                node => node[0] === attr && node[1] !== value,
+            ),
+    );
+
     return {
         set: newNodeWithoutChildren.filter(
             ([attr, _]) => oldNodeAttrNames.indexOf(attr) === -1,
         ),
-        remove: oldNodeAttrNames.filter(
-            attr => newNodeAttrNames.indexOf(attr) === -1,
-        ),
-        update: newNodeWithoutChildren.filter(
-            ([attr, value]) =>
-                oldNodeAttrNames.indexOf(attr) !== -1 &&
-                oldNodeWithoutChildren.find(
-                    node => node[0] === attr && node[1] !== value,
-                ),
-        ),
+        remove: (() => {
+            const deleteItemsFromUpdate = oldNodeWithoutChildren.filter(
+                ([attr, _]) =>
+                    update.find(([updateAttr, _]) => updateAttr === attr),
+            );
+
+            const removedAttributes = oldNodeWithoutChildren.filter(
+                ([attr, _]) => newNodeAttrNames.indexOf(attr) === -1,
+            );
+
+            return [...deleteItemsFromUpdate, ...removedAttributes];
+        })(),
+        ['update']: update,
     };
 };
 
