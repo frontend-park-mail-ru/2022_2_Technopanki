@@ -349,6 +349,5 @@ const UserWrapper = userConnect((state, props) => {
 })(ProfileSettingsComponent);
 
 export default profileConnect((state, props) => {
-    console.log('called settings connect');
     return { ...state };
 })(UserWrapper);

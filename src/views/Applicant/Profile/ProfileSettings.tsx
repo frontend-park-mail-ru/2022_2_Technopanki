@@ -23,7 +23,12 @@ import {
     ApplicantProfileType,
     ProfileState,
 } from '../../../store/profile/types';
-import { dispatch, errorsConnect, profileConnect, userConnect } from '../../../store';
+import {
+    dispatch,
+    errorsConnect,
+    profileConnect,
+    userConnect,
+} from '../../../store';
 import {
     validateEmail,
     validateNameSymbols,
@@ -208,7 +213,7 @@ class ApplicantSettings extends Component<
                         validator: validatePasswordSymbols,
                         error: false,
                         errorMessage: PASSWORD_SYMBOLS_ERROR,
-                        value: undefined
+                        value: undefined,
                     },
                     repeatPassword: {
                         size: 4,
@@ -216,7 +221,7 @@ class ApplicantSettings extends Component<
                         placeholder: '********',
                         label: 'Повторите пароль',
                         name: 'repeatPassword',
-                        value: undefined
+                        value: undefined,
                     },
                 },
             },
@@ -263,14 +268,15 @@ class ApplicantSettings extends Component<
 
         const applicantID = location.pathname.split('/').at(-1);
 
-        console.log(this.props);
         applicantProfileService
             .updateProfile(applicantID, this.props.profileType, formData)
             .then(() => {
                 dispatch(
-                    userActions.updateName(formData.get('name') as string, formData.get('surname') as string)
+                    userActions.updateName(
+                        formData.get('name') as string,
+                        formData.get('surname') as string,
+                    ),
                 );
-                console.log('back');
                 navigator.goBack();
             })
             .catch(err => console.error(err));
@@ -278,8 +284,7 @@ class ApplicantSettings extends Component<
 
     getDataFromServer() {
         const applicantID = location.pathname.split('/').at(-1);
-        applicantProfileService.getApplicantData(applicantID)
-            .then(body => {
+        applicantProfileService.getApplicantData(applicantID).then(body => {
             dispatch(profileActions.update({ ...body, id: applicantID }));
         });
     }
@@ -312,7 +317,8 @@ class ApplicantSettings extends Component<
                             submit={() =>
                                 document
                                     .querySelector('#profile_form')
-                                    .dispatchEvent(new Event('submit'))}
+                                    .dispatchEvent(new Event('submit'))
+                            }
                         />
                     </div>
                     <h3 className={'col-12'}>Настройки профиля</h3>

@@ -29,6 +29,7 @@ export default class Vacancies extends Component<
         vacancyService
             .getAllVacancies()
             .then(body => {
+                console.log('body: ', body);
                 this.setState(() => ({
                     vacancies: [...body],
                 }));
