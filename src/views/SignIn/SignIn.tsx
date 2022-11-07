@@ -95,6 +95,7 @@ export default class SignIn extends Component<
             authService
                 .signIn(formData)
                 .then(body => {
+                    console.log(body.id);
                     dispatch(
                         userActions.SIGN_IN(
                             body.id,

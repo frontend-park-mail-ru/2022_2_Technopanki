@@ -8,7 +8,6 @@ class EventManager {
     private events = new Map<string, Function[]>();
 
     addEvent(eventName: string, callback: Function) {
-        console.log(this.events.size);
         if (Array.isArray(this.events.get(eventName))) {
             this.events.set(eventName, [
                 ...this.events.get(eventName),

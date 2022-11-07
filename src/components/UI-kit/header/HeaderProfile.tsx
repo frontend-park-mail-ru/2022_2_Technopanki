@@ -35,7 +35,7 @@ class HeaderProfile extends Component<HeaderProps> {
                     />
                     {this.props.authorized ? (
                         <Link
-                            to={`${
+                            to={`/${
                                 this.props.userType === 'applicant'
                                     ? 'applicant'
                                     : 'employer'
