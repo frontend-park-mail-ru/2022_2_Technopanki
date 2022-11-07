@@ -298,7 +298,11 @@ class ProfileSettingsComponent extends Component<
                             name={this.props.name}
                             surname={''}
                             status={this.props.status}
-                            submit={this.submitEvent}
+                            submit={() =>
+                                document
+                                    .querySelector('#profile_form')
+                                    .dispatchEvent(new Event('submit'))
+                            }
                         />
                     </div>
                     <h3 key={'h'} className={'col-12'}>
@@ -306,6 +310,7 @@ class ProfileSettingsComponent extends Component<
                     </h3>
                     <form
                         key={'form'}
+                        id={'profile_form'}
                         onSubmit={this.submitForm.bind(this)}
                         className={'col-12 col-md-9 column g-24'}
                     >
