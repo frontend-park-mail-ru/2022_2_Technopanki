@@ -62,6 +62,7 @@ class VacancyHat extends Component<
                 rightSideContent={
                     <div className={'flex row flex-wrap g-12'}>
                         <RenderWithCondition
+                            key={'responses'}
                             condition={
                                 this.props.userID === this.props.postedByUserID
                             }
@@ -77,6 +78,7 @@ class VacancyHat extends Component<
                             }
                         />
                         <RenderWithCondition
+                            key={'settings'}
                             condition={
                                 this.props.userID === this.props.postedByUserID
                             }
@@ -88,6 +90,7 @@ class VacancyHat extends Component<
                             }
                         />
                         <RenderWithCondition
+                            key={'resume'}
                             condition={this.props.userType === 'applicant'}
                             onSuccess={
                                 <Dropdown
@@ -104,6 +107,7 @@ class VacancyHat extends Component<
                             }
                         />
                         <RenderWithCondition
+                            key={'login'}
                             condition={!this.props.authorized}
                             onSuccess={
                                 <ButtonNotActive>

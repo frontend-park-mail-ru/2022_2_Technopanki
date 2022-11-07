@@ -23,6 +23,8 @@ import {
 import { setProps } from '../attributes/index';
 import { setContextValue } from '../../reacts/context/context';
 import { Context } from '../../reacts/context/index';
+import { events } from '../attributes/constants';
+import vacancySideBar from '../../../src/components/sidebars/VacancySideBar';
 
 /**
  * Creates DOM node from node and replaces element with this node
@@ -51,29 +53,18 @@ const updateElementAttributes = (
         childrenUpdater: Operation[];
     },
 ): void => {
-    operation.attrUpdater.set.forEach(
-        // @ts-ignore
-        ([attr, value]) => {
-            setProps(element, { [attr]: value });
-        },
-    );
-    operation.attrUpdater.update.forEach(
-        // @ts-ignore
-        ([attr, value]) => {
-            if (attr.startsWith('on')) {
-                element.removeEventListener(attr.toLowerCase(), value);
-            } else {
-                element.removeAttribute(attr);
-            }
-            setProps(element, { [attr]: value });
-        },
-    );
-    operation.attrUpdater.remove.forEach(attr => {
+    operation.attrUpdater.remove.forEach(([attr, value]) => {
         if (attr.startsWith('on')) {
-            element.removeEventListener(attr.toLowerCase(), value);
+            element.removeEventListener(events[attr], value);
         } else {
             element.removeAttribute(attr);
         }
+    });
+    operation.attrUpdater.set.forEach(([attr, value]) => {
+        setProps(element, { [attr]: value });
+    });
+    operation.attrUpdater.update.forEach(([attr, value]) => {
+        setProps(element, { [attr]: value });
     });
 };
 
@@ -163,7 +154,7 @@ const replaceNode = (
 ) => {
     insertNode(element, newNode, beforeElement);
     element.remove();
-    oldNode._instance?.unmout();
+    oldNode._instance?.unmount();
     newNode._instance?.componentDidMount();
 };
 
@@ -179,7 +170,7 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
 
     if (operation.type === REMOVE_OPERATION) {
         element.remove();
-        (<Remove>operation).node._instance?.unmout();
+        (<Remove>operation).node._instance?.unmount();
         return;
     }
 
@@ -195,8 +186,6 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
     if (operation.type === UPDATE_OPERATION) {
         if ((<Update>operation).node.$$typeof === DOM_NODE_SYMBOL) {
             updateElementAttributes(element, <Update>operation);
-        } else {
-            (() => {})();
         }
 
         applyChildrenDiff(
@@ -251,6 +240,16 @@ const applyChildrenDiff = (
         }
 
         if (childUpdater.type === REMOVE_OPERATION) {
+            Object.entries((<Remove>childUpdater).node.props).forEach(
+                ([key, value]) => {
+                    if (key.startsWith('on') && value) {
+                        childElem.removeEventListener(
+                            events[key],
+                            value as Function,
+                        );
+                    }
+                },
+            );
             childElem.remove();
             (<Remove>childUpdater).node._instance?.componentWillUnmount();
             (<Remove>childUpdater).node._instance?.unmount();
