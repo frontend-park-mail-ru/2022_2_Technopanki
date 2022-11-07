@@ -25,4 +25,12 @@ export const userActions = {
         surname,
         userType,
     }),
+    updateName: (name: string, surname: string) => ({
+        type: 'UPDATE_USER',
+        name,
+        surname,
+    }),
+    LOGOUT: () => ({
+        type: 'LOGOUT',
+    }),
 };

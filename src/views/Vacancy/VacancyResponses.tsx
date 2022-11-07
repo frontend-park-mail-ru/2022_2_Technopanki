@@ -57,17 +57,16 @@ class VacancyResponses extends Component<{
 }
 
 const UserWrapper = userConnect((state, props) => ({
-    userID: state.getState().id,
+    userID: state.id,
     vacancyID: props.vacancyID,
     title: props.title,
     postedByUserID: props.postedByUserID,
 }))(VacancyResponses);
 
-export default vacancyConnect(store => {
-    console.log(store.getState());
+export default vacancyConnect(state => {
     return {
-        vacancyID: store.getState().id,
-        title: store.getState().title,
-        postedByUserID: store.getState().postedByUserID,
+        vacancyID: state.id,
+        title: state.title,
+        postedByUserID: state.postedByUserID,
     };
 })(UserWrapper);

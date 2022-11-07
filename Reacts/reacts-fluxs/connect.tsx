@@ -15,7 +15,8 @@ export default function createConnect(store: StoreType) {
                 render() {
                     return (
                         <WrappedComponent
-                            {...mapStateToProps(store, this.props)}
+                            {...this.props}
+                            {...mapStateToProps(store.getState(), this.props)}
                         ></WrappedComponent>
                     );
                 }

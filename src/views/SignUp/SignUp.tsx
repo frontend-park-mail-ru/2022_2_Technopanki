@@ -16,6 +16,7 @@ import {
     SURNAME_SYMBOLS_ERROR,
 } from '../../utils/validation/messages';
 import {
+    validateCompanyName,
     validateEmail,
     validateNameLength,
     validateNameSymbols,
@@ -240,7 +241,7 @@ export default class SignUp extends Component<
                     File
                 >,
                 newState.inputs['company_name'],
-                validateNameSymbols,
+                validateCompanyName,
                 NAME_SYMBOLS_ERROR,
             )
         ) {
@@ -295,9 +296,12 @@ export default class SignUp extends Component<
                 })
                 .catch(body => {
                     // todo: поправить type ошибки
-                    setFieldAsInvalid(newState.inputs[body.type], body.message);
+                    setFieldAsInvalid(
+                        newState.inputs[body.descriptors[0]],
+                        body.error,
+                    );
                     this.setState(() => newState);
-                    setFieldAsInvalid(newState.inputs[body.type], '');
+                    setFieldAsInvalid(newState.inputs[body.descriptors[0]], '');
                 });
         }
     };

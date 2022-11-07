@@ -27,15 +27,13 @@ export const employerProfileService: Service = {
     // TODO: доделать когда Аким сделаем ручку
     getVacancies: async (profileID: string) => {},
 
-    updateProfileImg: async (formData: FormData) => {
-        dispatch(startLoading());
-
+    updateProfileImg: async (profileID: string, formData: FormData) => {
         const options = {
             method: 'POST',
             headers: requestHeaders.imgHeader,
-            body: formData,
-            mode: 'cors',
-            credentials: 'include',
+            body: formData.get('avatar'),
+            mode: 'cors' as RequestMode,
+            credentials: 'include' as RequestCredentials,
         };
 
         delete options.headers['Content-Type'];
@@ -74,14 +72,17 @@ export const employerProfileService: Service = {
             .POST(
                 SERVER_URLS.USER,
                 JSON.stringify({
-                    id: profileID,
+                    id: parseInt(profileID),
                     user_type: profileType,
                     description: formData.get('description'),
-                    // image: formData.get('img'),
+                    image: formData.get('img'),
                     status: formData.get('status'),
                     company_name: formData.get('name'),
-                    phone: formData.get('phone'),
+                    contact_number: formData.get('phone'),
                     email: formData.get('email'),
+                    company_size: parseInt(formData.get('size')),
+                    password: formData.get('password'),
+                    // company_city: formData.get('location'),
                     // company_city: formData.get('location'),
                     // company_size: 10000,
                     // field_of_activity: formData

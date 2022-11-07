@@ -45,7 +45,7 @@ export const ROUTER_PATHS: { path: PathType; component: VNodeType }[] = [
             path: '/employer/settings',
             validator: (url: string) => /employer\/settings\/[1-9]+/.test(url),
         },
-        component: <ProfileSettings />,
+        component: <ProfileSettings key={'profileSettings'} />,
     },
     {
         path: {

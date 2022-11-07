@@ -66,6 +66,6 @@ class VacancyDropdownResume extends Component<
     }
 }
 
-export default userConnect(store => ({ userID: store.getState().id }))(
+export default userConnect(state => ({ userID: state.id }))(
     VacancyDropdownResume,
 );

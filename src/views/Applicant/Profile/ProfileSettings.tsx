@@ -10,28 +10,43 @@ import Button from '../../../components/UI-kit/buttons/Button';
 import SettingsHat from '../../../components/hats/SettingsHat';
 // import ProfileSettings, { AvatarSettings, Password, SocialNetworks } from '../../Employer/ProfileSettings';
 import Form, { FormSectionType } from '../../../components/UI-kit/forms/Form';
-import Input, { InputPropsType } from '../../../components/UI-kit/forms/inputs/Input';
+import Input, {
+    InputPropsType,
+} from '../../../components/UI-kit/forms/inputs/Input';
 import CancelSaveButtons from '../../../components/CancelSaveButtons/CancelSaveButtons';
 import IconInput from '../../../components/UI-kit/forms/inputs/IconInput';
 // import Location from '../../../static/icons/location_input.svg'
-import styles from './profileSettings.module.scss'
+import styles from './profileSettings.module.scss';
 import ApplicantProfile from './Profile';
 import ProfileSettings from '../../Employer/ProfileSettings';
-import { ApplicantProfileType, ProfileState } from '../../../store/profile/types';
+import {
+    ApplicantProfileType,
+    ProfileState,
+} from '../../../store/profile/types';
 import { dispatch, errorsConnect, profileConnect } from '../../../store';
-import { validateEmail, validateNameSymbols, validatePasswordSymbols } from '../../../utils/validation/validation';
-import { EMAIL_ERROR, NAME_SYMBOLS_ERROR, PASSWORD_SYMBOLS_ERROR } from '../../../utils/validation/messages';
+import {
+    validateEmail,
+    validateNameSymbols,
+    validatePasswordSymbols,
+} from '../../../utils/validation/validation';
+import {
+    EMAIL_ERROR,
+    NAME_SYMBOLS_ERROR,
+    PASSWORD_SYMBOLS_ERROR,
+} from '../../../utils/validation/messages';
 import { employerProfileService } from '../../../services/employerProfileService';
 import navigator from '../../../router/navigator';
 import { applicantProfileService } from '../../../services/applicantService';
 import Textarea from '../../../components/UI-kit/forms/inputs/Textarea';
 import Footer from '../../../components/UI-kit/footer/Footer';
 import FileInput from '../../../components/UI-kit/forms/inputs/FileInput';
+import { authService } from '../../../services/authService';
+import { userActions } from '../../../store/user/actions';
 
 class AvatarSettingsComponent extends Component<
     { previewSrc: string },
     { previewSrc: string }
-    > {
+> {
     setPreview = (event: InputEvent) => {
         // @ts-ignore
         const [file] = event.target.files;
@@ -69,8 +84,6 @@ class AvatarSettingsComponent extends Component<
 }
 
 const AvatarSettings = profileConnect(store => {
-    const state = store.getState();
-
     return {
         previewSrc: state.previewSrc,
     };
@@ -89,7 +102,7 @@ class ApplicantSettings extends Component<
             };
         }[];
     }
->{
+> {
     state = {
         profile: this.props,
         sections: [
@@ -245,11 +258,19 @@ class ApplicantSettings extends Component<
             .catch(err => console.error(err));
     };
 
+    logout = () => {
+        authService
+            .logout()
+            .then(() => {
+                dispatch(userActions.LOGOUT());
+                navigator.navigate('/');
+            })
+            .catch(err => console.error(err));
+    };
+
     render() {
-        return(
-            <div
-                className={'screen-responsive relative'}
-            >
+        return (
+            <div className={'screen-responsive relative'}>
                 <Header />
                 <div class={'column g-24'}>
                     <div className={`col-12 mt-header`}>
@@ -277,7 +298,10 @@ class ApplicantSettings extends Component<
                                         {section.header}
                                     </h5>
                                 ) : (
-                                    <h5 key={'header'} className={'col-12 mx-0'}>
+                                    <h5
+                                        key={'header'}
+                                        className={'col-12 mx-0'}
+                                    >
                                         {section.header}
                                     </h5>
                                 )}
@@ -322,19 +346,16 @@ class ApplicantSettings extends Component<
                         ))}
                     </form>
                 </div>
-                <CancelSaveButtons
-                    onCancel={() => navigator.goBack()}
-                />
+                <Button onClick={this.logout}>Выйти</Button>
+                <CancelSaveButtons onCancel={() => navigator.goBack()} />
                 <Footer key={'footer'} />
             </div>
         );
     }
 }
 
-export default profileConnect((store, props) => {
-    const state = store.getState();
-
+export default profileConnect((state, props) => {
     return {
-        ...state
+        ...state,
     };
 })(ApplicantSettings);

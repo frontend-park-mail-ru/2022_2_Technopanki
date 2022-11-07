@@ -26,7 +26,6 @@ class VacancyResponsesHat extends Component<{
             vacancyService
                 .getVacancyHatData(this.props.postedByUserID)
                 .then(body => {
-                    console.log(body);
                     this.setState(() => ({
                         creatorImgSrc: body.creator_img_src,
                         companyName: body.company_name,
@@ -65,9 +64,7 @@ class VacancyResponsesHat extends Component<{
     }
 }
 
-export default profileConnect((store, props) => {
-    const state: ProfileState = store.getState();
-
+export default profileConnect((state, props) => {
     return {
         vacancyID: props.vacancyID,
         postedByUserID: props.postedByUserID,

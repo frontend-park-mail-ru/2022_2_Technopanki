@@ -1,6 +1,6 @@
 import { Component } from '../../../../Reacts';
 import Header from '../../../components/UI-kit/header/Header';
-import styles from '../Resume/resume.module.scss'
+import styles from '../Resume/resume.module.scss';
 import TextBlock from '../../../components/UI-kit/text/TextBlock';
 import Education from '../../../components/UI-kit/education/Education';
 import ResumeSidebar from '../../../components/sidebars/ResumeSidebar';
@@ -20,31 +20,30 @@ type ResumePropsType = {
         university: string;
         faculty: string;
         status: string;
-    }
+    };
     sideBar: {
         location: string;
         dateOfBirth: string;
         skills: string[];
-    },
+    };
     socialNetworks: {
         vk: string | null | undefined;
         facebook: string | null | undefined;
         telegram: string | null | undefined;
-    }
-}
+    };
+};
 
-class Resume extends Component<ResumePropsType>{
+class Resume extends Component<ResumePropsType> {
     getDataFromServer() {
-        const resumeID = this.props.id || location.pathname.split('/').at(-1)
+        const resumeID = this.props.id || location.pathname.split('/').at(-1);
 
-        resumeService.getResumeData(resumeID as string)
-            .then(body => {
-                dispatch(resumeActions.update(body))
-            });
+        resumeService.getResumeData(resumeID as string).then(body => {
+            dispatch(resumeActions.update(body));
+        });
     }
 
     componentDidMount() {
-        this.getDataFromServer()
+        this.getDataFromServer();
     }
 
     render() {
@@ -79,22 +78,20 @@ class Resume extends Component<ResumePropsType>{
                 </div>
                 <Footer />
             </div>
-        )
+        );
     }
 }
 
-export default resumeConnect((store, props) => {
-    const storeState = store.getState() as ResumeState;
-
+export default resumeConnect((storeState, props) => {
     return {
-        id: props.id || storeState.id,
+        id: props.id ? props.id : storeState.id,
         postedByUserID: storeState.postedByUserID,
         title: storeState.title,
         description: storeState.description,
         education: {
             university: storeState.university,
             faculty: storeState.faculty,
-            status: storeState.status
+            status: storeState.status,
         },
         sideBar: {
             location: storeState.location,
@@ -105,6 +102,6 @@ export default resumeConnect((store, props) => {
             vk: storeState.vk,
             facebook: storeState.facebook,
             telegram: storeState.telegram,
-        }
-    }
+        },
+    };
 })(Resume);

@@ -14,7 +14,7 @@ import {
     SKIP_OPERATION,
     UPDATE_OPERATION,
 } from './operations';
-import { VNodeType } from '../../shared/common';
+import { ComponentType, VNodeType } from '../../shared/common';
 import {
     COMPONENT_NODE_SYMBOL,
     CONTEXT_NODE_SYMBOL,
@@ -23,6 +23,8 @@ import {
 import { setProps } from '../attributes/index';
 import { setContextValue } from '../../reacts/context/context';
 import { Context } from '../../reacts/context/index';
+import { events } from '../attributes/constants';
+import vacancySideBar from '../../../src/components/sidebars/VacancySideBar';
 
 /**
  * Creates DOM node from node and replaces element with this node
@@ -51,15 +53,22 @@ const updateElementAttributes = (
         childrenUpdater: Operation[];
     },
 ): void => {
-    operation.attrUpdater.set.forEach(
-        // @ts-ignore
-        ([attr, value]) => element.setAttribute(attr, value),
-    );
-    operation.attrUpdater.update.forEach(
-        // @ts-ignore
-        ([attr, value]) => (element[attr] = value),
-    );
-    operation.attrUpdater.remove.forEach(attr => element.removeAttribute(attr));
+    operation.attrUpdater.remove.forEach(([attr, value]) => {
+        if (attr.startsWith('on')) {
+            element.removeEventListener(events[attr], value);
+        } else {
+            element.removeAttribute(attr);
+        }
+    });
+    operation.attrUpdater.set.forEach(([attr, value]) => {
+        setProps(element, { [attr]: value });
+    });
+    operation.attrUpdater.update.forEach(([attr, value]) => {
+        // if (attr.startsWith('on')) {
+        //     element.removeEventListener(events[attr], value);
+        // }
+        setProps(element, { [attr]: value });
+    });
 };
 
 const insertChildren = (
@@ -147,8 +156,13 @@ const replaceNode = (
     beforeElement: HTMLElement | null = null,
 ) => {
     insertNode(element, newNode, beforeElement);
+    Object.entries(oldNode.props).forEach(([key, value]) => {
+        if (key.startsWith('on') && value) {
+            element.removeEventListener(events[key], value as Function);
+        }
+    });
     element.remove();
-    oldNode._instance?.unmout();
+    oldNode._instance?.unmount();
     newNode._instance?.componentDidMount();
 };
 
@@ -163,8 +177,15 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
     }
 
     if (operation.type === REMOVE_OPERATION) {
+        Object.entries((<Remove>operation).node.props).forEach(
+            ([key, value]) => {
+                if (key.startsWith('on') && value) {
+                    element.removeEventListener(events[key], value as Function);
+                }
+            },
+        );
         element.remove();
-        (<Remove>operation).node._instance?.unmout();
+        (<Remove>operation).node._instance?.unmount();
         return;
     }
 
@@ -178,13 +199,23 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
     }
 
     if (operation.type === UPDATE_OPERATION) {
-        updateElementAttributes(element, <Update>operation);
+        if ((<Update>operation).node.$$typeof === DOM_NODE_SYMBOL) {
+            updateElementAttributes(element, <Update>operation);
+        }
 
         applyChildrenDiff(
             (<Update>operation).node._domElement,
             (<Update>operation).childrenUpdater,
         );
 
+        if ((<Update>operation).node._instance) {
+            (<ComponentType>(
+                (<Update>operation).node._instance
+            )).prevRenderVNodeRef = (<Update>operation).node.props
+                .children as VNodeType;
+            (<ComponentType>(<Update>operation).node._instance).rootDomRef =
+                element;
+        }
         (<Update>operation).node._instance?.componentDidUpdate();
     }
 
@@ -224,6 +255,16 @@ const applyChildrenDiff = (
         }
 
         if (childUpdater.type === REMOVE_OPERATION) {
+            Object.entries((<Remove>childUpdater).node.props).forEach(
+                ([key, value]) => {
+                    if (key.startsWith('on') && value) {
+                        childElem.removeEventListener(
+                            events[key],
+                            value as Function,
+                        );
+                    }
+                },
+            );
             childElem.remove();
             (<Remove>childUpdater).node._instance?.componentWillUnmount();
             (<Remove>childUpdater).node._instance?.unmount();

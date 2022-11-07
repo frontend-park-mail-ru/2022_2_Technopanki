@@ -14,6 +14,6 @@ class Preloader extends Component<{ isLoading: boolean }> {
     }
 }
 
-export default loadingConnect(store => ({
-    isLoading: store.getState().loading,
+export default loadingConnect(state => ({
+    isLoading: state.loading,
 }))(Preloader);

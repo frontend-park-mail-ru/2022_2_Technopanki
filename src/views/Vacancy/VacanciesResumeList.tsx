@@ -37,8 +37,8 @@ class VacanciesResumeList extends Component<
     }
 }
 
-export default vacancyConnect(store => {
+export default vacancyConnect(state => {
     return {
-        vacancyID: store.getState().id,
+        vacancyID: state.id,
     };
 })(VacanciesResumeList);

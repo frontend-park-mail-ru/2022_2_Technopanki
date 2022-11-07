@@ -147,4 +147,4 @@ class Profile extends Component<
     }
 }
 
-export default profileConnect(state => state.getState())(Profile);
+export default profileConnect(state => state)(Profile);

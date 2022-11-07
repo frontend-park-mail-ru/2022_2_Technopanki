@@ -13,6 +13,7 @@ type HeaderProps = {
     id: string;
     name: string;
     surname: string;
+    userType: string;
     authorized: boolean;
 };
 
@@ -34,7 +35,11 @@ class HeaderProfile extends Component<HeaderProps> {
                     />
                     {this.props.authorized ? (
                         <Link
-                            to={`/applicant/${this.props.id}`}
+                            to={`/${
+                                this.props.userType === 'applicant'
+                                    ? 'applicant'
+                                    : 'employer'
+                            }/${this.props.id}`}
                             content={
                                 <HeaderUserInfo
                                     key={'info'}
@@ -85,11 +90,12 @@ class HeaderProfile extends Component<HeaderProps> {
     }
 }
 
-export default userConnect((store: StoreType<UserState>): HeaderProps => {
+export default userConnect((state: UserState): HeaderProps => {
     return {
-        id: store.getState().id,
-        name: store.getState().name,
-        surname: store.getState().surname,
-        authorized: store.getState().authorized,
+        id: state.id,
+        name: state.name,
+        surname: state.surname,
+        userType: state.userType,
+        authorized: state.authorized,
     };
 })(HeaderProfile);

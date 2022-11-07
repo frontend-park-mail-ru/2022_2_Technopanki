@@ -10,6 +10,7 @@ export default class Link extends Component<{
 }> {
     onClick = (e: MouseEvent) => {
         e.preventDefault();
+        console.log('onClick called');
         this.props.onClick && this.props.onClick(e);
         router.navigate(this.props.to);
     };

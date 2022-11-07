@@ -33,7 +33,7 @@ export const validateEmail = (email: string): boolean => {
  * @returns {boolean}
  */
 export const validateNameLength = (name: string): boolean => {
-    return 3 <= name.length && name.length <= 20;
+    return 3 <= name.length && name.length <= 30;
 };
 
 /**
@@ -42,5 +42,10 @@ export const validateNameLength = (name: string): boolean => {
  */
 export const validateNameSymbols = (name: string): boolean => {
     const regexp = /^[a-zA-Zа-яА-Я]*$/;
+    return regexp.test(name);
+};
+
+export const validateCompanyName = (name: string): boolean => {
+    const regexp = /^[a-zA-Z а-яА-Я]*$/;
     return regexp.test(name);
 };

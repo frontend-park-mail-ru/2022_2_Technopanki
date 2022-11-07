@@ -42,8 +42,8 @@ class ApplicantResumeList extends Component<
     }
 }
 
-export default applicantConnect(store => {
+export default applicantConnect(state => {
     return {
-        applicantID: store.getState().id,
+        applicantID: state.id,
     };
 })(ApplicantResumeList);

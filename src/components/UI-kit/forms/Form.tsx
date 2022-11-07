@@ -10,12 +10,14 @@ type FormPropsType = {
     sections: FormSectionType[];
     submitComponent: VNodeType;
     onSubmit: Function;
+    id?: string;
 };
 
 export default class Form extends Component<FormPropsType> {
     render() {
         return (
             <form
+                id={this.props.id}
                 onSubmit={this.props.onSubmit}
                 className={'flex w-100 column g-24'}
             >

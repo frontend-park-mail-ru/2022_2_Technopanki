@@ -1,10 +1,9 @@
 import { Component } from '../Reacts/index';
 import { MyContext } from './App';
 import { StoreType } from '../Fluxs/types/store';
-import { connect } from './store/index';
 
-const mapStateToProps = (store: StoreType, props: Object) => {
-    return { ...props, ...store.getState() };
+const mapStateToProps = (state: StoreType, props: Object) => {
+    return { ...props, ...state };
 };
 
 class Card extends Component<{ name: string }> {

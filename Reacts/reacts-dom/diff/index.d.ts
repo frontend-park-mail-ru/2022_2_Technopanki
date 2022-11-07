@@ -9,7 +9,7 @@ import {
 export type Attribute = [string, PropType];
 
 export interface AttributeUpdater {
-    remove: string[];
+    remove: Attribute[];
     set: Attribute[];
     update: Attribute[];
 }
