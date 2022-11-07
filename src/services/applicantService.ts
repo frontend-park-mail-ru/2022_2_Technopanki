@@ -40,6 +40,7 @@ export const applicantProfileService: Service = {
                     location: formData.get('location'),
                     contact_number: formData.get('phone'),
                     email: formData.get('email'),
+                    password: formData.get('password'),
                 }),
             )
             .then(response => {
