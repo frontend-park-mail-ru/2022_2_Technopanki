@@ -39,6 +39,7 @@ export const applicantProfileService: Service = {
                     location: formData.get('location'),
                     phone: formData.get('phone'),
                     email: formData.get('email'),
+                    company_size: formData.get('size'),
                 }),
             )
             .then(response => {
@@ -52,7 +53,7 @@ export const applicantProfileService: Service = {
             .catch(err => {
                 dispatch(stopLoading());
                 console.error(err);
-            })
+            });
     },
 
     getResumeList: async (applicantID: string) => {

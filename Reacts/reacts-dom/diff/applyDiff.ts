@@ -64,6 +64,9 @@ const updateElementAttributes = (
         setProps(element, { [attr]: value });
     });
     operation.attrUpdater.update.forEach(([attr, value]) => {
+        // if (attr.startsWith('on')) {
+        //     element.removeEventListener(events[attr], value);
+        // }
         setProps(element, { [attr]: value });
     });
 };
