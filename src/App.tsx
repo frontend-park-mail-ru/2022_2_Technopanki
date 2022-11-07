@@ -26,6 +26,7 @@ router.addNewPaths(ROUTER_PATHS);
 authService
     .auth()
     .then(body => {
+        console.log(body);
         dispatch(
             userActions.SIGN_IN(
                 body.id,
@@ -38,5 +39,8 @@ authService
         );
         router.navigate(location.pathname);
     })
-    .catch(() => router.navigate(location.pathname));
+    .catch(err => {
+        console.error(err);
+        router.navigate(location.pathname);
+    });
 setTheme();

@@ -3,6 +3,7 @@ import network from '../lib/network';
 import { SERVER_URL, SERVER_URLS } from '../utils/constants';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
+import headerProfile from '../components/UI-kit/header/HeaderProfile';
 
 export const authService: Service = {
     signIn: async (formData: FormData) => {
@@ -52,7 +53,7 @@ export const authService: Service = {
     auth: async () => {
         dispatch(startLoading());
         return network
-            .GET(SERVER_URL + 'authh', [])
+            .GET(SERVER_URL + 'authh', headerProfile.jsonHeader)
             .then(response => {
                 dispatch(stopLoading());
 
