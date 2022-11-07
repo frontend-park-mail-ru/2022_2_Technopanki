@@ -70,7 +70,7 @@ export const employerProfileService: Service = {
         dispatch(startLoading());
         return await network
             .POST(
-                SERVER_URLS.USER + profileID,
+                SERVER_URLS.USER,
                 JSON.stringify({
                     id: profileID,
                     user_type: profileType,
