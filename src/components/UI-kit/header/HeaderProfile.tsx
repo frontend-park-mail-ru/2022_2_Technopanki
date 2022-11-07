@@ -85,11 +85,11 @@ class HeaderProfile extends Component<HeaderProps> {
     }
 }
 
-export default userConnect((store: StoreType<UserState>): HeaderProps => {
+export default userConnect((state: UserState): HeaderProps => {
     return {
-        id: store.getState().id,
-        name: store.getState().name,
-        surname: store.getState().surname,
-        authorized: store.getState().authorized,
+        id: state.id,
+        name: state.name,
+        surname: state.surname,
+        authorized: state.authorized,
     };
 })(HeaderProfile);

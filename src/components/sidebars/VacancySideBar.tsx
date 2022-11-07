@@ -114,15 +114,13 @@ class VacancySideBar extends Component<{
     }
 }
 
-export default vacancyConnect(store => {
-    const storeState = store.getState();
-
+export default vacancyConnect(state => {
     return {
-        salary: storeState.salary,
-        experience: storeState.experience,
-        location: storeState.location,
-        format: storeState.format,
-        hours: storeState.hours,
-        skills: storeState.skills,
+        salary: state.salary,
+        experience: state.experience,
+        location: state.location,
+        format: state.format,
+        hours: state.hours,
+        skills: state.skills,
     };
 })(VacancySideBar);

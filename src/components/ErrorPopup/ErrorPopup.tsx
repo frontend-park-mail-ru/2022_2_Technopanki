@@ -34,8 +34,8 @@ class ErrorPopup extends Component<{
     }
 }
 
-export default errorsConnect((store, props) => ({
-    isActive: store.getState().isActive,
-    header: store.getState().header,
-    text: store.getState().text,
+export default errorsConnect((state, props) => ({
+    isActive: state.isActive,
+    header: state.header,
+    text: state.text,
 }))(ErrorPopup);

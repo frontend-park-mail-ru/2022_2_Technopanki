@@ -130,9 +130,7 @@ class VacancyHat extends Component<
 //     }
 // })(VacancyHat)
 
-export default userConnect((store, props) => {
-    const state: UserState = store.getState();
-
+export default userConnect((state, props) => {
     return {
         vacancyID: props.vacancyID,
         postedByUserID: props.postedByUserID,

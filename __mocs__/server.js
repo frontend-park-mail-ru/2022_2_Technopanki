@@ -78,10 +78,10 @@ app.get('/api/user/safety/:id', (req, res) => {
     }
 });
 
-app.post('/api/user', (req, res) => {
-    console.log(req.body.field_of_activity);
+app.post('/api/user/safety/:id', (req, res) => {
+    console.log(req.body.image);
 
-    if (req.body.id === 2) {
+    if (req.params.id === 2) {
         users.specialUser = { ...users.specialUser, ...req.body };
     } else {
         users.user.company_name = req.body.company_name;
@@ -230,7 +230,7 @@ app.get('/api/applicant/resumes/:id', (req, res) => {
     ]);
 });
 
-app.get('/api/user/image', (req, res) => {
+app.get('/api/user/image/:id', (req, res) => {
     console.log(req.body);
 
     res.status(200);

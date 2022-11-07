@@ -13,7 +13,7 @@ export default class FormSection extends Component<{
 }> {
     render() {
         return (
-            <div className={'w-100'}>
+            <div className={'columns w-100 g-16'}>
                 <h5 key={'header'} className={'col-12'}>
                     {this.props.header}
                 </h5>

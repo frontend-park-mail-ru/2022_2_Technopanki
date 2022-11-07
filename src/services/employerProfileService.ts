@@ -27,20 +27,18 @@ export const employerProfileService: Service = {
     // TODO: доделать когда Аким сделаем ручку
     getVacancies: async (profileID: string) => {},
 
-    updateProfileImg: async (formData: FormData) => {
-        dispatch(startLoading());
-
+    updateProfileImg: async (profileID: string, formData: FormData) => {
         const options = {
             method: 'POST',
             headers: requestHeaders.imgHeader,
             body: formData,
-            mode: 'cors',
-            credentials: 'include',
+            mode: 'cors' as RequestMode,
+            credentials: 'include' as RequestCredentials,
         };
 
         delete options.headers['Content-Type'];
 
-        const response = await fetch(SERVER_URLS.IMAGE, options);
+        const response = await fetch(SERVER_URLS.IMAGE + profileID, options);
 
         return {
             status: response.status,
@@ -72,12 +70,12 @@ export const employerProfileService: Service = {
         dispatch(startLoading());
         return await network
             .POST(
-                SERVER_URLS.USER,
+                SERVER_URLS.USER + profileID,
                 JSON.stringify({
                     id: profileID,
                     user_type: profileType,
                     description: formData.get('description'),
-                    // image: formData.get('img'),
+                    image: formData.get('img'),
                     status: formData.get('status'),
                     company_name: formData.get('name'),
                     phone: formData.get('phone'),

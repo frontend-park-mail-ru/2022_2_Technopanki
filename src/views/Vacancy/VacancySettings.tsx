@@ -56,9 +56,7 @@ class AboutVacancyComponent extends Component<{
     }
 }
 
-const AboutVacancy = vacancyConnect((store, props) => {
-    const state: VacancyState = store.getState();
-
+const AboutVacancy = vacancyConnect((state, props) => {
     return {
         title: state.title,
         salary: state.salary,
@@ -160,9 +158,7 @@ class AdditionalInformationComponent extends Component<{
     }
 }
 
-const AdditionalInformation = vacancyConnect(store => {
-    const state: VacancyState = store.getState();
-
+const AdditionalInformation = vacancyConnect(state => {
     return {
         location: state.location,
         schedule: state.hours,
@@ -221,9 +217,7 @@ class VacancyDescriptionComponent extends Component<{
     }
 }
 
-const VacancyDescription = vacancyConnect(store => {
-    const state: VacancyState = store.getState();
-
+const VacancyDescription = vacancyConnect(state => {
     return {
         description: state.description,
         tasks: state.tasks,
@@ -302,7 +296,7 @@ class VacancySettings extends Component<
     }
 }
 
-export default vacancyConnect((store, props) => ({
-    id: store.getState().id,
+export default vacancyConnect((state, props) => ({
+    id: state.id,
     isNew: props.isNew,
 }))(VacancySettings);

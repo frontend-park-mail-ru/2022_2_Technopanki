@@ -14,7 +14,7 @@ import {
     SKIP_OPERATION,
     UPDATE_OPERATION,
 } from './operations';
-import { VNodeType } from '../../shared/common';
+import { ComponentType, VNodeType } from '../../shared/common';
 import {
     COMPONENT_NODE_SYMBOL,
     CONTEXT_NODE_SYMBOL,
@@ -53,13 +53,28 @@ const updateElementAttributes = (
 ): void => {
     operation.attrUpdater.set.forEach(
         // @ts-ignore
-        ([attr, value]) => element.setAttribute(attr, value),
+        ([attr, value]) => {
+            setProps(element, { [attr]: value });
+        },
     );
     operation.attrUpdater.update.forEach(
         // @ts-ignore
-        ([attr, value]) => (element[attr] = value),
+        ([attr, value]) => {
+            if (attr.startsWith('on')) {
+                element.removeEventListener(attr.toLowerCase(), value);
+            } else {
+                element.removeAttribute(attr);
+            }
+            setProps(element, { [attr]: value });
+        },
     );
-    operation.attrUpdater.remove.forEach(attr => element.removeAttribute(attr));
+    operation.attrUpdater.remove.forEach(attr => {
+        if (attr.startsWith('on')) {
+            element.removeEventListener(attr.toLowerCase(), value);
+        } else {
+            element.removeAttribute(attr);
+        }
+    });
 };
 
 const insertChildren = (
@@ -178,13 +193,25 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
     }
 
     if (operation.type === UPDATE_OPERATION) {
-        updateElementAttributes(element, <Update>operation);
+        if ((<Update>operation).node.$$typeof === DOM_NODE_SYMBOL) {
+            updateElementAttributes(element, <Update>operation);
+        } else {
+            (() => {})();
+        }
 
         applyChildrenDiff(
             (<Update>operation).node._domElement,
             (<Update>operation).childrenUpdater,
         );
 
+        if ((<Update>operation).node._instance) {
+            (<ComponentType>(
+                (<Update>operation).node._instance
+            )).prevRenderVNodeRef = (<Update>operation).node.props
+                .children as VNodeType;
+            (<ComponentType>(<Update>operation).node._instance).rootDomRef =
+                element;
+        }
         (<Update>operation).node._instance?.componentDidUpdate();
     }
 

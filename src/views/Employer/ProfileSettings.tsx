@@ -21,7 +21,12 @@ import { employerProfileService } from '../../services/employerProfileService';
 import { userStore } from '../../store/user/store';
 import { defaultProfileState, profileStore } from '../../store/profile/store';
 import { EmployerProfile, ProfileState } from '../../store/profile/types';
-import { dispatch, errorsConnect, profileConnect } from '../../store';
+import {
+    dispatch,
+    errorsConnect,
+    profileConnect,
+    userConnect,
+} from '../../store';
 import Textarea from '../../components/UI-kit/forms/inputs/Textarea';
 import ChipsInput from '../../components/UI-kit/forms/inputs/ChipsInput';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
@@ -37,6 +42,8 @@ import {
     PASSWORD_SYMBOLS_ERROR,
 } from '../../utils/validation/messages';
 import FormSection from '../../components/UI-kit/forms/FormSection';
+import { profileActions } from '../../store/profile/actions';
+import RenderWithCondition from '../../components/RenderWithCondition';
 
 class AvatarSettingsComponent extends Component<
     { previewSrc: string },
@@ -78,9 +85,7 @@ class AvatarSettingsComponent extends Component<
     }
 }
 
-const AvatarSettings = profileConnect(store => {
-    const state = store.getState();
-
+const AvatarSettings = profileConnect(state => {
     return {
         previewSrc: state.previewSrc,
     };
@@ -88,7 +93,7 @@ const AvatarSettings = profileConnect(store => {
 
 // todo: добавить валидацию на все компоненты
 class ProfileSettingsComponent extends Component<
-    ProfileState,
+    ProfileState & { userID: string },
     {
         profile: EmployerProfile;
         sections: {
@@ -103,7 +108,7 @@ class ProfileSettingsComponent extends Component<
     }
 > {
     state = {
-        profile: this.props,
+        profile: profileStore.getState(),
         sections: [
             {
                 header: 'О компании',
@@ -226,19 +231,39 @@ class ProfileSettingsComponent extends Component<
         }
 
         employerProfileService
-            .updateProfileImg(formData)
+            .updateProfileImg(this.state.profile.id, formData)
             .then(() => console.log('send image to server'));
 
         employerProfileService
-            .updateProfile(this.props.id, this.props.profileType, formData)
+            .updateProfile(
+                this.state.profile.id,
+                this.props.profileType,
+                formData,
+            )
             .then(() => {
-                console.log('back');
                 navigator.goBack();
             })
             .catch(err => console.error(err));
     };
 
+    getDataFromServer() {
+        const employerID = location.pathname.split('/').at(-1);
+        employerProfileService.getProfileData(employerID).then(body => {
+            dispatch(profileActions.update({ ...body, id: employerID }));
+        });
+    }
+
+    componentDidMount() {
+        this.getDataFromServer();
+    }
+
+    componentDidUpdate() {
+        console.log('BEFORE PROFILE STATE: ', profileStore.getState());
+        console.log('update', this.props, this);
+    }
+
     render() {
+        console.log('ON RENDER PROPS: ', this.props);
         return (
             <div className={'screen-responsive relative hidden'}>
                 <Header key={'header'} />
@@ -252,30 +277,29 @@ class ProfileSettingsComponent extends Component<
                             submit={this.submitEvent}
                         />
                     </div>
-                    <h3 key={'header'} className={'col-12'}>
+                    <h3 key={'h'} className={'col-12'}>
                         Настройки профиля
                     </h3>
                     <form
-                        onSubmit={this.submitForm}
                         key={'form'}
+                        onSubmit={this.submitForm}
                         className={'col-12 col-md-9 column g-24'}
                     >
                         <div key={'avatar'} className={'w-100'}>
                             <AvatarSettings key={'avatar'} />
                         </div>
                         {this.state.sections.map(section => (
-                            <div
-                                className={'columns g-16'}
+                            <FormSection
                                 key={section.header}
-                            >
-                                <FormSection
-                                    header={section.header}
-                                    fields={section.fields}
-                                />
-                            </div>
+                                header={section.header}
+                                fields={section.fields}
+                            />
                         ))}
                         <CancelSaveButtons
-                            onCancel={() => navigator.goBack()}
+                            key={'buttons'}
+                            onCancel={() =>
+                                navigator.navigate(`/employer/${this.props.id}`)
+                            }
                         />
                     </form>
                 </div>
@@ -285,10 +309,11 @@ class ProfileSettingsComponent extends Component<
     }
 }
 
-export default profileConnect((store, props) => {
-    const state = store.getState();
+// const UserWrapper = userConnect((state, props) => {
+//     return { userID: state.id, ...props };
+// })(ProfileSettingsComponent);
 
-    return {
-        ...state,
-    };
+export default profileConnect((state, props) => {
+    console.log('called settings connect');
+    return { ...state };
 })(ProfileSettingsComponent);
