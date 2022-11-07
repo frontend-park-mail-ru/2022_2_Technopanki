@@ -72,13 +72,13 @@ export const employerProfileService: Service = {
             .POST(
                 SERVER_URLS.USER,
                 JSON.stringify({
-                    id: profileID,
+                    id: parseInt(profileID),
                     user_type: profileType,
                     description: formData.get('description'),
                     image: formData.get('img'),
                     status: formData.get('status'),
                     company_name: formData.get('name'),
-                    phone: formData.get('phone'),
+                    contact_number: formData.get('phone'),
                     email: formData.get('email'),
                     // company_city: formData.get('location'),
                     // company_size: 10000,
