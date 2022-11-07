@@ -21,19 +21,19 @@ export const applicantProfileService: Service = {
     },
 
     updateProfile: async (
-        profileID: string,
+        applicantID: string,
         profileType: string,
         formData: FormData,
     ) => {
         dispatch(startLoading());
         return await network
             .POST(
-                SERVER_URL.USER,
+                SERVER_URLS.USER,
                 JSON.stringify({
-                    id: profileID,
+                    id: applicantID,
                     user_type: profileType,
                     name: formData.get('name'),
-                    surname: form_data.get('surname'),
+                    surname: formData.get('surname'),
                     status: formData.get('status'),
                     dateOfBirth: formData.get('dateOfBirth'),
                     location: formData.get('location'),

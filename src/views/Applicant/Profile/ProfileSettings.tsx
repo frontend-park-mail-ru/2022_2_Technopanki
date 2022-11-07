@@ -23,7 +23,7 @@ import {
     ApplicantProfileType,
     ProfileState,
 } from '../../../store/profile/types';
-import { dispatch, errorsConnect, profileConnect } from '../../../store';
+import { dispatch, errorsConnect, profileConnect, userConnect } from '../../../store';
 import {
     validateEmail,
     validateNameSymbols,
@@ -42,6 +42,9 @@ import Footer from '../../../components/UI-kit/footer/Footer';
 import FileInput from '../../../components/UI-kit/forms/inputs/FileInput';
 import { authService } from '../../../services/authService';
 import { userActions } from '../../../store/user/actions';
+import ButtonRed from '../../../components/UI-kit/buttons/ButtonRed';
+import { profileActions } from '../../../store/profile/actions';
+import FormSection from '../../../components/UI-kit/forms/FormSection';
 
 class AvatarSettingsComponent extends Component<
     { previewSrc: string },
@@ -85,7 +88,7 @@ class AvatarSettingsComponent extends Component<
 
 const AvatarSettings = profileConnect(store => {
     return {
-        previewSrc: state.previewSrc,
+        previewSrc: store.previewSrc,
     };
 })(AvatarSettingsComponent);
 
@@ -205,6 +208,7 @@ class ApplicantSettings extends Component<
                         validator: validatePasswordSymbols,
                         error: false,
                         errorMessage: PASSWORD_SYMBOLS_ERROR,
+                        value: undefined
                     },
                     repeatPassword: {
                         size: 4,
@@ -212,6 +216,7 @@ class ApplicantSettings extends Component<
                         placeholder: '********',
                         label: 'Повторите пароль',
                         name: 'repeatPassword',
+                        value: undefined
                     },
                 },
             },
@@ -243,20 +248,45 @@ class ApplicantSettings extends Component<
             });
         });
 
+        if (
+            this.state.sections[3].fields.password.value !==
+            this.state.sections[3].fields.repeatPassword.value
+        ) {
+            this.state.sections[3].fields.repeatPassword.error = true;
+            isValid = false;
+        }
+
         if (!isValid) {
             this.setState(state => ({ ...state, sections: sections }));
             return;
         }
 
+        const applicantID = location.pathname.split('/').at(-1);
+
         console.log(this.props);
         applicantProfileService
-            .updateProfile(this.props.id, this.props.profileType, formData)
+            .updateProfile(applicantID, this.props.profileType, formData)
             .then(() => {
+                dispatch(
+                    userActions.updateName(formData.get('name') as string, formData.get('surname') as string)
+                );
                 console.log('back');
                 navigator.goBack();
             })
             .catch(err => console.error(err));
     };
+
+    getDataFromServer() {
+        const applicantID = location.pathname.split('/').at(-1);
+        applicantProfileService.getApplicantData(applicantID)
+            .then(body => {
+            dispatch(profileActions.update({ ...body, id: applicantID }));
+        });
+    }
+
+    componentDidMount() {
+        this.getDataFromServer();
+    }
 
     logout = () => {
         authService
@@ -279,83 +309,54 @@ class ApplicantSettings extends Component<
                             name={this.props.name}
                             surname={this.props.surname}
                             status={this.props.status}
-                            submit={''}
+                            submit={() =>
+                                document
+                                    .querySelector('#profile_form')
+                                    .dispatchEvent(new Event('submit'))}
                         />
                     </div>
                     <h3 className={'col-12'}>Настройки профиля</h3>
                     <form
-                        onSubmit={this.submitForm}
+                        onSubmit={this.submitForm.bind(this)}
+                        id={'profile_form'}
                         key={'form'}
                         className={'col-12 col-md-4 column g-24'}
                     >
+                        <div key={'avatar'} className={'w-100'}>
+                            <AvatarSettings key={'avatar'} />
+                        </div>
                         {this.state.sections.map(section => (
-                            <div
-                                className={'columns g-16'}
+                            <FormSection
                                 key={section.header}
-                            >
-                                {section.header.length > 0 ? (
-                                    <h5 key={'header'} className={'col-12'}>
-                                        {section.header}
-                                    </h5>
-                                ) : (
-                                    <h5
-                                        key={'header'}
-                                        className={'col-12 mx-0'}
-                                    >
-                                        {section.header}
-                                    </h5>
-                                )}
-                                {Object.entries(section.fields).map(
-                                    ([id, field]) => (
-                                        <div
-                                            key={id}
-                                            className={`col-12 col-md-${field.size.toString()}`}
-                                        >
-                                            {field.type === 'textarea' ? (
-                                                <Textarea
-                                                    key={id}
-                                                    id={id}
-                                                    placeholder={
-                                                        field.placeholder
-                                                    }
-                                                    value={field.value}
-                                                    label={field.label}
-                                                    name={field.name}
-                                                />
-                                            ) : (
-                                                <Input
-                                                    key={id}
-                                                    id={id}
-                                                    type={field.type}
-                                                    placeholder={
-                                                        field.placeholder
-                                                    }
-                                                    label={field.label}
-                                                    name={field.name}
-                                                    value={field?.value}
-                                                    error={field.error}
-                                                    errorMessage={
-                                                        field.errorMessage
-                                                    }
-                                                />
-                                            )}
-                                        </div>
-                                    ),
-                                )}
-                            </div>
+                                header={section.header}
+                                fields={section.fields}
+                            />
                         ))}
+                        <div>
+                            <ButtonPrimary type={'submit'}>
+                                Сохранить
+                            </ButtonPrimary>
+                        </div>
                     </form>
                 </div>
-                <Button onClick={this.logout}>Выйти</Button>
-                <CancelSaveButtons onCancel={() => navigator.goBack()} />
-                <Footer key={'footer'} />
+                <div className={'flex row g-16 mt-40'}>
+                    <Button>Пропустить</Button>
+                    <ButtonRed key={'logout'} onClick={this.logout}>
+                        Выйти
+                    </ButtonRed>
+                </div>
+                <Footer />
             </div>
         );
     }
 }
 
+const UserWrapper = userConnect((state, props) => {
+    return { userID: state.id, ...props };
+})(ApplicantSettings);
+
 export default profileConnect((state, props) => {
     return {
         ...state,
     };
-})(ApplicantSettings);
+})(UserWrapper);
