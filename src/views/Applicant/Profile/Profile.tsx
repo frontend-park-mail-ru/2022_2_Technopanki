@@ -116,18 +116,19 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
     }
 }
 
-export default applicantConnect((storeState, props) => {
+export default applicantConnect((store, props) => {
+    const storeState = store.getState() as ProfileState;
+
     return {
-        id: props.id ? props.id : storeState.id,
-        name: storeState.name,
-        surname: storeState.surname,
+        id: props.id || storeState.id,
+        name: storeState.applicant_name,
+        surname: storeState.applicant_surname,
         status: storeState.status,
-        phone: storeState.phone,
+        phone: storeState.contact_number,
         email: storeState.email,
-        resumeList: storeState.resumeList,
         sideBar: {
             location: storeState.location,
-            dateOfBirth: storeState.dateOfBirth,
+            dateOfBirth: storeState.date_of_birth,
             skills: storeState.skills,
         },
         socialNetworks: {
@@ -135,5 +136,5 @@ export default applicantConnect((storeState, props) => {
             facebook: storeState.facebook,
             telegram: storeState.telegram,
         },
-    };
+    }
 })(ApplicantProfile);

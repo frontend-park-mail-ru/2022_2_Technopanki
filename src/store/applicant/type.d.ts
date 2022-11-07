@@ -3,14 +3,13 @@ import { ResumeListItemPropsType } from '../../components/UI-kit/resumeList/Resu
 export type ProfileState = {
     id: string;
     imgSrc: string;
-    name: string;
-    surname: string;
+    applicant_name: string;
+    applicant_surname: string;
     status: string;
-    phone: string;
+    contact_number: string;
     email: string;
-    resumeList: ResumeListItemPropsType[];
     location: string;
-    dateOfBirth: string;
+    date_of_birth: string;
     skills: string[];
     vk: string | null | undefined;
     facebook: string | null | undefined;
