@@ -40,6 +40,7 @@ import {
 import {
     EMAIL_ERROR,
     NAME_SYMBOLS_ERROR,
+    PASSWORD_REPEAT_ERROR,
     PASSWORD_SYMBOLS_ERROR,
 } from '../../utils/validation/messages';
 import FormSection from '../../components/UI-kit/forms/FormSection';
@@ -191,6 +192,7 @@ class ProfileSettingsComponent extends Component<
                         validator: validatePasswordSymbols,
                         error: false,
                         errorMessage: PASSWORD_SYMBOLS_ERROR,
+                        value: undefined,
                     },
                     repeatPassword: {
                         size: 4,
@@ -198,6 +200,7 @@ class ProfileSettingsComponent extends Component<
                         placeholder: '********',
                         label: 'Повторите пароль',
                         name: 'repeatPassword',
+                        errorMessage: PASSWORD_REPEAT_ERROR,
                     },
                 },
             },
@@ -212,13 +215,13 @@ class ProfileSettingsComponent extends Component<
         let isValid = true;
 
         formData.forEach((value, key) => {
+            console.log('asdf');
             sections.forEach(section => {
                 if (section.fields[key]) {
                     if (
                         section.fields[key].validator &&
                         !section.fields[key].validator(value) &&
-                        (section.fields[key].required ||
-                            section.fields[key].value)
+                        (section.fields[key].required || value)
                     ) {
                         section.fields[key].error = true;
                         isValid = false;
@@ -230,6 +233,13 @@ class ProfileSettingsComponent extends Component<
                 }
             });
         });
+
+        if (
+            this.state.sections[1].fields.password.value !==
+            this.state.sections[1].fields.repeatPassword.value
+        ) {
+            this.state.sections[1].fields.repeatPassword.error = true;
+        }
 
         if (!isValid) {
             this.setState(state => ({ ...state, sections: sections }));

@@ -81,6 +81,8 @@ export const employerProfileService: Service = {
                     contact_number: formData.get('phone'),
                     email: formData.get('email'),
                     company_size: parseInt(formData.get('size')),
+                    password: formData.get('password'),
+                    // company_city: formData.get('location'),
                     // company_city: formData.get('location'),
                     // company_size: 10000,
                     // field_of_activity: formData
