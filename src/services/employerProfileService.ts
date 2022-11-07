@@ -38,7 +38,7 @@ export const employerProfileService: Service = {
 
         delete options.headers['Content-Type'];
 
-        const response = await fetch(SERVER_URLS.IMAGE + profileID, options);
+        const response = await fetch(SERVER_URLS.IMAGE, options);
 
         return {
             status: response.status,
