@@ -121,15 +121,14 @@ export default applicantConnect((store, props) => {
 
     return {
         id: props.id || storeState.id,
-        name: storeState.name,
-        surname: storeState.surname,
+        name: storeState.applicant_name,
+        surname: storeState.applicant_surname,
         status: storeState.status,
-        phone: storeState.phone,
+        phone: storeState.contact_number,
         email: storeState.email,
-        resumeList: storeState.resumeList,
         sideBar: {
             location: storeState.location,
-            dateOfBirth: storeState.dateOfBirth,
+            dateOfBirth: storeState.date_of_birth,
             skills: storeState.skills,
         },
         socialNetworks: {
