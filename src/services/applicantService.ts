@@ -26,6 +26,7 @@ export const applicantProfileService: Service = {
         formData: FormData,
     ) => {
         dispatch(startLoading());
+        const date = new Date(formData.get('dateOfBirth'))
         return await network
             .POST(
                 SERVER_URLS.USER,
@@ -35,7 +36,7 @@ export const applicantProfileService: Service = {
                     applicant_name: formData.get('name'),
                     applicant_surname: formData.get('surname'),
                     status: formData.get('status'),
-                    date_of_birth: formData.get('dateOfBirth'),
+                    date_of_birth: date.toISOString(),
                     location: formData.get('location'),
                     contact_number: formData.get('phone'),
                     email: formData.get('email'),
