@@ -85,7 +85,7 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                                 icon={MailIcon}
                             />
                             <Link
-                                to={'/resume/settings'}
+                                to={'/resume/new'}
                                 content={
                                     <ButtonPrimary>Создать резюме</ButtonPrimary>
                                 }

@@ -20,7 +20,7 @@ import styles from './profileSettings.module.scss';
 import ApplicantProfile from './Profile';
 import ProfileSettings from '../../Employer/ProfileSettings';
 import {
-    ApplicantProfileType,
+    ApplicantProfileType, EmployerProfile,
     ProfileState,
 } from '../../../store/profile/types';
 import {
@@ -100,6 +100,7 @@ const AvatarSettings = profileConnect(store => {
 class ApplicantSettings extends Component<
     ProfileState,
     {
+        profile: ApplicantProfileType;
         sections: {
             header: string;
             fields: {
@@ -112,7 +113,7 @@ class ApplicantSettings extends Component<
     }
 > {
     state = {
-        profile: this.props,
+        profile: { ...this.props },
         sections: [
             {
                 header: 'О себе',
@@ -240,7 +241,8 @@ class ApplicantSettings extends Component<
                 if (section.fields[key]) {
                     if (
                         section.fields[key].validator &&
-                        !section.fields[key].validator(value)
+                        !section.fields[key].validator(value) &&
+                        (section.fields[key].required || value)
                     ) {
                         section.fields[key].error = true;
                         isValid = false;
@@ -269,7 +271,10 @@ class ApplicantSettings extends Component<
         const applicantID = location.pathname.split('/').at(-1);
 
         applicantProfileService
-            .updateProfile(applicantID, this.props.profileType, formData)
+            .updateProfile(
+                this.state.profile.id,
+                this.state.profile.profileType,
+                formData)
             .then(() => {
                 dispatch(
                     userActions.updateName(

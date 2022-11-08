@@ -26,20 +26,21 @@ export const applicantProfileService: Service = {
         formData: FormData,
     ) => {
         dispatch(startLoading());
+        const date = new Date(formData.get('dateOfBirth'))
         return await network
             .POST(
                 SERVER_URLS.USER,
                 JSON.stringify({
-                    id: applicantID,
+                    id: parseInt(applicantID),
                     user_type: profileType,
-                    name: formData.get('name'),
-                    surname: formData.get('surname'),
+                    applicant_name: formData.get('name'),
+                    applicant_surname: formData.get('surname'),
                     status: formData.get('status'),
-                    dateOfBirth: formData.get('dateOfBirth'),
+                    date_of_birth: date.toISOString(),
                     location: formData.get('location'),
-                    phone: formData.get('phone'),
+                    contact_number: formData.get('phone'),
                     email: formData.get('email'),
-                    company_size: formData.get('size'),
+                    password: formData.get('password'),
                 }),
             )
             .then(response => {

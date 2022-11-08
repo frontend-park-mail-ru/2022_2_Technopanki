@@ -1,6 +1,7 @@
 export type ResumeState = {
     id: string;
     postedByUserID: string;
+    avatarSrc: string;
     title: string;
     description: string;
     university: string;
