@@ -24,7 +24,6 @@ import { setProps } from '../attributes/index';
 import { setContextValue } from '../../reacts/context/context';
 import { Context } from '../../reacts/context/index';
 import { events } from '../attributes/constants';
-import vacancySideBar from '../../../src/components/sidebars/VacancySideBar';
 
 /**
  * Creates DOM node from node and replaces element with this node
@@ -56,6 +55,9 @@ const updateElementAttributes = (
     operation.attrUpdater.remove.forEach(([attr, value]) => {
         if (attr.startsWith('on')) {
             element.removeEventListener(events[attr], value);
+            if (attr === 'onClick') {
+                console.log(operation);
+            }
         } else {
             element.removeAttribute(attr);
         }
@@ -64,9 +66,12 @@ const updateElementAttributes = (
         setProps(element, { [attr]: value });
     });
     operation.attrUpdater.update.forEach(([attr, value]) => {
-        // if (attr.startsWith('on')) {
-        //     element.removeEventListener(events[attr], value);
-        // }
+        if (attr.startsWith('on')) {
+            if (attr === 'onClick') {
+                console.log(attr, value);
+            }
+            element.removeEventListener(events[attr], value);
+        }
         setProps(element, { [attr]: value });
     });
 };

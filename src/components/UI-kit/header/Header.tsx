@@ -38,8 +38,8 @@ export default class Header extends Component {
                         id={'links-group'}
                         className={`flex justify-content-center w-100 g-16 ${styles.items}`}
                     >
-                        {/*TODO переделать на Link в роутере*/}
                         <Link
+                            key={'vacancies'}
                             to={'/vacancies'}
                             content={
                                 <p
@@ -53,6 +53,7 @@ export default class Header extends Component {
                             }
                         />
                         <Link
+                            key={'applicant'}
                             to={'/applicant/1'}
                             content={
                                 <p
@@ -66,6 +67,7 @@ export default class Header extends Component {
                             }
                         />
                         <Link
+                            key={'resume'}
                             to={'/resume/settings'}
                             content={
                                 <p

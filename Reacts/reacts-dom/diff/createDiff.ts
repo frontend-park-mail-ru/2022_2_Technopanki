@@ -61,9 +61,9 @@ const compareAttributes = (
                 ([attr, _]) => newNodeAttrNames.indexOf(attr) === -1,
             );
 
-            return [...deleteItemsFromUpdate, ...removedAttributes];
+            return [...removedAttributes, ...deleteItemsFromUpdate];
         })(),
-        ['update']: update,
+        update,
     };
 };
 

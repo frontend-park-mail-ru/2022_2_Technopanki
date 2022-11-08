@@ -22,18 +22,18 @@ class VacancyResponsesHat extends Component<{
     };
 
     getCreatorDataFromServer = () => {
-        if (this.props.postedByUserID) {
-            vacancyService
-                .getVacancyHatData(this.props.postedByUserID)
-                .then(body => {
-                    this.setState(() => ({
-                        creatorImgSrc: body.creator_img_src,
-                        companyName: body.company_name,
-                        status: body.status,
-                    }));
-                })
-                .catch(err => console.error(err));
-        }
+        // if (this.props.postedByUserID) {
+        //     vacancyService
+        //         .getVacancyHatData(this.props.postedByUserID)
+        //         .then(body => {
+        //             this.setState(() => ({
+        //                 creatorImgSrc: body.creator_img_src,
+        //                 companyName: body.company_name,
+        //                 status: body.status,
+        //             }));
+        //         })
+        //         .catch(err => console.error(err));
+        // }
     };
 
     componentDidMount() {

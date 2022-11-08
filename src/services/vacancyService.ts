@@ -60,7 +60,10 @@ export const vacancyService: Service = {
                 }
                 return response.body;
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                dispatch(stopLoading());
+                console.error(err);
+            });
     },
 
     updateVacancy: async (vacancyID: string, formData: FormData) => {

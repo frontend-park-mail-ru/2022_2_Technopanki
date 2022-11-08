@@ -27,11 +27,8 @@ export default class ResumeList extends Component<
         return (
             <div className={'w-100 g-24 hidden rounded-md border-default'}>
                 <div key={'asd'} className={'columns p-16'}>
-                    <p className={'col-11 col-sm-6 col-md-4'}>Имя</p>
+                    <p className={'col-11 col-md-7'}>Имя</p>
                     <p className={'col-0 col-md-4'}>Время создания резюме</p>
-                    <p className={'col-0 col-sm-5 col-md-3'}>
-                        Профессиональные навыки
-                    </p>
                 </div>
                 <div key={'sdf'} className={'w-100'}>
                     {this.props
@@ -46,7 +43,6 @@ export default class ResumeList extends Component<
                                 surname={resume.surname}
                                 resumeTitle={resume.resumeTitle}
                                 timeWhenCreated={resume.timeWhenCreated}
-                                chips={resume.chips}
                                 resumeSrc={resume.resumeSrc}
                             />
                         ))}
