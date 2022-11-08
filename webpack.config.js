@@ -59,7 +59,7 @@ module.exports = {
         static: './dist',
         hot: true,
         allowedHosts: 'all',
-        port: 8000,
+        port: 8080,
     },
     plugins: [
         new CopyPlugin({

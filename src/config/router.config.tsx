@@ -106,7 +106,7 @@ export const ROUTER_PATHS: { path: PathType; component: VNodeType }[] = [
     {
         path: {
             path: '/resume/settings',
-            validator: (url: string) => url === '/resume/settings',
+            validator: (url: string) => /resume\/settings\/[1-9]+/.test(url),
         },
         component: <ResumeSettings />,
     },

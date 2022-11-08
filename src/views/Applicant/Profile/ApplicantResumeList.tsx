@@ -34,9 +34,7 @@ class ApplicantResumeList extends Component<
             <ResumeList
                 someNewValue={'text'}
                 resume={this.state.responses}
-                test={() => {
-                    return this.state.responses;
-                }}
+                test={(() => this.state.responses).bind(this)}
             />
         );
     }
