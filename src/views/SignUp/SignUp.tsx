@@ -14,22 +14,42 @@ import {
     PASSWORD_SYMBOLS_ERROR,
     SURNAME_LENGTH_ERROR,
     SURNAME_SYMBOLS_ERROR,
-} from '../../services/validation/messages';
+} from '../../utils/validation/messages';
 import {
     validateEmail,
     validateNameLength,
     validateNameSymbols,
     validatePasswordLength,
     validatePasswordSymbols,
-} from '../../services/validation/validation';
-import {
-    setInvalidInput,
-    setValidInput,
-} from '../../services/validation/formValidation';
-import { VNodeType } from '../../../Reacts/shared/common';
+} from '../../utils/validation/validation';
 import navigator from '../../router/navigator';
+import { SignUpService } from '../../services/signUpService';
 
-type SignUpField = {
+export const validateField = (
+    formDataElement: Exclude<FormDataEntryValue, File>,
+    field: AuthField,
+    validate: (data: string) => boolean,
+    errorMessage: string,
+): boolean => {
+    if (formDataElement) {
+        field.value = formDataElement;
+
+        if (validate(formDataElement)) {
+            if (errorMessage === field.errorMessage) {
+                field.error = false;
+                field.errorMessage = '';
+            }
+            return true;
+        }
+        field.error = true;
+        field.errorMessage = errorMessage;
+        return false;
+    }
+
+    return true;
+};
+
+export type AuthField = {
     id: string;
     type: string;
     label: string;
@@ -41,10 +61,10 @@ type SignUpField = {
 };
 
 export default class SignUp extends Component<
-    { children: VNodeType },
+    {},
     {
         inputs: {
-            [key: string]: SignUpField;
+            [key: string]: AuthField;
         };
     }
 > {
@@ -105,39 +125,14 @@ export default class SignUp extends Component<
         toggleType: 'applicant',
     };
 
-    validateField = (
-        formDataElement: Exclude<FormDataEntryValue, File>,
-        field: SignUpField,
-        validate: (data: string) => boolean,
-        errorMessage: string,
-    ): boolean => {
-        if (formDataElement) {
-            field.value = formDataElement;
-
-            if (validate(formDataElement)) {
-                if (errorMessage === field.errorMessage) {
-                    field.error = false;
-                    field.errorMessage = '';
-                }
-                return true;
-            }
-            field.error = true;
-            field.errorMessage = errorMessage;
-            return false;
-        }
-
-        return true;
-    };
-
     onSubmit = async (e: SubmitEvent) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         let validFlag = true;
-
         let newState = this.state;
 
         if (
-            !this.validateField(
+            !validateField(
                 formData.get('email') as Exclude<FormDataEntryValue, File>,
                 newState.inputs['email'],
                 validateEmail,
@@ -147,7 +142,7 @@ export default class SignUp extends Component<
             validFlag = false;
         }
         if (
-            !this.validateField(
+            !validateField(
                 formData.get('password') as Exclude<FormDataEntryValue, File>,
                 newState.inputs['password'],
                 validatePasswordSymbols,
@@ -157,7 +152,7 @@ export default class SignUp extends Component<
             validFlag = false;
         }
         if (
-            !this.validateField(
+            !validateField(
                 formData.get('password') as Exclude<FormDataEntryValue, File>,
                 newState.inputs['password'],
                 validatePasswordLength,
@@ -167,7 +162,7 @@ export default class SignUp extends Component<
             validFlag = false;
         }
         if (
-            !this.validateField(
+            !validateField(
                 formData.get('repeatPassword') as Exclude<
                     FormDataEntryValue,
                     File
@@ -186,7 +181,7 @@ export default class SignUp extends Component<
             validFlag = false;
         }
         if (
-            !this.validateField(
+            !validateField(
                 formData.get('applicant_name') as Exclude<
                     FormDataEntryValue,
                     File
@@ -199,7 +194,7 @@ export default class SignUp extends Component<
             validFlag = false;
         }
         if (
-            !this.validateField(
+            !validateField(
                 formData.get('applicant_name') as Exclude<
                     FormDataEntryValue,
                     File
@@ -212,7 +207,7 @@ export default class SignUp extends Component<
             validFlag = false;
         }
         if (
-            !this.validateField(
+            !validateField(
                 formData.get('applicant_surname') as Exclude<
                     FormDataEntryValue,
                     File
@@ -225,7 +220,7 @@ export default class SignUp extends Component<
             validFlag = false;
         }
         if (
-            !this.validateField(
+            !validateField(
                 formData.get('applicant_surname') as Exclude<
                     FormDataEntryValue,
                     File
@@ -241,25 +236,7 @@ export default class SignUp extends Component<
         this.setState(() => newState);
 
         if (validFlag) {
-            console.log(
-                JSON.stringify({
-                    email: formData.get('email'),
-                    password: formData.get('password'),
-                    applicant_name: formData.get('applicant_name'),
-                    applicant_surname: formData.get('applicant_surname'),
-                    user_type: formData.get('toggle'),
-                }),
-            );
-            fetch('http://localhost:8080/auth/sign-up', {
-                method: 'POST',
-                body: JSON.stringify({
-                    email: formData.get('email'),
-                    password: formData.get('password'),
-                    applicant_name: formData.get('applicant_name'),
-                    applicant_surname: formData.get('applicant_surname'),
-                    user_type: formData.get('toggle'),
-                }),
-            })
+            SignUpService(formData)
                 .then(() => navigator.navigate('/'))
                 .catch(err => console.log(err));
         }
@@ -342,7 +319,7 @@ export default class SignUp extends Component<
                                 key={'toggle2'}
                                 checked={this.state.toggleType === 'employer'}
                                 id={'employer'}
-                                applicant_name={'toggle'}
+                                name={'toggle'}
                                 value={'employer'}
                                 required={true}
                                 onClick={() => {
