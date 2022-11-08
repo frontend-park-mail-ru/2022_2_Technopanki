@@ -148,7 +148,8 @@ class ResumeSettings extends Component<
     }
 }
 
-export default resumeConnect((state, props) => {
-    console.log('called settings connect');
-    return { ...state };
-})(ResumeSettings);
+export default resumeConnect((state, props) => ({
+    id: state.id,
+    postedByUserID: state.postedByUserID,
+    isNew: props.isNew,
+}))(ResumeSettings);

@@ -44,7 +44,7 @@ export const resumeService: Service = {
                     description: formData.get('description'),
                     education_detail: {
                         certificate_degree_name: formData.get('status'),
-                        major: fromData.get('faculty'),
+                        major: formData.get('faculty'),
                         university_name: formData.get('university'),
                         starting_date: startingDate.toISOString(),
                         completion_date: completionDate.toISOString(),
