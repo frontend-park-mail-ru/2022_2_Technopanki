@@ -11,6 +11,8 @@ export const SERVER_URLS = {
     VACANCY: SERVER_URL + 'api/vacancy/',
 
     RESUME: SERVER_URL + 'api/resume/',
+    ADD_RESUME: SERVER_URL + 'api/resume/new',
+
     APPLICANT: SERVER_URL + 'api/user/',
     APPLICANT_RESUMES: SERVER_URL + 'api/applicant/resumes/',
 
