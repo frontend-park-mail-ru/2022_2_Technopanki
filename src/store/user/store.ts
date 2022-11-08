@@ -3,9 +3,9 @@ import { userReducer } from './reducer';
 import { UserState } from './types';
 
 export const userStore = new Store<UserState>(userReducer, {
-    id: '',
-    name: '',
+    id: '3',
+    name: 'Test',
     surname: '',
-    userType: null,
-    authorized: false,
+    userType: 'employer',
+    authorized: true,
 });

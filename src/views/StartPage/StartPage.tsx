@@ -4,9 +4,7 @@ import Header from '../../components/UI-kit/header/Header';
 import ArrowButtonWithText from '../../components/UI-kit/buttons/ArrowButtonWithText';
 import ArrowButtonWithTextOutline from '../../components/UI-kit/buttons/ArrowButtonWithTextOutline';
 import Logo from '../../static/assets/JobflowDefault.svg';
-import img from '../../static/assets/MainPicture.png';
 import Link from '../../components/Link/Link';
-import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 
 export default class StartPage extends Component {
     render() {

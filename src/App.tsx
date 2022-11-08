@@ -43,4 +43,15 @@ authService
         console.error(err);
         router.navigate(location.pathname);
     });
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./js/sw.js').then(() =>
+        navigator.serviceWorker.ready
+            .then(worker => {
+                worker.active;
+            })
+            .catch(err => console.error(err)),
+    );
+}
+
 setTheme();
