@@ -133,14 +133,21 @@ class ResumeSettings extends Component<
                             />
                         ))}
                         <div>
-                            <ButtonPrimary type={'submit'}>
+                            <ButtonPrimary
+                                type={'submit'}
+                                onClick={navigator.goBack}
+                            >
                                 Сохранить
                             </ButtonPrimary>
                         </div>
                     </form>
                 </div>
                 <div className={'flex row g-16 mt-40'}>
-                    <Button>Пропустить</Button>
+                    <Button
+                        onClick={navigator.goBack}
+                    >
+                        Пропустить
+                    </Button>
                 </div>
                 <Footer key={'footer'} />
             </div>

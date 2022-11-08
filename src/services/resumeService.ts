@@ -56,7 +56,7 @@ export const resumeService: Service = {
                         job_title: formData.get('jobTitle'),
                         company_name: formData.get('companyName'),
                         job_location_city: formData.get('location'),
-                        description: formdata.get('description'),
+                        description: formData.get('description'),
                     },
                     applicant_skills: null,
                 })
@@ -97,7 +97,7 @@ export const resumeService: Service = {
                         job_title: formData.get('jobTitle'),
                         company_name: formData.get('companyName'),
                         job_location_city: formData.get('location'),
-                        description: formdata.get('description'),
+                        description: formData.get('description'),
                     },
                     applicant_skills: null,
                 })
