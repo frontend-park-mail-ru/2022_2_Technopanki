@@ -299,6 +299,7 @@ class ProfileSettingsComponent extends Component<
                             name={this.props.name}
                             surname={''}
                             status={this.props.status}
+                            postedByUserID={this.props.id}
                             submit={() =>
                                 document
                                     .querySelector('#profile_form')

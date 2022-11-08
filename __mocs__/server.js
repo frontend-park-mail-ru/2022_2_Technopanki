@@ -66,6 +66,12 @@ app.post('/auth/sign-in', (req, res) => {
     res.json(users.user);
 });
 
+app.post('/api/user/', (req, res) => {
+    users.user.company_name = req.body.company_name;
+    console.log('/api/user');
+    res.json({ status: 'ok' });
+});
+
 app.get('/api/user/safety/:id', (req, res) => {
     console.log(users.user);
 
@@ -78,20 +84,20 @@ app.get('/api/user/safety/:id', (req, res) => {
     }
 });
 
-app.post('/api/user/safety/:id', (req, res) => {
-    console.log(req.body.image);
-
-    if (req.params.id === 2) {
-        users.specialUser = { ...users.specialUser, ...req.body };
-    } else {
-        users.user.company_name = req.body.company_name;
-        users.user.description = req.body.description;
-    }
-
-    console.log(users.user);
-
-    res.json({ status: 'ok' });
-});
+// app.post('/api/user/safety/:id', (req, res) => {
+//     console.log(req.body.image);
+//
+//     if (req.params.id === 2) {
+//         users.specialUser = { ...users.specialUser, ...req.body };
+//     } else {
+//         users.user.company_name = req.body.company_name;
+//         users.user.description = req.body.description;
+//     }
+//
+//     console.log(users.user);
+//
+//     res.json({ status: 'ok' });
+// });
 
 // TODO: поменять путь
 app.get('/api/user/preview/:id', (req, res) => {
@@ -105,12 +111,7 @@ app.get('/api/user/preview/:id', (req, res) => {
     if (req.params.id === '3') {
         res.json(applicantPreview);
     } else {
-        res.json({
-            id: 1,
-            creator_img_src: './',
-            company_name: 'VK',
-            status: 'Место встречи профессионалов',
-        });
+        res.json(users.user);
     }
 });
 
@@ -135,7 +136,7 @@ app.get('/api/user/:id/preview', (req, res) => {
 
 app.get('/api/vacancy/', (req, res) => {
     console.log('api/vacancy');
-    res.json(vacancies);
+    res.json({ data: vacancies });
 });
 
 app.get('/api/vacancy/:id', (req, res) => {

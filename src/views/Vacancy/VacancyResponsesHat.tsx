@@ -46,6 +46,7 @@ class VacancyResponsesHat extends Component<{
                 imgSrc={this.state.imgSrc}
                 name={this.state.companyName}
                 surname={''}
+                linkTo={`/employer/${this.props.postedByUserID}`}
                 status={this.state.status}
                 rightSideContent={
                     <div className={'flex row g-16'}>
