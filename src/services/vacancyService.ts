@@ -79,7 +79,7 @@ export const vacancyService: Service = {
                     experience: formData.get('experience'),
                     hours: formData.get('schedule'),
                     format: formData.get('format'),
-                    createdDate: '',
+                    // createdDate: '',
                     // skills: formData.get('skills').toString().split(','),
                 }),
             )
@@ -110,7 +110,7 @@ export const vacancyService: Service = {
                     experience: formData.get('experience'),
                     hours: formData.get('schedule'),
                     format: formData.get('format'),
-                    createdDate: '',
+                    // createdDate: '',
                     // skills: formData.get('skills').toString().split(','),
                 }),
             )

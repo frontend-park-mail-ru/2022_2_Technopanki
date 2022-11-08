@@ -253,6 +253,7 @@ class VacancySettings extends Component<
         const formData = new FormData(e.target);
 
         if (this.props.isNew) {
+            console.log(this.props.postedByUserID);
             vacancyService
                 .createVacancy(this.props.postedByUserID, formData)
                 .then(body => navigator.navigate('/vacancy/' + body.id));
@@ -267,11 +268,13 @@ class VacancySettings extends Component<
     };
 
     componentDidMount() {
-        const vacancyID = location.pathname.split('/').at(-1);
-        vacancyService
-            .getVacancyData(vacancyID)
-            .then(body => dispatch(vacancyActions.update(body)))
-            .catch(err => console.error(err));
+        if (!this.props.isNew) {
+            const vacancyID = location.pathname.split('/').at(-1);
+            vacancyService
+                .getVacancyData(vacancyID)
+                .then(body => dispatch(vacancyActions.update(body)))
+                .catch(err => console.error(err));
+        }
     }
 
     render() {
@@ -314,7 +317,8 @@ class VacancySettings extends Component<
 
 const UserWrapper = userConnect((state, props) => ({
     id: props.id,
-    postedByUserID: props.postedByUserID ? props.postedByUserID : state.id,
+    postedByUserID:
+        props.postedByUserID !== '' ? props.postedByUserID : state.id,
     isNew: props.isNew,
 }))(VacancySettings);
 
