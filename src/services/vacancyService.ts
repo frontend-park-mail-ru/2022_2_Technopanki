@@ -98,7 +98,7 @@ export const vacancyService: Service = {
             .POST(
                 VACANCY_URLS.VACANCY,
                 JSON.stringify({
-                    postedByUserId: userID,
+                    // postedByUserId: userID,
                     title: formData.get('title'),
                     description: formData.get('description'),
                     tasks: formData.get('tasks'),
