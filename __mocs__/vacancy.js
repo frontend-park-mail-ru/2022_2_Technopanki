@@ -1,6 +1,6 @@
 let defaultVacancy = {
     id: 1,
-    postedByUserID: 1,
+    postedByUserId: 1,
     jobType: 'hello',
     title: 'Фронтенд-разработчик (VK Play)',
     description:
