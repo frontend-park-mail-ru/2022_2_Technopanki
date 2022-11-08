@@ -6,12 +6,13 @@ import Input from '../../components/UI-kit/forms/inputs/Input';
 import CancelSaveButtons from '../../components/CancelSaveButtons/CancelSaveButtons';
 import Textarea from '../../components/UI-kit/forms/inputs/Textarea';
 import Footer from '../../components/UI-kit/footer/Footer';
-import { dispatch, vacancyConnect } from '../../store';
+import { dispatch, userConnect, vacancyConnect } from '../../store';
 import { vacancyService } from '../../services/vacancyService';
 import navigator from '../../router/navigator';
 import dispatcher from '../../../Fluxs/dispatcher';
 import { vacancyActions } from '../../store/vacancy/actions';
 import ChipsInput from '../../components/UI-kit/forms/inputs/ChipsInput';
+import { userActions } from '../../store/user/actions';
 
 class AboutVacancyComponent extends Component<{
     title: string;
@@ -311,8 +312,14 @@ class VacancySettings extends Component<
     }
 }
 
+const UserWrapper = userConnect((state, props) => ({
+    id: props.id,
+    postedByUserID: props.postedByUserID ? props.postedByUserID : state.id,
+    isNew: props.isNew,
+}))(VacancySettings);
+
 export default vacancyConnect((state, props) => ({
     id: state.id,
     postedByUserID: state.postedByUserID,
     isNew: props.isNew,
-}))(VacancySettings);
+}))(UserWrapper);
