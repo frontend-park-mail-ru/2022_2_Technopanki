@@ -180,5 +180,5 @@ export default resumeConnect((state, props) => ({
     id: state.id,
     postedByUserID: state.postedByUserID,
     isNew: props.isNew,
-}))
+}))(UserWrapper)
 
