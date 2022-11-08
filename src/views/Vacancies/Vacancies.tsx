@@ -31,7 +31,7 @@ export default class Vacancies extends Component<
             .then(body => {
                 console.log('body: ', body);
                 this.setState(() => ({
-                    vacancies: [...body],
+                    vacancies: [...body.data],
                 }));
             })
             .catch(err => console.error(err));
