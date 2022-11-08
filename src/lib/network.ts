@@ -1,87 +1,62 @@
+import { requestHeaders } from '../services/headers';
+
+const sendRequest = async (
+    method: string,
+    url: string,
+    payload: string | File | FormData,
+    headers: HeadersInit,
+    credentials: boolean,
+) => {
+    const response = await fetch(url, {
+        method: method,
+        headers: headers,
+        body: method === 'GET' ? undefined : payload,
+        mode: 'cors',
+        credentials: credentials ? 'include' : 'omit',
+    });
+
+    return {
+        status: response.status,
+        body:
+            headers === requestHeaders.jsonHeader
+                ? await response.json().catch(err => {
+                      console.error(err, response);
+                      return {};
+                  })
+                : await response,
+    };
+};
+
 class Network {
-    async GET(url: string, headers: HeadersInit, credentials: boolean = true) {
-        console.info(`GET request. URL: ${url}`);
-
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: headers,
-            credentials: credentials ? 'include' : 'omit',
-        });
-
-        return {
-            status: response.status,
-            body: await response.json().catch(err => {
-                console.error(err);
-                return {};
-            }),
-        };
-    }
-    async POST(
+    async GET(
         url: string,
-        headers: HeadersInit,
-        payload: string,
+        headers: HeadersInit = requestHeaders.jsonHeader,
         credentials: boolean = true,
     ) {
-        console.info(`GET request. URL: ${url}; Payload: ${payload}`);
-
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: headers,
-            body: payload,
-            credentials: credentials ? 'include' : 'omit',
-        });
-
-        return {
-            status: response.status,
-            body: await response.json().catch(err => {
-                console.error(err);
-                return {};
-            }),
-        };
+        return sendRequest('GET', url, '', headers, credentials);
     }
     async PUT(
         url: string,
-        headers: HeadersInit,
-        payload: string,
+        payload: string | File | FormData,
+        headers: HeadersInit = requestHeaders.jsonHeader,
         credentials: boolean = true,
     ) {
-        console.info(`GET request. URL: ${url}; Payload: ${payload}`);
-
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: headers,
-            body: payload,
-            credentials: credentials ? 'include' : 'omit',
-        });
-
-        return {
-            status: response.status,
-            body: await response.json().catch(err => {
-                console.error(err);
-                return {};
-            }),
-        };
+        return sendRequest('PUT', url, payload, headers, credentials);
+    }
+    async POST(
+        url: string,
+        payload: string | File | FormData,
+        headers: HeadersInit = requestHeaders.jsonHeader,
+        credentials: boolean = true,
+    ) {
+        return sendRequest('POST', url, payload, headers, credentials);
     }
     async DELETE(
         url: string,
-        headers: HeadersInit,
+        headers: HeadersInit = requestHeaders.jsonHeader,
         credentials: boolean = true,
     ) {
-        console.info(`GET request. URL: ${url}`);
-
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: headers,
-            credentials: credentials ? 'include' : 'omit',
-        });
-
-        return {
-            status: response.status,
-            body: await response.json().catch(err => {
-                console.error(err);
-                return {};
-            }),
-        };
+        return sendRequest('DELETE', url, '', headers, credentials);
     }
 }
 
