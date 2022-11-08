@@ -36,8 +36,7 @@ export default class Vacancies extends Component<
         vacancyService
             .getAllVacancies()
             .then(body => {
-                console.log('body: ', body);
-                this.setState(state => ({
+                this.setState(() => ({
                     limit: 10,
                     vacancies: [...body.data],
                 }));
@@ -57,7 +56,7 @@ export default class Vacancies extends Component<
                     key={'vacacnies'}
                     className={`flex column g-24 relative screen-responsive ${styles.content}`}
                 >
-                    <ErrorPopup />
+                    <ErrorPopup key={'error'} />
                     <h3 key={'h'} className={'mx-0'}>
                         Поиск
                     </h3>

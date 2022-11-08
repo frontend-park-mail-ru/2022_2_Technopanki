@@ -55,9 +55,6 @@ const updateElementAttributes = (
     operation.attrUpdater.remove.forEach(([attr, value]) => {
         if (attr.startsWith('on')) {
             element.removeEventListener(events[attr], value);
-            if (attr === 'onClick') {
-                console.log(operation);
-            }
         } else {
             element.removeAttribute(attr);
         }
@@ -67,9 +64,6 @@ const updateElementAttributes = (
     });
     operation.attrUpdater.update.forEach(([attr, value]) => {
         if (attr.startsWith('on')) {
-            if (attr === 'onClick') {
-                console.log(attr, value);
-            }
             element.removeEventListener(events[attr], value);
         }
         setProps(element, { [attr]: value });
