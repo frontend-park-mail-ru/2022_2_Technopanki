@@ -33,7 +33,7 @@ export const resumeService: Service = {
     updateResume: async (resumeID: string, formData) => {
         return await network
             .PUT(
-                SERVER_URLS.RESUME,
+                SERVER_URLS.RESUME + resumeID,
                 JSON.stringify({
                     title: formData.get('title'),
                     description: formData.get('description'),
