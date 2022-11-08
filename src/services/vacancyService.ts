@@ -96,7 +96,7 @@ export const vacancyService: Service = {
     createVacancy: async (formData: FormData) => {
         return await network
             .POST(
-                SERVER_URLS.VACANCY_NEW,
+                SERVER_URLS.VACANCY,
                 JSON.stringify({
                     title: formData.get('title'),
                     description: formData.get('description'),
