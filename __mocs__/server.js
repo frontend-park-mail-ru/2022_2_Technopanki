@@ -139,6 +139,17 @@ app.get('/api/vacancy/', (req, res) => {
     res.json({ data: vacancies });
 });
 
+app.post('/api/vacancy/', (req, res) => {
+    vacancies.push({
+        ...defaultVacancy,
+        postedByUserId: req.body.postedByUserId,
+    });
+    console.log(vacancies[vacancies.length - 1]);
+    console.log('/api/vacancy/');
+
+    res.json(defaultVacancy);
+});
+
 app.get('/api/vacancy/:id', (req, res) => {
     console.log('/api/vacancy');
     res.json(defaultVacancy);
@@ -147,6 +158,7 @@ app.get('/api/vacancy/:id', (req, res) => {
 app.post('/api/vacancy/new', (req, res) => {
     vacancies.push(req.body);
     console.log(vacancies[vacancies.length - 1]);
+    console.log('VACANCY_NEW');
 
     res.status(200).send();
 });
