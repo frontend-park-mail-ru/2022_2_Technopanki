@@ -16,7 +16,12 @@ class VacanciesResumeList extends Component<
             vacancyService
                 .getResponses(this.props.vacancyID)
                 .then(body => {
-                    this.setState(state => ({ ...state, responses: body }));
+                    this.setState(state => ({
+                        ...state,
+                        id: body.user_accound_id,
+                        resumeID: body.resume_id,
+                        responses: body,
+                    }));
                 })
                 .catch(err => console.error(err));
         }

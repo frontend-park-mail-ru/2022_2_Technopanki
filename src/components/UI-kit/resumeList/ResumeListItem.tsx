@@ -73,7 +73,7 @@ export default class ResumeListItem extends Component<ResumeListItemPropsType> {
                 <div
                     key={'data'}
                     className={
-                        'col-11 col-sm-6 col-md-4 flex row align-items-center g-16'
+                        'col-11 col-sm-6 col-md-7 flex row align-items-center g-16'
                     }
                 >
                     <img
@@ -101,14 +101,6 @@ export default class ResumeListItem extends Component<ResumeListItemPropsType> {
                     className={'col-0 row align-items-center col-md-4'}
                 >
                     <p></p>
-                </div>
-                <div
-                    key={'chips'}
-                    className={'col-0 row align-items-center col-sm-5 col-md-3'}
-                >
-                    {this.props.skills?.map(item => (
-                        <Chips>{item}</Chips>
-                    ))}
                 </div>
                 <div
                     key={'button'}

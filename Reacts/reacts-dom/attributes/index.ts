@@ -25,6 +25,10 @@ class EventManager {
     removeEventListenersForEvent(eventName: string) {
         this.events.delete(eventName);
     }
+
+    clearMap() {
+        this.events.clear();
+    }
 }
 
 EventTarget.prototype.__REACTS__event_manager = new EventManager();

@@ -17,7 +17,6 @@ class VacancyResponses extends Component<{
     vacancyID: string;
 }> {
     componentDidMount() {
-        console.log('did mount');
         vacancyService
             .getVacancyData(location.pathname.split('/').at(-1) as string)
             .then(body => {
