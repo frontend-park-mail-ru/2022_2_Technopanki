@@ -16,12 +16,12 @@
   outline: none;
   font-size: 14px;
   color: var(--background-900);
+  pointer-events: none;
   &::placeholder {
     font-size: var(--input-font-size);
   }
-  &:focus {
-    outline: var(--border-blue);
-    outline-width: 2px;
+  &:hover {
+    cursor: not-allowed;
   }
 }
 
