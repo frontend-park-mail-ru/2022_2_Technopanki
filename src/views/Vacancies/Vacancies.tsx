@@ -5,6 +5,8 @@ import SearchInput from '../../components/UI-kit/forms/inputs/SearchInput';
 import Footer from '../../components/UI-kit/footer/Footer';
 import VacancyCard from '../../components/UI-kit/vacancy/VacancyCard';
 import { vacancyService } from '../../services/vacancyService';
+import Button from '../../components/UI-kit/buttons/Button';
+import RenderWithCondition from '../../components/RenderWithCondition';
 
 export default class Vacancies extends Component<
     {},
@@ -19,10 +21,12 @@ export default class Vacancies extends Component<
             format: string;
             hours: string;
         }[];
+        limit: number;
     }
 > {
     state = {
         vacancies: [],
+        limit: 10,
     };
 
     componentDidMount() {
@@ -30,12 +34,17 @@ export default class Vacancies extends Component<
             .getAllVacancies()
             .then(body => {
                 console.log('body: ', body);
-                this.setState(() => ({
+                this.setState(state => ({
+                    ...state,
                     vacancies: [...body.data],
                 }));
             })
             .catch(err => console.error(err));
     }
+
+    increaseLimit = () => {
+        this.setState(state => ({ ...state, limit: state.limit + 10 }));
+    };
 
     render() {
         return (
@@ -49,20 +58,34 @@ export default class Vacancies extends Component<
                         Поиск
                     </h3>
                     <SearchInput key={'search'} />
-                    {this.state.vacancies.map(vacancy => (
-                        <VacancyCard
-                            key={vacancy.id.toString()}
-                            id={vacancy.id.toString()}
-                            name={vacancy.title}
-                            icon={vacancy.img}
-                            salary={vacancy.salary}
-                            currency={vacancy.currency}
-                            location={vacancy.location}
-                            format={vacancy.format}
-                            hours={vacancy.hours}
-                            description={vacancy.description}
+                    {this.state.vacancies
+                        ?.slice(0, this.state.limit)
+                        .map(vacancy => (
+                            <VacancyCard
+                                key={vacancy.id.toString()}
+                                id={vacancy.id.toString()}
+                                name={vacancy.title}
+                                icon={vacancy.img}
+                                salary={vacancy.salary}
+                                currency={vacancy.currency}
+                                location={vacancy.location}
+                                format={vacancy.format}
+                                hours={vacancy.hours}
+                                description={vacancy.description}
+                            />
+                        ))}
+                    <div className={'w-100'}>
+                        <RenderWithCondition
+                            condition={
+                                this.state.limit < this.state.vacancies.length
+                            }
+                            onSuccess={
+                                <Button onClick={this.increaseLimit}>
+                                    Посмотреть еще
+                                </Button>
+                            }
                         />
-                    ))}
+                    </div>
                 </div>
                 <div className={'screen-responsive'}>
                     <Footer key={'footer'} />
