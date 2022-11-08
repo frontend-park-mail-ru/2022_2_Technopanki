@@ -111,121 +111,121 @@ class Skills extends Component<
         );
     }
 }
-
-class AdditionalInformationComponent extends Component<{
-    location: string;
-    schedule: string;
-    format: string;
-    skills: string[];
-}> {
-    render() {
-        return (
-            <div className={'columns g-24'}>
-                <div className={'col-12 col-md-4'}>
-                    <Input
-                        id={'location'}
-                        type={'text'}
-                        placeholder={'Москва'}
-                        label={'Город работы'}
-                        name={'location'}
-                        value={this.props.location}
-                    />
-                </div>
-                <div className={'col-12 col-md-4'}>
-                    <Input
-                        id={'schedule'}
-                        type={'text'}
-                        placeholder={'40 часов в неделю'}
-                        label={'График работы'}
-                        name={'schedule'}
-                        value={this.props.schedule}
-                    />
-                </div>
-                <div className={'col-12 col-md-4'}>
-                    <Input
-                        id={'format'}
-                        type={'text'}
-                        placeholder={'Смешанный формат'}
-                        label={'Формат работы'}
-                        name={'format'}
-                        value={this.props.format}
-                    />
-                </div>
-                <div className={'col-12'}>
-                    <Skills skills={this.props.skills} />
-                </div>
-            </div>
-        );
-    }
-}
-
-const AdditionalInformation = vacancyConnect(state => {
-    return {
-        location: state.location,
-        schedule: state.hours,
-        format: state.format,
-        skills: state.skills,
-    };
-})(AdditionalInformationComponent);
-
-class VacancyDescriptionComponent extends Component<{
-    description: string;
-    tasks: string;
-    requirements: string;
-    extra: string;
-}> {
-    render() {
-        return (
-            <div className={'columns g-24'}>
-                <div className={'col-12'}>
-                    <Textarea
-                        id={'description'}
-                        label={'Описание вакансии'}
-                        name={'description'}
-                        placeholder={'Описание вакансии'}
-                        value={this.props.description}
-                    />
-                </div>
-                <div className={'col-12'}>
-                    <Textarea
-                        id={'tasks'}
-                        label={'Задачи'}
-                        name={'tasks'}
-                        placeholder={'Задачи'}
-                        value={this.props.tasks}
-                    />
-                </div>
-                <div className={'col-12'}>
-                    <Textarea
-                        id={'requirements'}
-                        label={'Требования'}
-                        name={'requirements'}
-                        placeholder={'Требования'}
-                        value={this.props.requirements}
-                    />
-                </div>
-                <div className={'col-12'}>
-                    <Textarea
-                        id={'extra'}
-                        label={'Будет плюсом'}
-                        name={'extra'}
-                        placeholder={'Будет плюсом'}
-                        value={this.props.extra}
-                    />
-                </div>
-            </div>
-        );
-    }
-}
-
-const VacancyDescription = vacancyConnect(state => {
-    return {
-        description: state.description,
-        tasks: state.tasks,
-        requirements: state.requirements,
-        extra: state.extra,
-    };
-})(VacancyDescriptionComponent);
+//
+// class AdditionalInformationComponent extends Component<{
+//     location: string;
+//     schedule: string;
+//     format: string;
+//     skills: string[];
+// }> {
+//     render() {
+//         return (
+//             <div className={'columns g-24'}>
+//                 <div className={'col-12 col-md-4'}>
+//                     <Input
+//                         id={'location'}
+//                         type={'text'}
+//                         placeholder={'Москва'}
+//                         label={'Город работы'}
+//                         name={'location'}
+//                         value={this.props.location}
+//                     />
+//                 </div>
+//                 <div className={'col-12 col-md-4'}>
+//                     <Input
+//                         id={'schedule'}
+//                         type={'text'}
+//                         placeholder={'40 часов в неделю'}
+//                         label={'График работы'}
+//                         name={'schedule'}
+//                         value={this.props.schedule}
+//                     />
+//                 </div>
+//                 <div className={'col-12 col-md-4'}>
+//                     <Input
+//                         id={'format'}
+//                         type={'text'}
+//                         placeholder={'Смешанный формат'}
+//                         label={'Формат работы'}
+//                         name={'format'}
+//                         value={this.props.format}
+//                     />
+//                 </div>
+//                 <div className={'col-12'}>
+//                     <Skills skills={this.props.skills} />
+//                 </div>
+//             </div>
+//         );
+//     }
+// }
+//
+// const AdditionalInformation = vacancyConnect(state => {
+//     return {
+//         location: state.location,
+//         schedule: state.hours,
+//         format: state.format,
+//         skills: state.skills,
+//     };
+// })(AdditionalInformationComponent);
+//
+// class VacancyDescriptionComponent extends Component<{
+//     description: string;
+//     tasks: string;
+//     requirements: string;
+//     extra: string;
+// }> {
+//     render() {
+//         return (
+//             <div className={'columns g-24'}>
+//                 <div className={'col-12'}>
+//                     <Textarea
+//                         id={'description'}
+//                         label={'Описание вакансии'}
+//                         name={'description'}
+//                         placeholder={'Описание вакансии'}
+//                         value={this.props.description}
+//                     />
+//                 </div>
+//                 <div className={'col-12'}>
+//                     <Textarea
+//                         id={'tasks'}
+//                         label={'Задачи'}
+//                         name={'tasks'}
+//                         placeholder={'Задачи'}
+//                         value={this.props.tasks}
+//                     />
+//                 </div>
+//                 <div className={'col-12'}>
+//                     <Textarea
+//                         id={'requirements'}
+//                         label={'Требования'}
+//                         name={'requirements'}
+//                         placeholder={'Требования'}
+//                         value={this.props.requirements}
+//                     />
+//                 </div>
+//                 <div className={'col-12'}>
+//                     <Textarea
+//                         id={'extra'}
+//                         label={'Будет плюсом'}
+//                         name={'extra'}
+//                         placeholder={'Будет плюсом'}
+//                         value={this.props.extra}
+//                     />
+//                 </div>
+//             </div>
+//         );
+//     }
+// }
+//
+// const VacancyDescription = vacancyConnect(state => {
+//     return {
+//         description: state.description,
+//         tasks: state.tasks,
+//         requirements: state.requirements,
+//         extra: state.extra,
+//     };
+// })(VacancyDescriptionComponent);
 
 class VacancySettings extends Component<
     { id: string; postedByUserID: string; isNew?: boolean },
@@ -236,14 +236,6 @@ class VacancySettings extends Component<
             {
                 header: 'О вакансии',
                 content: <AboutVacancy />,
-            },
-            {
-                header: 'Дополнительная информация',
-                content: <AdditionalInformation />,
-            },
-            {
-                header: 'Описание вакансии',
-                content: <VacancyDescription />,
             },
         ],
     };
