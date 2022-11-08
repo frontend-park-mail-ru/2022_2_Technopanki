@@ -17,7 +17,7 @@ import ButtonPrimary from '../../../components/UI-kit/buttons/ButtonPrimary';
 import Button from '../../../components/UI-kit/buttons/Button';
 import ButtonRed from '../../../components/UI-kit/buttons/ButtonRed';
 import Footer from '../../../components/UI-kit/footer/Footer';
-import { dispatch, resumeConnect } from '../../../store';
+import { dispatch, resumeConnect, userConnect } from '../../../store';
 import { vacancyActions } from '../../../store/vacancy/actions';
 
 class ResumeSettings extends Component<
@@ -169,8 +169,16 @@ class ResumeSettings extends Component<
     }
 }
 
+const UserWrapper =  userConnect((state, props) => ({
+    id: state.id,
+    postedByUserID:
+        props.postedByUserID !== '' ? props.postedByUserID : state.id,
+    isNew: props.isNew,
+}))(ResumeSettings);
+
 export default resumeConnect((state, props) => ({
     id: state.id,
     postedByUserID: state.postedByUserID,
     isNew: props.isNew,
-}))(ResumeSettings);
+}))
+
