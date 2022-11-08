@@ -31,11 +31,6 @@ export const resumeService: Service = {
     },
 
     updateResume: async (resumeID: string, formData) => {
-        const startingDate = new Date(formData.get('startingDate'));
-        const completionDate = new Date(formData.get('completionDate'));
-
-        const startWorkDate = new Date(formData.get('startWorkDate'));
-        const endWorkDate = new Date(formData.get('endWorkDate'));
         return await network
             .PUT(
                 SERVER_URLS.RESUME,
@@ -46,13 +41,9 @@ export const resumeService: Service = {
                         certificate_degree_name: formData.get('status'),
                         major: formData.get('faculty'),
                         university_name: formData.get('university'),
-                        starting_date: startingDate.toISOString(),
-                        completion_date: completionDate.toISOString(),
                     },
                     experience_detail: {
                         is_current_job: formData.get('currentJob'),
-                        start_date: startWorkDate.toISOString(),
-                        end_date: endWorkDate.toISOString(),
                         job_title: formData.get('jobTitle'),
                         company_name: formData.get('companyName'),
                         job_location_city: formData.get('location'),
@@ -71,12 +62,7 @@ export const resumeService: Service = {
             });
     },
 
-    addResume: async (formData: FormData) => {
-        const startingDate = new Date(formData.get('startingDate'));
-        const completionDate = new Date(formData.get('completionDate'));
-
-        const startWorkDate = new Date(formData.get('startWorkDate'));
-        const endWorkDate = new Date(formData.get('endWorkDate'));
+    addResume: async (userID: string, formData: FormData) => {
         return await network
             .POST(
                 SERVER_URLS.RESUME,
@@ -87,13 +73,9 @@ export const resumeService: Service = {
                         certificate_degree_name: formData.get('satus'),
                         major: formData.get('faculty'),
                         university_name: formData.get('university'),
-                        starting_date: startingDate.toISOString(),
-                        completion_date: completionDate.toISOString(),
                     },
                     experience_detail: {
                         is_current_job: formData.get('currentJob'),
-                        start_date: startWorkDate.toISOString(),
-                        end_date: endWorkDate.toISOString(),
                         job_title: formData.get('jobTitle'),
                         company_name: formData.get('companyName'),
                         job_location_city: formData.get('location'),

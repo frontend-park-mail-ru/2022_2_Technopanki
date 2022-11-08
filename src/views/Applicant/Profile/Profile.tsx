@@ -18,6 +18,7 @@ import { applicantActions } from '../../../store/applicant/actions';
 import { ProfileState } from '../../../store/applicant/type';
 import ApplicantResumeList from './ApplicantResumeList';
 import Footer from '../../../components/UI-kit/footer/Footer';
+import { resumeActions } from '../../../store/resume/actions';
 
 type ApplicantPropsType = {
     id: string;
@@ -87,6 +88,9 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                             />
                             <Link
                                 to={'/resume/new'}
+                                onClick={() =>
+                                    dispatch(resumeActions.clear())
+                                }
                                 content={
                                     <ButtonPrimary>Создать резюме</ButtonPrimary>
                                 }
@@ -101,7 +105,7 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                 />
                 <div className={'columns g-24'}>
                     <div className={'col-12 col-md-9 column g-16'}>
-                        {/*<ApplicantResumeList />*/}
+                        <ApplicantResumeList />
                     </div>
                     <div className={'col-12 col-md-3'}>
                         <ResumeSidebar

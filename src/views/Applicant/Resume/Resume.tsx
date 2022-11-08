@@ -82,7 +82,8 @@ class Resume extends Component<ResumePropsType> {
     }
 }
 
-export default resumeConnect((storeState, props) => {
+export default resumeConnect((state, props) => {
+    const storeState = state as ResumeState;
     return {
         id: props.id ? props.id : storeState.id,
         postedByUserID: storeState.postedByUserID,

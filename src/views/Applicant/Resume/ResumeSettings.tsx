@@ -17,7 +17,8 @@ import ButtonPrimary from '../../../components/UI-kit/buttons/ButtonPrimary';
 import Button from '../../../components/UI-kit/buttons/Button';
 import ButtonRed from '../../../components/UI-kit/buttons/ButtonRed';
 import Footer from '../../../components/UI-kit/footer/Footer';
-import { resumeConnect } from '../../../store';
+import { dispatch, resumeConnect } from '../../../store';
+import { vacancyActions } from '../../../store/vacancy/actions';
 
 class ResumeSettings extends Component<
     ResumeState & { isNew: boolean },
@@ -92,7 +93,7 @@ class ResumeSettings extends Component<
 
         if (this.props.isNew) {
             resumeService
-                .addResume(formData)
+                .addResume(this.props.postedByUserID, formData)
                 .then(body => navigator.navigate('/resume/' + body.id));
         } else {
             resumeService
@@ -103,6 +104,16 @@ class ResumeSettings extends Component<
                 .catch(err => console.error(err))
         }
     };
+
+    componentDidMount() {
+        if (!this.props.isNew) {
+            const resumeID = location.pathname.split('/').at(-1);
+            resumeService
+                .getResumeData(resumeID)
+                .then(body => dispatch(vacancyActions.update(body)))
+                .catch(err => console.error(err));
+        }
+    }
 
     render() {
         return (
@@ -139,7 +150,6 @@ class ResumeSettings extends Component<
                         <div>
                             <ButtonPrimary
                                 type={'submit'}
-                                onClick={navigator.goBack}
                             >
                                 Сохранить
                             </ButtonPrimary>
