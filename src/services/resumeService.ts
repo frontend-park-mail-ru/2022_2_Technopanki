@@ -38,7 +38,7 @@ export const resumeService: Service = {
         const endWorkDate = new Date(formData.get('endWorkDate'));
         return await network
             .PUT(
-                SERVER_URLS.ADD_RESUME,
+                SERVER_URLS.RESUME,
                 JSON.stringify({
                     title: formData.get('title'),
                     description: formData.get('description'),
@@ -79,7 +79,7 @@ export const resumeService: Service = {
         const endWorkDate = new Date(formData.get('endWorkDate'));
         return await network
             .POST(
-                SERVER_URLS.ADD_RESUME,
+                SERVER_URLS.RESUME,
                 JSON.stringify({
                     title: formData.get('title'),
                     description: formData.get('description'),
