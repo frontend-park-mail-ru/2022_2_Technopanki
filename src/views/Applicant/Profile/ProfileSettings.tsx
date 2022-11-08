@@ -236,7 +236,8 @@ class ApplicantSettings extends Component<
                 if (section.fields[key]) {
                     if (
                         section.fields[key].validator &&
-                        !section.fields[key].validator(value)
+                        !section.fields[key].validator(value) &&
+                        (section.fields[key].required || value)
                     ) {
                         section.fields[key].error = true;
                         isValid = false;
