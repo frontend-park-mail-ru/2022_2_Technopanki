@@ -15,5 +15,4 @@ export type ResumeState = {
     vk: string | null | undefined;
     facebook: string | null | undefined;
     telegram: string | null | undefined;
-    isNew: boolean;
 }

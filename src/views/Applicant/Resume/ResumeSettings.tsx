@@ -1,6 +1,6 @@
 import { Component } from '../../../../Reacts';
 import Form, { FormSectionType } from '../../../components/UI-kit/forms/Form';
-import { AvatarSettings, Password, SocialNetworks } from '../../Employer/Profile/ProfileSettings';
+// import { AvatarSettings, Password, SocialNetworks } from '../../Employer/Profile/ProfileSettings';
 import Header from '../../../components/UI-kit/header/Header';
 import SettingsHat from '../../../components/hats/SettingsHat';
 import CancelSaveButtons from '../../../components/CancelSaveButtons/CancelSaveButtons';
@@ -20,7 +20,7 @@ import Footer from '../../../components/UI-kit/footer/Footer';
 import { resumeConnect } from '../../../store';
 
 class ResumeSettings extends Component<
-    ResumeState,
+    ResumeState & { isNew: boolean },
     {
         sections: {
             fields: {
@@ -123,9 +123,9 @@ class ResumeSettings extends Component<
                         onSubmit={this.submitForm.bind(this)}
                         className={'col-12 col-md-9 column g-24'}
                     >
-                        <div key={'avatar'} className={'w-100'}>
-                            <AvatarSettings key={'avatar'} />
-                        </div>
+                        {/*<div key={'avatar'} className={'w-100'}>*/}
+                        {/*    <AvatarSettings key={'avatar'} />*/}
+                        {/*</div>*/}
                         {this.state.sections.map(section => (
                             <FormSection
                                 key={'resume_form'}
