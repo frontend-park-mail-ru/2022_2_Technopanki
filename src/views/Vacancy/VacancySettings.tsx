@@ -116,7 +116,6 @@ class AdditionalInformationComponent extends Component<{
     location: string;
     schedule: string;
     format: string;
-    skills: string[];
 }> {
     render() {
         return (
@@ -151,9 +150,6 @@ class AdditionalInformationComponent extends Component<{
                         value={this.props.format}
                     />
                 </div>
-                <div className={'col-12'}>
-                    <Skills skills={this.props.skills} />
-                </div>
             </div>
         );
     }
@@ -164,7 +160,6 @@ const AdditionalInformation = vacancyConnect(state => {
         location: state.location,
         schedule: state.hours,
         format: state.format,
-        skills: state.skills,
     };
 })(AdditionalInformationComponent);
 
