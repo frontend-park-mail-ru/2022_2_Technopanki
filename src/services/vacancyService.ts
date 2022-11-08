@@ -1,5 +1,5 @@
 import network from '../lib/network';
-import { SERVER_URLS } from '../utils/constants';
+import { PROFILE_URLS, SERVER_URLS, VACANCY_URLS } from '../utils/constants';
 import { Service } from './types';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
@@ -9,7 +9,7 @@ export const vacancyService: Service = {
     getAllVacancies: async () => {
         dispatch(startLoading());
         return await network
-            .GET(SERVER_URLS.VACANCIES, requestHeaders.jsonHeader)
+            .GET(VACANCY_URLS.VACANCIES, requestHeaders.jsonHeader)
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
@@ -23,7 +23,7 @@ export const vacancyService: Service = {
     getVacancyData: async (vacancyID: string) => {
         dispatch(startLoading());
         return await network
-            .GET(SERVER_URLS.VACANCY + vacancyID, requestHeaders.jsonHeader)
+            .GET(VACANCY_URLS.VACANCY + vacancyID, requestHeaders.jsonHeader)
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
@@ -37,7 +37,7 @@ export const vacancyService: Service = {
     getVacancyHatData: async (userID: string) => {
         dispatch(startLoading());
         return await network
-            .GET(SERVER_URLS.USER_PREVIEW(userID), requestHeaders.jsonHeader)
+            .GET(PROFILE_URLS.USER_PREVIEW(userID), requestHeaders.jsonHeader)
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
@@ -52,7 +52,7 @@ export const vacancyService: Service = {
     getResponses: async (vacancyID: string) => {
         dispatch(startLoading());
         return await network
-            .GET(SERVER_URLS.VACANCY_RESPONSES + vacancyID)
+            .GET(VACANCY_URLS.VACANCY_RESPONSES + vacancyID)
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
@@ -67,7 +67,7 @@ export const vacancyService: Service = {
         dispatch(startLoading());
         return await network
             .PUT(
-                SERVER_URLS.VACANCY + vacancyID,
+                VACANCY_URLS.VACANCY + vacancyID,
                 JSON.stringify({
                     title: formData.get('title'),
                     description: formData.get('description'),
@@ -96,7 +96,7 @@ export const vacancyService: Service = {
     createVacancy: async (userID: string, formData: FormData) => {
         return await network
             .POST(
-                SERVER_URLS.VACANCY,
+                VACANCY_URLS.VACANCY,
                 JSON.stringify({
                     postedByUserId: userID,
                     title: formData.get('title'),

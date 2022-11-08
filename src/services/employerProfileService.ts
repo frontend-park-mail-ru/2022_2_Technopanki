@@ -1,5 +1,5 @@
 import network from '../lib/network';
-import { SERVER_URL, SERVER_URLS } from '../utils/constants';
+import { PROFILE_URLS, SERVER_URL, SERVER_URLS } from '../utils/constants';
 import { Service } from './types';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
@@ -9,7 +9,7 @@ export const employerProfileService: Service = {
     getProfileData: async (profileID: string) => {
         dispatch(startLoading());
         return await network
-            .GET(SERVER_URLS.USER_SAFE + profileID, requestHeaders.jsonHeader)
+            .GET(PROFILE_URLS.USER_SAFE + profileID, requestHeaders.jsonHeader)
             .then(response => {
                 if (response.status > 399) {
                     throw response.status;
@@ -70,7 +70,7 @@ export const employerProfileService: Service = {
         dispatch(startLoading());
         return await network
             .POST(
-                SERVER_URLS.USER,
+                PROFILE_URLS.USER,
                 JSON.stringify({
                     id: parseInt(profileID),
                     user_type: profileType,

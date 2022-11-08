@@ -1,6 +1,6 @@
 import { Service } from './types';
 import network from '../lib/network';
-import { SERVER_URLS } from '../utils/constants';
+import { SERVER_URLS, USER_URLS } from '../utils/constants';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
 import { requestHeaders } from './headers';
@@ -10,7 +10,7 @@ export const authService: Service = {
         dispatch(startLoading());
         return await network
             .POST(
-                SERVER_URLS.SIGN_IN,
+                USER_URLS.SIGN_IN,
                 JSON.stringify({
                     email: formData.get('email'),
                     password: formData.get('password'),
@@ -29,7 +29,7 @@ export const authService: Service = {
         dispatch(startLoading());
         return await network
             .POST(
-                SERVER_URLS.SIGN_UP,
+                USER_URLS.SIGN_UP,
                 JSON.stringify({
                     email: formData.get('email'),
                     password: formData.get('password'),
@@ -53,7 +53,7 @@ export const authService: Service = {
     auth: async () => {
         dispatch(startLoading());
         return network
-            .GET(SERVER_URLS.AUTH, requestHeaders.jsonHeader)
+            .GET(USER_URLS.AUTH, requestHeaders.jsonHeader)
             .then(response => {
                 dispatch(stopLoading());
 
@@ -73,7 +73,7 @@ export const authService: Service = {
         dispatch(startLoading());
 
         return network
-            .GET(SERVER_URLS.LOGOUT, [])
+            .GET(USER_URLS.LOGOUT, [])
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {

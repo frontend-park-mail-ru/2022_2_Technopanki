@@ -38,7 +38,7 @@ export default class ProfileVacancies extends Component<
     render() {
         return (
             <div className={'flex column g-16'}>
-                {this.state.vacancies.map(vacancy => (
+                {this.state.vacancies?.map(vacancy => (
                     <VacancyCard
                         key={vacancy.id.toString()}
                         id={vacancy.id.toString()}
