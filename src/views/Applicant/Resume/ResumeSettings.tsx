@@ -43,7 +43,7 @@ class ResumeSettings extends Component<
                         label: 'Название резюме',
                         name: 'title',
                         required: true,
-                        value: this.props.titleб
+                        value: this.props.title,
                     },
                     description: {
                         size: 8,
@@ -72,7 +72,7 @@ class ResumeSettings extends Component<
                     status: {
                         size: 4,
                         type: 'text',
-                        placeholder: 'Статсу',
+                        placeholder: 'Статус',
                         name: 'status',
                         required: false,
                         value: this.props.status,
@@ -148,7 +148,8 @@ class ResumeSettings extends Component<
     }
 }
 
-export default resumeConnect((state, props) => {
-    console.log('called settings connect');
-    return { ...state };
-})(ResumeSettings);
+export default resumeConnect((state, props) => ({
+    id: state.id,
+    postedByUserID: state.postedByUserID,
+    isNew: props.isNew,
+}))(ResumeSettings);
