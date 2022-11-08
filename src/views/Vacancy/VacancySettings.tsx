@@ -6,9 +6,11 @@ import Input from '../../components/UI-kit/forms/inputs/Input';
 import CancelSaveButtons from '../../components/CancelSaveButtons/CancelSaveButtons';
 import Textarea from '../../components/UI-kit/forms/inputs/Textarea';
 import Footer from '../../components/UI-kit/footer/Footer';
-import { vacancyConnect } from '../../store';
+import { dispatch, vacancyConnect } from '../../store';
 import { vacancyService } from '../../services/vacancyService';
 import navigator from '../../router/navigator';
+import dispatcher from '../../../Fluxs/dispatcher';
+import { vacancyActions } from '../../store/vacancy/actions';
 
 class AboutVacancyComponent extends Component<{
     title: string;
@@ -258,6 +260,14 @@ class VacancySettings extends Component<
                 .catch(err => console.error(err));
         }
     };
+
+    componentDidMount() {
+        const vacancyID = location.pathname.split('/').at(-1);
+        vacancyService
+            .getVacancyData(vacancyID)
+            .then(body => dispatch(vacancyActions.update(body)))
+            .catch(err => console.error(err));
+    }
 
     render() {
         return (
