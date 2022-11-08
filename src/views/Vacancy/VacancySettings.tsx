@@ -11,6 +11,7 @@ import { vacancyService } from '../../services/vacancyService';
 import navigator from '../../router/navigator';
 import dispatcher from '../../../Fluxs/dispatcher';
 import { vacancyActions } from '../../store/vacancy/actions';
+import ChipsInput from '../../components/UI-kit/forms/inputs/ChipsInput';
 
 class AboutVacancyComponent extends Component<{
     title: string;
@@ -63,52 +64,52 @@ const AboutVacancy = vacancyConnect((state, props) => {
     };
 })(AboutVacancyComponent);
 
-// class Skills extends Component<
-//     { skills: string[] },
-//     {
-//         skills: string[];
-//     }
-// > {
-//     state = {
-//         skills: this.props.skills,
-//     };
-//
-//     deleteItem = (index: number) => {
-//         this.setState(state => ({
-//             ...state,
-//             skills: [
-//                 ...state.skills.slice(0, index),
-//                 ...state.skills.slice(index + 1),
-//             ],
-//         }));
-//     };
-//
-//     addItem = (value: string) => {
-//         this.setState(state => ({
-//             ...state,
-//             skills: [...state.skills, value],
-//         }));
-//     };
-//
-//     render() {
-//         return (
-//             <div>
-//                 <input
-//                     className={'none'}
-//                     name={'skills'}
-//                     value={this.state.skills}
-//                 />
-//                 <ChipsInput
-//                     id={'skillsChips'}
-//                     label={'Область деятельности'}
-//                     items={this.state.skills}
-//                     deleteItem={this.deleteItem.bind(this)}
-//                     addItem={this.addItem.bind(this)}
-//                 />
-//             </div>
-//         );
-//     }
-// }
+class Skills extends Component<
+    { skills: string[] },
+    {
+        skills: string[];
+    }
+> {
+    state = {
+        skills: this.props.skills,
+    };
+
+    deleteItem = (index: number) => {
+        this.setState(state => ({
+            ...state,
+            skills: [
+                ...state.skills.slice(0, index),
+                ...state.skills.slice(index + 1),
+            ],
+        }));
+    };
+
+    addItem = (value: string) => {
+        this.setState(state => ({
+            ...state,
+            skills: [...state.skills, value],
+        }));
+    };
+
+    render() {
+        return (
+            <div>
+                <input
+                    className={'none'}
+                    name={'skills'}
+                    value={this.state.skills}
+                />
+                <ChipsInput
+                    id={'skillsChips'}
+                    label={'Область деятельности'}
+                    items={this.state.skills}
+                    deleteItem={this.deleteItem.bind(this)}
+                    addItem={this.addItem.bind(this)}
+                />
+            </div>
+        );
+    }
+}
 
 class AdditionalInformationComponent extends Component<{
     location: string;
@@ -148,6 +149,9 @@ class AdditionalInformationComponent extends Component<{
                         name={'format'}
                         value={this.props.format}
                     />
+                </div>
+                <div className={'col-12'}>
+                    <Skills skills={this.props.skills} />
                 </div>
             </div>
         );

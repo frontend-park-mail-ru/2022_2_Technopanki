@@ -109,7 +109,7 @@ export const vacancyService: Service = {
                     hours: formData.get('schedule'),
                     format: formData.get('format'),
                     createdDate: '',
-                    skills: formData.get('skills').toString().split(','),
+                    // skills: formData.get('skills').toString().split(','),
                 }),
             )
             .then(response => {
