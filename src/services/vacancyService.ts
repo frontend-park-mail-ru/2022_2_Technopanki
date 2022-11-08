@@ -93,17 +93,19 @@ export const vacancyService: Service = {
             });
     },
 
-    createVacancy: async (formData: FormData) => {
+    createVacancy: async (userID: string, formData: FormData) => {
         return await network
             .POST(
                 SERVER_URLS.VACANCY,
                 JSON.stringify({
+                    postedByUserId: userID,
                     title: formData.get('title'),
                     description: formData.get('description'),
                     tasks: formData.get('tasks'),
                     requirements: formData.get('requirements'),
                     extra: formData.get('extra'),
                     salary: formData.get('salary'),
+                    isActive: true,
                     location: formData.get('location'),
                     experience: formData.get('experience'),
                     hours: formData.get('schedule'),
