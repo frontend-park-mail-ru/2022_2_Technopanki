@@ -4,7 +4,7 @@
   margin: 0px;
   letter-spacing: -0.03em;
   line-height: 46px;
-  font-size: 40px;
+  font-size: 44px;
   font-weight: 500;
 }
 
@@ -23,7 +23,44 @@
 }
 
 .picture {
-  @media (max-width: $screen-lg) {
-    display: none;
+  height: calc(45vw + 45vh);
+  width: 100%;
+  transform-origin: left bottom;
+  transform: rotate(50deg);
+  transition: 3s;
+  animation: Picture 20s ease infinite;
+}
+
+@keyframes Picture {
+  0% {
+    background: rgba(28, 52, 236, 0.5);
+  }
+  25% {
+    background: HSLA(189,100%,55%,0.5);
+  }
+  50% {
+    background: HSLA(240,100%,56%,0.5);
+  }
+  75% {
+    background: HSLA(222,77%,46%,0.5);
+  }
+  100% {
+    background: rgba(28, 52, 236, 0.5);
   }
 }
+
+.picture_overflow {
+  height: calc(45vw + 45vh);
+  width: 100%;
+  transform-origin: left bottom;
+  transform: rotate(50deg);
+  background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.8) 100%);
+  z-index: 100;
+  &-1 {
+    padding-top: 15vh;
+  }
+  &-2 {
+    padding-top: 30vh;
+  }
+}
+

@@ -58,10 +58,16 @@ export default class StartPage extends Component {
                         />
                     </div>
                 </div>
-                <div className={`col-md-6 col-0 flex h-100 align-items-center`}>
-                    <div className={'absolute r-0'}>
-                        <img src={img} />
-                    </div>
+                <div
+                    className={`col-md-6 col-0 relative flex h-100 align-items-center`}
+                >
+                    <div className={`absolute r-0 ${styles.picture}`}></div>
+                    <div
+                        className={`absolute ${styles.picture_overflow} ${styles['picture_overflow-1']}`}
+                    ></div>
+                    <div
+                        className={`absolute ${styles.picture_overflow} ${styles['picture_overflow-2']}`}
+                    ></div>
                 </div>
             </div>
         );
