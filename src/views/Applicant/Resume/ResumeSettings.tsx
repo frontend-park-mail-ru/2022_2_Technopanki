@@ -53,6 +53,10 @@ class ResumeSettings extends Component<
                         required: true,
                         value: this.props.description,
                     },
+                },
+            },
+            {
+                fields: {
                     university: {
                         size: 4,
                         type: 'text',
