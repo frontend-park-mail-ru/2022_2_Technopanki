@@ -67,7 +67,7 @@ export const vacancyService: Service = {
         dispatch(startLoading());
         return await network
             .PUT(
-                SERVER_URLS.VACANCY,
+                SERVER_URLS.VACANCY + vacancyID,
                 JSON.stringify({
                     title: formData.get('title'),
                     description: formData.get('description'),
