@@ -45,7 +45,7 @@ export const SERVER_URLS = {
     USER_PREVIEW: (userID: string) => {
         return SERVER_URL + 'api/user/preview/' + userID;
     },
-    VACANCY_RESPONSES: SERVER_URL + 'api/vacancies/responses/',
+    VACANCY_RESPONSES: SERVER_URL + 'api/vacancies/applies/',
     VACANCY_NEW: SERVER_URL + 'api/vacancy/new/',
 
     IMAGE: SERVER_URL + 'api/user/image/',
