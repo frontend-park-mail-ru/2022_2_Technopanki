@@ -27,6 +27,7 @@ export default class ProfileVacancies extends Component<
     };
 
     componentDidMount() {
+        console.log('mount: ', this.props.profileID, this.props);
         vacancyService
             .getAllVacanciesForEmployer(this.props.profileID)
             .then(body => {
