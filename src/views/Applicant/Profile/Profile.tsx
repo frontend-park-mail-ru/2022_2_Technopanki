@@ -105,7 +105,7 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                 />
                 <div className={'columns g-24'}>
                     <div className={'col-12 col-md-9 column g-16'}>
-                        <ApplicantResumeList />
+                        <ApplicantResumeList applicantID={this.props.id} />
                     </div>
                     <div className={'col-12 col-md-3'}>
                         <ResumeSidebar
