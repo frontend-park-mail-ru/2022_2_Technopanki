@@ -119,7 +119,7 @@ export const vacancyService: Service = {
 
     createVacancy: async (userID: string, formData: FormData) => {
         return await network
-            .PUT(
+            .POST(
                 VACANCY_URLS.VACANCY,
                 JSON.stringify({
                     // postedByUserId: userID,

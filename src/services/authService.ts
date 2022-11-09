@@ -72,7 +72,7 @@ export const authService: Service = {
         dispatch(startLoading());
 
         return network
-            .GET(USER_URLS.LOGOUT)
+            .POST(USER_URLS.LOGOUT, '')
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
