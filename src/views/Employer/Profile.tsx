@@ -137,7 +137,7 @@ class Profile extends Component<
                                     className={'flex column g-16'}
                                 >
                                     <ProfileVacancies
-                                        profileID={this.props.id}
+                                        profileID={this.props.userID}
                                     />
                                 </div>
                             </div>
@@ -162,4 +162,4 @@ const UserWrapper = userConnect((state, props) => ({
     userID: state.id,
 }))(Profile);
 
-export default profileConnect(state => ({ ...state }))(UserWrapper);
+export default profileConnect(state => state)(UserWrapper);

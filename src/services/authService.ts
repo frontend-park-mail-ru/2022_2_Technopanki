@@ -85,7 +85,7 @@ export const authService: Service = {
 
     CSRF: async () => {
         dispatch(startLoading());
-        network
+        return await network
             .GET(USER_URLS.CSRF)
             .then(response => {
                 dispatch(stopLoading());
