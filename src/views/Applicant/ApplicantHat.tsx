@@ -14,6 +14,7 @@ import ResumeIcon from '../../static/icons/resume.svg';
 export default class ApplicantHat extends Component<
     {
         creatorID: string;
+        resumeID: string;
     },
     {
         creatorImgSrc: string;
@@ -55,7 +56,7 @@ export default class ApplicantHat extends Component<
                     <div className={'flex row flex-wrap g-12'}>
                         {/*TODO: добавить уловие по типу пользователя рендер кнопок*/}
                         <Link
-                            to={`/resume/settings/${this.props.creatorID}`}
+                            to={`/resume/settings/${this.props.resumeID}`}
                             content={<Button>Настройки</Button>}
                         />
                     </div>

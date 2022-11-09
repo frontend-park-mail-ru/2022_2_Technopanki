@@ -19,6 +19,7 @@ import ButtonRed from '../../../components/UI-kit/buttons/ButtonRed';
 import Footer from '../../../components/UI-kit/footer/Footer';
 import { dispatch, resumeConnect, userConnect } from '../../../store';
 import { vacancyActions } from '../../../store/vacancy/actions';
+import { resumeActions } from '../../../store/resume/actions';
 
 class ResumeSettings extends Component<
     ResumeState & { isNew: boolean },
@@ -99,6 +100,8 @@ class ResumeSettings extends Component<
             resumeService
                 .updateResume(this.props.id, formData)
                 .then(() => {
+                    console.log('UPDATE');
+                    console.log(this.props.title)
                     navigator.goBack();
                 })
                 .catch(err => console.error(err))
@@ -110,7 +113,11 @@ class ResumeSettings extends Component<
             const resumeID = location.pathname.split('/').at(-1);
             resumeService
                 .getResumeData(resumeID)
-                .then(body => dispatch(vacancyActions.update(body)))
+                .then(body => {
+                    console.log('GET');
+                    console.log(body)
+                    dispatch(resumeActions.update(body));
+                })
                 .catch(err => console.error(err));
         }
     }

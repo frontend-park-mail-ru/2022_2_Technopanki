@@ -41,8 +41,8 @@ export default class ResumeList extends Component<
                                 imgSrc={resume.imgSrc}
                                 name={resume.name}
                                 surname={resume.surname}
-                                resumeTitle={resume.resumeTitle}
-                                timeWhenCreated={resume.timeWhenCreated}
+                                resumeTitle={resume.title}
+                                timeWhenCreated={resume.created_date}
                                 resumeSrc={resume.resumeSrc}
                             />
                         ))}

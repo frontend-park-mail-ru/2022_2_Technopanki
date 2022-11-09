@@ -55,7 +55,14 @@ class Resume extends Component<ResumePropsType> {
                 <div className={styles.header_substrate}></div>
                 <div className={'columns mt-header g-24'}>
                     <div className={`col-12 ${styles.header}`}>
-                        <ApplicantHat creatorID={this.props.postedByUserID} />
+                        <ApplicantHat
+                            creatorID={this.props.postedByUserID}
+                            resumeID={
+                                this.props.id?
+                                    this.props.id :
+                                    location.pathname.split('/').at(-1)
+                            }
+                        />
                     </div>
                     <h3 className={'col-12'}>{this.props.title}</h3>
                     <div className={'col-12 col-md-9 flex column g-40'}>
