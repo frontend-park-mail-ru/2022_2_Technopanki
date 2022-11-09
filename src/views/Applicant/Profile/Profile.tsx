@@ -18,6 +18,7 @@ import { applicantActions } from '../../../store/applicant/actions';
 import { ProfileState } from '../../../store/applicant/type';
 import ApplicantResumeList from './ApplicantResumeList';
 import Footer from '../../../components/UI-kit/footer/Footer';
+import { resumeActions } from '../../../store/resume/actions';
 
 type ApplicantPropsType = {
     id: string;
@@ -46,6 +47,7 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
         applicantProfileService
             .getApplicantData(applicantID as string)
             .then(body => {
+                console.log(body)
                 dispatch(applicantActions.update(body));
             });
     }
@@ -86,13 +88,16 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                             />
                             <Link
                                 to={'/resume/new'}
+                                onClick={() =>
+                                    dispatch(resumeActions.clear())
+                                }
                                 content={
                                     <ButtonPrimary>Создать резюме</ButtonPrimary>
                                 }
                             />
                             {/*TODO: добавить путь в константы*/}
                             <Link
-                                to={'/applicant/settings/1'}
+                                to={`/applicant/settings/${this.props.id}`}
                                 content={<Button>Настройки</Button>}
                             />
                         </div>
@@ -104,10 +109,7 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                     </div>
                     <div className={'col-12 col-md-3'}>
                         <ResumeSidebar
-                            location={this.props.sideBar.location}
-                            dateOfBirth={this.props.sideBar.dateOfBirth}
-                            skills={this.props.sideBar.skills}
-                            socialNetworks={this.props.socialNetworks}
+                            creatorID={this.props.id}
                         />
                     </div>
                 </div>

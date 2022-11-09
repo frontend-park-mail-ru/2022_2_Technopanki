@@ -65,6 +65,7 @@ export const applicantProfileService: Service = {
                 requestHeaders.jsonHeader,
             )
             .then(response => {
+                console.log(response.body)
                 if (response.status > 399) {
                     throw response.status;
                 }

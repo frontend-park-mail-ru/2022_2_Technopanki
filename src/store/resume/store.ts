@@ -3,20 +3,21 @@ import { ResumeState } from './type'
 import { resumeReducer } from './reducer';
 
 export const defaultResume: ResumeState = {
-    id: 'test',
-    postedByUserID: 'test',
-    title: 'test',
-    description: 'test',
-    university: 'test',
-    faculty: 'test',
-    status: 'test',
+    id: '',
+    postedByUserID: '',
+    title: '',
+    description: '',
+    university: '',
+    faculty: '',
+    status: '',
     // Sidebar
-    location: 'test',
-    dateOfBirth: 'test',
-    vk: 'test',
-    facebook: 'test',
-    telegram: 'test',
+    location: '',
+    dateOfBirth: '',
+    vk: '',
+    facebook: '',
+    telegram: '',
     isActive: true,
+    skills: [],
 }
 
 export const resumeStore = new Store<ResumeState>(
