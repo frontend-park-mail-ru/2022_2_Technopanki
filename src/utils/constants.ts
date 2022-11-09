@@ -24,6 +24,7 @@ export const VACANCY_URLS = {
     VACANCY: SERVER_URL + 'api/vacancy/',
     VACANCY_RESPONSES: SERVER_URL + 'api/vacancy/applies/',
     VACANCY_NEW: SERVER_URL + 'api/vacancy/new/',
+    PROFILE_VACANCIES: SERVER_URL + '/api/vacancy/company/',
 };
 
 export const SERVER_URLS = {
