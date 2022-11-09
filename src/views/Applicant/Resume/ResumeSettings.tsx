@@ -19,6 +19,7 @@ import ButtonRed from '../../../components/UI-kit/buttons/ButtonRed';
 import Footer from '../../../components/UI-kit/footer/Footer';
 import { dispatch, resumeConnect, userConnect } from '../../../store';
 import { vacancyActions } from '../../../store/vacancy/actions';
+import { resumeActions } from '../../../store/resume/actions';
 
 class ResumeSettings extends Component<
     ResumeState & { isNew: boolean },
@@ -91,28 +92,37 @@ class ResumeSettings extends Component<
         e.preventDefault()
         const formData = new FormData(e.target);
 
+        const resumeID = location.pathname.split('/').at(-1);
+
         if (this.props.isNew) {
             resumeService
                 .addResume(this.props.postedByUserID, formData)
                 .then(body => navigator.navigate('/resume/' + body.id));
         } else {
             resumeService
-                .updateResume(this.props.id, formData)
+                .updateResume(resumeID, formData)
                 .then(() => {
+                    console.log('UPDATE');
+                    console.log(this.props.title)
                     navigator.goBack();
                 })
                 .catch(err => console.error(err))
         }
     };
 
+    getDataFromServer() {
+        const resumeID = location.pathname.split('/').at(-1);
+
+        resumeService.getResumeData(resumeID as string).then(body => {
+            console.log(body)
+            dispatch(resumeActions.update(body));
+        });
+    }
+
     componentDidMount() {
-        if (!this.props.isNew) {
-            const resumeID = location.pathname.split('/').at(-1);
-            resumeService
-                .getResumeData(resumeID)
-                .then(body => dispatch(vacancyActions.update(body)))
-                .catch(err => console.error(err));
-        }
+        this.getDataFromServer()
+        console.log('1')
+        console.log(this.props)
     }
 
     render() {
@@ -169,16 +179,19 @@ class ResumeSettings extends Component<
     }
 }
 
-const UserWrapper =  userConnect((state, props) => ({
-    id: state.id,
-    postedByUserID:
-        props.postedByUserID !== '' ? props.postedByUserID : state.id,
-    isNew: props.isNew,
-}))(ResumeSettings);
+const UserWrapper =  userConnect((state, props) => {
+    return {
+        id: state.id,
+        postedByUserID:
+            props.postedByUserID !== '' ? props.postedByUserID : state.id,
+        isNew: props.isNew,
+        ...props
+    }
+})(ResumeSettings);
 
-export default resumeConnect((state, props) => ({
-    id: state.id,
-    postedByUserID: state.postedByUserID,
-    isNew: props.isNew,
-}))(UserWrapper)
+export default resumeConnect((state, props) => {
+    return {
+        ...state
+    }
+})(UserWrapper)
 

@@ -10,6 +10,7 @@ export const resumeReducer: Reducer<ResumeState> = (state, action) => {
                 ...action.resume,
                 id: action.resume.id.toString(),
                 postedByUserID: action.resume.user_account_id.toString(),
+                title: action.resume.title,
                 description: action.resume.description,
                 status: action.resume.education_detail.certificate_degree_name,
                 university: action.resume.education_detail.university_name,

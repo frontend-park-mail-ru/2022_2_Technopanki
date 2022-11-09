@@ -38,7 +38,7 @@ export default class ResumeSidebar extends Component<
     getCreatorData() {
         applicantProfileService.getApplicantData(this.props.creatorID as string).then(body => {
             this.setState(() => ({
-                location: 'Москва',
+                location: body.location,
                 dateOfBirth: body.date_of_birth,
                 skills: ['test',],
             }));

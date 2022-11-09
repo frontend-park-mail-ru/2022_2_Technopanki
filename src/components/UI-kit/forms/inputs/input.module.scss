@@ -22,6 +22,9 @@
   &:focus {
     outline: 2px solid var(--primary-blue)
   }
+  &[type="date" i] {
+    font-family: Inter, sans-serif;
+  }
 }
 
 .input__error {
