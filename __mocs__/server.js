@@ -25,7 +25,7 @@ app.post('/auth/sign-up', (req, res) => {
     if (req.body.email === 'test@mail.ru') {
         res.status(400);
         res.json({
-            message: 'Пользователь с таким email уже существует',
+            descriptors: ['Пользователь с таким email уже существует'],
             type: 'email',
         });
         return;
@@ -34,7 +34,7 @@ app.post('/auth/sign-up', (req, res) => {
     if (req.body.password === '12345vv!!') {
         res.status(400);
         res.json({
-            message: 'Ошибка в пароле',
+            descriptors: ['Ошибка в пароле'],
             type: 'password',
         });
         return;
@@ -53,7 +53,7 @@ app.post('/auth/sign-in', (req, res) => {
     if (req.body.email === 'test@mail.ru') {
         res.status(400);
         res.json({
-            message: 'Пользователь с таким email уже существует',
+            descriptors: ['Пользователь с таким email уже существует'],
             type: 'email',
         });
         return;
@@ -62,7 +62,7 @@ app.post('/auth/sign-in', (req, res) => {
     if (req.body.password === '12345vv!!') {
         res.status(400);
         res.json({
-            message: 'Ошибка в пароле',
+            descriptors: ['Ошибка в пароле'],
             type: 'password',
         });
         return;
