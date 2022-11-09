@@ -21,6 +21,7 @@ export const profileReducer: Reducer<ProfileState> = (
                     action.state.user_type === 'applicant'
                         ? action.state.applicant_surname
                         : '',
+                dateOfBirth: action.state.date_of_birth,
                 status: action.state.status,
                 description: action.state.description,
                 phone: action.state.contact_number,

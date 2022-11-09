@@ -23,6 +23,9 @@
     outline: var(--border-blue);
     outline-width: 2px;
   }
+  &[type="date" i] {
+    font-family: Inter, sans-serif;
+  }
 }
 
 .input__error {

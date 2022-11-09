@@ -112,7 +112,6 @@ class ApplicantSettings extends Component<
         }[];
     }
 > {
-    dateOfBirth = new Date(this.props.dateOfBirth)
     state = {
         profile: { ...this.props },
         sections: [
@@ -154,8 +153,8 @@ class ApplicantSettings extends Component<
                         placeholder: '',
                         label: 'Дата рождения',
                         name: 'dateOfBirth',
-                        required: true,
-                        value: this.dateOfBirth,
+                        required: false,
+                        value: `${this.props.dateOfBirth? this.props.dateOfBirth.slice(0, 10) : ''}`,
                     },
                     location: {
                         size: 4,
@@ -291,6 +290,7 @@ class ApplicantSettings extends Component<
     getDataFromServer() {
         const applicantID = location.pathname.split('/').at(-1);
         applicantProfileService.getApplicantData(applicantID).then(body => {
+            console.log(body.date_of_birth.slice(0, 10))
             dispatch(profileActions.update({ ...body, id: applicantID }));
         });
     }
