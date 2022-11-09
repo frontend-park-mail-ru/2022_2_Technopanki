@@ -3,7 +3,6 @@ import network from '../lib/network';
 import { SERVER_URLS, USER_URLS } from '../utils/constants';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
-import { requestHeaders } from './headers';
 
 export const authService: Service = {
     signIn: async (formData: FormData) => {
