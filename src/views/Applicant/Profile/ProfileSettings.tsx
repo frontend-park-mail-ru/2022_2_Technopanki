@@ -316,10 +316,7 @@ class ApplicantSettings extends Component<
                 <div class={'column g-24'}>
                     <div className={`col-12 mt-header`}>
                         <SettingsHat
-                            imgSrc={this.props.avatarSrc}
-                            name={this.props.name}
-                            surname={this.props.surname}
-                            status={this.props.status}
+                            creatorID={this.props.id}
                             submit={() =>
                                 document
                                     .querySelector('#profile_form')

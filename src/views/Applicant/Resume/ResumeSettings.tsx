@@ -134,11 +134,12 @@ class ResumeSettings extends Component<
                 <div class={'column g-24'}>
                     <div className={`col-12 mt-header`}>
                         <SettingsHat
-                            imgSrc={this.props.avatarSrc}
-                            name={'Захар'}
-                            surname={'Урванцев'}
-                            description={'Студент МГТУ, разработчик и просто хороший человек'}
-                            to={'/vacancy'}
+                            creatorID={this.props.postedByUserID}
+                            submit={() =>
+                                document
+                                    .querySelector('#profile_form')
+                                    .dispatchEvent(new Event('submit'))
+                            }
                         />
                     </div>
                     <h3 className={'col-12'}>Настройки резюме</h3>
