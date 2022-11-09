@@ -251,7 +251,16 @@ class VacancySettings extends Component<
             console.log(this.props.postedByUserID);
             vacancyService
                 .createVacancy(this.props.postedByUserID, formData)
-                .then(body => navigator.navigate('/vacancy/' + body.id));
+                .then(body => {
+                    console.log('vacancy settings body: ', body);
+                    if (body.id) {
+                        navigator.navigate('/vacancy/' + body.id);
+                    } else {
+                        navigator.navigate(
+                            `/profile/${this.props.postedByUserID}`,
+                        );
+                    }
+                });
         } else {
             vacancyService
                 .updateVacancy(this.props.id, formData)
