@@ -162,4 +162,4 @@ const UserWrapper = userConnect((state, props) => ({
     userID: state.id,
 }))(Profile);
 
-export default profileConnect(state => state)(Profile);
+export default profileConnect(state => ({ ...state }))(UserWrapper);

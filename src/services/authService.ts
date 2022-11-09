@@ -53,7 +53,7 @@ export const authService: Service = {
     auth: async () => {
         dispatch(startLoading());
         return network
-            .GET(USER_URLS.AUTH, requestHeaders.jsonHeader)
+            .GET(USER_URLS.AUTH)
             .then(response => {
                 dispatch(stopLoading());
 
@@ -73,7 +73,7 @@ export const authService: Service = {
         dispatch(startLoading());
 
         return network
-            .GET(USER_URLS.LOGOUT, [])
+            .GET(USER_URLS.LOGOUT)
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
@@ -86,12 +86,14 @@ export const authService: Service = {
     CSRF: async () => {
         dispatch(startLoading());
         network
-            .GET(USER_URLS.CSRF)
+            .GET(USER_URLS.CSRF, requestHeaders.textPlain)
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
                     throw response.status;
                 }
+
+                return response.body;
             })
             .catch(err => {
                 dispatch(stopLoading());

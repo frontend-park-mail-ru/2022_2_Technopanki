@@ -28,8 +28,8 @@ authService
     .then(body => {
         authService
             .CSRF()
-            .then(CSRFbody => {
-                localStorage.setItem('CSRF', CSRFbody.value);
+            .then(CSRFvalue => {
+                localStorage.setItem('CSRF', CSRFvalue);
                 dispatch(
                     userActions.SIGN_IN(
                         body.id,
