@@ -18,6 +18,7 @@ class ApplicantResumeList extends Component<
                 .then(body => {
                     console.log('here')
                     this.state.responses = JSON.parse(JSON.stringify(body));
+                    console.log(this.state.responses)
                     this.setState(state => {
                         return state;
                     });

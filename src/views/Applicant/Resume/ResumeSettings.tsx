@@ -114,15 +114,12 @@ class ResumeSettings extends Component<
         const resumeID = location.pathname.split('/').at(-1);
 
         resumeService.getResumeData(resumeID as string).then(body => {
-            console.log(body)
             dispatch(resumeActions.update(body));
         });
     }
 
     componentDidMount() {
         this.getDataFromServer()
-        console.log('1')
-        console.log(this.props)
     }
 
     render() {
@@ -134,7 +131,9 @@ class ResumeSettings extends Component<
                 <div class={'column g-24'}>
                     <div className={`col-12 mt-header`}>
                         <SettingsHat
-                            creatorID={this.props.postedByUserID}
+                            creatorID={
+                                this.props.postedByUserID
+                            }
                             submit={() =>
                                 document
                                     .querySelector('#profile_form')
