@@ -23,14 +23,56 @@ import {
     validatePasswordLength,
     validatePasswordSymbols,
 } from '../../utils/validation/validation';
-import navigator from '../../router/navigator';
+import navigator from '../../router/navigator.tsx';
 import { dispatch } from '../../store';
 import { userActions } from '../../store/user/actions';
 import { authService } from '../../services/authService';
 
+export type ResponseBody = {
+    descriptors: string[];
+    type: string;
+};
+
+export type AuthField = {
+    id: string;
+    type: string;
+    label: string;
+    placeholder: string;
+    value: string | null;
+    required: boolean;
+    error: boolean;
+    errorMessage: string | null;
+};
+
+export type AuthFields = { [key: string]: AuthField };
+
 export const setFieldAsInvalid = (field: AuthField, errorMessage: string) => {
     field.error = true;
     field.errorMessage = errorMessage;
+};
+
+export const setInvalidFieldsFromServer = (
+    responseBody: ResponseBody,
+    inputs: AuthFields,
+    callback: Function,
+) => {
+    if (
+        responseBody &&
+        Array.isArray(responseBody.descriptors) &&
+        responseBody.descriptors[0]
+    ) {
+        setFieldAsInvalid(
+            inputs[responseBody.type],
+            responseBody.descriptors[0],
+        );
+        callback();
+        setFieldAsInvalid(inputs[responseBody.type] as AuthField, '');
+    } else if (responseBody && responseBody.type) {
+        setFieldAsInvalid(inputs[responseBody.type], '');
+        callback();
+    } else {
+        throw new Error(`empty body: ${responseBody}`);
+    }
 };
 
 export const validateField = (
@@ -58,17 +100,6 @@ export const validateField = (
     }
 
     return false;
-};
-
-export type AuthField = {
-    id: string;
-    type: string;
-    label: string;
-    placeholder: string;
-    value: string | null;
-    required: boolean;
-    error: boolean;
-    errorMessage: string | null;
 };
 
 export default class SignUp extends Component<
@@ -295,14 +326,10 @@ export default class SignUp extends Component<
                     navigator.goBack();
                 })
                 .catch(body => {
-                    setFieldAsInvalid(
-                        newState.inputs[body?.descriptors[0]],
-                        body.error,
-                    );
-                    this.setState(() => newState);
-                    setFieldAsInvalid(
-                        newState.inputs[body?.descriptors[0]],
-                        '',
+                    setInvalidFieldsFromServer(
+                        body as ResponseBody,
+                        newState.inputs,
+                        () => this.setState(() => newState),
                     );
                 });
         }

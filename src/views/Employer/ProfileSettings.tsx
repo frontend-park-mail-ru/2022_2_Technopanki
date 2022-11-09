@@ -3,7 +3,7 @@ import Header from '../../components/UI-kit/header/Header';
 import SettingsHat from '../../components/hats/SettingsHat';
 import { InputPropsType } from '../../components/UI-kit/forms/inputs/Input';
 import FileInput from '../../components/UI-kit/forms/inputs/FileInput';
-import navigator from '../../router/navigator';
+import navigator from '../../router/navigator.tsx';
 import Footer from '../../components/UI-kit/footer/Footer';
 import { employerProfileService } from '../../services/employerProfileService';
 import { EmployerProfile, ProfileState } from '../../store/profile/types';

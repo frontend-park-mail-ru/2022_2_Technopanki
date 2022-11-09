@@ -25,17 +25,17 @@ class Root implements RootType {
      * Render node in root DOM node
      * @param node
      */
-    render(Component: Component): void {
+    render(node: VNodeType): void {
         this.unmount();
-        const node = <Component />;
-        console.log('root', node);
         renderNode(this.root, node);
         this.prevMount = node;
     }
 
     unmount() {
         this.root.innerHTML = '';
-        this.prevMount?.unmount();
+        this.prevMount?.unmount(false);
+        delete this.prevMount?.props;
+        delete this.prevMount;
     }
 }
 

@@ -24,19 +24,30 @@ export default class ProfileVacancies extends Component<
     state = {
         vacancies: [],
         limit: 10,
-        requested: false,
     };
 
+    requested = false;
+
     getVacancies() {
-        if (this.props.profileID && !this.state.requested) {
+        if (
+            this.state.vacancies.length === 0 &&
+            this.props.profileID &&
+            !this.requested
+        ) {
+            this.requested = true;
             vacancyService
                 .getAllVacanciesForEmployer(this.props.profileID)
                 .then(body => {
-                    this.setState(_ => ({
-                        requested: true,
-                        limit: 10,
-                        vacancies: body.data,
-                    }));
+                    this.setState(state => {
+                        if (state.vacancies.length > 0) {
+                            return state;
+                        }
+
+                        return {
+                            limit: 10,
+                            vacancies: body.data,
+                        };
+                    });
                 })
                 .catch(err => console.error(err));
         }
@@ -46,8 +57,12 @@ export default class ProfileVacancies extends Component<
         this.getVacancies();
     }
 
-    componentDidUpdate() {
-        this.getVacancies();
+    // componentDidUpdate() {
+    //     this.getVacancies();
+    // }
+
+    unmount() {
+        console.log('unmount');
     }
 
     render() {
@@ -57,7 +72,6 @@ export default class ProfileVacancies extends Component<
                     ?.slice(0, this.state.limit)
                     .map(vacancy => (
                         <VacancyCard
-                            key={vacancy.id.toString()}
                             id={vacancy.id.toString()}
                             name={vacancy.title}
                             icon={vacancy.img}

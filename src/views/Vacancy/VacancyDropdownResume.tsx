@@ -3,7 +3,7 @@ import ArrowButton from '../../components/UI-kit/buttons/ArrowButton';
 import styles from './vacancy.module.scss';
 import { userConnect } from '../../store';
 import { applicantProfileService } from '../../services/applicantService';
-import navigator from '../../router/navigator';
+import navigator from '../../router/navigator.tsx';
 import RenderWithCondition from '../../components/RenderWithCondition';
 
 type ResumeType = {

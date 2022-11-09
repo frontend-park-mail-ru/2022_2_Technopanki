@@ -5,16 +5,13 @@ import Button from '../../components/UI-kit/buttons/Button';
 import ButtonIcon from '../../components/UI-kit/buttons/ButtonIcon';
 import PhoneIcon from '../../static/icons/phone.svg';
 import MailIcon from '../../static/icons/mail.svg';
-import VKLogo from '../../static/icons/logos/VK.svg';
 import ButtonPrimary from '../../components/UI-kit/buttons/ButtonPrimary';
 import TextBlock from '../../components/UI-kit/text/TextBlock';
 import ArrowButtonWithText from '../../components/UI-kit/buttons/ArrowButtonWithText';
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
 import EmployerProfileSideBar from '../../components/sidebars/EmployerProfileSideBar';
 import Link from '../../components/Link/Link';
-import Vacancy, {
-    VacancyCardPropsType,
-} from '../../components/UI-kit/vacancy/VacancyCard';
+import { VacancyCardPropsType } from '../../components/UI-kit/vacancy/VacancyCard';
 import Footer from '../../components/UI-kit/footer/Footer';
 import { employerProfileService } from '../../services/employerProfileService';
 import { userStore } from '../../store/user/store';
@@ -35,17 +32,17 @@ class Profile extends Component<
 
     getDataFromServer() {
         const employerID = location.pathname.split('/').at(-1);
-        employerProfileService.getProfileData(employerID).then(body => {
-            dispatch(profileActions.update({ ...body, id: employerID }));
-        });
+        if (employerID !== this.props.id) {
+            employerProfileService.getProfileData(employerID).then(body => {
+                dispatch(profileActions.update({ ...body, id: employerID }));
+            });
+        }
+
+        console.log('profileID: ', employerID);
     }
 
     componentDidMount() {
         this.getDataFromServer();
-    }
-
-    componentDidUpdate() {
-        console.log('update: ', this.props);
     }
 
     render() {
@@ -136,14 +133,7 @@ class Profile extends Component<
                                         </button>
                                     }
                                 />
-                                <div
-                                    key={'vacancies'}
-                                    className={'flex column g-16'}
-                                >
-                                    <ProfileVacancies
-                                        profileID={this.props.id}
-                                    />
-                                </div>
+                                <ProfileVacancies profileID={this.props.id} />
                             </div>
                         </div>
                     </div>

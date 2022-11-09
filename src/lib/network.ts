@@ -18,7 +18,7 @@ const sendRequest = async (
     return {
         status: response.status,
         body:
-            headers === requestHeaders.jsonHeader
+            headers['Content-Type'] === 'application/json'
                 ? await response.json().catch(err => {
                       console.error(err, response);
                       return {};

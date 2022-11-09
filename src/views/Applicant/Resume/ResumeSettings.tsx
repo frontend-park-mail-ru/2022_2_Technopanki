@@ -4,12 +4,14 @@ import Form, { FormSectionType } from '../../../components/UI-kit/forms/Form';
 import Header from '../../../components/UI-kit/header/Header';
 import SettingsHat from '../../../components/hats/SettingsHat';
 import CancelSaveButtons from '../../../components/CancelSaveButtons/CancelSaveButtons';
-import Input, { InputPropsType } from '../../../components/UI-kit/forms/inputs/Input';
+import Input, {
+    InputPropsType,
+} from '../../../components/UI-kit/forms/inputs/Input';
 import Textarea from '../../../components/UI-kit/forms/inputs/Textarea';
 import Chips from '../../../components/UI-kit/chips/Chips';
 import { ProfileState } from '../../../store/profile/types';
 import { resumeService } from '../../../services/resumeService';
-import navigator from '../../../router/navigator';
+import navigator from '../../../router/navigator.tsx';
 import { vacancyService } from '../../../services/vacancyService';
 import { ResumeState } from '../../../store/resume/type';
 import FormSection from '../../../components/UI-kit/forms/FormSection';
@@ -33,7 +35,7 @@ class ResumeSettings extends Component<
             };
         }[];
     }
-    >{
+> {
     state = {
         sections: [
             {
@@ -82,14 +84,14 @@ class ResumeSettings extends Component<
                         name: 'status',
                         required: false,
                         value: this.props.status,
-                    }
-                }
-            }
-        ]
+                    },
+                },
+            },
+        ],
     };
 
     submitForm = (e: SubmitEvent) => {
-        e.preventDefault()
+        e.preventDefault();
         const formData = new FormData(e.target);
 
         const resumeID = location.pathname.split('/').at(-1);
@@ -103,10 +105,10 @@ class ResumeSettings extends Component<
                 .updateResume(resumeID, formData)
                 .then(() => {
                     console.log('UPDATE');
-                    console.log(this.props.title)
+                    console.log(this.props.title);
                     navigator.goBack();
                 })
-                .catch(err => console.error(err))
+                .catch(err => console.error(err));
         }
     };
 
@@ -114,22 +116,20 @@ class ResumeSettings extends Component<
         const resumeID = location.pathname.split('/').at(-1);
 
         resumeService.getResumeData(resumeID as string).then(body => {
-            console.log(body)
+            console.log(body);
             dispatch(resumeActions.update(body));
         });
     }
 
     componentDidMount() {
-        this.getDataFromServer()
-        console.log('1')
-        console.log(this.props)
+        this.getDataFromServer();
+        console.log('1');
+        console.log(this.props);
     }
 
     render() {
         return (
-            <div
-                className={'screen-responsive relative'}
-            >
+            <div className={'screen-responsive relative'}>
                 <Header />
                 <div class={'column g-24'}>
                     <div className={`col-12 mt-header`}>
@@ -137,7 +137,9 @@ class ResumeSettings extends Component<
                             imgSrc={this.props.avatarSrc}
                             name={'Захар'}
                             surname={'Урванцев'}
-                            description={'Студент МГТУ, разработчик и просто хороший человек'}
+                            description={
+                                'Студент МГТУ, разработчик и просто хороший человек'
+                            }
                             to={'/vacancy'}
                         />
                     </div>
@@ -158,20 +160,14 @@ class ResumeSettings extends Component<
                             />
                         ))}
                         <div>
-                            <ButtonPrimary
-                                type={'submit'}
-                            >
+                            <ButtonPrimary type={'submit'}>
                                 Сохранить
                             </ButtonPrimary>
                         </div>
                     </form>
                 </div>
                 <div className={'flex row g-16 mt-40'}>
-                    <Button
-                        onClick={navigator.goBack}
-                    >
-                        Пропустить
-                    </Button>
+                    <Button onClick={navigator.goBack}>Пропустить</Button>
                 </div>
                 <Footer key={'footer'} />
             </div>
@@ -179,19 +175,18 @@ class ResumeSettings extends Component<
     }
 }
 
-const UserWrapper =  userConnect((state, props) => {
+const UserWrapper = userConnect((state, props) => {
     return {
         id: state.id,
         postedByUserID:
             props.postedByUserID !== '' ? props.postedByUserID : state.id,
         isNew: props.isNew,
-        ...props
-    }
+        ...props,
+    };
 })(ResumeSettings);
 
 export default resumeConnect((state, props) => {
     return {
-        ...state
-    }
-})(UserWrapper)
-
+        ...state,
+    };
+})(UserWrapper);

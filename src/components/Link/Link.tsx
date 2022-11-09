@@ -1,5 +1,5 @@
 import { Component } from '../../../Reacts';
-import router from '../../router/navigator';
+import router from '../../router/navigator.tsx';
 import { VNodeType } from '../../../Reacts/shared/common';
 import styles from './link.module.scss';
 

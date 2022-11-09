@@ -19,6 +19,7 @@ class VacancyHat extends Component<
         userID: string;
         userType: string;
         authorized: boolean;
+        sendRequest: boolean;
     },
     {
         creatorImgSrc: string;
@@ -27,17 +28,23 @@ class VacancyHat extends Component<
     }
 > {
     state = {
+        vacancyID: '',
         creatorImgSrc: '',
         companyName: '',
         status: '',
     };
 
     getCreatorDataFromServer = () => {
-        if (this.props.postedByUserID) {
+        if (
+            this.props.postedByUserID &&
+            this.props.vacancyID !== this.state.vacancyID &&
+            this.props.sendRequest
+        ) {
             vacancyService
                 .getVacancyHatData(this.props.postedByUserID)
                 .then(body => {
                     this.setState(() => ({
+                        vacancyID: this.props.vacancyID,
                         creatorImgSrc: body.creator_img_src,
                         companyName: body.company_name,
                         status: body.status,
@@ -48,7 +55,20 @@ class VacancyHat extends Component<
     };
 
     componentDidMount() {
+        console.log('mount');
         this.getCreatorDataFromServer();
+    }
+
+    componentDidUpdate() {
+        this.getCreatorDataFromServer();
+    }
+
+    componentWillUnmount() {
+        console.log('componentWillUnmount');
+    }
+
+    unmount() {
+        console.log('unmount');
     }
 
     render() {
@@ -138,6 +158,7 @@ export default userConnect((state, props) => {
     return {
         vacancyID: props.vacancyID,
         postedByUserID: props.postedByUserID,
+        sendRequest: props.sendRequest,
         userID: state.id,
         userType: state.userType,
         authorized: state.authorized,

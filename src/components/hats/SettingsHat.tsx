@@ -1,7 +1,7 @@
 import { Component } from '../../../Reacts';
 import Hat from '../UI-kit/hat/Hat';
 import CancelSaveButtons from '../CancelSaveButtons/CancelSaveButtons';
-import navigator from '../../router/navigator';
+import navigator from '../../router/navigator.tsx';
 import { userConnect } from '../../store';
 import { UserState } from '../../store/user/types';
 

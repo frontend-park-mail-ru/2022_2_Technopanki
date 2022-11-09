@@ -90,6 +90,11 @@ app.get('/api/user/safety/:id', (req, res) => {
     }
 });
 
+app.get('/api/vacancy/company/:id', (req, res) => {
+    console.log('vacancies');
+    res.json({ data: vacancies });
+});
+
 // app.post('/api/user/safety/:id', (req, res) => {
 //     console.log(req.body.image);
 //

@@ -14,8 +14,15 @@ import {
     PASSWORD_LENGTH_ERROR,
     PASSWORD_SYMBOLS_ERROR,
 } from '../../utils/validation/messages';
-import { AuthField, setFieldAsInvalid, validateField } from '../SignUp/SignUp';
-import navigator from '../../router/navigator';
+import {
+    AuthField,
+    AuthFields,
+    ResponseBody,
+    setFieldAsInvalid,
+    setInvalidFieldsFromServer,
+    validateField,
+} from '../SignUp/SignUp';
+import navigator from '../../router/navigator.tsx';
 import { dispatch } from '../../store';
 import { userActions } from '../../store/user/actions';
 import { authService } from '../../services/authService';
@@ -52,6 +59,7 @@ export default class SignIn extends Component<
             },
         },
     };
+
     onSubmit = async (e: SubmitEvent) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -95,7 +103,6 @@ export default class SignIn extends Component<
             authService
                 .signIn(formData)
                 .then(body => {
-                    console.log(body);
                     dispatch(
                         userActions.SIGN_IN(
                             body.id,
@@ -106,21 +113,18 @@ export default class SignIn extends Component<
                             body.user_type,
                         ),
                     );
-                    navigator.goBack();
+                    navigator.navigate(
+                        body.user_type === 'employer'
+                            ? `/employer/${body.id}`
+                            : `/applicant/${body.id}`,
+                    );
                 })
                 .catch(body => {
-                    console.log(body);
-                    if (body.descriptors[0]) {
-                        setFieldAsInvalid(
-                            newState.inputs[body.descriptors[0]],
-                            body.error,
-                        );
-                        this.setState(() => newState);
-                        setFieldAsInvalid(
-                            newState.inputs[body.descriptors[0]],
-                            '',
-                        );
-                    }
+                    setInvalidFieldsFromServer(
+                        body as ResponseBody,
+                        newState.inputs,
+                        (() => this.setState(() => newState)).bind(this),
+                    );
                 });
         }
     };
@@ -162,7 +166,7 @@ export default class SignIn extends Component<
                             to={'/signup'}
                             content={
                                 <p className={styles.form_link}>
-                                    Впервые на нашем сайте? Зарегестрироваться
+                                    Впервые на нашем сайте? Зарегистрироваться
                                 </p>
                             }
                         />

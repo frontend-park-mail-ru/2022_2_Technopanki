@@ -161,7 +161,8 @@ const replaceNode = (
         }
     });
     element.remove();
-    oldNode._instance?.unmount();
+    oldNode._instance?.componentWillUnmount();
+    oldNode.unmount();
     newNode._instance?.componentDidMount();
 };
 
@@ -184,7 +185,9 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
             },
         );
         element.remove();
-        (<Remove>operation).node._instance?.unmount();
+        (<Remove>operation).node?._instance
+            .componentWillUnmount()(<Remove>operation)
+            .node.unmount();
 
         return;
     }
@@ -255,19 +258,19 @@ const applyChildrenDiff = (
         }
 
         if (childUpdater.type === REMOVE_OPERATION) {
-            Object.entries((<Remove>childUpdater).node.props).forEach(
-                ([key, value]) => {
-                    if (key.startsWith('on') && value) {
-                        childElem.removeEventListener(
-                            events[key],
-                            value as Function,
-                        );
-                    }
-                },
-            );
+            // Object.entries((<Remove>childUpdater).node.props).forEach(
+            //     ([key, value]) => {
+            //         if (key.startsWith('on') && value) {
+            //             childElem.removeEventListener(
+            //                 events[key],
+            //                 value as Function,
+            //             );
+            //         }
+            //     },
+            // );
             childElem.remove();
             (<Remove>childUpdater).node._instance?.componentWillUnmount();
-            (<Remove>childUpdater).node._instance?.unmount();
+            (<Remove>childUpdater).node.unmount();
             offset -= 1;
             continue;
         }
