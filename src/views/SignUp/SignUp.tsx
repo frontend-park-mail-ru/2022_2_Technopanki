@@ -280,28 +280,44 @@ export default class SignUp extends Component<
 
         if (validFlag) {
             authService
-                .signUp(formData)
-                .then(body => {
-                    dispatch(
-                        userActions.SIGN_UP(
-                            body.id,
-                            (formData.get('toggle') as string) === 'applicant'
-                                ? (formData.get('applicant_name') as string)
-                                : (formData.get('company_name') as string),
-                            formData.get('applicant_surname') as string,
-                            formData.get('toggle') as 'applicant' | 'employer',
-                        ),
-                    );
-                    navigator.goBack();
+                .CSRF()
+                .then(CSRFvalue => {
+                    localStorage.setItem('CSRF', CSRFvalue.token);
+                    authService
+                        .signUp(formData)
+                        .then(body => {
+                            dispatch(
+                                userActions.SIGN_UP(
+                                    body.id,
+                                    (formData.get('toggle') as string) ===
+                                        'applicant'
+                                        ? (formData.get(
+                                              'applicant_name',
+                                          ) as string)
+                                        : (formData.get(
+                                              'company_name',
+                                          ) as string),
+                                    formData.get('applicant_surname') as string,
+                                    formData.get('toggle') as
+                                        | 'applicant'
+                                        | 'employer',
+                                ),
+                            );
+                            navigator.goBack();
+                        })
+                        .catch(body => {
+                            setFieldAsInvalid(
+                                newState.inputs[body?.descriptors[0]],
+                                body.error,
+                            );
+                            this.setState(() => newState);
+                            setFieldAsInvalid(
+                                newState.inputs[body?.descriptors[0]],
+                                '',
+                            );
+                        });
                 })
-                .catch(body => {
-                    setFieldAsInvalid(
-                        newState.inputs[body.descriptors[0]],
-                        body.error,
-                    );
-                    this.setState(() => newState);
-                    setFieldAsInvalid(newState.inputs[body.descriptors[0]], '');
-                });
+                .catch(err => console.error('error in CSRF', err));
         }
     };
 
