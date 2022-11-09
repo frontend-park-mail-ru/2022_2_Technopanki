@@ -19,9 +19,9 @@ export const authService: Service = {
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
-                    throw response.body;
+                    throw response.body.json();
                 }
-                return response.body;
+                return response.body.json();
             });
     },
 
@@ -43,10 +43,10 @@ export const authService: Service = {
                 dispatch(stopLoading());
 
                 if (response.status > 399) {
-                    throw response.body;
+                    throw response.body.json();
                 }
 
-                return response.body;
+                return response.body.json();
             });
     },
 
