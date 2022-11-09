@@ -16,12 +16,11 @@
   outline: none;
   font-size: 14px;
   color: var(--background-900);
-  pointer-events: none;
   &::placeholder {
     font-size: var(--input-font-size);
   }
-  &:hover {
-    cursor: not-allowed;
+  &:focus {
+    outline: 2px solid var(--primary-blue)
   }
 }
 
@@ -89,6 +88,10 @@
 
 .search_input {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04);
+  &:hover {
+    cursor: not-allowed;
+  }
+  pointer-events: none;
 }
 
 .search_arrow {
