@@ -9,10 +9,8 @@ import Footer from '../../components/UI-kit/footer/Footer';
 import { dispatch, userConnect, vacancyConnect } from '../../store';
 import { vacancyService } from '../../services/vacancyService';
 import navigator from '../../router/navigator.tsx';
-import dispatcher from '../../../Fluxs/dispatcher';
 import { vacancyActions } from '../../store/vacancy/actions';
 import ChipsInput from '../../components/UI-kit/forms/inputs/ChipsInput';
-import { userActions } from '../../store/user/actions';
 
 class AboutVacancyComponent extends Component<{
     title: string;
