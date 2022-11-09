@@ -112,6 +112,7 @@ class ApplicantSettings extends Component<
         }[];
     }
 > {
+    dateOfBirth = new Date(this.props.dateOfBirth)
     state = {
         profile: { ...this.props },
         sections: [
@@ -154,7 +155,7 @@ class ApplicantSettings extends Component<
                         label: 'Дата рождения',
                         name: 'dateOfBirth',
                         required: true,
-                        value: this.props.dateOfBirth,
+                        value: this.dateOfBirth,
                     },
                     location: {
                         size: 4,

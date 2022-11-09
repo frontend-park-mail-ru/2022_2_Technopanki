@@ -33,8 +33,8 @@ export default class ApplicantHat extends Component<
         resumeService.getResumeHatData(this.props.creatorID).then(body => {
             this.setState(() => ({
                 creatorImgSrc: body.creator_img_src,
-                name: body.name,
-                surname: body.surname,
+                name: body.applicant_name,
+                surname: body.applicant_surname,
                 status: body.status,
             }));
         });

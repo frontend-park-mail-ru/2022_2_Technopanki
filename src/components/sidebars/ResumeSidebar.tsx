@@ -8,6 +8,7 @@ import Chips from '../UI-kit/chips/Chips';
 import VKIcon from '../../static/icons/logos/VK.svg';
 import FacebookIcon from '../../static/icons/logos/Facebook.svg';
 import TelegramIcon from '../../static/icons/logos/Telegram.svg';
+import { applicantProfileService } from '../../services/applicantService';
 
 type ResumeSidebarProps = {
     location: string;
@@ -20,7 +21,35 @@ type ResumeSidebarProps = {
     };
 };
 
-export default class ResumeSidebar extends Component<ResumeSidebarProps> {
+export default class ResumeSidebar extends Component<
+    { creatorID: string },
+    ResumeSidebarProps
+    > {
+
+    state = {
+        location: '',
+        dateOfBirth: '',
+        skills: ['',],
+        vk: '',
+        facebook: '',
+        telegram: '',
+    }
+
+    getCreatorData() {
+        applicantProfileService.getApplicantData(this.props.creatorID as string).then(body => {
+            this.setState(() => ({
+                location: 'Москва',
+                dateOfBirth: body.date_of_birth,
+                skills: ['test',],
+            }));
+            console.log(this.state)
+        });
+    }
+
+    componentDidMount() {
+        this.getCreatorData();
+    }
+
     render() {
         return (
             <SideBar
@@ -29,19 +58,24 @@ export default class ResumeSidebar extends Component<ResumeSidebarProps> {
                         header: 'Город проживания',
                         inside: (
                             <p className={'font-size-24 bold'}>
-                                {this.props.location}
+                                {this.state.location}
                             </p>
                         ),
                     },
                     {
                         header: 'Дата рождения',
-                        inside: <p className={'font-size-24 bold'}>{this.props.dateOfBirth}</p>,
+                        inside:
+                            <p className={'font-size-24 bold'}>
+                                {this.state.dateOfBirth?
+                                `${this.state.dateOfBirth.slice(8, 10)}.${this.state.dateOfBirth.slice(5, 7)}.${this.state.dateOfBirth.slice(0, 4)}` : ''
+                                }
+                            </p>,
                     },
                     {
                         header: 'Профессиональные навыки',
                         inside: (
                             <div className={'flex row g-8 flex-wrap'}>
-                                {this.props.skills?.map(item => (
+                                {this.state.skills?.map(item => (
                                     <Chips>{item}</Chips>
                                 ))}
                             </div>
@@ -51,8 +85,8 @@ export default class ResumeSidebar extends Component<ResumeSidebarProps> {
                         header: 'Социальные сети',
                         inside: (
                             <div className={'flex row g-24'}>
-                                {this.props.socialNetworks.vk ? (
-                                    <a href={this.props.socialNetworks.vk}>
+                                {this.state.vk ? (
+                                    <a href={this.state.vk}>
                                         <div
                                             className={
                                                 'cursor-pointer inner-svg-h-24 inner-svg-200'
@@ -65,10 +99,10 @@ export default class ResumeSidebar extends Component<ResumeSidebarProps> {
                                 ) : (
                                     <p></p>
                                 )}
-                                {this.props.socialNetworks.facebook ? (
+                                {this.state.facebook ? (
                                     <a
                                         href={
-                                            this.props.socialNetworks.facebook
+                                            this.state.facebook
                                         }
                                     >
                                         <div
@@ -83,10 +117,10 @@ export default class ResumeSidebar extends Component<ResumeSidebarProps> {
                                 ) : (
                                     <p></p>
                                 )}
-                                {this.props.socialNetworks.telegram ? (
+                                {this.state.telegram ? (
                                     <a
                                         href={
-                                            this.props.socialNetworks.telegram
+                                            this.state.telegram
                                         }
                                     >
                                         <div

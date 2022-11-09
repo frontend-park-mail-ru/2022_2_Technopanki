@@ -9,7 +9,14 @@ export const resumeReducer: Reducer<ResumeState> = (state, action) => {
             return { ...state,
                 ...action.resume,
                 id: action.resume.id.toString(),
-                postedByUserID: action.resume.postedByUserID.toString(),
+                postedByUserID: action.resume.user_account_id.toString(),
+                description: action.resume.description,
+                status: action.resume.education_detail.certificate_degree_name,
+                university: action.resume.education_detail.university_name,
+                faculty: action.resume.education_detail.major,
+                location: action.resume.location,
+                dateOfBirth: action.resume.date_of_birth,
+                skills: action.resume.skills,
             };
         case RESUME_ACTIONS_TYPE.CLEAR:
             return defaultResume;

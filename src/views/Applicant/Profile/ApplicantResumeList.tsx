@@ -16,6 +16,7 @@ class ApplicantResumeList extends Component<
             applicantProfileService
                 .getResumeList(this.props.applicantID)
                 .then(body => {
+                    console.log('here')
                     this.state.responses = JSON.parse(JSON.stringify(body));
                     this.setState(state => {
                         return state;

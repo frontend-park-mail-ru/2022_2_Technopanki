@@ -109,10 +109,7 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                     </div>
                     <div className={'col-12 col-md-3'}>
                         <ResumeSidebar
-                            location={this.props.sideBar.location}
-                            dateOfBirth={this.props.sideBar.dateOfBirth}
-                            skills={this.props.sideBar.skills}
-                            socialNetworks={this.props.socialNetworks}
+                            creatorID={this.props.id}
                         />
                     </div>
                 </div>
