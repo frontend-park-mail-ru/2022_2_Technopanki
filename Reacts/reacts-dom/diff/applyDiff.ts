@@ -205,7 +205,10 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
                     if (attr.startsWith('on')) {
                         (<Update>(
                             operation
-                        )).node._domElement.removeEventListener(attr, value);
+                        )).node._domElement.removeEventListener(
+                            events[attr],
+                            value,
+                        );
                     }
                 },
             );
