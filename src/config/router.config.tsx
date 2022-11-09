@@ -118,6 +118,5 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
             validator: (url: string) => url === '/resume/new',
         },
         component: ResumeSettings,
-        // component: ResumeSettings isNew={true},
     },
 ];

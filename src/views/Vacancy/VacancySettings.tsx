@@ -221,7 +221,7 @@ const VacancyDescription = vacancyConnect(state => {
 })(VacancyDescriptionComponent);
 
 class VacancySettings extends Component<
-    { id: string; postedByUserID: string; isNew?: boolean },
+    { id: string; postedByUserID: string },
     { sections: FormSectionType[] }
 > {
     state = {
@@ -245,7 +245,8 @@ class VacancySettings extends Component<
         e.preventDefault();
         const formData = new FormData(e.target);
 
-        if (this.props.isNew) {
+        const isNew = location.pathname.split('/').at(-1) === 'new';
+        if (isNew) {
             console.log(this.props.postedByUserID);
             vacancyService
                 .createVacancy(this.props.postedByUserID, formData)
@@ -320,11 +321,9 @@ const UserWrapper = userConnect((state, props) => ({
     id: props.id,
     postedByUserID:
         props.postedByUserID !== '' ? props.postedByUserID : state.id,
-    isNew: props.isNew,
 }))(VacancySettings);
 
 export default vacancyConnect((state, props) => ({
     id: state.id,
     postedByUserID: state.postedByUserID,
-    isNew: props.isNew,
 }))(UserWrapper);
