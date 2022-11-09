@@ -15,12 +15,14 @@ class Resume extends Component<ResumeType & { name: string; surname: string }> {
     // TODO: onclick - переход по ссылке на резюме
 
     sendResponseToServer() {
-        applicantProfileService.apply(
-            this.props.id,
-            this.props.name,
-            this.props.surname,
-            this.props.title,
-        );
+        applicantProfileService
+            .apply(
+                this.props.id,
+                this.props.name,
+                this.props.surname,
+                this.props.title,
+            )
+            .catch(err => console.error(err));
     }
 
     render() {
