@@ -93,39 +93,30 @@ export default class SignIn extends Component<
 
         if (validFlag) {
             authService
-                .CSRF()
-                .then(CSRFvalue => {
-                    localStorage.setItem('CSRF', CSRFvalue.token);
-                    authService
-                        .signIn(formData)
-                        .then(body => {
-                            console.log(body);
-                            dispatch(
-                                userActions.SIGN_IN(
-                                    body.id,
-                                    body.user_type === 'employer'
-                                        ? body.company_name
-                                        : body.applicant_name,
-                                    body.applicant_surname,
-                                    body.user_type,
-                                ),
-                            );
-                            navigator.goBack();
-                        })
-                        .catch(body => {
-                            console.log(body);
-                            setFieldAsInvalid(
-                                newState.inputs[body.descriptors[0]],
-                                body.error,
-                            );
-                            this.setState(() => newState);
-                            setFieldAsInvalid(
-                                newState.inputs[body.descriptors[0]],
-                                '',
-                            );
-                        });
+                .signIn(formData)
+                .then(body => {
+                    console.log(body);
+                    dispatch(
+                        userActions.SIGN_IN(
+                            body.id,
+                            body.user_type === 'employer'
+                                ? body.company_name
+                                : body.applicant_name,
+                            body.applicant_surname,
+                            body.user_type,
+                        ),
+                    );
+                    navigator.goBack();
                 })
-                .catch(err => console.error('error in CSRF', err));
+                .catch(body => {
+                    console.log(body);
+                    setFieldAsInvalid(
+                        newState.inputs[body.descriptors[0]],
+                        body.error,
+                    );
+                    this.setState(() => newState);
+                    setFieldAsInvalid(newState.inputs[body.descriptors[0]], '');
+                });
         }
     };
 
