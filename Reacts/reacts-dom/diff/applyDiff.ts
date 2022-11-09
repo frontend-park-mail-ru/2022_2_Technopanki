@@ -201,6 +201,15 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
     if (operation.type === UPDATE_OPERATION) {
         if ((<Update>operation).node.$$typeof === DOM_NODE_SYMBOL) {
             updateElementAttributes(element, <Update>operation);
+            Object.entries((<Update>operation).node.props).forEach(
+                ([attr, value]) => {
+                    if (attr.startsWith('on')) {
+                        (<Update>(
+                            operation
+                        )).node._domElement.removeEventListener(attr, value);
+                    }
+                },
+            );
         }
 
         applyChildrenDiff(

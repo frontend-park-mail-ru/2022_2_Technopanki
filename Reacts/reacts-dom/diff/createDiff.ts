@@ -55,7 +55,7 @@ const compareAttributes = (
             ([attr, _]) => newNodeAttrNames.indexOf(attr) === -1,
         ),
         update,
-        removeFromUpdate: oldNodeWithoutChildren.filter(([attr, _]) =>
+        removeFromUpdate: newNodeWithoutChildren.filter(([attr, _]) =>
             update.find(
                 ([updateAttr, _]) =>
                     updateAttr === attr && attr.startsWith('on'),
