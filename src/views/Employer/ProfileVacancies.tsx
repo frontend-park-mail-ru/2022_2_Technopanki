@@ -1,7 +1,5 @@
 import { Component } from '../../../Reacts';
 import { vacancyService } from '../../services/vacancyService';
-import Link from '../../components/Link/Link';
-import Vacancy from '../../components/UI-kit/vacancy/VacancyCard';
 import VacancyCard from '../../components/UI-kit/vacancy/VacancyCard';
 import Button from '../../components/UI-kit/buttons/Button';
 
@@ -26,17 +24,26 @@ export default class ProfileVacancies extends Component<
         limit: 10,
     };
 
+    getVacancies() {
+        if (this.props.profileID) {
+            vacancyService
+                .getAllVacanciesForEmployer(this.props.profileID)
+                .then(body => {
+                    this.setState(_ => ({
+                        limit: 10,
+                        vacancies: body,
+                    }));
+                })
+                .catch(err => console.error(err));
+        }
+    }
+
     componentDidMount() {
-        console.log('mount: ', this.props.profileID, this.props);
-        vacancyService
-            .getAllVacanciesForEmployer(this.props.profileID)
-            .then(body => {
-                this.setState(_ => ({
-                    limit: 10,
-                    vacancies: body,
-                }));
-            })
-            .catch(err => console.error(err));
+        this.getVacancies();
+    }
+
+    componentDidUpdate() {
+        this.getVacancies();
     }
 
     render() {

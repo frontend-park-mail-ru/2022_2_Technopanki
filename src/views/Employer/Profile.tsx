@@ -44,6 +44,10 @@ class Profile extends Component<
         this.getDataFromServer();
     }
 
+    componentDidUpdate() {
+        console.log('update: ', this.props);
+    }
+
     render() {
         return (
             <div className={'screen-responsive flex column g-40'}>
@@ -137,7 +141,7 @@ class Profile extends Component<
                                     className={'flex column g-16'}
                                 >
                                     <ProfileVacancies
-                                        profileID={this.props.userID}
+                                        profileID={this.props.id}
                                     />
                                 </div>
                             </div>
