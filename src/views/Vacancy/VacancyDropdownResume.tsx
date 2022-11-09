@@ -4,6 +4,7 @@ import styles from './vacancy.module.scss';
 import { userConnect } from '../../store';
 import { applicantProfileService } from '../../services/applicantService';
 import navigator from '../../router/navigator';
+import RenderWithCondition from '../../components/RenderWithCondition';
 
 type ResumeType = {
     title: string;
@@ -12,6 +13,16 @@ type ResumeType = {
 
 class Resume extends Component<ResumeType & { name: string; surname: string }> {
     // TODO: onclick - переход по ссылке на резюме
+
+    sendResponseToServer() {
+        applicantProfileService.apply(
+            this.props.id,
+            this.props.name,
+            this.props.surname,
+            this.props.title,
+        );
+    }
+
     render() {
         return (
             <div
@@ -28,9 +39,10 @@ class Resume extends Component<ResumeType & { name: string; surname: string }> {
                     </p>
                 </div>
                 <ArrowButton
-                    onClick={() =>
-                        navigator.navigate(`/resume/${this.props.id}`)
-                    }
+                    onClick={() => {
+                        this.sendResponseToServer();
+                        navigator.navigate(`/resume/${this.props.id}`);
+                    }}
                 />
             </div>
         );
@@ -66,6 +78,14 @@ class VacancyDropdownResume extends Component<
                         id={resume.id}
                     />
                 ))}
+                <RenderWithCondition
+                    condition={this.state.resume.length === 0}
+                    onSuccess={
+                        <div className={'rounded-md p-24'}>
+                            <p>Похоже у вас нет резюме:(</p>
+                        </div>
+                    }
+                />
             </div>
         );
     }

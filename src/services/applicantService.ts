@@ -65,7 +65,7 @@ export const applicantProfileService: Service = {
                 requestHeaders.jsonHeader,
             )
             .then(response => {
-                console.log(response.body)
+                console.log(response.body);
                 if (response.status > 399) {
                     throw response.status;
                 }
@@ -86,9 +86,22 @@ export const applicantProfileService: Service = {
             });
     },
 
-    apply: async (formData: FormData) => {
+    apply: async (
+        resumeID: string,
+        name: string,
+        surname: string,
+        title: string,
+    ) => {
         return network
-            .POST(PROFILE_URLS.APPLICANT_RESUMES, JSON.stringify({}))
+            .POST(
+                PROFILE_URLS.APPLICANT_RESUMES,
+                JSON.stringify({
+                    resume_id: resumeID,
+                    user_name: name,
+                    user_surname: surname,
+                    resume_title: title,
+                }),
+            )
             .then(response => {
                 if (response.status > 399) {
                     throw response.status;
