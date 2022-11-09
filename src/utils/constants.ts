@@ -1,4 +1,4 @@
-export const SERVER_URL = 'http://95.163.208.72:8000/';
+export const SERVER_URL = 'http://95.163.208.72:8080/';
 export const IMAGE_URL = SERVER_URL + 'data/image/';
 
 export const USER_URLS = {

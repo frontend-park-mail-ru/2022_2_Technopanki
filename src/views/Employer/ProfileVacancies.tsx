@@ -31,7 +31,7 @@ export default class ProfileVacancies extends Component<
                 .then(body => {
                     this.setState(_ => ({
                         limit: 10,
-                        vacancies: body,
+                        vacancies: body.data,
                     }));
                 })
                 .catch(err => console.error(err));
