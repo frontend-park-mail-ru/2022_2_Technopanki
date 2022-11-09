@@ -3,15 +3,14 @@ import ArrowButton from '../../components/UI-kit/buttons/ArrowButton';
 import styles from './vacancy.module.scss';
 import { userConnect } from '../../store';
 import { applicantProfileService } from '../../services/applicantService';
+import navigator from '../../router/navigator';
 
 type ResumeType = {
-    name: string;
-    surname: string;
-    resumeHeader: string;
-    src: string;
+    title: string;
+    id: string;
 };
 
-class Resume extends Component<ResumeType> {
+class Resume extends Component<ResumeType & { name: string; surname: string }> {
     // TODO: onclick - переход по ссылке на резюме
     render() {
         return (
@@ -25,21 +24,25 @@ class Resume extends Component<ResumeType> {
                         {this.props.name} {this.props.surname}
                     </p>
                     <p className={styles.dropdown_resumeHeader}>
-                        {this.props.resumeHeader}
+                        {this.props.title}
                     </p>
                 </div>
-                <ArrowButton />
+                <ArrowButton
+                    onClick={() =>
+                        navigator.navigate(`/resume/${this.props.id}`)
+                    }
+                />
             </div>
         );
     }
 }
 
 class VacancyDropdownResume extends Component<
-    { userID: string },
+    { userID: string; name: string; surname: string },
     { resume: ResumeType[] }
 > {
     state = {
-        resume: [],
+        resume: [] as ResumeType[],
     };
 
     componentDidMount() {
@@ -55,10 +58,10 @@ class VacancyDropdownResume extends Component<
             >
                 {this.state.resume.map(resume => (
                     <Resume
-                        name={resume.name}
-                        surname={resume.surname}
-                        resumeHeader={resume.resumeHeader}
-                        src={resume.src}
+                        name={this.props.name}
+                        surname={this.props.surname}
+                        title={resume.title}
+                        id={resume.id}
                     />
                 ))}
             </div>
@@ -66,6 +69,8 @@ class VacancyDropdownResume extends Component<
     }
 }
 
-export default userConnect(state => ({ userID: state.id }))(
-    VacancyDropdownResume,
-);
+export default userConnect(state => ({
+    userID: state.id,
+    name: state.name,
+    surname: state.surname,
+}))(VacancyDropdownResume);
