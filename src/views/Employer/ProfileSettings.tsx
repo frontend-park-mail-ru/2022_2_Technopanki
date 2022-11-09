@@ -9,6 +9,7 @@ import { employerProfileService } from '../../services/employerProfileService';
 import { EmployerProfile, ProfileState } from '../../store/profile/types';
 import { dispatch, profileConnect, userConnect } from '../../store';
 import {
+    phoneValidation,
     validateCompanyName,
     validateEmail,
     validatePasswordSymbols,
@@ -73,7 +74,6 @@ const AvatarSettings = profileConnect(state => {
     };
 })(AvatarSettingsComponent);
 
-// todo: добавить валидацию на все компоненты
 class ProfileSettingsComponent extends Component<
     ProfileState & { userID: string },
     {
@@ -131,8 +131,11 @@ class ProfileSettingsComponent extends Component<
                         placeholder: '+7 (999) 999-99-99',
                         label: 'Телефон',
                         name: 'phone',
+                        validator: phoneValidation,
                         required: true,
                         value: this.props.phone,
+                        errorMessage:
+                            'Номер телефона должен быть в формате: +7 (999) 999-99-99',
                     },
                     email: {
                         size: 4,

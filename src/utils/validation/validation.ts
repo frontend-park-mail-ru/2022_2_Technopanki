@@ -49,3 +49,8 @@ export const validateCompanyName = (name: string): boolean => {
     const regexp = /^[a-zA-Z а-яА-Я]*$/;
     return regexp.test(name);
 };
+
+export const phoneValidation = (phone: string): boolean => {
+    const regexp = /^\+[0-9]{1,4} \([0-9]{1,4}\) [0-9]{3}-[0-9]{2}-[0-9]{2}$/;
+    return regexp.test(phone);
+};

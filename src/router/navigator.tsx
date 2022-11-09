@@ -69,7 +69,7 @@ class Navigator {
     }
 
     goBack() {
-        history.history.back();
+        history.back();
     }
 }
 
