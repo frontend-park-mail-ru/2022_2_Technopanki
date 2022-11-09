@@ -3,7 +3,7 @@ import { profileReducer } from './reducer';
 import { ProfileState } from './types';
 
 export const defaultProfileState: ProfileState = {
-    id: 'FUCK',
+    id: '',
     profileType: '',
     bannerSrc: '',
     avatarSrc: '',

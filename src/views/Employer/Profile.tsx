@@ -19,13 +19,14 @@ import Footer from '../../components/UI-kit/footer/Footer';
 import { employerProfileService } from '../../services/employerProfileService';
 import { userStore } from '../../store/user/store';
 import { EmployerProfile } from '../../store/profile/types';
-import { dispatch, profileConnect } from '../../store';
+import { dispatch, profileConnect, userConnect } from '../../store';
 import { profileActions } from '../../store/profile/actions';
 import { vacancyActions } from '../../store/vacancy/actions';
 import ProfileVacancies from './ProfileVacancies';
+import RenderWithCondition from '../../components/RenderWithCondition';
 
 class Profile extends Component<
-    EmployerProfile,
+    EmployerProfile & { userID: string },
     { vacancies: VacancyCardPropsType[] }
 > {
     state = {
@@ -41,6 +42,10 @@ class Profile extends Component<
 
     componentDidMount() {
         this.getDataFromServer();
+    }
+
+    componentDidUpdate() {
+        console.log('update: ', this.props);
     }
 
     render() {
@@ -106,22 +111,31 @@ class Profile extends Component<
                         <div key={'vacancies'} className={'flex column g-16'}>
                             <h6 key={'header'}>Вакансии</h6>
                             <div key={'info'} className={'flex column g-16'}>
-                                <button
-                                    key={'link'}
-                                    className={styles.vacancies_button}
-                                >
-                                    <Link
-                                        to={'/vacancy/new'}
-                                        onClick={() =>
-                                            dispatch(vacancyActions.clear())
-                                        }
-                                        content={
-                                            <ArrowButtonWithText>
-                                                Добавить вакансию
-                                            </ArrowButtonWithText>
-                                        }
-                                    />
-                                </button>
+                                <RenderWithCondition
+                                    condition={
+                                        this.props.userID === this.props.id
+                                    }
+                                    onSuccess={
+                                        <button
+                                            key={'link'}
+                                            className={styles.vacancies_button}
+                                        >
+                                            <Link
+                                                to={'/vacancy/new'}
+                                                onClick={() =>
+                                                    dispatch(
+                                                        vacancyActions.clear(),
+                                                    )
+                                                }
+                                                content={
+                                                    <ArrowButtonWithText>
+                                                        Добавить вакансию
+                                                    </ArrowButtonWithText>
+                                                }
+                                            />
+                                        </button>
+                                    }
+                                />
                                 <div
                                     key={'vacancies'}
                                     className={'flex column g-16'}
@@ -147,4 +161,9 @@ class Profile extends Component<
     }
 }
 
-export default profileConnect(state => state)(Profile);
+const UserWrapper = userConnect((state, props) => ({
+    ...props,
+    userID: state.id,
+}))(Profile);
+
+export default profileConnect(state => state)(UserWrapper);

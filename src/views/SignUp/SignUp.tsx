@@ -295,7 +295,6 @@ export default class SignUp extends Component<
                     navigator.goBack();
                 })
                 .catch(body => {
-                    // todo: поправить type ошибки
                     setFieldAsInvalid(
                         newState.inputs[body.descriptors[0]],
                         body.error,

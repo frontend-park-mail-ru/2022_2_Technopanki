@@ -1,40 +1,16 @@
 import { Component } from '../../../Reacts';
 import Header from '../../components/UI-kit/header/Header';
 import SettingsHat from '../../components/hats/SettingsHat';
-import Input, {
-    InputPropsType,
-} from '../../components/UI-kit/forms/inputs/Input';
-import Form, { FormSectionType } from '../../components/UI-kit/forms/Form';
-import CancelSaveButtons from '../../components/CancelSaveButtons/CancelSaveButtons';
-import IconInput from '../../components/UI-kit/forms/inputs/IconInput';
-import VKLogo from '../../static/icons/logos/VKColor.svg';
-import TwitterLogo from '../../static/icons/logos/TwitterColor.svg';
-import FacebookLogo from '../../static/icons/logos/FacebookColor.svg';
-import TelegramLogo from '../../static/icons/logos/TelegramColor.svg';
-import YouTubeLogo from '../../static/icons/logos/YouTubeColor.svg';
-import InstagramLogo from '../../static/icons/logos/InstagramColor.svg';
+import { InputPropsType } from '../../components/UI-kit/forms/inputs/Input';
 import FileInput from '../../components/UI-kit/forms/inputs/FileInput';
 import navigator from '../../router/navigator';
 import Footer from '../../components/UI-kit/footer/Footer';
-import { sendProfileImg } from '../../services/imageService';
 import { employerProfileService } from '../../services/employerProfileService';
-import { userStore } from '../../store/user/store';
-import { defaultProfileState, profileStore } from '../../store/profile/store';
 import { EmployerProfile, ProfileState } from '../../store/profile/types';
-import {
-    dispatch,
-    errorsConnect,
-    profileConnect,
-    userConnect,
-} from '../../store';
-import Textarea from '../../components/UI-kit/forms/inputs/Textarea';
-import ChipsInput from '../../components/UI-kit/forms/inputs/ChipsInput';
-import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
-import { activateError, deactivateError } from '../../store/errors/actions';
+import { dispatch, profileConnect, userConnect } from '../../store';
 import {
     validateCompanyName,
     validateEmail,
-    validateNameSymbols,
     validatePasswordSymbols,
 } from '../../utils/validation/validation';
 import {
@@ -45,7 +21,6 @@ import {
 } from '../../utils/validation/messages';
 import FormSection from '../../components/UI-kit/forms/FormSection';
 import { profileActions } from '../../store/profile/actions';
-import RenderWithCondition from '../../components/RenderWithCondition';
 import { userActions } from '../../store/user/actions';
 import { authService } from '../../services/authService';
 import Button from '../../components/UI-kit/buttons/Button';
