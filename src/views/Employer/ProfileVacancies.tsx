@@ -2,6 +2,7 @@ import { Component } from '../../../Reacts';
 import { vacancyService } from '../../services/vacancyService';
 import VacancyCard from '../../components/UI-kit/vacancy/VacancyCard';
 import Button from '../../components/UI-kit/buttons/Button';
+import RenderWithCondition from '../../components/RenderWithCondition';
 
 export default class ProfileVacancies extends Component<
     { profileID: string },
@@ -17,19 +18,22 @@ export default class ProfileVacancies extends Component<
             hours: string;
         }[];
         limit: number;
+        requested: boolean;
     }
 > {
     state = {
         vacancies: [],
         limit: 10,
+        requested: false,
     };
 
     getVacancies() {
-        if (this.props.profileID) {
+        if (this.props.profileID && !this.state.requested) {
             vacancyService
                 .getAllVacanciesForEmployer(this.props.profileID)
                 .then(body => {
                     this.setState(_ => ({
+                        requested: true,
                         limit: 10,
                         vacancies: body.data,
                     }));
@@ -65,17 +69,22 @@ export default class ProfileVacancies extends Component<
                             description={vacancy.description}
                         />
                     ))}
-                <Button
-                    key={'more button'}
-                    onClick={() => {
-                        this.setState(state => ({
-                            ...state,
-                            limit: state.limit + 10,
-                        }));
-                    }}
-                >
-                    Показать еще
-                </Button>
+                <RenderWithCondition
+                    condition={this.state.limit < this.state.vacancies.length}
+                    onSuccess={
+                        <Button
+                            key={'more button'}
+                            onClick={() => {
+                                this.setState(state => ({
+                                    ...state,
+                                    limit: state.limit + 10,
+                                }));
+                            }}
+                        >
+                            Показать еще
+                        </Button>
+                    }
+                />
             </div>
         );
     }
