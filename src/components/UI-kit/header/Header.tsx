@@ -48,19 +48,6 @@ export default class Header extends Component {
                             }
                         />
                         <Link
-                            to={'/applicant/1'}
-                            content={
-                                <p
-                                    key={'item2'}
-                                    id={'item2'}
-                                    className={styles.item__def}
-                                    onClick={this.setActive}
-                                >
-                                    Соискатели
-                                </p>
-                            }
-                        />
-                        <Link
                             to={'/resume/settings'}
                             content={
                                 <p

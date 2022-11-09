@@ -30,7 +30,7 @@ import { authService } from '../../services/authService';
 
 export type ResponseBody = {
     descriptors: string[];
-    type: string;
+    error: string;
 };
 
 export type AuthField = {
@@ -47,8 +47,10 @@ export type AuthField = {
 export type AuthFields = { [key: string]: AuthField };
 
 export const setFieldAsInvalid = (field: AuthField, errorMessage: string) => {
-    field.error = true;
-    field.errorMessage = errorMessage;
+    if (field) {
+        field.error = true;
+        field.errorMessage = errorMessage;
+    }
 };
 
 export const setInvalidFieldsFromServer = (
@@ -62,14 +64,11 @@ export const setInvalidFieldsFromServer = (
         responseBody.descriptors[0]
     ) {
         setFieldAsInvalid(
-            inputs[responseBody.type],
-            responseBody.descriptors[0],
+            inputs[responseBody.descriptors[0]],
+            responseBody.error,
         );
         callback();
-        setFieldAsInvalid(inputs[responseBody.type] as AuthField, '');
-    } else if (responseBody && responseBody.type) {
-        setFieldAsInvalid(inputs[responseBody.type], '');
-        callback();
+        setFieldAsInvalid(inputs[responseBody.descriptors[0]] as AuthField, '');
     } else {
         throw new Error(`empty body: ${responseBody}`);
     }
