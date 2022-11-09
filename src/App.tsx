@@ -29,7 +29,7 @@ authService
         authService
             .CSRF()
             .then(CSRFvalue => {
-                localStorage.setItem('CSRF', CSRFvalue);
+                localStorage.setItem('CSRF', CSRFvalue.token);
                 dispatch(
                     userActions.SIGN_IN(
                         body.id,

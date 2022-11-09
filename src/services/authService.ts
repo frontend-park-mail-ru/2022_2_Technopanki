@@ -86,7 +86,7 @@ export const authService: Service = {
     CSRF: async () => {
         dispatch(startLoading());
         network
-            .GET(USER_URLS.CSRF, requestHeaders.textPlain)
+            .GET(USER_URLS.CSRF)
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
