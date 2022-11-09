@@ -110,12 +110,17 @@ export default class SignIn extends Component<
                 })
                 .catch(body => {
                     console.log(body);
-                    setFieldAsInvalid(
-                        newState.inputs[body.descriptors[0]],
-                        body.error,
-                    );
-                    this.setState(() => newState);
-                    setFieldAsInvalid(newState.inputs[body.descriptors[0]], '');
+                    if (body.descriptors[0]) {
+                        setFieldAsInvalid(
+                            newState.inputs[body.descriptors[0]],
+                            body.error,
+                        );
+                        this.setState(() => newState);
+                        setFieldAsInvalid(
+                            newState.inputs[body.descriptors[0]],
+                            '',
+                        );
+                    }
                 });
         }
     };
