@@ -99,6 +99,7 @@ export default class SignIn extends Component<
                     authService
                         .signIn(formData)
                         .then(body => {
+                            console.log(body);
                             dispatch(
                                 userActions.SIGN_IN(
                                     body.id,
@@ -112,6 +113,7 @@ export default class SignIn extends Component<
                             navigator.goBack();
                         })
                         .catch(body => {
+                            console.log(body);
                             setFieldAsInvalid(
                                 newState.inputs[body.descriptors[0]],
                                 body.error,
