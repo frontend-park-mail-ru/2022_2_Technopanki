@@ -136,6 +136,7 @@ export default class VacancyCard extends Component<
                             </ArrowButtonWithTextOutline>
                         }
                     />
+                    <p></p>
                 </div>
                 <div
                     key={'details'}
