@@ -38,7 +38,7 @@ export const SERVER_URLS = {
     ADD_RESUME: SERVER_URL + 'api/resume/new',
 
     APPLICANT: SERVER_URL + 'api/user/',
-    APPLICANT_RESUMES: SERVER_URL + 'api/applicant/resumes/',
+    APPLICANT_RESUMES: SERVER_URL + 'api/resume/applicant/preview/',
 
     USER: SERVER_URL + 'api/user/',
     USER_SAFE: SERVER_URL + 'api/user/safety/',
