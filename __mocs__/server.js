@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const crypto = require('crypto');
 const PORT = 8080;
 
 const users = require('./user.js');
@@ -41,6 +42,11 @@ app.post('/auth/sign-up', (req, res) => {
 
     res.cookie('session', '123');
     res.json({ id: 1 });
+});
+
+app.get('/protected', (req, res) => {
+    console.log('protected');
+    res.json({ value: crypto.randomUUID() });
 });
 
 app.post('/auth/sign-in', (req, res) => {

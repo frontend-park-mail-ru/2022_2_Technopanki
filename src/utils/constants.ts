@@ -6,6 +6,7 @@ export const USER_URLS = {
     SIGN_IN: SERVER_URL + 'auth/sign-in',
     AUTH: SERVER_URL + 'auth/',
     LOGOUT: SERVER_URL + 'auth/logout/',
+    CSRF: SERVER_URL + 'protected/',
 };
 
 export const PROFILE_URLS = {

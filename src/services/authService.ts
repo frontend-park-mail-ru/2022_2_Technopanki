@@ -82,4 +82,20 @@ export const authService: Service = {
             })
             .catch(err => console.error(err));
     },
+
+    CSRF: async () => {
+        dispatch(startLoading());
+        network
+            .GET(USER_URLS.CSRF)
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+            })
+            .catch(err => {
+                dispatch(stopLoading());
+                console.error(err);
+            });
+    },
 };

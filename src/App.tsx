@@ -26,21 +26,26 @@ router.addNewPaths(ROUTER_PATHS);
 authService
     .auth()
     .then(body => {
-        console.log(body);
-        dispatch(
-            userActions.SIGN_IN(
-                body.id,
-                body.user_type === 'employer'
-                    ? body.company_name
-                    : body.applicant_name,
-                body.applicant_surname,
-                body.user_type,
-            ),
-        );
-        router.navigate(location.pathname);
+        authService
+            .CSRF()
+            .then(CSRFbody => {
+                localStorage.setItem('CSRF', CSRFbody.value);
+                dispatch(
+                    userActions.SIGN_IN(
+                        body.id,
+                        body.user_type === 'employer'
+                            ? body.company_name
+                            : body.applicant_name,
+                        body.applicant_surname,
+                        body.user_type,
+                    ),
+                );
+            })
+            .catch(err => console.error('error in CSRF', err))
+            .then(() => router.navigate(location.pathname));
     })
-    .catch(err => {
-        console.error(err);
+    .catch(() => {
+        console.log('not authorized');
         router.navigate(location.pathname);
     });
 

@@ -95,17 +95,20 @@ export default class SignIn extends Component<
             authService
                 .signIn(formData)
                 .then(body => {
-                    dispatch(
-                        userActions.SIGN_IN(
-                            body.id,
-                            body.user_type === 'employer'
-                                ? body.company_name
-                                : body.applicant_name,
-                            body.applicant_surname,
-                            body.user_type,
-                        ),
-                    );
-                    navigator.goBack();
+                    authService.CSRF().then(CSRFbody => {
+                        localStorage.setItem('CSRF', CSRFbody.value);
+                        dispatch(
+                            userActions.SIGN_IN(
+                                body.id,
+                                body.user_type === 'employer'
+                                    ? body.company_name
+                                    : body.applicant_name,
+                                body.applicant_surname,
+                                body.user_type,
+                            ),
+                        );
+                        navigator.goBack();
+                    });
                 })
                 .catch(body => {
                     setFieldAsInvalid(

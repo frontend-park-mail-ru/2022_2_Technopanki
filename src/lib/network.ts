@@ -49,7 +49,16 @@ class Network {
         headers: HeadersInit = requestHeaders.jsonHeader,
         credentials: boolean = true,
     ) {
-        return sendRequest('POST', url, payload, headers, credentials);
+        return sendRequest(
+            'POST',
+            url,
+            payload,
+            {
+                ...headers,
+                'X-CSRF-Token': localStorage.getItem('CSRF') as string,
+            },
+            credentials,
+        );
     }
     async DELETE(
         url: string,

@@ -12,6 +12,7 @@ export interface AttributeUpdater {
     remove: Attribute[];
     set: Attribute[];
     update: Attribute[];
+    removeFromUpdate: Attribute[]; // for removeEventListener
 }
 
 export interface Operation {
