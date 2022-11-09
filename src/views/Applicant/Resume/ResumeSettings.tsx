@@ -20,6 +20,8 @@ import Footer from '../../../components/UI-kit/footer/Footer';
 import { dispatch, resumeConnect, userConnect } from '../../../store';
 import { vacancyActions } from '../../../store/vacancy/actions';
 import { resumeActions } from '../../../store/resume/actions';
+import { validateResumeDescription, validateResumeTitle } from '../../../utils/validation/validation';
+import { RESUME_DESCRIPTION_ERROR, RESUME_TITLE_ERROR } from '../../../utils/validation/messages';
 
 class ResumeSettings extends Component<
     ResumeState & { isNew: boolean },
@@ -46,6 +48,9 @@ class ResumeSettings extends Component<
                         name: 'title',
                         required: true,
                         value: this.props.title,
+                        validator: validateResumeTitle,
+                        error: false,
+                        errorMessage: RESUME_TITLE_ERROR,
                     },
                     description: {
                         size: 8,
@@ -54,6 +59,9 @@ class ResumeSettings extends Component<
                         name: 'description',
                         required: true,
                         value: this.props.description,
+                        validator: validateResumeDescription,
+                        error: false,
+                        errorMessage: RESUME_DESCRIPTION_ERROR,
                     },
                 },
             },
@@ -91,6 +99,33 @@ class ResumeSettings extends Component<
     submitForm = (e: SubmitEvent) => {
         e.preventDefault()
         const formData = new FormData(e.target);
+
+        let sections = this.state.sections;
+        let isValid = true;
+
+        formData.forEach((value, key) => {
+            sections.forEach(section => {
+                if (section.fields[key]) {
+                    if (
+                        section.fields[key].validator &&
+                        !section.fields[key].validator(value) &&
+                        (section.fields[key].required || value)
+                    ) {
+                        section.fields[key].error = true;
+                        isValid = false;
+                    } else {
+                        section.fields[key].error = false;
+                    }
+                    section.fields[key].value = value;
+                    return;
+                }
+            });
+        });
+
+        if (!isValid) {
+            this.setState(state => ({ ...state, sections: sections }));
+            return;
+        }
 
         const resumeID = location.pathname.split('/').at(-1);
 

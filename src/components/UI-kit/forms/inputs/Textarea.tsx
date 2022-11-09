@@ -19,12 +19,21 @@ export default class Textarea extends Component<{
                 <textarea
                     id={this.props.id}
                     name={this.props.name}
-                    className={`${styles.input} ${styles.textarea}`}
+                    className={`${styles.input} ${
+                        this.props.error ? styles.input__error : ''
+                    } ${styles.textarea}`}
                     type={this.props.type}
                     placeholder={this.props.placeholder}
                 >
                     {this.props.value}
                 </textarea>
+                {this.props.error ? (
+                    <p className={`input-error-${this.props.name}`}>
+                        {this.props.errorMessage}
+                    </p>
+                ) : (
+                    <p></p>
+                )}
             </div>
         );
     }

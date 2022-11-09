@@ -49,3 +49,11 @@ export const validateCompanyName = (name: string): boolean => {
     const regexp = /^[a-zA-Z а-яА-Я]*$/;
     return regexp.test(name);
 };
+
+export const validateResumeTitle = (title: string): boolean => {
+    return !!title;
+}
+
+export const validateResumeDescription = (description: string): boolean => {
+    return !!description;
+}

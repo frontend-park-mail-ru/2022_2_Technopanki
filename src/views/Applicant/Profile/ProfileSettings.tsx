@@ -349,7 +349,11 @@ class ApplicantSettings extends Component<
                     </form>
                 </div>
                 <div className={'flex row g-16 mt-40'}>
-                    <Button>Пропустить</Button>
+                    <Button
+                        onClick={navigator.goBack}
+                    >
+                        Пропустить
+                    </Button>
                     <ButtonRed key={'logout'} onClick={this.logout}>
                         Выйти
                     </ButtonRed>

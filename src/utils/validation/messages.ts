@@ -17,3 +17,9 @@ export const SURNAME_SYMBOLS_ERROR =
     'Фамилия должна содержать буквы русского или английского алфавита';
 
 export const DEFAULT_MESSAGE = 'Ошибка. Проверьте email или пароль';
+
+export const RESUME_TITLE_ERROR =
+    'Это поле должно быть заполнено';
+
+export const RESUME_DESCRIPTION_ERROR =
+    'Это поле должно быть заполнено';
