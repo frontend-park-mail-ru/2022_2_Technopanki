@@ -19,9 +19,9 @@ export const authService: Service = {
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
-                    throw response.body.json();
+                    throw response.body;
                 }
-                return response.body.json();
+                return response.body;
             });
     },
 
