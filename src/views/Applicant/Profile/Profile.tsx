@@ -61,7 +61,7 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                 <Header />
                 <ProfileHeader
                     bannerSrc={'./'}
-                    avatarSrc={'./'}
+                    avatarSrc={'http://95.163.208.72:8000/image/applicant.png'}
                     name={this.props.name}
                     surname={this.props.surname}
                     status={this.props.status}

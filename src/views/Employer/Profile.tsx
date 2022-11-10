@@ -50,7 +50,7 @@ class Profile extends Component<
                 <ProfileHeader
                     key={'profile_header'}
                     bannerSrc={this.props.bannerSrc}
-                    avatarSrc={this.props.avatarSrc}
+                    avatarSrc={'http://95.163.208.72:8000/image/employer.png'}
                     name={this.props.name}
                     status={this.props.status}
                     profileID={this.props.id}
