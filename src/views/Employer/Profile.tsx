@@ -57,7 +57,6 @@ class Profile extends Component<
                     buttons={
                         <div className={'flex flex-wrap row g-16'}>
                             <ButtonIcon
-                                key={'phone'}
                                 onClick={() => {
                                     navigator.clipboard
                                         .writeText(this.props.phone)
@@ -78,7 +77,7 @@ class Profile extends Component<
                             />
                             {userStore.getState().authorized &&
                             userStore.getState().userType === 'applicant' ? (
-                                <ButtonPrimary key={'want job'}>
+                                <ButtonPrimary>
                                     Хочу здесь работать
                                 </ButtonPrimary>
                             ) : (
@@ -87,12 +86,11 @@ class Profile extends Component<
                             {userStore.getState().id === this.props.id &&
                             userStore.getState().userType === 'employer' ? (
                                 <Link
-                                    key={'settings'}
                                     to={`/employer/settings/${this.props.id}`}
                                     content={<Button>Настройки</Button>}
                                 />
                             ) : (
-                                <p key={'none'} className={'none'}></p>
+                                <p className={'none'}></p>
                             )}
                         </div>
                     }
