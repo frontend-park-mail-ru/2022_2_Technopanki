@@ -62,7 +62,7 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                 <Header />
                 <ProfileHeader
                     bannerSrc={'./'}
-                    avatarSrc={'./'}
+                    avatarSrc={this.props.imgSrc}
                     name={this.props.name}
                     surname={this.props.surname}
                     status={this.props.status}

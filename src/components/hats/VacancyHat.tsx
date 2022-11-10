@@ -32,7 +32,7 @@ export default class VacancyHat extends Component<{
     render() {
         return (
             <Hat
-                imgSrc={'./image/employer.png'}
+                imgSrc={'../image/employer.png'}
                 name={this.props.companyName}
                 surname={''}
                 status={this.props.description}

@@ -45,7 +45,7 @@ export default class ResumeList extends Component<
                                         ? resume.resume_id
                                         : resume.id
                                 }
-                                imgSrc={'./image/employer.png'}
+                                imgSrc={'../image/employer.png'}
                                 name={resume.user_name}
                                 surname={resume.user_surname}
                                 resumeTitle={resume.title}

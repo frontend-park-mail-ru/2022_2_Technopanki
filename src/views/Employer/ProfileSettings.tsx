@@ -308,7 +308,7 @@ class ProfileSettingsComponent extends Component<
                 <div key={'hat'} className={'columns g-24'}>
                     <div key={'settings'} className={`col-12 mt-header`}>
                         <SettingsHat
-                            imgSrc={'./image/employer.png'}
+                            imgSrc={'../image/employer.png'}
                             name={this.props.name}
                             surname={''}
                             status={this.props.status}

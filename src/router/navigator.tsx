@@ -2,7 +2,6 @@ import { Component, createRoot } from '../../Reacts';
 import Router from './router';
 import { Path } from './types';
 import { RootType } from '../../Reacts/reacts-dom/root';
-import { VNodeType } from '../../Reacts/shared/common';
 
 export type PathType = {
     path: string;
@@ -54,6 +53,11 @@ class Navigator {
     }
 
     navigate(to: string, pop: boolean = false) {
+        if (to === location.pathname) {
+            window.scrollTo(0, 0);
+            return;
+        }
+
         const url = this.urls.find(url => url.validator(to));
 
         if (url) {

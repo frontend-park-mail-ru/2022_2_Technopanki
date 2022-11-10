@@ -49,7 +49,7 @@ export default class ApplicantHat extends Component<
     render() {
         return (
             <Hat
-                imgSrc={'./image/applicant.png'}
+                imgSrc={'../image/applicant.png'}
                 name={this.state.name}
                 surname={this.state.surname}
                 status={this.state.status}

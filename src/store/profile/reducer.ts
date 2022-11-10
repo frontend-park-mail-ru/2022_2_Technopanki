@@ -28,7 +28,9 @@ export const profileReducer: Reducer<ProfileState> = (
                 description: action.state.description,
                 phone: action.state.contact_number,
                 email: action.state.email,
-                avatarSrc: IMAGE_URL + action.state.image,
+                // TODO: image
+                // avatarSrc: IMAGE_URL + action.state.image,
+                avatarSrc: IMAGE_URL + 'test.png',
                 size: action.state.company_size
                     ? action.state.company_size.toString()
                     : '',
@@ -36,6 +38,8 @@ export const profileReducer: Reducer<ProfileState> = (
         case PROFILE_ACTION_TYPES.UPDATE_FROM_FORM:
             return {
                 ...state,
+                // avatarSrc: IMAGE_URL + action.state.image,
+                avatarSrc: IMAGE_URL + 'test.png',
                 id: action.profileID,
                 profileType: action.userType,
                 name: action.formData.get('name'),
