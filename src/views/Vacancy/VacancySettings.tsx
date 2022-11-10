@@ -11,6 +11,7 @@ import { vacancyService } from '../../services/vacancyService';
 import navigator from '../../router/navigator.tsx';
 import { vacancyActions } from '../../store/vacancy/actions';
 import ChipsInput from '../../components/UI-kit/forms/inputs/ChipsInput';
+import Button from '../../components/UI-kit/buttons/Button';
 
 class AboutVacancyComponent extends Component<{
     title: string;
@@ -225,6 +226,7 @@ class VacancySettings extends Component<
     { sections: FormSectionType[] }
 > {
     state = {
+        isNew: location.pathname.split('/').at(-1) === 'new',
         sections: [
             {
                 header: 'О вакансии',
@@ -246,8 +248,7 @@ class VacancySettings extends Component<
         e.preventDefault();
         const formData = new FormData(e.target);
 
-        const isNew = location.pathname.split('/').at(-1) === 'new';
-        if (isNew) {
+        if (this.state.isNew) {
             vacancyService
                 .createVacancy(this.props.postedByUserID, formData)
                 .then(body => {
@@ -270,7 +271,7 @@ class VacancySettings extends Component<
     };
 
     componentDidMount() {
-        if (!this.props.isNew) {
+        if (!this.state.isNew) {
             const vacancyID = location.pathname.split('/').at(-1);
             vacancyService
                 .getVacancyData(vacancyID)
@@ -310,6 +311,15 @@ class VacancySettings extends Component<
                             onSubmit={this.submitForm.bind(this)}
                         />
                     </div>
+                    <Button
+                        onClick={() =>
+                            vacancyService
+                                .deleteVacancy(this.props.id)
+                                .then(() => navigator.goBack())
+                        }
+                    >
+                        Удалить вакансию
+                    </Button>
                 </div>
                 <Footer />
             </div>

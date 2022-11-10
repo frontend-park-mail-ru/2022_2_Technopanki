@@ -146,4 +146,8 @@ export const vacancyService: Service = {
                 return response.body;
             });
     },
+
+    deleteVacancy: async (vacancyID: string) => {
+        return await network.DELETE(VACANCY_URLS.VACANCY_DELETE + vacancyID);
+    },
 };

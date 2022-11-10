@@ -64,10 +64,10 @@ export const childrenDiff = (
     const operations: Operation[] = [];
 
     const oldChildrenWithKeys = oldChildren.map(
-        (node: VNodeType): [KeyType, VNodeType] => [node.key, node],
+        (node: VNodeType): [KeyType, VNodeType] => [node?.key, node],
     );
     const newChildrenWithKeys = newChildren.map(
-        (node: VNodeType): [KeyType, VNodeType] => [node.key, node],
+        (node: VNodeType): [KeyType, VNodeType] => [node?.key, node],
     );
 
     let nextUpdateKey = findNextUpdateKey(
