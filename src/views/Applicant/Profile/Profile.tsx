@@ -53,6 +53,8 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
     }
 
     componentDidMount() {
+        console.log(')))')
+        console.log(this.props)
         this.getDataFromServer();
     }
 

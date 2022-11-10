@@ -220,10 +220,10 @@ class ResumeSettings extends Component<
                         Пропустить
                     </Button>
                     {this.props.isNew? (
-                        ''
+                        <div />
                     ) : (
                         <ButtonRed
-                            key={'logout'}
+                            key={'removal'}
                             onClick={() => {
                                 this.deleteResume(this.props.postedByUserID)
                             }}
