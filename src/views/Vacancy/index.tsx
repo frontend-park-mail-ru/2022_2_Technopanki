@@ -32,7 +32,7 @@ type VacancyPropsType = {
 };
 
 class Vacancy extends Component<VacancyPropsType> {
-    getDataFromServer(vacancyID: string) {
+    getDataFromServer(vacancyID: string | null | undefined) {
         // Мы точно уверены что путь будет vacancy/{0,9}+
         if (vacancyID) {
             vacancyService.getVacancyData(vacancyID as string).then(body => {
@@ -42,7 +42,9 @@ class Vacancy extends Component<VacancyPropsType> {
     }
 
     componentDidMount() {
-        this.getDataFromServer(this.props.id);
+        const vacancyID =
+            this.props.id || (location.pathname.split('/').at(-1) as string);
+        this.getDataFromServer(vacancyID);
     }
 
     componentDidUpdate() {
