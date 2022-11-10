@@ -36,8 +36,16 @@ export default class ResumeList extends Component<
                         ?.slice(0, this.state.limit)
                         .map(resume => (
                             <ResumeListItem
-                                key={resume.resume_id}
-                                id={resume.resume_id}
+                                key={
+                                    resume.resume_id
+                                        ? resume.resume_id
+                                        : resume.id
+                                }
+                                id={
+                                    resume.resume_id
+                                        ? resume.resume_id
+                                        : resume.id
+                                }
                                 imgSrc={resume.imgSrc}
                                 name={resume.user_name}
                                 surname={resume.user_surname}

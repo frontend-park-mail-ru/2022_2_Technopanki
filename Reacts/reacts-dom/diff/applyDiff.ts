@@ -269,8 +269,7 @@ const applyChildrenDiff = (
             //     },
             // );
             childElem.remove();
-            (<Remove>childUpdater).node._instance?.componentWillUnmount();
-            (<Remove>childUpdater).node.unmount();
+            (<Remove>childUpdater).node?.unmount();
             offset -= 1;
             continue;
         }

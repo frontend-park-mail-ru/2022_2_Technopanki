@@ -16,10 +16,10 @@ class ApplicantResumeList extends Component<
             applicantProfileService
                 .getResumeList(this.props.applicantID)
                 .then(body => {
-                    this.state.responses = JSON.parse(JSON.stringify(body));
-                    this.setState(state => {
-                        return state;
-                    });
+                    this.setState(state => ({
+                        ...state,
+                        responses: body,
+                    }));
                 })
                 .catch(err => console.error(err));
         }
