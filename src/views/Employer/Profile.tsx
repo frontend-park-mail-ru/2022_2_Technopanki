@@ -58,6 +58,7 @@ class Profile extends Component<
                     buttons={
                         <div className={'flex flex-wrap row g-16'}>
                             <ButtonIcon
+                                key={'phone'}
                                 onClick={() => {
                                     navigator.clipboard
                                         .writeText(this.props.phone)
@@ -67,6 +68,7 @@ class Profile extends Component<
                                 icon={PhoneIcon}
                             />
                             <ButtonIcon
+                                key={'email'}
                                 onClick={() => {
                                     navigator.clipboard
                                         .writeText(this.props.email)
@@ -77,20 +79,21 @@ class Profile extends Component<
                             />
                             {userStore.getState().authorized &&
                             userStore.getState().userType === 'applicant' ? (
-                                <ButtonPrimary>
+                                <ButtonPrimary key={'want job'}>
                                     Хочу здесь работать
                                 </ButtonPrimary>
                             ) : (
-                                <p className={'none'}></p>
+                                <p key={'new_none'} className={'none'}></p>
                             )}
                             {userStore.getState().id === this.props.id &&
                             userStore.getState().userType === 'employer' ? (
                                 <Link
+                                    key={'settings'}
                                     to={`/employer/settings/${this.props.id}`}
                                     content={<Button>Настройки</Button>}
                                 />
                             ) : (
-                                <p className={'none'}></p>
+                                <p key={'none'} className={'none'}></p>
                             )}
                         </div>
                     }

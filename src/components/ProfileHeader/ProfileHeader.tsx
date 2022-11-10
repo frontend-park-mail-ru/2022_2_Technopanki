@@ -19,17 +19,18 @@ export default class ProfileHeader extends Component<{
                     <img src={this.props.bannerSrc} alt={'banner'} />
                 </div>
                 <div key={'content'} className={styles.profile_content}>
-                    <div className={styles.info}>
+                    <div key={'info'} className={styles.info}>
                         <img
+                            key={'img'}
                             className={styles.info__avatar}
                             src={this.props.avatarSrc}
                             alt={'avatar'}
                         />
-                        <div className={`flex column g-4`}>
-                            <h3>
+                        <div key={'content'} className={`flex column g-4`}>
+                            <h3 key={'header'}>
                                 {this.props.name} {this.props.surname}
                             </h3>
-                            <p>{this.props.status}</p>
+                            <p key={'status'}>{this.props.status}</p>
                         </div>
                     </div>
                     <div key={'buttons'}>{this.props.buttons}</div>
