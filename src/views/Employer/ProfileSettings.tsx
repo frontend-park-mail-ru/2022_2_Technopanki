@@ -247,7 +247,7 @@ class ProfileSettingsComponent extends Component<
                 dispatch(
                     profileActions.updateFromFormData(
                         this.state.profile.id,
-                        this.state.profile.profileType,
+                        'employer',
                         formData,
                     ),
                 );
