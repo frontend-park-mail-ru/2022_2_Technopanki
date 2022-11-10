@@ -240,14 +240,18 @@ class ProfileSettingsComponent extends Component<
         employerProfileService
             .updateProfile(
                 this.state.profile.id,
-                this.state.profile.profileType,
+                this.state.profile.profileType
+                    ? this.state.profile.profileType
+                    : 'employer',
                 formData,
             )
             .then(() => {
                 dispatch(
                     profileActions.updateFromFormData(
                         this.state.profile.id,
-                        'employer',
+                        this.state.profile.profileType
+                            ? this.state.profile.profileType
+                            : 'employer',
                         formData,
                     ),
                 );
