@@ -3,10 +3,10 @@ import { ResumeListItemPropsType } from '../../components/UI-kit/resumeList/Resu
 import Store from '../../../Fluxs/store';
 import { applicantProfileReducer } from './reducer';
 
-export const defaultApplicantProfile: ProfileState ={
+export const defaultApplicantProfile: ProfileState = {
     id: '',
     imgSrc: '',
-    name: '',
+    applicant_name: '',
     surname: '',
     status: '',
     phone: '',
@@ -17,7 +17,7 @@ export const defaultApplicantProfile: ProfileState ={
     vk: '',
     facebook: '',
     telegram: '',
-}
+};
 
 export const applicantProfileStore = new Store<ProfileState>(
     applicantProfileReducer,

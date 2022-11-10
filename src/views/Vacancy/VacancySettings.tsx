@@ -12,6 +12,8 @@ import navigator from '../../router/navigator.tsx';
 import { vacancyActions } from '../../store/vacancy/actions';
 import ChipsInput from '../../components/UI-kit/forms/inputs/ChipsInput';
 import Button from '../../components/UI-kit/buttons/Button';
+import { activateError, deactivateError } from '../../store/errors/actions';
+import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 
 class AboutVacancyComponent extends Component<{
     title: string;
@@ -243,10 +245,22 @@ class VacancySettings extends Component<
         ],
     };
 
-    // TODO: отрисовать страницу с резюме после обновления
     submitForm = (e: SubmitEvent) => {
         e.preventDefault();
         const formData = new FormData(e.target);
+
+        formData.forEach(value => {
+            if (!value || value === '') {
+                dispatch(
+                    activateError(
+                        'Пожалуйста, заполните все поля формы',
+                        'В форме не должно быть пустых полей',
+                    ),
+                );
+                setTimeout(() => dispatch(deactivateError()), 5000);
+                return;
+            }
+        });
 
         if (this.state.isNew) {
             vacancyService
@@ -283,11 +297,12 @@ class VacancySettings extends Component<
     render() {
         return (
             <div className={'screen-responsive relative hidden'}>
-                <Header />
-                <div className={'columns g-24'}>
+                <Header key={'header'} />
+                <ErrorPopup key={'error'} />
+                <div key={'hat'} className={'columns g-24'}>
                     <div className={`col-12 mt-header`}>
                         <SettingsHat
-                            imgSrc={'./'}
+                            imgSrc={'image/employer.png'}
                             status={'Место встречи профессионалов'}
                             postedByUserID={this.props.postedByUserID}
                             submit={() =>
@@ -321,7 +336,7 @@ class VacancySettings extends Component<
                         Удалить вакансию
                     </Button>
                 </div>
-                <Footer />
+                <Footer key={'footer'} />
             </div>
         );
     }

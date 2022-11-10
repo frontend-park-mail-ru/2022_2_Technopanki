@@ -1,5 +1,3 @@
-import { ResumeListItemPropsType } from '../../components/UI-kit/resumeList/ResumeListItem';
-
 export type ProfileState = {
     id: string;
     imgSrc: string;
@@ -14,4 +12,4 @@ export type ProfileState = {
     vk: string | null | undefined;
     facebook: string | null | undefined;
     telegram: string | null | undefined;
-}
+};

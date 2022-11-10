@@ -45,9 +45,8 @@ class SettingsHat extends Component<
         }
         if (this.state.surname !== '') {
             resumeService.getResumeHatData(this.props.creatorID).then(body => {
-                console.log(body)
                 this.setState(() => ({
-                    imgSrc: body.creator_img_src,
+                    imgSrc: '/image/applicant.png',
                     name: body.applicant_name,
                     surname: body.applicant_surname,
                     status: body.status,
