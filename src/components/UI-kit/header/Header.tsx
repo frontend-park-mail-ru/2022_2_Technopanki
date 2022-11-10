@@ -4,9 +4,11 @@ import HeaderProfile from './HeaderProfile';
 import JobflowLogo from '../JobflowLogo';
 import Link from '../../Link/Link';
 import Preloader from '../prelodaer/Preloader';
+import { userConnect } from '../../../store';
+import RenderWithCondition from '../../RenderWithCondition';
 
 // TODO: refactor
-export default class Header extends Component {
+class Header extends Component<{ userType: string }> {
     setActive = (event: MouseEvent) => {
         let cur = document.querySelector(`.${styles.item__active}`);
         let target = event.target as Element;
@@ -47,17 +49,22 @@ export default class Header extends Component {
                                 </p>
                             }
                         />
-                        <Link
-                            to={'/resume/settings'}
-                            content={
-                                <p
-                                    key={'item3'}
-                                    id={'item3'}
-                                    className={styles.item__def}
-                                    onClick={this.setActive}
-                                >
-                                    Создать резюме
-                                </p>
+                        <RenderWithCondition
+                            condition={this.props.userType !== 'applicant'}
+                            onSuccess={
+                                <Link
+                                    to={'/resume/settings'}
+                                    content={
+                                        <p
+                                            key={'item3'}
+                                            id={'item3'}
+                                            className={styles.item__def}
+                                            onClick={this.setActive}
+                                        >
+                                            Создать резюме
+                                        </p>
+                                    }
+                                />
                             }
                         />
                     </div>
@@ -67,3 +74,7 @@ export default class Header extends Component {
         );
     }
 }
+
+export default userConnect(state => ({
+    userType: state.userType,
+}))(Header);
