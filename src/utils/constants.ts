@@ -1,5 +1,5 @@
 export const SERVER_URL = 'http://95.163.208.72:8080/';
-export const IMAGE_URL = SERVER_URL + 'data/image/';
+export const IMAGE_URL = SERVER_URL + 'data/image/avatar/';
 
 export const USER_URLS = {
     SIGN_UP: SERVER_URL + 'auth/sign-up',
