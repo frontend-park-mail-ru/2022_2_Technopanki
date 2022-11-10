@@ -15,9 +15,7 @@ export default class ProfileHeader extends Component<{
     render() {
         return (
             <div className={`flex column ${styles.profile}`}>
-                <div key={'banner'} className={styles.profile_banner}>
-                    <img src={this.props.bannerSrc} alt={'banner'} />
-                </div>
+                <div key={'banner'} className={styles.profile_banner}></div>
                 <div key={'content'} className={styles.profile_content}>
                     <div key={'info'} className={styles.info}>
                         <img

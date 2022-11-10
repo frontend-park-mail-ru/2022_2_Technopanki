@@ -50,7 +50,7 @@ class Header extends Component<{ userType: string }> {
                             }
                         />
                         <RenderWithCondition
-                            condition={this.props.userType !== 'applicant'}
+                            condition={this.props.userType !== 'employer'}
                             onSuccess={
                                 <Link
                                     to={'/resume/settings'}

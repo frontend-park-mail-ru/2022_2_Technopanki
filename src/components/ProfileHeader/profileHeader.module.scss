@@ -7,7 +7,7 @@
 .profile_banner {
   width: 100%;
   height: 240px;
-  background-color: var(--primary-blue);
+  background: linear-gradient(267.71deg, #1C34EC 0%, rgba(241, 21, 219, 0) 31.25%, rgba(16, 217, 244, 0.35) 69.27%, rgba(0, 119, 255, 0.24) 100%);
   border-radius: var(--border-radius-xl);
   margin-bottom: 24px;
   @media (max-width: $screen-md) {
