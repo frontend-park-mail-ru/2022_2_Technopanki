@@ -19,6 +19,7 @@ import { ProfileState } from '../../../store/applicant/type';
 import ApplicantResumeList from './ApplicantResumeList';
 import Footer from '../../../components/UI-kit/footer/Footer';
 import { resumeActions } from '../../../store/resume/actions';
+import { APPLICANT_PATHS } from '../../../utils/routerConstants';
 
 type ApplicantPropsType = {
     id: string;
@@ -96,9 +97,8 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                                     </ButtonPrimary>
                                 }
                             />
-                            {/*TODO: добавить путь в константы*/}
                             <Link
-                                to={`/applicant/settings/${this.props.id}`}
+                                to={APPLICANT_PATHS.SETTINGS + this.props.id}
                                 content={<Button>Настройки</Button>}
                             />
                         </div>

@@ -1,7 +1,11 @@
 import { Service } from './types';
 import network from '../lib/network';
 import { requestHeaders } from './headers';
-import { PROFILE_URLS, SERVER_URLS, USER_URLS } from '../utils/constants';
+import {
+    PROFILE_URLS,
+    SERVER_URLS,
+    USER_URLS,
+} from '../utils/networkConstants';
 import { response } from 'express';
 import { applicantActions } from '../store/applicant/actions';
 import { startLoading, stopLoading } from '../store/loading/actions';

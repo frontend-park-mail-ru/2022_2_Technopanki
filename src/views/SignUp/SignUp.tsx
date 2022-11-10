@@ -27,6 +27,7 @@ import navigator from '../../router/navigator.tsx';
 import { dispatch } from '../../store';
 import { userActions } from '../../store/user/actions';
 import { authService } from '../../services/authService';
+import { SIGN_IN_PATH, START_PATH } from '../../utils/routerConstants';
 
 export type ResponseBody = {
     descriptors: string[];
@@ -446,7 +447,7 @@ export default class SignUp extends Component<
                         </ButtonPrimaryBigBlue>
                         <Link
                             key={'signin'}
-                            to={'/signin'}
+                            to={SIGN_IN_PATH}
                             content={
                                 <p className={styles.form_link}>
                                     Уже есть аккаунт? Войти
@@ -454,7 +455,7 @@ export default class SignUp extends Component<
                             }
                         />
                         <Link
-                            to={'/'}
+                            to={START_PATH}
                             content={
                                 <p
                                     className={

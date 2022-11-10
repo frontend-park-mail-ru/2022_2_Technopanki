@@ -14,6 +14,7 @@ import ChipsInput from '../../components/UI-kit/forms/inputs/ChipsInput';
 import Button from '../../components/UI-kit/buttons/Button';
 import { activateError, deactivateError } from '../../store/errors/actions';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
+import { EMPLOYER_PATHS } from '../../utils/routerConstants';
 
 class AboutVacancyComponent extends Component<{
     title: string;
@@ -276,7 +277,7 @@ class VacancySettings extends Component<
                         navigator.navigate('/vacancy/' + body.id.toString());
                     } else {
                         navigator.navigate(
-                            `/employer/${this.props.postedByUserID}`,
+                            EMPLOYER_PATHS.PROFILE + this.props.postedByUserID,
                         );
                     }
                 });

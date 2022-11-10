@@ -21,6 +21,7 @@ import { profileActions } from '../../store/profile/actions';
 import { vacancyActions } from '../../store/vacancy/actions';
 import ProfileVacancies from './ProfileVacancies';
 import RenderWithCondition from '../../components/RenderWithCondition';
+import { EMPLOYER_PATHS } from '../../utils/routerConstants';
 
 class Profile extends Component<
     ProfileState & { userID: string },
@@ -86,7 +87,7 @@ class Profile extends Component<
                             {userStore.getState().id === this.props.id &&
                             userStore.getState().userType === 'employer' ? (
                                 <Link
-                                    to={`/employer/settings/${this.props.id}`}
+                                    to={EMPLOYER_PATHS.SETTINGS + this.props.id}
                                     content={<Button>Настройки</Button>}
                                 />
                             ) : (

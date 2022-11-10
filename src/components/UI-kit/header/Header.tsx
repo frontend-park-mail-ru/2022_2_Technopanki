@@ -30,14 +30,14 @@ class Header extends Component<{ userType: string }> {
                     className={`flex h-100 screen-responsive row align-items-center justify-content-space-evenly`}
                 >
                     <div className={`flex w-100 align-items-center`}>
-                        <Link to={'/'} content={<JobflowLogo />} />
+                        <Link to={START} content={<JobflowLogo />} />
                     </div>
                     <div
                         id={'links-group'}
                         className={`flex justify-content-center w-100 g-16 ${styles.items}`}
                     >
                         <Link
-                            to={'/vacancies'}
+                            to={VACA}
                             content={
                                 <p
                                     key={'item1'}

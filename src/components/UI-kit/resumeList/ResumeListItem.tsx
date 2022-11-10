@@ -3,6 +3,7 @@ import { VNodeType } from '../../../../Reacts/shared/common';
 import Link from '../../Link/Link';
 import ArrowButton from '../buttons/ArrowButton';
 import Chips from '../chips/Chips';
+import { RESUME_PATHS } from '../../../utils/routerConstants';
 
 export type ResumeListItemPropsType = {
     id: string;
@@ -124,7 +125,7 @@ export default class ResumeListItem extends Component<ResumeListItemPropsType> {
                     }
                 >
                     <Link
-                        to={`/resume/${this.props.id}`}
+                        to={RESUME_PATHS.INDEX + this.props.id}
                         content={<ArrowButton />}
                     />
                 </div>

@@ -1,15 +1,10 @@
 import { Component } from '../../../../Reacts';
 import Form, { FormSectionType } from '../../../components/UI-kit/forms/Form';
-// import { AvatarSettings, Password, SocialNetworks } from '../../Employer/Profile/ProfileSettings';
 import Header from '../../../components/UI-kit/header/Header';
 import SettingsHat from '../../../components/hats/SettingsHat';
-import CancelSaveButtons from '../../../components/CancelSaveButtons/CancelSaveButtons';
 import Input, {
     InputPropsType,
 } from '../../../components/UI-kit/forms/inputs/Input';
-import Textarea from '../../../components/UI-kit/forms/inputs/Textarea';
-import Chips from '../../../components/UI-kit/chips/Chips';
-import { ProfileState } from '../../../store/profile/types';
 import { resumeService } from '../../../services/resumeService';
 import navigator from '../../../router/navigator';
 import { vacancyService } from '../../../services/vacancyService';
@@ -30,7 +25,7 @@ import {
     RESUME_DESCRIPTION_ERROR,
     RESUME_TITLE_ERROR,
 } from '../../../utils/validation/messages';
-import { SERVER_URLS } from '../../../utils/constants';
+import { SERVER_URLS } from '../../../utils/networkConstants';
 
 class ResumeSettings extends Component<
     ResumeState & { isNew: boolean },

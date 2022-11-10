@@ -2,7 +2,7 @@ import { Reducer } from '../../../Fluxs/types/reducer';
 import { Action } from '../../../Fluxs/types/action';
 import { ProfileState } from './types';
 import { PROFILE_ACTION_TYPES } from './actions';
-import { IMAGE_URL } from '../../utils/constants';
+import { IMAGE_URL } from '../../utils/networkConstants';
 
 export const profileReducer: Reducer<ProfileState> = (
     state: ProfileState,

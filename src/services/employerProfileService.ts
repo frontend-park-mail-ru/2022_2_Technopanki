@@ -1,5 +1,9 @@
 import network from '../lib/network';
-import { PROFILE_URLS, SERVER_URL, SERVER_URLS } from '../utils/constants';
+import {
+    PROFILE_URLS,
+    SERVER_URL,
+    SERVER_URLS,
+} from '../utils/networkConstants';
 import { Service } from './types';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';

@@ -5,6 +5,7 @@ import ArrowButtonWithText from '../../components/UI-kit/buttons/ArrowButtonWith
 import ArrowButtonWithTextOutline from '../../components/UI-kit/buttons/ArrowButtonWithTextOutline';
 import Logo from '../../static/assets/JobflowDefault.svg';
 import Link from '../../components/Link/Link';
+import { SIGN_UP_PATH, VACANCIES_PATH } from '../../utils/routerConstants';
 
 export default class StartPage extends Component {
     render() {
@@ -39,7 +40,7 @@ export default class StartPage extends Component {
                     </div>
                     <div key={'buttons'} className={'flex column g-16'}>
                         <Link
-                            to={'/signup'}
+                            to={SIGN_UP_PATH}
                             content={
                                 <ArrowButtonWithText key={'1'}>
                                     <p>Создать аккаунт</p>
@@ -47,7 +48,7 @@ export default class StartPage extends Component {
                             }
                         />
                         <Link
-                            to={'/vacancies'}
+                            to={VACANCIES_PATH}
                             content={
                                 <ArrowButtonWithTextOutline key={'2'}>
                                     <p>Посмотреть все вакансии</p>

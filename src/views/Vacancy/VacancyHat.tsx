@@ -11,6 +11,7 @@ import RenderWithCondition from '../../components/RenderWithCondition';
 import ButtonNotActive from '../../components/UI-kit/buttons/ButtonNotActive';
 import { UserState } from '../../store/user/types';
 import Vacancy from './index';
+import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../utils/routerConstants';
 
 class VacancyHat extends Component<
     {
@@ -69,7 +70,7 @@ class VacancyHat extends Component<
                 name={this.state.companyName}
                 surname={''}
                 status={this.state.status}
-                linkTo={`/employer/${this.props.postedByUserID}`}
+                linkTo={EMPLOYER_PATHS.PROFILE + this.props.postedByUserID}
                 rightSideContent={
                     <div className={'flex row flex-wrap g-12'}>
                         <RenderWithCondition
@@ -79,7 +80,10 @@ class VacancyHat extends Component<
                             }
                             onSuccess={
                                 <Link
-                                    to={`/vacancy/responses/${this.props.vacancyID}`}
+                                    to={
+                                        VACANCY_PATHS.RESUME_LIST +
+                                        this.props.vacancyID
+                                    }
                                     content={
                                         <Button>
                                             Посмотреть отклики на вакансию
@@ -95,7 +99,10 @@ class VacancyHat extends Component<
                             }
                             onSuccess={
                                 <Link
-                                    to={`/vacancy/settings/${this.props.vacancyID}`}
+                                    to={
+                                        VACANCY_PATHS.SETTINGS +
+                                        this.props.vacancyID
+                                    }
                                     content={<Button>Настройки</Button>}
                                 />
                             }

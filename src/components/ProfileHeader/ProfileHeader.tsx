@@ -1,7 +1,7 @@
 import { Component } from '../../../Reacts';
 import styles from './profileHeader.module.scss';
 import { VNodeType } from '../../../Reacts/shared/common';
-import { IMAGE_URL } from '../../utils/constants';
+import { IMAGE_URL } from '../../utils/networkConstants';
 
 export default class ProfileHeader extends Component<{
     profileID: string;

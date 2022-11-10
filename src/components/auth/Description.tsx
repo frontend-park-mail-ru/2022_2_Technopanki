@@ -3,6 +3,7 @@ import Logo from '../../static/assets/JobflowDefault.svg';
 import Illustration from '../../static/assets/illustration.svg';
 import styles from './description.module.scss';
 import Link from '../Link';
+import { START_PATH } from '../../utils/routerConstants';
 
 export default class Description extends Component {
     render() {
@@ -11,7 +12,7 @@ export default class Description extends Component {
                 <div className={`flex column g-24 ${styles.description_text}`}>
                     <Link
                         key={'logo'}
-                        to={'/'}
+                        to={START_PATH}
                         content={
                             <div
                                 className={'inner-svg-h-16 cursor-pointer'}

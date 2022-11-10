@@ -1,6 +1,6 @@
 import { Component, renderNode } from '../Reacts';
 import './styles/globals.scss';
-import { setTheme } from './toggleTheme';
+import { setTheme } from './utils/toggleTheme';
 import StartPage from './views/StartPage/StartPage';
 // TODO: rename navigator
 import router from './router/navigator';

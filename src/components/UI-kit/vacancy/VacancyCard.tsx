@@ -9,6 +9,7 @@ import Hr from '../../../static/icons/hr.svg';
 import ArrowButtonWithTextOutline from '../buttons/ArrowButtonWithTextOutline';
 import { VNodeType } from '../../../../Reacts/shared/common';
 import Link from '../../Link/Link';
+import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../../utils/routerConstants';
 
 export type VacancyCardPropsType = {
     id: string;
@@ -46,7 +47,7 @@ export default class VacancyCard extends Component<
             >
                 <Link
                     key={'link'}
-                    to={`/employer/${this.props.id}`}
+                    to={EMPLOYER_PATHS.PROFILE + this.props.id}
                     content={
                         <img
                             className={'rounded-md'}
@@ -62,7 +63,7 @@ export default class VacancyCard extends Component<
                 >
                     <Link
                         key={'vacancy-name'}
-                        to={`/vacancy/${this.props.id}`}
+                        to={VACANCY_PATHS.INDEX + this.props.id}
                         content={
                             <h4
                                 key={'vacancy-name'}
@@ -135,7 +136,7 @@ export default class VacancyCard extends Component<
                 <div key={'vacancy'} className={styles.link}>
                     <div className={'none'}></div>
                     <Link
-                        to={`/vacancy/${this.props.id}`}
+                        to={VACANCY_PATHS.INDEX + this.props.id}
                         content={
                             <ArrowButtonWithTextOutline>
                                 <p>Посмотреть вакансию</p>

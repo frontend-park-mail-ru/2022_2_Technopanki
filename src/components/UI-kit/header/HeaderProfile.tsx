@@ -1,12 +1,13 @@
 import { Component } from '../../../../Reacts';
 import styles from './header.module.scss';
-import { toggleTheme } from '../../../toggleTheme';
+import { toggleTheme } from '../../../utils/toggleTheme';
 import ThemeIcon from '../../../static/icons/theme.svg';
 import Link from '../../Link/Link';
 import HeaderModal from './HeaderModal';
 import { userConnect } from '../../../store';
 import { UserState } from '../../../store/user/types';
 import HeaderUserInfo from './HeaderUserInfo';
+import { SIGN_IN_PATH, SIGN_UP_PATH } from '../../../utils/routerConstants';
 
 type HeaderProps = {
     id: string;
@@ -54,7 +55,7 @@ class HeaderProfile extends Component<HeaderProps> {
                             className={'flex row g-24 align-items-center'}
                         >
                             <Link
-                                to={'/signin'}
+                                to={SIGN_IN_PATH}
                                 content={
                                     <p
                                         key={'signin-link'}
@@ -65,7 +66,7 @@ class HeaderProfile extends Component<HeaderProps> {
                                 }
                             />
                             <Link
-                                to={'/signup'}
+                                to={SIGN_UP_PATH}
                                 content={
                                     <p
                                         key={'signup-link'}

@@ -26,6 +26,12 @@ import navigator from '../../router/navigator.tsx';
 import { dispatch } from '../../store';
 import { userActions } from '../../store/user/actions';
 import { authService } from '../../services/authService';
+import {
+    APPLICANT_PATHS,
+    EMPLOYER_PATHS,
+    SIGN_UP_PATH,
+    START_PATH,
+} from '../../utils/routerConstants';
 
 export default class SignIn extends Component<
     {},
@@ -115,8 +121,8 @@ export default class SignIn extends Component<
                     );
                     navigator.navigate(
                         body.user_type === 'employer'
-                            ? `/employer/${body.id}`
-                            : `/applicant/${body.id}`,
+                            ? EMPLOYER_PATHS.PROFILE + body.id
+                            : APPLICANT_PATHS.PROFILE + body.id,
                     );
                 })
                 .catch(body => {
@@ -163,7 +169,7 @@ export default class SignIn extends Component<
                             Войти
                         </ButtonPrimaryBigBlue>
                         <Link
-                            to={'/signup'}
+                            to={SIGN_UP_PATH}
                             content={
                                 <p className={styles.form_link}>
                                     Впервые на нашем сайте? Зарегистрироваться
@@ -171,7 +177,7 @@ export default class SignIn extends Component<
                             }
                         />
                         <Link
-                            to={'/'}
+                            to={START_PATH}
                             content={
                                 <p
                                     className={

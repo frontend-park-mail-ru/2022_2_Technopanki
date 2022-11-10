@@ -1,6 +1,6 @@
 import { Service } from './types';
 import network from '../lib/network';
-import { SERVER_URLS, USER_URLS } from '../utils/constants';
+import { SERVER_URLS, USER_URLS } from '../utils/networkConstants';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
 

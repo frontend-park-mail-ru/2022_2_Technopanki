@@ -1,5 +1,5 @@
 import network from '../lib/network';
-import { SERVER_URLS } from '../utils/constants';
+import { SERVER_URLS } from '../utils/networkConstants';
 import { requestHeaders } from './headers';
 
 export const sendProfileImg = (payload: File) => {

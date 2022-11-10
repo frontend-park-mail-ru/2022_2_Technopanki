@@ -10,6 +10,7 @@ import ButtonIcon from '../../components/UI-kit/buttons/ButtonIcon';
 import PhoneIcon from '../../static/icons/phone.svg';
 import MailIcon from '../../static/icons/mail.svg';
 import ResumeIcon from '../../static/icons/resume.svg';
+import { RESUME_PATHS } from '../../utils/routerConstants';
 
 export default class ApplicantHat extends Component<
     {
@@ -54,9 +55,8 @@ export default class ApplicantHat extends Component<
                 status={this.state.status}
                 rightSideContent={
                     <div className={'flex row flex-wrap g-12'}>
-                        {/*TODO: добавить уловие по типу пользователя рендер кнопок*/}
                         <Link
-                            to={`/resume/settings/${this.props.resumeID}`}
+                            to={RESUME_PATHS.SETTINGS + this.props.resumeID}
                             content={<Button>Настройки</Button>}
                         />
                     </div>

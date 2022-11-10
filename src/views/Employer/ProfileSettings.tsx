@@ -34,6 +34,7 @@ import {
     activateSuccess,
     deactivateSuccess,
 } from '../../store/succeses/actions';
+import { EMPLOYER_PATHS } from '../../utils/routerConstants';
 
 class AvatarSettingsComponent extends Component<
     { previewSrc: string },
@@ -262,7 +263,7 @@ class ProfileSettingsComponent extends Component<
                     activateSuccess('Данные профиля успешно изменены!', ''),
                 );
                 setTimeout(() => dispatch(deactivateSuccess()), 3000);
-                navigator.navigate(`/employer/${this.props.id}`);
+                navigator.navigate(EMPLOYER_PATHS.PROFILE + this.props.id);
             })
             .catch(err => {
                 dispatch(
