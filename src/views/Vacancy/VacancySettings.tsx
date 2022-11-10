@@ -249,6 +249,8 @@ class VacancySettings extends Component<
         e.preventDefault();
         const formData = new FormData(e.target);
 
+        let errorFlag = false;
+
         formData.forEach(value => {
             if (!value || value === '') {
                 dispatch(
@@ -258,9 +260,13 @@ class VacancySettings extends Component<
                     ),
                 );
                 setTimeout(() => dispatch(deactivateError()), 5000);
-                return;
+                errorFlag = true;
             }
         });
+
+        if (errorFlag) {
+            return;
+        }
 
         if (this.state.isNew) {
             vacancyService

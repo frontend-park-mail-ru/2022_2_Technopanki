@@ -28,10 +28,13 @@ export const employerProfileService: Service = {
     getVacancies: async (profileID: string) => {},
 
     updateProfileImg: async (profileID: string, formData: FormData) => {
+        const image = formData.get('avatar') as File;
+        console.log('IMAGE: ', image);
+
         const options = {
             method: 'POST',
             headers: requestHeaders.imgHeader,
-            body: formData.get('avatar'),
+            body: image,
             mode: 'cors' as RequestMode,
             credentials: 'include' as RequestCredentials,
         };

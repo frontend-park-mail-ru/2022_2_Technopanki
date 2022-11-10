@@ -26,7 +26,8 @@ class VacancyResponsesHat extends Component<{
                 .getVacancyHatData(this.props.postedByUserID)
                 .then(body => {
                     this.setState(() => ({
-                        creatorImgSrc: '/image/employer.png',
+                        creatorImgSrc:
+                            'http://95.163.208.72:8000/image/employer.png',
                         name: body.company_name,
                         status: body.status,
                     }));
@@ -42,7 +43,7 @@ class VacancyResponsesHat extends Component<{
     render() {
         return (
             <Hat
-                imgSrc={'/image/employer.png'}
+                imgSrc={'http://95.163.208.72:8000/image/employer.png'}
                 name={this.state.name}
                 surname={''}
                 linkTo={`/employer/${this.props.postedByUserID}`}
