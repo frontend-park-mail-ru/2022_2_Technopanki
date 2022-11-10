@@ -24,6 +24,7 @@ export default class ResumeList extends Component<
     };
 
     render() {
+        console.log('Resume list: ', this.state.resume);
         return (
             <div className={'w-100 g-24 hidden rounded-md border-default'}>
                 <div className={'columns p-16'}>

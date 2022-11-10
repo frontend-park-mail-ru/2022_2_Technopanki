@@ -39,9 +39,8 @@ class VacancyResponses extends Component<{
                         {this.props.title}
                     </h3>
                     <div key={'list'} className={'col-12 col-md-9 column g-16'}>
-                        <h6 key={'asd'}>Отклики на вакансию</h6>
+                        <h6>Отклики на вакансию</h6>
                         <RenderWithCondition
-                            key={'condition'}
                             condition={
                                 this.props.userID === this.props.postedByUserID
                             }
