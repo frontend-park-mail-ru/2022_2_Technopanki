@@ -10,6 +10,7 @@ class SettingsHat extends Component<
     {
         // Flux
         name: string;
+        surname?: string;
         // Props
         status: string;
         imgSrc: string;
@@ -28,6 +29,7 @@ class SettingsHat extends Component<
     state = {
         imgSrc: this.props.imgSrc,
         name: this.props.name,
+        surname: this.props.surname,
         status: this.props.status,
     };
 
@@ -52,7 +54,7 @@ class SettingsHat extends Component<
             <Hat
                 imgSrc={this.state.imgSrc}
                 name={this.state.name}
-                surname={''}
+                surname={this.props.surname}
                 status={this.state.status}
                 rightSideContent={
                     <CancelSaveButtons

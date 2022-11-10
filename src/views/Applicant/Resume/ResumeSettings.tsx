@@ -46,6 +46,7 @@ class ResumeSettings extends Component<
     }
 > {
     state = {
+        isNew: location.pathname.split('/').at(-1) === 'new',
         sections: [
             {
                 fields: {
@@ -142,7 +143,7 @@ class ResumeSettings extends Component<
 
         const resumeID = location.pathname.split('/').at(-1);
 
-        if (this.props.isNew) {
+        if (this.state.isNew) {
             resumeService
                 .addResume(this.props.postedByUserID, formData)
                 .then(body => navigator.navigate('/resume/' + body.id));
@@ -220,7 +221,7 @@ class ResumeSettings extends Component<
                     >
                         Пропустить
                     </Button>
-                    {this.props.isNew? (
+                    {this.state.isNew? (
                         <div />
                     ) : (
                         <ButtonRed
