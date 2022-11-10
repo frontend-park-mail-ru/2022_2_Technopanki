@@ -456,7 +456,11 @@ export default class SignUp extends Component<
                         <Link
                             to={'/'}
                             content={
-                                <p className={'font-size-12 color-500'}>
+                                <p
+                                    className={
+                                        'font-size-12 color-300 text-align-center'
+                                    }
+                                >
                                     Перейти на главную страницу
                                 </p>
                             }
