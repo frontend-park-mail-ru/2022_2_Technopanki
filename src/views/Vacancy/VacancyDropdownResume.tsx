@@ -3,8 +3,7 @@ import ArrowButton from '../../components/UI-kit/buttons/ArrowButton';
 import styles from './vacancy.module.scss';
 import { dispatch, userConnect } from '../../store';
 import { applicantProfileService } from '../../services/applicantService';
-import navigator from '../../router/navigator.tsx';
-import RenderWithCondition from '../../components/RenderWithCondition';
+import navigator from '../../router/navigator';
 import ArrowButtonWithText from '../../components/UI-kit/buttons/ArrowButtonWithText';
 import {
     activateSuccess,
