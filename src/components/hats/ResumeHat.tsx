@@ -12,9 +12,9 @@ export default class ResumeHat extends Component<{
     description: string;
 }> {
     render() {
-        return(
+        return (
             <Hat
-                imgSrc={this.props.imgSrc}
+                imgSrc={'/image/applicant.png'}
                 name={this.props.name}
                 surname={this.props.surname}
                 description={this.props.description}
@@ -28,6 +28,6 @@ export default class ResumeHat extends Component<{
                     </div>
                 }
             />
-        )
+        );
     }
 }

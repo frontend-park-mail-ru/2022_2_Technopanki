@@ -18,7 +18,7 @@ class ApplicantResumeList extends Component<
                 .then(body => {
                     this.setState(state => ({
                         ...state,
-                        responses: body.data,
+                        responses: body,
                     }));
                 })
                 .catch(err => console.error(err));
