@@ -81,7 +81,7 @@ export default class ResumeListItem extends Component<ResumeListItemPropsType> {
                         height={40}
                         width={40}
                         className={'rounded-max'}
-                        src={this.props.imgSrc}
+                        src={'http://95.163.208.72:8000/image/applicant.png'}
                         alt={'Avatar'}
                     />
                     <div key={'data'} className={'flex column g-4'}>

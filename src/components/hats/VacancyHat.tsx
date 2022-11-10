@@ -32,10 +32,10 @@ export default class VacancyHat extends Component<{
     render() {
         return (
             <Hat
-                imgSrc={this.props.imgSrc}
+                imgSrc={'http://95.163.208.72:8000/image/employer.png'}
                 name={this.props.companyName}
                 surname={''}
-                description={this.props.description}
+                status={this.props.description}
                 rightSideContent={
                     <div className={'flex row flex-wrap g-12'}>
                         {/*TODO: добавить уловие по типу пользователя рендер кнопок*/}

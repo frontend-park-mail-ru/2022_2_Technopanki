@@ -21,7 +21,7 @@ export default class ProfileHeader extends Component<{
                         <img
                             key={'img'}
                             className={styles.info__avatar}
-                            src={'http://95.163.208.72:8000/image/test.png'}
+                            src={'http://95.163.208.72:8000/image/employer.png'}
                             alt={'avatar'}
                         />
                         <div key={'content'} className={`flex column g-4`}>

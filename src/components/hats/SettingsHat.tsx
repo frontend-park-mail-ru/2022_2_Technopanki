@@ -37,7 +37,7 @@ class SettingsHat extends Component<
         if (this.state.name === '') {
             resumeService.getResumeHatData(this.props.creatorID).then(body => {
                 this.setState(() => ({
-                    imgSrc: '/image/applicant.png',
+                    imgSrc: 'http://95.163.208.72:8000/image/applicant.png',
                     name: body.company_name,
                     status: body.status,
                 }));
@@ -45,9 +45,8 @@ class SettingsHat extends Component<
         }
         if (this.state.surname !== '') {
             resumeService.getResumeHatData(this.props.creatorID).then(body => {
-                console.log(body)
                 this.setState(() => ({
-                    imgSrc: body.creator_img_src,
+                    imgSrc: 'http://95.163.208.72:8000/image/applicant.png',
                     name: body.applicant_name,
                     surname: body.applicant_surname,
                     status: body.status,
@@ -63,7 +62,7 @@ class SettingsHat extends Component<
     render() {
         return (
             <Hat
-                imgSrc={'/image/applicant.png'}
+                imgSrc={'http://95.163.208.72:8000/image/applicant.png'}
                 name={this.state.name}
                 surname={this.props.surname}
                 status={this.state.status}

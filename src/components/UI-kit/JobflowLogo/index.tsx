@@ -7,7 +7,7 @@ export default class JobflowLogo extends Component {
         return (
             <div
                 key={'logo'}
-                className={`flex w-100 align-items-center ${styles.logo}`}
+                className={`flex w-100 align-items-center justify-content-center ${styles.logo}`}
                 dangerouslySetInnerHTML={{ __html: Logo }}
             ></div>
         );

@@ -22,7 +22,7 @@ export default class ApplicantHat extends Component<
         surname: string;
         status: string;
     }
-    > {
+> {
     state = {
         creatorImgSrc: '',
         name: '',
@@ -33,7 +33,7 @@ export default class ApplicantHat extends Component<
     getCreatorDataFromServer = () => {
         resumeService.getResumeHatData(this.props.creatorID).then(body => {
             this.setState(() => ({
-                creatorImgSrc: body.creator_img_src,
+                creatorImgSrc: 'image/applicant.png',
                 name: body.applicant_name,
                 surname: body.applicant_surname,
                 status: body.status,
@@ -48,7 +48,7 @@ export default class ApplicantHat extends Component<
     render() {
         return (
             <Hat
-                imgSrc={this.state.creatorImgSrc}
+                imgSrc={'http://95.163.208.72:8000/image/applicant.png'}
                 name={this.state.name}
                 surname={this.state.surname}
                 status={this.state.status}
