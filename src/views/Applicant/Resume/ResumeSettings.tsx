@@ -4,7 +4,9 @@ import Form, { FormSectionType } from '../../../components/UI-kit/forms/Form';
 import Header from '../../../components/UI-kit/header/Header';
 import SettingsHat from '../../../components/hats/SettingsHat';
 import CancelSaveButtons from '../../../components/CancelSaveButtons/CancelSaveButtons';
-import Input, { InputPropsType } from '../../../components/UI-kit/forms/inputs/Input';
+import Input, {
+    InputPropsType,
+} from '../../../components/UI-kit/forms/inputs/Input';
 import Textarea from '../../../components/UI-kit/forms/inputs/Textarea';
 import Chips from '../../../components/UI-kit/chips/Chips';
 import { ProfileState } from '../../../store/profile/types';
@@ -20,8 +22,14 @@ import Footer from '../../../components/UI-kit/footer/Footer';
 import { dispatch, resumeConnect, userConnect } from '../../../store';
 import { vacancyActions } from '../../../store/vacancy/actions';
 import { resumeActions } from '../../../store/resume/actions';
-import { validateResumeDescription, validateResumeTitle } from '../../../utils/validation/validation';
-import { RESUME_DESCRIPTION_ERROR, RESUME_TITLE_ERROR } from '../../../utils/validation/messages';
+import {
+    validateResumeDescription,
+    validateResumeTitle,
+} from '../../../utils/validation/validation';
+import {
+    RESUME_DESCRIPTION_ERROR,
+    RESUME_TITLE_ERROR,
+} from '../../../utils/validation/messages';
 import { SERVER_URLS } from '../../../utils/constants';
 
 class ResumeSettings extends Component<
@@ -36,7 +44,7 @@ class ResumeSettings extends Component<
             };
         }[];
     }
-    >{
+> {
     state = {
         sections: [
             {
@@ -95,14 +103,14 @@ class ResumeSettings extends Component<
                         name: 'status',
                         required: false,
                         value: this.props.status,
-                    }
-                }
-            }
-        ]
+                    },
+                },
+            },
+        ],
     };
 
     submitForm = (e: SubmitEvent) => {
-        e.preventDefault()
+        e.preventDefault();
         const formData = new FormData(e.target);
 
         let sections = this.state.sections;
@@ -142,11 +150,9 @@ class ResumeSettings extends Component<
             resumeService
                 .updateResume(resumeID, formData)
                 .then(() => {
-                    console.log('UPDATE');
-                    console.log(this.props.title)
                     navigator.goBack();
                 })
-                .catch(err => console.error(err))
+                .catch(err => console.error(err));
         }
     };
 
@@ -161,26 +167,23 @@ class ResumeSettings extends Component<
     deleteResume(creatorID: string) {
         const resumeID = location.pathname.split('/').at(-1);
 
-        resumeService.deleteResume(resumeID as string)
-            .then(() => navigator.navigate(`/applicant/${creatorID}`))
+        resumeService
+            .deleteResume(resumeID as string)
+            .then(() => navigator.navigate(`/applicant/${creatorID}`));
     }
 
     componentDidMount() {
-        this.getDataFromServer()
+        this.getDataFromServer();
     }
 
     render() {
         return (
-            <div
-                className={'screen-responsive relative'}
-            >
+            <div className={'screen-responsive relative'}>
                 <Header />
                 <div class={'column g-24'}>
                     <div className={`col-12 mt-header`}>
                         <SettingsHat
-                            creatorID={
-                                this.props.postedByUserID
-                            }
+                            creatorID={this.props.postedByUserID}
                             submit={() =>
                                 document
                                     .querySelector('#profile_form')
@@ -205,9 +208,7 @@ class ResumeSettings extends Component<
                             />
                         ))}
                         <div>
-                            <ButtonPrimary
-                                type={'submit'}
-                            >
+                            <ButtonPrimary type={'submit'}>
                                 Сохранить
                             </ButtonPrimary>
                         </div>
@@ -225,13 +226,12 @@ class ResumeSettings extends Component<
                         <ButtonRed
                             key={'removal'}
                             onClick={() => {
-                                this.deleteResume(this.props.postedByUserID)
+                                this.deleteResume(this.props.postedByUserID);
                             }}
                         >
                             Удалить
                         </ButtonRed>
-                    )
-                    }
+                    )}
                 </div>
                 <Footer key={'footer'} />
             </div>
@@ -239,19 +239,18 @@ class ResumeSettings extends Component<
     }
 }
 
-const UserWrapper =  userConnect((state, props) => {
+const UserWrapper = userConnect((state, props) => {
     return {
         id: state.id,
         postedByUserID:
             props.postedByUserID !== '' ? props.postedByUserID : state.id,
         isNew: props.isNew,
-        ...props
-    }
+        ...props,
+    };
 })(ResumeSettings);
 
 export default resumeConnect((state, props) => {
     return {
-        ...state
-    }
-})(UserWrapper)
-
+        ...state,
+    };
+})(UserWrapper);

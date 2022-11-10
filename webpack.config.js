@@ -63,7 +63,11 @@ module.exports = {
     },
     plugins: [
         new CopyPlugin({
-            patterns: ['server/server.js', './src/static/index.html'],
+            patterns: [
+                'server/server.js',
+                './src/static/index.html',
+                './src/static/favicon.ico',
+            ],
         }),
         new webpack.DefinePlugin({
             __DEV__: process.env.NODE_ENV === DEVELOPMENT,

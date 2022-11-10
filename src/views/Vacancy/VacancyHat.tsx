@@ -19,6 +19,7 @@ class VacancyHat extends Component<
         userID: string;
         userType: string;
         authorized: boolean;
+        sendRequest: boolean;
     },
     {
         creatorImgSrc: string;
@@ -27,27 +28,37 @@ class VacancyHat extends Component<
     }
 > {
     state = {
+        vacancyID: '',
         creatorImgSrc: '',
         companyName: '',
         status: '',
     };
 
     getCreatorDataFromServer = () => {
-        // if (this.props.postedByUserID) {
-        //     vacancyService
-        //         .getVacancyHatData(this.props.postedByUserID)
-        //         .then(body => {
-        //             this.setState(() => ({
-        //                 creatorImgSrc: body.creator_img_src,
-        //                 companyName: body.company_name,
-        //                 status: body.status,
-        //             }));
-        //         })
-        //         .catch(err => console.error(err));
-        // }
+        if (
+            this.props.postedByUserID &&
+            this.props.vacancyID !== this.state.vacancyID &&
+            this.props.sendRequest
+        ) {
+            vacancyService
+                .getVacancyHatData(this.props.postedByUserID)
+                .then(body => {
+                    this.setState(() => ({
+                        vacancyID: this.props.vacancyID,
+                        creatorImgSrc: body.creator_img_src,
+                        companyName: body.company_name,
+                        status: body.status,
+                    }));
+                })
+                .catch(err => console.error(err));
+        }
     };
 
     componentDidMount() {
+        this.getCreatorDataFromServer();
+    }
+
+    componentDidUpdate() {
         this.getCreatorDataFromServer();
     }
 
@@ -95,7 +106,9 @@ class VacancyHat extends Component<
                             onSuccess={
                                 <Dropdown
                                     hidden={
-                                        <VacancyDropdownResume resume={[]} />
+                                        <VacancyDropdownResume
+                                            vacancyID={this.props.vacancyID}
+                                        />
                                     }
                                     content={
                                         <ButtonPrimary>
@@ -138,6 +151,7 @@ export default userConnect((state, props) => {
     return {
         vacancyID: props.vacancyID,
         postedByUserID: props.postedByUserID,
+        sendRequest: props.sendRequest,
         userID: state.id,
         userType: state.userType,
         authorized: state.authorized,

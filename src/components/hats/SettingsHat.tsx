@@ -1,41 +1,46 @@
 import { Component } from '../../../Reacts';
 import Hat from '../UI-kit/hat/Hat';
 import CancelSaveButtons from '../CancelSaveButtons/CancelSaveButtons';
-import navigator from '../../router/navigator';
+import navigator from '../../router/navigator.tsx';
 import { userConnect } from '../../store';
 import { UserState } from '../../store/user/types';
 import { resumeService } from '../../services/resumeService';
 
 class SettingsHat extends Component<
     {
+        // Flux
+        name: string;
+        // Props
+        status: string;
+        imgSrc: string;
         creatorID: string;
         submit: Function;
     },
     {
-    // Flux
-    name: string;
-    surname: string;
-    // Props
-    status: string;
-    imgSrc: string;
+        // Flux
+        name: string;
+        surname: string;
+        // Props
+        status: string;
+        imgSrc: string;
     }
 > {
     state = {
-        imgSrc: '',
-        name: '',
-        surname: '',
-        status: '',
+        imgSrc: this.props.imgSrc,
+        name: this.props.name,
+        status: this.props.status,
     };
 
     getCreatorDataFromServer = () => {
-        resumeService.getResumeHatData(this.props.creatorID).then(body => {
-            this.setState(() => ({
-                imgSrc: body.creator_img_src,
-                name: body.applicant_name,
-                surname: body.applicant_surname,
-                status: body.status,
-            }));
-        });
+        if (this.state.name === '') {
+            resumeService.getResumeHatData(this.props.creatorID).then(body => {
+                this.setState(() => ({
+                    imgSrc: body.creator_img_src,
+                    name: body.company_name,
+                    status: body.status,
+                }));
+            });
+        }
     };
 
     componentDidMount() {
@@ -47,7 +52,7 @@ class SettingsHat extends Component<
             <Hat
                 imgSrc={this.state.imgSrc}
                 name={this.state.name}
-                surname={this.state.surname}
+                surname={''}
                 status={this.state.status}
                 rightSideContent={
                     <CancelSaveButtons

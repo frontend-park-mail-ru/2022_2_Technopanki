@@ -44,7 +44,6 @@ class HeaderProfile extends Component<HeaderProps> {
                                     key={'info'}
                                     imgSrc={'./'}
                                     name={this.props.name}
-                                    вшы
                                     surname={this.props.surname}
                                 />
                             }

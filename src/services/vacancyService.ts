@@ -20,6 +20,27 @@ export const vacancyService: Service = {
             });
     },
 
+    getAllVacanciesForEmployer: async (profileID: string) => {
+        dispatch(startLoading());
+        return await network
+            .GET(
+                VACANCY_URLS.PROFILE_VACANCIES + profileID,
+                requestHeaders.jsonHeader,
+            )
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            })
+            .catch(err => {
+                dispatch(stopLoading());
+                console.error(err);
+            });
+    },
+
     getVacancyData: async (vacancyID: string) => {
         dispatch(startLoading());
         return await network

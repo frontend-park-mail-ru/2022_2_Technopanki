@@ -20,7 +20,8 @@ import styles from './profileSettings.module.scss';
 import ApplicantProfile from './Profile';
 import ProfileSettings from '../../Employer/ProfileSettings';
 import {
-    ApplicantProfileType, EmployerProfile,
+    ApplicantProfileType,
+    EmployerProfile,
     ProfileState,
 } from '../../../store/profile/types';
 import {
@@ -40,7 +41,7 @@ import {
     PASSWORD_SYMBOLS_ERROR,
 } from '../../../utils/validation/messages';
 import { employerProfileService } from '../../../services/employerProfileService';
-import navigator from '../../../router/navigator';
+import navigator from '../../../router/navigator.tsx';
 import { applicantProfileService } from '../../../services/applicantService';
 import Textarea from '../../../components/UI-kit/forms/inputs/Textarea';
 import Footer from '../../../components/UI-kit/footer/Footer';
@@ -154,7 +155,11 @@ class ApplicantSettings extends Component<
                         label: 'Дата рождения',
                         name: 'dateOfBirth',
                         required: false,
-                        value: `${this.props.dateOfBirth? this.props.dateOfBirth.slice(0, 10) : ''}`,
+                        value: `${
+                            this.props.dateOfBirth
+                                ? this.props.dateOfBirth.slice(0, 10)
+                                : ''
+                        }`,
                     },
                     location: {
                         size: 4,
@@ -274,7 +279,8 @@ class ApplicantSettings extends Component<
             .updateProfile(
                 this.state.profile.id,
                 this.state.profile.profileType,
-                formData)
+                formData,
+            )
             .then(() => {
                 dispatch(
                     userActions.updateName(
@@ -290,7 +296,6 @@ class ApplicantSettings extends Component<
     getDataFromServer() {
         const applicantID = location.pathname.split('/').at(-1);
         applicantProfileService.getApplicantData(applicantID).then(body => {
-            console.log(body.date_of_birth.slice(0, 10))
             dispatch(profileActions.update({ ...body, id: applicantID }));
         });
     }
@@ -349,11 +354,7 @@ class ApplicantSettings extends Component<
                     </form>
                 </div>
                 <div className={'flex row g-16 mt-40'}>
-                    <Button
-                        onClick={navigator.goBack}
-                    >
-                        Пропустить
-                    </Button>
+                    <Button onClick={navigator.goBack}>Пропустить</Button>
                     <ButtonRed key={'logout'} onClick={this.logout}>
                         Выйти
                     </ButtonRed>

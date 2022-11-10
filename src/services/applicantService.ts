@@ -1,11 +1,12 @@
 import { Service } from './types';
 import network from '../lib/network';
 import { requestHeaders } from './headers';
-import { SERVER_URLS } from '../utils/constants';
+import { PROFILE_URLS, SERVER_URLS, USER_URLS } from '../utils/constants';
 import { response } from 'express';
 import { applicantActions } from '../store/applicant/actions';
 import { startLoading, stopLoading } from '../store/loading/actions';
 import { dispatch } from '../store';
+import Form from '../components/UI-kit/forms/Form';
 
 export const applicantProfileService: Service = {
     getApplicantData: async (applicantID: string) => {
@@ -26,7 +27,7 @@ export const applicantProfileService: Service = {
         formData: FormData,
     ) => {
         dispatch(startLoading());
-        const date = new Date(formData.get('dateOfBirth'))
+        const date = new Date(formData.get('dateOfBirth'));
         return await network
             .POST(
                 SERVER_URLS.USER,
@@ -64,7 +65,6 @@ export const applicantProfileService: Service = {
                 requestHeaders.jsonHeader,
             )
             .then(response => {
-                console.log(response.body)
                 if (response.status > 399) {
                     throw response.status;
                 }
@@ -76,6 +76,32 @@ export const applicantProfileService: Service = {
     getResumePreviewList: async (applicantID: string) => {
         return await network
             .GET(SERVER_URLS.APPLICANT_RESUMES + applicantID)
+            .then(response => {
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            });
+    },
+
+    apply: async (
+        vacancyID: string,
+        resumeID: string,
+        name: string,
+        surname: string,
+        title: string,
+    ) => {
+        return network
+            .POST(
+                PROFILE_URLS.APPLICANT_RESUMES + vacancyID,
+                JSON.stringify({
+                    resume_id: resumeID,
+                    user_name: name,
+                    user_surname: surname,
+                    resume_title: title,
+                }),
+            )
             .then(response => {
                 if (response.status > 399) {
                     throw response.status;

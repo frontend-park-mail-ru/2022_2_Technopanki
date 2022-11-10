@@ -10,7 +10,6 @@ export default class ResumeList extends Component<
     { resume: ResumeListItemPropsType[]; limit: number }
 > {
     state = {
-        resume: JSON.parse(JSON.stringify(this.props.resume)),
         limit: 6,
     };
 
@@ -24,6 +23,7 @@ export default class ResumeList extends Component<
     };
 
     render() {
+        console.log('Resume list: ', this.state.resume);
         return (
             <div className={'w-100 g-24 hidden rounded-md border-default'}>
                 <div className={'columns p-16'}>
@@ -32,22 +32,21 @@ export default class ResumeList extends Component<
                 </div>
                 <div className={'w-100'}>
                     {this.props
-                        ?.test()
+                        .test()
                         ?.slice(0, this.state.limit)
                         .map(resume => (
                             <ResumeListItem
-                                id={resume.id}
+                                key={resume.resume_id}
+                                id={resume.resume_id}
                                 imgSrc={resume.imgSrc}
-                                name={resume.name}
-                                surname={resume.surname}
-                                resumeTitle={resume.title}
-                                timeWhenCreated={resume.created_date}
-                                resumeSrc={resume.resumeSrc}
+                                name={resume.user_name}
+                                surname={resume.user_surname}
+                                resumeTitle={resume.resume_title}
+                                timeWhenCreated={resume.apply_date}
                             />
                         ))}
                 </div>
                 <button
-                    key={'sdfw'}
                     onClick={this.increaseLimit.bind(this)}
                     className={
                         'cursor-pointer w-100 p-16 border-top-default border-none color-500 background-50'

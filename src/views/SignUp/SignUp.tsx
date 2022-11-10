@@ -23,14 +23,55 @@ import {
     validatePasswordLength,
     validatePasswordSymbols,
 } from '../../utils/validation/validation';
-import navigator from '../../router/navigator';
+import navigator from '../../router/navigator.tsx';
 import { dispatch } from '../../store';
 import { userActions } from '../../store/user/actions';
 import { authService } from '../../services/authService';
 
+export type ResponseBody = {
+    descriptors: string[];
+    error: string;
+};
+
+export type AuthField = {
+    id: string;
+    type: string;
+    label: string;
+    placeholder: string;
+    value: string | null;
+    required: boolean;
+    error: boolean;
+    errorMessage: string | null;
+};
+
+export type AuthFields = { [key: string]: AuthField };
+
 export const setFieldAsInvalid = (field: AuthField, errorMessage: string) => {
-    field.error = true;
-    field.errorMessage = errorMessage;
+    if (field) {
+        field.error = true;
+        field.errorMessage = errorMessage;
+    }
+};
+
+export const setInvalidFieldsFromServer = (
+    responseBody: ResponseBody,
+    inputs: AuthFields,
+    callback: Function,
+) => {
+    if (
+        responseBody &&
+        Array.isArray(responseBody.descriptors) &&
+        responseBody.descriptors[0]
+    ) {
+        setFieldAsInvalid(
+            inputs[responseBody.descriptors[0]],
+            responseBody.error,
+        );
+        callback();
+        setFieldAsInvalid(inputs[responseBody.descriptors[0]] as AuthField, '');
+    } else {
+        throw new Error(`empty body: ${responseBody}`);
+    }
 };
 
 export const validateField = (
@@ -58,17 +99,6 @@ export const validateField = (
     }
 
     return false;
-};
-
-export type AuthField = {
-    id: string;
-    type: string;
-    label: string;
-    placeholder: string;
-    value: string | null;
-    required: boolean;
-    error: boolean;
-    errorMessage: string | null;
 };
 
 export default class SignUp extends Component<
@@ -284,7 +314,6 @@ export default class SignUp extends Component<
             authService
                 .signUp(formData)
                 .then(body => {
-                    newUserID = body.id;
                     dispatch(
                         userActions.SIGN_UP(
                             body.id,
@@ -295,16 +324,14 @@ export default class SignUp extends Component<
                             formData.get('toggle') as 'applicant' | 'employer',
                         ),
                     );
-                    navigator.navigate(`/applicant/${newUserID}`);
+                    navigator.navigate(`/${formData.get('toggle')}/${body.id}`);
                 })
                 .catch(body => {
-                    // todo: поправить type ошибки
-                    setFieldAsInvalid(
-                        newState.inputs[body.descriptors[0]],
-                        body.error,
+                    setInvalidFieldsFromServer(
+                        body as ResponseBody,
+                        newState.inputs,
+                        () => this.setState(() => newState),
                     );
-                    this.setState(() => newState);
-                    setFieldAsInvalid(newState.inputs[body.descriptors[0]], '');
                 });
         }
     };

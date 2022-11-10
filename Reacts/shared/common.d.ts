@@ -20,9 +20,10 @@ export type VNodeType = {
     props: { children?: ChildrenType } & PropsType;
     key: KeyType;
 
+    unmount: Function;
+
     _instance?: ComponentType;
     _domElement: HTMLElement;
-
     // ---------
     // TODO
     _parent?: VNodeType | null;
@@ -33,6 +34,7 @@ export type VNodeType = {
     // to be able to distinguish between an uninitialized _nextDom and
     // a _nextDom that has been set to `null`"
     _nextDom?: VNodeType | null;
+
     constructor?: Function;
 };
 

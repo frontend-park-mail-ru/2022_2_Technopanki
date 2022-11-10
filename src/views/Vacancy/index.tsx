@@ -10,6 +10,8 @@ import { dispatch, vacancyConnect } from '../../store';
 import { vacancyService } from '../../services/vacancyService';
 import { vacancyActions } from '../../store/vacancy/actions';
 import { VacancyState } from '../../store/vacancy/type';
+import SuccessPopup from '../../components/SuccessPopup/SuccessPopup';
+import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 
 type VacancyPropsType = {
     id?: string;
@@ -32,8 +34,7 @@ type VacancyPropsType = {
 class Vacancy extends Component<VacancyPropsType> {
     getDataFromServer() {
         // Мы точно уверены что путь будет vacancy/{0,9}+
-        const vacancyID = this.props.id || location.pathname.split('/').at(-1);
-
+        const vacancyID = location.pathname.split('/').at(-1);
         vacancyService.getVacancyData(vacancyID as string).then(body => {
             dispatch(vacancyActions.update(body));
         });
@@ -47,15 +48,18 @@ class Vacancy extends Component<VacancyPropsType> {
         return (
             <div className={'screen-responsive relative hidden g-24'}>
                 <Header key={'header'} />
+                <SuccessPopup key={'success'} />
+                <ErrorPopup key={'eror'} />
                 <div
                     key={'substrate'}
                     className={styles.header_substrate}
                 ></div>
                 <div key={'user'} className={'columns mt-header g-24'}>
-                    <div className={`col-12 ${styles.header}`}>
+                    <div key={'hat'} className={`col-12 ${styles.header}`}>
                         <VacancyHat
                             vacancyID={this.props.id}
                             postedByUserID={this.props.postedByUserID}
+                            sendRequest={!!this.props.id}
                         />
                     </div>
                     <h3 key={'header'} className={'col-12'}>
@@ -66,18 +70,22 @@ class Vacancy extends Component<VacancyPropsType> {
                         className={'col-12 col-md-9 flex column g-40'}
                     >
                         <TextBlock
+                            key={'description'}
                             headline={'Описание'}
                             content={this.props.description}
                         />
                         <TextBlock
+                            key={'tasks'}
                             headline={'Задачи'}
                             content={this.props.tasks}
                         />
                         <TextBlock
+                            key={'requirements'}
                             headline={'Требования'}
                             content={this.props.requirements}
                         />
                         <TextBlock
+                            key={'extra'}
                             headline={'Будет плюсом'}
                             content={this.props.extra}
                         />
@@ -92,7 +100,7 @@ class Vacancy extends Component<VacancyPropsType> {
     }
 }
 
-export default vacancyConnect((state, props) => {
+export default vacancyConnect(state => {
     const storeState = state as VacancyState;
     return {
         id: storeState.id,

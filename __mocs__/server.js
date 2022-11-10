@@ -1,10 +1,16 @@
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const crypto = require('crypto');
 const PORT = 8080;
 
 const users = require('./user.js');
-let { defaultVacancy, vacancies, responses } = require('./vacancy.js');
+let {
+    defaultVacancy,
+    vacancies,
+    responses,
+    testVacancy,
+} = require('./vacancy.js');
 
 const corsOptions = {
     credentials: true, // This is important.
@@ -24,7 +30,7 @@ app.post('/auth/sign-up', (req, res) => {
     if (req.body.email === 'test@mail.ru') {
         res.status(400);
         res.json({
-            message: 'Пользователь с таким email уже существует',
+            descriptors: ['Пользователь с таким email уже существует'],
             type: 'email',
         });
         return;
@@ -33,7 +39,7 @@ app.post('/auth/sign-up', (req, res) => {
     if (req.body.password === '12345vv!!') {
         res.status(400);
         res.json({
-            message: 'Ошибка в пароле',
+            descriptors: ['Ошибка в пароле'],
             type: 'password',
         });
         return;
@@ -43,11 +49,116 @@ app.post('/auth/sign-up', (req, res) => {
     res.json({ id: 1 });
 });
 
+app.get('/protected', (req, res) => {
+    console.log('protected');
+    res.json({ value: crypto.randomUUID() });
+});
+
+app.get('api/vacancy/applies/:id', (req, res) => {
+    res.json({
+        data: [
+            {
+                user_account_id: 3,
+                resume_id: 1,
+                vacancy_id: 1,
+                user_name: 'Akim',
+                user_surname: 'Egorov',
+                resume_title: '',
+                apply_date: '2022-11-09T12:23:17.931925Z',
+            },
+        ],
+    });
+});
+
+app.get('/api/resume/applicant/preview/:id', (res, req) => {
+    console.log('resume');
+    req.json([
+        {
+            id: 1,
+            user_account_id: 11,
+            title: 'C++ middle',
+            description: 'sberich',
+            created_date: '2022-11-09T13:45:35.354856Z',
+            education_detail: {
+                resume_id: 0,
+                certificate_degree_name: '',
+                major: '',
+                university_name: '',
+                starting_date: '0001-01-01T00:00:00Z',
+                completion_date: '0001-01-01T00:00:00Z',
+            },
+            experience_detail: {
+                resume_id: 1,
+                is_current_job: 'Yes',
+                start_date: '0001-01-01T00:00:00Z',
+                end_date: '0001-01-01T00:00:00Z',
+                job_title: 'Golang-developer',
+                company_name: 'Sberbank',
+                job_location_city: 'Voronezh',
+                description: '',
+            },
+            applicant_skills: null,
+        },
+        {
+            id: 2,
+            user_account_id: 11,
+            title: 'C++ middle',
+            description: 'sberich',
+            created_date: '2022-11-09T14:20:58.4588Z',
+            education_detail: {
+                resume_id: 0,
+                certificate_degree_name: '',
+                major: '',
+                university_name: '',
+                starting_date: '0001-01-01T00:00:00Z',
+                completion_date: '0001-01-01T00:00:00Z',
+            },
+            experience_detail: {
+                resume_id: 2,
+                is_current_job: 'Yes',
+                start_date: '0001-01-01T00:00:00Z',
+                end_date: '0001-01-01T00:00:00Z',
+                job_title: 'Golang-developer',
+                company_name: 'Sberbank',
+                job_location_city: 'Voronezh',
+                description: '',
+            },
+            applicant_skills: null,
+        },
+        {
+            id: 3,
+            user_account_id: 11,
+            title: 'C++ middle',
+            description: 'sberich',
+            created_date: '2022-11-09T14:20:59.54726Z',
+            education_detail: {
+                resume_id: 0,
+                certificate_degree_name: '',
+                major: '',
+                university_name: '',
+                starting_date: '0001-01-01T00:00:00Z',
+                completion_date: '0001-01-01T00:00:00Z',
+            },
+            experience_detail: {
+                resume_id: 3,
+                is_current_job: 'Yes',
+                start_date: '0001-01-01T00:00:00Z',
+                end_date: '0001-01-01T00:00:00Z',
+                job_title: 'Golang-developer',
+                company_name: 'Sberbank',
+                job_location_city: 'Voronezh',
+                description: '',
+            },
+            applicant_skills: null,
+        },
+    ]);
+});
+
 app.post('/auth/sign-in', (req, res) => {
     if (req.body.email === 'test@mail.ru') {
         res.status(400);
         res.json({
-            message: 'Пользователь с таким email уже существует',
+            descriptors: ['Пользователь с таким email уже существует'],
             type: 'email',
         });
         return;
@@ -56,7 +167,7 @@ app.post('/auth/sign-in', (req, res) => {
     if (req.body.password === '12345vv!!') {
         res.status(400);
         res.json({
-            message: 'Ошибка в пароле',
+            descriptors: ['Ошибка в пароле'],
             type: 'password',
         });
         return;
@@ -82,6 +193,11 @@ app.get('/api/user/safety/:id', (req, res) => {
     } else {
         res.json(users.user);
     }
+});
+
+app.get('/api/vacancy/company/:id', (req, res) => {
+    console.log('vacancies');
+    res.json({ data: vacancies });
 });
 
 // app.post('/api/user/safety/:id', (req, res) => {
@@ -151,8 +267,13 @@ app.post('/api/vacancy/', (req, res) => {
 });
 
 app.get('/api/vacancy/:id', (req, res) => {
-    console.log('/api/vacancy');
-    res.json(defaultVacancy);
+    console.log('/api/vacancy/', req.params.id);
+
+    if (req.params.id === '2') {
+        res.json(testVacancy);
+    } else {
+        res.json(defaultVacancy);
+    }
 });
 
 app.post('/api/vacancy/new', (req, res) => {

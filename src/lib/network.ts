@@ -18,7 +18,7 @@ const sendRequest = async (
     return {
         status: response.status,
         body:
-            headers === requestHeaders.jsonHeader
+            headers['Content-Type'] === 'application/json'
                 ? await response.json().catch(err => {
                       console.error(err, response);
                       return {};
@@ -33,7 +33,7 @@ class Network {
         headers: HeadersInit = requestHeaders.jsonHeader,
         credentials: boolean = true,
     ) {
-        return sendRequest('GET', url, '', headers, credentials);
+        return await sendRequest('GET', url, '', headers, credentials);
     }
     async PUT(
         url: string,
@@ -41,7 +41,7 @@ class Network {
         headers: HeadersInit = requestHeaders.jsonHeader,
         credentials: boolean = true,
     ) {
-        return sendRequest('PUT', url, payload, headers, credentials);
+        return await sendRequest('PUT', url, payload, headers, credentials);
     }
     async POST(
         url: string,
@@ -49,14 +49,14 @@ class Network {
         headers: HeadersInit = requestHeaders.jsonHeader,
         credentials: boolean = true,
     ) {
-        return sendRequest('POST', url, payload, headers, credentials);
+        return await sendRequest('POST', url, payload, headers, credentials);
     }
     async DELETE(
         url: string,
         headers: HeadersInit = requestHeaders.jsonHeader,
         credentials: boolean = true,
     ) {
-        return sendRequest('DELETE', url, '', headers, credentials);
+        return await sendRequest('DELETE', url, '', headers, credentials);
     }
 }
 

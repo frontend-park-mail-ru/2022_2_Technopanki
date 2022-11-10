@@ -24,19 +24,24 @@ export const profileReducer: Reducer<ProfileState> = (
                 dateOfBirth: action.state.date_of_birth,
                 status: action.state.status,
                 description: action.state.description,
-                location: action.state.location,
                 phone: action.state.contact_number,
                 email: action.state.email,
-                // TODO: тернарник на size
                 size: action.state.company_size
                     ? action.state.company_size.toString()
                     : '',
-                fieldOfActivity: action.state.field_of_activity,
-                // socialNetworks: {
-                //     vk: '',
-                //     facebook: '',
-                //     telegram: '',
-                // },
+            };
+        case PROFILE_ACTION_TYPES.UPDATE_FROM_FORM:
+            return {
+                ...state,
+                id: action.profileID,
+                profileType: action.userType,
+                name: action.formData.get('name'),
+                surname: action.formData.get('surname') || '',
+                status: action.formData.get('status'),
+                description: action.formData.get('description'),
+                phone: action.formData.get('phone'),
+                email: action.formData.get('email'),
+                size: action.formData.get('size').toString(),
             };
         default:
             return state;

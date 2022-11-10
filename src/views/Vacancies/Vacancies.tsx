@@ -7,6 +7,9 @@ import VacancyCard from '../../components/UI-kit/vacancy/VacancyCard';
 import { vacancyService } from '../../services/vacancyService';
 import Button from '../../components/UI-kit/buttons/Button';
 import RenderWithCondition from '../../components/RenderWithCondition';
+import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
+import { dispatch } from '../../store';
+import { activateError, deactivateError } from '../../store/errors/actions';
 
 export default class Vacancies extends Component<
     {},
@@ -33,7 +36,6 @@ export default class Vacancies extends Component<
         vacancyService
             .getAllVacancies()
             .then(body => {
-                console.log('body: ', body);
                 this.setState(state => ({
                     limit: 10,
                     vacancies: [...body.data],
@@ -54,10 +56,23 @@ export default class Vacancies extends Component<
                     key={'vacacnies'}
                     className={`flex column g-24 relative screen-responsive ${styles.content}`}
                 >
+                    <ErrorPopup />
                     <h3 key={'h'} className={'mx-0'}>
                         Поиск
                     </h3>
-                    <SearchInput key={'search'} />
+                    <div
+                        onClick={() => {
+                            dispatch(
+                                activateError(
+                                    'В данный момент эта функция не работает:(',
+                                    'Мы работаем над тем, чтобы реализовать ее как можно быстрее',
+                                ),
+                            );
+                            setTimeout(() => dispatch(deactivateError()), 3000);
+                        }}
+                    >
+                        <SearchInput key={'search'} />
+                    </div>
                     {this.state.vacancies
                         ?.slice(0, this.state.limit)
                         .map(vacancy => (

@@ -1,40 +1,17 @@
 import { Component } from '../../../Reacts';
 import Header from '../../components/UI-kit/header/Header';
 import SettingsHat from '../../components/hats/SettingsHat';
-import Input, {
-    InputPropsType,
-} from '../../components/UI-kit/forms/inputs/Input';
-import Form, { FormSectionType } from '../../components/UI-kit/forms/Form';
-import CancelSaveButtons from '../../components/CancelSaveButtons/CancelSaveButtons';
-import IconInput from '../../components/UI-kit/forms/inputs/IconInput';
-import VKLogo from '../../static/icons/logos/VKColor.svg';
-import TwitterLogo from '../../static/icons/logos/TwitterColor.svg';
-import FacebookLogo from '../../static/icons/logos/FacebookColor.svg';
-import TelegramLogo from '../../static/icons/logos/TelegramColor.svg';
-import YouTubeLogo from '../../static/icons/logos/YouTubeColor.svg';
-import InstagramLogo from '../../static/icons/logos/InstagramColor.svg';
+import { InputPropsType } from '../../components/UI-kit/forms/inputs/Input';
 import FileInput from '../../components/UI-kit/forms/inputs/FileInput';
-import navigator from '../../router/navigator';
+import navigator from '../../router/navigator.tsx';
 import Footer from '../../components/UI-kit/footer/Footer';
-import { sendProfileImg } from '../../services/imageService';
 import { employerProfileService } from '../../services/employerProfileService';
-import { userStore } from '../../store/user/store';
-import { defaultProfileState, profileStore } from '../../store/profile/store';
 import { EmployerProfile, ProfileState } from '../../store/profile/types';
+import { dispatch, profileConnect, userConnect } from '../../store';
 import {
-    dispatch,
-    errorsConnect,
-    profileConnect,
-    userConnect,
-} from '../../store';
-import Textarea from '../../components/UI-kit/forms/inputs/Textarea';
-import ChipsInput from '../../components/UI-kit/forms/inputs/ChipsInput';
-import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
-import { activateError, deactivateError } from '../../store/errors/actions';
-import {
+    phoneValidation,
     validateCompanyName,
     validateEmail,
-    validateNameSymbols,
     validatePasswordSymbols,
 } from '../../utils/validation/validation';
 import {
@@ -45,12 +22,18 @@ import {
 } from '../../utils/validation/messages';
 import FormSection from '../../components/UI-kit/forms/FormSection';
 import { profileActions } from '../../store/profile/actions';
-import RenderWithCondition from '../../components/RenderWithCondition';
 import { userActions } from '../../store/user/actions';
 import { authService } from '../../services/authService';
 import Button from '../../components/UI-kit/buttons/Button';
 import ButtonPrimary from '../../components/UI-kit/buttons/ButtonPrimary';
 import ButtonRed from '../../components/UI-kit/buttons/ButtonRed';
+import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
+import SuccessPopup from '../../components/SuccessPopup/SuccessPopup';
+import { activateError, deactivateError } from '../../store/errors/actions';
+import {
+    activateSuccess,
+    deactivateSuccess,
+} from '../../store/succeses/actions';
 
 class AvatarSettingsComponent extends Component<
     { previewSrc: string },
@@ -98,7 +81,6 @@ const AvatarSettings = profileConnect(state => {
     };
 })(AvatarSettingsComponent);
 
-// todo: добавить валидацию на все компоненты
 class ProfileSettingsComponent extends Component<
     ProfileState & { userID: string },
     {
@@ -143,7 +125,7 @@ class ProfileSettingsComponent extends Component<
                     },
                     size: {
                         size: 4,
-                        type: 'text',
+                        type: 'number',
                         placeholder: '10.000',
                         label: 'Размер компании',
                         name: 'size',
@@ -156,8 +138,11 @@ class ProfileSettingsComponent extends Component<
                         placeholder: '+7 (999) 999-99-99',
                         label: 'Телефон',
                         name: 'phone',
-                        required: true,
+                        validator: phoneValidation,
+                        required: false,
                         value: this.props.phone,
+                        errorMessage:
+                            'Номер телефона должен быть в формате: +7 (999) 999-99-99',
                     },
                     email: {
                         size: 4,
@@ -165,7 +150,7 @@ class ProfileSettingsComponent extends Component<
                         placeholder: 'example@mail.ru',
                         label: 'Email',
                         name: 'email',
-                        required: true,
+                        required: false,
                         value: this.props.email,
                         validator: validateEmail,
                         error: false,
@@ -255,23 +240,48 @@ class ProfileSettingsComponent extends Component<
         employerProfileService
             .updateProfile(
                 this.state.profile.id,
-                this.state.profile.profileType,
+                this.state.profile.profileType
+                    ? this.state.profile.profileType
+                    : 'employer',
                 formData,
             )
             .then(() => {
                 dispatch(
+                    profileActions.updateFromFormData(
+                        this.state.profile.id,
+                        this.state.profile.profileType
+                            ? this.state.profile.profileType
+                            : 'employer',
+                        formData,
+                    ),
+                );
+                dispatch(
                     userActions.updateName(formData.get('name') as string, ''),
                 );
-                navigator.goBack();
+                dispatch(
+                    activateSuccess('Данные профиля успешно изменены!', ''),
+                );
+                setTimeout(() => dispatch(deactivateSuccess()), 3000);
+                navigator.navigate(`/employer/${this.props.id}`);
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                dispatch(
+                    activateError(
+                        'Упс... что-то пошло не так',
+                        'Пожалуйста, повторите попытку',
+                    ),
+                );
+                setTimeout(() => dispatch(deactivateError()), 3000);
+            });
     };
 
     getDataFromServer() {
         const employerID = location.pathname.split('/').at(-1);
-        employerProfileService.getProfileData(employerID).then(body => {
-            dispatch(profileActions.update({ ...body, id: employerID }));
-        });
+        if (employerID !== this.props.id && employerID === this.props.userID) {
+            employerProfileService.getProfileData(employerID).then(body => {
+                dispatch(profileActions.update({ ...body, id: employerID }));
+            });
+        }
     }
 
     componentDidMount() {
@@ -291,6 +301,8 @@ class ProfileSettingsComponent extends Component<
     render() {
         return (
             <div className={'screen-responsive relative hidden'}>
+                <ErrorPopup key={'error'} />
+                <SuccessPopup key={'success'} />
                 <Header key={'header'} />
                 <div key={'hat'} className={'columns g-24'}>
                     <div key={'settings'} className={`col-12 mt-header`}>

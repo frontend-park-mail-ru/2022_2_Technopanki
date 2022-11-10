@@ -1,5 +1,6 @@
 import { VNodeType } from '../../shared/common';
 import { renderNode } from '../render/renderNode';
+import { Component } from '../../reacts';
 
 /**
  * RootType object interface
@@ -15,6 +16,7 @@ export interface RootType {
  */
 class Root implements RootType {
     root: HTMLElement;
+    prevMount?: VNodeType;
     constructor(root: HTMLElement) {
         this.root = root;
     }
@@ -24,11 +26,17 @@ class Root implements RootType {
      * @param node
      */
     render(node: VNodeType): void {
-        this.root.innerHTML = '';
+        this.unmount();
         renderNode(this.root, node);
+        this.prevMount = node;
     }
 
-    unmount() {}
+    unmount() {
+        this.root.innerHTML = '';
+        this.prevMount?.unmount(false);
+        // delete this.prevMount?.props;
+        delete this.prevMount;
+    }
 }
 
 /**

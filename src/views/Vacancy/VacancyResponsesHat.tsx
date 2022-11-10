@@ -2,7 +2,6 @@ import { Component } from '../../../Reacts';
 import Hat from '../../components/UI-kit/hat/Hat';
 import Button from '../../components/UI-kit/buttons/Button';
 import Link from '../../components/Link/Link';
-import { ProfileState } from '../../store/profile/types';
 import { profileConnect } from '../../store';
 import { vacancyService } from '../../services/vacancyService';
 
@@ -16,9 +15,9 @@ class VacancyResponsesHat extends Component<{
 }> {
     state = {
         creatorImgSrc: '',
-        imgSrc: './',
-        companyName: '',
-        status: '',
+        imgSrc: this.props.imgSrc,
+        name: this.props.name,
+        status: this.props.status,
     };
 
     getCreatorDataFromServer = () => {
@@ -28,7 +27,7 @@ class VacancyResponsesHat extends Component<{
                 .then(body => {
                     this.setState(() => ({
                         creatorImgSrc: body.creator_img_src,
-                        companyName: body.company_name,
+                        name: body.company_name,
                         status: body.status,
                     }));
                 })
@@ -44,7 +43,7 @@ class VacancyResponsesHat extends Component<{
         return (
             <Hat
                 imgSrc={this.state.imgSrc}
-                name={this.state.companyName}
+                name={this.state.name}
                 surname={''}
                 linkTo={`/employer/${this.props.postedByUserID}`}
                 status={this.state.status}

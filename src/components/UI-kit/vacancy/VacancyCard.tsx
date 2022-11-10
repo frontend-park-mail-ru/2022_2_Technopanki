@@ -128,10 +128,11 @@ export default class VacancyCard extends Component<
                     <h4 className={`mx-0 ${styles.per_month}`}>руб/мес</h4>
                 </div>
                 <div key={'vacancy'} className={styles.link}>
+                    <div className={'none'}></div>
                     <Link
                         to={`/vacancy/${this.props.id}`}
                         content={
-                            <ArrowButtonWithTextOutline key={'vacancy-link'}>
+                            <ArrowButtonWithTextOutline>
                                 <p>Посмотреть вакансию</p>
                             </ArrowButtonWithTextOutline>
                         }

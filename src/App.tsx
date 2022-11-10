@@ -1,4 +1,4 @@
-import { Component } from '../Reacts';
+import { Component, renderNode } from '../Reacts';
 import './styles/globals.scss';
 import { setTheme } from './toggleTheme';
 import StartPage from './views/StartPage/StartPage';
@@ -17,16 +17,13 @@ class App extends Component {
 
 router.disableScrollRestoration();
 
-router.addNewPath(
-    { path: '/', validator: (url: string) => url === '/' },
-    <App />,
-);
+router.addNewPath({ path: '/', validator: (url: string) => url === '/' }, App);
 router.addNewPaths(ROUTER_PATHS);
 // router.setFallback('/404', <NotFound />);
+
 authService
     .auth()
     .then(body => {
-        console.log(body);
         dispatch(
             userActions.SIGN_IN(
                 body.id,
@@ -39,19 +36,8 @@ authService
         );
         router.navigate(location.pathname);
     })
-    .catch(err => {
-        console.error(err);
+    .catch(() => {
         router.navigate(location.pathname);
     });
-
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./js/sw.js').then(() =>
-        navigator.serviceWorker.ready
-            .then(worker => {
-                worker.active;
-            })
-            .catch(err => console.error(err)),
-    );
-}
 
 setTheme();

@@ -51,19 +51,16 @@ const compareAttributes = (
         set: newNodeWithoutChildren.filter(
             ([attr, _]) => oldNodeAttrNames.indexOf(attr) === -1,
         ),
-        remove: (() => {
-            const deleteItemsFromUpdate = oldNodeWithoutChildren.filter(
-                ([attr, _]) =>
-                    update.find(([updateAttr, _]) => updateAttr === attr),
-            );
-
-            const removedAttributes = oldNodeWithoutChildren.filter(
-                ([attr, _]) => newNodeAttrNames.indexOf(attr) === -1,
-            );
-
-            return [...removedAttributes, ...deleteItemsFromUpdate];
-        })(),
+        remove: oldNodeWithoutChildren.filter(
+            ([attr, _]) => newNodeAttrNames.indexOf(attr) === -1,
+        ),
         update,
+        removeFromUpdate: newNodeWithoutChildren.filter(([attr, _]) =>
+            update.find(
+                ([updateAttr, _]) =>
+                    updateAttr === attr && attr.startsWith('on'),
+            ),
+        ),
     };
 };
 

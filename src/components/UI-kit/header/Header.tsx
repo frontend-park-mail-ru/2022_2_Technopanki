@@ -22,24 +22,19 @@ export default class Header extends Component {
             <header
                 className={`x-0 t-0 border-bottom-light fixed ${styles.header}`}
             >
-                <Preloader key={'preloader'} />
+                <Preloader />
                 <div
                     key={'content'}
                     className={`flex h-100 screen-responsive row align-items-center justify-content-space-evenly`}
                 >
-                    <div
-                        key={'logo'}
-                        className={`flex w-100 align-items-center`}
-                    >
+                    <div className={`flex w-100 align-items-center`}>
                         <Link to={'/'} content={<JobflowLogo />} />
                     </div>
                     <div
-                        key={'items'}
                         id={'links-group'}
                         className={`flex justify-content-center w-100 g-16 ${styles.items}`}
                     >
                         <Link
-                            key={'vacancies'}
                             to={'/vacancies'}
                             content={
                                 <p
@@ -53,21 +48,6 @@ export default class Header extends Component {
                             }
                         />
                         <Link
-                            key={'applicant'}
-                            to={'/applicant/1'}
-                            content={
-                                <p
-                                    key={'item2'}
-                                    id={'item2'}
-                                    className={styles.item__def}
-                                    onClick={this.setActive}
-                                >
-                                    Соискатели
-                                </p>
-                            }
-                        />
-                        <Link
-                            key={'resume'}
                             to={'/resume/settings'}
                             content={
                                 <p
@@ -81,7 +61,7 @@ export default class Header extends Component {
                             }
                         />
                     </div>
-                    <HeaderProfile key={'profile'} />
+                    <HeaderProfile />
                 </div>
             </header>
         );

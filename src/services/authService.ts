@@ -3,7 +3,6 @@ import network from '../lib/network';
 import { SERVER_URLS, USER_URLS } from '../utils/constants';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
-import { requestHeaders } from './headers';
 
 export const authService: Service = {
     signIn: async (formData: FormData) => {
@@ -53,7 +52,7 @@ export const authService: Service = {
     auth: async () => {
         dispatch(startLoading());
         return network
-            .GET(USER_URLS.AUTH, requestHeaders.jsonHeader)
+            .GET(USER_URLS.AUTH)
             .then(response => {
                 dispatch(stopLoading());
 
@@ -73,13 +72,34 @@ export const authService: Service = {
         dispatch(startLoading());
 
         return network
-            .GET(USER_URLS.LOGOUT, [])
+            .POST(USER_URLS.LOGOUT, '')
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
                     throw response.status;
                 }
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                dispatch(stopLoading());
+                console.error(err);
+            });
+    },
+
+    CSRF: async () => {
+        dispatch(startLoading());
+        return await network
+            .GET(USER_URLS.CSRF)
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            })
+            .catch(err => {
+                dispatch(stopLoading());
+                console.error(err);
+            });
     },
 };

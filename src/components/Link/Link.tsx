@@ -1,5 +1,5 @@
 import { Component } from '../../../Reacts';
-import router from '../../router/navigator';
+import router from '../../router/navigator.tsx';
 import { VNodeType } from '../../../Reacts/shared/common';
 import styles from './link.module.scss';
 
@@ -10,7 +10,6 @@ export default class Link extends Component<{
 }> {
     onClick = (e: MouseEvent) => {
         e.preventDefault();
-        console.log('onClick called');
         this.props.onClick && this.props.onClick(e);
         router.navigate(this.props.to);
     };

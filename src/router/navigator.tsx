@@ -1,4 +1,4 @@
-import { createRoot } from '../../Reacts';
+import { Component, createRoot } from '../../Reacts';
 import Router from './router';
 import { Path } from './types';
 import { RootType } from '../../Reacts/reacts-dom/root';
@@ -31,21 +31,23 @@ class Navigator {
         this.router.disableScrollRestoration();
     }
 
-    setFallback(fallbackPath: string, fallbackComponent: VNodeType) {
+    setFallback(fallbackPath: string, FallbackComponent: Function) {
         this.fallback = { path: '/fallback', callback: () => {} };
         this.fallback.path = fallbackPath;
-        this.fallback.callback = () => this.root.render(fallbackComponent);
+        this.fallback.callback = () => this.root.render(<FallbackComponent />);
     }
 
-    addNewPath(path: PathType, component: VNodeType) {
+    addNewPath(path: PathType, Component: Function) {
         this.urls.push(path);
         this.navMap.set(path.path, {
             path: path.path,
-            callback: () => this.root.render(component),
+            callback: () => {
+                this.root.render(<Component />);
+            },
         });
     }
 
-    addNewPaths(paths: { path: PathType; component: VNodeType }[]) {
+    addNewPaths(paths: { path: PathType; component: Function }[]) {
         paths.forEach(({ path, component }) =>
             this.addNewPath(path, component),
         );

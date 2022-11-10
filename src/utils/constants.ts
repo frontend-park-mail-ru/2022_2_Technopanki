@@ -1,16 +1,18 @@
-export const SERVER_URL = 'http://localhost:8080/';
-export const IMAGE_URL = SERVER_URL + 'data/image/';
+export const SERVER_URL = 'http://95.163.208.72:8080/';
+export const IMAGE_URL = SERVER_URL + 'dat  a/image/';
 
 export const USER_URLS = {
     SIGN_UP: SERVER_URL + 'auth/sign-up',
     SIGN_IN: SERVER_URL + 'auth/sign-in',
     AUTH: SERVER_URL + 'auth/',
-    LOGOUT: SERVER_URL + 'auth/logout/',
+    LOGOUT: SERVER_URL + 'auth/logout',
+    CSRF: SERVER_URL + 'protected/',
 };
 
 export const PROFILE_URLS = {
     APPLICANT: SERVER_URL + 'api/user/',
-    APPLICANT_RESUMES: SERVER_URL + 'api/applicant/resumes/',
+    APPLICANT_RESUMES: SERVER_URL + 'api/vacancy/apply/',
+    APPLICANT_APPLY: SERVER_URL + 'api/vacancy/apply',
     USER: SERVER_URL + 'api/user/',
     USER_SAFE: SERVER_URL + 'api/user/safety/',
     USER_PREVIEW: (userID: string) => {
@@ -23,6 +25,7 @@ export const VACANCY_URLS = {
     VACANCY: SERVER_URL + 'api/vacancy/',
     VACANCY_RESPONSES: SERVER_URL + 'api/vacancy/applies/',
     VACANCY_NEW: SERVER_URL + 'api/vacancy/new/',
+    PROFILE_VACANCIES: SERVER_URL + 'api/vacancy/company/',
 };
 
 export const SERVER_URLS = {

@@ -73,16 +73,16 @@ class VacancySideBar extends Component<{
                             </div>
                         ),
                     },
-                    {
-                        header: 'Профессиональные навыки',
-                        inside: (
-                            <div className={'flex row g-8 flex-wrap'}>
-                                {this.props.skills?.map(item => (
-                                    <Chips>{item}</Chips>
-                                ))}
-                            </div>
-                        ),
-                    },
+                    // {
+                    //     header: 'Профессиональные навыки',
+                    //     inside: (
+                    //         <div className={'flex row g-8 flex-wrap'}>
+                    //             {this.props.skills?.map(item => (
+                    //                 <Chips>{item}</Chips>
+                    //             ))}
+                    //         </div>
+                    //     ),
+                    // },
                     // {
                     //     header: 'Социальные сети',
                     //     inside: (

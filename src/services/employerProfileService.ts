@@ -107,6 +107,7 @@ export const employerProfileService: Service = {
             .catch(err => {
                 dispatch(stopLoading());
                 console.error(err);
+                throw err;
             });
     },
 };
