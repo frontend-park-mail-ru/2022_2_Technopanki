@@ -7,7 +7,10 @@ const PORT = 8000;
 
 app.use('/static', express.static(path.join(__dirname, '/')));
 app.use('/css', express.static(path.join(__dirname, '/')));
-app.use('/image', express.static(path.join(__dirname, '/image')));
+app.use(
+    '/image',
+    express.static(path.join(__dirname, '../../backend/data/image/avatar/')),
+);
 app.use('/js', express.static(path.join(__dirname, './js/')));
 app.use('/vacancy/js', express.static(path.join(__dirname, './js/')));
 
