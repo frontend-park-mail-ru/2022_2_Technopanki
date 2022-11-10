@@ -27,6 +27,13 @@ import { authService } from '../../services/authService';
 import Button from '../../components/UI-kit/buttons/Button';
 import ButtonPrimary from '../../components/UI-kit/buttons/ButtonPrimary';
 import ButtonRed from '../../components/UI-kit/buttons/ButtonRed';
+import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
+import SuccessPopup from '../../components/SuccessPopup/SuccessPopup';
+import { activateError, deactivateError } from '../../store/errors/actions';
+import {
+    activateSuccess,
+    deactivateSuccess,
+} from '../../store/succeses/actions';
 
 class AvatarSettingsComponent extends Component<
     { previewSrc: string },
@@ -247,9 +254,21 @@ class ProfileSettingsComponent extends Component<
                 dispatch(
                     userActions.updateName(formData.get('name') as string, ''),
                 );
+                dispatch(
+                    activateSuccess('Данные профиля успешно изменены!', ''),
+                );
+                setTimeout(() => dispatch(deactivateSuccess()), 3000);
                 navigator.navigate(`/employer/${this.props.id}`);
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                dispatch(
+                    activateError(
+                        'Упс... что-то пошло не так',
+                        'Пожалуйста, повторите попытку',
+                    ),
+                );
+                setTimeout(() => dispatch(deactivateError()), 3000);
+            });
     };
 
     getDataFromServer() {
@@ -278,6 +297,8 @@ class ProfileSettingsComponent extends Component<
     render() {
         return (
             <div className={'screen-responsive relative hidden'}>
+                <ErrorPopup key={'error'} />
+                <SuccessPopup key={'success'} />
                 <Header key={'header'} />
                 <div key={'hat'} className={'columns g-24'}>
                     <div key={'settings'} className={`col-12 mt-header`}>

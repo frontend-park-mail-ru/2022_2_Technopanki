@@ -8,34 +8,42 @@ import { resumeService } from '../../services/resumeService';
 
 class SettingsHat extends Component<
     {
+        // Flux
+        name: string;
+        surname: string;
+        // Props
+        status: string;
+        imgSrc: string;
         creatorID: string;
         submit: Function;
     },
     {
-    // Flux
-    name: string;
-    surname: string;
-    // Props
-    status: string;
-    imgSrc: string;
+        // Flux
+        name: string;
+        surname: string;
+        // Props
+        status: string;
+        imgSrc: string;
     }
 > {
     state = {
-        imgSrc: '',
-        name: '',
-        surname: '',
-        status: '',
+        imgSrc: this.props.imgSrc,
+        name: this.props.name,
+        surname: this.props.surname,
+        status: this.props.status,
     };
 
     getCreatorDataFromServer = () => {
-        resumeService.getResumeHatData(this.props.creatorID).then(body => {
-            this.setState(() => ({
-                imgSrc: body.creator_img_src,
-                name: body.applicant_name,
-                surname: body.applicant_surname,
-                status: body.status,
-            }));
-        });
+        if (this.state.name === '') {
+            resumeService.getResumeHatData(this.props.creatorID).then(body => {
+                this.setState(() => ({
+                    imgSrc: body.creator_img_src,
+                    name: body.applicant_name,
+                    surname: body.applicant_surname,
+                    status: body.status,
+                }));
+            });
+        }
     };
 
     componentDidMount() {

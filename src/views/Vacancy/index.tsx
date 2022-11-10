@@ -38,11 +38,6 @@ class Vacancy extends Component<VacancyPropsType> {
         vacancyService.getVacancyData(vacancyID as string).then(body => {
             dispatch(vacancyActions.update(body));
         });
-        // if (this.props.id !== vacancyID) {
-        //     vacancyService.getVacancyData(vacancyID as string).then(body => {
-        //         dispatch(vacancyActions.update(body));
-        //     });
-        // }
     }
 
     componentDidMount() {
