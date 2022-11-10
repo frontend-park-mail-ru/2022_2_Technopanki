@@ -7,7 +7,7 @@
 .profile_banner {
   width: 100%;
   height: 240px;
-  background-image: linear-gradient(0deg,#cf5c5c,#c19b4a,#def2a0,#c6ee4a,#42eca6,#64b3d9,#208ea2,#498ada,#5b73df,#897ed3,#cf5c5c,#c19b4a);
+  background-image: linear-gradient(0deg, #192ec4, #077f9a, #c01d49, #07179a,#42eca6,#64b3d9,#208ea2,#498ada,#5b73df,#897ed3,#cf5c5c,#c19b4a);
   background-size: 100% 1100%;
   border-radius: var(--border-radius-xl);
   margin-bottom: 24px;
@@ -15,13 +15,13 @@
     height: 180px;
   }
 
-  animation: Gradient 10s ease-out infinite;
+  animation: Gradient 50s ease-out infinite;
 }
 
 @keyframes Gradient {
   0% { background-position: 50% 0% }
-  50% { background-position: 0% 100% }
-  100% { background-position: 50% 0% }
+  50% { background-position: 50% 50% }
+  100% { background-position: 0% 0% }
 }
 
 .profile_content {
