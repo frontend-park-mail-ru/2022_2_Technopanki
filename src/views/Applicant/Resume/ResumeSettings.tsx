@@ -22,6 +22,7 @@ import { vacancyActions } from '../../../store/vacancy/actions';
 import { resumeActions } from '../../../store/resume/actions';
 import { validateResumeDescription, validateResumeTitle } from '../../../utils/validation/validation';
 import { RESUME_DESCRIPTION_ERROR, RESUME_TITLE_ERROR } from '../../../utils/validation/messages';
+import { SERVER_URLS } from '../../../utils/constants';
 
 class ResumeSettings extends Component<
     ResumeState & { isNew: boolean },
@@ -157,6 +158,13 @@ class ResumeSettings extends Component<
         });
     }
 
+    deleteResume(creatorID: string) {
+        const resumeID = location.pathname.split('/').at(-1);
+
+        resumeService.deleteResume(resumeID as string)
+            .then(() => navigator.navigate(`/applicant/${creatorID}`))
+    }
+
     componentDidMount() {
         this.getDataFromServer()
     }
@@ -211,6 +219,19 @@ class ResumeSettings extends Component<
                     >
                         Пропустить
                     </Button>
+                    {this.props.isNew? (
+                        ''
+                    ) : (
+                        <ButtonRed
+                            key={'logout'}
+                            onClick={() => {
+                                this.deleteResume(this.props.postedByUserID)
+                            }}
+                        >
+                            Удалить
+                        </ButtonRed>
+                    )
+                    }
                 </div>
                 <Footer key={'footer'} />
             </div>
