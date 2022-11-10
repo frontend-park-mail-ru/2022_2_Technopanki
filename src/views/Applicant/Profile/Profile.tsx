@@ -89,7 +89,7 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                             <Link
                                 to={'/resume/new'}
                                 onClick={() =>
-                                    dispatch(resumeActions.clear())
+                                    dispatch(resumeActions.clear(this.props.id))
                                 }
                                 content={
                                     <ButtonPrimary>Создать резюме</ButtonPrimary>

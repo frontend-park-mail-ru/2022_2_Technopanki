@@ -4,25 +4,51 @@ import CancelSaveButtons from '../CancelSaveButtons/CancelSaveButtons';
 import navigator from '../../router/navigator.tsx';
 import { userConnect } from '../../store';
 import { UserState } from '../../store/user/types';
+import { resumeService } from '../../services/resumeService';
 
-class SettingsHat extends Component<{
+class SettingsHat extends Component<
+    {
+        creatorID: string;
+        submit: Function;
+    },
+    {
     // Flux
     name: string;
     surname: string;
     // Props
-    postedByUserID: string;
     status: string;
     imgSrc: string;
-    submit: Function;
-}> {
+    }
+> {
+    state = {
+        imgSrc: '',
+        name: '',
+        surname: '',
+        status: '',
+    };
+
+    getCreatorDataFromServer = () => {
+        resumeService.getResumeHatData(this.props.creatorID).then(body => {
+            this.setState(() => ({
+                imgSrc: body.creator_img_src,
+                name: body.applicant_name,
+                surname: body.applicant_surname,
+                status: body.status,
+            }));
+        });
+    };
+
+    componentDidMount() {
+        this.getCreatorDataFromServer();
+    }
+
     render() {
         return (
             <Hat
-                imgSrc={this.props.imgSrc}
-                name={this.props.name}
-                linkTo={`/employer/${this.props.postedByUserID}`}
-                surname={this.props.surname}
-                status={this.props.status}
+                imgSrc={this.state.imgSrc}
+                name={this.state.name}
+                surname={this.state.surname}
+                status={this.state.status}
                 rightSideContent={
                     <CancelSaveButtons
                         onCancel={navigator.goBack}

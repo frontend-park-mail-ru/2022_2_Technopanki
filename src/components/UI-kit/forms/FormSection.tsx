@@ -30,6 +30,8 @@ export default class FormSection extends Component<{
                                 value={field.value}
                                 label={field.label}
                                 name={field.name}
+                                error={field.error}
+                                errorMessage={field.errorMessage}
                             />
                         ) : (
                             <Input

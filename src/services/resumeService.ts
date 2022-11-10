@@ -91,5 +91,11 @@ export const resumeService: Service = {
 
                 return response.body;
             });
+    },
+
+    deleteResume: async (resumeID: string) => {
+        return await network
+            .DELETE(SERVER_URLS.RESUME + resumeID, requestHeaders.jsonHeader)
+            .then(() => console.log('deleted'));
     }
 };

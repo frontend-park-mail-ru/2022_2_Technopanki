@@ -4,14 +4,12 @@ import Form, { FormSectionType } from '../../../components/UI-kit/forms/Form';
 import Header from '../../../components/UI-kit/header/Header';
 import SettingsHat from '../../../components/hats/SettingsHat';
 import CancelSaveButtons from '../../../components/CancelSaveButtons/CancelSaveButtons';
-import Input, {
-    InputPropsType,
-} from '../../../components/UI-kit/forms/inputs/Input';
+import Input, { InputPropsType } from '../../../components/UI-kit/forms/inputs/Input';
 import Textarea from '../../../components/UI-kit/forms/inputs/Textarea';
 import Chips from '../../../components/UI-kit/chips/Chips';
 import { ProfileState } from '../../../store/profile/types';
 import { resumeService } from '../../../services/resumeService';
-import navigator from '../../../router/navigator.tsx';
+import navigator from '../../../router/navigator';
 import { vacancyService } from '../../../services/vacancyService';
 import { ResumeState } from '../../../store/resume/type';
 import FormSection from '../../../components/UI-kit/forms/FormSection';
@@ -22,6 +20,9 @@ import Footer from '../../../components/UI-kit/footer/Footer';
 import { dispatch, resumeConnect, userConnect } from '../../../store';
 import { vacancyActions } from '../../../store/vacancy/actions';
 import { resumeActions } from '../../../store/resume/actions';
+import { validateResumeDescription, validateResumeTitle } from '../../../utils/validation/validation';
+import { RESUME_DESCRIPTION_ERROR, RESUME_TITLE_ERROR } from '../../../utils/validation/messages';
+import { SERVER_URLS } from '../../../utils/constants';
 
 class ResumeSettings extends Component<
     ResumeState & { isNew: boolean },
@@ -35,7 +36,7 @@ class ResumeSettings extends Component<
             };
         }[];
     }
-> {
+    >{
     state = {
         sections: [
             {
@@ -48,14 +49,21 @@ class ResumeSettings extends Component<
                         name: 'title',
                         required: true,
                         value: this.props.title,
+                        validator: validateResumeTitle,
+                        error: false,
+                        errorMessage: RESUME_TITLE_ERROR,
                     },
                     description: {
                         size: 8,
                         type: 'textarea',
                         placeholder: 'О себе...',
+                        label: 'О себе',
                         name: 'description',
                         required: true,
                         value: this.props.description,
+                        validator: validateResumeDescription,
+                        error: false,
+                        errorMessage: RESUME_DESCRIPTION_ERROR,
                     },
                 },
             },
@@ -65,6 +73,7 @@ class ResumeSettings extends Component<
                         size: 4,
                         type: 'text',
                         placeholder: 'Университет',
+                        label: 'Университет',
                         name: 'university',
                         required: true,
                         value: this.props.university,
@@ -73,6 +82,7 @@ class ResumeSettings extends Component<
                         size: 4,
                         type: 'text',
                         placeholder: 'Направление',
+                        label: 'Направление',
                         name: 'faculty',
                         required: true,
                         value: this.props.faculty,
@@ -81,18 +91,46 @@ class ResumeSettings extends Component<
                         size: 4,
                         type: 'text',
                         placeholder: 'Статус',
+                        label: 'Статус',
                         name: 'status',
                         required: false,
                         value: this.props.status,
-                    },
-                },
-            },
-        ],
+                    }
+                }
+            }
+        ]
     };
 
     submitForm = (e: SubmitEvent) => {
-        e.preventDefault();
+        e.preventDefault()
         const formData = new FormData(e.target);
+
+        let sections = this.state.sections;
+        let isValid = true;
+
+        formData.forEach((value, key) => {
+            sections.forEach(section => {
+                if (section.fields[key]) {
+                    if (
+                        section.fields[key].validator &&
+                        !section.fields[key].validator(value) &&
+                        (section.fields[key].required || value)
+                    ) {
+                        section.fields[key].error = true;
+                        isValid = false;
+                    } else {
+                        section.fields[key].error = false;
+                    }
+                    section.fields[key].value = value;
+                    return;
+                }
+            });
+        });
+
+        if (!isValid) {
+            this.setState(state => ({ ...state, sections: sections }));
+            return;
+        }
 
         const resumeID = location.pathname.split('/').at(-1);
 
@@ -105,10 +143,10 @@ class ResumeSettings extends Component<
                 .updateResume(resumeID, formData)
                 .then(() => {
                     console.log('UPDATE');
-                    console.log(this.props.title);
+                    console.log(this.props.title)
                     navigator.goBack();
                 })
-                .catch(err => console.error(err));
+                .catch(err => console.error(err))
         }
     };
 
@@ -116,31 +154,38 @@ class ResumeSettings extends Component<
         const resumeID = location.pathname.split('/').at(-1);
 
         resumeService.getResumeData(resumeID as string).then(body => {
-            console.log(body);
             dispatch(resumeActions.update(body));
         });
     }
 
+    deleteResume(creatorID: string) {
+        const resumeID = location.pathname.split('/').at(-1);
+
+        resumeService.deleteResume(resumeID as string)
+            .then(() => navigator.navigate(`/applicant/${creatorID}`))
+    }
+
     componentDidMount() {
-        this.getDataFromServer();
-        console.log('1');
-        console.log(this.props);
+        this.getDataFromServer()
     }
 
     render() {
         return (
-            <div className={'screen-responsive relative'}>
+            <div
+                className={'screen-responsive relative'}
+            >
                 <Header />
                 <div class={'column g-24'}>
                     <div className={`col-12 mt-header`}>
                         <SettingsHat
-                            imgSrc={this.props.avatarSrc}
-                            name={'Захар'}
-                            surname={'Урванцев'}
-                            description={
-                                'Студент МГТУ, разработчик и просто хороший человек'
+                            creatorID={
+                                this.props.postedByUserID
                             }
-                            to={'/vacancy'}
+                            submit={() =>
+                                document
+                                    .querySelector('#profile_form')
+                                    .dispatchEvent(new Event('submit'))
+                            }
                         />
                     </div>
                     <h3 className={'col-12'}>Настройки резюме</h3>
@@ -160,14 +205,33 @@ class ResumeSettings extends Component<
                             />
                         ))}
                         <div>
-                            <ButtonPrimary type={'submit'}>
+                            <ButtonPrimary
+                                type={'submit'}
+                            >
                                 Сохранить
                             </ButtonPrimary>
                         </div>
                     </form>
                 </div>
                 <div className={'flex row g-16 mt-40'}>
-                    <Button onClick={navigator.goBack}>Пропустить</Button>
+                    <Button
+                        onClick={navigator.goBack}
+                    >
+                        Пропустить
+                    </Button>
+                    {this.props.isNew? (
+                        ''
+                    ) : (
+                        <ButtonRed
+                            key={'logout'}
+                            onClick={() => {
+                                this.deleteResume(this.props.postedByUserID)
+                            }}
+                        >
+                            Удалить
+                        </ButtonRed>
+                    )
+                    }
                 </div>
                 <Footer key={'footer'} />
             </div>
@@ -175,18 +239,19 @@ class ResumeSettings extends Component<
     }
 }
 
-const UserWrapper = userConnect((state, props) => {
+const UserWrapper =  userConnect((state, props) => {
     return {
         id: state.id,
         postedByUserID:
             props.postedByUserID !== '' ? props.postedByUserID : state.id,
         isNew: props.isNew,
-        ...props,
-    };
+        ...props
+    }
 })(ResumeSettings);
 
 export default resumeConnect((state, props) => {
     return {
-        ...state,
-    };
-})(UserWrapper);
+        ...state
+    }
+})(UserWrapper)
+

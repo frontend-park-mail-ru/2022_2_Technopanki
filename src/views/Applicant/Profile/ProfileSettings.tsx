@@ -322,10 +322,7 @@ class ApplicantSettings extends Component<
                 <div class={'column g-24'}>
                     <div className={`col-12 mt-header`}>
                         <SettingsHat
-                            imgSrc={this.props.avatarSrc}
-                            name={this.props.name}
-                            surname={this.props.surname}
-                            status={this.props.status}
+                            creatorID={this.props.id}
                             submit={() =>
                                 document
                                     .querySelector('#profile_form')
@@ -358,7 +355,11 @@ class ApplicantSettings extends Component<
                     </form>
                 </div>
                 <div className={'flex row g-16 mt-40'}>
-                    <Button>Пропустить</Button>
+                    <Button
+                        onClick={navigator.goBack}
+                    >
+                        Пропустить
+                    </Button>
                     <ButtonRed key={'logout'} onClick={this.logout}>
                         Выйти
                     </ButtonRed>

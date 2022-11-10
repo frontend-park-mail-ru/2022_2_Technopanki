@@ -24,6 +24,7 @@ export const profileReducer: Reducer<ProfileState> = (
                 dateOfBirth: action.state.date_of_birth,
                 status: action.state.status,
                 description: action.state.description,
+                location: action.state.location,
                 phone: action.state.contact_number,
                 email: action.state.email,
                 // TODO: тернарник на size
