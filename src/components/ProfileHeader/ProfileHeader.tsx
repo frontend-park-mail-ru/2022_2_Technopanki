@@ -2,6 +2,7 @@ import { Component } from '../../../Reacts';
 import styles from './profileHeader.module.scss';
 import { VNodeType } from '../../../Reacts/shared/common';
 import Link from '../Link/Link';
+import { IMAGE_URL } from '../../utils/constants';
 
 export default class ProfileHeader extends Component<{
     profileID: string;
@@ -21,7 +22,7 @@ export default class ProfileHeader extends Component<{
                         <img
                             key={'img'}
                             className={styles.info__avatar}
-                            src={this.props.avatarSrc}
+                            src={IMAGE_URL + this.props.avatarSrc}
                             alt={'avatar'}
                         />
                         <div key={'content'} className={`flex column g-4`}>
