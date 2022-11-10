@@ -60,12 +60,18 @@ export default class VacancyCard extends Component<
                     key={'vacancy-data'}
                     className={'flex flex-start column g-4'}
                 >
-                    <h4
+                    <Link
                         key={'vacancy-name'}
-                        className={`cursor-pointer ${styles.vacancy_name}`}
-                    >
-                        {this.props.name}
-                    </h4>
+                        to={`/vacancy/${this.props.id}`}
+                        content={
+                            <h4
+                                key={'vacancy-name'}
+                                className={`cursor-pointer ${styles.vacancy_name}`}
+                            >
+                                {this.props.name}
+                            </h4>
+                        }
+                    />
                     <div
                         key={'vacancy-metadata'}
                         className={'flex flex-start row g-16'}

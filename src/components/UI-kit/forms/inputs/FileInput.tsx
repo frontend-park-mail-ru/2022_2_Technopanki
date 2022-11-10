@@ -28,6 +28,7 @@ export default class FileInput extends Component<{
                     key={'input'}
                     id={this.props.id}
                     type={'file'}
+                    name={this.props.id}
                     className={styles.file_input}
                     onChange={this.props.onUpload}
                 />
