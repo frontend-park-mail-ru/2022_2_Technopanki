@@ -62,14 +62,6 @@ class VacancyHat extends Component<
         this.getCreatorDataFromServer();
     }
 
-    componentWillUnmount() {
-        console.log('componentWillUnmount');
-    }
-
-    unmount() {
-        console.log('UNMOUNT HAT');
-    }
-
     render() {
         return (
             <Hat

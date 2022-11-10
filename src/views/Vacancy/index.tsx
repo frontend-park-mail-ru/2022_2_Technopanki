@@ -49,10 +49,6 @@ class Vacancy extends Component<VacancyPropsType> {
         this.getDataFromServer();
     }
 
-    componentDidUpdate() {
-        console.log('VACANCY UPDATE');
-    }
-
     render() {
         return (
             <div className={'screen-responsive relative hidden g-24'}>

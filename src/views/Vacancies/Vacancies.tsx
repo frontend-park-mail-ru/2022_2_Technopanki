@@ -36,7 +36,6 @@ export default class Vacancies extends Component<
         vacancyService
             .getAllVacancies()
             .then(body => {
-                console.log('body: ', body);
                 this.setState(state => ({
                     limit: 10,
                     vacancies: [...body.data],

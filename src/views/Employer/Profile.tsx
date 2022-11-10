@@ -46,8 +46,9 @@ class Profile extends Component<
     render() {
         return (
             <div className={'screen-responsive flex column g-40'}>
-                <Header />
+                <Header key={'header'} />
                 <ProfileHeader
+                    key={'profile_header'}
                     bannerSrc={this.props.bannerSrc}
                     avatarSrc={this.props.avatarSrc}
                     name={this.props.name}
@@ -96,7 +97,7 @@ class Profile extends Component<
                         </div>
                     }
                 />
-                <div className={'columns g-24'}>
+                <div key={'text'} className={'columns g-24'}>
                     <div
                         key={'desc'}
                         className={'col-12 col-md-9 flex column g-40'}
@@ -138,7 +139,7 @@ class Profile extends Component<
                             </div>
                         </div>
                     </div>
-                    <div className={'col-12 col-md-3'}>
+                    <div key={'sidebar'} className={'col-12 col-md-3'}>
                         <EmployerProfileSideBar
                             companySize={this.props.size}
                             fieldOfActivity={this.props.fieldOfActivity}

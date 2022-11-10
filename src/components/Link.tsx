@@ -10,8 +10,6 @@ export default class Link extends Component<{
 }> {
     onClick = (e: MouseEvent) => {
         e.preventDefault();
-        counter += 1;
-        console.log(counter);
         router.navigate(this.props.to);
     };
 

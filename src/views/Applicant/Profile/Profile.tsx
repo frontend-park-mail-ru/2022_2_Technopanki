@@ -47,7 +47,6 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
         applicantProfileService
             .getApplicantData(applicantID as string)
             .then(body => {
-                console.log(body)
                 dispatch(applicantActions.update(body));
             });
     }
@@ -92,7 +91,9 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                                     dispatch(resumeActions.clear(this.props.id))
                                 }
                                 content={
-                                    <ButtonPrimary>Создать резюме</ButtonPrimary>
+                                    <ButtonPrimary>
+                                        Создать резюме
+                                    </ButtonPrimary>
                                 }
                             />
                             {/*TODO: добавить путь в константы*/}
@@ -108,9 +109,7 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                         <ApplicantResumeList applicantID={this.props.id} />
                     </div>
                     <div className={'col-12 col-md-3'}>
-                        <ResumeSidebar
-                            creatorID={this.props.id}
-                        />
+                        <ResumeSidebar creatorID={this.props.id} />
                     </div>
                 </div>
                 <Footer />

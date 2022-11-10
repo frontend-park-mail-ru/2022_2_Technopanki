@@ -93,21 +93,11 @@ class VacancyDropdownResume extends Component<
     };
 
     componentDidMount() {
-        console.log('MOUNT DROPDOWN');
         applicantProfileService
             .getResumePreviewList(this.props.userID)
             .then(body => {
                 this.setState(state => ({ ...state, resume: body }));
             });
-    }
-
-    componentDidUpdate() {
-        console.log('UPDATE DROPDOWN');
-        console.log(this.state);
-    }
-
-    unmount() {
-        console.log('UNMOUNT DROPDOWN');
     }
 
     render() {

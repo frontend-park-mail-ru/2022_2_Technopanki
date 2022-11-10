@@ -248,7 +248,6 @@ class VacancySettings extends Component<
 
         const isNew = location.pathname.split('/').at(-1) === 'new';
         if (isNew) {
-            console.log(this.props.postedByUserID);
             vacancyService
                 .createVacancy(this.props.postedByUserID, formData)
                 .then(body => {

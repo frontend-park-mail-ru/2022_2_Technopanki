@@ -24,26 +24,26 @@ type ResumeSidebarProps = {
 export default class ResumeSidebar extends Component<
     { creatorID: string },
     ResumeSidebarProps
-    > {
-
+> {
     state = {
         location: '',
         dateOfBirth: '',
-        skills: ['',],
+        skills: [''],
         vk: '',
         facebook: '',
         telegram: '',
-    }
+    };
 
     getCreatorData() {
-        applicantProfileService.getApplicantData(this.props.creatorID as string).then(body => {
-            this.setState(() => ({
-                location: body.location,
-                dateOfBirth: body.date_of_birth,
-                skills: ['test',],
-            }));
-            console.log(this.state)
-        });
+        applicantProfileService
+            .getApplicantData(this.props.creatorID as string)
+            .then(body => {
+                this.setState(() => ({
+                    location: body.location,
+                    dateOfBirth: body.date_of_birth,
+                    skills: ['test'],
+                }));
+            });
     }
 
     componentDidMount() {
@@ -64,12 +64,19 @@ export default class ResumeSidebar extends Component<
                     },
                     {
                         header: 'Дата рождения',
-                        inside:
+                        inside: (
                             <p className={'font-size-24 bold'}>
-                                {this.state.dateOfBirth?
-                                `${this.state.dateOfBirth.slice(8, 10)}.${this.state.dateOfBirth.slice(5, 7)}.${this.state.dateOfBirth.slice(0, 4)}` : ''
-                                }
-                            </p>,
+                                {this.state.dateOfBirth
+                                    ? `${this.state.dateOfBirth.slice(
+                                          8,
+                                          10,
+                                      )}.${this.state.dateOfBirth.slice(
+                                          5,
+                                          7,
+                                      )}.${this.state.dateOfBirth.slice(0, 4)}`
+                                    : ''}
+                            </p>
+                        ),
                     },
                     {
                         header: 'Профессиональные навыки',
@@ -100,11 +107,7 @@ export default class ResumeSidebar extends Component<
                                     <p></p>
                                 )}
                                 {this.state.facebook ? (
-                                    <a
-                                        href={
-                                            this.state.facebook
-                                        }
-                                    >
+                                    <a href={this.state.facebook}>
                                         <div
                                             className={
                                                 'cursor-pointer inner-svg-h-24 inner-svg-200'
@@ -118,11 +121,7 @@ export default class ResumeSidebar extends Component<
                                     <p></p>
                                 )}
                                 {this.state.telegram ? (
-                                    <a
-                                        href={
-                                            this.state.telegram
-                                        }
-                                    >
+                                    <a href={this.state.telegram}>
                                         <div
                                             className={
                                                 'cursor-pointer inner-svg-h-24 inner-svg-200'

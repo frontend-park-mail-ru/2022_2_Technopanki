@@ -296,7 +296,6 @@ class ApplicantSettings extends Component<
     getDataFromServer() {
         const applicantID = location.pathname.split('/').at(-1);
         applicantProfileService.getApplicantData(applicantID).then(body => {
-            console.log(body.date_of_birth.slice(0, 10));
             dispatch(profileActions.update({ ...body, id: applicantID }));
         });
     }
@@ -355,11 +354,7 @@ class ApplicantSettings extends Component<
                     </form>
                 </div>
                 <div className={'flex row g-16 mt-40'}>
-                    <Button
-                        onClick={navigator.goBack}
-                    >
-                        Пропустить
-                    </Button>
+                    <Button onClick={navigator.goBack}>Пропустить</Button>
                     <ButtonRed key={'logout'} onClick={this.logout}>
                         Выйти
                     </ButtonRed>

@@ -37,7 +37,6 @@ authService
         router.navigate(location.pathname);
     })
     .catch(() => {
-        console.log('not authorized');
         router.navigate(location.pathname);
     });
 
