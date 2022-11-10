@@ -1,11 +1,14 @@
 .popup {
   right: 24px;
   bottom: 24px;
-  background-color: var(--background-0);
-  background: linear-gradient(90deg, rgba(255,0,0,0.08) 0%, var(--background-body-60) 60%, var(--background-body-80) 80%);
   padding: 12px 20px;
   border: var(--border-light);
   transition: var(--transition-slow-0);
+  background: var(--background-red-100);
+  box-shadow: 0 6px 16px rgba(243, 42, 42, 0.12);
+  border-width: 2px;
+  border-image: linear-gradient(180deg, rgba(243, 42, 42, 0.8) 0%, rgba(243, 42, 42, 0.4) 100%);
+  border-radius: 24px;
 }
 
 .popup_header {
@@ -16,4 +19,5 @@
 
 .popup_text {
   color: var(--background-700);
+  font-size: 12px;
 }
