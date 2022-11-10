@@ -1,5 +1,5 @@
 import Store from '../../../Fluxs/store';
-import { ResumeState } from './type'
+import { ResumeState } from './type';
 import { resumeReducer } from './reducer';
 
 export const defaultResume: ResumeState = {
@@ -18,7 +18,7 @@ export const defaultResume: ResumeState = {
     telegram: '',
     isActive: true,
     skills: [],
-}
+};
 
 export const resumeStore = new Store<ResumeState>(
     resumeReducer,

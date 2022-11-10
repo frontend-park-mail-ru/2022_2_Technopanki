@@ -258,16 +258,6 @@ const applyChildrenDiff = (
         }
 
         if (childUpdater.type === REMOVE_OPERATION) {
-            // Object.entries((<Remove>childUpdater).node.props).forEach(
-            //     ([key, value]) => {
-            //         if (key.startsWith('on') && value) {
-            //             childElem.removeEventListener(
-            //                 events[key],
-            //                 value as Function,
-            //             );
-            //         }
-            //     },
-            // );
             childElem.remove();
             (<Remove>childUpdater).node?.unmount();
             offset -= 1;

@@ -136,17 +136,6 @@ class VacancyHat extends Component<
     }
 }
 
-// const ProfileWrapper = profileConnect((store, props) => {
-//     const state = store.getState()
-//
-//     return {
-//         postedByUserID: state.postedByUserID,
-//         authorized: props.authorized,
-//         userID: props.id,
-//         userType: props.userType,
-//     }
-// })(VacancyHat)
-
 export default userConnect((state, props) => {
     return {
         vacancyID: props.vacancyID,

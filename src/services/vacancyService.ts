@@ -103,8 +103,6 @@ export const vacancyService: Service = {
                     experience: formData.get('experience'),
                     hours: formData.get('schedule'),
                     format: formData.get('format'),
-                    // createdDate: '',
-                    // skills: formData.get('skills').toString().split(','),
                 }),
             )
             .then(response => {
@@ -122,7 +120,6 @@ export const vacancyService: Service = {
             .POST(
                 VACANCY_URLS.VACANCY,
                 JSON.stringify({
-                    // postedByUserId: userID,
                     title: formData.get('title'),
                     description: formData.get('description'),
                     tasks: formData.get('tasks'),
@@ -134,8 +131,6 @@ export const vacancyService: Service = {
                     experience: formData.get('experience'),
                     hours: formData.get('schedule'),
                     format: formData.get('format'),
-                    // createdDate: '',
-                    // skills: formData.get('skills').toString().split(','),
                 }),
             )
             .then(response => {

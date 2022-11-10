@@ -57,8 +57,8 @@ export const phoneValidation = (phone: string): boolean => {
 
 export const validateResumeTitle = (title: string): boolean => {
     return !!title;
-}
+};
 
 export const validateResumeDescription = (description: string): boolean => {
     return !!description;
-}
+};

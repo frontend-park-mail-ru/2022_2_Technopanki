@@ -27,81 +27,15 @@ export default class EmployerProfileSideBar extends Component<EmployerProfileSid
                                 <IconField
                                     icon={UsersIcon}
                                     content={
-                                        this.props.companySize?
-                                            this.props.companySize + ' человек' :
-                                            'Не указано'
+                                        this.props.companySize
+                                            ? this.props.companySize +
+                                              ' человек'
+                                            : 'Не указано'
                                     }
                                 />
                             </div>
                         ),
                     },
-                    // {
-                    //     header: 'Сфера деятельности',
-                    //     inside: (
-                    //         <div className={'flex row g-8 flex-wrap'}>
-                    //             {this.props.fieldOfActivity?.map(item => (
-                    //                 <Chips>{item}</Chips>
-                    //             ))}
-                    //         </div>
-                    //     ),
-                    // },
-                    // {
-                    //     header: 'Социальные сети',
-                    //     inside: (
-                    //         <div className={'flex row g-16'}>
-                    //             {this.props.socialNetworks?.vk ? (
-                    //                 <a href={this.props.socialNetworks.vk}>
-                    //                     <div
-                    //                         className={
-                    //                             'cursor-pointer inner-svg-h-24 inner-svg-200'
-                    //                         }
-                    //                         dangerouslySetInnerHTML={{
-                    //                             __html: VKIcon,
-                    //                         }}
-                    //                     ></div>
-                    //                 </a>
-                    //             ) : (
-                    //                 <p></p>
-                    //             )}
-                    //             {this.props.socialNetworks?.facebook ? (
-                    //                 <a
-                    //                     href={
-                    //                         this.props.socialNetworks.facebook
-                    //                     }
-                    //                 >
-                    //                     <div
-                    //                         className={
-                    //                             'cursor-pointer inner-svg-h-24 inner-svg-200'
-                    //                         }
-                    //                         dangerouslySetInnerHTML={{
-                    //                             __html: FacebookIcon,
-                    //                         }}
-                    //                     ></div>
-                    //                 </a>
-                    //             ) : (
-                    //                 <p></p>
-                    //             )}
-                    //             {this.props.socialNetworks?.telegram ? (
-                    //                 <a
-                    //                     href={
-                    //                         this.props.socialNetworks.telegram
-                    //                     }
-                    //                 >
-                    //                     <div
-                    //                         className={
-                    //                             'cursor-pointer inner-svg-h-24 inner-svg-200'
-                    //                         }
-                    //                         dangerouslySetInnerHTML={{
-                    //                             __html: TelegramIcon,
-                    //                         }}
-                    //                     ></div>
-                    //                 </a>
-                    //             ) : (
-                    //                 <p></p>
-                    //             )}
-                    //         </div>
-                    //     ),
-                    // },
                 ]}
             />
         );

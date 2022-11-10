@@ -44,26 +44,6 @@ export const employerProfileService: Service = {
         console.log(options);
 
         return await fetch(SERVER_URLS.IMAGE, options);
-
-        // return {
-        //     status: response.status,
-        //     body: await response.json().catch(err => {
-        //         console.error(err);
-        //         return {};
-        //     }),
-        // };
-
-        // todo: нормальный урл + FormData
-        // return await network
-        //     .POST(SERVER_URLS.IMAGE, formData, requestHeaders.imgHeader)
-        //     .then(response => {
-        //         dispatch(stopLoading());
-        //         if (response.status > 399) {
-        //             throw response.status;
-        //         }
-        //
-        //         return response;
-        //     });
     },
 
     // TODO: написать конвертер
@@ -87,18 +67,6 @@ export const employerProfileService: Service = {
                     email: formData.get('email'),
                     company_size: parseInt(formData.get('size')),
                     password: formData.get('password'),
-                    // company_city: formData.get('location'),
-                    // company_city: formData.get('location'),
-                    // company_size: 10000,
-                    // field_of_activity: formData
-                    //     .get('field_of_activity')
-                    //     .toString()
-                    //     .split(','),
-                    // socialNetworks: {
-                    //     vk: formData.get('vk'),
-                    //     facebook: formData.get('facebook'),
-                    //     telegram: formData.get('telegram'),
-                    // },
                 }),
             )
             .then(response => {

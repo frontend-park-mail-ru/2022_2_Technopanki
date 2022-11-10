@@ -15,5 +15,5 @@ export const resumeActions: { [key: string]: (...data: any[]) => Action } = {
     clear: (postedByUserID: string) => ({
         type: RESUME_ACTIONS_TYPE.CLEAR,
         postedByUserID,
-    })
-}
+    }),
+};

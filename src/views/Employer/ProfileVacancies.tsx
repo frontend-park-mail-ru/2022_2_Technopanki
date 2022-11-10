@@ -57,10 +57,6 @@ export default class ProfileVacancies extends Component<
         this.getVacancies();
     }
 
-    // componentDidUpdate() {
-    //     this.getVacancies();
-    // }
-
     render() {
         return (
             <div className={'flex column g-16'}>

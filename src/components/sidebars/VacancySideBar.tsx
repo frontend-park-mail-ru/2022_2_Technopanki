@@ -27,10 +27,9 @@ class VacancySideBar extends Component<{
                         header: 'Заработная плата',
                         inside: (
                             <p className={'font-size-24 bold'}>
-                                {this.props.salary?
-                                    this.props.salary + ' руб/мес'
-                                : 'Не указано'
-                                }
+                                {this.props.salary
+                                    ? this.props.salary + ' руб/мес'
+                                    : 'Не указано'}
                             </p>
                         ),
                     },
@@ -38,10 +37,9 @@ class VacancySideBar extends Component<{
                         header: 'Требуемый опыт работы',
                         inside: (
                             <p className={'font-size-24 bold'}>
-                                {this.props.experience?
-                                    this.props.experience
-                                    : 'Не указано'
-                                }
+                                {this.props.experience
+                                    ? this.props.experience
+                                    : 'Не указано'}
                             </p>
                         ),
                     },
@@ -79,41 +77,6 @@ class VacancySideBar extends Component<{
                             </div>
                         ),
                     },
-                    // {
-                    //     header: 'Профессиональные навыки',
-                    //     inside: (
-                    //         <div className={'flex row g-8 flex-wrap'}>
-                    //             {this.props.skills?.map(item => (
-                    //                 <Chips>{item}</Chips>
-                    //             ))}
-                    //         </div>
-                    //     ),
-                    // },
-                    // {
-                    //     header: 'Социальные сети',
-                    //     inside: (
-                    //         <div className={'flex row g-16'}>
-                    //             <div
-                    //                 className={'inner-svg-h-24 inner-svg-200'}
-                    //                 dangerouslySetInnerHTML={{
-                    //                     __html: VKIcon,
-                    //                 }}
-                    //             ></div>
-                    //             <div
-                    //                 className={'inner-svg-h-24 inner-svg-200'}
-                    //                 dangerouslySetInnerHTML={{
-                    //                     __html: FacebookIcon,
-                    //                 }}
-                    //             ></div>
-                    //             <div
-                    //                 className={'inner-svg-h-24 inner-svg-200'}
-                    //                 dangerouslySetInnerHTML={{
-                    //                     __html: TelegramIcon,
-                    //                 }}
-                    //             ></div>
-                    //         </div>
-                    //     ),
-                    // },
                 ]}
             />
         );
