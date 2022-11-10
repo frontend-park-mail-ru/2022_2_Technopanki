@@ -11,7 +11,7 @@ export const USER_URLS = {
 
 export const PROFILE_URLS = {
     APPLICANT: SERVER_URL + 'api/user/',
-    APPLICANT_RESUMES: SERVER_URL + 'api/applicant/resumes/',
+    APPLICANT_RESUMES: SERVER_URL + 'api/vacancy/apply/',
     APPLICANT_APPLY: SERVER_URL + 'api/vacancy/apply',
     USER: SERVER_URL + 'api/user/',
     USER_SAFE: SERVER_URL + 'api/user/safety/',

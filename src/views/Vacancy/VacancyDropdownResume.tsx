@@ -17,10 +17,13 @@ type ResumeType = {
     id: string;
 };
 
-class Resume extends Component<ResumeType & { name: string; surname: string }> {
+class Resume extends Component<
+    ResumeType & { name: string; surname: string; vacancyID: string }
+> {
     async sendResponseToServer() {
         return await applicantProfileService
             .apply(
+                this.props.vacancyID,
                 this.props.id,
                 this.props.name,
                 this.props.surname,
@@ -83,7 +86,7 @@ class Resume extends Component<ResumeType & { name: string; surname: string }> {
 }
 
 class VacancyDropdownResume extends Component<
-    { userID: string; name: string; surname: string },
+    { userID: string; name: string; surname: string; vacancyID: string },
     { resume: ResumeType[] }
 > {
     state = {
@@ -126,6 +129,7 @@ class VacancyDropdownResume extends Component<
                 ) : (
                     this.state.resume.map(resume => (
                         <Resume
+                            vacancyID={this.props.vacancyID}
                             key={resume.id}
                             name={this.props.name}
                             surname={this.props.surname}
@@ -139,8 +143,9 @@ class VacancyDropdownResume extends Component<
     }
 }
 
-export default userConnect(state => ({
+export default userConnect((state, props) => ({
     userID: state.id,
     name: state.name,
     surname: state.surname,
+    vacancyID: props.vacancyID,
 }))(VacancyDropdownResume);

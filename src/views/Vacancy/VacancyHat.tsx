@@ -113,7 +113,11 @@ class VacancyHat extends Component<
                             condition={this.props.userType === 'applicant'}
                             onSuccess={
                                 <Dropdown
-                                    hidden={<VacancyDropdownResume />}
+                                    hidden={
+                                        <VacancyDropdownResume
+                                            vacancyID={this.props.vacancyID}
+                                        />
+                                    }
                                     content={
                                         <ButtonPrimary>
                                             Отправить резюме

@@ -87,6 +87,7 @@ export const applicantProfileService: Service = {
     },
 
     apply: async (
+        vacancyID: string,
         resumeID: string,
         name: string,
         surname: string,
@@ -94,7 +95,7 @@ export const applicantProfileService: Service = {
     ) => {
         return network
             .POST(
-                PROFILE_URLS.APPLICANT_RESUMES,
+                PROFILE_URLS.APPLICANT_RESUMES + vacancyID,
                 JSON.stringify({
                     resume_id: resumeID,
                     user_name: name,
