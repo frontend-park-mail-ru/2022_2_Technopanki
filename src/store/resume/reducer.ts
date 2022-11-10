@@ -6,9 +6,13 @@ import { defaultResume } from './store';
 export const resumeReducer: Reducer<ResumeState> = (state, action) => {
     switch (action.type) {
         case RESUME_ACTIONS_TYPE.UPDATE:
-            return { ...state,
+            return {
+                ...state,
                 ...action.resume,
-                id: action.resume.id.toString(),
+                id:
+                    typeof action.resume.id === 'string'
+                        ? action.resume.id
+                        : action.resume.id.toString(),
                 postedByUserID: action.resume.user_account_id.toString(),
                 title: action.resume.title,
                 description: action.resume.description,
@@ -23,7 +27,7 @@ export const resumeReducer: Reducer<ResumeState> = (state, action) => {
         case RESUME_ACTIONS_TYPE.CLEAR:
             return {
                 postedByUserID: action.postedByUserID.toString(),
-                defaultResume
+                defaultResume,
             };
         default:
             return state;
