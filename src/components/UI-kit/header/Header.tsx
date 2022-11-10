@@ -6,6 +6,11 @@ import Link from '../../Link/Link';
 import Preloader from '../prelodaer/Preloader';
 import { userConnect } from '../../../store';
 import RenderWithCondition from '../../RenderWithCondition';
+import {
+    RESUME_PATHS,
+    START_PATH,
+    VACANCIES_PATH,
+} from '../../../utils/routerConstants';
 
 // TODO: refactor
 class Header extends Component<{ userType: string }> {
@@ -30,14 +35,14 @@ class Header extends Component<{ userType: string }> {
                     className={`flex h-100 screen-responsive row align-items-center justify-content-space-evenly`}
                 >
                     <div className={`flex w-100 align-items-center`}>
-                        <Link to={START} content={<JobflowLogo />} />
+                        <Link to={START_PATH} content={<JobflowLogo />} />
                     </div>
                     <div
                         id={'links-group'}
                         className={`flex justify-content-center w-100 g-16 ${styles.items}`}
                     >
                         <Link
-                            to={VACA}
+                            to={VACANCIES_PATH}
                             content={
                                 <p
                                     key={'item1'}
@@ -53,7 +58,7 @@ class Header extends Component<{ userType: string }> {
                             condition={this.props.userType !== 'employer'}
                             onSuccess={
                                 <Link
-                                    to={'/resume/new'}
+                                    to={RESUME_PATHS.NEW}
                                     content={
                                         <p
                                             key={'item3'}

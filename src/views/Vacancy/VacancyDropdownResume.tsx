@@ -10,6 +10,7 @@ import {
     deactivateSuccess,
 } from '../../store/succeses/actions';
 import { activateError, deactivateError } from '../../store/errors/actions';
+import { RESUME_PATHS } from '../../utils/routerConstants';
 
 type ResumeType = {
     title: string;
@@ -110,7 +111,7 @@ class VacancyDropdownResume extends Component<
                         <p key={'text'}>Похоже у вас нет резюме:(</p>
                         <ArrowButtonWithText
                             key={'button'}
-                            onClick={() => navigator.navigate('/resume/new')}
+                            onClick={() => navigator.navigate(RESUME_PATHS.NEW)}
                         >
                             Создать резюме
                         </ArrowButtonWithText>

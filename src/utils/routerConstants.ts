@@ -19,9 +19,11 @@ export const VACANCY_PATHS = {
     INDEX: '/vacancy/',
     RESUME_LIST: '/vacancy/responses/',
     SETTINGS: '/vacancy/settings/',
+    NEW: '/vacancy/new',
 };
 
 export const RESUME_PATHS = {
     INDEX: '/resume/',
     SETTINGS: '/resume/settings/',
+    NEW: '/resume/new',
 };

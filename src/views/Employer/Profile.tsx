@@ -21,7 +21,7 @@ import { profileActions } from '../../store/profile/actions';
 import { vacancyActions } from '../../store/vacancy/actions';
 import ProfileVacancies from './ProfileVacancies';
 import RenderWithCondition from '../../components/RenderWithCondition';
-import { EMPLOYER_PATHS } from '../../utils/routerConstants';
+import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../utils/routerConstants';
 
 class Profile extends Component<
     ProfileState & { userID: string },
@@ -119,7 +119,7 @@ class Profile extends Component<
                                             className={styles.vacancies_button}
                                         >
                                             <Link
-                                                to={'/vacancy/new'}
+                                                to={VACANCY_PATHS.NEW}
                                                 onClick={() =>
                                                     dispatch(
                                                         vacancyActions.clear(),

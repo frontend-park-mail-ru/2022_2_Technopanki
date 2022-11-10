@@ -19,7 +19,7 @@ import { ProfileState } from '../../../store/applicant/type';
 import ApplicantResumeList from './ApplicantResumeList';
 import Footer from '../../../components/UI-kit/footer/Footer';
 import { resumeActions } from '../../../store/resume/actions';
-import { APPLICANT_PATHS } from '../../../utils/routerConstants';
+import { APPLICANT_PATHS, RESUME_PATHS } from '../../../utils/routerConstants';
 
 type ApplicantPropsType = {
     id: string;
@@ -87,7 +87,7 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                                 icon={MailIcon}
                             />
                             <Link
-                                to={'/resume/new'}
+                                to={RESUME_PATHS.NEW}
                                 onClick={() =>
                                     dispatch(resumeActions.clear(this.props.id))
                                 }

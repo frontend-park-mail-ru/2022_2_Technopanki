@@ -1,8 +1,7 @@
 export const FRONT_URL = 'http://95.163.208.72:8000/';
 
 export const SERVER_URL = 'http://95.163.208.72:8080/';
-export const IMAGE_URL =
-    'http://95.163.208.72:8000/' + 'backend/data/image/avatar/';
+export const IMAGE_URL = FRONT_URL + 'backend/data/image/avatar/';
 
 export const USER_URLS = {
     SIGN_UP: SERVER_URL + 'auth/sign-up',
