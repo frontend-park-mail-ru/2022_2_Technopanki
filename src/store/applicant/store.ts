@@ -4,19 +4,19 @@ import Store from '../../../Fluxs/store';
 import { applicantProfileReducer } from './reducer';
 
 export const defaultApplicantProfile: ProfileState ={
-    id: 'test',
-    imgSrc: 'test',
-    name: 'test',
-    surname: 'test',
-    status: 'test',
-    phone: 'test',
-    email: 'test',
-    location: 'test',
-    dateOfBirth: 'test',
-    skills: ['test'],
-    vk: 'test',
-    facebook: 'test',
-    telegram: 'test',
+    id: '',
+    imgSrc: '',
+    name: '',
+    surname: '',
+    status: '',
+    phone: '',
+    email: '',
+    location: '',
+    dateOfBirth: '',
+    skills: [],
+    vk: '',
+    facebook: '',
+    telegram: '',
 }
 
 export const applicantProfileStore = new Store<ProfileState>(

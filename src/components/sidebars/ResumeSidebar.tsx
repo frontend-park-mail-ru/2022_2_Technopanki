@@ -41,7 +41,7 @@ export default class ResumeSidebar extends Component<
                 this.setState(() => ({
                     location: body.location,
                     dateOfBirth: body.date_of_birth,
-                    skills: ['test'],
+                    skills: [''],
                 }));
             });
     }

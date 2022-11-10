@@ -43,6 +43,17 @@ class SettingsHat extends Component<
                 }));
             });
         }
+        if (this.state.surname !== '') {
+            resumeService.getResumeHatData(this.props.creatorID).then(body => {
+                console.log(body)
+                this.setState(() => ({
+                    imgSrc: body.creator_img_src,
+                    name: body.applicant_name,
+                    surname: body.applicant_surname,
+                    status: body.status,
+                }));
+            });
+        }
     };
 
     componentDidMount() {
@@ -71,8 +82,8 @@ export default userConnect((state, props) => {
     return {
         name: state.name,
         surname: state.surname,
+        status: state.status,
         postedByUserID: props.postedByUserID,
-        status: props.status,
         imgSrc: props.imgSrc,
         submit: props.submit,
     };
