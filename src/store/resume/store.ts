@@ -9,6 +9,7 @@ export const defaultResume: ResumeState = {
     university: '',
     faculty: '',
     status: '',
+    timeWhenCreated: '',
     // Sidebar
     location: '',
     dateOfBirth: '',

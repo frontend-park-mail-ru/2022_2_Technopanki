@@ -160,9 +160,11 @@ class ResumeSettings extends Component<
     getDataFromServer() {
         const resumeID = location.pathname.split('/').at(-1);
 
-        resumeService.getResumeData(resumeID as string).then(body => {
-            dispatch(resumeActions.update(body));
-        });
+        if (resumeID !== 'new') {
+            resumeService.getResumeData(resumeID as string).then(body => {
+                dispatch(resumeActions.update(body));
+            });
+        }
     }
 
     deleteResume(creatorID: string) {

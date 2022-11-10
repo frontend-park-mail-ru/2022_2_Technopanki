@@ -9,7 +9,7 @@ export default class RenderWithCondition extends Component<{
         if (this.props.condition) {
             return this.props.onSuccess;
         } else {
-            return <div className={'none'}></div>;
+            return <p className={'none'}></p>;
         }
     }
 }

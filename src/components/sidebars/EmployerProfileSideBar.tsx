@@ -27,7 +27,9 @@ export default class EmployerProfileSideBar extends Component<EmployerProfileSid
                                 <IconField
                                     icon={UsersIcon}
                                     content={
-                                        this.props.companySize + ' человек'
+                                        this.props.companySize?
+                                            this.props.companySize + ' человек' :
+                                            'Не указано'
                                     }
                                 />
                             </div>

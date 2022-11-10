@@ -58,7 +58,10 @@ export default class ResumeSidebar extends Component<
                         header: 'Город проживания',
                         inside: (
                             <p className={'font-size-24 bold'}>
-                                {this.state.location}
+                                {this.state.location?
+                                    this.state.location
+                                    : 'Не указано'
+                                }
                             </p>
                         ),
                     },
@@ -67,13 +70,15 @@ export default class ResumeSidebar extends Component<
                         inside: (
                             <p className={'font-size-24 bold'}>
                                 {this.state.dateOfBirth
-                                    ? `${this.state.dateOfBirth.slice(
-                                          8,
-                                          10,
-                                      )}.${this.state.dateOfBirth.slice(
-                                          5,
-                                          7,
-                                      )}.${this.state.dateOfBirth.slice(0, 4)}`
+                                    ? this.state.dateOfBirth === '0001-01-01T00:00:00Z'?
+                                        'Не указано'
+                                        : `${this.state.dateOfBirth.slice(
+                                              8,
+                                              10,
+                                          )}.${this.state.dateOfBirth.slice(
+                                              5,
+                                              7,
+                                          )}.${this.state.dateOfBirth.slice(0, 4)}`
                                     : ''}
                             </p>
                         ),
@@ -82,61 +87,64 @@ export default class ResumeSidebar extends Component<
                         header: 'Профессиональные навыки',
                         inside: (
                             <div className={'flex row g-8 flex-wrap'}>
-                                {this.state.skills?.map(item => (
-                                    <Chips>{item}</Chips>
-                                ))}
+                                {this.state.skills.length === 0?
+                                    this.state.skills?.map(item => (
+                                        <Chips>{item}</Chips>
+                                ))
+                                    : <p className={'mx-0 font-size-24 bold'}>Не указано</p>
+                                }
                             </div>
                         ),
                     },
-                    {
-                        header: 'Социальные сети',
-                        inside: (
-                            <div className={'flex row g-24'}>
-                                {this.state.vk ? (
-                                    <a href={this.state.vk}>
-                                        <div
-                                            className={
-                                                'cursor-pointer inner-svg-h-24 inner-svg-200'
-                                            }
-                                            dangerouslySetInnerHTML={{
-                                                __html: VKIcon,
-                                            }}
-                                        ></div>
-                                    </a>
-                                ) : (
-                                    <p></p>
-                                )}
-                                {this.state.facebook ? (
-                                    <a href={this.state.facebook}>
-                                        <div
-                                            className={
-                                                'cursor-pointer inner-svg-h-24 inner-svg-200'
-                                            }
-                                            dangerouslySetInnerHTML={{
-                                                __html: FacebookIcon,
-                                            }}
-                                        ></div>
-                                    </a>
-                                ) : (
-                                    <p></p>
-                                )}
-                                {this.state.telegram ? (
-                                    <a href={this.state.telegram}>
-                                        <div
-                                            className={
-                                                'cursor-pointer inner-svg-h-24 inner-svg-200'
-                                            }
-                                            dangerouslySetInnerHTML={{
-                                                __html: TelegramIcon,
-                                            }}
-                                        ></div>
-                                    </a>
-                                ) : (
-                                    <p></p>
-                                )}
-                            </div>
-                        ),
-                    },
+                    // {
+                    //     header: 'Социальные сети',
+                    //     inside: (
+                    //         <div className={'flex row g-24'}>
+                    //             {this.state.vk ? (
+                    //                 <a href={this.state.vk}>
+                    //                     <div
+                    //                         className={
+                    //                             'cursor-pointer inner-svg-h-24 inner-svg-200'
+                    //                         }
+                    //                         dangerouslySetInnerHTML={{
+                    //                             __html: VKIcon,
+                    //                         }}
+                    //                     ></div>
+                    //                 </a>
+                    //             ) : (
+                    //                 <p></p>
+                    //             )}
+                    //             {this.state.facebook ? (
+                    //                 <a href={this.state.facebook}>
+                    //                     <div
+                    //                         className={
+                    //                             'cursor-pointer inner-svg-h-24 inner-svg-200'
+                    //                         }
+                    //                         dangerouslySetInnerHTML={{
+                    //                             __html: FacebookIcon,
+                    //                         }}
+                    //                     ></div>
+                    //                 </a>
+                    //             ) : (
+                    //                 <p></p>
+                    //             )}
+                    //             {this.state.telegram ? (
+                    //                 <a href={this.state.telegram}>
+                    //                     <div
+                    //                         className={
+                    //                             'cursor-pointer inner-svg-h-24 inner-svg-200'
+                    //                         }
+                    //                         dangerouslySetInnerHTML={{
+                    //                             __html: TelegramIcon,
+                    //                         }}
+                    //                     ></div>
+                    //                 </a>
+                    //             ) : (
+                    //                 <p></p>
+                    //             )}
+                    //         </div>
+                    //     ),
+                    // },
                 ]}
             />
         );

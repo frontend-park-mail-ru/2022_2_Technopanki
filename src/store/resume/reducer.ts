@@ -15,6 +15,7 @@ export const resumeReducer: Reducer<ResumeState> = (state, action) => {
                 status: action.resume.education_detail.certificate_degree_name,
                 university: action.resume.education_detail.university_name,
                 faculty: action.resume.education_detail.major,
+                timeWhenCreated: action.resume.created_date,
                 location: action.resume.location,
                 dateOfBirth: action.resume.date_of_birth,
                 skills: action.resume.skills,

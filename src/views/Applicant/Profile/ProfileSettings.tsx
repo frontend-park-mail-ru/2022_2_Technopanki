@@ -71,7 +71,7 @@ class AvatarSettingsComponent extends Component<
     render() {
         return (
             <div key={'avatar'} className={'columns g-16'}>
-                <div key={'preview'} className={'col-12 col-md-3'}>
+                <div key={'preview'} className={'col-12 col-md-4'}>
                     <img
                         height={64}
                         width={64}
@@ -80,7 +80,7 @@ class AvatarSettingsComponent extends Component<
                         src={this.state.previewSrc}
                     />
                 </div>
-                <div key={'input'} className={'col-12 col-md-9'}>
+                <div key={'input'} className={'col-12 col-md-4'}>
                     <FileInput
                         id={'avatar'}
                         label={'Загрузить новую фотогрфию'}

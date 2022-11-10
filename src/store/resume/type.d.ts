@@ -7,6 +7,7 @@ export type ResumeState = {
     university: string;
     faculty: string;
     status: string;
+    timeWhenCreated: string;
     // Sidebar
     location: string;
     dateOfBirth: string;
