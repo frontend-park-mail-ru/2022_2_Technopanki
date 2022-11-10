@@ -10,7 +10,6 @@ export default class ResumeList extends Component<
     { resume: ResumeListItemPropsType[]; limit: number }
 > {
     state = {
-        resume: this.props.test(),
         limit: 6,
     };
 
@@ -32,7 +31,8 @@ export default class ResumeList extends Component<
                     <p className={'col-0 col-md-4'}>Время создания резюме</p>
                 </div>
                 <div className={'w-100'}>
-                    {this.state?.resume
+                    {this.props
+                        .test()
                         ?.slice(0, this.state.limit)
                         .map(resume => (
                             <ResumeListItem
@@ -47,7 +47,6 @@ export default class ResumeList extends Component<
                         ))}
                 </div>
                 <button
-                    key={'sdfw'}
                     onClick={this.increaseLimit.bind(this)}
                     className={
                         'cursor-pointer w-100 p-16 border-top-default border-none color-500 background-50'

@@ -2,16 +2,22 @@ import { Component } from '../../../Reacts';
 import Logo from '../../static/assets/JobflowDefault.svg';
 import Illustration from '../../static/assets/illustration.svg';
 import styles from './description.module.scss';
+import Link from '../Link';
 
 export default class Description extends Component {
     render() {
         return (
             <div className={`col-md-6 col-0 ${styles.description} relative`}>
                 <div className={`flex column g-24 ${styles.description_text}`}>
-                    <div
-                        className={'inner-svg-h-16'}
-                        dangerouslySetInnerHTML={{ __html: Logo }}
-                    ></div>
+                    <Link
+                        to={'/'}
+                        content={
+                            <div
+                                className={'inner-svg-h-16'}
+                                dangerouslySetInnerHTML={{ __html: Logo }}
+                            ></div>
+                        }
+                    />
                     <h3 className={styles.description_header}>
                         Создай свою команду. Найди свою миссию
                     </h3>
