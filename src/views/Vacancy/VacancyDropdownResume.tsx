@@ -10,6 +10,7 @@ import {
     activateSuccess,
     deactivateSuccess,
 } from '../../store/succeses/actions';
+import { activateError } from '../../store/errors/actions';
 
 type ResumeType = {
     title: string;
@@ -28,7 +29,7 @@ class Resume extends Component<ResumeType & { name: string; surname: string }> {
             .then(body => body)
             .catch(err => {
                 console.error(err);
-                return err;
+                throw err;
             });
     }
 
@@ -49,18 +50,27 @@ class Resume extends Component<ResumeType & { name: string; surname: string }> {
                 </div>
                 <ArrowButton
                     onClick={() => {
-                        this.sendResponseToServer().then(() => {
-                            dispatch(
-                                activateSuccess(
-                                    'Успешно',
-                                    `Ваше резюме "${this.props.title}" успешно отправлено`,
+                        this.sendResponseToServer()
+                            .then(() => {
+                                dispatch(
+                                    activateSuccess(
+                                        'Успешно',
+                                        `Ваше резюме "${this.props.title}" успешно отправлено`,
+                                    ),
+                                );
+                                setTimeout(
+                                    () => dispatch(deactivateSuccess()),
+                                    3000,
+                                );
+                            })
+                            .catch(() =>
+                                dispatch(
+                                    activateError(
+                                        'Ошибка при отправке резюме',
+                                        'Пожалуйста, повторите попытку',
+                                    ),
                                 ),
                             );
-                            setTimeout(
-                                () => dispatch(deactivateSuccess()),
-                                3000,
-                            );
-                        });
                     }}
                 />
             </div>
