@@ -274,6 +274,7 @@ class ApplicantSettings extends Component<
         }
 
         const applicantID = location.pathname.split('/').at(-1);
+        employerProfileService.updateProfileImg(applicantID, formData);
 
         applicantProfileService
             .updateProfile(

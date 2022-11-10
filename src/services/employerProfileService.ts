@@ -4,6 +4,7 @@ import { Service } from './types';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
 import { requestHeaders } from './headers';
+import Form from '../components/UI-kit/forms/Form';
 
 export const employerProfileService: Service = {
     getProfileData: async (profileID: string) => {
@@ -28,16 +29,19 @@ export const employerProfileService: Service = {
     getVacancies: async (profileID: string) => {},
 
     updateProfileImg: async (profileID: string, formData: FormData) => {
-        const image = formData.get('avatar') as File;
-        console.log('IMAGE: ', image);
+        const image = document.querySelector('#avatar').files[0];
+
+        const formDataNew = new FormData();
+        formDataNew.append('avatar', image);
 
         const options = {
             method: 'POST',
-            headers: requestHeaders.imgHeader,
-            body: image,
+            body: formDataNew,
             mode: 'cors' as RequestMode,
             credentials: 'include' as RequestCredentials,
         };
+
+        console.log(options);
 
         return await fetch(SERVER_URLS.IMAGE, options);
 
