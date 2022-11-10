@@ -11,6 +11,7 @@ import { vacancyService } from '../../services/vacancyService';
 import { vacancyActions } from '../../store/vacancy/actions';
 import { VacancyState } from '../../store/vacancy/type';
 import SuccessPopup from '../../components/SuccessPopup/SuccessPopup';
+import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 
 type VacancyPropsType = {
     id?: string;
@@ -54,7 +55,8 @@ class Vacancy extends Component<VacancyPropsType> {
         return (
             <div className={'screen-responsive relative hidden g-24'}>
                 <Header key={'header'} />
-                <SuccessPopup />
+                <SuccessPopup key={'success'} />
+                <ErrorPopup key={'eror'} />
                 <div
                     key={'substrate'}
                     className={styles.header_substrate}

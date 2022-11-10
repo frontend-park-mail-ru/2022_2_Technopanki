@@ -10,7 +10,7 @@ import {
     activateSuccess,
     deactivateSuccess,
 } from '../../store/succeses/actions';
-import { activateError } from '../../store/errors/actions';
+import { activateError, deactivateError } from '../../store/errors/actions';
 
 type ResumeType = {
     title: string;
@@ -63,14 +63,18 @@ class Resume extends Component<ResumeType & { name: string; surname: string }> {
                                     3000,
                                 );
                             })
-                            .catch(() =>
+                            .catch(() => {
                                 dispatch(
                                     activateError(
                                         'Ошибка при отправке резюме',
                                         'Пожалуйста, повторите попытку',
                                     ),
-                                ),
-                            );
+                                );
+                                setTimeout(
+                                    () => dispatch(deactivateError()),
+                                    3000,
+                                );
+                            });
                     }}
                 />
             </div>
