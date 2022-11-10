@@ -52,7 +52,7 @@ export default class VacancyCard extends Component<
                             className={'rounded-md'}
                             height={40}
                             width={40}
-                            src={'http://95.163.208.72:8000/image/employer.png'}
+                            src={this.props.icon}
                         />
                     }
                 />

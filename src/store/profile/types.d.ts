@@ -32,13 +32,14 @@ export type ApplicantProfileType = {
     surname: string;
     status: string;
     description: string;
+    basicAvatar: string;
     phone: string;
     email: string;
     location: string;
     size: string;
     skills: string[];
     socialNetworks: EmployerSocialNetworks;
-}
+};
 
 export type ProfileState = EmployerProfile & {
     profileType: string;

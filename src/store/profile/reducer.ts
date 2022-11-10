@@ -2,6 +2,7 @@ import { Reducer } from '../../../Fluxs/types/reducer';
 import { Action } from '../../../Fluxs/types/action';
 import { ProfileState } from './types';
 import { PROFILE_ACTION_TYPES } from './actions';
+import { IMAGE_URL } from '../../utils/constants';
 
 export const profileReducer: Reducer<ProfileState> = (
     state: ProfileState,
@@ -27,7 +28,10 @@ export const profileReducer: Reducer<ProfileState> = (
                 description: action.state.description,
                 phone: action.state.contact_number,
                 email: action.state.email,
-                avatarSrc: action.state.image,
+                avatarSrc:
+                    IMAGE_URL + action.state.image
+                        ? action.state.image
+                        : action.state.imgSrc,
                 size: action.state.company_size
                     ? action.state.company_size.toString()
                     : '',

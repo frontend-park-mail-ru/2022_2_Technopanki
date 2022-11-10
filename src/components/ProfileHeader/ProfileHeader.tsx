@@ -1,7 +1,6 @@
 import { Component } from '../../../Reacts';
 import styles from './profileHeader.module.scss';
 import { VNodeType } from '../../../Reacts/shared/common';
-import Link from '../Link/Link';
 import { IMAGE_URL } from '../../utils/constants';
 
 export default class ProfileHeader extends Component<{
@@ -20,12 +19,11 @@ export default class ProfileHeader extends Component<{
                 <div key={'content'} className={styles.profile_content}>
                     <div key={'info'} className={styles.info}>
                         <img
-                            key={'img'}
                             className={styles.info__avatar}
                             src={IMAGE_URL + this.props.avatarSrc}
                             alt={'avatar'}
                         />
-                        <div key={'content'} className={`flex column g-4`}>
+                        <div className={`flex column g-4`}>
                             <h3 key={'header'}>
                                 {this.props.name} {this.props.surname}
                             </h3>

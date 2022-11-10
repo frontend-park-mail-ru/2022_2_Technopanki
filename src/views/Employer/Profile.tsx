@@ -15,7 +15,7 @@ import { VacancyCardPropsType } from '../../components/UI-kit/vacancy/VacancyCar
 import Footer from '../../components/UI-kit/footer/Footer';
 import { employerProfileService } from '../../services/employerProfileService';
 import { userStore } from '../../store/user/store';
-import { EmployerProfile } from '../../store/profile/types';
+import { EmployerProfile, ProfileState } from '../../store/profile/types';
 import { dispatch, profileConnect, userConnect } from '../../store';
 import { profileActions } from '../../store/profile/actions';
 import { vacancyActions } from '../../store/vacancy/actions';
@@ -23,7 +23,7 @@ import ProfileVacancies from './ProfileVacancies';
 import RenderWithCondition from '../../components/RenderWithCondition';
 
 class Profile extends Component<
-    EmployerProfile & { userID: string },
+    ProfileState & { userID: string },
     { vacancies: VacancyCardPropsType[] }
 > {
     state = {
