@@ -36,13 +36,13 @@ export default class ResumeList extends Component<
                         ?.slice(0, this.state.limit)
                         .map(resume => (
                             <ResumeListItem
-                                id={resume.id}
+                                key={resume.resume_id}
+                                id={resume.resume_id}
                                 imgSrc={resume.imgSrc}
-                                name={resume.name}
-                                surname={resume.surname}
-                                resumeTitle={resume.title}
-                                timeWhenCreated={resume.created_date}
-                                resumeSrc={resume.resumeSrc}
+                                name={resume.user_name}
+                                surname={resume.user_surname}
+                                resumeTitle={resume.resume_title}
+                                timeWhenCreated={resume.apply_date}
                             />
                         ))}
                 </div>
