@@ -118,7 +118,7 @@ class ProfileSettingsComponent extends Component<
                     },
                     size: {
                         size: 4,
-                        type: 'text',
+                        type: 'number',
                         placeholder: '10.000',
                         label: 'Размер компании',
                         name: 'size',
@@ -238,18 +238,27 @@ class ProfileSettingsComponent extends Component<
             )
             .then(() => {
                 dispatch(
+                    profileActions.updateFromFormData(
+                        this.state.profile.id,
+                        this.state.profile.profileType,
+                        formData,
+                    ),
+                );
+                dispatch(
                     userActions.updateName(formData.get('name') as string, ''),
                 );
-                navigator.goBack();
+                navigator.navigate(`/employer/${this.props.id}`);
             })
             .catch(err => console.error(err));
     };
 
     getDataFromServer() {
         const employerID = location.pathname.split('/').at(-1);
-        employerProfileService.getProfileData(employerID).then(body => {
-            dispatch(profileActions.update({ ...body, id: employerID }));
-        });
+        if (employerID !== this.props.id && employerID === this.props.userID) {
+            employerProfileService.getProfileData(employerID).then(body => {
+                dispatch(profileActions.update({ ...body, id: employerID }));
+            });
+        }
     }
 
     componentDidMount() {

@@ -37,8 +37,6 @@ class Profile extends Component<
                 dispatch(profileActions.update({ ...body, id: employerID }));
             });
         }
-
-        console.log('profileID: ', employerID);
     }
 
     componentDidMount() {
