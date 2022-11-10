@@ -278,10 +278,13 @@ export default class SignUp extends Component<
 
         this.setState(() => newState);
 
+        let newUserID: string;
+
         if (validFlag) {
             authService
                 .signUp(formData)
                 .then(body => {
+                    newUserID = body.id;
                     dispatch(
                         userActions.SIGN_UP(
                             body.id,
@@ -292,7 +295,7 @@ export default class SignUp extends Component<
                             formData.get('toggle') as 'applicant' | 'employer',
                         ),
                     );
-                    navigator.goBack();
+                    navigator.navigate(`/applicant/${newUserID}`);
                 })
                 .catch(body => {
                     // todo: поправить type ошибки
