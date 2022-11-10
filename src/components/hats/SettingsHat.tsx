@@ -10,7 +10,6 @@ class SettingsHat extends Component<
     {
         // Flux
         name: string;
-        surname: string;
         // Props
         status: string;
         imgSrc: string;
@@ -29,7 +28,6 @@ class SettingsHat extends Component<
     state = {
         imgSrc: this.props.imgSrc,
         name: this.props.name,
-        surname: this.props.surname,
         status: this.props.status,
     };
 
@@ -38,8 +36,7 @@ class SettingsHat extends Component<
             resumeService.getResumeHatData(this.props.creatorID).then(body => {
                 this.setState(() => ({
                     imgSrc: body.creator_img_src,
-                    name: body.applicant_name,
-                    surname: body.applicant_surname,
+                    name: body.company_name,
                     status: body.status,
                 }));
             });
@@ -55,7 +52,7 @@ class SettingsHat extends Component<
             <Hat
                 imgSrc={this.state.imgSrc}
                 name={this.state.name}
-                surname={this.state.surname}
+                surname={''}
                 status={this.state.status}
                 rightSideContent={
                     <CancelSaveButtons
