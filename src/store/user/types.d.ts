@@ -5,6 +5,7 @@ export type UserState = {
     name: string;
     surname: string;
     userType: UserType | null;
+    avatarSrc: string;
     authorized: boolean;
 };
 
@@ -13,5 +14,6 @@ export interface AuthAction {
     id: string;
     name: string;
     surname: string;
+    avatarSrc: string;
     userType: UserType;
 }

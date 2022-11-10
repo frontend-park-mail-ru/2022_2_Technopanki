@@ -6,6 +6,7 @@ export const userStore = new Store<UserState>(userReducer, {
     id: '',
     name: '',
     surname: '',
+    avatarSrc: './',
     userType: null,
     authorized: false,
 });

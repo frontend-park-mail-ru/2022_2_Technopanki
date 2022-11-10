@@ -11,6 +11,7 @@ import RenderWithCondition from '../../components/RenderWithCondition';
 import ButtonNotActive from '../../components/UI-kit/buttons/ButtonNotActive';
 import { UserState } from '../../store/user/types';
 import Vacancy from './index';
+import { IMAGE_URL } from '../../utils/constants';
 
 class VacancyHat extends Component<
     {
@@ -45,9 +46,11 @@ class VacancyHat extends Component<
                 .then(body => {
                     this.setState(() => ({
                         vacancyID: this.props.vacancyID,
-                        creatorImgSrc: body.creator_img_src,
                         companyName: body.company_name,
                         status: body.status,
+                        creatorImgSrc: body.image
+                            ? IMAGE_URL + body.image
+                            : IMAGE_URL + body.imgSrc,
                     }));
                 })
                 .catch(err => console.error(err));
@@ -65,7 +68,7 @@ class VacancyHat extends Component<
     render() {
         return (
             <Hat
-                imgSrc={'http://95.163.208.72:8000/image/employer.png'}
+                imgSrc={this.state.creatorImgSrc}
                 name={this.state.companyName}
                 surname={''}
                 status={this.state.status}

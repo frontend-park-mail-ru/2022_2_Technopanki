@@ -38,7 +38,7 @@ export const profileReducer: Reducer<ProfileState> = (
                 id: action.profileID,
                 profileType: action.userType,
                 name: action.formData.get('name'),
-                surname: action.formData.get('surname') || '',
+                surname: action.formData.get('surname') ?? '',
                 status: action.formData.get('status'),
                 description: action.formData.get('description'),
                 phone: action.formData.get('phone'),

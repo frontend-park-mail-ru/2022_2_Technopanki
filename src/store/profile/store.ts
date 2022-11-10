@@ -11,7 +11,7 @@ export const defaultProfileState: ProfileState = {
     surname: '',
     status: '',
     description: '',
-    defaultDayOfBitch: '',
+    dateOfBirth: '',
     phone: '',
     email: '',
     location: '',

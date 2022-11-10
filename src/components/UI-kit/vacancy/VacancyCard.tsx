@@ -9,6 +9,7 @@ import Hr from '../../../static/icons/hr.svg';
 import ArrowButtonWithTextOutline from '../buttons/ArrowButtonWithTextOutline';
 import { VNodeType } from '../../../../Reacts/shared/common';
 import Link from '../../Link/Link';
+import { IMAGE_URL } from '../../../utils/constants';
 
 export type VacancyCardPropsType = {
     id: string;
@@ -52,7 +53,7 @@ export default class VacancyCard extends Component<
                             className={'rounded-md'}
                             height={40}
                             width={40}
-                            src={'http://95.163.208.72:8000/image/employer.png'}
+                            src={IMAGE_URL + this.props.icon}
                         />
                     }
                 />

@@ -28,7 +28,7 @@ export const employerProfileService: Service = {
     // TODO: доделать когда Аким сделаем ручку
     getVacancies: async (profileID: string) => {},
 
-    updateProfileImg: async (profileID: string, formData: FormData) => {
+    updateProfileImg: async () => {
         const image = document.querySelector('#avatar').files[0];
 
         const formDataNew = new FormData();

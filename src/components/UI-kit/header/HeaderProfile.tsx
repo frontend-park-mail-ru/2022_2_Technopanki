@@ -12,7 +12,8 @@ type HeaderProps = {
     id: string;
     name: string;
     surname: string;
-    userType: string;
+    userType: string | null;
+    avatarSrc: string;
     authorized: boolean;
 };
 
@@ -42,7 +43,7 @@ class HeaderProfile extends Component<HeaderProps> {
                             content={
                                 <HeaderUserInfo
                                     key={'info'}
-                                    imgSrc={'./'}
+                                    imgSrc={this.props.avatarSrc}
                                     name={this.props.name}
                                     surname={this.props.surname}
                                 />
@@ -94,6 +95,7 @@ export default userConnect((state: UserState): HeaderProps => {
         id: state.id,
         name: state.name,
         surname: state.surname,
+        avatarSrc: state.avatarSrc,
         userType: state.userType,
         authorized: state.authorized,
     };
