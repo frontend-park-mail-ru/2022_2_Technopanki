@@ -14,7 +14,7 @@ export default class Description extends Component {
                         to={'/'}
                         content={
                             <div
-                                className={'inner-svg-h-16'}
+                                className={'inner-svg-h-16 cursor-pointer'}
                                 dangerouslySetInnerHTML={{ __html: Logo }}
                             ></div>
                         }

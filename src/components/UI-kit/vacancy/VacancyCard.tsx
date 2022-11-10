@@ -46,7 +46,7 @@ export default class VacancyCard extends Component<
             >
                 <Link
                     key={'link'}
-                    to={'/employer/2'}
+                    to={`/employer/${this.props.id}`}
                     content={
                         <img
                             className={'rounded-md'}

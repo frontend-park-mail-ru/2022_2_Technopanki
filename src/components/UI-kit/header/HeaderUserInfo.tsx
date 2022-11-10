@@ -9,6 +9,8 @@ export default class HeaderUserInfo extends Component<{
         return (
             <div className={'flex row g-16'}>
                 <img
+                    height={20}
+                    width={20}
                     key={'img'}
                     className={'h-24 w-24 rounded-md background-50'}
                     src={'image/applicant.png'}
