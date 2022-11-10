@@ -65,7 +65,7 @@ class VacancyHat extends Component<
     render() {
         return (
             <Hat
-                imgSrc={'image/employer.png'}
+                imgSrc={'http://95.163.208.72:8000/image/employer.png'}
                 name={this.state.companyName}
                 surname={''}
                 status={this.state.status}

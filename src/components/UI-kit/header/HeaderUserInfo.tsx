@@ -13,7 +13,7 @@ export default class HeaderUserInfo extends Component<{
                     width={20}
                     key={'img'}
                     className={'h-24 w-24 rounded-md background-50'}
-                    src={'image/applicant.png'}
+                    src={'http://95.163.208.72:8000/image/applicant.png'}
                     alt={'profile'}
                 />
                 <div key={'name'} className={'flex row g-16 text-align-right'}>

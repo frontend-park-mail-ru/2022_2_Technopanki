@@ -308,7 +308,9 @@ class VacancySettings extends Component<
                 <div key={'hat'} className={'columns g-24'}>
                     <div className={`col-12 mt-header`}>
                         <SettingsHat
-                            imgSrc={'image/employer.png'}
+                            imgSrc={
+                                'http://95.163.208.72:8000/image/employer.png'
+                            }
                             status={'Место встречи профессионалов'}
                             postedByUserID={this.props.postedByUserID}
                             submit={() =>
