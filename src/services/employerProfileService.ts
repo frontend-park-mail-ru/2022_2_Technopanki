@@ -36,17 +36,15 @@ export const employerProfileService: Service = {
             credentials: 'include' as RequestCredentials,
         };
 
-        delete options.headers['Content-Type'];
+        return await fetch(SERVER_URLS.IMAGE, options);
 
-        const response = await fetch(SERVER_URLS.IMAGE, options);
-
-        return {
-            status: response.status,
-            body: await response.json().catch(err => {
-                console.error(err);
-                return {};
-            }),
-        };
+        // return {
+        //     status: response.status,
+        //     body: await response.json().catch(err => {
+        //         console.error(err);
+        //         return {};
+        //     }),
+        // };
 
         // todo: нормальный урл + FormData
         // return await network

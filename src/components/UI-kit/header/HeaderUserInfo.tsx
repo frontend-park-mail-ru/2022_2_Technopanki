@@ -11,7 +11,7 @@ export default class HeaderUserInfo extends Component<{
                 <img
                     key={'img'}
                     className={'h-24 w-24 rounded-md background-50'}
-                    src={this.props.imgSrc}
+                    src={'image/applicant.png'}
                     alt={'profile'}
                 />
                 <div key={'name'} className={'flex row g-16 text-align-right'}>

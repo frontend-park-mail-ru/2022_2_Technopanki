@@ -23,7 +23,6 @@ export default class ResumeList extends Component<
     };
 
     render() {
-        console.log('Resume list: ', this.state.resume);
         return (
             <div className={'w-100 g-24 hidden rounded-md border-default'}>
                 <div className={'columns p-16'}>
@@ -46,7 +45,7 @@ export default class ResumeList extends Component<
                                         ? resume.resume_id
                                         : resume.id
                                 }
-                                imgSrc={resume.imgSrc}
+                                imgSrc={'image/employer.png'}
                                 name={resume.user_name}
                                 surname={resume.user_surname}
                                 resumeTitle={resume.title}

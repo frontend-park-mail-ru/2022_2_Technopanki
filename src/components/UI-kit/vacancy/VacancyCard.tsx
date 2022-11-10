@@ -48,12 +48,11 @@ export default class VacancyCard extends Component<
                     key={'link'}
                     to={'/employer/2'}
                     content={
-                        <div
-                            key={'vacancy-icon'}
-                            className={`cursor-pointer ${styles.icon}`}
-                            dangerouslySetInnerHTML={{
-                                __html: this.props.icon,
-                            }}
+                        <img
+                            className={'rounded-md'}
+                            height={40}
+                            width={40}
+                            src={'image/employer.png'}
                         />
                     }
                 />
