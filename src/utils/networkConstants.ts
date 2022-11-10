@@ -1,5 +1,4 @@
 export const FRONT_URL = 'http://95.163.208.72:8000/';
-
 export const SERVER_URL = 'http://95.163.208.72:8080/';
 export const IMAGE_URL = FRONT_URL + 'backend/data/image/avatar/';
 

@@ -14,6 +14,7 @@ class Navigator {
     private fallback?: Path;
     private router = Router;
     private root: RootType;
+    private prevUrl: string;
 
     constructor(root: HTMLElement, restoreScroll?: boolean) {
         this.root = createRoot(root);
@@ -24,6 +25,8 @@ class Navigator {
         window.addEventListener('popstate', (e: PopStateEvent) => {
             this.navigate(location.pathname, true);
         });
+
+        this.prevUrl = '';
     }
 
     disableScrollRestoration() {
@@ -53,8 +56,7 @@ class Navigator {
     }
 
     navigate(to: string, pop: boolean = false) {
-        if (to === location.pathname) {
-            window.scrollTo(0, 0);
+        if (to === this.prevUrl) {
             return;
         }
 
@@ -70,6 +72,8 @@ class Navigator {
             // @ts-ignore we checked for
             this.router.navigate(this.fallback);
         }
+
+        this.prevUrl = to;
     }
 
     goBack() {

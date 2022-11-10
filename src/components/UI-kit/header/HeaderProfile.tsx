@@ -28,7 +28,7 @@ class HeaderProfile extends Component<HeaderProps> {
                     <div
                         key={'theme_toggle'}
                         onClick={toggleTheme}
-                        className={'inner-svg-h-24'}
+                        className={'inner-svg-h-24 cursor-pointer'}
                         dangerouslySetInnerHTML={{
                             __html: ThemeIcon,
                         }}
