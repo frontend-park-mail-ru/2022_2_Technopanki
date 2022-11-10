@@ -28,10 +28,7 @@ export const profileReducer: Reducer<ProfileState> = (
                 description: action.state.description,
                 phone: action.state.contact_number,
                 email: action.state.email,
-                avatarSrc:
-                    IMAGE_URL + action.state.image
-                        ? action.state.image
-                        : action.state.imgSrc,
+                avatarSrc: IMAGE_URL + action.state.image,
                 size: action.state.company_size
                     ? action.state.company_size.toString()
                     : '',
