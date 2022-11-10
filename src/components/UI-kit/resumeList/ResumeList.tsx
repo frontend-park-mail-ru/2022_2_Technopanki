@@ -42,7 +42,7 @@ export default class ResumeList extends Component<
                                 name={resume.user_name}
                                 surname={resume.user_surname}
                                 resumeTitle={resume.title}
-                                timeWhenCreated={resume.date}
+                                timeWhenCreated={resume.created_date}
                             />
                         ))}
                 </div>
