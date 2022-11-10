@@ -37,8 +37,7 @@ type ResumePropsType = {
 
 class Resume extends Component<ResumePropsType> {
     getDataFromServer() {
-        const resumeID = this.props.id || location.pathname.split('/').at(-1);
-
+        const resumeID = location.pathname.split('/').at(-1);
         resumeService.getResumeData(resumeID as string).then(body => {
             dispatch(resumeActions.update(body));
         });
@@ -47,6 +46,8 @@ class Resume extends Component<ResumePropsType> {
     componentDidMount() {
         this.getDataFromServer();
     }
+
+    componentDidUpdate() {}
 
     render() {
         return (
@@ -58,9 +59,9 @@ class Resume extends Component<ResumePropsType> {
                         <ApplicantHat
                             creatorID={this.props.postedByUserID}
                             resumeID={
-                                this.props.id?
-                                    this.props.id :
-                                    location.pathname.split('/').at(-1)
+                                this.props.id
+                                    ? this.props.id
+                                    : location.pathname.split('/').at(-1)
                             }
                         />
                     </div>
@@ -77,9 +78,7 @@ class Resume extends Component<ResumePropsType> {
                         />
                     </div>
                     <div className={'col-12 col-md-3'}>
-                        <ResumeSidebar
-                            creatorID={this.props.postedByUserID}
-                        />
+                        <ResumeSidebar creatorID={this.props.postedByUserID} />
                     </div>
                 </div>
                 <Footer />
