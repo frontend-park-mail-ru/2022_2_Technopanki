@@ -215,12 +215,16 @@ class ResumeSettings extends Component<
                     </form>
                 </div>
                 <div className={'flex row g-16 mt-40'}>
-                    <Button onClick={navigator.goBack}>Пропустить</Button>
-                    {this.props.isNew ? (
-                        ''
+                    <Button
+                        onClick={navigator.goBack}
+                    >
+                        Пропустить
+                    </Button>
+                    {this.props.isNew? (
+                        <div />
                     ) : (
                         <ButtonRed
-                            key={'logout'}
+                            key={'removal'}
                             onClick={() => {
                                 this.deleteResume(this.props.postedByUserID);
                             }}
