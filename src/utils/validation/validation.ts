@@ -54,3 +54,11 @@ export const phoneValidation = (phone: string): boolean => {
     const regexp = /^\+[0-9]{1,4} \([0-9]{1,4}\) [0-9]{3}-[0-9]{2}-[0-9]{2}$/;
     return regexp.test(phone);
 };
+
+export const validateResumeTitle = (title: string): boolean => {
+    return !!title;
+}
+
+export const validateResumeDescription = (description: string): boolean => {
+    return !!description;
+}
