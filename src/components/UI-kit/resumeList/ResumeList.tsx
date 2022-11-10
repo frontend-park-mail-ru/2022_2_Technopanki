@@ -10,7 +10,7 @@ export default class ResumeList extends Component<
     { resume: ResumeListItemPropsType[]; limit: number }
 > {
     state = {
-        resume: JSON.parse(JSON.stringify(this.props.resume)),
+        resume: this.props.test(),
         limit: 6,
     };
 
@@ -31,8 +31,7 @@ export default class ResumeList extends Component<
                     <p className={'col-0 col-md-4'}>Время создания резюме</p>
                 </div>
                 <div className={'w-100'}>
-                    {this.props
-                        ?.test()
+                    {this.state?.resume
                         ?.slice(0, this.state.limit)
                         .map(resume => (
                             <ResumeListItem

@@ -314,7 +314,6 @@ export default class SignUp extends Component<
             authService
                 .signUp(formData)
                 .then(body => {
-                    newUserID = body.id;
                     dispatch(
                         userActions.SIGN_UP(
                             body.id,
@@ -325,7 +324,7 @@ export default class SignUp extends Component<
                             formData.get('toggle') as 'applicant' | 'employer',
                         ),
                     );
-                    navigator.navigate(`/applicant/${newUserID}`);
+                    navigator.navigate(`/${formData.get('toggle')}/${body.id}`);
                 })
                 .catch(body => {
                     setInvalidFieldsFromServer(

@@ -139,7 +139,7 @@ class ProfileSettingsComponent extends Component<
                         label: 'Телефон',
                         name: 'phone',
                         validator: phoneValidation,
-                        required: true,
+                        required: false,
                         value: this.props.phone,
                         errorMessage:
                             'Номер телефона должен быть в формате: +7 (999) 999-99-99',
@@ -150,7 +150,7 @@ class ProfileSettingsComponent extends Component<
                         placeholder: 'example@mail.ru',
                         label: 'Email',
                         name: 'email',
-                        required: true,
+                        required: false,
                         value: this.props.email,
                         validator: validateEmail,
                         error: false,
