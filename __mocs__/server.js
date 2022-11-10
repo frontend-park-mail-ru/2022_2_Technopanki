@@ -5,7 +5,12 @@ const crypto = require('crypto');
 const PORT = 8080;
 
 const users = require('./user.js');
-let { defaultVacancy, vacancies, responses } = require('./vacancy.js');
+let {
+    defaultVacancy,
+    vacancies,
+    responses,
+    testVacancy,
+} = require('./vacancy.js');
 
 const corsOptions = {
     credentials: true, // This is important.
@@ -50,7 +55,6 @@ app.get('/protected', (req, res) => {
 });
 
 app.get('api/vacancy/applies/:id', (req, res) => {
-    console.log('asd');
     res.json({
         data: [
             {
@@ -246,10 +250,10 @@ app.get('/api/user/:id/preview', (req, res) => {
     }
 });
 
-// app.get('/api/vacancy/', (req, res) => {
-//     console.log('api/vacancy');
-//     res.json({ data: vacancies });
-// });
+app.get('/api/vacancy/', (req, res) => {
+    console.log('api/vacancy');
+    res.json({ data: vacancies });
+});
 
 app.post('/api/vacancy/', (req, res) => {
     vacancies.push({
@@ -262,10 +266,15 @@ app.post('/api/vacancy/', (req, res) => {
     res.json(defaultVacancy);
 });
 
-// app.get('/api/vacancy/:id', (req, res) => {
-//     console.log('/api/vacancy');
-//     res.json(defaultVacancy);
-// });
+app.get('/api/vacancy/:id', (req, res) => {
+    console.log('/api/vacancy/', req.params.id);
+
+    if (req.params.id === '2') {
+        res.json(testVacancy);
+    } else {
+        res.json(defaultVacancy);
+    }
+});
 
 app.post('/api/vacancy/new', (req, res) => {
     vacancies.push(req.body);

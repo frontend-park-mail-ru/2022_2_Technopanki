@@ -59,7 +59,7 @@ const updateElementAttributes = (
             element.removeAttribute(attr);
         }
     });
-    operation.attrUpdater.removeFromUpdate.forEach(([attr, value]) => {
+    operation.attrUpdater.removeFromUpdate?.forEach(([attr, value]) => {
         element.removeEventListener(events[attr], value as Function);
     });
     operation.attrUpdater.set.forEach(([attr, value]) => {
