@@ -67,6 +67,7 @@ module.exports = {
                 'server/server.js',
                 './src/static/index.html',
                 './src/static/favicon.ico',
+                { from: './src/static/image', to: 'image' },
             ],
         }),
         new webpack.DefinePlugin({
