@@ -10,8 +10,6 @@ import { resumeActions } from '../../../store/resume/actions';
 import ApplicantHat from '../ApplicantHat';
 import Footer from '../../../components/UI-kit/footer/Footer';
 import { ResumeState } from '../../../store/resume/type';
-import { applicantProfileService } from '../../../services/applicantService';
-import { applicantActions } from '../../../store/applicant/actions';
 
 type ResumePropsType = {
     id?: string;

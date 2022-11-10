@@ -453,6 +453,14 @@ export default class SignUp extends Component<
                                 </p>
                             }
                         />
+                        <Link
+                            to={'/'}
+                            content={
+                                <p className={'font-size-12 color-500'}>
+                                    Перейти на главную страницу
+                                </p>
+                            }
+                        />
                     </form>
                 </div>
                 <Description key={'desc'} />
