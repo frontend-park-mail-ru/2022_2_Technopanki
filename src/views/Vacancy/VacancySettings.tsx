@@ -16,6 +16,8 @@ import { activateError, deactivateError } from '../../store/errors/actions';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 import { EMPLOYER_PATHS } from '../../utils/routerConstants';
 import ButtonPrimary from '../../components/UI-kit/buttons/ButtonPrimary';
+import ButtonRed from '../../components/UI-kit/buttons/ButtonRed';
+import RenderWithCondition from '../../components/RenderWithCondition';
 
 class AboutVacancyComponent extends Component<{
     title: string;
@@ -327,11 +329,13 @@ class VacancySettings extends Component<
                     <h3 className={'col-12'}>Настройки вакансии</h3>
                     <div className={'col-12 col-md-9'}>
                         <Form
+                            submitComponent={
+                                <div>
+                                    <ButtonPrimary>Сохранить</ButtonPrimary>
+                                </div>
+                            }
                             id={'vacancy_form'}
                             sections={this.state.sections}
-                            submitComponent={
-                                <ButtonPrimary>Сохранить</ButtonPrimary>
-                            }
                             onSubmit={this.submitForm.bind(this)}
                         />
                     </div>
@@ -339,16 +343,21 @@ class VacancySettings extends Component<
                         <Button key={'back'} onClick={navigator.goBack}>
                             Назад
                         </Button>
-                        <Button
-                            key={'delete'}
-                            onClick={() =>
-                                vacancyService
-                                    .deleteVacancy(this.props.id)
-                                    .then(() => navigator.goBack())
+                        <RenderWithCondition
+                            condition={!this.state.isNew}
+                            onSuccess={
+                                <ButtonRed
+                                    key={'delete'}
+                                    onClick={() =>
+                                        vacancyService
+                                            .deleteVacancy(this.props.id)
+                                            .then(() => navigator.goBack())
+                                    }
+                                >
+                                    Удалить вакансию
+                                </ButtonRed>
                             }
-                        >
-                            Удалить вакансию
-                        </Button>
+                        />
                     </div>
                 </div>
                 <Footer key={'footer'} />

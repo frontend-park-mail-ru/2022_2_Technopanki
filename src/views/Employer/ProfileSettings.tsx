@@ -313,6 +313,7 @@ class ProfileSettingsComponent extends Component<
                             surname={''}
                             status={this.props.status}
                             postedByUserID={this.props.id}
+                            linkTo={EMPLOYER_PATHS.PROFILE + this.props.id}
                             submit={() =>
                                 document
                                     .querySelector('#profile_form')

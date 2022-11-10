@@ -49,7 +49,7 @@ export default class ProfileVacancies extends Component<
                         };
                     });
                 })
-                .catch(err => console.error(err));
+                .catch(err => err !== 404 && console.log(err));
         }
     }
 
