@@ -32,27 +32,25 @@ type VacancyPropsType = {
 };
 
 class Vacancy extends Component<VacancyPropsType> {
-    getDataFromServer(vacancyID: string | null | undefined) {
+    getDataFromServer() {
         // Мы точно уверены что путь будет vacancy/{0,9}+
-        if (vacancyID) {
-            vacancyService.getVacancyData(vacancyID as string).then(body => {
-                dispatch(vacancyActions.update(body));
-            });
-        }
+        const vacancyID = location.pathname.split('/').at(-1);
+        vacancyService.getVacancyData(vacancyID as string).then(body => {
+            dispatch(vacancyActions.update(body));
+        });
+        // if (this.props.id !== vacancyID) {
+        //     vacancyService.getVacancyData(vacancyID as string).then(body => {
+        //         dispatch(vacancyActions.update(body));
+        //     });
+        // }
     }
 
     componentDidMount() {
-        const vacancyID =
-            this.props.id || (location.pathname.split('/').at(-1) as string);
-        this.getDataFromServer(vacancyID);
+        this.getDataFromServer();
     }
 
     componentDidUpdate() {
-        const vacancyID =
-            this.props.id || (location.pathname.split('/').at(-1) as string);
-        if (this.props.id !== vacancyID) {
-            this.getDataFromServer(vacancyID);
-        }
+        console.log('VACANCY UPDATE');
     }
 
     render() {
