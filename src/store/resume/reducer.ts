@@ -9,10 +9,7 @@ export const resumeReducer: Reducer<ResumeState> = (state, action) => {
             return {
                 ...state,
                 ...action.resume,
-                id:
-                    typeof action.resume.id === 'string'
-                        ? action.resume.id
-                        : action.resume.id.toString(),
+                id: action.resume.resume_id.toString(),
                 postedByUserID: action.resume.user_account_id.toString(),
                 title: action.resume.title,
                 description: action.resume.description,
