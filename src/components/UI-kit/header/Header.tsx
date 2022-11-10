@@ -53,7 +53,7 @@ class Header extends Component<{ userType: string }> {
                             condition={this.props.userType !== 'employer'}
                             onSuccess={
                                 <Link
-                                    to={'/resume/settings'}
+                                    to={'/resume/new'}
                                     content={
                                         <p
                                             key={'item3'}
