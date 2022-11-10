@@ -308,7 +308,7 @@ class ProfileSettingsComponent extends Component<
                 <div key={'hat'} className={'columns g-24'}>
                     <div key={'settings'} className={`col-12 mt-header`}>
                         <SettingsHat
-                            imgSrc={'../image/employer.png'}
+                            imgSrc={this.props.avatarSrc}
                             name={this.props.name}
                             surname={''}
                             status={this.props.status}
@@ -347,7 +347,15 @@ class ProfileSettingsComponent extends Component<
                     </form>
                 </div>
                 <div className={'flex row g-16 mt-40'}>
-                    <Button>Пропустить</Button>
+                    <Button
+                        onClick={() =>
+                            navigator.navigate(
+                                EMPLOYER_PATHS.PROFILE + this.props.id,
+                            )
+                        }
+                    >
+                        Пропустить
+                    </Button>
                     <ButtonRed key={'logout'} onClick={this.logout}>
                         Выйти
                     </ButtonRed>

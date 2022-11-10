@@ -16,6 +16,7 @@ class SettingsHat extends Component<
         imgSrc: string;
         creatorID: string;
         submit: Function;
+        linkTo: string;
     },
     {
         // Flux
@@ -46,7 +47,7 @@ class SettingsHat extends Component<
         if (this.state.surname !== '') {
             resumeService.getResumeHatData(this.props.creatorID).then(body => {
                 this.setState(() => ({
-                    imgSrc: '../image/applicant.png',
+                    imgSrc: body.image ?? body.imgSrc,
                     name: body.applicant_name,
                     surname: body.applicant_surname,
                     status: body.status,
@@ -62,10 +63,11 @@ class SettingsHat extends Component<
     render() {
         return (
             <Hat
-                imgSrc={'../image/applicant.png'}
+                imgSrc={this.props.imgSrc}
                 name={this.state.name}
-                surname={this.props.surname}
+                surname={this.props.surname ?? ''}
                 status={this.state.status}
+                linkTo={this.props.linkTo}
                 rightSideContent={
                     <CancelSaveButtons
                         onCancel={navigator.goBack}
@@ -81,9 +83,10 @@ export default userConnect((state, props) => {
     return {
         name: state.name,
         surname: state.surname,
-        status: state.status,
+        status: props.status,
         postedByUserID: props.postedByUserID,
         imgSrc: props.imgSrc,
         submit: props.submit,
+        linkTo: props.linkTo,
     };
 })(SettingsHat);

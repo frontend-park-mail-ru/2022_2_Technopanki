@@ -15,6 +15,7 @@ import Button from '../../components/UI-kit/buttons/Button';
 import { activateError, deactivateError } from '../../store/errors/actions';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 import { EMPLOYER_PATHS } from '../../utils/routerConstants';
+import ButtonPrimary from '../../components/UI-kit/buttons/ButtonPrimary';
 
 class AboutVacancyComponent extends Component<{
     title: string;
@@ -225,7 +226,7 @@ const VacancyDescription = vacancyConnect(state => {
 })(VacancyDescriptionComponent);
 
 class VacancySettings extends Component<
-    { id: string; postedByUserID: string },
+    { id: string; postedByUserID: string; avatarSrc: string },
     { sections: FormSectionType[] }
 > {
     state = {
@@ -309,9 +310,13 @@ class VacancySettings extends Component<
                 <div key={'hat'} className={'columns g-24'}>
                     <div className={`col-12 mt-header`}>
                         <SettingsHat
-                            imgSrc={'./image/employer.png'}
+                            imgSrc={this.props.avatarSrc}
                             status={'Место встречи профессионалов'}
                             postedByUserID={this.props.postedByUserID}
+                            linkTo={
+                                EMPLOYER_PATHS.PROFILE +
+                                this.props.postedByUserID
+                            }
                             submit={() =>
                                 document
                                     .querySelector('#vacancy_form')
@@ -325,23 +330,26 @@ class VacancySettings extends Component<
                             id={'vacancy_form'}
                             sections={this.state.sections}
                             submitComponent={
-                                <CancelSaveButtons
-                                    onCancel={navigator.goBack}
-                                    onSave={() => {}}
-                                />
+                                <ButtonPrimary>Сохранить</ButtonPrimary>
                             }
                             onSubmit={this.submitForm.bind(this)}
                         />
                     </div>
-                    <Button
-                        onClick={() =>
-                            vacancyService
-                                .deleteVacancy(this.props.id)
-                                .then(() => navigator.goBack())
-                        }
-                    >
-                        Удалить вакансию
-                    </Button>
+                    <div className={'col-12 row flex g-16'}>
+                        <Button key={'back'} onClick={navigator.goBack}>
+                            Назад
+                        </Button>
+                        <Button
+                            key={'delete'}
+                            onClick={() =>
+                                vacancyService
+                                    .deleteVacancy(this.props.id)
+                                    .then(() => navigator.goBack())
+                            }
+                        >
+                            Удалить вакансию
+                        </Button>
+                    </div>
                 </div>
                 <Footer key={'footer'} />
             </div>
@@ -353,6 +361,7 @@ const UserWrapper = userConnect((state, props) => ({
     id: props.id,
     postedByUserID:
         props.postedByUserID !== '' ? props.postedByUserID : state.id,
+    avatarSrc: state.avatarSrc,
 }))(VacancySettings);
 
 export default vacancyConnect((state, props) => ({

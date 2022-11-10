@@ -7,7 +7,7 @@ export const EMPLOYER_PATHS = {
 
 export const APPLICANT_PATHS = {
     PROFILE: '/applicant/',
-    SETTINGS: '/applicant/settings',
+    SETTINGS: '/applicant/settings/',
 };
 
 export const SIGN_IN_PATH = '/signin';
