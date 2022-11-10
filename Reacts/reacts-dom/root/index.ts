@@ -34,7 +34,7 @@ class Root implements RootType {
     unmount() {
         this.root.innerHTML = '';
         this.prevMount?.unmount(false);
-        delete this.prevMount?.props;
+        // delete this.prevMount?.props;
         delete this.prevMount;
     }
 }

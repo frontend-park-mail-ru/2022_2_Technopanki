@@ -241,6 +241,7 @@ class VacancySettings extends Component<
         ],
     };
 
+    // TODO: отрисовать страницу с резюме после обновления
     submitForm = (e: SubmitEvent) => {
         e.preventDefault();
         const formData = new FormData(e.target);

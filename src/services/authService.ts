@@ -79,7 +79,10 @@ export const authService: Service = {
                     throw response.status;
                 }
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                dispatch(stopLoading());
+                console.error(err);
+            });
     },
 
     CSRF: async () => {

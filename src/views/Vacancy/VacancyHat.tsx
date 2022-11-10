@@ -55,7 +55,6 @@ class VacancyHat extends Component<
     };
 
     componentDidMount() {
-        console.log('mount');
         this.getCreatorDataFromServer();
     }
 
@@ -68,7 +67,7 @@ class VacancyHat extends Component<
     }
 
     unmount() {
-        console.log('unmount');
+        console.log('UNMOUNT HAT');
     }
 
     render() {
@@ -114,9 +113,7 @@ class VacancyHat extends Component<
                             condition={this.props.userType === 'applicant'}
                             onSuccess={
                                 <Dropdown
-                                    hidden={
-                                        <VacancyDropdownResume resume={[]} />
-                                    }
+                                    hidden={<VacancyDropdownResume />}
                                     content={
                                         <ButtonPrimary>
                                             Отправить резюме

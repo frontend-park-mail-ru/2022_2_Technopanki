@@ -49,6 +49,90 @@ app.get('/protected', (req, res) => {
     res.json({ value: crypto.randomUUID() });
 });
 
+app.get('/api/resume/applicant/preview/:id', (res, req) => {
+    console.log('resume');
+    req.json([
+        {
+            id: 1,
+            user_account_id: 11,
+            title: 'C++ middle',
+            description: 'sberich',
+            created_date: '2022-11-09T13:45:35.354856Z',
+            education_detail: {
+                resume_id: 0,
+                certificate_degree_name: '',
+                major: '',
+                university_name: '',
+                starting_date: '0001-01-01T00:00:00Z',
+                completion_date: '0001-01-01T00:00:00Z',
+            },
+            experience_detail: {
+                resume_id: 1,
+                is_current_job: 'Yes',
+                start_date: '0001-01-01T00:00:00Z',
+                end_date: '0001-01-01T00:00:00Z',
+                job_title: 'Golang-developer',
+                company_name: 'Sberbank',
+                job_location_city: 'Voronezh',
+                description: '',
+            },
+            applicant_skills: null,
+        },
+        {
+            id: 2,
+            user_account_id: 11,
+            title: 'C++ middle',
+            description: 'sberich',
+            created_date: '2022-11-09T14:20:58.4588Z',
+            education_detail: {
+                resume_id: 0,
+                certificate_degree_name: '',
+                major: '',
+                university_name: '',
+                starting_date: '0001-01-01T00:00:00Z',
+                completion_date: '0001-01-01T00:00:00Z',
+            },
+            experience_detail: {
+                resume_id: 2,
+                is_current_job: 'Yes',
+                start_date: '0001-01-01T00:00:00Z',
+                end_date: '0001-01-01T00:00:00Z',
+                job_title: 'Golang-developer',
+                company_name: 'Sberbank',
+                job_location_city: 'Voronezh',
+                description: '',
+            },
+            applicant_skills: null,
+        },
+        {
+            id: 3,
+            user_account_id: 11,
+            title: 'C++ middle',
+            description: 'sberich',
+            created_date: '2022-11-09T14:20:59.54726Z',
+            education_detail: {
+                resume_id: 0,
+                certificate_degree_name: '',
+                major: '',
+                university_name: '',
+                starting_date: '0001-01-01T00:00:00Z',
+                completion_date: '0001-01-01T00:00:00Z',
+            },
+            experience_detail: {
+                resume_id: 3,
+                is_current_job: 'Yes',
+                start_date: '0001-01-01T00:00:00Z',
+                end_date: '0001-01-01T00:00:00Z',
+                job_title: 'Golang-developer',
+                company_name: 'Sberbank',
+                job_location_city: 'Voronezh',
+                description: '',
+            },
+            applicant_skills: null,
+        },
+    ]);
+});
+
 app.post('/auth/sign-in', (req, res) => {
     if (req.body.email === 'test@mail.ru') {
         res.status(400);
