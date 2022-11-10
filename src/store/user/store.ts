@@ -6,6 +6,6 @@ export const userStore = new Store<UserState>(userReducer, {
     id: '1',
     name: 'Vlad',
     surname: '',
-    userType: 'applicant',
+    userType: 'employer',
     authorized: true,
 });

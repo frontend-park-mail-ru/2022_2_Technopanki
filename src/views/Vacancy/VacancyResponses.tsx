@@ -29,27 +29,30 @@ class VacancyResponses extends Component<{
             <div className={'screen-responsive relative hidden g-24'}>
                 <Header key={'header'} />
                 <div key={'vacancies'} className={'columns mt-header g-24'}>
-                    <div className={`col-12 ${styles.header}`}>
+                    <div key={'hat'} className={`col-12 ${styles.header}`}>
                         <VacancyResponsesHat
                             vacancyID={this.props.vacancyID}
                             postedByUserID={this.props.postedByUserID}
                         />
                     </div>
-                    <h3 className={'col-12'}>{this.props.title}</h3>
-                    <div className={'col-12 col-md-9 column g-16'}>
+                    <h3 key={'ttile'} className={'col-12'}>
+                        {this.props.title}
+                    </h3>
+                    <div key={'list'} className={'col-12 col-md-9 column g-16'}>
                         <h6 key={'asd'}>Отклики на вакансию</h6>
                         <RenderWithCondition
+                            key={'condition'}
                             condition={
                                 this.props.userID === this.props.postedByUserID
                             }
                             onSuccess={<VacanciesResumeList />}
                         />
                     </div>
-                    <div className={'col-12 col-md-3'}>
+                    <div key={'sidebar'} className={'col-12 col-md-3'}>
                         <VacancySideBar />
                     </div>
                 </div>
-                <Footer />
+                <Footer key={'footer'} />
             </div>
         );
     }

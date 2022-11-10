@@ -49,6 +49,23 @@ app.get('/protected', (req, res) => {
     res.json({ value: crypto.randomUUID() });
 });
 
+app.get('api/vacancy/applies/:id', (req, res) => {
+    console.log('asd');
+    res.json({
+        data: [
+            {
+                user_account_id: 3,
+                resume_id: 1,
+                vacancy_id: 1,
+                user_name: 'Akim',
+                user_surname: 'Egorov',
+                resume_title: '',
+                apply_date: '2022-11-09T12:23:17.931925Z',
+            },
+        ],
+    });
+});
+
 app.get('/api/resume/applicant/preview/:id', (res, req) => {
     console.log('resume');
     req.json([
@@ -229,10 +246,10 @@ app.get('/api/user/:id/preview', (req, res) => {
     }
 });
 
-app.get('/api/vacancy/', (req, res) => {
-    console.log('api/vacancy');
-    res.json({ data: vacancies });
-});
+// app.get('/api/vacancy/', (req, res) => {
+//     console.log('api/vacancy');
+//     res.json({ data: vacancies });
+// });
 
 app.post('/api/vacancy/', (req, res) => {
     vacancies.push({
@@ -245,10 +262,10 @@ app.post('/api/vacancy/', (req, res) => {
     res.json(defaultVacancy);
 });
 
-app.get('/api/vacancy/:id', (req, res) => {
-    console.log('/api/vacancy');
-    res.json(defaultVacancy);
-});
+// app.get('/api/vacancy/:id', (req, res) => {
+//     console.log('/api/vacancy');
+//     res.json(defaultVacancy);
+// });
 
 app.post('/api/vacancy/new', (req, res) => {
     vacancies.push(req.body);

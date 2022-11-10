@@ -18,9 +18,7 @@ class VacanciesResumeList extends Component<
                 .then(body => {
                     this.setState(state => ({
                         ...state,
-                        id: body.user_accound_id,
-                        resumeID: body.resume_id,
-                        responses: body,
+                        responses: body.data,
                     }));
                 })
                 .catch(err => console.error(err));
