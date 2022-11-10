@@ -50,7 +50,7 @@ export const resumeService: Service = {
                         description: formData.get('description'),
                     },
                     applicant_skills: null,
-                })
+                }),
             )
             .then(response => {
                 dispatch(stopLoading());
@@ -82,7 +82,7 @@ export const resumeService: Service = {
                         description: formData.get('description'),
                     },
                     applicant_skills: null,
-                })
+                }),
             )
             .then(response => {
                 if (response.status > 399) {
@@ -97,5 +97,5 @@ export const resumeService: Service = {
         return await network
             .DELETE(SERVER_URLS.RESUME + resumeID, requestHeaders.jsonHeader)
             .then(() => console.log('deleted'));
-    }
+    },
 };

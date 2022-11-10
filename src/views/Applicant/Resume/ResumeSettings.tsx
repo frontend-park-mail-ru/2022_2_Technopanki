@@ -218,12 +218,8 @@ class ResumeSettings extends Component<
                     </form>
                 </div>
                 <div className={'flex row g-16 mt-40'}>
-                    <Button
-                        onClick={navigator.goBack}
-                    >
-                        Пропустить
-                    </Button>
-                    {this.state.isNew? (
+                    <Button onClick={navigator.goBack}>Пропустить</Button>
+                    {this.state.isNew ? (
                         <div />
                     ) : (
                         <ButtonRed

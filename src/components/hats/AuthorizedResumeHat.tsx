@@ -16,7 +16,7 @@ export default class ResumeHat extends Component<{
     render() {
         return (
             <Hat
-                imgSrc={'http://95.163.208.72:8000/image/applicant.png'}
+                imgSrc={'./applicant.png'}
                 name={this.props.name}
                 surname={this.props.surname}
                 description={this.props.description}
