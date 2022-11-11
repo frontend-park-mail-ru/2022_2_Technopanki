@@ -19,10 +19,9 @@ class Router implements RouterType {
      * Navigate to the given path
      * @param to
      */
-    navigate(to: Path) {
-        console.log(to);
+    navigate(to: Path, urlParams: string = '') {
         if (!to.options || !to.options.pop) {
-            window.history.pushState(to.options, '', to.path);
+            window.history.pushState(to.options, '', `${to.path}${urlParams}`);
         }
 
         to.callback();

@@ -8,6 +8,7 @@ const DEVELOPMENT = 'development';
 module.exports = {
     entry: {
         main: './src/App.tsx',
+        sw: './src/sw/sw.js',
     },
     module: {
         rules: [
@@ -62,7 +63,12 @@ module.exports = {
     },
     plugins: [
         new CopyPlugin({
-            patterns: ['server/server.js', './src/static/index.html'],
+            patterns: [
+                'server/server.js',
+                './src/static/index.html',
+                './src/static/favicon.ico',
+                { from: './src/static/image', to: 'image' },
+            ],
         }),
         new webpack.DefinePlugin({
             __DEV__: process.env.NODE_ENV === DEVELOPMENT,

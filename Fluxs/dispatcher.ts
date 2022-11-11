@@ -1,4 +1,3 @@
-import Store from './store';
 import { Action } from './types/action';
 
 type DispatchCallback = (action: Action) => void;

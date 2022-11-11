@@ -9,17 +9,20 @@ import { StoreType } from '../../Fluxs/types/store';
 export default function createConnect(store: StoreType) {
     return function (mapStateToProps: MapStateToProps) {
         return function (WrappedComponent: Function) {
-            return class Wrapper extends Component<any, any> {
+            return class Wrapper extends Component<any> {
                 unsubscribe: Function = () => {};
+
                 render() {
                     return (
                         <WrappedComponent
-                            {...mapStateToProps(store, this.props)}
+                            {...this.props}
+                            {...mapStateToProps(store.getState(), this.props)}
                         ></WrappedComponent>
                     );
                 }
 
                 componentDidMount() {
+                    this.handleChange();
                     this.unsubscribe = store.subscribe(
                         this.handleChange.bind(this),
                     );

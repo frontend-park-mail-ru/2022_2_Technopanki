@@ -16,37 +16,22 @@ import {
     SURNAME_SYMBOLS_ERROR,
 } from '../../utils/validation/messages';
 import {
+    validateCompanyName,
     validateEmail,
     validateNameLength,
     validateNameSymbols,
     validatePasswordLength,
     validatePasswordSymbols,
 } from '../../utils/validation/validation';
-import navigator from '../../router/navigator';
-import { SignUpService } from '../../services/signUpService';
+import navigator from '../../router/navigator.tsx';
+import { dispatch } from '../../store';
+import { userActions } from '../../store/user/actions';
+import { authService } from '../../services/authService';
+import { SIGN_IN_PATH, START_PATH } from '../../utils/routerConstants';
 
-export const validateField = (
-    formDataElement: Exclude<FormDataEntryValue, File>,
-    field: AuthField,
-    validate: (data: string) => boolean,
-    errorMessage: string,
-): boolean => {
-    if (formDataElement) {
-        field.value = formDataElement;
-
-        if (validate(formDataElement)) {
-            if (errorMessage === field.errorMessage) {
-                field.error = false;
-                field.errorMessage = '';
-            }
-            return true;
-        }
-        field.error = true;
-        field.errorMessage = errorMessage;
-        return false;
-    }
-
-    return true;
+export type ResponseBody = {
+    descriptors: string[];
+    error: string;
 };
 
 export type AuthField = {
@@ -58,6 +43,63 @@ export type AuthField = {
     required: boolean;
     error: boolean;
     errorMessage: string | null;
+};
+
+export type AuthFields = { [key: string]: AuthField };
+
+export const setFieldAsInvalid = (field: AuthField, errorMessage: string) => {
+    if (field) {
+        field.error = true;
+        field.errorMessage = errorMessage;
+    }
+};
+
+export const setInvalidFieldsFromServer = (
+    responseBody: ResponseBody,
+    inputs: AuthFields,
+    callback: Function,
+) => {
+    if (
+        responseBody &&
+        Array.isArray(responseBody.descriptors) &&
+        responseBody.descriptors[0]
+    ) {
+        setFieldAsInvalid(
+            inputs[responseBody.descriptors[0]],
+            responseBody.error,
+        );
+        callback();
+        setFieldAsInvalid(inputs[responseBody.descriptors[0]] as AuthField, '');
+    } else {
+        throw new Error(`empty body: ${responseBody}`);
+    }
+};
+
+export const validateField = (
+    formDataElement: Exclude<FormDataEntryValue, File>,
+    field: AuthField,
+    validate: (data: string) => boolean,
+    errorMessage: string,
+): boolean => {
+    if (formDataElement) {
+        field.value = formDataElement;
+
+        if (validate(formDataElement)) {
+            if (
+                errorMessage === field.errorMessage ||
+                field.errorMessage === ''
+            ) {
+                field.error = false;
+                field.errorMessage = '';
+                return true;
+            }
+            return false;
+        }
+        setFieldAsInvalid(field, errorMessage);
+        return false;
+    }
+
+    return false;
 };
 
 export default class SignUp extends Component<
@@ -181,6 +223,7 @@ export default class SignUp extends Component<
             validFlag = false;
         }
         if (
+            this.state.toggleType === 'applicant' &&
             !validateField(
                 formData.get('applicant_name') as Exclude<
                     FormDataEntryValue,
@@ -194,6 +237,7 @@ export default class SignUp extends Component<
             validFlag = false;
         }
         if (
+            this.state.toggleType === 'applicant' &&
             !validateField(
                 formData.get('applicant_name') as Exclude<
                     FormDataEntryValue,
@@ -207,6 +251,35 @@ export default class SignUp extends Component<
             validFlag = false;
         }
         if (
+            this.state.toggleType === 'employer' &&
+            !validateField(
+                formData.get('company_name') as Exclude<
+                    FormDataEntryValue,
+                    File
+                >,
+                newState.inputs['company_name'],
+                validateNameLength,
+                NAME_LENGTH_ERROR,
+            )
+        ) {
+            validFlag = false;
+        }
+        if (
+            this.state.toggleType === 'employer' &&
+            !validateField(
+                formData.get('company_name') as Exclude<
+                    FormDataEntryValue,
+                    File
+                >,
+                newState.inputs['company_name'],
+                validateCompanyName,
+                NAME_SYMBOLS_ERROR,
+            )
+        ) {
+            validFlag = false;
+        }
+        if (
+            this.state.toggleType === 'applicant' &&
             !validateField(
                 formData.get('applicant_surname') as Exclude<
                     FormDataEntryValue,
@@ -220,6 +293,7 @@ export default class SignUp extends Component<
             validFlag = false;
         }
         if (
+            this.state.toggleType === 'applicant' &&
             !validateField(
                 formData.get('applicant_surname') as Exclude<
                     FormDataEntryValue,
@@ -235,10 +309,31 @@ export default class SignUp extends Component<
 
         this.setState(() => newState);
 
+        // TODO: здесь новоеизображение надо не забыть засетить
         if (validFlag) {
-            SignUpService(formData)
-                .then(() => navigator.navigate('/'))
-                .catch(err => console.log(err));
+            authService
+                .signUp(formData)
+                .then(body => {
+                    dispatch(
+                        userActions.SIGN_UP(
+                            body.id,
+                            (formData.get('toggle') as string) === 'applicant'
+                                ? (formData.get('applicant_name') as string)
+                                : (formData.get('company_name') as string),
+                            formData.get('applicant_surname') as string,
+                            body.image,
+                            formData.get('toggle') as 'applicant' | 'employer',
+                        ),
+                    );
+                    navigator.navigate(`/${formData.get('toggle')}/${body.id}`);
+                })
+                .catch(body => {
+                    setInvalidFieldsFromServer(
+                        body as ResponseBody,
+                        newState.inputs,
+                        () => this.setState(() => newState),
+                    );
+                });
         }
     };
 
@@ -330,7 +425,7 @@ export default class SignUp extends Component<
                                             repeatPassword:
                                                 state.inputs.repeatPassword,
                                             company_name: {
-                                                id: 'companyName',
+                                                id: 'company_name',
                                                 type: 'text',
                                                 label: 'Название компании',
                                                 placeholder: 'Company',
@@ -352,10 +447,22 @@ export default class SignUp extends Component<
                         </ButtonPrimaryBigBlue>
                         <Link
                             key={'signin'}
-                            to={'/signin'}
+                            to={SIGN_IN_PATH}
                             content={
                                 <p className={styles.form_link}>
                                     Уже есть аккаунт? Войти
+                                </p>
+                            }
+                        />
+                        <Link
+                            to={START_PATH}
+                            content={
+                                <p
+                                    className={
+                                        'font-size-12 color-300 text-align-center'
+                                    }
+                                >
+                                    Перейти на главную страницу
                                 </p>
                             }
                         />

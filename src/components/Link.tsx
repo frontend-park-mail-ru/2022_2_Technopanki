@@ -1,6 +1,8 @@
 import { Component } from '../../Reacts';
-import router from '../router/navigator';
+import router from '../router/navigator.tsx';
 import { VNodeType } from '../../Reacts/shared/common';
+
+let counter = 0;
 
 export default class Link extends Component<{
     to: string;

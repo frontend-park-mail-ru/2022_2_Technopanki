@@ -1,0 +1,12 @@
+@import "../../../styles/screens";
+
+.sidebar {
+  @media (max-width: $screen-md) {
+    align-items: flex-start;
+  }
+}
+
+.sidebar_header {
+  font-size: 12px;
+  font-weight: 600;
+}

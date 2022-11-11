@@ -20,8 +20,10 @@
     font-size: var(--input-font-size);
   }
   &:focus {
-    outline: var(--border-blue);
-    outline-width: 2px;
+    outline: 2px solid var(--primary-blue)
+  }
+  &[type="date" i] {
+    font-family: Inter, sans-serif;
   }
 }
 
@@ -38,6 +40,8 @@
 }
 
 .textarea {
+  width: 100%;
+  height: 80px;
   font-family: Inter, sans-serif;
 }
 
@@ -52,8 +56,60 @@
 
 .icon {
   width: 16px;
-  padding-top: 19px;
+  padding-top: 18px;
   padding-left: 16px;
   position: absolute;
   cursor: pointer;
 }
+
+.file_label {
+  font-weight: 500;
+  color: var(--background-700);
+}
+
+.file_input {
+  opacity: 0;
+  position: absolute;
+}
+
+
+.loup {
+  width: 16px;
+  cursor: pointer;
+}
+
+.menu {
+  right: 0;
+  padding-top: 13px;
+  padding-right: 16px;
+}
+
+.menu_data {
+  font-size: 14px;
+  color: var(--background-200);
+}
+
+.search_input {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04);
+  &:hover {
+    cursor: not-allowed;
+  }
+  pointer-events: none;
+}
+
+.search_arrow {
+  width: 6px;
+}
+
+.chips_input {
+  padding: 6px;
+  max-height: 27px;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--background-50);
+  border: none;
+  color: var(--background-700);
+  ::placeholder {
+    color: var(--background-700);
+  }
+}
+

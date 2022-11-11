@@ -1,0 +1,19 @@
+.preloader {
+  background-color: var(--primary-blue);
+  height: 2px;
+  z-index: 100;
+  transition: var(--transition-fast);
+  background-size: 20%;
+  background-position: -25%;
+  animation: fade 1s ease infinite;
+}
+
+@keyframes fade {
+  0%, 100% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 100%;
+  }
+}

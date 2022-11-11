@@ -1,14 +1,19 @@
 import { Component } from '../../../../Reacts';
-import Logo from '../../../static/assets/Jobflow.svg';
 import styles from './header.module.scss';
-import MenuIcon from '../../../static/icons/menu.svg';
-import ThemeIcon from '../../../static/icons/theme.svg';
-import ModalWindow from '../modalWindow/ModalWindow';
-import { toggleTheme } from '../../../toggleTheme';
+import HeaderProfile from './HeaderProfile';
+import JobflowLogo from '../JobflowLogo';
 import Link from '../../Link/Link';
+import Preloader from '../prelodaer/Preloader';
+import { userConnect } from '../../../store';
+import RenderWithCondition from '../../RenderWithCondition';
+import {
+    RESUME_PATHS,
+    START_PATH,
+    VACANCIES_PATH,
+} from '../../../utils/routerConstants';
 
 // TODO: refactor
-export default class Header extends Component {
+class Header extends Component<{ userType: string }> {
     setActive = (event: MouseEvent) => {
         let cur = document.querySelector(`.${styles.item__active}`);
         let target = event.target as Element;
@@ -22,158 +27,59 @@ export default class Header extends Component {
     render() {
         return (
             <header
-                className={`x-0 t-0 border-bottom-light fixed screen-responsive ${styles.header}`}
+                className={`x-0 t-0 border-bottom-light fixed ${styles.header}`}
             >
+                <Preloader />
                 <div
-                    className={`flex h-100 row align-items-center justify-content-space-evenly`}
+                    key={'content'}
+                    className={`flex h-100 screen-responsive row align-items-center justify-content-space-evenly`}
                 >
+                    <div className={`flex w-100 align-items-center`}>
+                        <Link to={START_PATH} content={<JobflowLogo />} />
+                    </div>
                     <div
-                        key={'logo'}
-                        className={`flex w-100 g-8 align-items-center h-16 ${styles.logo}`}
-                        dangerouslySetInnerHTML={{ __html: Logo }}
-                    ></div>
-                    <div
-                        key={'items'}
                         id={'links-group'}
                         className={`flex justify-content-center w-100 g-16 ${styles.items}`}
                     >
-                        {/*TODO переделать на Link в роутере*/}
-                        <p
-                            key={'item1'}
-                            id={'item1'}
-                            className={`${styles.item__def} ${styles.item__active}`}
-                            onClick={this.setActive}
-                        >
-                            Вакансии
-                        </p>
-                        <p
-                            key={'item2'}
-                            id={'item2'}
-                            className={styles.item__def}
-                            onClick={this.setActive}
-                        >
-                            Соискатели
-                        </p>
-                        <p
-                            key={'item3'}
-                            id={'item3'}
-                            className={styles.item__def}
-                            onClick={this.setActive}
-                        >
-                            Создать резюме
-                        </p>
-                    </div>
-                    <div
-                        key={'login'}
-                        className={`flex g-24 w-100 align-items-center justify-content-end ${styles.auth}`}
-                    >
-                        <div
-                            key={'theme_toggle'}
-                            onClick={toggleTheme}
-                            className={styles.theme}
-                            dangerouslySetInnerHTML={{
-                                __html: ThemeIcon,
-                            }}
-                        />
                         <Link
-                            to={'/signin'}
+                            to={VACANCIES_PATH}
                             content={
                                 <p
-                                    key={'signin-link'}
-                                    className={styles.item__def}
+                                    key={'item1'}
+                                    id={'item1'}
+                                    className={`${styles.item__def} ${styles.item__active}`}
+                                    onClick={this.setActive}
                                 >
-                                    Войти
+                                    Вакансии
                                 </p>
                             }
                         />
-                        <Link
-                            to={'/signup'}
-                            content={
-                                <p
-                                    key={'signup-link'}
-                                    className={styles.signup}
-                                >
-                                    Зарегистрироваться
-                                </p>
-                            }
-                        />
-                    </div>
-                    <ModalWindow
-                        key={'navIcon'}
-                        content={
-                            <div
-                                className={`flex g-24 w-100 justify-content-end ${styles.menu_icon}`}
-                                dangerouslySetInnerHTML={{
-                                    __html: MenuIcon,
-                                }}
-                            ></div>
-                        }
-                        hidden={
-                            <div
-                                className={'w-100 background-0 rounded-lg p-32'}
-                            >
-                                <div
-                                    key={'items'}
-                                    id={'links-group'}
-                                    className={`flex column justify-content-center w-100 g-16`}
-                                >
-                                    {/*TODO переделать на Link в роутере*/}
-                                    <p
-                                        key={'item1'}
-                                        id={'item1'}
-                                        className={`${styles.item__def} ${styles.item__active}`}
-                                        onClick={this.setActive}
-                                    >
-                                        Вакансии
-                                    </p>
-                                    <p
-                                        key={'item2'}
-                                        id={'item2'}
-                                        className={styles.item__def}
-                                        onClick={this.setActive}
-                                    >
-                                        Соискатели
-                                    </p>
-                                    <p
-                                        key={'item3'}
-                                        id={'item3'}
-                                        className={styles.item__def}
-                                        onClick={this.setActive}
-                                    >
-                                        Создать резюме
-                                    </p>
-                                </div>
-                                <div
-                                    key={'login'}
-                                    className={`flex column g-24 w-100 justify-content-end`}
-                                ></div>
+                        <RenderWithCondition
+                            condition={this.props.userType !== 'employer'}
+                            onSuccess={
                                 <Link
-                                    to={'/signin'}
+                                    to={RESUME_PATHS.NEW}
                                     content={
                                         <p
-                                            key={'signin-link'}
+                                            key={'item3'}
+                                            id={'item3'}
                                             className={styles.item__def}
+                                            onClick={this.setActive}
                                         >
-                                            Войти
+                                            Создать резюме
                                         </p>
                                     }
                                 />
-                                <Link
-                                    to={'/signup'}
-                                    content={
-                                        <p
-                                            key={'signup-link'}
-                                            className={styles.signup}
-                                        >
-                                            Зарегистрироваться
-                                        </p>
-                                    }
-                                />
-                            </div>
-                        }
-                    />
+                            }
+                        />
+                    </div>
+                    <HeaderProfile />
                 </div>
             </header>
         );
     }
 }
+
+export default userConnect(state => ({
+    userType: state.userType,
+}))(Header);

@@ -10,18 +10,28 @@ import {
     validatePasswordSymbols,
 } from '../../utils/validation/validation';
 import {
-    setInvalidInput,
-    setValidInput,
-} from '../../utils/validation/formValidation';
-import {
     EMAIL_ERROR,
     PASSWORD_LENGTH_ERROR,
     PASSWORD_SYMBOLS_ERROR,
 } from '../../utils/validation/messages';
-import { AuthField, validateField } from '../SignUp/SignUp';
-import { SignUpService } from '../../services/signUpService';
-import navigator from '../../router/navigator';
-import { signInService } from '../../services/signInService';
+import {
+    AuthField,
+    AuthFields,
+    ResponseBody,
+    setFieldAsInvalid,
+    setInvalidFieldsFromServer,
+    validateField,
+} from '../SignUp/SignUp';
+import navigator from '../../router/navigator.tsx';
+import { dispatch } from '../../store';
+import { userActions } from '../../store/user/actions';
+import { authService } from '../../services/authService';
+import {
+    APPLICANT_PATHS,
+    EMPLOYER_PATHS,
+    SIGN_UP_PATH,
+    START_PATH,
+} from '../../utils/routerConstants';
 
 export default class SignIn extends Component<
     {},
@@ -55,6 +65,7 @@ export default class SignIn extends Component<
             },
         },
     };
+
     onSubmit = async (e: SubmitEvent) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -95,9 +106,33 @@ export default class SignIn extends Component<
         this.setState(() => newState);
 
         if (validFlag) {
-            signInService(formData)
-                .then(() => navigator.navigate('/'))
-                .catch(err => console.log(err));
+            authService
+                .signIn(formData)
+                .then(body => {
+                    dispatch(
+                        userActions.SIGN_IN(
+                            body.id,
+                            body.user_type === 'employer'
+                                ? body.company_name
+                                : body.applicant_name,
+                            body.applicant_surname,
+                            body.image,
+                            body.user_type,
+                        ),
+                    );
+                    navigator.navigate(
+                        body.user_type === 'employer'
+                            ? EMPLOYER_PATHS.PROFILE + body.id
+                            : APPLICANT_PATHS.PROFILE + body.id,
+                    );
+                })
+                .catch(body => {
+                    setInvalidFieldsFromServer(
+                        body as ResponseBody,
+                        newState.inputs,
+                        (() => this.setState(() => newState)).bind(this),
+                    );
+                });
         }
     };
 
@@ -135,10 +170,22 @@ export default class SignIn extends Component<
                             Войти
                         </ButtonPrimaryBigBlue>
                         <Link
-                            to={'/signup'}
+                            to={SIGN_UP_PATH}
                             content={
                                 <p className={styles.form_link}>
-                                    Впервые на нашем сайте? Зарегестрироваться
+                                    Впервые на нашем сайте? Зарегистрироваться
+                                </p>
+                            }
+                        />
+                        <Link
+                            to={START_PATH}
+                            content={
+                                <p
+                                    className={
+                                        'font-size-12 color-300 text-align-center'
+                                    }
+                                >
+                                    Перейти на главную страницу
                                 </p>
                             }
                         />

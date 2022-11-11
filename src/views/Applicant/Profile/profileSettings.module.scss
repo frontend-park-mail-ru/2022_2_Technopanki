@@ -1,0 +1,11 @@
+@import '../../../styles/screens';
+
+.birthday {
+  grid-column: 1 / 5;
+  grid-row-start: 2;
+}
+
+.city {
+  grid-column: 5 / 9;
+  grid-row-start: 2;
+}

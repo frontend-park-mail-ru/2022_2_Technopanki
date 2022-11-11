@@ -1,5 +1,5 @@
 import network from '../lib/network';
-import { USER_URLS } from '../utils/constants';
+import { USER_URLS } from '../utils/networkConstants';
 
 export const signInService = async (formData: FormData) => {
     return await network.POST(

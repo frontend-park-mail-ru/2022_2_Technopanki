@@ -1,8 +1,7 @@
 import { Component } from '../../../../../Reacts';
 import styles from './input.module.scss';
 
-// TODO: перенести вывод сообщений об ошиках в input + добавиьт onBlur
-export default class Input extends Component<{
+export type InputPropsType = {
     id: string;
     type: string;
     placeholder: string;
@@ -12,10 +11,14 @@ export default class Input extends Component<{
     required?: boolean;
     error?: boolean;
     errorMessage?: string;
-}> {
+    onBlur?: Function;
+};
+
+// TODO: перенести вывод сообщений об ошиках в input + добавиьт onBlur
+export default class Input extends Component<InputPropsType> {
     render() {
         return (
-            <div className={'flex column g-8'}>
+            <div className={'flex w-100 column g-8'}>
                 <label
                     key={'label'}
                     className={`${styles.label}`}

@@ -1,39 +1,44 @@
-import { Component } from '../Reacts';
+import { Component, renderNode } from '../Reacts';
+import './styles/globals.scss';
+import { setTheme } from './utils/toggleTheme';
+import StartPage from './views/StartPage/StartPage';
+// TODO: rename navigator
 import router from './router/navigator';
-import Test from './Test';
-import Link from './components/Link';
-import Button from './components/UI-kit/buttons/Button';
+import { ROUTER_PATHS } from './config/router.config';
+import { authService } from './services/authService';
+import { dispatch } from './store';
+import { userActions } from './store/user/actions';
 
 class App extends Component {
     render() {
-        return (
-            <div>
-                <p>Hello from main page!</p>
-                <Link
-                    to={'/test'}
-                    content={
-                        <Button>
-                            <p>Go to test page</p>
-                        </Button>
-                    }
-                />
-            </div>
-        );
+        return <StartPage />;
     }
 }
 
-class NotFound extends Component {
-    render() {
-        return (
-            <div>
-                <p>404 page not found</p>
-            </div>
-        );
-    }
-}
+router.disableScrollRestoration();
 
-router.addNewPath('/', <App />);
-router.addNewPath('/test', <Test />);
-router.setFallback('/404', <NotFound />);
-console.log(location.pathname);
-router.navigate(location.pathname);
+router.addNewPath({ path: '/', validator: (url: string) => url === '/' }, App);
+router.addNewPaths(ROUTER_PATHS);
+// router.setFallback('/404', <NotFound />);
+
+authService
+    .auth()
+    .then(body => {
+        dispatch(
+            userActions.SIGN_IN(
+                body.id,
+                body.user_type === 'employer'
+                    ? body.company_name
+                    : body.applicant_name,
+                body.applicant_surname,
+                body.image ?? body.imgSrc,
+                body.user_type,
+            ),
+        );
+        router.navigate(location.pathname);
+    })
+    .catch(() => {
+        router.navigate(location.pathname);
+    });
+
+setTheme();

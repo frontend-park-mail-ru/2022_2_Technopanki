@@ -55,7 +55,24 @@ const createComponentNode = (
         props,
         key: maybeKey ?? getUniqueSymbol(),
         _domElement: undefined,
+        unmount: function (deleteDom: boolean = true) {
+            // deleteDom && this._domElement?.remove();
+            this._instance?.componentWillUnmount();
+            this._instance?.unmount();
+            delete this._instance;
+            Array.isArray(this.props.children)
+                ? this.props.children.forEach((child: VNodeType) => {
+                      child?.unmount();
+                      // child && delete child
+                  })
+                : typeof this.props.children?.unmount === 'function' &&
+                  this.props.children?.unmount();
+
+            delete this.props.children;
+        },
     };
+
+    vnode.unmount = vnode.unmount.bind(vnode);
 
     vnode._instance = new (<ComponentConstructor>vnode.type)(props);
     vnode.props.children = vnode._instance.render();
@@ -85,19 +102,39 @@ const createDomNode = (
         case 'h6':
         case 'p':
         case 'a':
-        case 'label':
+        case 'textarea':
             if (Array.isArray(props.children)) {
                 props.children = props.children.join('');
             }
+            break;
+        case 'label':
+            if (
+                Array.isArray(props.children) &&
+                typeof props.children[0] === 'string'
+            ) {
+                props.children = props.children.join('');
+            }
+            break;
     }
 
-    return {
+    const vnode: VNodeType = {
         $$typeof: DOM_NODE_SYMBOL,
         type,
         props,
         key: maybeKey ?? getUniqueSymbol(),
         _domElement: undefined,
+        unmount: function (deleteDom: boolean = true) {
+            // deleteDom && this._domElement?.remove();
+            Array.isArray(this.props.children)
+                ? this.props.children.forEach(child => child.unmount())
+                : typeof this.props.children?.unmount === 'function' &&
+                  this.props.children?.unmount();
+            delete this.props.children;
+        },
     };
+
+    vnode.unmount = vnode.unmount.bind(vnode);
+    return vnode;
 };
 
 /**

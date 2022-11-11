@@ -12,8 +12,10 @@
   box-shadow: var(--shadow-grey-sm);
   border-radius: var(--border-radius-md);
   transition: var(--transition-sfast);
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
+  height: 100%;
+  max-height: 42px;
   &:hover {
     box-shadow: var(--shadow-grey-md);
   }
@@ -25,6 +27,7 @@
   color: var(--white);
   box-shadow: var(--shadow-blue-sm);
   border: var(--border-blue);
+  font-weight: 600;
   &:hover {
     background-color: var(--primary-blue-darker);
     box-shadow: var(--shadow-blue-md);
@@ -37,6 +40,7 @@
   color: var(--white);
   border: var(--border-blue);
   background-color: var(--primary-blue);
+  font-weight: 600;
   &:hover {
     background-color: var(--primary-blue-darker);
     box-shadow: var(--shadow-blue-md);
@@ -47,8 +51,13 @@
   background-color: var(--background-900);
   color: var(--background-0);
   border: var(--border-dark);
+  font-weight: 500;
 }
 
+.btn__not-active {
+  background-color: var(--background-50);
+  color: var(--background-500);
+}
 
 .btn-arrow {
   height: 36px;
@@ -82,4 +91,18 @@
   svg path {
     fill: var(--background-900);
   }
+}
+
+.btn-icon {
+  > svg {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+.btn-red {
+  border: var(--border-red);
+  background-color: var(--background-red);
+  color: var(--primary-red);
+  font-weight: 600;
 }

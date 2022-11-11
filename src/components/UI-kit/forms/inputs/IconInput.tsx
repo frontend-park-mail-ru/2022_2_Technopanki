@@ -2,39 +2,35 @@ import { Component } from '../../../../../Reacts';
 import styles from './input.module.scss';
 
 export default class IconInput extends Component<{
-    id: string
-    icon: any
-    type: string
-    placeholder: string
-    children: string;
+    id: string;
+    icon: any;
+    type: string;
+    placeholder: string;
+    label: string;
+    name: string;
+    value?: string;
 }> {
     render() {
         return (
-            <div
-                className={'flex column g-8'}
-            >
-                <label
-                    className={`${styles.label}`}
-                    for={this.props.id}
-                >
-                    {this.props.children}
+            <div className={'flex w-100 column g-8'}>
+                <label className={`${styles.label}`} for={this.props.id}>
+                    {this.props.label}
                 </label>
-                <form
-                    className={'flex row'}
-                >
+                <div className={'flex row'}>
                     <div
                         className={styles.icon}
                         dangerouslySetInnerHTML={{ __html: this.props.icon }}
-                    >
-                    </div>
+                    ></div>
                     <input
-                        className={`${styles.input} ${styles.icon_cursor}`}
+                        className={`w-100 ${styles.input} ${styles.icon_cursor}`}
                         id={this.props.id}
                         type={this.props.type}
                         placeholder={this.props.placeholder}
+                        name={this.props.name}
+                        value={this.props.value}
                     />
-                </form>
+                </div>
             </div>
-        )
+        );
     }
 }

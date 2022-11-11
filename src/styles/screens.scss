@@ -7,23 +7,29 @@ $screen-xxl: 3656px;
 
 .screen-responsive {
   @media (max-width: $screen-sm) {
-    padding: var(--padding-screen-sm);
+    padding-left: var(--padding-screen-sm);
+    padding-right: var(--padding-screen-sm);
   }
   @media (min-width: $screen-sm) and (max-width: $screen-md){
-    padding: var(--padding-screen-md);
+    padding-left: var(--padding-screen-md);
+    padding-right: var(--padding-screen-md);
   }
   @media (min-width: $screen-md) and (max-width: $screen-lg){
-    padding: var(--padding-screen-lg);
+    padding-left: var(--padding-screen-lg);
+    padding-right: var(--padding-screen-lg);
   }
   @media (min-width: $screen-lg) and (max-width: $screen-xl){
-    padding: var(--padding-screen-xlg);
+    padding-left: var(--padding-screen-xlg);
+    padding-right: var(--padding-screen-xlg);
   }
   @media (min-width: $screen-xl) and (max-width: $screen-xxl){
-    padding: var(--padding-screen-xxlg);
+    padding-left: var(--padding-screen-xxlg);
+    padding-right: var(--padding-screen-xxlg);
   }
 }
 
 .columns {
+  display: grid;
   grid-template-columns: repeat(12, 1fr);
 }
 

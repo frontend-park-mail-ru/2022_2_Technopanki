@@ -19,6 +19,7 @@ import { childrenDiff } from './childrenDiff';
 import { Context } from '../../reacts/context';
 import { setContextValue } from '../../reacts/context/context';
 
+// TODO: rename to props
 /**
  * A function that looks for which attributes to add, remove or change
  * @param oldNodeProps
@@ -38,19 +39,27 @@ const compareAttributes = (
     const oldNodeAttrNames = oldNodeWithoutChildren.map(([attr, _]) => attr);
     const newNodeAttrNames = newNodeWithoutChildren.map(([attr, _]) => attr);
 
+    const update = newNodeWithoutChildren.filter(
+        ([attr, value]) =>
+            oldNodeAttrNames.indexOf(attr) !== -1 &&
+            oldNodeWithoutChildren.find(
+                node => node[0] === attr && node[1] !== value,
+            ),
+    );
+
     return {
         set: newNodeWithoutChildren.filter(
             ([attr, _]) => oldNodeAttrNames.indexOf(attr) === -1,
         ),
-        remove: oldNodeAttrNames.filter(
-            attr => newNodeAttrNames.indexOf(attr) === -1,
+        remove: oldNodeWithoutChildren.filter(
+            ([attr, _]) => newNodeAttrNames.indexOf(attr) === -1,
         ),
-        update: newNodeWithoutChildren.filter(
-            ([attr, value]) =>
-                oldNodeAttrNames.indexOf(attr) !== -1 &&
-                oldNodeWithoutChildren.find(
-                    node => node[0] === attr && node[1] !== value,
-                ),
+        update,
+        removeFromUpdate: newNodeWithoutChildren.filter(([attr, _]) =>
+            update.find(
+                ([updateAttr, _]) =>
+                    updateAttr === attr && attr.startsWith('on'),
+            ),
         ),
     };
 };
@@ -60,7 +69,7 @@ const isPrimitiveTypeChildren = (
     newNode: VNodeType,
 ): boolean => {
     return (
-        (!oldNode.props.children && !oldNode.props.children) ||
+        (!oldNode.props.children && !newNode.props.children) ||
         (typeof oldNode.props.children === 'string' &&
             typeof newNode.props.children === 'string')
     );
@@ -72,10 +81,14 @@ const isPrimitiveTypeChildren = (
  * @param newNode
  */
 const comparePrimitiveTypeChildren = (
+    attrUpdater: AttributeUpdater,
     oldNode: VNodeType,
     newNode: VNodeType,
 ): Operation => {
     if (!oldNode.props.children && !newNode.props.children) {
+        if (attrUpdater !== emptyAttrUpdate) {
+            return update(attrUpdater, [], newNode);
+        }
         return skip();
     } else if (!oldNode.props.children && newNode.props.children) {
         return insert(newNode);
@@ -161,7 +174,7 @@ const createDiffDOM = (oldNode: VNodeType, newNode: VNodeType) => {
     newNode._domElement = oldNode._domElement;
 
     if (isPrimitiveTypeChildren(oldNode, newNode)) {
-        return comparePrimitiveTypeChildren(oldNode, newNode);
+        return comparePrimitiveTypeChildren(attrUpdate, oldNode, newNode);
     }
 
     // because we checked the primitive types above in the code,

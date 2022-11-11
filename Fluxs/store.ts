@@ -10,7 +10,11 @@ export default class Store<S = any> implements StoreType {
     currentReducer: Reducer;
     listeners: (() => void)[] = [];
 
-    constructor(reducer: Reducer, initialState: S, listeners: (() => void)[]) {
+    constructor(
+        reducer: Reducer,
+        initialState: S,
+        listeners: (() => void)[] = [],
+    ) {
         this.state = initialState;
         this.currentReducer = reducer;
         this.listeners = listeners;
@@ -21,8 +25,11 @@ export default class Store<S = any> implements StoreType {
      * @param action
      */
     dispatch(action: Action): void {
-        this.state = this.currentReducer(this.state, action);
-        this.listeners.forEach(listener => listener());
+        const tempState = this.currentReducer(this.state, action);
+        if (tempState !== this.state) {
+            this.state = tempState;
+            this.listeners.forEach(listener => listener());
+        }
     }
 
     /**

@@ -4,11 +4,11 @@ import Header from '../../components/UI-kit/header/Header';
 import ArrowButtonWithText from '../../components/UI-kit/buttons/ArrowButtonWithText';
 import ArrowButtonWithTextOutline from '../../components/UI-kit/buttons/ArrowButtonWithTextOutline';
 import Logo from '../../static/assets/JobflowDefault.svg';
-import img from '../../static/assets/MainPicture.png';
+import Link from '../../components/Link/Link';
+import { SIGN_UP_PATH, VACANCIES_PATH } from '../../utils/routerConstants';
 
 export default class StartPage extends Component {
     render() {
-        console.log(img);
         return (
             <div
                 className={
@@ -39,18 +39,34 @@ export default class StartPage extends Component {
                         </p>
                     </div>
                     <div key={'buttons'} className={'flex column g-16'}>
-                        <ArrowButtonWithText key={'1'}>
-                            <p>Создать аккаунт</p>
-                        </ArrowButtonWithText>
-                        <ArrowButtonWithTextOutline key={'2'}>
-                            <p>Посмотреть все вакансии</p>
-                        </ArrowButtonWithTextOutline>
+                        <Link
+                            to={SIGN_UP_PATH}
+                            content={
+                                <ArrowButtonWithText key={'1'}>
+                                    <p>Создать аккаунт</p>
+                                </ArrowButtonWithText>
+                            }
+                        />
+                        <Link
+                            to={VACANCIES_PATH}
+                            content={
+                                <ArrowButtonWithTextOutline key={'2'}>
+                                    <p>Посмотреть все вакансии</p>
+                                </ArrowButtonWithTextOutline>
+                            }
+                        />
                     </div>
                 </div>
-                <div className={`col-md-6 col-0 flex h-100 align-items-center`}>
-                    <div className={'absolute r-0'}>
-                        <img src={img} />
-                    </div>
+                <div
+                    className={`col-md-6 col-0 relative flex h-100 align-items-center`}
+                >
+                    <div className={`absolute r-0 ${styles.picture}`}></div>
+                    <div
+                        className={`absolute ${styles.picture_overflow} ${styles['picture_overflow-1']}`}
+                    ></div>
+                    <div
+                        className={`absolute ${styles.picture_overflow} ${styles['picture_overflow-2']}`}
+                    ></div>
                 </div>
             </div>
         );

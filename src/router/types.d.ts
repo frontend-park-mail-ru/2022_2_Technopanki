@@ -9,5 +9,5 @@ export type Options = {
 };
 
 export interface RouterType {
-    navigate(to: Path, options?: Options): void;
+    navigate(to: Path): void;
 }
