@@ -5,6 +5,7 @@ import navigator from '../../router/navigator.tsx';
 import { userConnect } from '../../store';
 import { UserState } from '../../store/user/types';
 import { resumeService } from '../../services/resumeService';
+import { IMAGE_URL } from '../../utils/networkConstants';
 
 class SettingsHat extends Component<
     {
@@ -38,7 +39,7 @@ class SettingsHat extends Component<
         if (this.state.name === '') {
             resumeService.getResumeHatData(this.props.creatorID).then(body => {
                 this.setState(() => ({
-                    imgSrc: '../image/applicant.png',
+                    imgSrc: IMAGE_URL + body.image ?? body.imgSrc,
                     name: body.company_name,
                     status: body.status,
                 }));
@@ -47,7 +48,7 @@ class SettingsHat extends Component<
         if (this.state.surname !== '') {
             resumeService.getResumeHatData(this.props.creatorID).then(body => {
                 this.setState(() => ({
-                    imgSrc: body.image ?? body.imgSrc,
+                    imgSrc: IMAGE_URL + body.image ?? body.imgSrc,
                     name: body.applicant_name,
                     surname: body.applicant_surname,
                     status: body.status,

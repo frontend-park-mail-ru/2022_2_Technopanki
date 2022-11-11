@@ -10,14 +10,15 @@ import RenderWithCondition from '../../components/RenderWithCondition';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 import { dispatch } from '../../store';
 import { activateError, deactivateError } from '../../store/errors/actions';
+import { IMAGE_URL } from '../../utils/networkConstants';
 
 export default class Vacancies extends Component<
     {},
     {
         vacancies: {
-            id: string | number;
+            id: number;
             title: string;
-            img: string;
+            image: string;
             salary: string;
             currency: string;
             location: string;
@@ -80,7 +81,7 @@ export default class Vacancies extends Component<
                                 key={vacancy.id.toString()}
                                 id={vacancy.id.toString()}
                                 name={vacancy.title}
-                                icon={vacancy.img}
+                                icon={IMAGE_URL + vacancy.image}
                                 salary={vacancy.salary}
                                 currency={vacancy.currency}
                                 location={vacancy.location}
