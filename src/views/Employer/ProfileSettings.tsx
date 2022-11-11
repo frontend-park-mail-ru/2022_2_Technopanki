@@ -251,21 +251,21 @@ class ProfileSettingsComponent extends Component<
                 formData,
             )
             .then(body => {
-                console.log('SETTINGS: ', body.image);
-                dispatch(
-                    profileActions.updateFromFormData(
-                        this.state.profile.id,
-                        this.state.profile.profileType
-                            ? this.state.profile.profileType
-                            : 'employer',
-                        body.image,
-                        formData,
-                    ),
-                );
+                // console.log('SETTINGS: ', body.image);
+                // dispatch(
+                //     profileActions.updateFromFormData(
+                //         this.state.profile.id,
+                //         this.state.profile.profileType
+                //             ? this.state.profile.profileType
+                //             : 'employer',
+                //         body.image,
+                //         formData,
+                //     ),
+                // );
                 dispatch(
                     userActions.updateName(formData.get('name') as string, ''),
                 );
-                dispatch(userActions.updateAvatar(body.image ?? body.imgSrc));
+                // dispatch(userActions.updateAvatar(body.image ?? body.imgSrc));
                 dispatch(
                     activateSuccess('Данные профиля успешно изменены!', ''),
                 );

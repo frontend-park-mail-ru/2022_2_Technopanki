@@ -53,6 +53,7 @@ import { userActions } from '../../../store/user/actions';
 import ButtonRed from '../../../components/UI-kit/buttons/ButtonRed';
 import { profileActions } from '../../../store/profile/actions';
 import FormSection from '../../../components/UI-kit/forms/FormSection';
+import { APPLICANT_PATHS } from '../../../utils/routerConstants';
 
 class AvatarSettingsComponent extends Component<
     { previewSrc: string },
@@ -299,7 +300,13 @@ class ApplicantSettings extends Component<
                         formData.get('surname') as string,
                     ),
                 );
-                setTimeout(() => navigator.goBack(), 1000);
+                setTimeout(
+                    () =>
+                        navigator.navigate(
+                            APPLICANT_PATHS.PROFILE + this.props.id,
+                        ),
+                    1000,
+                );
             })
             .catch(err => console.error(err));
     };
