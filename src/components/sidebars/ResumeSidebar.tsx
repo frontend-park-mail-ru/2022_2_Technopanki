@@ -35,15 +35,17 @@ export default class ResumeSidebar extends Component<
     };
 
     getCreatorData() {
-        applicantProfileService
-            .getApplicantData(this.props.creatorID as string)
-            .then(body => {
-                this.setState(() => ({
-                    location: body.location,
-                    dateOfBirth: body.date_of_birth,
-                    skills: [''],
-                }));
-            });
+        if (this.props.creatorID) {
+            applicantProfileService
+                .getApplicantData(this.props.creatorID as string)
+                .then(body => {
+                    this.setState(() => ({
+                        location: body.location,
+                        dateOfBirth: body.date_of_birth,
+                        skills: [''],
+                    }));
+                });
+        }
     }
 
     componentDidMount() {

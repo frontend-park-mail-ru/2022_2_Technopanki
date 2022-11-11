@@ -47,8 +47,7 @@ class VacancyHat extends Component<
                 .then(body => {
                     this.setState(() => ({
                         vacancyID: this.props.vacancyID,
-                        creatorImgSrc:
-                            IMAGE_URL + body.creator_img_src ?? body.image,
+                        creatorImgSrc: IMAGE_URL + body.image,
                         companyName: body.company_name,
                         status: body.status,
                     }));
