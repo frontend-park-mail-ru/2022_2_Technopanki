@@ -9,7 +9,13 @@ export const applicantProfileReducer: Reducer<ProfileState> = (
 ) => {
     switch (action.type) {
         case APPLICANT_ACTIONS_TYPE.UPDATE:
-            return { ...state, ...action.applicantProfile };
+            return {
+                ...state,
+                ...action.applicantProfile,
+                imgSrc:
+                    action.applicantProfile.avatarSrc ??
+                    action.applicantProfile.image,
+            };
         case APPLICANT_ACTIONS_TYPE.CLEAR:
             return defaultApplicantProfile;
         default:

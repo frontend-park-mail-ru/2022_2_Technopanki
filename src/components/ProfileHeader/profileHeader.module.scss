@@ -15,6 +15,7 @@
   @media (max-width: $screen-md) {
     height: 180px;
   }
+  z-index: -1;
 
   animation: Gradient 240s linear infinite;
 }

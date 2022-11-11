@@ -136,5 +136,6 @@ export default applicantConnect((state: ProfileState, props) => {
             facebook: state.facebook,
             telegram: state.telegram,
         },
+        imgSrc: state.imgSrc,
     };
 })(ApplicantProfile);
