@@ -13,6 +13,7 @@ export type ResumeListItemPropsType = {
     user_surname: string;
     title: string;
     created_date: string;
+    imgSrc: string;
     skills: string[];
 };
 
