@@ -8,7 +8,7 @@ import { RESUME_PATHS } from '../../../utils/routerConstants';
 export type ResumeListItemPropsType = {
     resume_id: string;
     id: string;
-    imgSrc: string;
+    image: string;
     user_name: string;
     user_surname: string;
     title: string;
