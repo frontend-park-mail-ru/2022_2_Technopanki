@@ -235,8 +235,11 @@ class ProfileSettingsComponent extends Component<
             return;
         }
 
+        const image = document.querySelector('#avatar').files[0];
+        const formDataImage = new FormData();
+        formDataImage.append('avatar', image);
         employerProfileService
-            .updateProfileImg(this.state.profile.id, formData)
+            .updateProfileImg(this.state.profile.id, formDataImage)
             .then(body => userActions.updateAvatar(body.image));
 
         employerProfileService
