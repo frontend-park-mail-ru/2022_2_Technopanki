@@ -251,6 +251,14 @@ class ProfileSettingsComponent extends Component<
                 formData,
             )
             .then(body => {
+                console.log('TEST: ', {
+                    id: this.state.profile.id,
+                    type: this.state.profile.profileType
+                        ? this.state.profile.profileType
+                        : 'employer',
+                    image: body.image,
+                    data: formData,
+                });
                 dispatch(
                     profileActions.updateFromFormData(
                         this.state.profile.id,
