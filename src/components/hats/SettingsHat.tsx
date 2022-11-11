@@ -18,6 +18,7 @@ class SettingsHat extends Component<
         creatorID: string;
         submit: Function;
         linkTo: string;
+        userID: string;
     },
     {
         // Flux
@@ -82,6 +83,7 @@ class SettingsHat extends Component<
 
 export default userConnect((state, props) => {
     return {
+        userID: state.id,
         name: state.name,
         surname: state.surname,
         status: props.status,

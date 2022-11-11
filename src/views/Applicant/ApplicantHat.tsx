@@ -5,9 +5,12 @@ import Link from '../../components/Link/Link';
 import { resumeService } from '../../services/resumeService';
 import { APPLICANT_PATHS, RESUME_PATHS } from '../../utils/routerConstants';
 import { IMAGE_URL } from '../../utils/networkConstants';
+import { userConnect } from '../../store';
+import RenderWithCondition from '../../components/RenderWithCondition';
 
-export default class ApplicantHat extends Component<
+class ApplicantHat extends Component<
     {
+        userID: string;
         creatorID: string;
         resumeID: string;
     },
@@ -53,9 +56,19 @@ export default class ApplicantHat extends Component<
                 linkTo={APPLICANT_PATHS.PROFILE + this.state.id}
                 rightSideContent={
                     <div className={'flex row flex-wrap g-12'}>
-                        <Link
-                            to={RESUME_PATHS.SETTINGS + this.props.resumeID}
-                            content={<Button>Настройки</Button>}
+                        <RenderWithCondition
+                            condition={
+                                this.props.userID === this.props.creatorID
+                            }
+                            onSuccess={
+                                <Link
+                                    to={
+                                        RESUME_PATHS.SETTINGS +
+                                        this.props.resumeID
+                                    }
+                                    content={<Button>Настройки</Button>}
+                                />
+                            }
                         />
                     </div>
                 }
@@ -63,3 +76,8 @@ export default class ApplicantHat extends Component<
         );
     }
 }
+
+export default userConnect((state, props) => ({
+    ...props,
+    userID: state.id,
+}))(ApplicantHat);
