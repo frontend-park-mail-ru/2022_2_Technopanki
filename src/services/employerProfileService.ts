@@ -79,7 +79,7 @@ export const employerProfileService: Service = {
                     throw response.status;
                 }
 
-                return response;
+                return response.body;
             })
             .catch(err => {
                 dispatch(stopLoading());
