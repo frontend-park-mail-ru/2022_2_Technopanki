@@ -5,6 +5,7 @@ import Link from '../../components/Link/Link';
 import { profileConnect } from '../../store';
 import { vacancyService } from '../../services/vacancyService';
 import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../utils/routerConstants';
+import { IMAGE_URL } from '../../utils/networkConstants';
 
 class VacancyResponsesHat extends Component<{
     name: string;
@@ -27,7 +28,8 @@ class VacancyResponsesHat extends Component<{
                 .getVacancyHatData(this.props.postedByUserID)
                 .then(body => {
                     this.setState(() => ({
-                        creatorImgSrc: this.state.imgSrc,
+                        creatorImgSrc:
+                            IMAGE_URL + this.state.imgSrc ?? this.state.image,
                         name: body.company_name,
                         status: body.status,
                     }));
@@ -43,7 +45,7 @@ class VacancyResponsesHat extends Component<{
     render() {
         return (
             <Hat
-                imgSrc={this.props.imgSrc}
+                imgSrc={this.props.imgSrc ?? this.state.creatorImgSrc}
                 name={this.state.name}
                 surname={''}
                 linkTo={EMPLOYER_PATHS.PROFILE + this.props.postedByUserID}
