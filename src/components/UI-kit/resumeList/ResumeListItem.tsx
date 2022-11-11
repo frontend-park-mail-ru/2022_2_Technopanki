@@ -6,12 +6,13 @@ import Chips from '../chips/Chips';
 import { RESUME_PATHS } from '../../../utils/routerConstants';
 
 export type ResumeListItemPropsType = {
+    resume_id: string;
     id: string;
     imgSrc: string;
-    name: string;
-    surname: string;
-    resumeTitle: string;
-    timeWhenCreated: string;
+    user_name: string;
+    user_surname: string;
+    title: string;
+    created_date: string;
     skills: string[];
 };
 

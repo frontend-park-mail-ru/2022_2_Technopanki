@@ -6,8 +6,6 @@
   transition: var(--transition-slow-0);
   background: var(--background-red-100);
   box-shadow: 0 6px 16px rgba(243, 42, 42, 0.12);
-  border-width: 2px;
-  border-image: linear-gradient(180deg, rgba(243, 42, 42, 0.8) 0%, rgba(243, 42, 42, 0.4) 100%);
   border: 2px solid var(--primary-red);
   border-radius: 24px;
 }

@@ -30,9 +30,8 @@ export default class ResumeList extends Component<
                     <p className={'col-0 col-md-4'}>Время создания резюме</p>
                 </div>
                 <div className={'w-100'}>
-                    {this.props
-                        .test()
-                        ?.slice(0, this.state.limit)
+                    {this.props.resume
+                        .slice(0, this.state.limit)
                         .map(resume => (
                             <ResumeListItem
                                 key={
