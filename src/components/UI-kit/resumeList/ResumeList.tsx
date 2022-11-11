@@ -1,5 +1,6 @@
 import { Component } from '../../../../Reacts';
 import ResumeListItem, { ResumeListItemPropsType } from './ResumeListItem';
+import { IMAGE_URL } from '../../../utils/networkConstants';
 
 export default class ResumeList extends Component<
     {
@@ -42,7 +43,14 @@ export default class ResumeList extends Component<
                                     resume.resume_id.toString() ??
                                     resume.id.toString()
                                 }
-                                imgSrc={resume.imgSrc ?? resume.image}
+                                resume_id={
+                                    typeof resume.resume_id === 'string'
+                                        ? resume.resume_id
+                                        : resume.resume_id.toString()
+                                }
+                                imgSrc={
+                                    IMAGE_URL + resume.imgSrc ?? resume.image
+                                }
                                 name={resume.user_name}
                                 surname={resume.user_surname}
                                 resumeTitle={resume.title}
