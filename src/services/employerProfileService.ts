@@ -14,7 +14,7 @@ export const employerProfileService: Service = {
     getProfileData: async (profileID: string) => {
         dispatch(startLoading());
         return await network
-            .GET(PROFILE_URLS.USER_SAFE + profileID, requestHeaders.jsonHeader)
+            .GET(PROFILE_URLS.USER_SAFE + profileID)
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {

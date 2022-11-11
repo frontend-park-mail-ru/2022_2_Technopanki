@@ -19,8 +19,8 @@ export const profileActions: { [key: string]: (...data: any[]) => Action } = {
         formData: FormData,
     ) => ({
         type: PROFILE_ACTION_TYPES.UPDATE_FROM_FORM,
-        profileID,
-        avatarSrc,
+        profileID: profileID,
+        avatarSrc: avatarSrc,
         formData: formData,
     }),
 };
