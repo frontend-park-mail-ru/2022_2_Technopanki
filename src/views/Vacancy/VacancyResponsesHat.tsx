@@ -28,8 +28,7 @@ class VacancyResponsesHat extends Component<{
                 .getVacancyHatData(this.props.postedByUserID)
                 .then(body => {
                     this.setState(() => ({
-                        creatorImgSrc:
-                            IMAGE_URL + this.state.imgSrc ?? this.state.image,
+                        creatorImgSrc: IMAGE_URL + this.state.image,
                         name: body.company_name,
                         status: body.status,
                     }));
