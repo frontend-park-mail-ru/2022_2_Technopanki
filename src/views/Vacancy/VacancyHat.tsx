@@ -21,7 +21,6 @@ class VacancyHat extends Component<
         userType: string;
         authorized: boolean;
         sendRequest: boolean;
-        avatarSrc: string;
     },
     {
         creatorImgSrc: string;
@@ -47,7 +46,7 @@ class VacancyHat extends Component<
                 .then(body => {
                     this.setState(() => ({
                         vacancyID: this.props.vacancyID,
-                        creatorImgSrc: body.creator_img_src,
+                        creatorImgSrc: body.creator_img_src ?? body.image,
                         companyName: body.company_name,
                         status: body.status,
                     }));
@@ -67,7 +66,7 @@ class VacancyHat extends Component<
     render() {
         return (
             <Hat
-                imgSrc={this.props.avatarSrc}
+                imgSrc={this.state.creatorImgSrc}
                 name={this.state.companyName}
                 surname={''}
                 status={this.state.status}
@@ -149,7 +148,6 @@ export default userConnect((state, props) => {
         vacancyID: props.vacancyID,
         postedByUserID: props.postedByUserID,
         sendRequest: props.sendRequest,
-        avatarSrc: props.avatarSrc,
         userID: state.id,
         userType: state.userType,
         authorized: state.authorized,
