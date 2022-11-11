@@ -27,7 +27,7 @@ export const userReducer: Reducer<UserState> = (
                 ...state,
                 name: action.name,
                 surname: action.surname,
-                avatarSrc: IMAGE_URL + action.imgSrc ?? action.image,
+                avatarSrc: IMAGE_URL + action.image ?? action.imgSrc,
             };
         case 'LOGOUT':
             return {

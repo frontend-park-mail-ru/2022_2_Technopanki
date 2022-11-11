@@ -63,7 +63,7 @@ class SettingsHat extends Component<
     render() {
         return (
             <Hat
-                imgSrc={this.props.imgSrc}
+                imgSrc={this.state.imgSrc}
                 name={this.state.name}
                 surname={this.props.surname ?? ''}
                 status={this.state.status}
