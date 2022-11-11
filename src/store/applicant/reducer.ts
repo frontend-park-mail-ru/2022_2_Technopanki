@@ -13,9 +13,8 @@ export const applicantProfileReducer: Reducer<ProfileState> = (
             return {
                 ...state,
                 ...action.applicantProfile,
-                avatarSrc:
-                    IMAGE_URL + action.applicantProfile.avatarSrc ??
-                    action.applicantProfile.image,
+                id: action.applicantProfile.id.toString(),
+                avatarSrc: IMAGE_URL + action.applicantProfile.image,
             };
         case APPLICANT_ACTIONS_TYPE.CLEAR:
             return defaultApplicantProfile;

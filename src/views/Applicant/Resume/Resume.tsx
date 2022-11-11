@@ -57,7 +57,9 @@ class Resume extends Component<ResumePropsType> {
                             resumeID={
                                 this.props.id
                                     ? this.props.id
-                                    : location.pathname.split('/').at(-1)
+                                    : (location.pathname
+                                          .split('/')
+                                          .at(-1) as string)
                             }
                         />
                     </div>
