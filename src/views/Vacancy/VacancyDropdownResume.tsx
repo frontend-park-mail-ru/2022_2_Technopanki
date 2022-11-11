@@ -21,6 +21,7 @@ class Resume extends Component<
     ResumeType & { name: string; surname: string; vacancyID: string }
 > {
     async sendResponseToServer() {
+        console.log('before apply: ', this.props);
         return await applicantProfileService.apply(
             this.props.vacancyID,
             this.props.id,
@@ -61,7 +62,7 @@ class Resume extends Component<
                                 );
                             })
                             .catch(err => {
-                                if (err === 500) {
+                                if (err === 400) {
                                     dispatch(
                                         activateError(
                                             'Вы уже откликнулись на эту вакансию',
