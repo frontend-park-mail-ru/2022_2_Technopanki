@@ -16,7 +16,7 @@ class VacancyResponsesHat extends Component<{
     vacancyID: string;
 }> {
     state = {
-        creatorImgSrc: '',
+        creatorImgSrc: this.props.imgSrc,
         imgSrc: this.props.imgSrc,
         name: this.props.name,
         status: this.props.status,
@@ -28,7 +28,7 @@ class VacancyResponsesHat extends Component<{
                 .getVacancyHatData(this.props.postedByUserID)
                 .then(body => {
                     this.setState(() => ({
-                        creatorImgSrc: IMAGE_URL + this.state.image,
+                        creatorImgSrc: IMAGE_URL + body.image,
                         name: body.company_name,
                         status: body.status,
                     }));
