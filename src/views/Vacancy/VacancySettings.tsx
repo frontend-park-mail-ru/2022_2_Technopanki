@@ -273,11 +273,13 @@ class VacancySettings extends Component<
         }
 
         if (this.state.isNew) {
+        } else {
             vacancyService
                 .createVacancy(
                     this.props.postedByUserID,
                     formData,
-                    this.props.avatarSrc,
+                    ((this.props.avatarSrc.split('/').at(-1) as string) +
+                        this.props.avatarSrc.split('/').at(-2)) as string,
                 )
                 .then(body => {
                     if (body.id) {
@@ -288,7 +290,6 @@ class VacancySettings extends Component<
                         );
                     }
                 });
-        } else {
             vacancyService
                 .updateVacancy(this.props.id, formData)
                 .then(() => {
