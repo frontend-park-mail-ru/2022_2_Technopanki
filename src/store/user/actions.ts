@@ -5,24 +5,28 @@ export const userActions = {
         id: string,
         name: string,
         surname: string,
+        imgSrc: string,
         userType: UserType,
     ): AuthAction => ({
         type: 'SIGN_UP',
         id,
         name,
         surname,
+        imgSrc,
         userType,
     }),
     SIGN_IN: (
         id: string,
         name: string,
         surname: string,
+        imgSrc: string,
         userType: UserType,
     ): AuthAction => ({
         type: 'SIGN_IN',
         id,
         name,
         surname,
+        imgSrc,
         userType,
     }),
     updateName: (name: string, surname: string) => ({

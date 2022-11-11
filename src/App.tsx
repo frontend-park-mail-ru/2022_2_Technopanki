@@ -31,6 +31,7 @@ authService
                     ? body.company_name
                     : body.applicant_name,
                 body.applicant_surname,
+                body.image ?? body.imgSrc,
                 body.user_type,
             ),
         );

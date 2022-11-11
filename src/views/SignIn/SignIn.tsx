@@ -116,6 +116,7 @@ export default class SignIn extends Component<
                                 ? body.company_name
                                 : body.applicant_name,
                             body.applicant_surname,
+                            body.image ?? body.imgSrc,
                             body.user_type,
                         ),
                     );

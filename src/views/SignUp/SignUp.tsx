@@ -309,8 +309,7 @@ export default class SignUp extends Component<
 
         this.setState(() => newState);
 
-        let newUserID: string;
-
+        // TODO: здесь новоеизображение надо не забыть засетить
         if (validFlag) {
             authService
                 .signUp(formData)
@@ -322,6 +321,7 @@ export default class SignUp extends Component<
                                 ? (formData.get('applicant_name') as string)
                                 : (formData.get('company_name') as string),
                             formData.get('applicant_surname') as string,
+                            '',
                             formData.get('toggle') as 'applicant' | 'employer',
                         ),
                     );

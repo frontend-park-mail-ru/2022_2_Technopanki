@@ -379,7 +379,7 @@ const UserWrapper = userConnect((state, props) => ({
     avatarSrc: state.avatarSrc,
 }))(VacancySettings);
 
-export default vacancyConnect((state, props) => ({
+export default vacancyConnect(state => ({
     id: state.id,
     postedByUserID: state.postedByUserID,
 }))(UserWrapper);
