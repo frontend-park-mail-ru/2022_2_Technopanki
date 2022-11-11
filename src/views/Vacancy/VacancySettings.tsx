@@ -273,7 +273,6 @@ class VacancySettings extends Component<
         }
 
         if (this.state.isNew) {
-        } else {
             vacancyService
                 .createVacancy(
                     this.props.postedByUserID,
@@ -290,6 +289,7 @@ class VacancySettings extends Component<
                         );
                     }
                 });
+        } else {
             vacancyService
                 .updateVacancy(this.props.id, formData)
                 .then(() => {
