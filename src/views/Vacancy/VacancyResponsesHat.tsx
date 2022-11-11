@@ -43,7 +43,7 @@ class VacancyResponsesHat extends Component<{
     render() {
         return (
             <Hat
-                imgSrc={'../image/employer.png'}
+                imgSrc={this.props.imgSrc}
                 name={this.state.name}
                 surname={''}
                 linkTo={EMPLOYER_PATHS.PROFILE + this.props.postedByUserID}
