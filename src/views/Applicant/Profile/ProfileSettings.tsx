@@ -299,7 +299,7 @@ class ApplicantSettings extends Component<
                         formData.get('surname') as string,
                     ),
                 );
-                navigator.goBack();
+                setTimeout(() => navigator.goBack(), 1000);
             })
             .catch(err => console.error(err));
     };

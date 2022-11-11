@@ -270,7 +270,13 @@ class ProfileSettingsComponent extends Component<
                     activateSuccess('Данные профиля успешно изменены!', ''),
                 );
                 setTimeout(() => dispatch(deactivateSuccess()), 3000);
-                navigator.navigate(EMPLOYER_PATHS.PROFILE + this.props.id);
+                setTimeout(
+                    () =>
+                        navigator.navigate(
+                            EMPLOYER_PATHS.PROFILE + this.props.id,
+                        ),
+                    1000,
+                );
             })
             .catch(err => {
                 dispatch(
