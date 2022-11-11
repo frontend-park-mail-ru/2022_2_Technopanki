@@ -15,6 +15,7 @@ export const profileActions: { [key: string]: (...data: any[]) => Action } = {
     updateFromFormData: (
         profileID: string,
         userType: string,
+        avatarSrc: string,
         formData: FormData,
     ) => ({
         type: PROFILE_ACTION_TYPES.UPDATE_FROM_FORM,

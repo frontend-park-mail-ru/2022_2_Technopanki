@@ -27,14 +27,18 @@ export const userReducer: Reducer<UserState> = (
                 ...state,
                 name: action.name,
                 surname: action.surname,
-                avatarSrc: IMAGE_URL + action.image ?? action.imgSrc,
+            };
+        case 'UPDATE_USER_AVATAR':
+            return {
+                ...state,
+                avatarSrc: IMAGE_URL + action.avatarSrc,
             };
         case 'LOGOUT':
             return {
                 id: '',
                 name: '',
                 surname: '',
-                avatarSrc: '',
+                avatarSrc: 'default.png',
                 userType: null,
                 authorized: false,
             };

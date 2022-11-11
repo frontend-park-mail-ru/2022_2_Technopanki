@@ -38,7 +38,7 @@ export const profileReducer: Reducer<ProfileState> = (
             return {
                 ...state,
                 // avatarSrc: IMAGE_URL + action.state.image,
-                avatarSrc: IMAGE_URL + 'test.png',
+                avatarSrc: IMAGE_URL + action.avatarSrc,
                 id: action.profileID,
                 profileType: action.userType,
                 name: action.formData.get('name'),

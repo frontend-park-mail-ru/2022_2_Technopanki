@@ -61,7 +61,7 @@ class Resume extends Component<
                                 );
                             })
                             .catch(err => {
-                                if (err === 400) {
+                                if (err === 500) {
                                     dispatch(
                                         activateError(
                                             'Вы уже откликнулись на эту вакансию',

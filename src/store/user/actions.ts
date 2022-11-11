@@ -34,6 +34,10 @@ export const userActions = {
         name,
         surname,
     }),
+    updateAvatar: (avatarSrc: string) => ({
+        type: 'UPDATE_USER_AVATAR',
+        avatarSrc,
+    }),
     LOGOUT: () => ({
         type: 'LOGOUT',
     }),

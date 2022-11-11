@@ -16,11 +16,11 @@ export const employerProfileService: Service = {
         return await network
             .GET(PROFILE_URLS.USER_SAFE + profileID, requestHeaders.jsonHeader)
             .then(response => {
+                dispatch(stopLoading());
                 if (response.status > 399) {
                     throw response.status;
                 }
 
-                dispatch(stopLoading());
                 return response.body;
             })
             .catch(err => {
@@ -29,28 +29,28 @@ export const employerProfileService: Service = {
             });
     },
 
-    // TODO: доделать когда Аким сделаем ручку
-    getVacancies: async (profileID: string) => {},
-
-    updateProfileImg: async (profileID: string, formData: FormData) => {
-        const image = document.querySelector('#avatar').files[0];
-
-        const formDataNew = new FormData();
-        formDataNew.append('avatar', image);
+    updateProfileImg: async (profileID: string, image: FormData) => {
+        dispatch(startLoading());
 
         const options = {
             method: 'POST',
-            body: formDataNew,
+            body: image,
             mode: 'cors' as RequestMode,
             credentials: 'include' as RequestCredentials,
         };
 
-        console.log(options);
+        return await fetch(SERVER_URLS.IMAGE, options)
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
 
-        return await fetch(SERVER_URLS.IMAGE, options);
+                return response.json();
+            })
+            .catch(() => dispatch(stopLoading()));
     },
 
-    // TODO: написать конвертер
     updateProfile: async (
         profileID: string,
         profileType: string,

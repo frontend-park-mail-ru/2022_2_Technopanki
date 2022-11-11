@@ -278,7 +278,13 @@ class ApplicantSettings extends Component<
         }
 
         const applicantID = location.pathname.split('/').at(-1);
-        employerProfileService.updateProfileImg(applicantID, formData);
+
+        const image = document.querySelector('#avatar').files[0];
+        const formDataImage = new FormData();
+        formDataImage.append('avatar', image);
+        employerProfileService
+            .updateProfileImg(applicantID, formDataImage)
+            .then(body => userActions.updateAvatar(body.image));
 
         applicantProfileService
             .updateProfile(
