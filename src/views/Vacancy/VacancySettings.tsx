@@ -277,8 +277,7 @@ class VacancySettings extends Component<
                 .createVacancy(
                     this.props.postedByUserID,
                     formData,
-                    ((this.props.avatarSrc.split('/').at(-1) as string) +
-                        this.props.avatarSrc.split('/').at(-2)) as string,
+                    this.props.avatarSrc.split('/').at(-1) as string,
                 )
                 .then(body => {
                     if (body.id) {
