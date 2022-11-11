@@ -55,7 +55,7 @@ class Header extends Component<{ userType: string }> {
                             }
                         />
                         <RenderWithCondition
-                            condition={this.props.userType !== 'employer'}
+                            condition={this.props.userType === 'applicant'}
                             onSuccess={
                                 <Link
                                     to={RESUME_PATHS.NEW}

@@ -17,7 +17,8 @@ export const vacancyService: Service = {
                 }
 
                 return response.body;
-            });
+            })
+            .catch(() => dispatch(stopLoading()));
     },
 
     getAllVacanciesForEmployer: async (profileID: string) => {
@@ -52,7 +53,8 @@ export const vacancyService: Service = {
                 }
 
                 return response.body;
-            });
+            })
+            .catch(() => dispatch(stopLoading()));
     },
 
     getVacancyHatData: async (userID: string) => {
@@ -112,7 +114,8 @@ export const vacancyService: Service = {
                 }
 
                 return response.body;
-            });
+            })
+            .catch(() => dispatch(stopLoading()));
     },
 
     createVacancy: async (
@@ -144,7 +147,8 @@ export const vacancyService: Service = {
                 }
 
                 return response.body;
-            });
+            })
+            .catch(() => dispatch(stopLoading()));
     },
 
     deleteVacancy: async (vacancyID: string) => {
