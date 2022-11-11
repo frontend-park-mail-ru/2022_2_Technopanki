@@ -1,6 +1,6 @@
 export type ProfileState = {
     id: string;
-    imgSrc: string;
+    avatarSrc: string;
     applicant_name: string;
     applicant_surname: string;
     status: string;

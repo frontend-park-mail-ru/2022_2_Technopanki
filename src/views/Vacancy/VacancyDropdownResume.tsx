@@ -21,19 +21,13 @@ class Resume extends Component<
     ResumeType & { name: string; surname: string; vacancyID: string }
 > {
     async sendResponseToServer() {
-        return await applicantProfileService
-            .apply(
-                this.props.vacancyID,
-                this.props.id,
-                this.props.name,
-                this.props.surname,
-                this.props.title,
-            )
-            .then(body => body)
-            .catch(err => {
-                console.error(err);
-                throw err;
-            });
+        return await applicantProfileService.apply(
+            this.props.vacancyID,
+            this.props.id,
+            this.props.name,
+            this.props.surname,
+            this.props.title,
+        );
     }
 
     render() {
@@ -66,13 +60,22 @@ class Resume extends Component<
                                     3000,
                                 );
                             })
-                            .catch(() => {
-                                dispatch(
-                                    activateError(
-                                        'Ошибка при отправке резюме',
-                                        'Пожалуйста, повторите попытку',
-                                    ),
-                                );
+                            .catch(err => {
+                                if (err === 400) {
+                                    dispatch(
+                                        activateError(
+                                            'Вы уже откликнулись на эту вакансию',
+                                            'Откликаться более одного раза на одну вакансию нельзя',
+                                        ),
+                                    );
+                                } else {
+                                    dispatch(
+                                        activateError(
+                                            'Ошибка при отправке резюме',
+                                            'Пожалуйста, повторите попытку',
+                                        ),
+                                    );
+                                }
                                 setTimeout(
                                     () => dispatch(deactivateError()),
                                     3000,

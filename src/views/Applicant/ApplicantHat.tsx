@@ -1,16 +1,10 @@
 import { Component } from '../../../Reacts';
 import Button from '../../components/UI-kit/buttons/Button';
-import ButtonPrimary from '../../components/UI-kit/buttons/ButtonPrimary';
-import Dropdown from '../../components/UI-kit/dropdown/Dropdown';
 import Hat from '../../components/UI-kit/hat/Hat';
 import Link from '../../components/Link/Link';
-import { vacancyService } from '../../services/vacancyService';
 import { resumeService } from '../../services/resumeService';
-import ButtonIcon from '../../components/UI-kit/buttons/ButtonIcon';
-import PhoneIcon from '../../static/icons/phone.svg';
-import MailIcon from '../../static/icons/mail.svg';
-import ResumeIcon from '../../static/icons/resume.svg';
 import { RESUME_PATHS } from '../../utils/routerConstants';
+import { IMAGE_URL } from '../../utils/networkConstants';
 
 export default class ApplicantHat extends Component<
     {
@@ -34,7 +28,7 @@ export default class ApplicantHat extends Component<
     getCreatorDataFromServer = () => {
         resumeService.getResumeHatData(this.props.creatorID).then(body => {
             this.setState(() => ({
-                creatorImgSrc: 'image/applicant.png',
+                creatorImgSrc: IMAGE_URL + body.image ?? body.imgSrc,
                 name: body.applicant_name,
                 surname: body.applicant_surname,
                 status: body.status,
@@ -49,7 +43,7 @@ export default class ApplicantHat extends Component<
     render() {
         return (
             <Hat
-                imgSrc={'../image/applicant.png'}
+                imgSrc={this.state.creatorImgSrc}
                 name={this.state.name}
                 surname={this.state.surname}
                 status={this.state.status}

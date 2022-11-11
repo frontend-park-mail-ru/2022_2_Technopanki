@@ -36,7 +36,7 @@ export default class ResumeList extends Component<
                             <ResumeListItem
                                 key={resume.resume_id ?? resume.id}
                                 id={resume.resume_id ?? resume.id}
-                                imgSrc={resume.imgSrc}
+                                imgSrc={resume.imgSrc ?? resume.image}
                                 name={resume.user_name}
                                 surname={resume.user_surname}
                                 resumeTitle={resume.title}

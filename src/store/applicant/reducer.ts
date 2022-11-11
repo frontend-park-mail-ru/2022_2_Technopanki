@@ -2,6 +2,7 @@ import { Reducer } from '../../../Fluxs/types/reducer';
 import { ProfileState } from './type';
 import { APPLICANT_ACTIONS_TYPE } from './actions';
 import { defaultApplicantProfile } from './store';
+import { IMAGE_URL } from '../../utils/networkConstants';
 
 export const applicantProfileReducer: Reducer<ProfileState> = (
     state,
@@ -12,8 +13,8 @@ export const applicantProfileReducer: Reducer<ProfileState> = (
             return {
                 ...state,
                 ...action.applicantProfile,
-                imgSrc:
-                    action.applicantProfile.avatarSrc ??
+                avatarSrc:
+                    IMAGE_URL + action.applicantProfile.avatarSrc ??
                     action.applicantProfile.image,
             };
         case APPLICANT_ACTIONS_TYPE.CLEAR:

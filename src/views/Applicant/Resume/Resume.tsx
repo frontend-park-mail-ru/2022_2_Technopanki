@@ -45,8 +45,6 @@ class Resume extends Component<ResumePropsType> {
         this.getDataFromServer();
     }
 
-    componentDidUpdate() {}
-
     render() {
         return (
             <div className={'screen-responsive relative hidden g-24'}>
@@ -92,6 +90,7 @@ export default resumeConnect((state, props) => {
         postedByUserID: storeState.postedByUserID,
         title: storeState.title,
         description: storeState.description,
+        avatarSrc: storeState.avatarSrc,
         education: {
             university: storeState.university,
             faculty: storeState.faculty,

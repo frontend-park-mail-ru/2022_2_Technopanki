@@ -31,6 +31,7 @@ import {
     userConnect,
 } from '../../../store';
 import {
+    phoneValidation,
     validateEmail,
     validateNameSymbols,
     validatePasswordSymbols,
@@ -39,6 +40,7 @@ import {
     EMAIL_ERROR,
     NAME_SYMBOLS_ERROR,
     PASSWORD_SYMBOLS_ERROR,
+    PHONE_ERROR,
 } from '../../../utils/validation/messages';
 import { employerProfileService } from '../../../services/employerProfileService';
 import navigator from '../../../router/navigator.tsx';
@@ -190,8 +192,10 @@ class ApplicantSettings extends Component<
                         placeholder: '+7 (999) 999-99-99',
                         label: 'Телефон',
                         name: 'phone',
-                        required: true,
+                        required: false,
                         value: this.props.phone,
+                        validator: phoneValidation,
+                        errorMessage: PHONE_ERROR,
                     },
                     email: {
                         size: 4,

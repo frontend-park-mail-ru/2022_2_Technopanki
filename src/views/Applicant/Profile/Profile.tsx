@@ -23,7 +23,7 @@ import { APPLICANT_PATHS, RESUME_PATHS } from '../../../utils/routerConstants';
 
 type ApplicantPropsType = {
     id: string;
-    imgSrc: string;
+    avatarSrc: string;
     name: string;
     surname: string;
     status: string;
@@ -62,7 +62,8 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                 <Header />
                 <ProfileHeader
                     bannerSrc={'./'}
-                    avatarSrc={this.props.imgSrc}
+                    profileID={this.props.id}
+                    avatarSrc={this.props.avatarSrc}
                     name={this.props.name}
                     surname={this.props.surname}
                     status={this.props.status}
@@ -136,6 +137,6 @@ export default applicantConnect((state: ProfileState, props) => {
             facebook: state.facebook,
             telegram: state.telegram,
         },
-        imgSrc: state.imgSrc,
+        avatarSrc: state.avatarSrc,
     };
 })(ApplicantProfile);

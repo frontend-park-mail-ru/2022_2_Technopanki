@@ -19,6 +19,7 @@ import {
     NAME_SYMBOLS_ERROR,
     PASSWORD_REPEAT_ERROR,
     PASSWORD_SYMBOLS_ERROR,
+    PHONE_ERROR,
 } from '../../utils/validation/messages';
 import FormSection from '../../components/UI-kit/forms/FormSection';
 import { profileActions } from '../../store/profile/actions';
@@ -142,8 +143,7 @@ class ProfileSettingsComponent extends Component<
                         validator: phoneValidation,
                         required: false,
                         value: this.props.phone,
-                        errorMessage:
-                            'Номер телефона должен быть в формате: +7 (999) 999-99-99',
+                        errorMessage: PHONE_ERROR,
                     },
                     email: {
                         size: 4,

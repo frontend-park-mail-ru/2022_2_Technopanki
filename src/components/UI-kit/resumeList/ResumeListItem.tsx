@@ -88,7 +88,7 @@ export default class ResumeListItem extends Component<ResumeListItemPropsType> {
                     />
                     <div key={'data'} className={'flex column g-4'}>
                         <Link
-                            to={'/resume/1'}
+                            to={RESUME_PATHS.INDEX + this.props.resume_id}
                             content={
                                 <p key={'name'}>
                                     {this.props.name} {this.props.surname}
@@ -126,7 +126,7 @@ export default class ResumeListItem extends Component<ResumeListItemPropsType> {
                     }
                 >
                     <Link
-                        to={RESUME_PATHS.INDEX + this.props.id}
+                        to={RESUME_PATHS.INDEX + this.props.resume_id}
                         content={<ArrowButton />}
                     />
                 </div>
