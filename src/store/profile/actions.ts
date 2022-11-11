@@ -6,7 +6,6 @@ export const PROFILE_ACTION_TYPES = {
     UPDATE_FROM_FORM: 'PROFILE_UPDATE_FROM_FORM',
 };
 
-// TODO: внести в общий тип
 export const profileActions: { [key: string]: (...data: any[]) => Action } = {
     update: (newState: { [key: string]: any }) => ({
         type: PROFILE_ACTION_TYPES.UPDATE,
