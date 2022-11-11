@@ -45,7 +45,7 @@ export const SERVER_URLS = {
     APPLICANT: SERVER_URL + 'api/user/',
     APPLICANT_RESUMES: SERVER_URL + 'api/resume/applicant/preview/',
 
-    USER: SERVER_URL + 'api/user/',
+    USER: SERVER_URL + 'api/user/safety/',
     USER_SAFE: SERVER_URL + 'api/user/safety/',
     USER_PREVIEW: (userID: string) => {
         return SERVER_URL + 'api/user/preview/' + userID;
