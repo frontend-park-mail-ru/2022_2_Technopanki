@@ -15,6 +15,7 @@ import {
     validatePasswordSymbols,
 } from '../../utils/validation/validation';
 import {
+    COMPANY_NAME_ERROR,
     EMAIL_ERROR,
     NAME_SYMBOLS_ERROR,
     PASSWORD_REPEAT_ERROR,
@@ -114,7 +115,7 @@ class ProfileSettingsComponent extends Component<
                         value: this.props.name,
                         validator: validateCompanyName,
                         error: false,
-                        errorMessage: NAME_SYMBOLS_ERROR,
+                        errorMessage: COMPANY_NAME_ERROR,
                     },
                     status: {
                         size: 4,

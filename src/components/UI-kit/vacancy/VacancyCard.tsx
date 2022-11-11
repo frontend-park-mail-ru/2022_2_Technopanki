@@ -46,17 +46,12 @@ export default class VacancyCard extends Component<
             <div
                 className={`grid grid-template-columns g-16 rounded-lg p-24 ${styles.vacancy}`}
             >
-                <Link
-                    key={'link'}
-                    to={EMPLOYER_PATHS.PROFILE + this.props.id}
-                    content={
-                        <img
-                            className={'rounded-md'}
-                            height={40}
-                            width={40}
-                            src={IMAGE_URL + this.props.icon}
-                        />
-                    }
+                <img
+                    key={'img'}
+                    className={'rounded-md'}
+                    height={40}
+                    width={40}
+                    src={IMAGE_URL + this.props.icon}
                 />
                 <div
                     key={'vacancy-data'}

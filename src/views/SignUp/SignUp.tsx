@@ -6,6 +6,7 @@ import ButtonPrimaryBigBlue from '../../components/UI-kit/buttons/ButtonPrimaryB
 import RadioButton from '../../components/UI-kit/radioButton/radioButton';
 import Description from '../../components/auth/Description';
 import {
+    COMPANY_NAME_ERROR,
     EMAIL_ERROR,
     NAME_LENGTH_ERROR,
     NAME_SYMBOLS_ERROR,
@@ -258,22 +259,8 @@ export default class SignUp extends Component<
                     File
                 >,
                 newState.inputs['company_name'],
-                validateNameLength,
-                NAME_LENGTH_ERROR,
-            )
-        ) {
-            validFlag = false;
-        }
-        if (
-            this.state.toggleType === 'employer' &&
-            !validateField(
-                formData.get('company_name') as Exclude<
-                    FormDataEntryValue,
-                    File
-                >,
-                newState.inputs['company_name'],
                 validateCompanyName,
-                NAME_SYMBOLS_ERROR,
+                COMPANY_NAME_ERROR,
             )
         ) {
             validFlag = false;
