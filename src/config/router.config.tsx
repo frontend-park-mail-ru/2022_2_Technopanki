@@ -36,14 +36,14 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
     {
         path: {
             path: '/employer',
-            validator: (url: string) => /employer\/[1-9]+/.test(url),
+            validator: (url: string) => /employer\/[0-9]+/.test(url),
         },
         component: Profile,
     },
     {
         path: {
             path: '/employer/settings',
-            validator: (url: string) => /employer\/settings\/[1-9]+/.test(url),
+            validator: (url: string) => /employer\/settings\/[0-9]+/.test(url),
         },
         component: ProfileSettings,
         // component: ProfileSettings key={'profileSettings'},
@@ -66,14 +66,14 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
     {
         path: {
             path: '/vacancy/settings',
-            validator: (url: string) => /vacancy\/settings\/[1-9]+/.test(url),
+            validator: (url: string) => /vacancy\/settings\/[0-9]+/.test(url),
         },
         component: VacancySettings,
     },
     {
         path: {
             path: '/vacancy/responses',
-            validator: (url: string) => /vacancy\/responses\/[1-9]+/.test(url),
+            validator: (url: string) => /vacancy\/responses\/[0-9]+/.test(url),
         },
         component: VacancyResponses,
     },
@@ -101,14 +101,14 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
     {
         path: {
             path: '/applicant/settings',
-            validator: (url: string) => /applicant\/settings\/[1-9]+/.test(url),
+            validator: (url: string) => /applicant\/settings\/[0-9]+/.test(url),
         },
         component: ApplicantSettings,
     },
     {
         path: {
             path: '/resume/settings',
-            validator: (url: string) => /resume\/settings\/[1-9]+/.test(url),
+            validator: (url: string) => /resume\/settings\/[0-9]+/.test(url),
         },
         component: ResumeSettings,
     },
