@@ -15,7 +15,6 @@ import Button from '../../../components/UI-kit/buttons/Button';
 import ButtonRed from '../../../components/UI-kit/buttons/ButtonRed';
 import Footer from '../../../components/UI-kit/footer/Footer';
 import { dispatch, resumeConnect, userConnect } from '../../../store';
-import { vacancyActions } from '../../../store/vacancy/actions';
 import { resumeActions } from '../../../store/resume/actions';
 import {
     validateResumeDescription,

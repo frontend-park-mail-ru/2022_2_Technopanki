@@ -59,7 +59,7 @@ class Profile extends Component<
                         <div className={'flex flex-wrap row g-16'}>
                             <ButtonIcon
                                 onClick={() => {
-                                    navigator.clipboard
+                                    window.navigator.clipboard
                                         .writeText(this.props.phone)
                                         .then(() => console.log('copied!'))
                                         .catch(err => console.error(err));
@@ -69,7 +69,7 @@ class Profile extends Component<
                             <ButtonIcon
                                 key={'email'}
                                 onClick={() => {
-                                    navigator.clipboard
+                                    window.navigator.clipboard
                                         .writeText(this.props.email)
                                         .then(() => console.log('copied!'))
                                         .catch(err => console.error(err));
