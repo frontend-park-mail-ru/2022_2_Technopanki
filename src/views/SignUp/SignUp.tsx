@@ -321,7 +321,7 @@ export default class SignUp extends Component<
                                 ? (formData.get('applicant_name') as string)
                                 : (formData.get('company_name') as string),
                             formData.get('applicant_surname') as string,
-                            '',
+                            body.image,
                             formData.get('toggle') as 'applicant' | 'employer',
                         ),
                     );

@@ -12,6 +12,7 @@ import ButtonNotActive from '../../components/UI-kit/buttons/ButtonNotActive';
 import { UserState } from '../../store/user/types';
 import Vacancy from './index';
 import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../utils/routerConstants';
+import { IMAGE_URL } from '../../utils/networkConstants';
 
 class VacancyHat extends Component<
     {
@@ -46,7 +47,8 @@ class VacancyHat extends Component<
                 .then(body => {
                     this.setState(() => ({
                         vacancyID: this.props.vacancyID,
-                        creatorImgSrc: body.creator_img_src ?? body.image,
+                        creatorImgSrc:
+                            IMAGE_URL + body.creator_img_src ?? body.image,
                         companyName: body.company_name,
                         status: body.status,
                     }));

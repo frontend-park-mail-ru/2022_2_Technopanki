@@ -1,6 +1,7 @@
 import { AuthAction, UserState, UserType } from './types';
 import { Reducer } from '../../../Fluxs/types/reducer';
 import { Action } from '../../../Fluxs/types/action';
+import { IMAGE_URL } from '../../utils/networkConstants';
 
 export const userReducer: Reducer<UserState> = (
     state: UserState,
@@ -18,7 +19,7 @@ export const userReducer: Reducer<UserState> = (
                         ? (<AuthAction>action).surname
                         : '',
                 userType: (<AuthAction>action).userType,
-                avatarSrc: (<AuthAction>action).imgSrc,
+                avatarSrc: IMAGE_URL + (<AuthAction>action).imgSrc,
                 authorized: true,
             };
         case 'UPDATE_USER':
