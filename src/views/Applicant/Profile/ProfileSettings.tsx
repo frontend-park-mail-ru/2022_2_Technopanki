@@ -292,7 +292,7 @@ class ApplicantSettings extends Component<
                 this.state.profile.profileType,
                 formData,
             )
-            .then(() => {
+            .then(body => {
                 dispatch(
                     userActions.updateName(
                         formData.get('name') as string,

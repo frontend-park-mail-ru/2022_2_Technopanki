@@ -13,16 +13,18 @@ import ResumeSidebar from '../../../components/sidebars/ResumeSidebar';
 import { VNodeType } from '../../../../Reacts/shared/common';
 import { ResumeListItemPropsType } from '../../../components/UI-kit/resumeList/ResumeListItem';
 import { applicantProfileService } from '../../../services/applicantService';
-import { applicantConnect, dispatch } from '../../../store';
+import { applicantConnect, dispatch, userConnect } from '../../../store';
 import { applicantActions } from '../../../store/applicant/actions';
 import { ProfileState } from '../../../store/applicant/type';
 import ApplicantResumeList from './ApplicantResumeList';
 import Footer from '../../../components/UI-kit/footer/Footer';
 import { resumeActions } from '../../../store/resume/actions';
 import { APPLICANT_PATHS, RESUME_PATHS } from '../../../utils/routerConstants';
+import RenderWithCondition from '../../../components/RenderWithCondition';
 
 type ApplicantPropsType = {
     id: string;
+    userID: string;
     avatarSrc: string;
     name: string;
     surname: string;
@@ -87,20 +89,37 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                                 }}
                                 icon={MailIcon}
                             />
-                            <Link
-                                to={RESUME_PATHS.NEW}
-                                onClick={() =>
-                                    dispatch(resumeActions.clear(this.props.id))
-                                }
-                                content={
-                                    <ButtonPrimary>
-                                        Создать резюме
-                                    </ButtonPrimary>
+                            <RenderWithCondition
+                                condition={this.props.userID === this.props.id}
+                                onSuccess={
+                                    <Link
+                                        to={RESUME_PATHS.NEW}
+                                        onClick={() =>
+                                            dispatch(
+                                                resumeActions.clear(
+                                                    this.props.id,
+                                                ),
+                                            )
+                                        }
+                                        content={
+                                            <ButtonPrimary>
+                                                Создать резюме
+                                            </ButtonPrimary>
+                                        }
+                                    />
                                 }
                             />
-                            <Link
-                                to={APPLICANT_PATHS.SETTINGS + this.props.id}
-                                content={<Button>Настройки</Button>}
+                            <RenderWithCondition
+                                condition={this.props.userID === this.props.id}
+                                onSuccess={
+                                    <Link
+                                        to={
+                                            APPLICANT_PATHS.SETTINGS +
+                                            this.props.id
+                                        }
+                                        content={<Button>Настройки</Button>}
+                                    />
+                                }
                             />
                         </div>
                     }
@@ -118,6 +137,11 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
         );
     }
 }
+
+const UserWrapper = userConnect((state, props) => ({
+    ...props,
+    userID: state.id,
+}))(ApplicantProfile);
 
 export default applicantConnect((state: ProfileState, props) => {
     return {
@@ -139,4 +163,4 @@ export default applicantConnect((state: ProfileState, props) => {
         },
         avatarSrc: state.avatarSrc,
     };
-})(ApplicantProfile);
+})(UserWrapper);

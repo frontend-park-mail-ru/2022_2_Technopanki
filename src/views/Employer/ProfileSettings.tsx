@@ -236,7 +236,7 @@ class ProfileSettingsComponent extends Component<
 
         employerProfileService
             .updateProfileImg(this.state.profile.id, formData)
-            .then(() => console.log('send image to server'));
+            .then(body => userActions.updateAvatar(body.image));
 
         employerProfileService
             .updateProfile(
@@ -260,6 +260,7 @@ class ProfileSettingsComponent extends Component<
                 dispatch(
                     userActions.updateName(formData.get('name') as string, ''),
                 );
+                dispatch(userActions.updateAvatar(body.image ?? body.imgSrc));
                 dispatch(
                     activateSuccess('Данные профиля успешно изменены!', ''),
                 );
