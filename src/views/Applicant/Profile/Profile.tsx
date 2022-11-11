@@ -70,7 +70,7 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                         <div className={'flex flex-wrap row g-16'}>
                             <ButtonIcon
                                 onClick={() => {
-                                    navigator.clipboard
+                                    window.navigator.clipboard
                                         .writeText(this.props.phone)
                                         .then(() => alert('copied!'))
                                         .catch(err => console.error(err));
@@ -79,7 +79,7 @@ class ApplicantProfile extends Component<ApplicantPropsType> {
                             />
                             <ButtonIcon
                                 onClick={() => {
-                                    navigator.clipboard
+                                    window.navigator.clipboard
                                         .writeText(this.props.email)
                                         .then(() => alert('copied!'))
                                         .catch(err => console.error(err));

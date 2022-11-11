@@ -351,7 +351,13 @@ class VacancySettings extends Component<
                                     onClick={() =>
                                         vacancyService
                                             .deleteVacancy(this.props.id)
-                                            .then(() => navigator.goBack())
+                                            .then(() =>
+                                                navigator.navigate(
+                                                    EMPLOYER_PATHS.PROFILE +
+                                                        this.props
+                                                            .postedByUserID,
+                                                ),
+                                            )
                                     }
                                 >
                                     Удалить вакансию

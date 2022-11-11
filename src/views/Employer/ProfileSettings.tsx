@@ -316,8 +316,8 @@ class ProfileSettingsComponent extends Component<
                             linkTo={EMPLOYER_PATHS.PROFILE + this.props.id}
                             submit={() =>
                                 document
-                                    .querySelector('#profile_form')
-                                    .dispatchEvent(new Event('submit'))
+                                    ?.querySelector('#profile_form')
+                                    ?.dispatchEvent(new Event('submit'))
                             }
                         />
                     </div>
