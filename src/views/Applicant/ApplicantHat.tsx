@@ -3,7 +3,7 @@ import Button from '../../components/UI-kit/buttons/Button';
 import Hat from '../../components/UI-kit/hat/Hat';
 import Link from '../../components/Link/Link';
 import { resumeService } from '../../services/resumeService';
-import { RESUME_PATHS } from '../../utils/routerConstants';
+import { APPLICANT_PATHS, RESUME_PATHS } from '../../utils/routerConstants';
 import { IMAGE_URL } from '../../utils/networkConstants';
 
 export default class ApplicantHat extends Component<
@@ -16,6 +16,7 @@ export default class ApplicantHat extends Component<
         name: string;
         surname: string;
         status: string;
+        id: string;
     }
 > {
     state = {
@@ -23,6 +24,7 @@ export default class ApplicantHat extends Component<
         name: '',
         surname: '',
         status: '',
+        id: '',
     };
 
     getCreatorDataFromServer = () => {
@@ -32,6 +34,7 @@ export default class ApplicantHat extends Component<
                 name: body.applicant_name,
                 surname: body.applicant_surname,
                 status: body.status,
+                id: body.id.toString(),
             }));
         });
     };
@@ -47,6 +50,7 @@ export default class ApplicantHat extends Component<
                 name={this.state.name}
                 surname={this.state.surname}
                 status={this.state.status}
+                linkTo={APPLICANT_PATHS.PROFILE + this.state.id}
                 rightSideContent={
                     <div className={'flex row flex-wrap g-12'}>
                         <Link

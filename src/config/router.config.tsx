@@ -87,14 +87,14 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
     {
         path: {
             path: '/resume',
-            validator: (url: string) => /resume\/[1-9]+/.test(url),
+            validator: (url: string) => /resume\/[0-9]+/.test(url),
         },
         component: Resume,
     },
     {
         path: {
             path: '/applicant',
-            validator: (url: string) => /applicant\/[1-9]+/.test(url),
+            validator: (url: string) => /applicant\/[0-9]+/.test(url),
         },
         component: ApplicantProfile,
     },
