@@ -274,7 +274,11 @@ class VacancySettings extends Component<
 
         if (this.state.isNew) {
             vacancyService
-                .createVacancy(this.props.postedByUserID, formData)
+                .createVacancy(
+                    this.props.postedByUserID,
+                    formData,
+                    this.props.avatarSrc,
+                )
                 .then(body => {
                     if (body.id) {
                         navigator.navigate('/vacancy/' + body.id.toString());
