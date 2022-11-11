@@ -81,7 +81,7 @@ export default class Vacancies extends Component<
                                 key={vacancy.id.toString()}
                                 id={vacancy.id.toString()}
                                 name={vacancy.title}
-                                icon={IMAGE_URL + vacancy.image}
+                                icon={vacancy.image}
                                 salary={vacancy.salary}
                                 currency={vacancy.currency}
                                 location={vacancy.location}

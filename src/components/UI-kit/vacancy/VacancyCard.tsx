@@ -10,6 +10,7 @@ import ArrowButtonWithTextOutline from '../buttons/ArrowButtonWithTextOutline';
 import { VNodeType } from '../../../../Reacts/shared/common';
 import Link from '../../Link/Link';
 import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../../utils/routerConstants';
+import { IMAGE_URL } from '../../../utils/networkConstants';
 
 export type VacancyCardPropsType = {
     id: string;
@@ -53,7 +54,7 @@ export default class VacancyCard extends Component<
                             className={'rounded-md'}
                             height={40}
                             width={40}
-                            src={this.props.icon}
+                            src={IMAGE_URL + this.props.icon}
                         />
                     }
                 />

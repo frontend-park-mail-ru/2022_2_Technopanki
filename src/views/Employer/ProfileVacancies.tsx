@@ -66,7 +66,7 @@ export default class ProfileVacancies extends Component<
                         <VacancyCard
                             id={vacancy.id.toString()}
                             name={vacancy.title}
-                            icon={vacancy.img}
+                            icon={vacancy.image}
                             salary={vacancy.salary}
                             currency={vacancy.currency}
                             location={vacancy.location}
