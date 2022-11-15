@@ -1,4 +1,4 @@
-import { Component } from '../../../../Reacts';
+import { Component } from '../../../../__Reacts__old_version__';
 import styles from './radio.module.scss';
 
 export default class RadioButton extends Component<{

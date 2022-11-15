@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { Component } from '../../../__Reacts__old_version__';
 import SideBar from '../UI-kit/sideBar/SideBar';
 import IconField from './utils/IconField';
 import MapIcon from '../../static/icons/map.svg';

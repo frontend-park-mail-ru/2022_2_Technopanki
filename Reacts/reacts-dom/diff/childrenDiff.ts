@@ -1,6 +1,12 @@
-import { ChildrenType, KeyType, VNodeType } from '../../shared/common';
-import { Operation } from './index';
-import { emptyAttrUpdate, insert, remove, skip, update } from './operations';
+import { Operation } from './types';
+import {
+    ChildrenType,
+    KeyType,
+    ReactsComponentNode,
+    ReactsDOMNode,
+    ReactsNode,
+} from '../../shared/types/node';
+import { insert, remove } from './operations/operations';
 import { createDiff } from './createDiff';
 
 /**
@@ -12,7 +18,7 @@ import { createDiff } from './createDiff';
  */
 const removeUntilKey = (
     operations: Operation[],
-    oldChildren: [KeyType, VNodeType][],
+    oldChildren: [KeyType, ReactsNode][],
     key: KeyType,
 ) => {
     while (oldChildren[0] && oldChildren[0][0] !== key) {
@@ -30,7 +36,7 @@ const removeUntilKey = (
  */
 const insertUntilKey = (
     operations: Operation[],
-    newChildren: [KeyType, VNodeType][],
+    newChildren: [KeyType, ChildrenType][],
     key: KeyType,
 ) => {
     while (newChildren[0] && newChildren[0][0] !== key) {
@@ -39,11 +45,9 @@ const insertUntilKey = (
     }
 };
 
-// TODO: refactor
-// в данный момент мы каждый раз создаем доп массивы. Возможно можно сделать оптимальнее
-const findNextUpdateKey = (
-    oldChildrenWithKeys: [KeyType, VNodeType][],
-    newChildrenWithKeys: [KeyType, VNodeType][],
+export const findNextUpdateKey = (
+    oldChildrenWithKeys: [KeyType, ReactsComponentNode | ReactsDOMNode][],
+    newChildrenWithKeys: [KeyType, ReactsComponentNode | ReactsDOMNode][],
 ): KeyType => {
     const oldChildrenKeys = oldChildrenWithKeys.map(node => node[0]);
     const newChildrenKeys = newChildrenWithKeys.map(node => node[0]);
@@ -51,23 +55,22 @@ const findNextUpdateKey = (
     return newChildrenKeys.find(k => oldChildrenKeys.indexOf(k) !== -1) || null;
 };
 
-/**
- * Compares old and new children
- * @param oldChildren
- * @param newChildren
- * @return - operations to be performed on children
- */
-export const childrenDiff = (
-    oldChildren: VNodeType[],
-    newChildren: VNodeType[],
+export const arrayChildrenDiff = (
+    oldChildren: ReactsDOMNode[] | ReactsComponentNode[],
+    newChildren: ReactsDOMNode[] | ReactsComponentNode[],
 ): Operation[] => {
-    const operations: Operation[] = [];
+    let operations: Operation[] = [];
 
     const oldChildrenWithKeys = oldChildren.map(
-        (node: VNodeType): [KeyType, VNodeType] => [node?.key, node],
+        (
+            node: ReactsComponentNode | ReactsDOMNode,
+        ): [KeyType, ReactsComponentNode | ReactsDOMNode] => [node.key, node],
     );
+
     const newChildrenWithKeys = newChildren.map(
-        (node: VNodeType): [KeyType, VNodeType] => [node?.key, node],
+        (
+            node: ReactsComponentNode | ReactsDOMNode,
+        ): [KeyType, ReactsComponentNode | ReactsDOMNode] => [node.key, node],
     );
 
     let nextUpdateKey = findNextUpdateKey(
@@ -96,6 +99,23 @@ export const childrenDiff = (
 
     removeUntilKey(operations, oldChildrenWithKeys, nextUpdateKey);
     insertUntilKey(operations, newChildrenWithKeys, nextUpdateKey);
+
+    return operations;
+};
+
+export const childrenDiff = (
+    oldChildren: ReactsNode[],
+    newChildren: ReactsNode[],
+): Operation[] => {
+    let operations: Operation[] = [];
+
+    for (let i = 0; i < oldChildren.length; ++i) {
+        if (Array.isArray(oldChildren[i]) && Array.isArray(newChildren[i])) {
+            operations.push(arrayChildrenDiff(oldChildren[i], newChildren[i]));
+        } else {
+            operations.push(createDiff(oldChildren[i], newChildren[i]));
+        }
+    }
 
     return operations;
 };

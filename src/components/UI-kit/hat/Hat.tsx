@@ -1,6 +1,6 @@
-import { Component } from '../../../../Reacts';
+import { Component } from '../../../../__Reacts__old_version__';
 import styles from './hat.module.scss';
-import { VNodeType } from '../../../../Reacts/shared/common';
+import { VNodeType } from '../../../../__Reacts__old_version__/shared/common';
 import Link from '../../Link/Link';
 
 type HatPropsType = {

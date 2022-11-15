@@ -1,19 +1,21 @@
-import { VNodeType } from '../../shared/common';
+import { ReactsNode } from '../../shared/types/node';
 import { createDiff } from '../diff/createDiff';
 import { applyDiff } from '../diff/applyDiff';
+import {
+    REMOVE_OPERATION,
+    REPLACE_OPERATION,
+} from '../diff/operations/operations';
 
-/**
- * Renders newNode in DOM
- * @param element
- * @param oldNode
- * @param newNode
- */
 export const rerenderNode = (
     element: HTMLElement,
-    oldNode: VNodeType & { _domElement: HTMLElement },
-    newNode: VNodeType,
+    oldNode: ReactsNode,
+    newNode: ReactsNode,
 ) => {
     const diff = createDiff(oldNode, newNode);
-    applyDiff(oldNode._domElement, diff);
-    newNode._domElement = oldNode._domElement;
+    console.log(diff);
+    if (diff.type !== REPLACE_OPERATION && diff.type !== REMOVE_OPERATION) {
+        // @ts-ignore
+        newNode.ref = oldNode.ref;
+    }
+    applyDiff(element, diff);
 };

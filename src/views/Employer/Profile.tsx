@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { Component } from '../../../__Reacts__old_version__';
 import Header from '../../components/UI-kit/header/Header';
 import styles from './userPage.module.scss';
 import Button from '../../components/UI-kit/buttons/Button';

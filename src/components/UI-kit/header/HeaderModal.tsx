@@ -1,4 +1,4 @@
-import { Component } from '../../../../Reacts';
+import { Component } from '../../../../__Reacts__old_version__';
 import styles from './header.module.scss';
 import MenuIcon from '../../../static/icons/menu.svg';
 import ModalWindow from '../modalWindow/ModalWindow';

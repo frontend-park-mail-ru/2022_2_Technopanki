@@ -1,6 +1,6 @@
-import { Component } from '../../../Reacts';
+import { Component } from '../../../__Reacts__old_version__';
 import styles from './profileHeader.module.scss';
-import { VNodeType } from '../../../Reacts/shared/common';
+import { VNodeType } from '../../../__Reacts__old_version__/shared/common';
 
 export default class ProfileHeader extends Component<{
     profileID: string;

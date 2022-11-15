@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { Component } from '../../../__Reacts__old_version__';
 import Header from '../../components/UI-kit/header/Header';
 import SettingsHat from '../../components/hats/SettingsHat';
 import Form, { FormSectionType } from '../../components/UI-kit/forms/Form';

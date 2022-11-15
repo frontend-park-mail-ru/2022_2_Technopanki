@@ -1,4 +1,4 @@
-import { Component } from '../../../../Reacts';
+import { Component } from '../../../../__Reacts__old_version__';
 import ResumeListItem, { ResumeListItemPropsType } from './ResumeListItem';
 import { IMAGE_URL } from '../../../utils/networkConstants';
 

@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { Component } from '../../../__Reacts__old_version__';
 import Button from '../../components/UI-kit/buttons/Button';
 import ButtonPrimary from '../../components/UI-kit/buttons/ButtonPrimary';
 import Dropdown from '../../components/UI-kit/dropdown/Dropdown';

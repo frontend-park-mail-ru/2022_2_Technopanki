@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { Component } from '../../../__Reacts__old_version__';
 import Header from '../../components/UI-kit/header/Header';
 import Footer from '../../components/UI-kit/footer/Footer';
 import VacancyResponsesHat from './VacancyResponsesHat';

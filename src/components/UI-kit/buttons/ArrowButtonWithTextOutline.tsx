@@ -1,4 +1,4 @@
-import { Component } from '../../../../Reacts';
+import { Component } from '../../../../__Reacts__old_version__';
 import ArrowButton from './ArrowButton';
 import ArrowButtonOutline from './ArrowButtonOutline';
 

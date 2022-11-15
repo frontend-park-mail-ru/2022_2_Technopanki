@@ -1,4 +1,4 @@
-import { Component } from '../../../../Reacts';
+import { Component } from '../../../../__Reacts__old_version__';
 import Header from '../../../components/UI-kit/header/Header';
 import ButtonIcon from '../../../components/UI-kit/buttons/ButtonIcon';
 import PhoneIcon from '../../../static/icons/phone.svg';
@@ -10,7 +10,7 @@ import ProfileHeader from '../../../components/ProfileHeader/ProfileHeader';
 import Chips from '../../../components/UI-kit/chips/Chips';
 import ResumeList from '../../../components/UI-kit/resumeList/ResumeList';
 import ResumeSidebar from '../../../components/sidebars/ResumeSidebar';
-import { VNodeType } from '../../../../Reacts/shared/common';
+import { VNodeType } from '../../../../__Reacts__old_version__/shared/common';
 import { ResumeListItemPropsType } from '../../../components/UI-kit/resumeList/ResumeListItem';
 import { applicantProfileService } from '../../../services/applicantService';
 import { applicantConnect, dispatch, userConnect } from '../../../store';

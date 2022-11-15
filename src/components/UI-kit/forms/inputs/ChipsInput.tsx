@@ -1,4 +1,4 @@
-import { Component } from '../../../../../Reacts';
+import { Component } from '../../../../../__Reacts__old_version__';
 import Chips from '../../chips/Chips';
 import styles from './input.module.scss';
 

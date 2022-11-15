@@ -1,4 +1,4 @@
-import { Component } from '../../../../Reacts';
+import { Component } from '../../../../__Reacts__old_version__';
 import styles from './button.module.scss';
 
 export default class ButtonPrimary extends Component<{

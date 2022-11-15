@@ -1,18 +1,18 @@
-import { ComponentClass, ReactsNode } from './index';
-import { rerenderComponent } from './renderComponent';
-import { PropsType, VNodeType } from '../../shared/common';
-import { COMPONENT_NODE_SYMBOL } from '../../shared';
-import { rerenderNode } from '../../reacts-dom';
+import { PropsType, ReactsNode } from '../../shared/types/node';
+import { ComponentType } from '../../shared/types/component';
+import { rerenderNode } from '../../reacts-dom/render/rerenderNode';
 
-export abstract class Component<P extends PropsType = {}, S = {}> {
+export abstract class ReactsComponent<P extends PropsType = {}, S = {}>
+    implements ComponentType
+{
     readonly props: Readonly<P>;
-    state: Readonly<S> | {} = {};
+    state: Readonly<S> | Readonly<{}> = {};
 
-    rootDomRef?: HTMLElement;
-    prevRenderVNodeRef?: VNodeType;
+    ref: HTMLElement | null = null;
+    currentNode: ReactsNode | null = null;
 
-    constructor(props: Readonly<P> | P) {
-        this.props = props;
+    constructor(props: P) {
+        this.props = { ...props };
     }
 
     setState<K extends keyof S>(
@@ -29,34 +29,33 @@ export abstract class Component<P extends PropsType = {}, S = {}> {
         this.forceUpdate();
     }
 
-    // Mounting
-    componentDidMount(): void {}
-
     // Updating
-    shouldComponentUpdate(nextProps: P | Readonly<P>, nextState?: S): void {}
-    componentDidUpdate(): void {}
-    forceUpdate(): void {
-        this.rerender();
+    shouldUpdate(nextProps: P | Readonly<P> /*nextState?: S*/): boolean {
+        return JSON.stringify(this.props) !== JSON.stringify(nextProps);
     }
 
-    private rerender(): void {
-        const VDomElement = this.render();
-        if (!this.rootDomRef) {
-            throw new Error('this.rootDomRef is empty');
-        }
+    forceUpdate(): void {
+        const newNode = this.render();
         rerenderNode(
-            this.rootDomRef,
-            // @ts-ignore if we call rerender => we have some prevRenderVNodeRef with DOM element
-            this.prevRenderVNodeRef,
-            VDomElement,
+            this.ref ?? this.currentNode.ref,
+            this.currentNode,
+            newNode,
         );
-        this.prevRenderVNodeRef = VDomElement;
+
+        this.currentNode = newNode;
+
         this.componentDidUpdate();
     }
 
-    // Unmounting
+    // Hooks
+    componentDidMount(): void {}
+    componentDidUpdate(): void {}
     componentWillUnmount(): void {}
-    unmount(): void {}
 
-    abstract render(): ReactsNode<P>;
+    unmount(): void {
+        this.ref = null;
+        this.currentNode = null;
+    }
+
+    abstract render(): ReactsNode;
 }

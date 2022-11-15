@@ -27,7 +27,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.post('/auth/sign-up', (req, res) => {
-    if (req.body.email === 'test@mail.ru') {
+    if (req.body.email === 'tests@mail.ru') {
         res.status(400);
         res.json({
             descriptors: ['Пользователь с таким email уже существует'],
@@ -155,7 +155,7 @@ app.get('/api/resume/applicant/preview/:id', (res, req) => {
 });
 
 app.post('/auth/sign-in', (req, res) => {
-    if (req.body.email === 'test@mail.ru') {
+    if (req.body.email === 'tests@mail.ru') {
         res.status(400);
         res.json({
             descriptors: ['Пользователь с таким email уже существует'],

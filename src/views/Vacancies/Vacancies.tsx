@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { Component } from '../../../__Reacts__old_version__';
 import styles from './vacancies.module.scss';
 import Header from '../../components/UI-kit/header/Header';
 import SearchInput from '../../components/UI-kit/forms/inputs/SearchInput';

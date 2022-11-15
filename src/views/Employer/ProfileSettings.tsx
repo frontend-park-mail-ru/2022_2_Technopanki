@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { Component } from '../../../__Reacts__old_version__';
 import Header from '../../components/UI-kit/header/Header';
 import SettingsHat from '../../components/hats/SettingsHat';
 import { InputPropsType } from '../../components/UI-kit/forms/inputs/Input';
@@ -275,7 +275,7 @@ class ProfileSettingsComponent extends Component<
                         navigator.navigate(
                             EMPLOYER_PATHS.PROFILE + this.props.id,
                         ),
-                    1000,
+                    750,
                 );
             })
             .catch(err => {

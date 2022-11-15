@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { Component } from '../../../__Reacts__old_version__';
 import { dispatch, errorsConnect } from '../../store';
 import CloseIcon from '../../static/icons/x-close.svg';
 import Svg from '../Svg';

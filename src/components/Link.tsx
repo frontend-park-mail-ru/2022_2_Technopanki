@@ -1,6 +1,6 @@
-import { Component } from '../../Reacts';
+import { Component } from '../../__Reacts__old_version__';
 import router from '../router/navigator.tsx';
-import { VNodeType } from '../../Reacts/shared/common';
+import { VNodeType } from '../../__Reacts__old_version__/shared/common';
 
 let counter = 0;
 

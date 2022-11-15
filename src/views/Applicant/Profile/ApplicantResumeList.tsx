@@ -1,4 +1,4 @@
-import { Component } from '../../../../Reacts';
+import { Component } from '../../../../__Reacts__old_version__';
 import { applicantProfileService } from '../../../services/applicantService';
 import ResumeList from '../../../components/UI-kit/resumeList/ResumeList';
 import { applicantConnect } from '../../../store';

@@ -1,10 +1,10 @@
-import { ComponentType, PropsType } from './shared/common';
+import { ComponentType } from './shared/types/component';
+import { ChildrenType, PropsType, ReactsNode } from './shared/types/node';
 
 declare global {
-    // https://www.typescriptlang.org/docs/handbook/jsx.html
     namespace JSX {
         interface IntrinsicElements {
-            [elemName: string]: any; // specify the property name to use
+            [elemName: string]: any;
         }
 
         interface ElementClass {
@@ -16,7 +16,7 @@ declare global {
         }
 
         interface ElementChildrenAttribute {
-            children: ComponentType; // specify children name to use
+            children: ChildrenType; // specify children name to use
         }
     }
 }

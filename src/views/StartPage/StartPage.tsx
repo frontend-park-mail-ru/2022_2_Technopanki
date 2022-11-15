@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { Component } from '../../../__Reacts__old_version__';
 import styles from './startPage.module.scss';
 import Header from '../../components/UI-kit/header/Header';
 import ArrowButtonWithText from '../../components/UI-kit/buttons/ArrowButtonWithText';

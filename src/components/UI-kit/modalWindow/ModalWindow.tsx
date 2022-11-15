@@ -1,5 +1,5 @@
-import { Component } from '../../../../Reacts';
-import { VNodeType } from '../../../../Reacts/shared/common';
+import { Component } from '../../../../__Reacts__old_version__';
+import { VNodeType } from '../../../../__Reacts__old_version__/shared/common';
 import styles from './modal.module.scss';
 
 export default class ModalWindow extends Component<

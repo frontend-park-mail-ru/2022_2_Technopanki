@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { Component } from '../../../__Reacts__old_version__';
 import Input from '../../components/UI-kit/forms/inputs/Input';
 import styles from './signin.module.scss';
 import Link from '../../components/Link/Link';

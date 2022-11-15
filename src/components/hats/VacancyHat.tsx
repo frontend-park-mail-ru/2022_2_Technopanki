@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { Component } from '../../../__Reacts__old_version__';
 import Button from '../UI-kit/buttons/Button';
 import styles from './vacancyHat.module.scss';
 import ButtonPrimary from '../UI-kit/buttons/ButtonPrimary';

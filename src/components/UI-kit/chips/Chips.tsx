@@ -1,4 +1,4 @@
-import { Component } from '../../../../Reacts';
+import { Component } from '../../../../__Reacts__old_version__';
 import styles from './chips.module.scss';
 import Svg from '../../Svg';
 import CloseIcon from '../../../static/icons/x-close.svg';

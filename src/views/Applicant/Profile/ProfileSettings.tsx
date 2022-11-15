@@ -1,4 +1,4 @@
-import { Component } from '../../../../Reacts';
+import { Component } from '../../../../__Reacts__old_version__';
 import Header from '../../../components/UI-kit/header/Header';
 import ProfileHeader from '../../../components/ProfileHeader/ProfileHeader';
 import ButtonIcon from '../../../components/UI-kit/buttons/ButtonIcon';
@@ -305,7 +305,7 @@ class ApplicantSettings extends Component<
                         navigator.navigate(
                             APPLICANT_PATHS.PROFILE + this.props.id,
                         ),
-                    1000,
+                    750,
                 );
             })
             .catch(err => console.error(err));

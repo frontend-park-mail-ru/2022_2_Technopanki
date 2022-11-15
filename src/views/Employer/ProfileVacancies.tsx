@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { Component } from '../../../__Reacts__old_version__';
 import { vacancyService } from '../../services/vacancyService';
 import VacancyCard from '../../components/UI-kit/vacancy/VacancyCard';
 import Button from '../../components/UI-kit/buttons/Button';

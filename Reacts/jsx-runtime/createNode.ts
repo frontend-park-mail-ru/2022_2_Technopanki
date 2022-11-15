@@ -1,140 +1,54 @@
+import { ComponentConstructor } from '../shared/types/component';
 import {
-    ChildrenType,
-    ComponentConstructor,
-    JSXElementType,
-    JSXVnodeType,
     KeyType,
-    PropsType,
-    VNodeType,
-} from '../shared/common';
-import {
-    COMPONENT_NODE_SYMBOL,
-    DOM_NODE_SYMBOL,
-    getUniqueSymbol,
-    PROVIDER_NODE_SYMBOL,
-} from '../shared';
+    PropsWithChildren,
+    ReactsComponentNode,
+    ReactsDOMNode,
+    ReactsNode,
+} from '../shared/types/node';
+import { COMPONENT_SYMBOL, DOM_SYMBOL } from '../shared/constants/symbols';
+import { getUniqueKey } from '../shared/constants/getUniqueKey';
 
-/**
- * Creates virtual dom node from object in a type
- * @param type
- * @param props
- * @param maybeKey
- */
-const createNodeFromObject = (
-    type: JSXVnodeType,
-    props: PropsType & { children: ChildrenType },
-    maybeKey: KeyType | null | undefined,
-): VNodeType => {
-    const vnode = { ...type };
-    vnode.props = { ...vnode.props, ...props };
-    vnode.key = maybeKey ?? getUniqueSymbol();
-
-    // Update context value
-    if (vnode.$$typeof === PROVIDER_NODE_SYMBOL) {
-        type._context.value = vnode.props.value;
-        vnode._context.value = vnode.props.value;
-    }
-
-    return <VNodeType>vnode;
-};
-
-/**
- * Creates virtual dom node from Component in a type
- * @param type
- * @param props
- * @param maybeKey
- */
-const createComponentNode = (
-    type: ComponentConstructor,
-    props: PropsType & { children: ChildrenType },
-    maybeKey: KeyType | null | undefined,
-): VNodeType => {
-    const vnode: VNodeType = {
-        $$typeof: COMPONENT_NODE_SYMBOL,
-        type,
-        props,
-        key: maybeKey ?? getUniqueSymbol(),
-        _domElement: undefined,
-        unmount: function (deleteDom: boolean = true) {
-            // deleteDom && this._domElement?.remove();
-            this._instance?.componentWillUnmount();
-            this._instance?.unmount();
-            delete this._instance;
-            Array.isArray(this.props.children)
-                ? this.props.children.forEach((child: VNodeType) => {
-                      child?.unmount();
-                      // child && delete child
-                  })
-                : typeof this.props.children?.unmount === 'function' &&
-                  this.props.children?.unmount();
-
-            delete this.props.children;
-        },
-    };
-
-    vnode.unmount = vnode.unmount.bind(vnode);
-
-    vnode._instance = new (<ComponentConstructor>vnode.type)(props);
-    vnode.props.children = vnode._instance.render();
-
-    return vnode;
-};
-
-/**
- * Creates virtual dom node from type of DOM node in a type
- * @param type
- * @param props
- * @param maybeKey
- */
-const createDomNode = (
+const createDOMNode = (
     type: string,
-    props: PropsType & { children: ChildrenType },
-    maybeKey: KeyType | null | undefined,
-): VNodeType => {
-    // To concatenate a string. An example where it is needed: <p>Number of items: {this.props.count.toString()}</p>
-    // In this case, the props will be: props = {children: ['Number of items: ', '2'], ...}
-    switch (type) {
-        case 'h1':
-        case 'h2':
-        case 'h3':
-        case 'h4':
-        case 'h5':
-        case 'h6':
-        case 'p':
-        case 'a':
-        case 'textarea':
-            if (Array.isArray(props.children)) {
-                props.children = props.children.join('');
-            }
-            break;
-        case 'label':
-            if (
-                Array.isArray(props.children) &&
-                typeof props.children[0] === 'string'
-            ) {
-                props.children = props.children.join('');
-            }
-            break;
-    }
+    props: PropsWithChildren,
+    maybeKey: KeyType,
+): ReactsDOMNode => ({
+    $$typeof: DOM_SYMBOL,
+    type: type,
+    props: props,
+    key: maybeKey ?? getUniqueKey(),
+    ref: null,
+    eventMap: (() => new Map<string, Function>())(),
+});
 
-    const vnode: VNodeType = {
-        $$typeof: DOM_NODE_SYMBOL,
-        type,
-        props,
-        key: maybeKey ?? getUniqueSymbol(),
-        _domElement: undefined,
-        unmount: function (deleteDom: boolean = true) {
-            // deleteDom && this._domElement?.remove();
-            Array.isArray(this.props.children)
-                ? this.props.children.forEach(child => child.unmount())
-                : typeof this.props.children?.unmount === 'function' &&
-                  this.props.children?.unmount();
-            delete this.props.children;
-        },
+const renderComponent = (
+    node: ReactsComponentNode,
+    props: PropsWithChildren,
+) => {
+    const instance = new (<ComponentConstructor>node.type)(props);
+    const instanceRender = instance.render();
+
+    node.props.children = instanceRender;
+    node.instance = instance;
+    node.instance.currentNode = instanceRender;
+};
+
+const createComponent = (
+    type: ComponentConstructor,
+    props: PropsWithChildren,
+    maybeKey: KeyType,
+): ReactsComponentNode => {
+    const node: ReactsComponentNode = {
+        $$typeof: COMPONENT_SYMBOL,
+        type: type,
+        props: props,
+        key: maybeKey ?? getUniqueKey(),
+        ref: null,
+        instance: null,
     };
-
-    vnode.unmount = vnode.unmount.bind(vnode);
-    return vnode;
+    renderComponent(node, props);
+    return node;
 };
 
 /**
@@ -142,45 +56,45 @@ const createDomNode = (
  * {this.state.data.map((item, index) => (
  *  <p key={item.id}>{item.name}</p>
  * ))}
- * @param children
- */
-const resolveArraysInChildren = (children: VNodeType[]): VNodeType[] => {
-    const newChildren: VNodeType[] = [];
-    children.forEach(elem => {
-        if (Array.isArray(elem)) {
-            elem.forEach(item => {
-                newChildren.push(item);
-            });
-        } else {
-            newChildren.push(elem);
-        }
-    });
-
-    return newChildren;
-};
-
-/**
- * Creates a virtual DOM element - virtual node. Used for JSX.
  * @param type
  * @param props
  * @param maybeKey
- * @returns {{_children: null, _parent: null, _nextDom: undefined, _depth: number, construct: undefined, type, key, props, _instance: null}}
  */
-export const createVNode = (
-    type: JSXElementType,
-    props: PropsType & { children: ChildrenType },
-    maybeKey: KeyType | null | undefined,
-): VNodeType => {
-    if (Array.isArray(props.children)) {
-        props.children = resolveArraysInChildren(props.children);
-    }
+// const resolveArraysInChildren = (children: ReactsNode[]): ReactsNode[] => {
+//     const newChildren: ReactsNode[] = [];
+//     children.forEach(elem => {
+//         if (Array.isArray(elem)) {
+//             elem.forEach(item => {
+//                 newChildren.push(item);
+//             });
+//         } else {
+//             newChildren.push(elem);
+//         }
+//     });
+//
+//     return newChildren;
+// };
 
+/**
+ *
+ * @param type
+ * @param props
+ * @param maybeKey
+ */
+export const createNode = (
+    type: string | ComponentConstructor,
+    props: PropsWithChildren,
+    maybeKey: KeyType,
+): ReactsNode => {
     switch (typeof type) {
-        case 'object':
-            return createNodeFromObject(type, props, maybeKey);
         case 'string':
-            return createDomNode(type, props, maybeKey);
+            return createDOMNode(type, props, maybeKey);
+        case 'function':
+            return createComponent(type, props, maybeKey);
         default:
-            return createComponentNode(type, props, maybeKey);
+            // @ts-ignore
+            if (__DEV__) {
+                throw new Error(`undefined type: ${type}`);
+            }
     }
 };

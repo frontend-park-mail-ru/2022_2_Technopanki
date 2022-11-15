@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { Component } from '../../../__Reacts__old_version__';
 import ButtonIcon from '../UI-kit/buttons/ButtonIcon';
 import PhoneIcon from '../../static/icons/phone.svg';
 import MailIcon from '../../static/icons/mail.svg';

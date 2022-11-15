@@ -1,4 +1,4 @@
-import { Component } from '../../../../Reacts';
+import { Component } from '../../../../__Reacts__old_version__';
 import JobflowLogo from '../JobflowLogo';
 
 export default class Footer extends Component {

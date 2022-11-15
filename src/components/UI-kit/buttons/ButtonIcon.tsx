@@ -1,6 +1,6 @@
-import { Component } from '../../../../Reacts';
+import { Component } from '../../../../__Reacts__old_version__';
 import styles from './button.module.scss';
-import { VNodeType } from '../../../../Reacts/shared/common';
+import { VNodeType } from '../../../../__Reacts__old_version__/shared/common';
 
 export default class ButtonIcon extends Component<{
     onClick?: Function;

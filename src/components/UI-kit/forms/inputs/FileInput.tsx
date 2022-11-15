@@ -1,4 +1,4 @@
-import { Component } from '../../../../../Reacts';
+import { Component } from '../../../../../__Reacts__old_version__';
 import DownloadIcon from '../../../../static/icons/Download.svg';
 import styles from './input.module.scss';
 

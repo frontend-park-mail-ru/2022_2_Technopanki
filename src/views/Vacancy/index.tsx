@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { Component } from '../../../__Reacts__old_version__';
 import Header from '../../components/UI-kit/header/Header';
 import styles from './vacancy.module.scss';
 import TextBlock from '../../components/UI-kit/text/TextBlock';

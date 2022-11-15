@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { Component } from '../../../__Reacts__old_version__';
 import Hat from '../UI-kit/hat/Hat';
 import CancelSaveButtons from '../CancelSaveButtons/CancelSaveButtons';
 import navigator from '../../router/navigator.tsx';

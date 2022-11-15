@@ -1,4 +1,4 @@
-import { Component } from '../../../../../Reacts/index';
+import { Component } from '../../../../../__Reacts__old_version__/index';
 import styles from './input.module.scss';
 
 export default class Textarea extends Component<{

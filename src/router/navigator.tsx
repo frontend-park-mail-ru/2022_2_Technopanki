@@ -1,7 +1,7 @@
-import { Component, createRoot } from '../../Reacts';
+import { Component, createRoot } from '../../__Reacts__old_version__';
 import Router from './router';
 import { Path } from './types';
-import { RootType } from '../../Reacts/reacts-dom/root';
+import { RootType } from '../../__Reacts__old_version__/reacts-dom/root';
 
 export type PathType = {
     path: string;
