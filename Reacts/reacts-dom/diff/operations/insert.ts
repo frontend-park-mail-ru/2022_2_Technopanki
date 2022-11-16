@@ -35,14 +35,17 @@ export const insertPrimitiveNode = (
 export const insertChildren = (
     element: HTMLElement,
     children: ChildrenType,
+    beforeElement: HTMLElement | null = null,
 ) => {
     if (!children) {
         return;
     }
 
     Array.isArray(children)
-        ? children.forEach(child => insertNode(element, child))
-        : insertNode(element, children);
+        ? // TODO: здесь есть баг с тем, что мы передаем beforeElement в forEach и
+          //  каждый новый элемент будет делать insert перед ним. То есть они будут идти в обратном порядке
+          children.forEach(child => insertNode(element, child, beforeElement))
+        : insertNode(element, children, beforeElement);
 };
 
 export const insertDOMNode = (

@@ -1,6 +1,7 @@
 import { compareProps, createDiff } from '../createDiff';
 import { replace, skip, update } from '../operations/operations';
 import { childrenDiff } from '../childrenDiff';
+import { ReactsComponent } from '../../../reacts/src/Component';
 
 describe('compareProps', () => {
     let oldProps: { [key: string]: any } & { children: string } = {
@@ -39,8 +40,8 @@ describe('compareProps', () => {
         },
         {
             testName: 'update one prop',
-            oldProps: { test: 'Hello', value: 'tests value' },
-            newProps: { test: 'World', value: 'tests value' },
+            oldProps: { test: 'Hello', value: '__tests__ value' },
+            newProps: { test: 'World', value: '__tests__ value' },
             result: {
                 set: [['test', 'World']],
                 remove: [],
@@ -145,7 +146,7 @@ describe('createDiff DOM nodes', () => {
         newNode = <div>World</div>;
         const result = createDiff(oldNode, newNode);
         expect(result).toEqual(
-            update(newNode, createDiff('Hello', 'World'), {
+            update(oldNode, createDiff('Hello', 'World'), {
                 set: [],
                 remove: [],
             }),
@@ -168,7 +169,7 @@ describe('createDiff DOM nodes', () => {
         expect(JSON.stringify(result)).toEqual(
             JSON.stringify(
                 update(
-                    newNode,
+                    oldNode,
                     createDiff(<p>Hello world</p>, <p>World hello</p>),
                     {
                         set: [],
@@ -195,7 +196,7 @@ describe('createDiff DOM nodes', () => {
         expect(JSON.stringify(result)).toEqual(
             JSON.stringify(
                 update(
-                    newNode,
+                    oldNode,
                     createDiff(<p>Hello world</p>, <p>World hello</p>),
                     {
                         set: [['prop', '2']],
@@ -298,7 +299,7 @@ describe('createDiff DOM nodes', () => {
         expect(JSON.stringify(result)).toEqual(
             JSON.stringify(
                 update(
-                    newNode,
+                    oldNode,
                     childrenDiff(
                         oldNode.props.children,
                         newNode.props.children,
@@ -310,5 +311,52 @@ describe('createDiff DOM nodes', () => {
                 ),
             ),
         );
+    });
+});
+
+describe('createDiff Component nodes', () => {
+    class TestClass extends ReactsComponent {
+        render() {
+            return <div>Hello world!</div>;
+        }
+    }
+    class NewComponentClass extends ReactsComponent {
+        render() {
+            return <div>Hello world!</div>;
+        }
+    }
+
+    const tests = [
+        {
+            name: 'should skip',
+            oldNode: <TestClass />,
+            newNode: <TestClass />,
+            result: skip(),
+        },
+        {
+            name: 'should replace - different type of components',
+            oldNode: <TestClass />,
+            newNode: <NewComponentClass />,
+            result: replace(<TestClass />, <NewComponentClass />),
+        },
+        {
+            name: 'should replace - component and dom element',
+            oldNode: <TestClass />,
+            newNode: <div></div>,
+            result: replace(<TestClass />, <div></div>),
+        },
+        {
+            name: 'should replace - dom element and component',
+            oldNode: <div></div>,
+            newNode: <TestClass />,
+            result: replace(<div></div>, <TestClass />),
+        },
+    ];
+
+    tests.forEach(test => {
+        it(test.name, () => {
+            const diff = createDiff(test.oldNode, test.newNode);
+            expect(JSON.stringify(diff)).toEqual(JSON.stringify(test.result));
+        });
     });
 });

@@ -93,8 +93,9 @@ export const createNode = (
             return createComponent(type, props, maybeKey);
         default:
             // @ts-ignore
-            if (__DEV__) {
-                throw new Error(`undefined type: ${type}`);
-            }
+            // if (__DEV__) {
+            //     throw new Error(`undefined type: ${type}`);
+            // }
+            throw new Error(`undefined type: ${type}`);
     }
 };

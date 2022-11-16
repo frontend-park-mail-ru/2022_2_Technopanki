@@ -26,7 +26,7 @@ export const removeNode = (element: HTMLElement, node: ReactsNode) => {
     ) {
         case DOM_SYMBOL:
             removeAllProps(node as ReactsDOMNode);
-            (<ReactsDOMNode>node).ref = null;
+            (<ReactsDOMNode>node).ref?.remove();
             break;
         case COMPONENT_SYMBOL:
             // TODO

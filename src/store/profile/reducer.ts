@@ -29,7 +29,7 @@ export const profileReducer: Reducer<ProfileState> = (
                 phone: action.state.contact_number,
                 email: action.state.email,
                 avatarSrc: IMAGE_URL + action.state.image,
-                // avatarSrc: IMAGE_URL + 'tests.png',
+                // avatarSrc: IMAGE_URL + '__tests__.png',
                 size: action.state.company_size
                     ? action.state.company_size.toString()
                     : '',

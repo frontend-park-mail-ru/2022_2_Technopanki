@@ -22,10 +22,9 @@ export const applyChildrenDiff = (
     element: HTMLElement,
     operations: Operation[],
     startOffset: number = 0,
-    startIndex: number = 0,
 ) => {
     let offset = startOffset;
-    for (let i = startIndex; i < operations.length; ++i) {
+    for (let i = 0; i < operations.length; ++i) {
         if (operations[i].type === SKIP_OPERATION) {
             continue;
         }
@@ -61,7 +60,7 @@ export const applyChildrenDiff = (
         }
 
         if (isArray(operation)) {
-            applyChildrenDiff(element, operation as Operation[], i, 0);
+            applyChildrenDiff(element, operation as Operation[], i);
             continue;
         }
 

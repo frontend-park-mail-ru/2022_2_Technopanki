@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1668601587998" clover="3.2.0">
+  <project timestamp="1668601587998" name="All files">
+    <metrics statements="393" coveredstatements="197" conditionals="188" coveredconditionals="70" methods="88" coveredmethods="54" elements="669" coveredelements="321" complexity="0" loc="393" ncloc="393" packages="8" files="20" classes="20"/>
+    <package name="jsx-runtime">
+      <metrics statements="22" coveredstatements="21" conditionals="7" coveredconditionals="6" methods="7" coveredmethods="7"/>
+      <file name="createNode.ts" path="/home/vladislav/WebstormProjects/2022_2_Technopanki_frontend/Reacts/jsx-runtime/createNode.ts">
+        <metrics statements="18" coveredstatements="17" conditionals="7" coveredconditionals="6" methods="5" coveredmethods="5"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="16" count="88" type="stmt"/>
+        <line num="22" count="88" type="stmt"/>
+        <line num="25" count="3" type="stmt"/>
+        <line num="29" count="10" type="stmt"/>
+        <line num="30" count="10" type="stmt"/>
+        <line num="32" count="10" type="stmt"/>
+        <line num="33" count="10" type="stmt"/>
+        <line num="34" count="10" type="stmt"/>
+        <line num="37" count="3" type="stmt"/>
+        <line num="42" count="10" type="stmt"/>
+        <line num="50" count="10" type="stmt"/>
+        <line num="51" count="10" type="stmt"/>
+        <line num="84" count="3" type="stmt"/>
+        <line num="89" count="98" type="cond" truecount="2" falsecount="1"/>
+        <line num="91" count="88" type="stmt"/>
+        <line num="93" count="10" type="stmt"/>
+        <line num="99" count="0" type="stmt"/>
+      </file>
+      <file name="index.ts" path="/home/vladislav/WebstormProjects/2022_2_Technopanki_frontend/Reacts/jsx-runtime/index.ts">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="90" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="8" type="stmt"/>
+      </file>
+    </package>
+    <package name="reacts-dom.diff">
+      <metrics statements="125" coveredstatements="83" conditionals="72" coveredconditionals="45" methods="29" coveredmethods="27"/>
+      <file name="applyChildrenDiff.ts" path="/home/vladislav/WebstormProjects/2022_2_Technopanki_frontend/Reacts/reacts-dom/diff/applyChildrenDiff.ts">
+        <metrics statements="25" coveredstatements="1" conditionals="15" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="28" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="35" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="44" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="49" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="54" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="55" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="62" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="64" count="0" type="stmt"/>
+        <line num="67" count="0" type="stmt"/>
+      </file>
+      <file name="applyDiff.ts" path="/home/vladislav/WebstormProjects/2022_2_Technopanki_frontend/Reacts/reacts-dom/diff/applyDiff.ts">
+        <metrics statements="10" coveredstatements="1" conditionals="5" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="21" count="0" type="cond" truecount="0" falsecount="5"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+      </file>
+      <file name="childrenDiff.ts" path="/home/vladislav/WebstormProjects/2022_2_Technopanki_frontend/Reacts/reacts-dom/diff/childrenDiff.ts">
+        <metrics statements="34" coveredstatements="30" conditionals="10" coveredconditionals="10" methods="10" coveredmethods="10"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="24" count="20" type="cond" truecount="2" falsecount="0"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="37" count="2" type="stmt"/>
+        <line num="42" count="20" type="cond" truecount="2" falsecount="0"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="48" count="2" type="stmt"/>
+        <line num="52" count="30" type="stmt"/>
+        <line num="53" count="30" type="stmt"/>
+        <line num="55" count="20" type="cond" truecount="2" falsecount="0"/>
+        <line num="58" count="2" type="stmt"/>
+        <line num="62" count="5" type="stmt"/>
+        <line num="64" count="5" type="stmt"/>
+        <line num="67" count="15" type="stmt"/>
+        <line num="70" count="5" type="stmt"/>
+        <line num="73" count="15" type="stmt"/>
+        <line num="76" count="5" type="stmt"/>
+        <line num="81" count="5" type="stmt"/>
+        <line num="82" count="15" type="stmt"/>
+        <line num="83" count="15" type="stmt"/>
+        <line num="85" count="15" type="stmt"/>
+        <line num="94" count="15" type="stmt"/>
+        <line num="100" count="5" type="stmt"/>
+        <line num="101" count="5" type="stmt"/>
+        <line num="103" count="5" type="stmt"/>
+        <line num="106" count="2" type="stmt"/>
+        <line num="110" count="7" type="stmt"/>
+        <line num="112" count="7" type="stmt"/>
+        <line num="113" count="15" type="cond" truecount="4" falsecount="0"/>
+        <line num="114" count="5" type="stmt"/>
+        <line num="116" count="10" type="stmt"/>
+        <line num="120" count="7" type="stmt"/>
+      </file>
+      <file name="createDiff.ts" path="/home/vladislav/WebstormProjects/2022_2_Technopanki_frontend/Reacts/reacts-dom/diff/createDiff.ts">
+        <metrics statements="56" coveredstatements="51" conditionals="42" coveredconditionals="35" methods="17" coveredmethods="17"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="26" count="53" type="stmt"/>
+        <line num="28" count="64" type="stmt"/>
+        <line num="30" count="53" type="stmt"/>
+        <line num="32" count="64" type="stmt"/>
+        <line num="34" count="53" type="stmt"/>
+        <line num="35" count="53" type="stmt"/>
+        <line num="37" count="53" type="stmt"/>
+        <line num="40" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="42" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="46" count="12" type="stmt"/>
+        <line num="51" count="2" type="stmt"/>
+        <line num="55" count="59" type="cond" truecount="5" falsecount="0"/>
+        <line num="56" count="40" type="stmt"/>
+        <line num="59" count="19" type="stmt"/>
+        <line num="62" count="2" type="stmt"/>
+        <line num="66" count="68" type="cond" truecount="4" falsecount="0"/>
+        <line num="67" count="64" type="stmt"/>
+        <line num="70" count="4" type="stmt"/>
+        <line num="76" count="2" type="stmt"/>
+        <line num="77" count="46" type="cond" truecount="2" falsecount="0"/>
+        <line num="80" count="2" type="stmt"/>
+        <line num="84" count="46" type="stmt"/>
+        <line num="89" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="90" count="1" type="stmt"/>
+        <line num="91" count="3" type="stmt"/>
+        <line num="94" count="4" type="stmt"/>
+        <line num="101" count="2" type="stmt"/>
+        <line num="105" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="106" count="1" type="stmt"/>
+        <line num="109" count="1" type="stmt"/>
+        <line num="110" count="1" type="stmt"/>
+        <line num="115" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="116" count="1" type="stmt"/>
+        <line num="119" count="0" type="stmt"/>
+        <line num="120" count="0" type="stmt"/>
+        <line num="128" count="2" type="stmt"/>
+        <line num="132" count="45" type="cond" truecount="1" falsecount="1"/>
+        <line num="133" count="0" type="stmt"/>
+        <line num="136" count="45" type="stmt"/>
+        <line num="137" count="45" type="stmt"/>
+        <line num="142" count="45" type="stmt"/>
+        <line num="143" count="45" type="stmt"/>
+        <line num="144" count="45" type="cond" truecount="2" falsecount="0"/>
+        <line num="145" count="23" type="stmt"/>
+        <line num="148" count="22" type="stmt"/>
+        <line num="161" count="2" type="stmt"/>
+        <line num="166" count="108" type="cond" truecount="2" falsecount="0"/>
+        <line num="167" count="59" type="stmt"/>
+        <line num="171" count="49" type="cond" truecount="2" falsecount="0"/>
+        <line num="172" count="2" type="stmt"/>
+        <line num="176" count="47" type="cond" truecount="2" falsecount="1"/>
+        <line num="178" count="2" type="stmt"/>
+        <line num="183" count="45" type="stmt"/>
+        <line num="189" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="191" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="reacts-dom.diff.operations">
+      <metrics statements="125" coveredstatements="30" conditionals="53" coveredconditionals="0" methods="21" coveredmethods="4"/>
+      <file name="insert.ts" path="/home/vladislav/WebstormProjects/2022_2_Technopanki_frontend/Reacts/reacts-dom/diff/operations/insert.ts">
+        <metrics statements="36" coveredstatements="5" conditionals="17" coveredconditionals="0" methods="6" coveredmethods="0"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="23" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="35" count="2" type="stmt"/>
+        <line num="39" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="43" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="48" count="2" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="59" count="2" type="stmt"/>
+        <line num="64" count="0" type="stmt"/>
+        <line num="65" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="72" count="0" type="stmt"/>
+        <line num="75" count="2" type="stmt"/>
+        <line num="80" count="0" type="stmt"/>
+        <line num="81" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="82" count="0" type="stmt"/>
+        <line num="87" count="0" type="stmt"/>
+        <line num="90" count="0" type="cond" truecount="0" falsecount="3"/>
+        <line num="96" count="0" type="stmt"/>
+        <line num="97" count="0" type="stmt"/>
+        <line num="99" count="0" type="stmt"/>
+        <line num="104" count="0" type="stmt"/>
+        <line num="107" count="0" type="stmt"/>
+      </file>
+      <file name="operations.ts" path="/home/vladislav/WebstormProjects/2022_2_Technopanki_frontend/Reacts/reacts-dom/diff/operations/operations.ts">
+        <metrics statements="13" coveredstatements="13" conditionals="1" coveredconditionals="0" methods="5" coveredmethods="3"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="23" count="3" type="stmt"/>
+        <line num="27" count="28" type="stmt"/>
+        <line num="34" count="3" type="stmt"/>
+        <line num="37" count="47" type="stmt"/>
+        <line num="43" count="57" type="stmt"/>
+        <line num="45" count="3" type="stmt"/>
+        <line num="50" count="3" type="stmt"/>
+      </file>
+      <file name="remove.ts" path="/home/vladislav/WebstormProjects/2022_2_Technopanki_frontend/Reacts/reacts-dom/diff/operations/remove.ts">
+        <metrics statements="13" coveredstatements="1" conditionals="5" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="17" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="22" count="0" type="cond" truecount="0" falsecount="3"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+      </file>
+      <file name="replace.ts" path="/home/vladislav/WebstormProjects/2022_2_Technopanki_frontend/Reacts/reacts-dom/diff/operations/replace.ts">
+        <metrics statements="40" coveredstatements="5" conditionals="16" coveredconditionals="0" methods="5" coveredmethods="0"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="47" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="57" count="2" type="stmt"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="64" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="65" count="0" type="cond" truecount="0" falsecount="3"/>
+        <line num="67" count="0" type="stmt"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="73" count="0" type="stmt"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="78" count="0" type="stmt"/>
+        <line num="82" count="0" type="cond" truecount="0" falsecount="3"/>
+        <line num="84" count="0" type="stmt"/>
+        <line num="85" count="0" type="stmt"/>
+        <line num="87" count="0" type="stmt"/>
+        <line num="88" count="0" type="stmt"/>
+        <line num="90" count="0" type="stmt"/>
+        <line num="94" count="0" type="cond" truecount="0" falsecount="3"/>
+        <line num="96" count="0" type="stmt"/>
+        <line num="97" count="0" type="stmt"/>
+        <line num="99" count="0" type="stmt"/>
+        <line num="104" count="0" type="stmt"/>
+        <line num="106" count="0" type="stmt"/>
+      </file>
+      <file name="update.ts" path="/home/vladislav/WebstormProjects/2022_2_Technopanki_frontend/Reacts/reacts-dom/diff/operations/update.ts">
+        <metrics statements="23" coveredstatements="6" conditionals="14" coveredconditionals="0" methods="4" coveredmethods="1"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="23" count="2" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="41" count="2" type="stmt"/>
+        <line num="44" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="51" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="59" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="67" count="2" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="72" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="75" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="81" count="0" type="stmt"/>
+        <line num="84" count="0" type="stmt"/>
+        <line num="86" count="0" type="stmt"/>
+        <line num="89" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="reacts-dom.props">
+      <metrics statements="45" coveredstatements="30" conditionals="22" coveredconditionals="9" methods="12" coveredmethods="9"/>
+      <file name="constants.ts" path="/home/vladislav/WebstormProjects/2022_2_Technopanki_frontend/Reacts/reacts-dom/props/constants.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
+      </file>
+      <file name="props.ts" path="/home/vladislav/WebstormProjects/2022_2_Technopanki_frontend/Reacts/reacts-dom/props/props.ts">
+        <metrics statements="43" coveredstatements="28" conditionals="22" coveredconditionals="9" methods="12" coveredmethods="9"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="16" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="17" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="21" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="30" count="4" type="stmt"/>
+        <line num="31" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="35" count="4" type="stmt"/>
+        <line num="38" count="2" type="stmt"/>
+        <line num="54" count="3" type="stmt"/>
+        <line num="55" count="3" type="stmt"/>
+        <line num="58" count="3" type="stmt"/>
+        <line num="59" count="2" type="stmt"/>
+        <line num="66" count="2" type="stmt"/>
+        <line num="70" count="2" type="stmt"/>
+        <line num="72" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="73" count="0" type="stmt"/>
+        <line num="76" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="77" count="1" type="stmt"/>
+        <line num="79" count="0" type="stmt"/>
+        <line num="84" count="2" type="stmt"/>
+        <line num="85" count="0" type="stmt"/>
+        <line num="86" count="0" type="stmt"/>
+        <line num="87" count="0" type="stmt"/>
+        <line num="90" count="2" type="stmt"/>
+        <line num="94" count="2" type="stmt"/>
+        <line num="96" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="97" count="0" type="stmt"/>
+        <line num="100" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="101" count="1" type="stmt"/>
+        <line num="107" count="0" type="stmt"/>
+        <line num="112" count="2" type="stmt"/>
+        <line num="113" count="2" type="stmt"/>
+        <line num="114" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="115" count="0" type="stmt"/>
+        <line num="118" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="119" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="120" count="2" type="stmt"/>
+        <line num="126" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="reacts-dom.render">
+      <metrics statements="45" coveredstatements="14" conditionals="25" coveredconditionals="5" methods="6" coveredmethods="2"/>
+      <file name="renderNode.ts" path="/home/vladislav/WebstormProjects/2022_2_Technopanki_frontend/Reacts/reacts-dom/render/renderNode.ts">
+        <metrics statements="39" coveredstatements="13" conditionals="21" coveredconditionals="5" methods="5" coveredmethods="2"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="13" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="29" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="33" count="2" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="38" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="42" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="52" count="2" type="cond" truecount="3" falsecount="1"/>
+        <line num="53" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="64" count="2" type="cond" truecount="1" falsecount="2"/>
+        <line num="67" count="2" type="stmt"/>
+        <line num="68" count="2" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="72" count="0" type="stmt"/>
+        <line num="83" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="84" count="0" type="stmt"/>
+        <line num="85" count="0" type="stmt"/>
+      </file>
+      <file name="rerenderNode.ts" path="/home/vladislav/WebstormProjects/2022_2_Technopanki_frontend/Reacts/reacts-dom/render/rerenderNode.ts">
+        <metrics statements="6" coveredstatements="1" conditionals="4" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="16" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="reacts-dom.utils">
+      <metrics statements="10" coveredstatements="9" conditionals="5" coveredconditionals="5" methods="4" coveredmethods="3"/>
+      <file name="isArray.ts" path="/home/vladislav/WebstormProjects/2022_2_Technopanki_frontend/Reacts/reacts-dom/utils/isArray.ts">
+        <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="0" type="stmt"/>
+      </file>
+      <file name="isPrimitive.ts" path="/home/vladislav/WebstormProjects/2022_2_Technopanki_frontend/Reacts/reacts-dom/utils/isPrimitive.ts">
+        <metrics statements="8" coveredstatements="8" conditionals="5" coveredconditionals="5" methods="3" coveredmethods="3"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="216" type="cond" truecount="3" falsecount="0"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="108" type="stmt"/>
+        <line num="9" count="108" type="stmt"/>
+        <line num="10" count="216" type="cond" truecount="2" falsecount="0"/>
+        <line num="11" count="118" type="stmt"/>
+        <line num="14" count="108" type="stmt"/>
+      </file>
+    </package>
+    <package name="reacts.src">
+      <metrics statements="15" coveredstatements="4" conditionals="4" coveredconditionals="0" methods="8" coveredmethods="1"/>
+      <file name="Component.ts" path="/home/vladislav/WebstormProjects/2022_2_Technopanki_frontend/Reacts/reacts/src/Component.ts">
+        <metrics statements="15" coveredstatements="4" conditionals="4" coveredconditionals="0" methods="8" coveredmethods="1"/>
+        <line num="9" count="10" type="stmt"/>
+        <line num="11" count="10" type="stmt"/>
+        <line num="12" count="10" type="stmt"/>
+        <line num="15" count="10" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="25" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="shared.constants">
+      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="getUniqueKey.ts" path="/home/vladislav/WebstormProjects/2022_2_Technopanki_frontend/Reacts/shared/constants/getUniqueKey.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="74" type="stmt"/>
+      </file>
+      <file name="symbols.ts" path="/home/vladislav/WebstormProjects/2022_2_Technopanki_frontend/Reacts/shared/constants/symbols.ts">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

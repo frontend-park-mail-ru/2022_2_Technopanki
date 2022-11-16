@@ -3,14 +3,14 @@
 // import Func = jest.Func;
 //
 // describe('JSX', () => {
-//     it('DOM - basic tests', () => {
-//         const node = <div key={'tests'}>Hello world</div>;
+//     it('DOM - basic __tests__', () => {
+//         const node = <div key={'__tests__'}>Hello world</div>;
 //         expect(node).toEqual({
 //             $$typeof: DOM_SYMBOL,
 //             type: 'div',
 //             props: { children: 'Hello world' },
 //             ref: null,
-//             key: 'tests',
+//             key: '__tests__',
 //             eventMap: new Map<string, Function>()
 //         });
 //     });
@@ -107,17 +107,17 @@
 //         });
 //     });
 //
-//     it('COMPONENT - basic tests', () => {
+//     it('COMPONENT - basic __tests__', () => {
 //         class TestComponent extends ReactsComponent {
 //             render() {
-//                 return <p key={'tests'}>Hello world!</p>;
+//                 return <p key={'__tests__'}>Hello world!</p>;
 //             }
 //         }
 //         expect(<TestComponent />?.props?.children).toEqual({
 //             $$typeof: DOM_SYMBOL,
 //             type: 'p',
 //             props: { children: 'Hello world!' },
-//             key: 'tests',
+//             key: '__tests__',
 //             ref: null,
 //
 //         });
