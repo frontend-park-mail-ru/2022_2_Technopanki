@@ -1,5 +1,6 @@
 import { ComponentConstructor, ComponentType } from './component';
 import Func = jest.Func;
+import { ReactsComponent } from '../../reacts/src/Component';
 
 export type KeyType = Symbol | string | number | null | undefined;
 
@@ -14,12 +15,8 @@ export type ChildrenType = ReactsNode | ReactsNode[];
 
 export type PropType =
     | EventListenerOrEventListenerObject
-    | Function
-    | string
-    | number
-    | null
-    | undefined
-    | boolean;
+    | ReactsNode
+    | Function;
 export type PropsType = { [key: string]: PropType };
 export type PropsWithChildren = { children: ChildrenType } & PropsType;
 

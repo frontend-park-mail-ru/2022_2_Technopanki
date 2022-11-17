@@ -52,10 +52,7 @@ export const applyChildrenDiff = (
         }
 
         if (operation.type === UPDATE_OPERATION) {
-            if (childElem !== (<UpdateOperation>operation).node.ref) {
-                throw new Error('different elements');
-            }
-            applyDiff(childElem, operation);
+            applyDiff((<UpdateOperation>operation).node.ref, operation);
             continue;
         }
 

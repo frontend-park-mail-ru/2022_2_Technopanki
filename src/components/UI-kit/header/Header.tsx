@@ -11,9 +11,10 @@ import {
     START_PATH,
     VACANCIES_PATH,
 } from '../../../utils/routerConstants';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 
 // TODO: refactor
-class Header extends Component<{ userType: string }> {
+class Header extends ReactsComponent<{ userType: string }> {
     setActive = (event: MouseEvent) => {
         let cur = document.querySelector(`.${styles.item__active}`);
         let target = event.target as Element;

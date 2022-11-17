@@ -1,4 +1,3 @@
-import { Component } from '../../../__Reacts__old_version__';
 import styles from './startPage.module.scss';
 import Header from '../../components/UI-kit/header/Header';
 import ArrowButtonWithText from '../../components/UI-kit/buttons/ArrowButtonWithText';
@@ -6,8 +5,9 @@ import ArrowButtonWithTextOutline from '../../components/UI-kit/buttons/ArrowBut
 import Logo from '../../static/assets/JobflowDefault.svg';
 import Link from '../../components/Link/Link';
 import { SIGN_UP_PATH, VACANCIES_PATH } from '../../utils/routerConstants';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 
-export default class StartPage extends Component {
+export default class StartPage extends ReactsComponent {
     render() {
         return (
             <div
@@ -15,15 +15,13 @@ export default class StartPage extends Component {
                     'grid h-100vh columns g-24 hidden relative screen-responsive'
                 }
             >
-                <Header key={'header'} />
+                <Header />
                 <div
-                    key={'content'}
                     className={
                         'col-md-6 col-12 h-100vh justify-content-center flex column g-32'
                     }
                 >
                     <div
-                        key={'logo'}
                         className={`flex g-8 align-items-center h-16 ${styles.logo}`}
                         dangerouslySetInnerHTML={{ __html: Logo }}
                     ></div>
@@ -38,11 +36,11 @@ export default class StartPage extends Component {
                             должности стоит нацелиться.
                         </p>
                     </div>
-                    <div key={'buttons'} className={'flex column g-16'}>
+                    <div className={'flex column g-16'}>
                         <Link
                             to={SIGN_UP_PATH}
                             content={
-                                <ArrowButtonWithText key={'1'}>
+                                <ArrowButtonWithText>
                                     <p>Создать аккаунт</p>
                                 </ArrowButtonWithText>
                             }
@@ -50,7 +48,7 @@ export default class StartPage extends Component {
                         <Link
                             to={VACANCIES_PATH}
                             content={
-                                <ArrowButtonWithTextOutline key={'2'}>
+                                <ArrowButtonWithTextOutline>
                                     <p>Посмотреть все вакансии</p>
                                 </ArrowButtonWithTextOutline>
                             }

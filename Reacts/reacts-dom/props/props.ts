@@ -12,22 +12,15 @@ export const setAttribute = (
     attr: string,
     value: string,
 ) => {
-    // @ts-ignore
-    if (true) {
-        if (!attributes[attr]) {
-            throw new Error(`unsupported type of attribute: ${attr}`);
-        }
-
-        if (!node.ref) {
-            throw new Error('node.ref is null');
-        }
+    if (attr === 'dangerouslySetInnerHTML') {
+        // @ts-ignore
+        (<HTMLElement>node.ref).innerHTML = value.__html;
+    } else {
+        (<HTMLElement>node.ref).setAttribute(attributes[attr], value);
     }
-
-    (<HTMLElement>node.ref).setAttribute(attributes[attr], value);
 };
 
 export const removeEventListener = (node: ReactsDOMNode, eventName: string) => {
-    console.log(eventName);
     if (node.eventMap.get(eventName)) {
         (<Function>node.eventMap.get(eventName))();
     }
