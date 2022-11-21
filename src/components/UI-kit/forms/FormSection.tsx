@@ -20,7 +20,11 @@ export default class FormSection extends ReactsComponent<{
                 {Object.entries(this.props.fields).map(([id, field]) => (
                     <div
                         key={id}
-                        className={`col-12 col-md-${field.props.size.toString()}`}
+                        className={`col-12 ${
+                            field.props.size
+                                ? `col-md-${field.props.size.toString()}`
+                                : ''
+                        }`}
                     >
                         {field.props.type === 'textarea' ? (
                             <Textarea
