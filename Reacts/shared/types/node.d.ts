@@ -14,6 +14,11 @@ export type JSXElementType = string | ComponentConstructor | JSXVnodeType;
 export type ChildrenType = ReactsNode | ReactsNode[];
 
 export type PropType =
+    | string[]
+    | number[]
+    | string
+    | {}[]
+    | {}
     | EventListenerOrEventListenerObject
     | ReactsNode
     | Function;

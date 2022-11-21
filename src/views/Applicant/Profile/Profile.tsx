@@ -1,4 +1,4 @@
-import { Component } from '../../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import Header from '../../../components/UI-kit/header/Header';
 import ButtonIcon from '../../../components/UI-kit/buttons/ButtonIcon';
 import PhoneIcon from '../../../static/icons/phone.svg';
@@ -10,7 +10,7 @@ import ProfileHeader from '../../../components/ProfileHeader/ProfileHeader';
 import Chips from '../../../components/UI-kit/chips/Chips';
 import ResumeList from '../../../components/UI-kit/resumeList/ResumeList';
 import ResumeSidebar from '../../../components/sidebars/ResumeSidebar';
-import { VNodeType } from '../../../../__Reacts__old_version__/shared/common';
+import { ReactsComponentNode } from '../../../../Reacts/shared/types/node';
 import { ResumeListItemPropsType } from '../../../components/UI-kit/resumeList/ResumeListItem';
 import { applicantProfileService } from '../../../services/applicantService';
 import { applicantConnect, dispatch, userConnect } from '../../../store';
@@ -43,7 +43,7 @@ type ApplicantPropsType = {
     };
 };
 
-class ApplicantProfile extends Component<ApplicantPropsType> {
+class ApplicantProfile extends ReactsComponent<ApplicantPropsType> {
     getDataFromServer() {
         const applicantID = location.pathname.split('/').at(-1);
 
@@ -161,6 +161,6 @@ export default applicantConnect((state: ProfileState, props) => {
             facebook: state.facebook,
             telegram: state.telegram,
         },
-        avatarSrc: state.avatarSrc,
+        avatarSrc: state.avatar_src,
     };
 })(UserWrapper);

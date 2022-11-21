@@ -1,4 +1,4 @@
-import { Component } from '../../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import Header from '../../../components/UI-kit/header/Header';
 import ProfileHeader from '../../../components/ProfileHeader/ProfileHeader';
 import ButtonIcon from '../../../components/UI-kit/buttons/ButtonIcon';
@@ -43,7 +43,7 @@ import {
     PHONE_ERROR,
 } from '../../../utils/validation/messages';
 import { employerProfileService } from '../../../services/employerProfileService';
-import navigator from '../../../router/navigator.tsx';
+import navigator from '../../../router/navigator';
 import { applicantProfileService } from '../../../services/applicantService';
 import Textarea from '../../../components/UI-kit/forms/inputs/Textarea';
 import Footer from '../../../components/UI-kit/footer/Footer';
@@ -55,7 +55,7 @@ import { profileActions } from '../../../store/profile/actions';
 import FormSection from '../../../components/UI-kit/forms/FormSection';
 import { APPLICANT_PATHS } from '../../../utils/routerConstants';
 
-class AvatarSettingsComponent extends Component<
+class AvatarSettingsComponent extends ReactsComponent<
     { previewSrc: string },
     { previewSrc: string }
 > {
@@ -101,7 +101,7 @@ const AvatarSettings = profileConnect(store => {
     };
 })(AvatarSettingsComponent);
 
-class ApplicantSettings extends Component<
+class ApplicantSettings extends ReactsComponent<
     ProfileState,
     {
         profile: ApplicantProfileType;

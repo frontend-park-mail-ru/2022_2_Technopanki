@@ -1,4 +1,4 @@
-import { Component } from '../../../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../../../Reacts/reacts/src/Component';
 import styles from './input.module.scss';
 
 export type InputPropsType = {
@@ -7,6 +7,7 @@ export type InputPropsType = {
     placeholder: string;
     label: string;
     name: string;
+    size?: number;
     value?: string;
     required?: boolean;
     error?: boolean;
@@ -15,7 +16,7 @@ export type InputPropsType = {
 };
 
 // TODO: перенести вывод сообщений об ошиках в input + добавиьт onBlur
-export default class Input extends Component<InputPropsType> {
+export default class Input extends ReactsComponent<InputPropsType> {
     render() {
         return (
             <div className={'flex w-100 column g-8'}>

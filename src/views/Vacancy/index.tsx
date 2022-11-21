@@ -1,4 +1,4 @@
-import { Component } from '../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Header from '../../components/UI-kit/header/Header';
 import styles from './vacancy.module.scss';
 import TextBlock from '../../components/UI-kit/text/TextBlock';
@@ -31,7 +31,7 @@ type VacancyPropsType = {
     };
 };
 
-class Vacancy extends Component<VacancyPropsType> {
+class Vacancy extends ReactsComponent<VacancyPropsType> {
     getDataFromServer() {
         // Мы точно уверены что путь будет vacancy/{0,9}+
         const vacancyID = location.pathname.split('/').at(-1);

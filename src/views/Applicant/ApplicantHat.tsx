@@ -1,4 +1,4 @@
-import { Component } from '../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Button from '../../components/UI-kit/buttons/Button';
 import Hat from '../../components/UI-kit/hat/Hat';
 import Link from '../../components/Link/Link';
@@ -8,7 +8,7 @@ import { IMAGE_URL } from '../../utils/networkConstants';
 import { userConnect } from '../../store';
 import RenderWithCondition from '../../components/RenderWithCondition';
 
-class ApplicantHat extends Component<
+class ApplicantHat extends ReactsComponent<
     {
         userID: string;
         creatorID: string;

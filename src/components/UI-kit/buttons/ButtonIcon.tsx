@@ -1,10 +1,10 @@
-import { Component } from '../../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import styles from './button.module.scss';
-import { VNodeType } from '../../../../__Reacts__old_version__/shared/common';
+import { ReactsComponentNode } from '../../../../Reacts/shared/types/node';
 
-export default class ButtonIcon extends Component<{
+export default class ButtonIcon extends ReactsComponent<{
     onClick?: Function;
-    icon: VNodeType;
+    icon: ReactsComponentNode;
     children?: string;
     type?: string;
 }> {

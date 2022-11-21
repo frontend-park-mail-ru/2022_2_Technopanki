@@ -1,8 +1,8 @@
-import { Component } from '../../../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../../../Reacts/reacts/src/Component';
 import Chips from '../../chips/Chips';
 import styles from './input.module.scss';
 
-export default class ChipsInput extends Component<{
+export default class ChipsInput extends ReactsComponent<{
     id: string;
     label: string;
     items: string[];

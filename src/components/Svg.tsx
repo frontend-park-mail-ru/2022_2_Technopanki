@@ -1,6 +1,6 @@
-import { Component } from '../../__Reacts__old_version__';
+import { ReactsComponent } from '../../Reacts/reacts/src/Component';
 
-export default class Svg extends Component<{
+export default class Svg extends ReactsComponent<{
     src: string;
     height: number | string;
     padding?: number | string;

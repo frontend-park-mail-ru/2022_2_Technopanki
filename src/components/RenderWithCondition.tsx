@@ -1,5 +1,4 @@
-import { Component } from '../../__Reacts__old_version__';
-import { VNodeType } from '../../__Reacts__old_version__/shared/common';
+import { ReactsComponentNode } from '../../Reacts/shared/types/node';
 import { ReactsComponent } from '../../Reacts/reacts/src/Component';
 import { ReactsNode } from '../../Reacts/shared/types/node';
 

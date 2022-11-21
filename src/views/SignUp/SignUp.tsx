@@ -1,4 +1,4 @@
-import { Component } from '../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Input from '../../components/UI-kit/forms/inputs/Input';
 import styles from './signup.module.scss';
 import Link from '../../components/Link/Link';
@@ -24,7 +24,7 @@ import {
     validatePasswordLength,
     validatePasswordSymbols,
 } from '../../utils/validation/validation';
-import navigator from '../../router/navigator.tsx';
+import navigator from '../../router/navigator';
 import { dispatch } from '../../store';
 import { userActions } from '../../store/user/actions';
 import { authService } from '../../services/authService';
@@ -103,7 +103,7 @@ export const validateField = (
     return false;
 };
 
-export default class SignUp extends Component<
+export default class SignUp extends ReactsComponent<
     {},
     {
         inputs: {

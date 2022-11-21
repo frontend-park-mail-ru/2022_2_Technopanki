@@ -1,15 +1,15 @@
-import { Component } from '../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import styles from './profileHeader.module.scss';
-import { VNodeType } from '../../../__Reacts__old_version__/shared/common';
+import { ReactsComponentNode } from '../../../Reacts/shared/types/node';
 
-export default class ProfileHeader extends Component<{
+export default class ProfileHeader extends ReactsComponent<{
     profileID: string;
     bannerSrc: string;
     avatarSrc: string;
     name: string;
     surname?: string;
     status: string;
-    buttons: VNodeType;
+    buttons: ReactsComponentNode;
 }> {
     render() {
         return (

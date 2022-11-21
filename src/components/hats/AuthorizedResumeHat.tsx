@@ -1,4 +1,4 @@
-import { Component } from '../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import ButtonIcon from '../UI-kit/buttons/ButtonIcon';
 import PhoneIcon from '../../static/icons/phone.svg';
 import MailIcon from '../../static/icons/mail.svg';
@@ -7,7 +7,7 @@ import Hat from '../UI-kit/hat/Hat';
 import Button from '../UI-kit/buttons/Button';
 import Link from '../Link/Link';
 
-export default class ResumeHat extends Component<{
+export default class ResumeHat extends ReactsComponent<{
     imgSrc: string;
     name: string;
     surname: string;
@@ -19,7 +19,7 @@ export default class ResumeHat extends Component<{
                 imgSrc={'./applicant.png'}
                 name={this.props.name}
                 surname={this.props.surname}
-                description={this.props.description}
+                status={this.props.description}
                 rightSideContent={
                     <Link
                         to={'/resume/settings'}

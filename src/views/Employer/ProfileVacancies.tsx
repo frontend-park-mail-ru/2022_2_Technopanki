@@ -1,10 +1,10 @@
-import { Component } from '../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import { vacancyService } from '../../services/vacancyService';
 import VacancyCard from '../../components/UI-kit/vacancy/VacancyCard';
 import Button from '../../components/UI-kit/buttons/Button';
 import RenderWithCondition from '../../components/RenderWithCondition';
 
-export default class ProfileVacancies extends Component<
+export default class ProfileVacancies extends ReactsComponent<
     { profileID: string },
     {
         vacancies: {

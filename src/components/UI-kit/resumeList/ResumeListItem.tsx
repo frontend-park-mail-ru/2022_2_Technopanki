@@ -1,5 +1,5 @@
-import { Component } from '../../../../__Reacts__old_version__';
-import { VNodeType } from '../../../../__Reacts__old_version__/shared/common';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
+import { ReactsComponentNode } from '../../../../Reacts/shared/types/node';
 import Link from '../../Link/Link';
 import ArrowButton from '../buttons/ArrowButton';
 import Chips from '../chips/Chips';
@@ -17,7 +17,7 @@ export type ResumeListItemPropsType = {
     skills: string[];
 };
 
-export default class ResumeListItem extends Component<ResumeListItemPropsType> {
+export default class ResumeListItem extends ReactsComponent<ResumeListItemPropsType> {
     months = [
         {
             date: '01',
@@ -92,11 +92,11 @@ export default class ResumeListItem extends Component<ResumeListItemPropsType> {
                             to={RESUME_PATHS.INDEX + this.props.resume_id}
                             content={
                                 <p key={'name'}>
-                                    {this.props.name} {this.props.surname}
+                                    {this.props.user_name} {this.props.user_surname}
                                 </p>
                             }
                         />
-                        <p key={'title'}>{this.props.resumeTitle}</p>
+                        <p key={'title'}>{this.props.title}</p>
                     </div>
                 </div>
                 <div
@@ -105,19 +105,19 @@ export default class ResumeListItem extends Component<ResumeListItemPropsType> {
                 >
                     <p>
                         {`${
-                            this.props.timeWhenCreated[8] === '0'
-                                ? this.props.timeWhenCreated.slice(9, 10)
-                                : this.props.timeWhenCreated.slice(8, 10)
+                            this.props.created_date[8] === '0'
+                                ? this.props.created_date.slice(9, 10)
+                                : this.props.created_date.slice(8, 10)
                         } ${
                             this.months.find(
                                 m =>
                                     m.date ===
-                                    this.props.timeWhenCreated.slice(5, 7),
+                                    this.props.created_date.slice(5, 7),
                             ).name
-                        } ${this.props.timeWhenCreated.slice(
+                        } ${this.props.created_date.slice(
                             0,
                             4,
-                        )} • ${this.props.timeWhenCreated.slice(11, 16)}`}
+                        )} • ${this.props.created_date.slice(11, 16)}`}
                     </p>
                 </div>
                 <div

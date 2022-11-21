@@ -1,8 +1,8 @@
-import { Component } from '../../../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../../../Reacts/reacts/src/Component';
 import DownloadIcon from '../../../../static/icons/Download.svg';
 import styles from './input.module.scss';
 
-export default class FileInput extends Component<{
+export default class FileInput extends ReactsComponent<{
     id: string;
     label: string;
     onUpload?: Function;

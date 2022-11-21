@@ -1,11 +1,11 @@
-import { Component } from '../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import { dispatch, errorsConnect, successConnect } from '../../store';
 import CloseIcon from '../../static/icons/x-close.svg';
 import Svg from '../Svg';
 import styles from './popup.module.scss';
 import { deactivateSuccess } from '../../store/succeses/actions';
 
-class SuccessPopup extends Component<{
+class SuccessPopup extends ReactsComponent<{
     isActive: boolean;
     header: string;
     text: string;

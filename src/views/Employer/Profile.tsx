@@ -1,4 +1,4 @@
-import { Component } from '../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Header from '../../components/UI-kit/header/Header';
 import styles from './userPage.module.scss';
 import Button from '../../components/UI-kit/buttons/Button';
@@ -23,7 +23,7 @@ import ProfileVacancies from './ProfileVacancies';
 import RenderWithCondition from '../../components/RenderWithCondition';
 import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../utils/routerConstants';
 
-class Profile extends Component<
+class Profile extends ReactsComponent<
     ProfileState & { userID: string },
     { vacancies: VacancyCardPropsType[] }
 > {

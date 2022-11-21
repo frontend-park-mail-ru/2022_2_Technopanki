@@ -1,7 +1,7 @@
-import { Component } from '../../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import styles from './button.module.scss';
 
-export default class Button extends Component<{
+export default class Button extends ReactsComponent<{
     onClick?: Function;
     children: string;
     type?: string;

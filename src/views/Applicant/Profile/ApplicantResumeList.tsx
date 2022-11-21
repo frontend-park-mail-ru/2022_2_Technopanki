@@ -1,9 +1,9 @@
-import { Component } from '../../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import { applicantProfileService } from '../../../services/applicantService';
 import ResumeList from '../../../components/UI-kit/resumeList/ResumeList';
 import { applicantConnect } from '../../../store';
 
-class ApplicantResumeList extends Component<
+class ApplicantResumeList extends ReactsComponent<
     { applicantID: string },
     { responses: [] }
 > {

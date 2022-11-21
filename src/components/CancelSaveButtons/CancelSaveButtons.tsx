@@ -1,8 +1,8 @@
-import { Component } from '../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Button from '../UI-kit/buttons/Button';
 import ButtonPrimary from '../UI-kit/buttons/ButtonPrimary';
 
-export default class CancelSaveButtons extends Component<{
+export default class CancelSaveButtons extends ReactsComponent<{
     onCancel?: Function;
     onSave?: Function;
 }> {

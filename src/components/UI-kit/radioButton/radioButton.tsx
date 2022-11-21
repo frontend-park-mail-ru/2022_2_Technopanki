@@ -1,7 +1,7 @@
-import { Component } from '../../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import styles from './radio.module.scss';
 
-export default class RadioButton extends Component<{
+export default class RadioButton extends ReactsComponent<{
     checked: boolean;
     id: string;
     name: string;

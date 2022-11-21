@@ -1,6 +1,6 @@
-import { Component } from '../../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import styles from './hat.module.scss';
-import { VNodeType } from '../../../../__Reacts__old_version__/shared/common';
+import { ReactsComponentNode } from '../../../../Reacts/shared/types/node';
 import Link from '../../Link/Link';
 
 type HatPropsType = {
@@ -8,11 +8,11 @@ type HatPropsType = {
     name: string;
     surname: string;
     status: string;
-    rightSideContent: VNodeType;
+    rightSideContent: ReactsComponentNode;
     linkTo?: string;
 };
 
-export default class Hat extends Component<HatPropsType> {
+export default class Hat extends ReactsComponent<HatPropsType> {
     render() {
         return (
             <div

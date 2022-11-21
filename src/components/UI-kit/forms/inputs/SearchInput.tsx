@@ -1,9 +1,9 @@
-import { Component } from '../../../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../../../Reacts/reacts/src/Component';
 import styles from './input.module.scss';
 import Loupe from '../../../../static/icons/loupe.svg';
 import SearchArrow from '../../../../static/icons/search_arrow.svg';
 
-export default class SearchInput extends Component {
+export default class SearchInput extends ReactsComponent {
     render() {
         return (
             <form className={'flex column relative'}>
@@ -27,7 +27,7 @@ export default class SearchInput extends Component {
                     />
                 </div>
                 <div
-                    className={`absolute w-100 flex row justify-content-space-between ${styles.search}`}
+                    className={`absolute w-100 flex row justify-content-space-between ${styles.search_input}`}
                 ></div>
             </form>
         );

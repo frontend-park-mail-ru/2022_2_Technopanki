@@ -1,8 +1,8 @@
-import { Component } from '../../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import ResumeListItem, { ResumeListItemPropsType } from './ResumeListItem';
 import { IMAGE_URL } from '../../../utils/networkConstants';
 
-export default class ResumeList extends Component<
+export default class ResumeList extends ReactsComponent<
     {
         someNewValue: string;
         resume: ResumeListItemPropsType[];

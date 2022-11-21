@@ -1,4 +1,3 @@
-import { Component, renderNode } from '../__Reacts__old_version__';
 import './styles/globals.scss';
 import { setTheme } from './utils/toggleTheme';
 import StartPage from './views/StartPage/StartPage';

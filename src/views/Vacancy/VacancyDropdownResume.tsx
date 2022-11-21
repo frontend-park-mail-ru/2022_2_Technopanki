@@ -1,4 +1,4 @@
-import { Component } from '../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import ArrowButton from '../../components/UI-kit/buttons/ArrowButton';
 import styles from './vacancy.module.scss';
 import { dispatch, userConnect } from '../../store';
@@ -17,7 +17,7 @@ type ResumeType = {
     id: string;
 };
 
-class Resume extends Component<
+class Resume extends ReactsComponent<
     ResumeType & { name: string; surname: string; vacancyID: string }
 > {
     async sendResponseToServer() {
@@ -89,7 +89,7 @@ class Resume extends Component<
     }
 }
 
-class VacancyDropdownResume extends Component<
+class VacancyDropdownResume extends ReactsComponent<
     { userID: string; name: string; surname: string; vacancyID: string },
     { resume: ResumeType[] }
 > {

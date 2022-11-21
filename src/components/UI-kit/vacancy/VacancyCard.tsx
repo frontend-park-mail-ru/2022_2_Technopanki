@@ -1,4 +1,4 @@
-import { Component } from '../../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import styles from '../../../views/Vacancies/vacancies.module.scss';
 import Location from '../../../static/icons/location.svg';
 import Clock from '../../../static/icons/clock.svg';
@@ -7,7 +7,7 @@ import ArrowDown from '../../../static/icons/small_arrow_down.svg';
 import ArrowUp from '../../../static/icons/small_arrow_up.svg';
 import Hr from '../../../static/icons/hr.svg';
 import ArrowButtonWithTextOutline from '../buttons/ArrowButtonWithTextOutline';
-import { VNodeType } from '../../../../__Reacts__old_version__/shared/common';
+import { ReactsComponentNode } from '../../../../Reacts/shared/types/node';
 import Link from '../../Link/Link';
 import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../../utils/routerConstants';
 import { IMAGE_URL } from '../../../utils/networkConstants';
@@ -24,7 +24,7 @@ export type VacancyCardPropsType = {
     description: string;
 };
 
-export default class VacancyCard extends Component<
+export default class VacancyCard extends ReactsComponent<
     VacancyCardPropsType,
     {
         isOpen: boolean;

@@ -1,4 +1,4 @@
-import { Component } from '../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import SideBar from '../UI-kit/sideBar/SideBar';
 import IconField from './utils/IconField';
 import MapIcon from '../../static/icons/map.svg';
@@ -11,7 +11,7 @@ import TelegramIcon from '../../static/icons/logos/Telegram.svg';
 import RenderWithCondition from '../RenderWithCondition';
 import { vacancyConnect } from '../../store';
 
-class VacancySideBar extends Component<{
+class VacancySideBar extends ReactsComponent<{
     salary: string;
     experience: string;
     location: string;

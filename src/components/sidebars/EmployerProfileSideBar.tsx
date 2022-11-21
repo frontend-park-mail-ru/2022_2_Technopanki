@@ -1,4 +1,4 @@
-import { Component } from '../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import SideBar from '../UI-kit/sideBar/SideBar';
 import MapIcon from '../../static/icons/map.svg';
 import UsersIcon from '../../static/icons/users.svg';
@@ -15,7 +15,7 @@ type EmployerProfileSideBarProps = {
     socialNetworks: EmployerSocialNetworks;
 };
 
-export default class EmployerProfileSideBar extends Component<EmployerProfileSideBarProps> {
+export default class EmployerProfileSideBar extends ReactsComponent<EmployerProfileSideBarProps> {
     render() {
         return (
             <SideBar

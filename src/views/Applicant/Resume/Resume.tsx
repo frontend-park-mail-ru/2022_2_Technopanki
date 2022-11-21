@@ -1,4 +1,4 @@
-import { Component } from '../../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import Header from '../../../components/UI-kit/header/Header';
 import styles from '../Resume/resume.module.scss';
 import TextBlock from '../../../components/UI-kit/text/TextBlock';
@@ -33,7 +33,7 @@ type ResumePropsType = {
     };
 };
 
-class Resume extends Component<ResumePropsType> {
+class Resume extends ReactsComponent<ResumePropsType> {
     getDataFromServer() {
         const resumeID = location.pathname.split('/').at(-1);
         resumeService.getResumeData(resumeID as string).then(body => {

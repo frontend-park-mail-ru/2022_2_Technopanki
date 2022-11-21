@@ -1,8 +1,8 @@
-import { Component } from '../../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import Input, { InputPropsType } from './inputs/Input';
 import Textarea from './inputs/Textarea';
 
-export default class FormSection extends Component<{
+export default class FormSection extends ReactsComponent<{
     header: string;
     fields: {
         [key: string]: {
@@ -20,30 +20,30 @@ export default class FormSection extends Component<{
                 {Object.entries(this.props.fields).map(([id, field]) => (
                     <div
                         key={id}
-                        className={`col-12 col-md-${field.size.toString()}`}
+                        className={`col-12 col-md-${field.props.size.toString()}`}
                     >
-                        {field.type === 'textarea' ? (
+                        {field.props.type === 'textarea' ? (
                             <Textarea
                                 key={id}
                                 id={id}
-                                placeholder={field.placeholder}
-                                value={field.value}
-                                label={field.label}
-                                name={field.name}
-                                error={field.error}
-                                errorMessage={field.errorMessage}
+                                placeholder={field.props.placeholder}
+                                value={field.props.value}
+                                label={field.props.label}
+                                name={field.props.name}
+                                error={field.props.error}
+                                errorMessage={field.props.errorMessage}
                             />
                         ) : (
                             <Input
                                 key={id}
                                 id={id}
-                                type={field.type}
-                                placeholder={field.placeholder}
-                                label={field.label}
-                                name={field.name}
-                                value={field?.value}
-                                error={field.error}
-                                errorMessage={field.errorMessage}
+                                type={field.props.type}
+                                placeholder={field.props.placeholder}
+                                label={field.props.label}
+                                name={field.props.name}
+                                value={field?.props.value}
+                                error={field.props.error}
+                                errorMessage={field.props.errorMessage}
                             />
                         )}
                     </div>

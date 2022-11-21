@@ -1,4 +1,4 @@
-import { Component } from '../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Button from '../../components/UI-kit/buttons/Button';
 import ButtonPrimary from '../../components/UI-kit/buttons/ButtonPrimary';
 import Dropdown from '../../components/UI-kit/dropdown/Dropdown';
@@ -14,7 +14,7 @@ import Vacancy from './index';
 import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../utils/routerConstants';
 import { IMAGE_URL } from '../../utils/networkConstants';
 
-class VacancyHat extends Component<
+class VacancyHat extends ReactsComponent<
     {
         postedByUserID: string;
         vacancyID: string;

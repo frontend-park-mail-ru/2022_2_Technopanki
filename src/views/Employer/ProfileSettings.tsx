@@ -1,4 +1,4 @@
-import { Component } from '../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Header from '../../components/UI-kit/header/Header';
 import SettingsHat from '../../components/hats/SettingsHat';
 import { InputPropsType } from '../../components/UI-kit/forms/inputs/Input';
@@ -38,7 +38,7 @@ import {
 } from '../../store/succeses/actions';
 import { EMPLOYER_PATHS } from '../../utils/routerConstants';
 
-class AvatarSettingsComponent extends Component<
+class AvatarSettingsComponent extends ReactsComponent<
     { previewSrc: string },
     { previewSrc: string }
 > {
@@ -84,7 +84,7 @@ const AvatarSettings = profileConnect(state => {
     };
 })(AvatarSettingsComponent);
 
-class ProfileSettingsComponent extends Component<
+class ProfileSettingsComponent extends ReactsComponent<
     ProfileState & { userID: string },
     {
         profile: EmployerProfile;

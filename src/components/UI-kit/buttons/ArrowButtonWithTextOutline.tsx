@@ -1,8 +1,8 @@
-import { Component } from '../../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import ArrowButton from './ArrowButton';
 import ArrowButtonOutline from './ArrowButtonOutline';
 
-export default class ArrowButtonWithTextOutline extends Component<{
+export default class ArrowButtonWithTextOutline extends ReactsComponent<{
     children: string;
 }> {
     render() {

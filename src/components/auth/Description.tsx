@@ -1,11 +1,11 @@
-import { Component } from '../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Logo from '../../static/assets/JobflowDefault.svg';
 import Illustration from '../../static/assets/illustration.svg';
 import styles from './description.module.scss';
 import Link from '../Link';
 import { START_PATH } from '../../utils/routerConstants';
 
-export default class Description extends Component {
+export default class Description extends ReactsComponent {
     render() {
         return (
             <div className={`col-md-6 col-0 ${styles.description} relative`}>

@@ -1,4 +1,4 @@
-import { Component } from '../../../__Reacts__old_version__';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Input from '../../components/UI-kit/forms/inputs/Input';
 import styles from './signin.module.scss';
 import Link from '../../components/Link/Link';
@@ -22,7 +22,7 @@ import {
     setInvalidFieldsFromServer,
     validateField,
 } from '../SignUp/SignUp';
-import navigator from '../../router/navigator.tsx';
+import navigator from '../../router/navigator';
 import { dispatch } from '../../store';
 import { userActions } from '../../store/user/actions';
 import { authService } from '../../services/authService';
@@ -33,7 +33,7 @@ import {
     START_PATH,
 } from '../../utils/routerConstants';
 
-export default class SignIn extends Component<
+export default class SignIn extends ReactsComponent<
     {},
     {
         inputs: {
