@@ -2,7 +2,6 @@ import { ReactsComponent } from '../../../../../Reacts/reacts/src/Component';
 import styles from './input.module.scss';
 import Loupe from '../../../../static/icons/loupe.svg';
 import SearchArrow from '../../../../static/icons/search_arrow.svg';
-import { ReactsComponent } from '../../../../../Reacts/reacts/src/Component';
 
 export default class SearchInput extends ReactsComponent {
     render() {

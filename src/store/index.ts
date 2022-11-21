@@ -1,4 +1,4 @@
-import createConnect from '../../__Reacts__old_version__/reacts-fluxs/connect';
+import createConnect from '../../Reacts/reacts-flux/connect';
 import dispatcher from '../../Fluxs/dispatcher';
 import { userStore } from './user/store';
 import { vacancyStore } from './vacancy/store';
