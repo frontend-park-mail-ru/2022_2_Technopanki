@@ -12,7 +12,6 @@ export const rerenderNode = (
     newNode: ReactsNode,
 ) => {
     const diff = createDiff(oldNode, newNode);
-    console.log(diff);
     if (diff.type !== REPLACE_OPERATION && diff.type !== REMOVE_OPERATION) {
         // @ts-ignore
         newNode.ref = oldNode.ref;

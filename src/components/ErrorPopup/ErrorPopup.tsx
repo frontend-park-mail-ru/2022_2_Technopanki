@@ -1,11 +1,11 @@
-import { Component } from '../../../__Reacts__old_version__';
 import { dispatch, errorsConnect } from '../../store';
 import CloseIcon from '../../static/icons/x-close.svg';
 import Svg from '../Svg';
 import { deactivateError } from '../../store/errors/actions';
 import styles from './popup.module.scss';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 
-class ErrorPopup extends Component<{
+class ErrorPopup extends ReactsComponent<{
     isActive: boolean;
     header: string;
     text: string;

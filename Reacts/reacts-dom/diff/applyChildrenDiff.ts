@@ -43,11 +43,13 @@ export const applyChildrenDiff = (
 
         if (operation.type === INSERT_OPERATION) {
             insertNode(element, (<InsertOperation>operation).node, childElem);
+            offset++;
             continue;
         }
 
         if (operation.type === REMOVE_OPERATION) {
             removeNode(childElem, (<RemoveOperation>operation).node);
+            offset--;
             continue;
         }
 

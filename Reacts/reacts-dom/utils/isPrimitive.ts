@@ -1,6 +1,6 @@
 import { ReactsNode } from '../../shared/types/node';
 
-export const isPrimitive = (node: ReactsNode): boolean => {
+export const isPrimitive = (node: any): boolean => {
     return !node || typeof node === 'string' || typeof node === 'number';
 };
 

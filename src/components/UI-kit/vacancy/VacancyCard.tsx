@@ -11,6 +11,7 @@ import { VNodeType } from '../../../../__Reacts__old_version__/shared/common';
 import Link from '../../Link/Link';
 import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../../utils/routerConstants';
 import { IMAGE_URL } from '../../../utils/networkConstants';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 
 export type VacancyCardPropsType = {
     id: string;
@@ -24,7 +25,7 @@ export type VacancyCardPropsType = {
     description: string;
 };
 
-export default class VacancyCard extends Component<
+export default class VacancyCard extends ReactsComponent<
     VacancyCardPropsType,
     {
         isOpen: boolean;

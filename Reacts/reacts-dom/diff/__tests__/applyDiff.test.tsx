@@ -57,6 +57,7 @@ describe('onClick applyDiff', () => {
         expect(node.instance.state).toEqual(newState);
     });
 
+    // TODO: ошибка в связанная с тем, что почему-то в children ноды остается старое значение
     it('should update render', () => {
         const oldState = { value: 'Hello' };
         const newState = { value: 'World' };
@@ -71,9 +72,11 @@ describe('onClick applyDiff', () => {
             }
         }
 
-        const node = <TestComponent />;
+        const node: ReactsComponentNode = <TestComponent />;
         // @ts-ignore
-        (node as ReactsComponentNode).instance.onClick();
-        expect(node.children.children).toEqual('World');
+        renderNode(document.createElement('div'), node);
+        (node as ReactsComponentNode).instance?.onClick();
+        expect(node.instance).not.toBeNull();
+        expect(node.props.children.props.children).toEqual('World');
     });
 });
