@@ -80,7 +80,6 @@ export const insertNode = (
     node: ReactsNode,
     beforeElement: HTMLElement | null = null,
 ) => {
-    console.log('insert');
     if (isPrimitive(node)) {
         insertPrimitiveNode(
             element,

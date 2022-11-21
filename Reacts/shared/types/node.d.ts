@@ -1,6 +1,4 @@
 import { ComponentConstructor, ComponentType } from './component';
-import Func = jest.Func;
-import { ReactsComponent } from '../../reacts/src/Component';
 
 export type KeyType = Symbol | string | number | null | undefined;
 
@@ -20,6 +18,10 @@ export type PropType =
     | {}[]
     | {}
     | EventListenerOrEventListenerObject
+    | string[]
+    | number[]
+    | {}[]
+    | {}
     | ReactsNode
     | Function;
 export type PropsType = { [key: string]: PropType };
@@ -36,8 +38,13 @@ export type ReactsNode =
     | ReactsDOMNode
     | ReactsFunctionalComponentNode;
 
-export type ReactsEmptyNode = undefined | null | boolean;
+export type ReactsNotPrimitiveNode = Exclude<
+    ReactsNode,
+    ReactsTextNode | ReactsEmptyNode
+>;
+export type ReactsPrimitiveNode = ReactsEmptyNode | ReactsTextNode;
 
+export type ReactsEmptyNode = undefined | null | boolean;
 export type ReactsTextNode = string | number;
 
 export type ReactsComponentNode = {

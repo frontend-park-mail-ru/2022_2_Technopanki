@@ -10,11 +10,13 @@ import {
 } from '../../../shared/constants/symbols';
 import { removeAllProps, setProps } from '../../props/props';
 import { insertChildren } from './insert';
+import { removeChildren } from './remove';
 
 // TODO: needs fixes
 const removeDOMNode = (element: HTMLElement, node: ReactsDOMNode) => {
     removeAllProps(node);
     node.ref = null;
+    removeChildren(node);
 };
 
 const removeComponentNode = (
@@ -23,6 +25,7 @@ const removeComponentNode = (
 ) => {
     node.instance?.componentWillUnmount();
     node.instance?.unmount();
+    removeChildren(node);
 };
 
 const insertDOMNode = (
@@ -59,7 +62,6 @@ export const replaceNode = (
     newNode: ReactsNode,
     beforeElement: HTMLElement | null = null,
 ) => {
-    console.log('replace');
     if (isPrimitiveNodes(oldNode, newNode)) {
         switch (typeof newNode) {
             case 'string':
@@ -97,11 +99,11 @@ export const replaceNode = (
     switch (newNode.$$typeof) {
         case DOM_SYMBOL:
             insertDOMNode(
-                componentRef ? componentRef : element,
+                componentRef ? componentRef : parentRef,
                 newNode as ReactsDOMNode,
                 componentRef ? element : null,
             );
-            componentRef && element.remove();
+            element?.remove();
             break;
         case COMPONENT_SYMBOL:
             insertComponentNode(
@@ -109,7 +111,7 @@ export const replaceNode = (
                 newNode as ReactsComponentNode,
                 element,
             );
-            element.remove();
+            element?.remove();
             break;
         default:
             throw new Error('undefined type of node');

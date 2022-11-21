@@ -10,7 +10,7 @@ import RenderWithCondition from '../../components/RenderWithCondition';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 import { dispatch } from '../../store';
 import { activateError, deactivateError } from '../../store/errors/actions';
-import { IMAGE_URL } from '../../utils/networkConstants';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 
 export default class Vacancies extends ReactsComponent<
     {},
@@ -72,7 +72,7 @@ export default class Vacancies extends ReactsComponent<
                             setTimeout(() => dispatch(deactivateError()), 3000);
                         }}
                     >
-                        <SearchInput key={'search'} />
+                        <SearchInput />
                     </div>
                     {this.state.vacancies
                         ?.slice(0, this.state.limit)

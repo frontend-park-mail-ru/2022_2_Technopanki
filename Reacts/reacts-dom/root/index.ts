@@ -3,12 +3,21 @@ import {
     ReactsDOMNode,
     ReactsFunctionalComponentNode,
     ReactsNode,
+    ReactsNodeNotPrimitive,
 } from '../../shared/types/node';
 import { renderNode } from '../render/renderNode';
-import { removeNode } from '../diff/operations/remove';
 import { isPrimitive } from '../utils/isPrimitive';
 import { COMPONENT_SYMBOL, DOM_SYMBOL } from '../../shared/constants/symbols';
 import { removeAllProps } from '../props/props';
+import { removeChildren } from '../diff/operations/remove';
+
+Object.defineProperty(Element.prototype, 'clearChildren', {
+    configurable: true,
+    enumerable: false,
+    value: function () {
+        while (this.firstChild) this.removeChild(this.lastChild);
+    },
+});
 
 export interface RootType {
     render(node: ReactsNode): void;
@@ -35,15 +44,10 @@ export default class Root implements RootType {
             return;
         }
 
-        switch (
-            (<
-                | ReactsComponentNode
-                | ReactsFunctionalComponentNode
-                | ReactsDOMNode
-            >this.node).$$typeof
-        ) {
+        switch ((<ReactsNodeNotPrimitive>this.node).$$typeof) {
             case DOM_SYMBOL:
                 removeAllProps(this.node as ReactsDOMNode);
+                removeChildren(this.node);
                 (<ReactsDOMNode>this.node).ref?.remove();
                 break;
             case COMPONENT_SYMBOL:
@@ -52,9 +56,12 @@ export default class Root implements RootType {
                     this.node
                 )).instance.componentWillUnmount();
                 (<ReactsComponentNode>this.node).instance.unmount();
+                removeChildren(this.node);
                 break;
             default:
                 throw new Error(`undefined type of node: ${this.node}`);
         }
+
+        this.root.clearChildren();
     }
 }

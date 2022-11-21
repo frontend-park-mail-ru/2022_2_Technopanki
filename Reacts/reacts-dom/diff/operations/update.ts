@@ -2,7 +2,6 @@ import {
     ReactsComponentNode,
     ReactsDOMNode,
     ReactsFunctionalComponentNode,
-    ReactsNode,
 } from '../../../shared/types/node';
 import { isPrimitive } from '../../utils/isPrimitive';
 import { Operation, UpdateOperation } from '../types';
@@ -68,8 +67,9 @@ export const updateNode = (
     element: HTMLElement,
     operation: UpdateOperation,
 ) => {
-    console.log('update');
     if (isPrimitive(operation.node)) {
+        console.log(element, operation);
+        return;
     }
 
     switch (

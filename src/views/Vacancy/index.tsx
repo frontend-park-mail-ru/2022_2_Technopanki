@@ -5,7 +5,6 @@ import TextBlock from '../../components/UI-kit/text/TextBlock';
 import VacancySideBar from '../../components/sidebars/VacancySideBar';
 import VacancyHat from './VacancyHat';
 import Footer from '../../components/UI-kit/footer/Footer';
-import { vacancyStore } from '../../store/vacancy/store';
 import { dispatch, vacancyConnect } from '../../store';
 import { vacancyService } from '../../services/vacancyService';
 import { vacancyActions } from '../../store/vacancy/actions';

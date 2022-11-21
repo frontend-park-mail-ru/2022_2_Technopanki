@@ -11,6 +11,7 @@ import { ReactsComponentNode } from '../../../../Reacts/shared/types/node';
 import Link from '../../Link/Link';
 import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../../utils/routerConstants';
 import { IMAGE_URL } from '../../../utils/networkConstants';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 
 export type VacancyCardPropsType = {
     id: string;
