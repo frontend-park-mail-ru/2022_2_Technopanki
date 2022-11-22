@@ -65,9 +65,7 @@ export const replaceNode = (
     element: HTMLElement,
     oldNode: ReactsNode,
     newNode: ReactsNode,
-    beforeElement: HTMLElement | null = null,
 ) => {
-    console.log(element, oldNode, newNode, beforeElement);
     if (isPrimitiveNodes(oldNode, newNode)) {
         switch (typeof newNode) {
             case 'string':
@@ -121,61 +119,62 @@ export const replaceNode = (
 
     return;
 
+    // TODO: remove
     // @ts-ignore we checked for primitive types
-    switch (oldNode.$$typeof) {
-        case DOM_SYMBOL:
-            parentRef = element.parentElement as HTMLElement;
-            removeDOMNode(element, oldNode as ReactsDOMNode);
-            switch (newNode.$$typeof) {
-                case DOM_SYMBOL:
-                    insertDOMNode(parentRef, newNode, element);
-                    element?.remove();
-                    break;
-                case COMPONENT_SYMBOL:
-                    insertComponentNode(parentRef, newNode, element);
-                    element?.remove();
-                    break;
-            }
-            break;
-        case COMPONENT_SYMBOL:
-            rootRef = oldNode.ref as HTMLElement;
-            componentRenderRef = (<ReactsComponent>oldNode.instance).currentNode
-                .ref;
-            removeComponentNode(element, oldNode as ReactsComponentNode);
-            switch (newNode.$$typeof) {
-                case DOM_SYMBOL:
-                    insertDOMNode(element, newNode, componentRef);
-                    componentRenderRef?.remove();
-                    break;
-                case COMPONENT_SYMBOL:
-                    insertComponentNode(element, newNode, componentRef);
-                    componentRenderRef?.remove();
-                    break;
-            }
-            break;
-        default:
-            throw new Error('undefined type of node');
-    }
-    return;
-    // @ts-ignore we checked for primitive types
-    switch (newNode.$$typeof) {
-        case DOM_SYMBOL:
-            insertDOMNode(
-                componentRef ? componentRef : parentRef,
-                newNode as ReactsDOMNode,
-                componentRef ? element : null,
-            );
-            element?.remove();
-            break;
-        case COMPONENT_SYMBOL:
-            insertComponentNode(
-                parentRef ? parentRef : componentRef,
-                newNode as ReactsComponentNode,
-                element,
-            );
-            element?.remove();
-            break;
-        default:
-            throw new Error('undefined type of node');
-    }
+    // switch (oldNode.$$typeof) {
+    //     case DOM_SYMBOL:
+    //         parentRef = element.parentElement as HTMLElement;
+    //         removeDOMNode(element, oldNode as ReactsDOMNode);
+    //         switch (newNode.$$typeof) {
+    //             case DOM_SYMBOL:
+    //                 insertDOMNode(parentRef, newNode, element);
+    //                 element?.remove();
+    //                 break;
+    //             case COMPONENT_SYMBOL:
+    //                 insertComponentNode(parentRef, newNode, element);
+    //                 element?.remove();
+    //                 break;
+    //         }
+    //         break;
+    //     case COMPONENT_SYMBOL:
+    //         rootRef = oldNode.ref as HTMLElement;
+    //         componentRenderRef = (<ReactsComponent>oldNode.instance).currentNode
+    //             .ref;
+    //         removeComponentNode(element, oldNode as ReactsComponentNode);
+    //         switch (newNode.$$typeof) {
+    //             case DOM_SYMBOL:
+    //                 insertDOMNode(element, newNode, componentRef);
+    //                 componentRenderRef?.remove();
+    //                 break;
+    //             case COMPONENT_SYMBOL:
+    //                 insertComponentNode(element, newNode, componentRef);
+    //                 componentRenderRef?.remove();
+    //                 break;
+    //         }
+    //         break;
+    //     default:
+    //         throw new Error('undefined type of node');
+    // }
+    // return;
+    // // @ts-ignore we checked for primitive types
+    // switch (newNode.$$typeof) {
+    //     case DOM_SYMBOL:
+    //         insertDOMNode(
+    //             componentRef ? componentRef : parentRef,
+    //             newNode as ReactsDOMNode,
+    //             componentRef ? element : null,
+    //         );
+    //         element?.remove();
+    //         break;
+    //     case COMPONENT_SYMBOL:
+    //         insertComponentNode(
+    //             parentRef ? parentRef : componentRef,
+    //             newNode as ReactsComponentNode,
+    //             element,
+    //         );
+    //         element?.remove();
+    //         break;
+    //     default:
+    //         throw new Error('undefined type of node');
+    // }
 };

@@ -7,10 +7,18 @@ import {
     ReactsNode,
 } from '../../shared/types/node';
 import { Operation, PropsUpdater } from './types';
-import { replace, skip, SKIP_OPERATION, update } from './operations/operations';
+import {
+    insert,
+    remove,
+    replace,
+    skip,
+    SKIP_OPERATION,
+    update,
+} from './operations/operations';
 import { COMPONENT_SYMBOL, DOM_SYMBOL } from '../../shared/constants/symbols';
 import { childrenDiff } from './childrenDiff';
 import { isPrimitiveNodes } from '../utils/isPrimitive';
+import { insertNode } from './operations/insert';
 
 /**
  * A function that compares object props and returns
@@ -51,8 +59,16 @@ export const compareProps = (
 export const createDiffPrimitive = (
     oldNode: ReactsNode,
     newNode: ReactsNode,
-) => {
-    if (oldNode !== newNode && (oldNode || newNode)) {
+): Operation => {
+    if (oldNode === newNode) {
+        return skip();
+    }
+
+    if (!oldNode && newNode) {
+        return insert(newNode);
+    } else if (oldNode && !newNode) {
+        return remove(oldNode);
+    } else if (oldNode !== newNode) {
         return replace(oldNode, newNode);
     }
 
@@ -106,8 +122,8 @@ export const createDiffComponent = (
         return replace(oldNode, newNode);
     }
 
-    if (!oldNode.instance?.shouldUpdate(newNode.props)) {
-        return replace(oldNode, newNode);
+    if (!oldNode.instance?.shouldUpdate(newNode.instance?.props)) {
+        return skip();
     }
 
     const propsUpdater = compareProps(oldNode.props, newNode.props);
@@ -122,7 +138,7 @@ export const createDiffComponent = (
 
     newNode.ref = oldNode.ref;
     return update(
-        oldNode,
+        newNode,
         createDiffForChildren(oldNode.props.children, newNode.props.children),
         propsUpdater,
     );
@@ -150,7 +166,7 @@ export const createDiffDOM = (
     }
 
     return update(
-        oldNode,
+        newNode,
         createDiffForChildren(oldNode.props.children, newNode.props.children),
         propsUpdater,
     );
@@ -175,6 +191,8 @@ export const createDiff = (
     if (oldNode.$$typeof !== newNode.$$typeof) {
         return replace(oldNode, newNode);
     }
+
+    newNode.ref = oldNode.ref;
 
     // @ts-ignore we checked primitive and different types of node
     switch (oldNode.$$typeof) {

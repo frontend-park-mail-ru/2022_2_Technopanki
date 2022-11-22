@@ -14,6 +14,7 @@ import { applyChildrenDiff } from '../applyChildrenDiff';
 import { isArray } from '../../utils/isArray';
 import { render } from 'sass';
 import { renderNode } from '../../render/renderNode';
+import { applyDiff } from '../applyDiff';
 
 // TODO: оставить один аргумент - operation
 export const updateElementAttributes = (
@@ -42,12 +43,12 @@ const updateDOMNode = (
 const updateComponentNode = (
     operation: UpdateOperation & { node: ReactsComponentNode },
 ) => {
-    if (operation.node.instance?.shouldUpdate({ ...operation.node.props })) {
-        // @ts-ignore
-        operation.node.instance.props = operation.node.props;
-        operation.node.instance?.forceUpdate();
-        return;
-    }
+    // if (operation.node.instance?.shouldUpdate({ ...operation.node.props })) {
+    //     console.log(operation.node.instance.props, operation.node.props);
+    //     // @ts-ignore
+    //     operation.node.instance?.forceUpdate();
+    //     return;
+    // }
 
     // if (operation.node.instance?.shouldUpdate({ ...operation.node.props })) {
     //
@@ -61,9 +62,9 @@ const updateComponentNode = (
             operation.childrenUpdater as Operation[],
         );
     } else if (operation.node.props.children) {
-        applyChildrenDiff(
+        applyDiff(
             operation.node.ref as HTMLElement,
-            operation.childrenUpdater as Operation[],
+            operation.childrenUpdater as Operation,
         );
     }
 };
@@ -90,6 +91,7 @@ export const updateNode = (
             updateComponentNode(
                 operation as UpdateOperation & { node: ReactsComponentNode },
             );
+            operation.node?.instance?.componentDidUpdate();
             return;
     }
 };

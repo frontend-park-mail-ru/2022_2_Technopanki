@@ -1,16 +1,36 @@
 import './styles/globals.scss';
 import { setTheme } from './utils/toggleTheme';
-import StartPage from './views/StartPage/StartPage';
+import RadioButton from './components/UI-kit/radioButton/radioButton';
 import router from './router/navigator';
 import { ReactsComponent } from '../Reacts/reacts/src/Component';
 import { ROUTER_PATHS } from './config/router.config';
+import StartPage from './views/StartPage/StartPage';
 
-// class SomeComponent extends ReactsComponent<{ counter: number }> {
-//     render() {
-//         return <p>{this.props.counter}</p>;
-//     }
-// }
-//
+class SomeComponent extends ReactsComponent<{ counter: number }> {
+    render() {
+        return (
+            <div>
+                <RadioButton
+                    id={'even'}
+                    name={'toggle'}
+                    value={'even'}
+                    checked={this.props.counter % 2 == 0}
+                >
+                    Hello
+                </RadioButton>
+                <RadioButton
+                    id={'notEven'}
+                    name={'toggle'}
+                    value={'notEven'}
+                    checked={this.props.counter % 2 != 0}
+                >
+                    World
+                </RadioButton>
+            </div>
+        );
+    }
+}
+
 // class App extends ReactsComponent {
 //     state = {
 //         counter: 2,
@@ -18,11 +38,14 @@ import { ROUTER_PATHS } from './config/router.config';
 //
 //     render() {
 //         return (
-//             <div
-//                 onClick={() =>
-//                     this.setState(state => ({ counter: state.counter + 1 }))
-//                 }
-//             >
+//             <div>
+//                 <button
+//                     onClick={() =>
+//                         this.setState(state => ({ counter: state.counter + 1 }))
+//                     }
+//                 >
+//                     Increment
+//                 </button>
 //                 <SomeComponent counter={this.state.counter} />
 //             </div>
 //         );

@@ -31,7 +31,7 @@ export abstract class ReactsComponent<P extends PropsType = {}, S = {}>
 
     // Updating
     shouldUpdate(nextProps: P | Readonly<P> /*nextState?: S*/): boolean {
-        return JSON.stringify(this.props) !== JSON.stringify(nextProps);
+        return this.props !== nextProps;
     }
 
     forceUpdate(): void {

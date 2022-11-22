@@ -28,8 +28,6 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
             removeNode(element, (<RemoveOperation>operation).node);
             return;
         case REPLACE_OPERATION:
-            // TODO: replace operation
-            console.log('from applyDiff');
             replaceNode(
                 element,
                 (<ReplaceOperation>operation).oldNode,

@@ -45,12 +45,15 @@ export default class Root implements RootType {
 
         switch ((<ReactsNodeNotPrimitive>this.node).$$typeof) {
             case DOM_SYMBOL:
+                console.log('dom unmount');
+
                 removeAllProps(this.node as ReactsDOMNode);
                 removeChildren(this.node);
                 (<ReactsDOMNode>this.node).ref?.remove();
                 break;
             case COMPONENT_SYMBOL:
                 // TODO
+                console.log('component unmount');
                 (<ReactsComponentNode>(
                     this.node
                 )).instance.componentWillUnmount();

@@ -109,7 +109,7 @@ export const childrenDiff = (
 ): Operation[] => {
     let operations: Operation[] = [];
 
-    for (let i = 0; i < oldChildren.length; ++i) {
+    for (let i = 0; i < Math.max(oldChildren.length, newChildren.length); ++i) {
         if (Array.isArray(oldChildren[i]) && Array.isArray(newChildren[i])) {
             operations.push(arrayChildrenDiff(oldChildren[i], newChildren[i]));
         } else {
