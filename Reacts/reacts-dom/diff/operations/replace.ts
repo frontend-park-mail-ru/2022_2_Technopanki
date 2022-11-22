@@ -11,6 +11,7 @@ import {
 import { removeAllProps, setProps } from '../../props/props';
 import { insertChildren } from './insert';
 import { removeChildren } from './remove';
+import { ReactsComponent } from '../../../reacts/src/Component';
 
 // TODO: needs fixes
 const removeDOMNode = (element: HTMLElement, node: ReactsDOMNode) => {
@@ -56,6 +57,14 @@ const insertComponentNode = (
     node.instance?.componentDidMount();
 };
 
+// TODO: refactor
+// const __findFirst__ = (node: ReactsComponentNode) => {
+//     if (node.$$typeof !== DOM_SYMBOL) {
+//         return node
+//     }
+//     return findFirstDOMNodeInComponentChildren(node.instance?.currentNode?.props?.children)
+// }
+
 export const replaceNode = (
     element: HTMLElement,
     oldNode: ReactsNode,
@@ -79,22 +88,46 @@ export const replaceNode = (
         return;
     }
 
-    let componentRef: HTMLElement | null = null;
-    let parentRef: HTMLElement | null = null;
+    let componentRef: HTMLElement;
+    let parentRef: HTMLElement;
+    let rootRef: HTMLElement;
+    let componentRenderRef: HTMLElement;
     // @ts-ignore we checked for primitive types
     switch (oldNode.$$typeof) {
         case DOM_SYMBOL:
-            parentRef = element.parentElement;
+            parentRef = element.parentElement as HTMLElement;
             removeDOMNode(element, oldNode as ReactsDOMNode);
+            switch (newNode.$$typeof) {
+                case DOM_SYMBOL:
+                    insertDOMNode(parentRef, newNode, element);
+                    element?.remove();
+                    break;
+                case COMPONENT_SYMBOL:
+                    insertComponentNode(parentRef, newNode, element);
+                    element?.remove();
+                    break;
+            }
             break;
         case COMPONENT_SYMBOL:
-            componentRef = oldNode.ref;
+            rootRef = oldNode.ref as HTMLElement;
+            componentRenderRef = (<ReactsComponent>oldNode.instance).currentNode
+                .ref;
             removeComponentNode(element, oldNode as ReactsComponentNode);
+            switch (newNode.$$typeof) {
+                case DOM_SYMBOL:
+                    insertDOMNode(element, newNode, componentRef);
+                    componentRef?.remove();
+                    break;
+                case COMPONENT_SYMBOL:
+                    insertComponentNode(element, newNode, componentRef);
+                    componentRef?.remove();
+                    break;
+            }
             break;
         default:
             throw new Error('undefined type of node');
     }
-
+    return;
     // @ts-ignore we checked for primitive types
     switch (newNode.$$typeof) {
         case DOM_SYMBOL:

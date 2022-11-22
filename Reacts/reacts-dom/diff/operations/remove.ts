@@ -17,14 +17,14 @@ const removePrimitiveNode = (
     element: HTMLElement,
     node: ReactsPrimitiveNode,
 ) => {
-    element && element.remove();
+    // element && element.remove();
     node = null;
     return;
 };
 
 const removeDOMNode = (node: ReactsDOMNode) => {
     removeAllProps(node as ReactsDOMNode);
-    node.ref?.remove();
+    // node.ref?.remove();
     node.ref = null;
 };
 

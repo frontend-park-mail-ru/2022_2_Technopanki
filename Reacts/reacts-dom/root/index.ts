@@ -3,7 +3,6 @@ import {
     ReactsDOMNode,
     ReactsFunctionalComponentNode,
     ReactsNode,
-    ReactsNodeNotPrimitive,
 } from '../../shared/types/node';
 import { renderNode } from '../render/renderNode';
 import { isPrimitive } from '../utils/isPrimitive';

@@ -106,6 +106,10 @@ export const createDiffComponent = (
         return replace(oldNode, newNode);
     }
 
+    if (oldNode.instance?.shouldUpdate(newNode.props)) {
+        return replace(oldNode, newNode);
+    }
+
     const propsUpdater = compareProps(oldNode.props, newNode.props);
     const childrenDiff: Operation | Operation[] = createDiffForChildren(
         oldNode.props.children,
