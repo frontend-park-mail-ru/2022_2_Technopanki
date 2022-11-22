@@ -89,7 +89,6 @@ export const insertNode = (
         return;
     }
 
-    console.log('INSERT: ', element, node, beforeElement);
     switch (
         (<ReactsComponentNode | ReactsFunctionalComponentNode | ReactsDOMNode>(
             node

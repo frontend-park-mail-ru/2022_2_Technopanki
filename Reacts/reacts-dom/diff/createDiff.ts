@@ -106,7 +106,7 @@ export const createDiffComponent = (
         return replace(oldNode, newNode);
     }
 
-    if (oldNode.instance?.shouldUpdate(newNode.props)) {
+    if (!oldNode.instance?.shouldUpdate(newNode.props)) {
         return replace(oldNode, newNode);
     }
 

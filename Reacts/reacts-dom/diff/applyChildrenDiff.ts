@@ -37,6 +37,7 @@ export const applyChildrenDiff = (
                 childElem,
                 (<ReplaceOperation>operation).oldNode,
                 (<ReplaceOperation>operation).newNode,
+                childElem.nextSibling as HTMLElement,
             );
             continue;
         }

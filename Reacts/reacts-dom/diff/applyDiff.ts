@@ -29,10 +29,12 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
             return;
         case REPLACE_OPERATION:
             // TODO: replace operation
+            console.log('from applyDiff');
             replaceNode(
                 element,
                 (<ReplaceOperation>operation).oldNode,
                 (<ReplaceOperation>operation).newNode,
+                element.nextElementSibling as HTMLElement,
             );
             return;
         case UPDATE_OPERATION:

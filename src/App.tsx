@@ -5,6 +5,30 @@ import router from './router/navigator';
 import { ReactsComponent } from '../Reacts/reacts/src/Component';
 import { ROUTER_PATHS } from './config/router.config';
 
+// class SomeComponent extends ReactsComponent<{ counter: number }> {
+//     render() {
+//         return <p>{this.props.counter}</p>;
+//     }
+// }
+//
+// class App extends ReactsComponent {
+//     state = {
+//         counter: 2,
+//     };
+//
+//     render() {
+//         return (
+//             <div
+//                 onClick={() =>
+//                     this.setState(state => ({ counter: state.counter + 1 }))
+//                 }
+//             >
+//                 <SomeComponent counter={this.state.counter} />
+//             </div>
+//         );
+//     }
+// }
+
 class App extends ReactsComponent {
     render() {
         return <StartPage />;

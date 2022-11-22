@@ -26,7 +26,6 @@ export abstract class ReactsComponent<P extends PropsType = {}, S = {}>
             callback();
         }
 
-        console.log('setState called');
         this.forceUpdate();
     }
 
@@ -36,7 +35,6 @@ export abstract class ReactsComponent<P extends PropsType = {}, S = {}>
     }
 
     forceUpdate(): void {
-        console.log('force update called');
         const newNode = this.render();
         rerenderNode(
             this.ref ?? this.currentNode.ref,

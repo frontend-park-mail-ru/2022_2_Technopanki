@@ -2,6 +2,7 @@ import {
     ReactsComponentNode,
     ReactsDOMNode,
     ReactsNode,
+    ReactsNotPrimitiveNode,
 } from '../../../shared/types/node';
 import { isPrimitiveNodes } from '../../utils/isPrimitive';
 import {
@@ -14,37 +15,28 @@ import { removeChildren } from './remove';
 import { ReactsComponent } from '../../../reacts/src/Component';
 
 // TODO: needs fixes
-const removeDOMNode = (element: HTMLElement, node: ReactsDOMNode) => {
+const removeDOMNode = (node: ReactsDOMNode) => {
     removeAllProps(node);
     node.ref = null;
     removeChildren(node);
 };
 
-const removeComponentNode = (
-    element: HTMLElement,
-    node: ReactsComponentNode,
-) => {
+const removeComponentNode = (node: ReactsComponentNode) => {
     node.instance?.componentWillUnmount();
     node.instance?.unmount();
     removeChildren(node);
 };
 
-const insertDOMNode = (
-    element: HTMLElement,
-    node: ReactsDOMNode,
-    beforeElement: HTMLElement | null = null,
-) => {
-    // TODO: совпадает с insertDOMNode в insert
+const replaceDOMNode = (replaceElement: HTMLElement, node: ReactsDOMNode) => {
     node.ref = document.createElement(node.type);
     setProps(node);
     insertChildren(node.ref, node.props.children);
-    element.insertBefore(node.ref, beforeElement);
+    replaceElement.replaceWith(node.ref);
 };
 
-const insertComponentNode = (
-    element: HTMLElement,
+const replaceComponentNode = (
+    replaceElement: HTMLElement,
     node: ReactsComponentNode,
-    beforeElement: HTMLElement | null = null,
 ) => {
     node.ref = element;
     if (node.instance) {
@@ -53,17 +45,21 @@ const insertComponentNode = (
         // TODO: __DEV__
     }
 
-    insertChildren(element, node.props.children, beforeElement);
     node.instance?.componentDidMount();
 };
 
 // TODO: refactor
-// const __findFirst__ = (node: ReactsComponentNode) => {
-//     if (node.$$typeof !== DOM_SYMBOL) {
-//         return node
-//     }
-//     return findFirstDOMNodeInComponentChildren(node.instance?.currentNode?.props?.children)
-// }
+const findReplaceElementForComponent = (
+    node: ReactsNotPrimitiveNode,
+): ReactsDOMNode => {
+    if (node.$$typeof === DOM_SYMBOL) {
+        return node as ReactsDOMNode;
+    } else {
+        return findReplaceElementForComponent(
+            node.props.children as ReactsNotPrimitiveNode,
+        );
+    }
+};
 
 export const replaceNode = (
     element: HTMLElement,
@@ -71,6 +67,7 @@ export const replaceNode = (
     newNode: ReactsNode,
     beforeElement: HTMLElement | null = null,
 ) => {
+    console.log(element, oldNode, newNode, beforeElement);
     if (isPrimitiveNodes(oldNode, newNode)) {
         switch (typeof newNode) {
             case 'string':
@@ -88,10 +85,42 @@ export const replaceNode = (
         return;
     }
 
-    let componentRef: HTMLElement;
-    let parentRef: HTMLElement;
-    let rootRef: HTMLElement;
-    let componentRenderRef: HTMLElement;
+    // Нужно сохранить DOM элемент который мы реплейсим
+    let replaceElement: HTMLElement = element;
+
+    // "remove"
+    switch ((<ReactsNotPrimitiveNode>oldNode).$$typeof) {
+        case DOM_SYMBOL:
+            replaceElement = (<ReactsDOMNode>oldNode).ref ?? element;
+            removeDOMNode(oldNode as ReactsDOMNode);
+            break;
+        case COMPONENT_SYMBOL:
+            replaceElement = findReplaceElementForComponent(
+                oldNode as ReactsComponentNode,
+            ).ref as HTMLElement;
+            removeComponentNode(oldNode as ReactsComponentNode);
+            break;
+        default:
+            throw new Error('undefined type of node');
+    }
+
+    // "insert"
+    switch ((<ReactsNotPrimitiveNode>newNode).$$typeof) {
+        case DOM_SYMBOL:
+            replaceDOMNode(replaceElement, newNode as ReactsDOMNode);
+            break;
+        case COMPONENT_SYMBOL:
+            replaceDOMNode(
+                replaceElement,
+                findReplaceElementForComponent(newNode as ReactsComponentNode),
+            );
+            break;
+        default:
+            throw new Error('undefined type of node');
+    }
+
+    return;
+
     // @ts-ignore we checked for primitive types
     switch (oldNode.$$typeof) {
         case DOM_SYMBOL:
@@ -116,11 +145,11 @@ export const replaceNode = (
             switch (newNode.$$typeof) {
                 case DOM_SYMBOL:
                     insertDOMNode(element, newNode, componentRef);
-                    componentRef?.remove();
+                    componentRenderRef?.remove();
                     break;
                 case COMPONENT_SYMBOL:
                     insertComponentNode(element, newNode, componentRef);
-                    componentRef?.remove();
+                    componentRenderRef?.remove();
                     break;
             }
             break;
