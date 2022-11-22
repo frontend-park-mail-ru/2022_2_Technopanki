@@ -14,9 +14,10 @@ export type InputPropsType = {
     onBlur?: Function;
 };
 
-// TODO: перенести вывод сообщений об ошиках в input + добавиьт onBlur
+// TODO: перенести вывод сообщений об ошиках в input + добавить onBlur
 export default class Input extends Component<InputPropsType> {
     render() {
+        console.log('INPUT: ', this.props);
         return (
             <div className={'flex w-100 column g-8'}>
                 <label
