@@ -8,6 +8,7 @@ const DEVELOPMENT = 'development';
 module.exports = {
     entry: {
         main: './src/App.tsx',
+        sw: './src/sw/sw.js',
     },
     module: {
         rules: [

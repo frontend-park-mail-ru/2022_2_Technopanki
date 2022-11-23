@@ -15,7 +15,7 @@
     "test": "jest --watchAll --verbose",
     "dev": "NODE_ENV='development' webpack",
     "build": "NODE_ENV='production' webpack",
-    "start": "NODE_ENV='development' && node devServer.webpack.js"
+    "start": "node devServer.webpack.js"
   },
   "repository": {
     "type": "git",
