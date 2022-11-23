@@ -29,29 +29,27 @@ export const compareProps = (
     oldProps: PropsWithChildren,
     newProps: PropsWithChildren,
 ): PropsUpdater => {
-    // @ts-ignore we removed the children from the object
-    const oldPropsWithoutChildren: [string, PropType][] = Object.entries(
-        oldProps,
-    ).filter(([attr, _]) => attr !== 'children');
-    // @ts-ignore we removed the children from the object
-    const newPropsWithoutChildren: [string, PropType][] = Object.entries(
-        newProps,
-    ).filter(([attr, _]) => attr !== 'children');
+    let set: [string, PropType][] = [];
+    let remove: [string, PropType][] = [];
 
-    const oldPropsNames = oldPropsWithoutChildren.map(([attr, _]) => attr);
-    const newPropsNames = newPropsWithoutChildren.map(([attr, _]) => attr);
+    for (let attr in oldProps) {
+        if (attr! in newProps && attr !== 'children') {
+            remove.push([attr, oldProps[attr]]);
+        }
+    }
 
+    for (let attr in newProps) {
+        if (
+            (attr! in oldProps ||
+                (attr in oldProps && oldProps[attr] !== newProps[attr])) &&
+            attr !== 'children'
+        ) {
+            set.push([attr, newProps[attr]]);
+        }
+    }
     return {
-        set: newPropsWithoutChildren.filter(
-            ([attr, value]) =>
-                oldPropsNames.indexOf(attr) === -1 ||
-                oldPropsWithoutChildren.find(
-                    node => node[0] === attr && node[1] !== value,
-                ),
-        ),
-        remove: oldPropsWithoutChildren.filter(
-            ([attr, _]) => newPropsNames.indexOf(attr) === -1,
-        ),
+        set,
+        remove,
     };
 };
 
