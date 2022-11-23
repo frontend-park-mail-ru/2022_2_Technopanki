@@ -15,10 +15,7 @@ export const setAttribute = (
     if (attr === 'dangerouslySetInnerHTML') {
         // @ts-ignore
         (<HTMLElement>node.ref).innerHTML = value.__html;
-    } else {
-        if (!node.ref) {
-            debugger;
-        }
+    } else if (value) {
         (<HTMLElement>node.ref).setAttribute(attributes[attr], value);
     }
 };
@@ -36,17 +33,6 @@ export const setEventListener = (
     eventName: string,
     listener: EventListenerOrEventListenerObject,
 ) => {
-    // @ts-ignore
-    // if (__DEV__) {
-    //     if (!events[eventName]) {
-    //         throw new Error(`unsupported type of event: ${eventName}`);
-    //     }
-    //
-    //     if (!node.ref) {
-    //         throw new Error('node.ref is null');
-    //     }
-    // }
-
     removeEventListener(node, eventName);
     (<HTMLElement>node.ref).addEventListener(events[eventName], listener);
 

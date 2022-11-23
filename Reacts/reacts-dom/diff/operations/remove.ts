@@ -56,7 +56,10 @@ export const removeChildren = (node: ReactsNode) => {
         return;
     }
 
-    if (isArray((<ReactsNotPrimitiveNode>node).props.children)) {
+    if (
+        (<ReactsNotPrimitiveNode>node).props &&
+        isArray((<ReactsNotPrimitiveNode>node).props.children)
+    ) {
         (<ReactsNode[]>(<ReactsNotPrimitiveNode>node).props.children).forEach(
             child => {
                 if (isArray(child)) {
@@ -69,7 +72,9 @@ export const removeChildren = (node: ReactsNode) => {
             },
         );
     } else {
-        childrenSwitch((<ReactsNotPrimitiveNode>node).props.children);
+        childrenSwitch(
+            (<ReactsNotPrimitiveNode>node).props?.children as ReactsNode,
+        );
     }
 };
 

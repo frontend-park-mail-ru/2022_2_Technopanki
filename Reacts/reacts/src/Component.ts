@@ -38,7 +38,7 @@ export abstract class ReactsComponent<P extends PropsType = {}, S = {}>
 
     // TODO: объединить этот метод с shouldUpdate
     shouldUpdateState(nextState: S): boolean {
-        return this.state !== nextState;
+        return true;
     }
 
     forceUpdate(): void {

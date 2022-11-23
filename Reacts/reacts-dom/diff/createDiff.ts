@@ -33,14 +33,14 @@ export const compareProps = (
     let remove: [string, PropType][] = [];
 
     for (let attr in oldProps) {
-        if (attr! in newProps && attr !== 'children') {
+        if (!(attr in newProps) && attr !== 'children') {
             remove.push([attr, oldProps[attr]]);
         }
     }
 
     for (let attr in newProps) {
         if (
-            (attr! in oldProps ||
+            (!(attr in oldProps) ||
                 (attr in oldProps && oldProps[attr] !== newProps[attr])) &&
             attr !== 'children'
         ) {
@@ -86,11 +86,6 @@ export const createDiffForChildren = (
     );
 };
 
-const isEmptyPropsUpdater = (propsUpdater: PropsUpdater): boolean => {
-    return propsUpdater.set.length === 0 && propsUpdater.remove.length === 0;
-};
-
-// TODO: refactor
 export const createDiffComponent = (
     oldNode: ReactsComponentNode,
     newNode: ReactsComponentNode,
@@ -101,6 +96,7 @@ export const createDiffComponent = (
 
     if (!oldNode.instance?.shouldUpdate(newNode.instance?.props)) {
         newNode.props = oldNode.props;
+        // @ts-ignore
         newNode.instance.currentNode = oldNode.instance.currentNode;
         return skip();
     }
@@ -112,13 +108,9 @@ export const createDiffComponent = (
     );
 
     newNode.ref = oldNode.ref;
-    if (!newNode.ref || !oldNode.ref) {
-        debugger;
-    }
     return update(newNode, childrenDiff, propsUpdater);
 };
 
-// TODO: refactor
 export const createDiffDOM = (
     oldNode: ReactsDOMNode,
     newNode: ReactsDOMNode,
@@ -159,6 +151,7 @@ export const createDiff = (
         return replace(oldNode, newNode);
     }
 
+    // @ts-ignore
     newNode.ref = oldNode.ref;
 
     // @ts-ignore we checked primitive and different types of node

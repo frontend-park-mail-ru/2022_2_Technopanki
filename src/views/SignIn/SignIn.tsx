@@ -101,9 +101,9 @@ export default class SignIn extends ReactsComponent<
             validFlag = false;
         }
 
-        if (!validFlag) {
-            this.setState(() => newState);
-        } else {
+        this.setState(() => newState);
+
+        if (validFlag) {
             authService
                 .signIn(formData)
                 .then(body => {
@@ -149,7 +149,6 @@ export default class SignIn extends ReactsComponent<
                             {Object.entries(this.state.inputs).map(
                                 ([name, value]) => (
                                     <div>
-                                        <p>{value}</p>
                                         <Input
                                             key={value.id}
                                             id={value.id}
