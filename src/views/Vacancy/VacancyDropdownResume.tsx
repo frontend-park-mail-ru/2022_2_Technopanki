@@ -128,7 +128,7 @@ class VacancyDropdownResume extends ReactsComponent<
                             name={this.props.name}
                             surname={this.props.surname}
                             title={resume.title}
-                            id={resume.resume_id}
+                            id={resume.id}
                         />
                     ))
                 )}

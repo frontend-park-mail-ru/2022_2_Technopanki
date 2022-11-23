@@ -15,6 +15,7 @@ import { isArray } from '../../utils/isArray';
 import { render } from 'sass';
 import { renderNode } from '../../render/renderNode';
 import { applyDiff } from '../applyDiff';
+import { removeNode } from './remove';
 
 // TODO: оставить один аргумент - operation
 export const updateElementAttributes = (
@@ -46,6 +47,7 @@ const updateComponentNode = (
     // if (operation.node.instance?.shouldUpdate({ ...operation.node.props })) {
     //     console.log(operation.node.instance.props, operation.node.props);
     //     // @ts-ignore
+    //     // removeNode(operation.node.ref as HTMLElement, operation.node);
     //     operation.node.instance?.forceUpdate();
     //     return;
     // }

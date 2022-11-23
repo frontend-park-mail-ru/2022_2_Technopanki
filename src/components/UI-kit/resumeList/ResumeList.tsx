@@ -35,19 +35,9 @@ export default class ResumeList extends ReactsComponent<
                         .slice(0, this.state.limit)
                         .map(resume => (
                             <ResumeListItem
-                                key={
-                                    resume.resume_id.toString() ??
-                                    resume.id.toString()
-                                }
-                                id={
-                                    resume.resume_id.toString() ??
-                                    resume.id.toString()
-                                }
-                                resume_id={
-                                    typeof resume.resume_id === 'string'
-                                        ? resume.resume_id
-                                        : resume.resume_id.toString()
-                                }
+                                key={resume.id}
+                                id={resume.id}
+                                resume_id={resume.id}
                                 imgSrc={
                                     IMAGE_URL + (resume.image ?? resume.imgSrc)
                                 }

@@ -13,7 +13,6 @@ import {
     DOM_SYMBOL,
 } from '../../../shared/constants/symbols';
 import { setProps } from '../../props/props';
-import { createLogger } from 'typescript-plugin-css-modules/lib/helpers/logger';
 
 export const insertPrimitiveNode = (
     element: HTMLElement,
@@ -42,7 +41,6 @@ export const insertChildren = (
         return;
     }
 
-    console.log(beforeElement);
     Array.isArray(children)
         ? children.forEach(child => {
               insertNode(element, child, beforeElement);

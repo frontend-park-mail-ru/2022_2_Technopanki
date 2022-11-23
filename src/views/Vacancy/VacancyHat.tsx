@@ -57,10 +57,37 @@ class VacancyHat extends ReactsComponent<
     };
 
     componentDidMount() {
+        console.log('mount hat');
         this.getCreatorDataFromServer();
     }
 
+    shouldUpdate(
+        nextProps:
+            | Readonly<{
+                  postedByUserID: string;
+                  vacancyID: string;
+                  userID: string;
+                  userType: string;
+                  authorized: boolean;
+                  sendRequest: boolean;
+              }>
+            | {
+                  postedByUserID: string;
+                  vacancyID: string;
+                  userID: string;
+                  userType: string;
+                  authorized: boolean;
+                  sendRequest: boolean;
+              },
+    ): boolean {
+        return (
+            this.props.vacancyID !== this.state.vacancyID ||
+            !this.props.postedByUserID
+        );
+    }
+
     componentDidUpdate() {
+        console.log('update hat');
         this.getCreatorDataFromServer();
     }
 

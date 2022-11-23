@@ -14,6 +14,7 @@ type HatPropsType = {
 
 export default class Hat extends ReactsComponent<HatPropsType> {
     render() {
+        console.log(this.props.name);
         return (
             <div
                 className={`flex w-100 row align-items-center justify-content-space-between ${styles.hat_content}`}
@@ -21,21 +22,17 @@ export default class Hat extends ReactsComponent<HatPropsType> {
                 <Link
                     to={this.props.linkTo}
                     content={
-                        <div
-                            key={'content'}
-                            className={`flex align-items-center row g-16`}
-                        >
+                        <div className={`flex align-items-center row g-16`}>
                             <img
-                                key={'img'}
                                 className={styles.content_img}
                                 src={this.props.imgSrc}
                                 alt={'logo'}
                             />
-                            <div key={'content'} className={'flex column'}>
-                                <p key={'name'} className={styles.content_name}>
-                                    {this.props.name} {this.props.surname}
+                            <div className={'flex column'}>
+                                <p className={styles.content_name}>
+                                    {this.props.name} V {this.props.surname}
                                 </p>
-                                <p key={'status'}>{this.props.status}</p>
+                                <p>{this.props.status}</p>
                             </div>
                         </div>
                     }

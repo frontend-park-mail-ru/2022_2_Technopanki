@@ -6,34 +6,15 @@ import { ReactsComponent } from '../Reacts/reacts/src/Component';
 import { ROUTER_PATHS } from './config/router.config';
 import StartPage from './views/StartPage/StartPage';
 
-class SomeComponent extends ReactsComponent<{ counter: number }> {
+class SomeComponent extends ReactsComponent<{ counter: string }> {
     render() {
-        return (
-            <div>
-                <RadioButton
-                    id={'even'}
-                    name={'toggle'}
-                    value={'even'}
-                    checked={this.props.counter % 2 == 0}
-                >
-                    Hello
-                </RadioButton>
-                <RadioButton
-                    id={'notEven'}
-                    name={'toggle'}
-                    value={'notEven'}
-                    checked={this.props.counter % 2 != 0}
-                >
-                    World
-                </RadioButton>
-            </div>
-        );
+        return <div>{this.props.counter}</div>;
     }
 }
 
 // class App extends ReactsComponent {
 //     state = {
-//         counter: 2,
+//         counter: 'VK',
 //     };
 //
 //     render() {
@@ -41,7 +22,9 @@ class SomeComponent extends ReactsComponent<{ counter: number }> {
 //             <div>
 //                 <button
 //                     onClick={() =>
-//                         this.setState(state => ({ counter: state.counter + 1 }))
+//                         this.setState(state => ({
+//                             counter: state.counter + 'V',
+//                         }))
 //                     }
 //                 >
 //                     Increment
