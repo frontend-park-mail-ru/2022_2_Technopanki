@@ -19,7 +19,7 @@ class VacancyHat extends ReactsComponent<
         postedByUserID: string;
         vacancyID: string;
         userID: string;
-        userType: string;
+        userType: string | null;
         authorized: boolean;
         sendRequest: boolean;
     },
@@ -30,64 +30,30 @@ class VacancyHat extends ReactsComponent<
     }
 > {
     state = {
-        vacancyID: '',
-        creatorImgSrc: '',
-        companyName: '',
-        status: '',
+        vacancyID: this.props.vacancyID,
+        creatorImgSrc: ' ',
+        companyName: ' ',
+        status: ' ',
+        postedByUserID: ' ',
     };
 
     getCreatorDataFromServer = () => {
-        if (
-            this.props.postedByUserID &&
-            this.props.vacancyID !== this.state.vacancyID &&
-            this.props.sendRequest
-        ) {
+        if (this.props.postedByUserID !== this.state.postedByUserID) {
             vacancyService
                 .getVacancyHatData(this.props.postedByUserID)
                 .then(body => {
                     this.setState(() => ({
-                        vacancyID: this.props.vacancyID,
                         creatorImgSrc: IMAGE_URL + body.image,
                         companyName: body.company_name,
                         status: body.status,
+                        postedByUserID: this.props.postedByUserID,
                     }));
                 })
                 .catch(err => console.error(err));
         }
     };
 
-    componentDidMount() {
-        console.log('mount hat');
-        this.getCreatorDataFromServer();
-    }
-
-    shouldUpdate(
-        nextProps:
-            | Readonly<{
-                  postedByUserID: string;
-                  vacancyID: string;
-                  userID: string;
-                  userType: string;
-                  authorized: boolean;
-                  sendRequest: boolean;
-              }>
-            | {
-                  postedByUserID: string;
-                  vacancyID: string;
-                  userID: string;
-                  userType: string;
-                  authorized: boolean;
-                  sendRequest: boolean;
-              },
-    ): boolean {
-        return (
-            this.props.vacancyID !== this.state.vacancyID ||
-            !this.props.postedByUserID
-        );
-    }
-
     componentDidUpdate() {
-        console.log('update hat');
         this.getCreatorDataFromServer();
     }
 
@@ -102,7 +68,6 @@ class VacancyHat extends ReactsComponent<
                 rightSideContent={
                     <div className={'flex row flex-wrap g-12'}>
                         <RenderWithCondition
-                            key={'responses'}
                             condition={
                                 this.props.userID === this.props.postedByUserID
                             }
@@ -121,7 +86,6 @@ class VacancyHat extends ReactsComponent<
                             }
                         />
                         <RenderWithCondition
-                            key={'settings'}
                             condition={
                                 this.props.userID === this.props.postedByUserID
                             }
@@ -136,7 +100,6 @@ class VacancyHat extends ReactsComponent<
                             }
                         />
                         <RenderWithCondition
-                            key={'resume'}
                             condition={this.props.userType === 'applicant'}
                             onSuccess={
                                 <Dropdown
@@ -155,7 +118,6 @@ class VacancyHat extends ReactsComponent<
                             }
                         />
                         <RenderWithCondition
-                            key={'login'}
                             condition={!this.props.authorized}
                             onSuccess={
                                 <ButtonNotActive>

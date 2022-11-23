@@ -2,6 +2,7 @@ import {
     ReactsComponentNode,
     ReactsDOMNode,
     ReactsFunctionalComponentNode,
+    ReactsPrimitiveNode,
 } from '../../../shared/types/node';
 import { isPrimitive } from '../../utils/isPrimitive';
 import { Operation, UpdateOperation } from '../types';
@@ -26,6 +27,15 @@ export const updateElementAttributes = (
     setNewProps(node, operation.attrUpdater.set);
 };
 
+const updatePrimitiveNode = (
+    element: HTMLElement,
+    node: ReactsPrimitiveNode,
+) => {
+    if (typeof node === 'string') {
+        element.replaceWith(document.createTextNode(node));
+    }
+};
+
 const updateDOMNode = (
     operation: UpdateOperation & { node: ReactsDOMNode },
 ) => {
@@ -44,17 +54,6 @@ const updateDOMNode = (
 const updateComponentNode = (
     operation: UpdateOperation & { node: ReactsComponentNode },
 ) => {
-    // if (operation.node.instance?.shouldUpdate({ ...operation.node.props })) {
-    //     console.log(operation.node.instance.props, operation.node.props);
-    //     // @ts-ignore
-    //     // removeNode(operation.node.ref as HTMLElement, operation.node);
-    //     operation.node.instance?.forceUpdate();
-    //     return;
-    // }
-
-    // if (operation.node.instance?.shouldUpdate({ ...operation.node.props })) {
-    //
-    //     renderNode(operation.node.ref, operation.node)
     if (
         operation.node.props.children &&
         isArray(operation.node.props.children)
@@ -76,6 +75,7 @@ export const updateNode = (
     operation: UpdateOperation,
 ) => {
     if (isPrimitive(operation.node)) {
+        updatePrimitiveNode(element, operation.node as ReactsPrimitiveNode);
         return;
     }
 

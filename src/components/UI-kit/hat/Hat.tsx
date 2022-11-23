@@ -14,7 +14,6 @@ type HatPropsType = {
 
 export default class Hat extends ReactsComponent<HatPropsType> {
     render() {
-        console.log(this.props.name);
         return (
             <div
                 className={`flex w-100 row align-items-center justify-content-space-between ${styles.hat_content}`}
@@ -30,7 +29,7 @@ export default class Hat extends ReactsComponent<HatPropsType> {
                             />
                             <div className={'flex column'}>
                                 <p className={styles.content_name}>
-                                    {this.props.name} V {this.props.surname}
+                                    {this.props.name} {this.props.surname}
                                 </p>
                                 <p>{this.props.status}</p>
                             </div>

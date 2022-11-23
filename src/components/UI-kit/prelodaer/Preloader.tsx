@@ -17,11 +17,3 @@ class Preloader extends ReactsComponent<{ isLoading: boolean }> {
 export default loadingConnect(state => ({
     isLoading: state.loading,
 }))(Preloader);
-
-export const helloWorld = () => {
-    console.log('Hello World!');
-};
-
-export const newHelloWorld = () => {
-    console.log('new Hello World!');
-};

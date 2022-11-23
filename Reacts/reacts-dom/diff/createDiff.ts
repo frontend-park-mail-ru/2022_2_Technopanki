@@ -18,7 +18,6 @@ import {
 import { COMPONENT_SYMBOL, DOM_SYMBOL } from '../../shared/constants/symbols';
 import { childrenDiff } from './childrenDiff';
 import { isPrimitiveNodes } from '../utils/isPrimitive';
-import { insertNode } from './operations/insert';
 
 /**
  * A function that compares object props and returns
@@ -89,14 +88,14 @@ export const createDiffForChildren = (
     );
 };
 
-const isEmptyPropsUpdater = (propsUpdater: PropsUpdater) => {
+const isEmptyPropsUpdater = (propsUpdater: PropsUpdater): boolean => {
     return propsUpdater.set.length === 0 && propsUpdater.remove.length === 0;
 };
 
 const shouldSkip = (
     propsUpdater: PropsUpdater,
     childrenDiff: Operation | Operation[],
-) => {
+): boolean => {
     return (
         isEmptyPropsUpdater(propsUpdater) &&
         ((<Operation>childrenDiff).type === SKIP_OPERATION ||
@@ -117,7 +116,7 @@ const shouldSkip = (
 export const createDiffComponent = (
     oldNode: ReactsComponentNode,
     newNode: ReactsComponentNode,
-) => {
+): Operation => {
     if (oldNode.type !== newNode.type) {
         return replace(oldNode, newNode);
     }
@@ -148,7 +147,7 @@ export const createDiffComponent = (
 export const createDiffDOM = (
     oldNode: ReactsDOMNode,
     newNode: ReactsDOMNode,
-) => {
+): Operation => {
     if (oldNode.type !== newNode.type) {
         return replace(oldNode, newNode);
     }

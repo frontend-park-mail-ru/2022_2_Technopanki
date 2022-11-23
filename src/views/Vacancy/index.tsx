@@ -34,19 +34,19 @@ class Vacancy extends ReactsComponent<VacancyPropsType> {
     getDataFromServer() {
         // Мы точно уверены что путь будет vacancy/{0,9}+
         const vacancyID = location.pathname.split('/').at(-1);
-        vacancyService.getVacancyData(vacancyID as string).then(body => {
-            dispatch(vacancyActions.update(body));
-        });
+
+        if (this.props.id !== vacancyID) {
+            vacancyService.getVacancyData(vacancyID as string).then(body => {
+                dispatch(vacancyActions.update(body));
+            });
+        }
     }
 
     componentDidMount() {
-        console.log('vacancy mount');
         this.getDataFromServer();
     }
 
-    componentDidUpdate() {
-        console.log('vacancy update');
-    }
+    componentDidUpdate() {}
 
     render() {
         return (

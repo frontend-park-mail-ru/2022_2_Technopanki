@@ -17,8 +17,8 @@ import { ComponentType } from '../../../shared/types/component';
 // TODO: needs fixes
 const removeDOMNode = (node: ReactsDOMNode) => {
     removeAllProps(node);
-    node.ref = null;
     removeChildren(node);
+    node.ref = null;
 };
 
 const removeComponentNode = (node: ReactsComponentNode) => {
@@ -34,21 +34,6 @@ const replaceDOMNode = (replaceElement: HTMLElement, node: ReactsDOMNode) => {
     replaceElement.replaceWith(node.ref);
 };
 
-const replaceComponentNode = (
-    replaceElement: HTMLElement,
-    node: ReactsComponentNode,
-) => {
-    node.ref = element;
-    if (node.instance) {
-        node.instance.ref = element;
-    } else {
-        // TODO: __DEV__
-    }
-
-    node.instance?.componentDidMount();
-};
-
-// TODO: refactor
 const findReplaceElementForComponent = (
     node: ReactsNotPrimitiveNode,
 ): ReactsDOMNode => {
@@ -77,7 +62,7 @@ export const replaceNode = (
                 );
                 break;
             default:
-                element.replaceWith(document.createTextNode(''));
+                element.remove();
         }
 
         return;
