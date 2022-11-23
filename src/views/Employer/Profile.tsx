@@ -47,9 +47,8 @@ class Profile extends ReactsComponent<
     render() {
         return (
             <div className={'screen-responsive flex column g-40'}>
-                <Header key={'header'} />
+                <Header />
                 <ProfileHeader
-                    key={'profile_header'}
                     bannerSrc={this.props.bannerSrc}
                     avatarSrc={this.props.avatarSrc}
                     name={this.props.name}
@@ -67,7 +66,6 @@ class Profile extends ReactsComponent<
                                 icon={PhoneIcon}
                             />
                             <ButtonIcon
-                                key={'email'}
                                 onClick={() => {
                                     window.navigator.clipboard
                                         .writeText(this.props.email)
@@ -82,7 +80,7 @@ class Profile extends ReactsComponent<
                                     Хочу здесь работать
                                 </ButtonPrimary>
                             ) : (
-                                <p key={'new_none'} className={'none'}></p>
+                                <p className={'none'}></p>
                             )}
                             {userStore.getState().id === this.props.id &&
                             userStore.getState().userType === 'employer' ? (
@@ -96,26 +94,21 @@ class Profile extends ReactsComponent<
                         </div>
                     }
                 />
-                <div key={'text'} className={'columns g-24'}>
-                    <div
-                        key={'desc'}
-                        className={'col-12 col-md-9 flex column g-40'}
-                    >
+                <div className={'columns g-24'}>
+                    <div className={'col-12 col-md-9 flex column g-40'}>
                         <TextBlock
-                            key={'desc'}
                             headline={'Описание'}
                             content={this.props.description}
                         />
-                        <div key={'vacancies'} className={'flex column g-16'}>
-                            <h6 key={'header'}>Вакансии</h6>
-                            <div key={'info'} className={'flex column g-16'}>
+                        <div className={'flex column g-16'}>
+                            <h6>Вакансии</h6>
+                            <div className={'flex column g-16'}>
                                 <RenderWithCondition
                                     condition={
                                         this.props.userID === this.props.id
                                     }
                                     onSuccess={
                                         <button
-                                            key={'link'}
                                             className={styles.vacancies_button}
                                         >
                                             <Link
@@ -138,7 +131,7 @@ class Profile extends ReactsComponent<
                             </div>
                         </div>
                     </div>
-                    <div key={'sidebar'} className={'col-12 col-md-3'}>
+                    <div className={'col-12 col-md-3'}>
                         <EmployerProfileSideBar
                             companySize={this.props.size}
                             fieldOfActivity={this.props.fieldOfActivity}

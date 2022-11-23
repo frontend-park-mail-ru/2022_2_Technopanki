@@ -1,4 +1,3 @@
-import { ReactsComponentNode } from '../../Reacts/shared/types/node';
 import { ReactsComponent } from '../../Reacts/reacts/src/Component';
 import { ReactsNode } from '../../Reacts/shared/types/node';
 

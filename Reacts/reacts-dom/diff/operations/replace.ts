@@ -13,6 +13,7 @@ import { removeAllProps, setProps } from '../../props/props';
 import { insertChildren } from './insert';
 import { removeChildren } from './remove';
 import { ComponentType } from '../../../shared/types/component';
+import { ReactsComponent } from '../../../reacts/src/Component';
 
 // TODO: needs fixes
 const removeDOMNode = (node: ReactsDOMNode) => {
@@ -97,9 +98,12 @@ export const replaceNode = (
                 replaceElement,
                 findReplaceElementForComponent(newNode as ReactsComponentNode),
             );
-            (<ComponentType>(<ReactsComponentNode>newNode).instance).ref =
-                element as HTMLElement;
             (<ReactsComponentNode>newNode).ref = element;
+            (<ReactsComponent>(<ReactsComponentNode>newNode).instance).ref =
+                element;
+            if (!element) {
+                debugger;
+            }
             (<ReactsComponentNode>newNode).instance?.componentDidMount();
             break;
         default:

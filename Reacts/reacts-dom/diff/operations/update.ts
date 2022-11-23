@@ -79,6 +79,10 @@ export const updateNode = (
         return;
     }
 
+    if (!operation.node.ref) {
+        debugger;
+    }
+
     switch (
         (<ReactsComponentNode | ReactsFunctionalComponentNode | ReactsDOMNode>(
             operation.node
@@ -93,7 +97,9 @@ export const updateNode = (
             updateComponentNode(
                 operation as UpdateOperation & { node: ReactsComponentNode },
             );
-            operation.node?.instance?.componentDidUpdate();
+            (<ReactsComponentNode>(
+                operation.node
+            )).instance?.componentDidUpdate();
             return;
     }
 };

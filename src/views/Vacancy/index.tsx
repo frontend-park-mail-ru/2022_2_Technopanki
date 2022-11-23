@@ -46,8 +46,6 @@ class Vacancy extends ReactsComponent<VacancyPropsType> {
         this.getDataFromServer();
     }
 
-    componentDidUpdate() {}
-
     render() {
         return (
             <div className={'screen-responsive relative hidden g-24'}>

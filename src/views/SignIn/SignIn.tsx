@@ -16,9 +16,7 @@ import {
 } from '../../utils/validation/messages';
 import {
     AuthField,
-    AuthFields,
     ResponseBody,
-    setFieldAsInvalid,
     setInvalidFieldsFromServer,
     validateField,
 } from '../SignUp/SignUp';
@@ -103,9 +101,9 @@ export default class SignIn extends ReactsComponent<
             validFlag = false;
         }
 
-        this.setState(() => newState);
-
-        if (validFlag) {
+        if (!validFlag) {
+            this.setState(() => newState);
+        } else {
             authService
                 .signIn(formData)
                 .then(body => {
@@ -144,31 +142,31 @@ export default class SignIn extends ReactsComponent<
                 >
                     <form
                         onSubmit={this.onSubmit}
-                        key={'form'}
                         className={`flex w-100 column g-24`}
                     >
-                        <h5 key={'header'}>Войти</h5>
-                        <div key={'inputs'} className={'flex column g-16'}>
+                        <h5>Войти</h5>
+                        <div className={'flex column g-16'}>
                             {Object.entries(this.state.inputs).map(
                                 ([name, value]) => (
-                                    <Input
-                                        key={value.id}
-                                        id={value.id}
-                                        type={value.type}
-                                        placeholder={value.placeholder}
-                                        label={value.label}
-                                        name={name}
-                                        required={value.required}
-                                        value={value.value}
-                                        error={value.error}
-                                        errorMessage={value.errorMessage}
-                                    />
+                                    <div>
+                                        <p>{value}</p>
+                                        <Input
+                                            key={value.id}
+                                            id={value.id}
+                                            type={value.type}
+                                            placeholder={value.placeholder}
+                                            label={value.label}
+                                            name={name}
+                                            required={value.required}
+                                            value={value.value}
+                                            error={value.error}
+                                            errorMessage={value.errorMessage}
+                                        />
+                                    </div>
                                 ),
                             )}
                         </div>
-                        <ButtonPrimaryBigBlue key={'button'}>
-                            Войти
-                        </ButtonPrimaryBigBlue>
+                        <ButtonPrimaryBigBlue>Войти</ButtonPrimaryBigBlue>
                         <Link
                             to={SIGN_UP_PATH}
                             content={

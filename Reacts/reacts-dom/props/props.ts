@@ -16,6 +16,9 @@ export const setAttribute = (
         // @ts-ignore
         (<HTMLElement>node.ref).innerHTML = value.__html;
     } else {
+        if (!node.ref) {
+            debugger;
+        }
         (<HTMLElement>node.ref).setAttribute(attributes[attr], value);
     }
 };

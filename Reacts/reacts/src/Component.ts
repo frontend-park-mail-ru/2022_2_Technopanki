@@ -20,27 +20,30 @@ export abstract class ReactsComponent<P extends PropsType = {}, S = {}>
         callback?: () => void,
     ) {
         // @ts-ignore
-        this.state = update(this.state);
+        const newState = update(this.state);
 
-        if (callback) {
-            callback();
+        if (this.shouldUpdateState(newState as S)) {
+            this.state = newState;
+            if (callback) {
+                callback();
+            }
+            this.forceUpdate();
         }
-
-        this.forceUpdate();
     }
 
     // Updating
-    shouldUpdate(nextProps: P | Readonly<P> /*nextState?: S*/): boolean {
+    shouldUpdate(nextProps: P | Readonly<P> /*nextState?: */): boolean {
         return this.props !== nextProps;
+    }
+
+    // TODO: объединить этот метод с shouldUpdate
+    shouldUpdateState(nextState: S): boolean {
+        return this.state !== nextState;
     }
 
     forceUpdate(): void {
         const newNode = this.render();
-        rerenderNode(
-            this.ref ?? this.currentNode.ref,
-            this.currentNode,
-            newNode,
-        );
+        rerenderNode(this.currentNode?.ref, this.currentNode, newNode);
 
         this.currentNode = newNode;
         this.componentDidUpdate();

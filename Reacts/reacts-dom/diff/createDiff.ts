@@ -90,26 +90,6 @@ const isEmptyPropsUpdater = (propsUpdater: PropsUpdater): boolean => {
     return propsUpdater.set.length === 0 && propsUpdater.remove.length === 0;
 };
 
-const shouldSkip = (
-    propsUpdater: PropsUpdater,
-    childrenDiff: Operation | Operation[],
-): boolean => {
-    return (
-        isEmptyPropsUpdater(propsUpdater) &&
-        ((<Operation>childrenDiff).type === SKIP_OPERATION ||
-            (Array.isArray(childrenDiff) &&
-                !childrenDiff.find(operation => {
-                    if (Array.isArray(operation)) {
-                        return operation.find(
-                            operation => operation.type !== SKIP_OPERATION,
-                        );
-                    } else {
-                        return operation.type !== SKIP_OPERATION;
-                    }
-                })))
-    );
-};
-
 // TODO: refactor
 export const createDiffComponent = (
     oldNode: ReactsComponentNode,
@@ -120,6 +100,8 @@ export const createDiffComponent = (
     }
 
     if (!oldNode.instance?.shouldUpdate(newNode.instance?.props)) {
+        newNode.props = oldNode.props;
+        newNode.instance.currentNode = oldNode.instance.currentNode;
         return skip();
     }
 
@@ -129,16 +111,11 @@ export const createDiffComponent = (
         newNode.props.children,
     );
 
-    if (shouldSkip(propsUpdater, childrenDiff)) {
-        return skip();
-    }
-
     newNode.ref = oldNode.ref;
-    return update(
-        newNode,
-        createDiffForChildren(oldNode.props.children, newNode.props.children),
-        propsUpdater,
-    );
+    if (!newNode.ref || !oldNode.ref) {
+        debugger;
+    }
+    return update(newNode, childrenDiff, propsUpdater);
 };
 
 // TODO: refactor
@@ -158,15 +135,8 @@ export const createDiffDOM = (
 
     newNode.ref = oldNode.ref;
     newNode.eventMap = oldNode.eventMap;
-    if (shouldSkip(propsUpdater, childrenDiff)) {
-        return skip();
-    }
 
-    return update(
-        newNode,
-        createDiffForChildren(oldNode.props.children, newNode.props.children),
-        propsUpdater,
-    );
+    return update(newNode, childrenDiff, propsUpdater);
 };
 
 /**

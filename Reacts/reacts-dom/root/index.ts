@@ -3,6 +3,8 @@ import {
     ReactsDOMNode,
     ReactsFunctionalComponentNode,
     ReactsNode,
+    ReactsNotPrimitiveNode,
+    ReactsPrimitiveNode,
 } from '../../shared/types/node';
 import { renderNode } from '../render/renderNode';
 import { isPrimitive } from '../utils/isPrimitive';
@@ -43,24 +45,23 @@ export default class Root implements RootType {
             return;
         }
 
-        switch ((<ReactsNodeNotPrimitive>this.node).$$typeof) {
+        switch ((<ReactsNotPrimitiveNode>this.node).$$typeof) {
             case DOM_SYMBOL:
                 removeAllProps(this.node as ReactsDOMNode);
                 removeChildren(this.node);
                 (<ReactsDOMNode>this.node).ref?.remove();
                 break;
             case COMPONENT_SYMBOL:
-                // TODO
                 (<ReactsComponentNode>(
                     this.node
-                )).instance.componentWillUnmount();
-                (<ReactsComponentNode>this.node).instance.unmount();
+                )).instance?.componentWillUnmount();
+                (<ReactsComponentNode>this.node).instance?.unmount();
                 removeChildren(this.node);
                 break;
             default:
                 throw new Error(`undefined type of node: ${this.node}`);
         }
 
-        this.root.clearChildren();
+        this.root.innerHTML = '';
     }
 }

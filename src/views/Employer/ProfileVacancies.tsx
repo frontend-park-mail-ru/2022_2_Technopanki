@@ -4,60 +4,71 @@ import VacancyCard from '../../components/UI-kit/vacancy/VacancyCard';
 import Button from '../../components/UI-kit/buttons/Button';
 import RenderWithCondition from '../../components/RenderWithCondition';
 
+type ProfileState = {
+    vacancies: {
+        id: string;
+        title: string;
+        img: string;
+        salary: string;
+        currency: string;
+        location: string;
+        format: string;
+        hours: string;
+    }[];
+    limit: number;
+    requested: boolean;
+};
+
 export default class ProfileVacancies extends ReactsComponent<
     { profileID: string },
-    {
-        vacancies: {
-            id: string;
-            title: string;
-            img: string;
-            salary: string;
-            currency: string;
-            location: string;
-            format: string;
-            hours: string;
-        }[];
-        limit: number;
-        requested: boolean;
-    }
+    ProfileState
 > {
     state = {
         vacancies: [],
         limit: 10,
+        requested: false,
     };
 
-    requested = false;
-
     getVacancies() {
-        if (
-            this.state.vacancies.length === 0 &&
-            this.props.profileID &&
-            !this.requested
-        ) {
-            this.requested = true;
-            vacancyService
-                .getAllVacanciesForEmployer(this.props.profileID)
-                .then(body => {
-                    this.setState(state => {
-                        if (state.vacancies.length > 0) {
-                            return state;
-                        }
+        vacancyService
+            .getAllVacanciesForEmployer(this.props.profileID)
+            .then(body => {
+                this.setState(state => {
+                    if (state.vacancies.length > 0) {
+                        return state;
+                    }
 
-                        return {
-                            limit: 10,
-                            vacancies: body.data,
-                        };
-                    });
-                })
-                .catch(err => err !== 404 && console.log(err));
-        }
+                    return {
+                        limit: 10,
+                        vacancies: body.data,
+                        requested: true,
+                    };
+                });
+            })
+            .catch(err => err !== 404 && console.log(err));
     }
 
     componentDidMount() {
         this.getVacancies();
     }
 
+    componentDidUpdate() {
+        this.getVacancies();
+    }
+
+    shouldUpdate(
+        nextProps: Readonly<{ profileID: string }> | { profileID: string },
+    ): boolean {
+        debugger;
+        return this.props.profileID !== nextProps.profileID;
+    }
+
+    shouldUpdateState(nextState: ProfileState): boolean {
+        return !this.state.requested;
+    }
+
     render() {
+        console.log(this.props, this.state);
         return (
             <div className={'flex column g-16'}>
                 {this.state.vacancies
@@ -79,7 +90,6 @@ export default class ProfileVacancies extends ReactsComponent<
                     condition={this.state.limit < this.state.vacancies.length}
                     onSuccess={
                         <Button
-                            key={'more button'}
                             onClick={() => {
                                 this.setState(state => ({
                                     ...state,
