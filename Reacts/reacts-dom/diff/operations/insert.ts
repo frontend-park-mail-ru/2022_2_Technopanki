@@ -13,6 +13,7 @@ import {
     DOM_SYMBOL,
 } from '../../../shared/constants/symbols';
 import { setProps } from '../../props/props';
+import { createLogger } from 'typescript-plugin-css-modules/lib/helpers/logger';
 
 export const insertPrimitiveNode = (
     element: HTMLElement,
@@ -41,10 +42,11 @@ export const insertChildren = (
         return;
     }
 
+    console.log(beforeElement);
     Array.isArray(children)
-        ? // TODO: здесь есть баг с тем, что мы передаем beforeElement в forEach и
-          //  каждый новый элемент будет делать insert перед ним. То есть они будут идти в обратном порядке
-          children.forEach(child => insertNode(element, child, beforeElement))
+        ? children.forEach(child => {
+              insertNode(element, child, beforeElement);
+          })
         : insertNode(element, children, beforeElement);
 };
 
@@ -55,8 +57,8 @@ export const insertDOMNode = (
 ) => {
     node.ref = document.createElement(node.type);
     setProps(node);
-    insertChildren(node.ref, node.props.children);
     element.insertBefore(node.ref, beforeElement);
+    insertChildren(node.ref, node.props.children);
 };
 
 export const insertComponentNode = (
@@ -71,7 +73,7 @@ export const insertComponentNode = (
         // TODO: __DEV__
     }
 
-    insertChildren(element, node.props.children);
+    insertChildren(element, node.props.children, beforeElement);
     node.instance?.componentDidMount();
 };
 

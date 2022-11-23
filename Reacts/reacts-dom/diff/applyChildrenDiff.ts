@@ -43,7 +43,6 @@ export const applyChildrenDiff = (
 
         if (operation.type === INSERT_OPERATION) {
             insertNode(element, (<InsertOperation>operation).node, childElem);
-            offset++;
             continue;
         }
 
