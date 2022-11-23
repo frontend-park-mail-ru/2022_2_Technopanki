@@ -90,6 +90,7 @@
   --padding-24: 24px;
   --padding-32: 32px;
   --padding-40: 40px;
+  --padding-200: 200px;
   --padding-sm: 10px 12px;
 
   --gap-4: 4px;
@@ -228,6 +229,9 @@ p {
   &-0 {
     left: 0;
   }
+  &-4 {
+    left: 4px;
+  }
   &-16 {
     left: 16px;
   }
@@ -239,6 +243,9 @@ p {
 .r-0 {
   &-0 {
     right: 0;
+  }
+  &-4 {
+    right: 4px;
   }
   &-16 {
     right: 16px;
@@ -360,6 +367,9 @@ p {
 }
 
 .w {
+  &-0 {
+    width: 0;
+  }
   &-25 {
     width: 25%;
   }
@@ -431,6 +441,9 @@ p {
 }
 
 .p {
+  &-8 {
+    padding: var(--padding-8);
+  }
   &-16 {
     padding: var(--padding-16);
   }
@@ -442,6 +455,9 @@ p {
   }
   &-40 {
     padding: var(--padding-40);
+  }
+  &-200 {
+    padding: var(--padding-200);
   }
   &t {
     &-2 {

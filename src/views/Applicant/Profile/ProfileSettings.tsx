@@ -149,7 +149,7 @@ class ApplicantSettings extends ReactsComponent<
                 },
             },
             {
-                header: '',
+                header: ' ',
                 fields: {
                     dateOfBirth: {
                         size: 4,

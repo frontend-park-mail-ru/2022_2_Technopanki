@@ -47,6 +47,20 @@
   }
 }
 
+.btn-primary-blue__search {
+  width: 100%;
+  padding: var(--padding-16);
+  color: var(--white);
+  border: var(--border-blue);
+  border-radius: var(--border-radius-xl);
+  background-color: var(--primary-blue);
+  font-weight: 500;
+  &:hover {
+    background-color: var(--primary-blue-darker);
+    box-shadow: var(--shadow-blue-md);
+  }
+}
+
 .btn-primary {
   background-color: var(--background-900);
   color: var(--background-0);

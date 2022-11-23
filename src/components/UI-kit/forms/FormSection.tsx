@@ -21,33 +21,33 @@ export default class FormSection extends ReactsComponent<{
                     <div
                         key={id}
                         className={`col-12 ${
-                            field.props.size
-                                ? `col-md-${field.props.size.toString()}`
+                            field.size
+                                ? `col-md-${field.size.toString()}`
                                 : ''
                         }`}
                     >
-                        {field.props.type === 'textarea' ? (
+                        {field.type === 'textarea' ? (
                             <Textarea
                                 key={id}
                                 id={id}
-                                placeholder={field.props.placeholder}
-                                value={field.props.value}
-                                label={field.props.label}
-                                name={field.props.name}
-                                error={field.props.error}
-                                errorMessage={field.props.errorMessage}
+                                placeholder={field.placeholder}
+                                value={field.value}
+                                label={field.label}
+                                name={field.name}
+                                error={field.error}
+                                errorMessage={field.errorMessage}
                             />
                         ) : (
                             <Input
                                 key={id}
                                 id={id}
-                                type={field.props.type}
-                                placeholder={field.props.placeholder}
-                                label={field.props.label}
-                                name={field.props.name}
-                                value={field?.props.value}
-                                error={field.props.error}
-                                errorMessage={field.props.errorMessage}
+                                type={field.type}
+                                placeholder={field.placeholder}
+                                label={field.label}
+                                name={field.name}
+                                value={field?.value}
+                                error={field.error}
+                                errorMessage={field.errorMessage}
                             />
                         )}
                     </div>
