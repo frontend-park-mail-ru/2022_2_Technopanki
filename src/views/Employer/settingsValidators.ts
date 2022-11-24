@@ -59,8 +59,8 @@ export const validateSizeSymbols = (value: string): [boolean, string] => {
 
 export const validateSizeLength = (value: string): [boolean, string] => {
     return [
-        value.length > 0 && value.length <= 10,
-        'Размер компании должен содержать от 1 до 10 символов',
+        value.length < 10,
+        'Размер компании должен быть меньше 10 символов',
     ];
 };
 

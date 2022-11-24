@@ -313,6 +313,7 @@ class ProfileSettingsComponent extends ReactsComponent<
                             </ButtonPrimary>
                         </div>
                     </Form>
+                    <hr className={'col-12'} />
                     <Form onSubmit={() => console.log('password change')}>
                         <FormItem header={'Смена пароля'}>
                             <FormInput

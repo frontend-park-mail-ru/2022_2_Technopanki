@@ -63,7 +63,7 @@ export default class ProfileVacancies extends ReactsComponent<
     }
 
     shouldUpdateState(nextState: ProfileState): boolean {
-        return !this.state.requested;
+        return !this.state.requested || nextState.limit !== this.state.limit;
     }
 
     render() {
@@ -74,6 +74,7 @@ export default class ProfileVacancies extends ReactsComponent<
                     ?.slice(0, this.state.limit)
                     .map(vacancy => (
                         <VacancyCard
+                            key={vacancy.id.toString()}
                             id={vacancy.id.toString()}
                             name={vacancy.title}
                             icon={vacancy.image}
