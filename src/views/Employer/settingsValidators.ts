@@ -43,6 +43,7 @@ export const sloganSymbolsValidation = (value: string): [boolean, string] => {
     ];
 };
 
+// TODO: вынести в общий модуль
 export const locationValidation = (value: string): [boolean, string] => {
     return [
         value === '' ? true : /^[A-ZА-Я]+(?:[a-zA-Zа-яА-Я\-\s]+)*$/.test(value),

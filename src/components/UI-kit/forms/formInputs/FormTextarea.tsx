@@ -4,35 +4,16 @@ import styles from '../inputs/input.module.scss';
 type FormInputProps = {
     id: string;
     label: string;
-    value: string;
-    type: string;
-    placeholder: string;
+    value?: string;
     name: string;
-    error: boolean;
-    errorMessage: string;
+    required: boolean;
     size: '3' | '4' | '6' | '12';
-    setError?: Function;
-    required?: boolean;
-    validation?: (param: any) => boolean;
-    validationMode?: 'onblur' | 'onsubmit';
     [key: string]: any;
 };
 
 export default class FormTextarea extends ReactsComponent<FormInputProps> {
     state = {
-        error: this.props.error,
         value: this.props.value,
-    };
-
-    onBlur = (e: Event) => {
-        e.preventDefault();
-        if (this.props.validation && !this.props.validation(e.target.value)) {
-            this.setState(() => ({ error: true, value: e.target.value }));
-            this.props.setError(true);
-        } else {
-            this.setState(() => ({ error: false, value: e.target.value }));
-            this.props.setError(false);
-        }
     };
 
     render() {
@@ -44,10 +25,7 @@ export default class FormTextarea extends ReactsComponent<FormInputProps> {
                     {this.props.label}
                 </label>
                 <textarea
-                    onBlur={this.onBlur}
-                    className={`${styles.input} ${
-                        this.state.error ? styles.input__error : ''
-                    }`}
+                    className={`${styles.input} ${styles.textarea}`}
                     {...{
                         ...this.props,
                         validation: null,
@@ -56,13 +34,6 @@ export default class FormTextarea extends ReactsComponent<FormInputProps> {
                 >
                     {this.props.value}
                 </textarea>
-                {this.state.error ? (
-                    <p className={`input-error-${this.props.name}`}>
-                        {this.props.errorMessage}
-                    </p>
-                ) : (
-                    <p></p>
-                )}
             </div>
         );
     }
