@@ -49,6 +49,8 @@ import {
     sloganLengthValidation,
     sloganSymbolsValidation,
     sloganZeroLengthValidation,
+    validateSizeLength,
+    validateSizeSymbols,
 } from './settingsValidators';
 
 class AvatarSettingsComponent extends ReactsComponent<
@@ -127,6 +129,7 @@ class ProfileSettingsComponent extends ReactsComponent<
         name: [nameSymbolsValidation, nameLengthValidation],
         password: [passwordLengthValidation, passwordSymbolsValidation],
         location: [locationValidation],
+        size: [validateSizeSymbols, validateSizeLength],
     });
 
     submitForm = async (e: SubmitEvent) => {
@@ -237,7 +240,7 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 id={'name'}
                                 label={'Название компании'}
                                 value={this.props.name}
-                                type={'name'}
+                                type={'text'}
                                 placeholder={'Название компании'}
                                 name={'name'}
                                 setError={this.validation.setError}
@@ -252,7 +255,7 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 id={'status'}
                                 label={'Слоган'}
                                 value={this.props.status}
-                                type={'name'}
+                                type={'text'}
                                 placeholder={'Привет мир!'}
                                 name={'Слоган'}
                                 setError={this.validation.setError}
@@ -267,7 +270,7 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 id={'location'}
                                 label={'Местоположение'}
                                 value={this.props.location}
-                                type={'name'}
+                                type={'text'}
                                 placeholder={'Местоположение компании'}
                                 name={'location'}
                                 setError={this.validation.setError}
@@ -276,15 +279,20 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 )}
                                 validationMode={'oninput'}
                             />
-                            <FormInputGroup
-                                id={'size'}
+                            <FormInput
                                 size={'4'}
                                 name={'size'}
+                                id={'size'}
                                 label={'Размер компании'}
-                                options={[
-                                    { value: 'medium', children: 'Средняя' },
-                                    { value: 'medium', children: 'Средняя' },
-                                ]}
+                                value={this.props.location}
+                                type={'text'}
+                                placeholder={'10.000'}
+                                name={'size'}
+                                setError={this.validation.setError}
+                                validation={this.validation.getValidation(
+                                    'size',
+                                )}
+                                validationMode={'oninput'}
                             />
                             <FormTextarea
                                 size={'12'}
@@ -297,7 +305,6 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 }
                                 name={'description'}
                                 required={true}
-                                validationMode={'onblur'}
                             />
                         </FormItem>
                         <div>

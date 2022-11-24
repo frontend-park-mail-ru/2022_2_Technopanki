@@ -45,8 +45,22 @@ export const sloganSymbolsValidation = (value: string): [boolean, string] => {
 
 export const locationValidation = (value: string): [boolean, string] => {
     return [
-        /^[A-ZА-Я]+(?:[a-zA-Zа-яА-Я\-\s]+)*$/.test(value),
+        value === '' ? true : /^[A-ZА-Я]+(?:[a-zA-Zа-яА-Я\-\s]+)*$/.test(value),
         'Ошибка в названии города',
+    ];
+};
+
+export const validateSizeSymbols = (value: string): [boolean, string] => {
+    return [
+        /^[1-9]+(?:[1-9\.0]+)*$/.test(value),
+        'Размер компании должен содежрать только цифры и точки',
+    ];
+};
+
+export const validateSizeLength = (value: string): [boolean, string] => {
+    return [
+        value.length > 0 && value.length <= 10,
+        'Размер компании должен содержать от 1 до 10 символов',
     ];
 };
 

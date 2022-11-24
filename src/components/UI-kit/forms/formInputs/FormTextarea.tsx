@@ -14,7 +14,7 @@ type FormInputProps = {
     setError?: Function;
     required?: boolean;
     validation?: (param: any) => boolean;
-    validationMode: 'onblur' | 'onsubmit';
+    validationMode?: 'onblur' | 'onsubmit';
     [key: string]: any;
 };
 
