@@ -2,7 +2,7 @@
 
 .vacancy {
   outline: var(--border-default);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--shadow-grey-sm);
   transition: var(--transition-sfast);
   &:hover {
     outline: var(--border-blue);

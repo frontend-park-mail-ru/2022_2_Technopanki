@@ -14,6 +14,7 @@ import {
     validateEmail,
     validatePasswordLength,
     validatePasswordSymbols,
+    validateStatusSymbols,
 } from '../../utils/validation/validation';
 import {
     COMPANY_NAME_ERROR,
@@ -44,7 +45,11 @@ import Form from '../../components/UI-kit/forms/Form';
 import FormItem from '../../components/UI-kit/forms/FormItem';
 import FormInput from '../../components/UI-kit/forms/formInputs/FormInput';
 import FormTextarea from '../../components/UI-kit/forms/formInputs/FormTextarea';
-import { useValidation } from '../../utils/validation/formValidation';
+import FormInputGroup from '../../components/UI-kit/forms/formInputs/FormInputGroup';
+import {
+    useValidation,
+    ValidationFunc,
+} from '../../utils/validation/formValidation';
 
 class AvatarSettingsComponent extends ReactsComponent<
     { previewSrc: string },
@@ -102,15 +107,36 @@ const AvatarSettings = profileConnect(state => {
     };
 })(AvatarSettingsComponent);
 
-const nameValidation = (value: string): [boolean, string] => {
+const nameLengthValidation = (value: string): [boolean, string] => {
     return [
-        value.length > 8 && value.length < 30,
-        'Длина имена должна быть между 8 и 30 символами',
+        value.length >= 1 && value.length <= 150,
+        'Длина названия компании должна быть между 1 и 150 символами',
     ];
 };
 
-const sloganValidation = (value: string): [boolean, string] => {
-    return [value.length > 0, 'Слоган не должен быть пустым'];
+const nameSymbolsValidation = (value: string): [boolean, string] => {
+    return [
+        validateCompanyName(value),
+        'Название компании должно содержать только буквы русского или английского алфавита',
+    ];
+};
+
+const sloganLengthValidation = (value: string): [boolean, string] => {
+    return [
+        value.length < 100,
+        'Длина слогана должна быть меньше 100 символов',
+    ];
+};
+
+const sloganZeroLengthValidation = (value: string): [boolean, string] => {
+    return [value.length > 0, 'Слоган не может быть пустым'];
+};
+
+const sloganSymbolsValidation = (value: string): [boolean, string] => {
+    return [
+        validateStatusSymbols(value),
+        'Слоган содержать только буквы русского или английского алфавита',
+    ];
 };
 
 const passwordSymbolsValidation = (value: string): [boolean, string] => {
@@ -132,14 +158,22 @@ class ProfileSettingsComponent extends ReactsComponent<
         profile: { ...this.props },
     };
 
-    isError = false;
+    validation = useValidation({
+        slogan: [
+            sloganLengthValidation,
+            sloganZeroLengthValidation,
+            sloganSymbolsValidation,
+        ],
+        name: [nameSymbolsValidation, nameLengthValidation],
+        password: [passwordLengthValidation, passwordSymbolsValidation],
+    });
 
     submitForm = async (e: SubmitEvent) => {
-        if (this.isError) {
+        e.preventDefault();
+        if (Object.values(this.validation[1]).find(isError => isError)) {
             return;
         }
 
-        e.preventDefault();
         const formData = new FormData(e.target);
 
         const image = document.querySelector('#avatar').files[0];
@@ -205,8 +239,8 @@ class ProfileSettingsComponent extends ReactsComponent<
     }): boolean {
         return super.shouldUpdateState(nextState);
     }
-
     // TODO: перенести logout в header
+
     logout = () => {
         authService
             .logout()
@@ -216,16 +250,6 @@ class ProfileSettingsComponent extends ReactsComponent<
             })
             .catch(err => console.error(err));
     };
-
-    setError = (error: boolean) => {
-        this.isError = error;
-    };
-
-    validation = useValidation({
-        slogan: [sloganValidation],
-        name: [nameValidation],
-        password: [passwordLengthValidation, passwordSymbolsValidation],
-    });
 
     render() {
         return (
@@ -241,12 +265,6 @@ class ProfileSettingsComponent extends ReactsComponent<
                             surname={''}
                             status={this.props.status}
                             postedByUserID={this.props.id}
-                            linkTo={EMPLOYER_PATHS.PROFILE + this.props.id}
-                            submit={() =>
-                                document
-                                    ?.querySelector('#profile_form')
-                                    ?.dispatchEvent(new Event('submit'))
-                            }
                         />
                     </div>
                     <h3 className={'col-12'}>Настройки профиля</h3>
@@ -261,9 +279,11 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 type={'name'}
                                 placeholder={'Название компании'}
                                 name={'name'}
-                                setError={this.setError}
+                                setError={(error: boolean) => {
+                                    this.validation[1]['name'] = error;
+                                }}
                                 required={true}
-                                validation={this.validation('name')}
+                                validation={this.validation[0]('name')}
                                 validationMode={'onblur'}
                             />
                             <FormInput
@@ -274,9 +294,11 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 type={'name'}
                                 placeholder={'Привет мир!'}
                                 name={'Слоган'}
-                                setError={this.setError}
+                                setError={(error: boolean) => {
+                                    this.validation[1]['slogan'] = error;
+                                }}
                                 required={true}
-                                validation={this.validation('status')}
+                                validation={this.validation[0]('slogan')}
                                 validationMode={'onblur'}
                             />
                             <FormInput
@@ -287,8 +309,20 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 type={'name'}
                                 placeholder={'Местоположение компании'}
                                 name={'location'}
-                                setError={this.setError}
+                                setError={(error: boolean) => {
+                                    this.validation[1]['location'] = error;
+                                }}
                                 validationMode={'onblur'}
+                            />
+                            <FormInputGroup
+                                id={'size'}
+                                size={'4'}
+                                name={'size'}
+                                label={'Размер компании'}
+                                options={[
+                                    { value: 'medium', children: 'Средняя' },
+                                    { value: 'medium', children: 'Средняя' },
+                                ]}
                             />
                             <FormTextarea
                                 size={'12'}
@@ -300,7 +334,6 @@ class ProfileSettingsComponent extends ReactsComponent<
                                     'Напишите здесь описание вашей компании'
                                 }
                                 name={'description'}
-                                setError={this.setError}
                                 required={true}
                                 validationMode={'onblur'}
                             />
@@ -313,9 +346,11 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 type={'password'}
                                 placeholder={'********'}
                                 name={'password'}
-                                setError={this.setError}
+                                setError={(error: boolean) => {
+                                    this.validation[1]['password'] = error;
+                                }}
                                 required={true}
-                                validation={this.validation('password')}
+                                validation={this.validation[0]('password')}
                                 validationMode={'onblur'}
                             />
                             <FormInput
@@ -325,9 +360,11 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 type={'password'}
                                 placeholder={'********'}
                                 name={'repeatPassword'}
-                                setError={this.setError}
+                                setError={(error: boolean) => {
+                                    this.validation[1]['password'] = error;
+                                }}
                                 required={true}
-                                validation={this.validation('password')}
+                                validation={this.validation[0]('password')}
                                 validationMode={'onblur'}
                             />
                         </FormItem>
@@ -336,6 +373,9 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 Сохранить
                             </ButtonPrimary>
                         </div>
+                        <p onClick={() => navigator.goBack()}>
+                            Вернуться назад
+                        </p>
                     </Form>
                 </div>
                 <Footer />

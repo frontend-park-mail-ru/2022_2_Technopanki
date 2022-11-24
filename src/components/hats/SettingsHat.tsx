@@ -16,8 +16,6 @@ class SettingsHat extends ReactsComponent<
         status: string;
         imgSrc: string;
         creatorID: string;
-        submit: Function;
-        linkTo: string;
         userID: string;
     },
     {
@@ -70,12 +68,6 @@ class SettingsHat extends ReactsComponent<
                 surname={this.props.surname ?? ''}
                 status={this.state.status}
                 linkTo={this.props.linkTo}
-                rightSideContent={
-                    <CancelSaveButtons
-                        onCancel={navigator.goBack}
-                        onSave={this.props.submit}
-                    />
-                }
             />
         );
     }

@@ -8,7 +8,7 @@ type HatPropsType = {
     name: string;
     surname: string;
     status: string;
-    rightSideContent: ReactsComponentNode;
+    rightSideContent?: ReactsComponentNode;
     linkTo?: string;
 };
 

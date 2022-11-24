@@ -5,7 +5,15 @@ export type ValidationConfig = {
     [key: string]: ValidationFunc[];
 };
 
-export const useValidation = (config: ValidationConfig) => {
+export type ValidationReturnFunc = (field: string) => ValidationFunc[];
+
+export const useValidation = (
+    config: ValidationConfig,
+): [ValidationReturnFunc, { [key: string]: boolean }] => {
     const validators = config;
-    return (field: string) => validators[field];
+    let errorStore = {};
+    Object.keys(config).map(key => {
+        errorStore = { ...errorStore, [key]: false };
+    });
+    return [(field: string) => validators[field], errorStore];
 };

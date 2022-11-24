@@ -10,8 +10,8 @@ type FormInputProps = {
     name: string;
     error: boolean;
     errorMessage: string;
-    setError: Function;
     size: '3' | '4' | '6' | '12';
+    setError?: Function;
     required?: boolean;
     validation?: (param: any) => boolean;
     validationMode: 'onblur' | 'onsubmit';
@@ -53,7 +53,9 @@ export default class FormTextarea extends ReactsComponent<FormInputProps> {
                         validation: null,
                         validationMode: null,
                     }}
-                />
+                >
+                    {this.props.value}
+                </textarea>
                 {this.state.error ? (
                     <p className={`input-error-${this.props.name}`}>
                         {this.props.errorMessage}

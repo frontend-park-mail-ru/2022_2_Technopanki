@@ -55,6 +55,11 @@ export const phoneValidation = (phone: string): boolean => {
     return regexp.test(phone);
 };
 
+export const validateStatusSymbols = (value: string): boolean => {
+    const regexp = /^[a-zA-Z а-яА-Я]*$/;
+    return regexp.test(value);
+};
+
 export const validateResumeTitle = (title: string): boolean => {
     return !!title;
 };
