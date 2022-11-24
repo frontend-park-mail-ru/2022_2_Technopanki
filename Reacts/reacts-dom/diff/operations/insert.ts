@@ -67,6 +67,7 @@ export const insertComponentNode = (
     node.ref = element;
     if (node.instance) {
         node.instance.ref = element;
+        node.instance.currentNode = node;
     } else {
         // TODO: __DEV__
     }

@@ -3,7 +3,7 @@ import Header from '../../components/UI-kit/header/Header';
 import SettingsHat from '../../components/hats/SettingsHat';
 import { InputPropsType } from '../../components/UI-kit/forms/inputs/Input';
 import FileInput from '../../components/UI-kit/forms/inputs/FileInput';
-import navigator from '../../router/navigator.tsx';
+import navigator from '../../router/navigator';
 import Footer from '../../components/UI-kit/footer/Footer';
 import { employerProfileService } from '../../services/employerProfileService';
 import { EmployerProfile, ProfileState } from '../../store/profile/types';
@@ -12,12 +12,15 @@ import {
     phoneValidation,
     validateCompanyName,
     validateEmail,
+    validatePasswordLength,
     validatePasswordSymbols,
 } from '../../utils/validation/validation';
 import {
     COMPANY_NAME_ERROR,
     EMAIL_ERROR,
+    MAX_PHOTO_SIZE,
     NAME_SYMBOLS_ERROR,
+    PASSWORD_LENGTH_ERROR,
     PASSWORD_REPEAT_ERROR,
     PASSWORD_SYMBOLS_ERROR,
     PHONE_ERROR,
@@ -37,6 +40,11 @@ import {
     deactivateSuccess,
 } from '../../store/succeses/actions';
 import { EMPLOYER_PATHS } from '../../utils/routerConstants';
+import Form from '../../components/UI-kit/forms/Form';
+import FormItem from '../../components/UI-kit/forms/FormItem';
+import FormInput from '../../components/UI-kit/forms/formInputs/FormInput';
+import FormTextarea from '../../components/UI-kit/forms/formInputs/FormTextarea';
+import { useValidation } from '../../utils/validation/formValidation';
 
 class AvatarSettingsComponent extends ReactsComponent<
     { previewSrc: string },
@@ -44,7 +52,17 @@ class AvatarSettingsComponent extends ReactsComponent<
 > {
     setPreview = (event: InputEvent) => {
         // @ts-ignore
-        const [file] = event.target.files;
+        const [file]: [File] = event.target.files;
+        if (file.size > MAX_PHOTO_SIZE) {
+            dispatch(
+                activateError(
+                    'Размер файл слишком большой',
+                    'Размер файла не должен превышать 1MB',
+                ),
+            );
+            setTimeout(() => dispatch(deactivateError()), 3000);
+            return;
+        }
         const fileUrl = URL.createObjectURL(file);
 
         this.setState(state => ({ ...state, previewSrc: fileUrl }));
@@ -56,8 +74,8 @@ class AvatarSettingsComponent extends ReactsComponent<
 
     render() {
         return (
-            <div key={'avatar'} className={'columns g-16'}>
-                <div key={'preview'} className={'col-12 col-md-3'}>
+            <div className={'columns g-16'}>
+                <div className={'col-12 col-md-3'}>
                     <img
                         height={64}
                         width={64}
@@ -66,7 +84,7 @@ class AvatarSettingsComponent extends ReactsComponent<
                         src={this.state.previewSrc}
                     />
                 </div>
-                <div key={'input'} className={'col-12 col-md-9'}>
+                <div className={'col-12 col-md-9'}>
                     <FileInput
                         id={'avatar'}
                         label={'Загрузить новую фотогрфию'}
@@ -80,213 +98,92 @@ class AvatarSettingsComponent extends ReactsComponent<
 
 const AvatarSettings = profileConnect(state => {
     return {
-        previewSrc: state.previewSrc,
+        previewSrc: state.avatarSrc,
     };
 })(AvatarSettingsComponent);
+
+const nameValidation = (value: string): [boolean, string] => {
+    return [
+        value.length > 8 && value.length < 30,
+        'Длина имена должна быть между 8 и 30 символами',
+    ];
+};
+
+const sloganValidation = (value: string): [boolean, string] => {
+    return [value.length > 0, 'Слоган не должен быть пустым'];
+};
+
+const passwordSymbolsValidation = (value: string): [boolean, string] => {
+    return [validatePasswordSymbols(value), PASSWORD_SYMBOLS_ERROR];
+};
+
+const passwordLengthValidation = (value: string): [boolean, string] => {
+    return [validatePasswordLength(value), PASSWORD_LENGTH_ERROR];
+};
 
 class ProfileSettingsComponent extends ReactsComponent<
     ProfileState & { userID: string },
     {
         profile: EmployerProfile;
-        sections: {
-            header: string;
-            fields: {
-                [key: string]: {
-                    fieldHeader: string;
-                    props: InputPropsType;
-                };
-            };
-        }[];
+        error: boolean;
     }
 > {
     state = {
         profile: { ...this.props },
-        sections: [
-            {
-                header: 'О компании',
-                fields: {
-                    name: {
-                        size: 8,
-                        type: 'text',
-                        placeholder: 'Company name',
-                        label: 'Название компании',
-                        name: 'name',
-                        required: true,
-                        value: this.props.name,
-                        validator: validateCompanyName,
-                        error: false,
-                        errorMessage: COMPANY_NAME_ERROR,
-                    },
-                    status: {
-                        size: 4,
-                        type: 'text',
-                        placeholder: 'Hello world!',
-                        label: 'Статус',
-                        name: 'status',
-                        required: true,
-                        value: this.props.status,
-                    },
-                    size: {
-                        size: 4,
-                        type: 'number',
-                        placeholder: '10.000',
-                        label: 'Размер компании',
-                        name: 'size',
-                        required: true,
-                        value: this.props.size,
-                    },
-                    phone: {
-                        size: 4,
-                        type: 'text',
-                        placeholder: '+7 (999) 999-99-99',
-                        label: 'Телефон',
-                        name: 'phone',
-                        validator: phoneValidation,
-                        required: false,
-                        value: this.props.phone,
-                        errorMessage: PHONE_ERROR,
-                    },
-                    email: {
-                        size: 4,
-                        type: 'text',
-                        placeholder: 'example@mail.ru',
-                        label: 'Email',
-                        name: 'email',
-                        required: false,
-                        value: this.props.email,
-                        validator: validateEmail,
-                        error: false,
-                        errorMessage: EMAIL_ERROR,
-                    },
-                    description: {
-                        size: 12,
-                        type: 'textarea',
-                        placeholder: undefined,
-                        label: 'Описание компании',
-                        name: 'description',
-                        required: true,
-                        value: this.props.description,
-                    },
-                },
-            },
-            {
-                header: 'Пароль',
-                fields: {
-                    password: {
-                        size: 4,
-                        type: 'password',
-                        placeholder: '********',
-                        label: 'Новый пароль',
-                        name: 'password',
-                        validator: validatePasswordSymbols,
-                        error: false,
-                        errorMessage: PASSWORD_SYMBOLS_ERROR,
-                        value: undefined,
-                    },
-                    repeatPassword: {
-                        size: 4,
-                        type: 'password',
-                        placeholder: '********',
-                        label: 'Повторите пароль',
-                        name: 'repeatPassword',
-                        errorMessage: PASSWORD_REPEAT_ERROR,
-                    },
-                },
-            },
-        ],
     };
 
-    submitForm = (e: SubmitEvent) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
+    isError = false;
 
-        let sections = this.state.sections;
-        let isValid = true;
-
-        formData.forEach((value, key) => {
-            sections.forEach(section => {
-                if (section.fields[key]) {
-                    if (
-                        section.fields[key].validator &&
-                        !section.fields[key].validator(value) &&
-                        (section.fields[key].required || value)
-                    ) {
-                        section.fields[key].error = true;
-                        isValid = false;
-                    } else {
-                        section.fields[key].error = false;
-                    }
-                    section.fields[key].value = value;
-                    return;
-                }
-            });
-        });
-
-        if (
-            this.state.sections[1].fields.password.value !==
-            this.state.sections[1].fields.repeatPassword.value
-        ) {
-            this.state.sections[1].fields.repeatPassword.error = true;
-            isValid = false;
-        }
-
-        if (!isValid) {
-            this.setState(state => ({ ...state, sections: sections }));
+    submitForm = async (e: SubmitEvent) => {
+        if (this.isError) {
             return;
         }
+
+        e.preventDefault();
+        const formData = new FormData(e.target);
 
         const image = document.querySelector('#avatar').files[0];
         const formDataImage = new FormData();
         formDataImage.append('avatar', image);
-        employerProfileService
-            .updateProfileImg(this.state.profile.id, formDataImage)
-            .then(body => userActions.updateAvatar(body.image));
 
-        employerProfileService
-            .updateProfile(
+        try {
+            const newImage = await employerProfileService.updateProfileImg(
                 this.state.profile.id,
-                this.state.profile.profileType
-                    ? this.state.profile.profileType
-                    : 'employer',
+                formDataImage,
+            );
+
+            await employerProfileService.updateProfile(
+                this.props.id,
+                'employer',
                 formData,
-            )
-            .then(body => {
-                // console.log('SETTINGS: ', body.image);
-                // dispatch(
-                //     profileActions.updateFromFormData(
-                //         this.state.profile.id,
-                //         this.state.profile.profileType
-                //             ? this.state.profile.profileType
-                //             : 'employer',
-                //         body.image,
-                //         formData,
-                //     ),
-                // );
-                dispatch(
-                    userActions.updateName(formData.get('name') as string, ''),
-                );
-                // dispatch(userActions.updateAvatar(body.image ?? body.imgSrc));
-                dispatch(
-                    activateSuccess('Данные профиля успешно изменены!', ''),
-                );
-                setTimeout(() => dispatch(deactivateSuccess()), 3000);
-                setTimeout(
-                    () =>
-                        navigator.navigate(
-                            EMPLOYER_PATHS.PROFILE + this.props.id,
-                        ),
-                    750,
-                );
-            })
-            .catch(err => {
-                dispatch(
-                    activateError(
-                        'Упс... что-то пошло не так',
-                        'Пожалуйста, повторите попытку',
-                    ),
-                );
-                setTimeout(() => dispatch(deactivateError()), 3000);
-            });
+            );
+
+            dispatch(
+                profileActions.updateFromFormData(
+                    this.props.id,
+                    'employer',
+                    newImage,
+                    formData,
+                ),
+            );
+            dispatch(
+                userActions.updateName(formData.get('name') as string, ''),
+            );
+            dispatch(activateSuccess('Данные профиля успешно изменены!', ''));
+            setTimeout(() => dispatch(deactivateSuccess()), 3000);
+            console.log(EMPLOYER_PATHS.PROFILE + this.props.id);
+            navigator.navigate(EMPLOYER_PATHS.PROFILE + this.props.id);
+        } catch (e) {
+            console.error(e);
+            // TODO: проставить ошибку с сервера
+            dispatch(
+                activateError(
+                    'Упс... что-то пошло не так',
+                    'Пожалуйста, повторите попытку',
+                ),
+            );
+            setTimeout(() => dispatch(deactivateError()), 3000);
+        }
     };
 
     getDataFromServer() {
@@ -302,6 +199,14 @@ class ProfileSettingsComponent extends ReactsComponent<
         this.getDataFromServer();
     }
 
+    shouldUpdateState(nextState: {
+        profile: EmployerProfile;
+        error: boolean;
+    }): boolean {
+        return super.shouldUpdateState(nextState);
+    }
+
+    // TODO: перенести logout в header
     logout = () => {
         authService
             .logout()
@@ -312,14 +217,24 @@ class ProfileSettingsComponent extends ReactsComponent<
             .catch(err => console.error(err));
     };
 
+    setError = (error: boolean) => {
+        this.isError = error;
+    };
+
+    validation = useValidation({
+        slogan: [sloganValidation],
+        name: [nameValidation],
+        password: [passwordLengthValidation, passwordSymbolsValidation],
+    });
+
     render() {
         return (
             <div className={'screen-responsive relative hidden'}>
-                <ErrorPopup key={'error'} />
-                <SuccessPopup key={'success'} />
-                <Header key={'header'} />
-                <div key={'hat'} className={'columns g-24'}>
-                    <div key={'settings'} className={`col-12 mt-header`}>
+                <ErrorPopup />
+                <SuccessPopup />
+                <Header />
+                <div className={'columns g-24'}>
+                    <div className={`col-12 mt-header`}>
                         <SettingsHat
                             imgSrc={this.props.avatarSrc}
                             name={this.props.name}
@@ -334,47 +249,96 @@ class ProfileSettingsComponent extends ReactsComponent<
                             }
                         />
                     </div>
-                    <h3 key={'h'} className={'col-12'}>
-                        Настройки профиля
-                    </h3>
-                    <form
-                        key={'form'}
-                        id={'profile_form'}
-                        onSubmit={this.submitForm.bind(this)}
-                        className={'col-12 col-md-9 column g-24'}
-                    >
-                        <div key={'avatar'} className={'w-100'}>
-                            <AvatarSettings key={'avatar'} />
-                        </div>
-                        {this.state.sections.map(section => (
-                            <FormSection
-                                key={section.header}
-                                header={section.header}
-                                fields={section.fields}
+                    <h3 className={'col-12'}>Настройки профиля</h3>
+                    <Form onSubmit={this.submitForm}>
+                        <AvatarSettings />
+                        <FormItem header={'О пользователе'}>
+                            <FormInput
+                                size={'12'}
+                                id={'name'}
+                                label={'Название компании'}
+                                value={this.props.name}
+                                type={'name'}
+                                placeholder={'Название компании'}
+                                name={'name'}
+                                setError={this.setError}
+                                required={true}
+                                validation={this.validation('name')}
+                                validationMode={'onblur'}
                             />
-                        ))}
+                            <FormInput
+                                size={'4'}
+                                id={'status'}
+                                label={'Слоган'}
+                                value={this.props.status}
+                                type={'name'}
+                                placeholder={'Привет мир!'}
+                                name={'Слоган'}
+                                setError={this.setError}
+                                required={true}
+                                validation={this.validation('status')}
+                                validationMode={'onblur'}
+                            />
+                            <FormInput
+                                size={'4'}
+                                id={'location'}
+                                label={'Местоположение'}
+                                value={this.props.location}
+                                type={'name'}
+                                placeholder={'Местоположение компании'}
+                                name={'location'}
+                                setError={this.setError}
+                                validationMode={'onblur'}
+                            />
+                            <FormTextarea
+                                size={'12'}
+                                id={'description'}
+                                label={'Описание'}
+                                value={this.props.description}
+                                type={'name'}
+                                placeholder={
+                                    'Напишите здесь описание вашей компании'
+                                }
+                                name={'description'}
+                                setError={this.setError}
+                                required={true}
+                                validationMode={'onblur'}
+                            />
+                        </FormItem>
+                        <FormItem header={'Смена пароля'}>
+                            <FormInput
+                                size={'4'}
+                                id={'password'}
+                                label={'Новый пароль'}
+                                type={'password'}
+                                placeholder={'********'}
+                                name={'password'}
+                                setError={this.setError}
+                                required={true}
+                                validation={this.validation('password')}
+                                validationMode={'onblur'}
+                            />
+                            <FormInput
+                                size={'4'}
+                                id={'repeatPassword'}
+                                label={'Повторите новый пароль'}
+                                type={'password'}
+                                placeholder={'********'}
+                                name={'repeatPassword'}
+                                setError={this.setError}
+                                required={true}
+                                validation={this.validation('password')}
+                                validationMode={'onblur'}
+                            />
+                        </FormItem>
                         <div>
                             <ButtonPrimary type={'submit'}>
                                 Сохранить
                             </ButtonPrimary>
                         </div>
-                    </form>
+                    </Form>
                 </div>
-                <div className={'flex row g-16 mt-40'}>
-                    <Button
-                        onClick={() =>
-                            navigator.navigate(
-                                EMPLOYER_PATHS.PROFILE + this.props.id,
-                            )
-                        }
-                    >
-                        Пропустить
-                    </Button>
-                    <ButtonRed key={'logout'} onClick={this.logout}>
-                        Выйти
-                    </ButtonRed>
-                </div>
-                <Footer key={'footer'} />
+                <Footer />
             </div>
         );
     }

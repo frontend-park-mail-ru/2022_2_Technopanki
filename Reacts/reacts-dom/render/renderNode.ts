@@ -37,6 +37,7 @@ const renderComponent = (root: HTMLElement, node: ReactsComponentNode) => {
     node.ref = root;
     if (node.instance) {
         node.instance.ref = root;
+        node.instance.currentNode = node;
     } else {
         // @ts-ignore
         if (__DEV__) {

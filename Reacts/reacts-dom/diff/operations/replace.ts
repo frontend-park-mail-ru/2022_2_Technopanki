@@ -101,9 +101,6 @@ export const replaceNode = (
             (<ReactsComponentNode>newNode).ref = element;
             (<ReactsComponent>(<ReactsComponentNode>newNode).instance).ref =
                 element;
-            if (!element) {
-                debugger;
-            }
             (<ReactsComponentNode>newNode).instance?.componentDidMount();
             break;
         default:

@@ -59,7 +59,6 @@ export default class ProfileVacancies extends ReactsComponent<
     shouldUpdate(
         nextProps: Readonly<{ profileID: string }> | { profileID: string },
     ): boolean {
-        debugger;
         return this.props.profileID !== nextProps.profileID;
     }
 

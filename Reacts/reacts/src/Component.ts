@@ -1,4 +1,8 @@
-import { PropsType, ReactsNode } from '../../shared/types/node';
+import {
+    PropsType,
+    ReactsComponentNode,
+    ReactsNode,
+} from '../../shared/types/node';
 import { ComponentType } from '../../shared/types/component';
 import { rerenderNode } from '../../reacts-dom/render/rerenderNode';
 
@@ -9,7 +13,8 @@ export abstract class ReactsComponent<P extends PropsType = {}, S = {}>
     state: Readonly<S> | Readonly<{}> = {};
 
     ref: HTMLElement | null = null;
-    currentNode: ReactsNode | null = null;
+    currentNode: ReactsComponentNode | null = null;
+    currentRenderNode: ReactsNode | null = null;
 
     constructor(props: P) {
         this.props = { ...props };
@@ -43,9 +48,14 @@ export abstract class ReactsComponent<P extends PropsType = {}, S = {}>
 
     forceUpdate(): void {
         const newNode = this.render();
-        rerenderNode(this.currentNode?.ref, this.currentNode, newNode);
+        rerenderNode(
+            this.currentRenderNode?.ref,
+            this.currentRenderNode,
+            newNode,
+        );
 
-        this.currentNode = newNode;
+        this.currentRenderNode = newNode;
+        (<ReactsComponentNode>this.currentNode).props.children = newNode;
         this.componentDidUpdate();
     }
 
@@ -56,7 +66,7 @@ export abstract class ReactsComponent<P extends PropsType = {}, S = {}>
 
     unmount(): void {
         this.ref = null;
-        this.currentNode = null;
+        this.currentRenderNode = null;
     }
 
     abstract render(): ReactsNode;

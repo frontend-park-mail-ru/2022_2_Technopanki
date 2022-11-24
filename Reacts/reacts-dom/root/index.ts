@@ -11,6 +11,7 @@ import { isPrimitive } from '../utils/isPrimitive';
 import { COMPONENT_SYMBOL, DOM_SYMBOL } from '../../shared/constants/symbols';
 import { removeAllProps } from '../props/props';
 import { removeChildren } from '../diff/operations/remove';
+import { RootType } from '../../shared/types/component';
 
 Object.defineProperty(Element.prototype, 'clearChildren', {
     configurable: true,
@@ -19,11 +20,6 @@ Object.defineProperty(Element.prototype, 'clearChildren', {
         while (this.firstChild) this.removeChild(this.lastChild);
     },
 });
-
-export interface RootType {
-    render(node: ReactsNode): void;
-    unmount(): void;
-}
 
 export default class Root implements RootType {
     root: HTMLElement;

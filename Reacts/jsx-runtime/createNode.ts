@@ -31,7 +31,8 @@ const renderComponent = (
 
     node.props.children = instanceRender;
     node.instance = instance;
-    node.instance.currentNode = instanceRender;
+    node.instance.currentNode = node;
+    node.instance.currentRenderNode = instanceRender;
 };
 
 const createComponent = (

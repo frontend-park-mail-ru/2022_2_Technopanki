@@ -79,10 +79,6 @@ export const updateNode = (
         return;
     }
 
-    if (!operation.node.ref) {
-        debugger;
-    }
-
     switch (
         (<ReactsComponentNode | ReactsFunctionalComponentNode | ReactsDOMNode>(
             operation.node

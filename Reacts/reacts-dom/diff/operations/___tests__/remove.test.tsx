@@ -40,7 +40,7 @@ describe('removeNode', () => {
         expect(node.ref).toEqual(null);
         expect(node.props.children).toEqual(null);
         expect(node.instance?.ref).toEqual(null);
-        expect(node.instance?.currentNode).toEqual(null);
+        expect(node.instance?.currentRenderNode).toEqual(null);
         expect(isCalledUnmount).toEqual(true);
     });
 });

@@ -148,20 +148,18 @@ export default class SignIn extends ReactsComponent<
                         <div className={'flex column g-16'}>
                             {Object.entries(this.state.inputs).map(
                                 ([name, value]) => (
-                                    <div>
-                                        <Input
-                                            key={value.id}
-                                            id={value.id}
-                                            type={value.type}
-                                            placeholder={value.placeholder}
-                                            label={value.label}
-                                            name={name}
-                                            required={value.required}
-                                            value={value.value}
-                                            error={value.error}
-                                            errorMessage={value.errorMessage}
-                                        />
-                                    </div>
+                                    <Input
+                                        key={value.id}
+                                        id={value.id}
+                                        type={value.type}
+                                        placeholder={value.placeholder}
+                                        label={value.label}
+                                        name={name}
+                                        required={value.required}
+                                        value={value.value}
+                                        error={value.error}
+                                        errorMessage={value.errorMessage}
+                                    />
                                 ),
                             )}
                         </div>
