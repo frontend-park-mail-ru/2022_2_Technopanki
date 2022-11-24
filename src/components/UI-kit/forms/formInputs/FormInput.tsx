@@ -11,7 +11,7 @@ type FormInputProps = {
     name: string;
     setError: Function;
     size: '3' | '4' | '6' | '12';
-    validationMode: 'onblur' | 'onsubmit';
+    validationMode: 'onblur' | 'oninput';
     value?: string;
     required?: boolean;
     validation?: ValidationFunc[];
@@ -42,7 +42,7 @@ export default class FormInput extends ReactsComponent<FormInputProps> {
             });
         }
 
-        this.props.setError(error);
+        this.props.setError(error, this.props.name);
         this.setState(() => ({
             error,
             errorMessage: errorMessage,
@@ -52,13 +52,15 @@ export default class FormInput extends ReactsComponent<FormInputProps> {
 
     onBlur = (e: Event) => {
         e.preventDefault();
-        this.validate(e.target.value);
+        console.log(this.props.validationMode);
+        this.props.validationMode === 'onblur' && this.validate(e.target.value);
     };
 
-    onSubmit = (e: Event) => {
+    onInput = (e: Event) => {
         e.preventDefault();
-        debugger;
-        this.validate(e.target.value);
+        console.log(this.props.validationMode);
+        this.props.validationMode === 'oninput' &&
+            this.validate(e.target.value);
     };
 
     render() {
@@ -71,7 +73,7 @@ export default class FormInput extends ReactsComponent<FormInputProps> {
                 </label>
                 <input
                     onBlur={this.onBlur}
-                    onSubmit={this.onSubmit}
+                    onInput={this.onInput}
                     className={`${styles.input} ${
                         this.state.error ? styles.input__error : ''
                     }`}

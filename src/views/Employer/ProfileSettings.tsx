@@ -17,20 +17,13 @@ import {
     validateStatusSymbols,
 } from '../../utils/validation/validation';
 import {
-    COMPANY_NAME_ERROR,
-    EMAIL_ERROR,
     MAX_PHOTO_SIZE,
-    NAME_SYMBOLS_ERROR,
     PASSWORD_LENGTH_ERROR,
-    PASSWORD_REPEAT_ERROR,
     PASSWORD_SYMBOLS_ERROR,
-    PHONE_ERROR,
 } from '../../utils/validation/messages';
-import FormSection from '../../components/UI-kit/forms/FormSection';
 import { profileActions } from '../../store/profile/actions';
 import { userActions } from '../../store/user/actions';
 import { authService } from '../../services/authService';
-import Button from '../../components/UI-kit/buttons/Button';
 import ButtonPrimary from '../../components/UI-kit/buttons/ButtonPrimary';
 import ButtonRed from '../../components/UI-kit/buttons/ButtonRed';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
@@ -46,10 +39,17 @@ import FormItem from '../../components/UI-kit/forms/FormItem';
 import FormInput from '../../components/UI-kit/forms/formInputs/FormInput';
 import FormTextarea from '../../components/UI-kit/forms/formInputs/FormTextarea';
 import FormInputGroup from '../../components/UI-kit/forms/formInputs/FormInputGroup';
+import { useValidation } from '../../utils/validation/formValidation';
 import {
-    useValidation,
-    ValidationFunc,
-} from '../../utils/validation/formValidation';
+    locationValidation,
+    nameLengthValidation,
+    nameSymbolsValidation,
+    passwordLengthValidation,
+    passwordSymbolsValidation,
+    sloganLengthValidation,
+    sloganSymbolsValidation,
+    sloganZeroLengthValidation,
+} from './settingsValidators';
 
 class AvatarSettingsComponent extends ReactsComponent<
     { previewSrc: string },
@@ -107,46 +107,6 @@ const AvatarSettings = profileConnect(state => {
     };
 })(AvatarSettingsComponent);
 
-const nameLengthValidation = (value: string): [boolean, string] => {
-    return [
-        value.length >= 1 && value.length <= 150,
-        'Длина названия компании должна быть между 1 и 150 символами',
-    ];
-};
-
-const nameSymbolsValidation = (value: string): [boolean, string] => {
-    return [
-        validateCompanyName(value),
-        'Название компании должно содержать только буквы русского или английского алфавита',
-    ];
-};
-
-const sloganLengthValidation = (value: string): [boolean, string] => {
-    return [
-        value.length < 100,
-        'Длина слогана должна быть меньше 100 символов',
-    ];
-};
-
-const sloganZeroLengthValidation = (value: string): [boolean, string] => {
-    return [value.length > 0, 'Слоган не может быть пустым'];
-};
-
-const sloganSymbolsValidation = (value: string): [boolean, string] => {
-    return [
-        validateStatusSymbols(value),
-        'Слоган содержать только буквы русского или английского алфавита',
-    ];
-};
-
-const passwordSymbolsValidation = (value: string): [boolean, string] => {
-    return [validatePasswordSymbols(value), PASSWORD_SYMBOLS_ERROR];
-};
-
-const passwordLengthValidation = (value: string): [boolean, string] => {
-    return [validatePasswordLength(value), PASSWORD_LENGTH_ERROR];
-};
-
 class ProfileSettingsComponent extends ReactsComponent<
     ProfileState & { userID: string },
     {
@@ -166,11 +126,12 @@ class ProfileSettingsComponent extends ReactsComponent<
         ],
         name: [nameSymbolsValidation, nameLengthValidation],
         password: [passwordLengthValidation, passwordSymbolsValidation],
+        location: [locationValidation],
     });
 
     submitForm = async (e: SubmitEvent) => {
         e.preventDefault();
-        if (Object.values(this.validation[1]).find(isError => isError)) {
+        if (!this.validation.ok()) {
             return;
         }
 
@@ -279,12 +240,12 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 type={'name'}
                                 placeholder={'Название компании'}
                                 name={'name'}
-                                setError={(error: boolean) => {
-                                    this.validation[1]['name'] = error;
-                                }}
+                                setError={this.validation.setError}
                                 required={true}
-                                validation={this.validation[0]('name')}
-                                validationMode={'onblur'}
+                                validation={this.validation.getValidation(
+                                    'name',
+                                )}
+                                validationMode={'oninput'}
                             />
                             <FormInput
                                 size={'4'}
@@ -294,12 +255,12 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 type={'name'}
                                 placeholder={'Привет мир!'}
                                 name={'Слоган'}
-                                setError={(error: boolean) => {
-                                    this.validation[1]['slogan'] = error;
-                                }}
+                                setError={this.validation.setError}
                                 required={true}
-                                validation={this.validation[0]('slogan')}
-                                validationMode={'onblur'}
+                                validation={this.validation.getValidation(
+                                    'slogan',
+                                )}
+                                validationMode={'oninput'}
                             />
                             <FormInput
                                 size={'4'}
@@ -309,10 +270,11 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 type={'name'}
                                 placeholder={'Местоположение компании'}
                                 name={'location'}
-                                setError={(error: boolean) => {
-                                    this.validation[1]['location'] = error;
-                                }}
-                                validationMode={'onblur'}
+                                setError={this.validation.setError}
+                                validation={this.validation.getValidation(
+                                    'location',
+                                )}
+                                validationMode={'oninput'}
                             />
                             <FormInputGroup
                                 id={'size'}
@@ -338,6 +300,13 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 validationMode={'onblur'}
                             />
                         </FormItem>
+                        <div>
+                            <ButtonPrimary type={'submit'}>
+                                Сохранить
+                            </ButtonPrimary>
+                        </div>
+                    </Form>
+                    <Form onSubmit={() => console.log('password change')}>
                         <FormItem header={'Смена пароля'}>
                             <FormInput
                                 size={'4'}
@@ -346,12 +315,12 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 type={'password'}
                                 placeholder={'********'}
                                 name={'password'}
-                                setError={(error: boolean) => {
-                                    this.validation[1]['password'] = error;
-                                }}
+                                setError={this.validation.setError}
                                 required={true}
-                                validation={this.validation[0]('password')}
-                                validationMode={'onblur'}
+                                validation={this.validation.getValidation(
+                                    'password',
+                                )}
+                                validationMode={'oninput'}
                             />
                             <FormInput
                                 size={'4'}
@@ -360,23 +329,26 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 type={'password'}
                                 placeholder={'********'}
                                 name={'repeatPassword'}
-                                setError={(error: boolean) => {
-                                    this.validation[1]['password'] = error;
-                                }}
+                                setError={this.validation.setError}
                                 required={true}
-                                validation={this.validation[0]('password')}
-                                validationMode={'onblur'}
+                                validation={this.validation.getValidation(
+                                    'password',
+                                )}
+                                validationMode={'oninput'}
                             />
                         </FormItem>
                         <div>
-                            <ButtonPrimary type={'submit'}>
-                                Сохранить
-                            </ButtonPrimary>
+                            <ButtonRed type={'submit'}>
+                                Сохранить пароль
+                            </ButtonRed>
                         </div>
-                        <p onClick={() => navigator.goBack()}>
-                            Вернуться назад
-                        </p>
                     </Form>
+                    <p
+                        className={'col-12 cursor-pointer'}
+                        onClick={() => navigator.goBack()}
+                    >
+                        Вернуться назад
+                    </p>
                 </div>
                 <Footer />
             </div>

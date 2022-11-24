@@ -9,11 +9,22 @@ export type ValidationReturnFunc = (field: string) => ValidationFunc[];
 
 export const useValidation = (
     config: ValidationConfig,
-): [ValidationReturnFunc, { [key: string]: boolean }] => {
+): {
+    getValidation: ValidationReturnFunc;
+    setError: (isValid: boolean, name: string) => void;
+    ok: () => boolean;
+} => {
     const validators = config;
     let errorStore = {};
     Object.keys(config).map(key => {
         errorStore = { ...errorStore, [key]: false };
     });
-    return [(field: string) => validators[field], errorStore];
+    return {
+        getValidation: (field: string) => validators[field],
+        setError: (isValid: boolean, name: string) =>
+            (errorStore[name] = isValid),
+        ok: (): boolean => {
+            return Object.values(errorStore).indexOf(true) === -1;
+        },
+    };
 };
