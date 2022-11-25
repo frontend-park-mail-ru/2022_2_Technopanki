@@ -11,6 +11,7 @@ import {
     PHONE_ERROR,
     SURNAME_SYMBOLS_ERROR,
 } from '../../../utils/validation/messages';
+import { validateLocation } from '../../Vacancy/settingsValidators';
 
 export const nameLengthValidation = (value: string): [boolean, string] => {
     return [
@@ -35,10 +36,24 @@ export const surnameSymbolsValidation = (value: string): [boolean, string] => {
 };
 
 export const dateOfBirthValidation = (value: string): [boolean, string] => {
-    return [
-        /^[0-31].[0-12].[1900-2100]$/.test(value),
-        'Ошибка в дате рождения',
-    ];
+    const [year, month, day] = value.split('-');
+
+    const yearIsValid = parseInt(year) > 1900 && parseInt(year) < 2100;
+    if (!yearIsValid) {
+        return [yearIsValid, 'Год не может быть меньше 1900 или больше 2100'];
+    }
+
+    const monthIsValid = parseInt(month) >= 0 && parseInt(month) <= 12;
+    if (!monthIsValid) {
+        return [yearIsValid, 'Ошибка в месяце'];
+    }
+
+    const dayIsValid = parseInt(day) >= 0 && parseInt(day) <= 31;
+    if (!dayIsValid) {
+        return [dayIsValid, 'Ошибка в месяце'];
+    }
+
+    return [true, ''];
 };
 
 export const phoneValidation = (value: string): [boolean, string] => {
@@ -55,3 +70,9 @@ export const fileSizeValidation = (file: File): [boolean, string] => {
 export const fileFormatValidation = (file: File): [boolean, string] => {
     return [validateAvatarImageFormat(file), AVATAR_FORMAT_ERROR];
 };
+
+export const locationValidation = (value: string): [boolean, string] => {
+    return validateLocation(value);
+};
+
+export const experinceValidation = (value: string): [boolean, string] => {};

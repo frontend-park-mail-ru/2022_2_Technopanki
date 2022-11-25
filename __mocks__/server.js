@@ -184,11 +184,18 @@ app.post('/api/user/', (req, res) => {
 });
 
 app.get('/api/user/safety/:id', (req, res) => {
-    console.log(users.user);
+    const applicantPreview = {
+        creator_img_src: './',
+        id: '3',
+        name: 'Sonya',
+        surname: 'Sitnichenko',
+        status: 'BMSTU student',
+    };
+    console.log(req.params);
 
-    res.status(200);
-
-    if (req.params.id === '2') {
+    if (req.params.id === '3') {
+        res.json(applicantPreview);
+    } else if (req.params.id === '2') {
         res.json(users.specialUser);
     } else {
         res.json(users.user);

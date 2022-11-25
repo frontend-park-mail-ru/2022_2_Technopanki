@@ -1,53 +1,24 @@
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import Header from '../../../components/UI-kit/header/Header';
-import ProfileHeader from '../../../components/ProfileHeader/ProfileHeader';
-import ButtonIcon from '../../../components/UI-kit/buttons/ButtonIcon';
-import PhoneIcon from '../../../static/icons/phone.svg';
-import MailIcon from '../../../static/icons/mail.svg';
 import ButtonPrimary from '../../../components/UI-kit/buttons/ButtonPrimary';
-import Link from '../../../components/Link/Link';
 import Button from '../../../components/UI-kit/buttons/Button';
 import SettingsHat from '../../../components/hats/SettingsHat';
 import Form from '../../../components/UI-kit/forms/Form';
 import FormInput from '../../../components/UI-kit/forms/formInputs/FormInput';
 import FormItem from '../../../components/UI-kit/forms/FormItem';
-// import ProfileSettings, { AvatarSettings, Password, SocialNetworks } from '../../Employer/ProfileSettings';
-import Input, {
-    InputPropsType,
-} from '../../../components/UI-kit/forms/inputs/Input';
-import CancelSaveButtons from '../../../components/CancelSaveButtons/CancelSaveButtons';
-import IconInput from '../../../components/UI-kit/forms/inputs/IconInput';
-// import Location from '../../../static/icons/location_input.svg'
-import styles from './profileSettings.module.scss';
-import ApplicantProfile from './Profile';
-import ProfileSettings from '../../Employer/ProfileSettings';
+import { InputPropsType } from '../../../components/UI-kit/forms/inputs/Input';
 import {
     ApplicantProfileType,
-    EmployerProfile,
     ProfileState,
 } from '../../../store/profile/types';
-import {
-    dispatch,
-    errorsConnect,
-    profileConnect,
-    userConnect,
-} from '../../../store';
-import {
-    validateEmail,
-    validateNameSymbols,
-    validatePasswordSymbols,
-} from '../../../utils/validation/validation';
-import {
-    EMAIL_ERROR,
-    NAME_SYMBOLS_ERROR,
-    PASSWORD_SYMBOLS_ERROR,
-    PHONE_ERROR,
-} from '../../../utils/validation/messages';
+import { dispatch, profileConnect, userConnect } from '../../../store';
 import { employerProfileService } from '../../../services/employerProfileService';
 import navigator from '../../../router/navigator';
 import { applicantProfileService } from '../../../services/applicantService';
 import Footer from '../../../components/UI-kit/footer/Footer';
 import FormFileInput from '../../../components/UI-kit/forms/formInputs/FormFileInput';
+import FormInputGroup from '../../../components/UI-kit/forms/formInputs/FormInputGroup';
+import WorkExperienceInput from '../../../components/WorkExperienceInput';
 import { authService } from '../../../services/authService';
 import { userActions } from '../../../store/user/actions';
 import ButtonRed from '../../../components/UI-kit/buttons/ButtonRed';
@@ -55,8 +26,10 @@ import { profileActions } from '../../../store/profile/actions';
 import { APPLICANT_PATHS } from '../../../utils/routerConstants';
 import { useValidation } from '../../../utils/validation/formValidation';
 import {
+    dateOfBirthValidation,
     fileFormatValidation,
     fileSizeValidation,
+    locationValidation,
     nameLengthValidation,
     nameSymbolsValidation,
     phoneValidation,
@@ -88,6 +61,8 @@ class ApplicantSettings extends ReactsComponent<
         surname: [surnameSymbolsValidation, surnameLengthValidation],
         phone: [phoneValidation],
         avatar: [fileSizeValidation, fileFormatValidation],
+        dateOfBirth: [dateOfBirthValidation],
+        location: [locationValidation],
     });
 
     submitForm = (e: SubmitEvent) => {
@@ -161,7 +136,7 @@ class ApplicantSettings extends ReactsComponent<
                     <div className={`col-12 mt-header`}>
                         <SettingsHat creatorID={this.props.id} />
                     </div>
-                    <h3 className={'col-12'}>Настройки профиля</h3>
+                    <h3 className={'col-12 mb-40'}>Настройки профиля</h3>
                     <Form onSubmit={this.submitForm}>
                         <FormFileInput
                             id={'avatar'}
@@ -229,19 +204,7 @@ class ApplicantSettings extends ReactsComponent<
                                 )}
                                 validationMode={'oninput'}
                             />
-                            <FormInput
-                                size={'4'}
-                                id={'experience'}
-                                label={'Опыт работы'}
-                                type={'text'}
-                                placeholder={'5 лет'}
-                                name={'experience'}
-                                setError={this.validation.setError}
-                                validation={this.validation.getValidation(
-                                    'experience',
-                                )}
-                                validationMode={'oninput'}
-                            />
+                            <WorkExperienceInput size={'4'} />
                             <FormInput
                                 size={'4'}
                                 id={'location'}

@@ -2,7 +2,8 @@ import { MAX_PHOTO_SIZE } from './messages';
 
 const ALLOWED_FILE_TYPES = {
     PNG: 'image/png',
-    JPG: 'image/jpg',
+    JPG: 'image/jpeg',
+    GIF: 'image/gif',
 };
 
 /**
