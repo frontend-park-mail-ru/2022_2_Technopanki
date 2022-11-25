@@ -67,6 +67,7 @@ export abstract class ReactsComponent<P extends PropsType = {}, S = {}>
     unmount(): void {
         this.ref = null;
         this.currentRenderNode = null;
+        this.currentNode = null;
     }
 
     abstract render(): ReactsNode;

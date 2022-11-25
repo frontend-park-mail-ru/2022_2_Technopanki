@@ -21,6 +21,7 @@ class Vacancy extends ReactsComponent<
         profile: {} as ProfileHatProps,
     };
 
+    // TODO: можно оптимизировать
     async getDataFromServer() {
         // Мы точно уверены что путь будет vacancy/{0,9}+
         const vacancyID = location.pathname.split('/').at(-1);
@@ -37,6 +38,9 @@ class Vacancy extends ReactsComponent<
             postedByUserID,
         );
 
+        if (vacancyData) {
+            dispatch(vacancyActions.update(vacancyData));
+        }
         this.setState(state => ({
             ...state,
             profile: {
@@ -45,20 +49,14 @@ class Vacancy extends ReactsComponent<
                 status: profileData.status,
             },
         }));
-        if (vacancyData) {
-            dispatch(vacancyActions.update(vacancyData));
-        }
     }
 
     componentDidMount() {
         this.getDataFromServer();
     }
 
-    shouldUpdate(nextProps: Readonly<VacancyState> | VacancyState): boolean {
-        return this.props.id !== nextProps.id;
-    }
-
     render() {
+        console.log(this.props, this.state);
         return (
             <div className={'screen-responsive relative hidden g-24'}>
                 <Header />

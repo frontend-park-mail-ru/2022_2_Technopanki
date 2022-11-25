@@ -19,10 +19,6 @@ export default class VacancySideBar extends ReactsComponent<{
     hours: string;
     skills: string[];
 }> {
-    componentDidUpdate() {
-        console.log('SIDE BAR UPDATE');
-    }
-
     render() {
         return (
             <SideBar
