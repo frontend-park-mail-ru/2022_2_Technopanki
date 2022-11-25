@@ -57,11 +57,34 @@ class SettingsHat extends ReactsComponent<
         }
     };
 
+    shouldUpdate(
+        nextProps:
+            | Readonly<{
+                  name: string;
+                  surname?: string;
+                  status: string;
+                  imgSrc: string;
+                  creatorID: string;
+                  userID: string;
+              }>
+            | {
+                  name: string;
+                  surname?: string;
+                  status: string;
+                  imgSrc: string;
+                  creatorID: string;
+                  userID: string;
+              },
+    ): boolean {
+        return this.props.userID !== nextProps.userID;
+    }
+
     componentDidMount() {
         this.getCreatorDataFromServer();
     }
 
     render() {
+        console.log('HAT RENDER');
         return (
             <Hat
                 imgSrc={this.state.imgSrc}

@@ -70,6 +70,7 @@ class ApplicantSettings extends ReactsComponent<
     submitForm = (e: SubmitEvent) => {
         e.preventDefault();
         if (!this.validation.ok()) {
+            debugger;
             return;
         }
 

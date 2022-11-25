@@ -19,11 +19,14 @@ type HeaderProps = {
 };
 
 class HeaderProfile extends ReactsComponent<HeaderProps> {
+    shouldUpdate(nextProps: Readonly<HeaderProps> | HeaderProps): boolean {
+        return this.props.id !== nextProps.id;
+    }
+
     render() {
         return (
             <div className={'flex-wrap w-100'}>
                 <div
-                    key={'data'}
                     className={`flex row w-100 g-40 align-items-center justify-content-end ${styles.auth}`}
                 >
                     <div
@@ -43,7 +46,6 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                             }/${this.props.id}`}
                             content={
                                 <HeaderUserInfo
-                                    key={'info'}
                                     imgSrc={this.props.imgSrc}
                                     name={this.props.name}
                                     surname={this.props.surname}
@@ -51,28 +53,17 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                             }
                         />
                     ) : (
-                        <div
-                            key={'login'}
-                            className={'flex row g-24 align-items-center'}
-                        >
+                        <div className={'flex row g-24 align-items-center'}>
                             <Link
                                 to={SIGN_IN_PATH}
                                 content={
-                                    <p
-                                        key={'signin-link'}
-                                        className={styles.item__def}
-                                    >
-                                        Войти
-                                    </p>
+                                    <p className={styles.item__def}>Войти</p>
                                 }
                             />
                             <Link
                                 to={SIGN_UP_PATH}
                                 content={
-                                    <p
-                                        key={'signup-link'}
-                                        className={styles.signup}
-                                    >
+                                    <p className={styles.signup}>
                                         Зарегистрироваться
                                     </p>
                                 }
@@ -80,10 +71,7 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                         </div>
                     )}
                 </div>
-                <div
-                    key={'modal'}
-                    className={'w-100 flex row justify-content-end'}
-                >
+                <div className={'w-100 flex row justify-content-end'}>
                     <HeaderModal />
                 </div>
             </div>

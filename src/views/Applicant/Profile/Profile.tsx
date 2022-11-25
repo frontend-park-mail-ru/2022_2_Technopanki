@@ -52,15 +52,17 @@ class ApplicantProfile extends ReactsComponent<ApplicantPropsType> {
     async getDataFromServer() {
         const applicantID = location.pathname.split('/').at(-1);
 
-        const applicantBody = await applicantProfileService.getApplicantData(
-            applicantID as string,
-        );
-
         const resumeList = await applicantProfileService.getResumeList(
             applicantID,
         );
 
-        dispatch(applicantActions.update(applicantBody));
+        if (applicantID !== this.props.id) {
+            const applicantBody =
+                await applicantProfileService.getApplicantData(
+                    applicantID as string,
+                );
+            dispatch(applicantActions.update(applicantBody));
+        }
         this.setState(state => ({ ...state, resume: resumeList }));
     }
 

@@ -83,6 +83,7 @@ class ProfileSettingsComponent extends ReactsComponent<
         dispatch(
             profileActions.updateFromFormData(id, 'employer', image, formData),
         );
+        debugger;
         dispatch(userActions.updateName(formData.get('name') as string, ''));
         dispatch(userActions.updateAvatar(image));
         dispatch(activateSuccess('Данные профиля успешно изменены!', ''));
@@ -102,10 +103,10 @@ class ProfileSettingsComponent extends ReactsComponent<
         formDataImage.append('avatar', image);
 
         try {
-            const newImage = await employerProfileService.updateProfileImg(
-                this.state.profile.id,
-                formDataImage,
-            );
+            // const newImage = await employerProfileService.updateProfileImg(
+            //     this.state.profile.id,
+            //     formDataImage,
+            // );
 
             await employerProfileService.updateProfile(
                 this.props.id,
@@ -113,7 +114,7 @@ class ProfileSettingsComponent extends ReactsComponent<
                 formData,
             );
 
-            this.updateProfile(this.props.id, formData, newImage);
+            this.updateProfile(this.props.id, formData, './');
             setTimeout(() => dispatch(deactivateSuccess()), 3000);
             navigator.navigate(EMPLOYER_PATHS.PROFILE + this.props.id);
         } catch (e) {
@@ -136,12 +137,17 @@ class ProfileSettingsComponent extends ReactsComponent<
         this.getDataFromServer();
     }
 
-    shouldUpdateState(nextState: {
-        profile: EmployerProfile;
-        error: boolean;
-    }): boolean {
-        return super.shouldUpdateState(nextState);
+    shouldUpdate(
+        nextProps:
+            | Readonly<ProfileState & { userID: string }>
+            | (ProfileState & { userID: string }),
+    ): boolean {
+        return (
+            this.props.userID !== nextProps.userID ||
+            this.props.id !== nextProps.id
+        );
     }
+
     // TODO: перенести logout в header
 
     logout = () => {
@@ -155,6 +161,7 @@ class ProfileSettingsComponent extends ReactsComponent<
     };
 
     render() {
+        console.log('RENDER OF PROFILE SETTINGS');
         return (
             <div className={'screen-responsive relative hidden'}>
                 <ErrorPopup />
