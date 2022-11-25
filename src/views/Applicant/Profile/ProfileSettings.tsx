@@ -8,6 +8,11 @@ import ButtonPrimary from '../../../components/UI-kit/buttons/ButtonPrimary';
 import Link from '../../../components/Link/Link';
 import Button from '../../../components/UI-kit/buttons/Button';
 import SettingsHat from '../../../components/hats/SettingsHat';
+import Form from '../../components/UI-kit/forms/Form';
+import FormInput from '../../components/UI-kit/forms/formInputs/FormInput';
+import FormItem from '../../components/UI-kit/forms/FormItem';
+import FormTextarea from '../../components/UI-kit/forms/formInputs/FormTextarea';
+import FormInputGroup from '../../components/UI-kit/forms/formInputs/FormInputGroup';
 // import ProfileSettings, { AvatarSettings, Password, SocialNetworks } from '../../Employer/ProfileSettings';
 import Form, { FormSectionType } from '../../../components/UI-kit/forms/Form';
 import Input, {
@@ -31,7 +36,6 @@ import {
     userConnect,
 } from '../../../store';
 import {
-    phoneValidation,
     validateEmail,
     validateNameSymbols,
     validatePasswordSymbols,
@@ -54,6 +58,14 @@ import ButtonRed from '../../../components/UI-kit/buttons/ButtonRed';
 import { profileActions } from '../../../store/profile/actions';
 import FormSection from '../../../components/UI-kit/forms/FormSection';
 import { APPLICANT_PATHS } from '../../../utils/routerConstants';
+import { useValidation } from '../../../utils/validation/formValidation';
+import {
+    nameLengthValidation,
+    nameSymbolsValidation,
+    phoneValidation,
+    surnameLengthValidation,
+    surnameSymbolsValidation,
+} from './settingsValidators';
 
 class AvatarSettingsComponent extends ReactsComponent<
     { previewSrc: string },
@@ -239,44 +251,19 @@ class ApplicantSettings extends ReactsComponent<
         ],
     };
 
+    validation = useValidation({
+        name: [nameSymbolsValidation, nameLengthValidation],
+        surname: [surnameSymbolsValidation, surnameLengthValidation],
+        phone: [phoneValidation],
+    });
+
     submitForm = (e: SubmitEvent) => {
         e.preventDefault();
-        const formData = new FormData(e.target);
-
-        let sections = this.state.sections;
-        let isValid = true;
-
-        formData.forEach((value, key) => {
-            sections.forEach(section => {
-                if (section.fields[key]) {
-                    if (
-                        section.fields[key].validator &&
-                        !section.fields[key].validator(value) &&
-                        (section.fields[key].required || value)
-                    ) {
-                        section.fields[key].error = true;
-                        isValid = false;
-                    } else {
-                        section.fields[key].error = false;
-                    }
-                    section.fields[key].value = value;
-                    return;
-                }
-            });
-        });
-
-        if (
-            this.state.sections[3].fields.password.value !==
-            this.state.sections[3].fields.repeatPassword.value
-        ) {
-            this.state.sections[3].fields.repeatPassword.error = true;
-            isValid = false;
-        }
-
-        if (!isValid) {
-            this.setState(state => ({ ...state, sections: sections }));
+        if (!this.validation.ok()) {
             return;
         }
+
+        const formData = new FormData(e.target);
 
         const applicantID = location.pathname.split('/').at(-1);
 
@@ -348,34 +335,133 @@ class ApplicantSettings extends ReactsComponent<
                         />
                     </div>
                     <h3 className={'col-12'}>Настройки профиля</h3>
-                    <form
-                        onSubmit={this.submitForm.bind(this)}
-                        id={'profile_form'}
-                        key={'form'}
-                        className={'col-12 col-md-4 column g-24'}
-                    >
-                        <div key={'avatar'} className={'w-100'}>
-                            <AvatarSettings key={'avatar'} />
-                        </div>
-                        {this.state.sections.map(section => (
-                            <FormSection
-                                key={section.header}
-                                header={section.header}
-                                fields={section.fields}
+                    <Form onSubmit={this.submitForm}>
+                        <AvatarSettings />
+                        <FormItem header={'О себе'}>
+                            <FormInput
+                                size={'4'}
+                                id={'name'}
+                                label={'Имя'}
+                                type={'text'}
+                                placeholder={'Иван'}
+                                name={'name'}
+                                value={this.props.name}
+                                setError={this.validation.setError}
+                                required={true}
+                                validation={this.validation.getValidation(
+                                    'name',
+                                )}
+                                validationMode={'oninput'}
                             />
-                        ))}
+                            <FormInput
+                                size={'4'}
+                                id={'surname'}
+                                label={'Фамилия'}
+                                type={'text'}
+                                placeholder={'Иванов'}
+                                name={'surname'}
+                                value={this.props.surname}
+                                setError={this.validation.setError}
+                                required={true}
+                                validation={this.validation.getValidation(
+                                    'surname',
+                                )}
+                                validationMode={'oninput'}
+                            />
+                            <FormInput
+                                size={'4'}
+                                id={'status'}
+                                label={'Статус'}
+                                type={'text'}
+                                name={'status'}
+                                value={this.props.status}
+                                setError={this.validation.setError}
+                                validation={this.validation.getValidation(
+                                    'status',
+                                )}
+                                validationMode={'oninput'}
+                            />
+                            <FormInput
+                                size={'4'}
+                                id={'dateOfBirth'}
+                                label={'Дата рождения'}
+                                type={'text'}
+                                placeholder={'Иванов'}
+                                name={'dateOfBirth'}
+                                value={this.props.dateOfBirth}
+                                setError={this.validation.setError}
+                                validation={this.validation.getValidation(
+                                    'dateOfBirth',
+                                )}
+                                validationMode={'oninput'}
+                            />
+                            <FormInput
+                                size={'4'}
+                                id={'experience'}
+                                label={'Опыт работы'}
+                                type={'text'}
+                                placeholder={'5 лет'}
+                                name={'experience'}
+                                setError={this.validation.setError}
+                                validation={this.validation.getValidation(
+                                    'experience',
+                                )}
+                                validationMode={'oninput'}
+                            />
+                            <FormInput
+                                size={'4'}
+                                id={'location'}
+                                label={'Город проживания'}
+                                type={'text'}
+                                name={'location'}
+                                value={this.props.location}
+                                setError={this.validation.setError}
+                                validation={this.validation.getValidation(
+                                    'location',
+                                )}
+                                validationMode={'oninput'}
+                            />
+                        </FormItem>
+                        <FormItem header={'Контактные данные'}>
+                            <FormInput
+                                size={'4'}
+                                id={'phone'}
+                                label={'Телефон'}
+                                type={'text'}
+                                name={'phone'}
+                                value={this.props.phone}
+                                placeholder={'+7 (999) 999-99-99'}
+                                setError={this.validation.setError}
+                                validation={this.validation.getValidation(
+                                    'phone',
+                                )}
+                                validationMode={'oninput'}
+                            />
+                            <FormInput
+                                size={'4'}
+                                id={'email'}
+                                label={'Телефон'}
+                                type={'text'}
+                                name={'email'}
+                                value={this.props.email}
+                                placeholder={'example@mail.ru'}
+                                setError={this.validation.setError}
+                                validation={this.validation.getValidation(
+                                    'email',
+                                )}
+                                validationMode={'oninput'}
+                            />
+                        </FormItem>
                         <div>
                             <ButtonPrimary type={'submit'}>
                                 Сохранить
                             </ButtonPrimary>
                         </div>
-                    </form>
+                    </Form>
                 </div>
                 <div className={'flex row g-16 mt-40'}>
                     <Button onClick={navigator.goBack}>Пропустить</Button>
-                    <ButtonRed key={'logout'} onClick={this.logout}>
-                        Выйти
-                    </ButtonRed>
+                    <ButtonRed onClick={this.logout}>Выйти</ButtonRed>
                 </div>
                 <Footer />
             </div>
