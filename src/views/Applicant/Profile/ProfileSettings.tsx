@@ -8,13 +8,10 @@ import ButtonPrimary from '../../../components/UI-kit/buttons/ButtonPrimary';
 import Link from '../../../components/Link/Link';
 import Button from '../../../components/UI-kit/buttons/Button';
 import SettingsHat from '../../../components/hats/SettingsHat';
-import Form from '../../components/UI-kit/forms/Form';
-import FormInput from '../../components/UI-kit/forms/formInputs/FormInput';
-import FormItem from '../../components/UI-kit/forms/FormItem';
-import FormTextarea from '../../components/UI-kit/forms/formInputs/FormTextarea';
-import FormInputGroup from '../../components/UI-kit/forms/formInputs/FormInputGroup';
+import Form from '../../../components/UI-kit/forms/Form';
+import FormInput from '../../../components/UI-kit/forms/formInputs/FormInput';
+import FormItem from '../../../components/UI-kit/forms/FormItem';
 // import ProfileSettings, { AvatarSettings, Password, SocialNetworks } from '../../Employer/ProfileSettings';
-import Form, { FormSectionType } from '../../../components/UI-kit/forms/Form';
 import Input, {
     InputPropsType,
 } from '../../../components/UI-kit/forms/inputs/Input';
