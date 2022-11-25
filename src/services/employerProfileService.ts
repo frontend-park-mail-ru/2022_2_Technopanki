@@ -43,12 +43,16 @@ export const employerProfileService: Service = {
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
-                    throw response.status;
+                    throw response.json();
                 }
 
-                return response.json();
+                debugger;
+                return response.json().then(body => body.image);
             })
-            .catch(() => dispatch(stopLoading()));
+            .catch(err => {
+                dispatch(stopLoading());
+                throw new Error(err);
+            });
     },
 
     updateProfile: async (

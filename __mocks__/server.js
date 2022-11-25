@@ -387,7 +387,7 @@ app.get('/api/applicant/resumes/:id', (req, res) => {
 app.get('/api/user/image/:id', (req, res) => {
     console.log(req.body);
 
-    res.status(200);
+    res.json({ image: 'hello.png' });
 });
 
 app.get('/authh', (req, res) => {

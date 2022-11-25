@@ -30,214 +30,6 @@ import {
 } from './settingsValidators';
 import ButtonPrimary from '../../components/UI-kit/buttons/ButtonPrimary';
 
-// class AboutVacancyComponent extends ReactsComponent<{
-//     title: string;
-//     salary: string;
-//     experience: string;
-// }> {
-//     render() {
-//         return (
-//             <div className={'flex column g-16'}>
-//                 <Input
-//                     id={'title'}
-//                     type={'text'}
-//                     placeholder={'Фронтенд-разработчик (VK Play)'}
-//                     label={'Название вакансии'}
-//                     name={'title'}
-//                     value={this.props.title}
-//                 />
-//                 <div className={'columns g-24'}>
-//                     <div className={'col-12 col-md-4'}>
-//                         <Input
-//                             id={'salary'}
-//                             type={'text'}
-//                             placeholder={'100.000'}
-//                             label={'Заработная плата (руб/мес)'}
-//                             name={'salary'}
-//                             value={this.props.salary}
-//                         />
-//                     </div>
-//                     <div className={'col-12 col-md-4'}>
-//                         <Input
-//                             id={'experience'}
-//                             type={'text'}
-//                             placeholder={'3-6'}
-//                             label={'Требуемый опыт работы'}
-//                             name={'experience'}
-//                             value={this.props.experience}
-//                         />
-//                     </div>
-//                 </div>
-//             </div>
-//         );
-//     }
-// }
-//
-// const AboutVacancy = vacancyConnect((state, props) => {
-//     return {
-//         title: state.title,
-//         salary: state.salary,
-//         experience: state.experience,
-//     };
-// })(AboutVacancyComponent);
-//
-// class Skills extends ReactsComponent<
-//     { skills: string[] },
-//     {
-//         skills: string[];
-//     }
-// > {
-//     state = {
-//         skills: this.props.skills,
-//     };
-//
-//     deleteItem = (index: number) => {
-//         this.setState(state => ({
-//             ...state,
-//             skills: [
-//                 ...state.skills.slice(0, index),
-//                 ...state.skills.slice(index + 1),
-//             ],
-//         }));
-//     };
-//
-//     addItem = (value: string) => {
-//         this.setState(state => ({
-//             ...state,
-//             skills: [...state.skills, value],
-//         }));
-//     };
-//
-//     render() {
-//         return (
-//             <div>
-//                 <input
-//                     className={'none'}
-//                     name={'skills'}
-//                     value={this.state.skills}
-//                 />
-//                 <ChipsInput
-//                     id={'skillsChips'}
-//                     label={'Область деятельности'}
-//                     items={this.state.skills}
-//                     deleteItem={this.deleteItem.bind(this)}
-//                     addItem={this.addItem.bind(this)}
-//                 />
-//             </div>
-//         );
-//     }
-// }
-//
-// class AdditionalInformationComponent extends ReactsComponent<{
-//     location: string;
-//     schedule: string;
-//     format: string;
-// }> {
-//     render() {
-//         return (
-//             <div className={'columns g-24'}>
-//                 <div className={'col-12 col-md-4'}>
-//                     <Input
-//                         id={'location'}
-//                         type={'text'}
-//                         placeholder={'Москва'}
-//                         label={'Город работы'}
-//                         name={'location'}
-//                         value={this.props.location}
-//                     />
-//                 </div>
-//                 <div className={'col-12 col-md-4'}>
-//                     <Input
-//                         id={'schedule'}
-//                         type={'text'}
-//                         placeholder={'40 часов в неделю'}
-//                         label={'График работы'}
-//                         name={'schedule'}
-//                         value={this.props.schedule}
-//                     />
-//                 </div>
-//                 <div className={'col-12 col-md-4'}>
-//                     <Input
-//                         id={'format'}
-//                         type={'text'}
-//                         placeholder={'Смешанный формат'}
-//                         label={'Формат работы'}
-//                         name={'format'}
-//                         value={this.props.format}
-//                     />
-//                 </div>
-//             </div>
-//         );
-//     }
-// }
-//
-// const AdditionalInformation = vacancyConnect(state => {
-//     return {
-//         location: state.location,
-//         schedule: state.hours,
-//         format: state.format,
-//     };
-// })(AdditionalInformationComponent);
-//
-// class VacancyDescriptionComponent extends ReactsComponent<{
-//     description: string;
-//     tasks: string;
-//     requirements: string;
-//     extra: string;
-// }> {
-//     render() {
-//         return (
-//             <div className={'columns g-24'}>
-//                 <div className={'col-12'}>
-//                     <Textarea
-//                         id={'description'}
-//                         label={'Описание вакансии'}
-//                         name={'description'}
-//                         placeholder={'Описание вакансии'}
-//                         value={this.props.description}
-//                     />
-//                 </div>
-//                 <div className={'col-12'}>
-//                     <Textarea
-//                         id={'tasks'}
-//                         label={'Задачи'}
-//                         name={'tasks'}
-//                         placeholder={'Задачи'}
-//                         value={this.props.tasks}
-//                     />
-//                 </div>
-//                 <div className={'col-12'}>
-//                     <Textarea
-//                         id={'requirements'}
-//                         label={'Требования'}
-//                         name={'requirements'}
-//                         placeholder={'Требования'}
-//                         value={this.props.requirements}
-//                     />
-//                 </div>
-//                 <div className={'col-12'}>
-//                     <Textarea
-//                         id={'extra'}
-//                         label={'Будет плюсом'}
-//                         name={'extra'}
-//                         placeholder={'Будет плюсом'}
-//                         value={this.props.extra}
-//                     />
-//                 </div>
-//             </div>
-//         );
-//     }
-// }
-//
-// const VacancyDescription = vacancyConnect(state => {
-//     return {
-//         description: state.description,
-//         tasks: state.tasks,
-//         requirements: state.requirements,
-//         extra: state.extra,
-//     };
-// })(VacancyDescriptionComponent);
-
 class VacancySettings extends ReactsComponent<
     {
         id: string;
@@ -249,6 +41,7 @@ class VacancySettings extends ReactsComponent<
     state = {
         isNew: location.pathname.split('/').at(-1) !== 'new',
     };
+
     validation = useValidation({
         title: [validateTitleLength, validateTitleSymbols],
         salary: [validateSalary],
@@ -285,7 +78,7 @@ class VacancySettings extends ReactsComponent<
         if (this.state.isNew) {
             vacancyService
                 .createVacancy(
-                    this.props.postedByUserID,
+                    this.props.vacancy.postedByUserID,
                     formData,
                     this.props.avatarSrc.split('/').at(-1) as string,
                 )
@@ -294,7 +87,8 @@ class VacancySettings extends ReactsComponent<
                         navigator.navigate('/vacancy/' + body.id.toString());
                     } else {
                         navigator.navigate(
-                            EMPLOYER_PATHS.PROFILE + this.props.postedByUserID,
+                            EMPLOYER_PATHS.PROFILE +
+                                this.props.vacancy.postedByUserID,
                         );
                     }
                 });

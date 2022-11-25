@@ -49,6 +49,7 @@ import { applicantProfileService } from '../../../services/applicantService';
 import Textarea from '../../../components/UI-kit/forms/inputs/Textarea';
 import Footer from '../../../components/UI-kit/footer/Footer';
 import FileInput from '../../../components/UI-kit/forms/inputs/FileInput';
+import FormFileInput from '../../../components/UI-kit/forms/formInputs/FormFileInput';
 import { authService } from '../../../services/authService';
 import { userActions } from '../../../store/user/actions';
 import ButtonRed from '../../../components/UI-kit/buttons/ButtonRed';

@@ -5,6 +5,7 @@ import {
     validateStatusSymbols,
 } from '../../utils/validation/validation';
 import {
+    MAX_PHOTO_SIZE,
     PASSWORD_LENGTH_ERROR,
     PASSWORD_SYMBOLS_ERROR,
 } from '../../utils/validation/messages';
@@ -71,4 +72,23 @@ export const passwordSymbolsValidation = (value: string): [boolean, string] => {
 
 export const passwordLengthValidation = (value: string): [boolean, string] => {
     return [validatePasswordLength(value), PASSWORD_LENGTH_ERROR];
+};
+
+export const fileSizeValidation = (file: File): [boolean, string] => {
+    return [file.size < MAX_PHOTO_SIZE, 'Размер файла не должен превышать 1МБ'];
+};
+
+export const fileFormatValidation = (file: File): [boolean, string] => {
+    // TODO: вынести в константы
+    const ALLOWED_FILE_TYPES = {
+        PNG: 'image/png',
+        JPG: 'image/jpg',
+    };
+
+    return [
+        Boolean(
+            Object.values(ALLOWED_FILE_TYPES).find(key => key === file.type),
+        ),
+        'Поддерживаемые форматы файлов: png, jpg, gif',
+    ];
 };

@@ -21,7 +21,7 @@ type FormInputProps = {
 
 export default class FormInput extends ReactsComponent<FormInputProps> {
     state = {
-        error: this.props.error,
+        error: false,
         errorMessage: '',
         value: this.props.value,
     };

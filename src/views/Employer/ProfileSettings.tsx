@@ -38,9 +38,12 @@ import Form from '../../components/UI-kit/forms/Form';
 import FormItem from '../../components/UI-kit/forms/FormItem';
 import FormInput from '../../components/UI-kit/forms/formInputs/FormInput';
 import FormTextarea from '../../components/UI-kit/forms/formInputs/FormTextarea';
+import FormFileInput from '../../components/UI-kit/forms/formInputs/FormFileInput';
 import FormInputGroup from '../../components/UI-kit/forms/formInputs/FormInputGroup';
 import { useValidation } from '../../utils/validation/formValidation';
 import {
+    fileFormatValidation,
+    fileSizeValidation,
     locationValidation,
     nameLengthValidation,
     nameSymbolsValidation,
@@ -69,6 +72,9 @@ class AvatarSettingsComponent extends ReactsComponent<
             );
             setTimeout(() => dispatch(deactivateError()), 3000);
             return;
+        }
+        if (file.type) {
+            console.log(file.type);
         }
         const fileUrl = URL.createObjectURL(file);
 
@@ -130,7 +136,17 @@ class ProfileSettingsComponent extends ReactsComponent<
         password: [passwordLengthValidation, passwordSymbolsValidation],
         location: [locationValidation],
         size: [validateSizeSymbols, validateSizeLength],
+        avatar: [fileSizeValidation, fileFormatValidation],
     });
+
+    updateProfile = (id: string, formData: FormData, image: string) => {
+        dispatch(
+            profileActions.updateFromFormData(id, 'employer', image, formData),
+        );
+        dispatch(userActions.updateName(formData.get('name') as string, ''));
+        dispatch(userActions.updateAvatar(image));
+        dispatch(activateSuccess('Данные профиля успешно изменены!', ''));
+    };
 
     submitForm = async (e: SubmitEvent) => {
         e.preventDefault();
@@ -138,8 +154,9 @@ class ProfileSettingsComponent extends ReactsComponent<
             return;
         }
 
-        const formData = new FormData(e.target);
+        const formData = new FormData(e.target as HTMLFormElement);
 
+        // @ts-ignore
         const image = document.querySelector('#avatar').files[0];
         const formDataImage = new FormData();
         formDataImage.append('avatar', image);
@@ -156,30 +173,12 @@ class ProfileSettingsComponent extends ReactsComponent<
                 formData,
             );
 
-            dispatch(
-                profileActions.updateFromFormData(
-                    this.props.id,
-                    'employer',
-                    newImage,
-                    formData,
-                ),
-            );
-            dispatch(
-                userActions.updateName(formData.get('name') as string, ''),
-            );
-            dispatch(activateSuccess('Данные профиля успешно изменены!', ''));
+            this.updateProfile(this.props.id, formData, newImage);
             setTimeout(() => dispatch(deactivateSuccess()), 3000);
-            console.log(EMPLOYER_PATHS.PROFILE + this.props.id);
             navigator.navigate(EMPLOYER_PATHS.PROFILE + this.props.id);
         } catch (e) {
-            console.error(e);
-            // TODO: проставить ошибку с сервера
-            dispatch(
-                activateError(
-                    'Упс... что-то пошло не так',
-                    'Пожалуйста, повторите попытку',
-                ),
-            );
+            // @ts-ignore
+            dispatch(activateError('Упс... что-то пошло не так', e.error));
             setTimeout(() => dispatch(deactivateError()), 3000);
         }
     };
@@ -233,7 +232,14 @@ class ProfileSettingsComponent extends ReactsComponent<
                     </div>
                     <h3 className={'col-12'}>Настройки профиля</h3>
                     <Form onSubmit={this.submitForm}>
-                        <AvatarSettings />
+                        <FormFileInput
+                            id={'avatar'}
+                            label={'Аватарка'}
+                            name={'avatar'}
+                            size={'12'}
+                            setError={this.validation.setError}
+                            validation={this.validation.getValidation('avatar')}
+                        />
                         <FormItem header={'О пользователе'}>
                             <FormInput
                                 size={'12'}
@@ -287,7 +293,6 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 value={this.props.location}
                                 type={'text'}
                                 placeholder={'10.000'}
-                                name={'size'}
                                 setError={this.validation.setError}
                                 validation={this.validation.getValidation(
                                     'size',

@@ -683,6 +683,9 @@ p {
   &-900 {
     background-color: var(--background-900);
   }
+  &-red {
+    background-color: var(--background-red);
+  }
 }
 
 .color {
@@ -718,6 +721,9 @@ p {
   }
   &-900 {
     color: var(--background-900);
+  }
+  &-red {
+    color: var(--primary-red);
   }
 }
 
@@ -771,6 +777,12 @@ p {
     &-default {
       border-bottom: var(--border-default)
     }
+  }
+  &-blue {
+    border: var(--border-blue)
+  }
+  &-red {
+    border: var(--border-red);
   }
 }
 
@@ -899,6 +911,9 @@ p {
   }
   &-lg {
     box-shadow: var(--shadow-grey-lg);
+  }
+  &-blue {
+    box-shadow: var(--shadow-blue-md);
   }
 }
 
