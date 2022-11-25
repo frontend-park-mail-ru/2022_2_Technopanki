@@ -299,10 +299,6 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 id={'description'}
                                 label={'Описание'}
                                 value={this.props.description}
-                                type={'name'}
-                                placeholder={
-                                    'Напишите здесь описание вашей компании'
-                                }
                                 name={'description'}
                                 required={true}
                             />

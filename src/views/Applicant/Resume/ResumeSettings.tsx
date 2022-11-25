@@ -1,5 +1,4 @@
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
-import Form, { FormSectionType } from '../../../components/UI-kit/forms/Form';
 import Header from '../../../components/UI-kit/header/Header';
 import SettingsHat from '../../../components/hats/SettingsHat';
 import Input, {
@@ -25,6 +24,16 @@ import {
     RESUME_TITLE_ERROR,
 } from '../../../utils/validation/messages';
 import { SERVER_URLS } from '../../../utils/networkConstants';
+import Form from '../../../components/UI-kit/forms/Form';
+import FormInputGroup from '../../../components/UI-kit/forms/formInputs/FormInputGroup';
+import FormInput from '../../../components/UI-kit/forms/formInputs/FormInput';
+import FormTextarea from '../../../components/UI-kit/forms/formInputs/FormTextarea';
+import FormItem from '../../../components/UI-kit/forms/FormItem';
+import { useValidation } from '../../../utils/validation/formValidation';
+import {
+    validateTitleLength,
+    validateTitleSymbols,
+} from '../../Vacancy/settingsValidators';
 
 class ResumeSettings extends ReactsComponent<
     ResumeState & { isNew: boolean },
@@ -41,100 +50,18 @@ class ResumeSettings extends ReactsComponent<
 > {
     state = {
         isNew: location.pathname.split('/').at(-1) === 'new',
-        sections: [
-            {
-                fields: {
-                    title: {
-                        size: 8,
-                        type: 'text',
-                        placeholder: 'Название резюме',
-                        label: 'Название резюме',
-                        name: 'title',
-                        required: true,
-                        value: this.props.title,
-                        validator: validateResumeTitle,
-                        error: false,
-                        errorMessage: RESUME_TITLE_ERROR,
-                    },
-                    description: {
-                        size: 8,
-                        type: 'textarea',
-                        placeholder: 'О себе...',
-                        label: 'О себе',
-                        name: 'description',
-                        required: true,
-                        value: this.props.description,
-                        validator: validateResumeDescription,
-                        error: false,
-                        errorMessage: RESUME_DESCRIPTION_ERROR,
-                    },
-                },
-            },
-            {
-                fields: {
-                    university: {
-                        size: 4,
-                        type: 'text',
-                        placeholder: 'Университет',
-                        label: 'Университет',
-                        name: 'university',
-                        required: true,
-                        value: this.props.university,
-                    },
-                    faculty: {
-                        size: 4,
-                        type: 'text',
-                        placeholder: 'Направление',
-                        label: 'Направление',
-                        name: 'faculty',
-                        required: true,
-                        value: this.props.faculty,
-                    },
-                    status: {
-                        size: 4,
-                        type: 'text',
-                        placeholder: 'Статус',
-                        label: 'Статус',
-                        name: 'status',
-                        required: false,
-                        value: this.props.status,
-                    },
-                },
-            },
-        ],
     };
+
+    validation = useValidation({
+        title: [validateTitleSymbols, validateTitleLength],
+    });
 
     submitForm = (e: SubmitEvent) => {
         e.preventDefault();
-        const formData = new FormData(e.target);
-
-        let sections = this.state.sections;
-        let isValid = true;
-
-        formData.forEach((value, key) => {
-            sections.forEach(section => {
-                if (section.fields[key]) {
-                    if (
-                        section.fields[key].validator &&
-                        !section.fields[key].validator(value) &&
-                        (section.fields[key].required || value)
-                    ) {
-                        section.fields[key].error = true;
-                        isValid = false;
-                    } else {
-                        section.fields[key].error = false;
-                    }
-                    section.fields[key].value = value;
-                    return;
-                }
-            });
-        });
-
-        if (!isValid) {
-            this.setState(state => ({ ...state, sections: sections }));
+        if (!this.validation.ok()) {
             return;
         }
-
+        const formData = new FormData(e.target);
         const resumeID = location.pathname.split('/').at(-1);
 
         if (this.state.isNew) {
@@ -189,27 +116,35 @@ class ResumeSettings extends ReactsComponent<
                         />
                     </div>
                     <h3 className={'col-12'}>Настройки резюме</h3>
-                    <form
-                        key={'form'}
-                        id={'profile_form'}
-                        onSubmit={this.submitForm.bind(this)}
-                        className={'col-12 col-md-9 column g-24'}
-                    >
-                        {/*<div key={'avatar'} className={'w-100'}>*/}
-                        {/*    <AvatarSettings key={'avatar'} />*/}
-                        {/*</div>*/}
-                        {this.state.sections.map(section => (
-                            <FormSection
-                                key={'resume_form'}
-                                fields={section.fields}
+                    <Form onSubmit={this.submitForm}>
+                        <FormItem header={'О себе'}>
+                            <FormInput
+                                size={'12'}
+                                id={'title'}
+                                label={'Заголовок вакансии'}
+                                type={'text'}
+                                name={'title'}
+                                setError={this.validation.setError}
+                                required={true}
+                                validation={this.validation.getValidation(
+                                    'title',
+                                )}
+                                validationMode={'oninput'}
                             />
-                        ))}
+                            <FormTextarea
+                                size={'12'}
+                                id={'description'}
+                                label={'Описание резюме'}
+                                name={'description'}
+                                required={true}
+                            />
+                        </FormItem>
                         <div>
                             <ButtonPrimary type={'submit'}>
                                 Сохранить
                             </ButtonPrimary>
                         </div>
-                    </form>
+                    </Form>
                 </div>
                 <div className={'flex row g-16 mt-40'}>
                     <Button onClick={navigator.goBack}>Пропустить</Button>
@@ -226,7 +161,7 @@ class ResumeSettings extends ReactsComponent<
                         </ButtonRed>
                     )}
                 </div>
-                <Footer key={'footer'} />
+                <Footer />
             </div>
         );
     }
