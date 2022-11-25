@@ -41,17 +41,28 @@ type ApplicantPropsType = {
         facebook: string | null | undefined;
         telegram: string | null | undefined;
     };
+    resume: ResumeListItemPropsType[];
 };
 
 class ApplicantProfile extends ReactsComponent<ApplicantPropsType> {
-    getDataFromServer() {
+    state = {
+        resume: [],
+    };
+
+    async getDataFromServer() {
         const applicantID = location.pathname.split('/').at(-1);
 
-        applicantProfileService
-            .getApplicantData(applicantID as string)
-            .then(body => {
-                dispatch(applicantActions.update(body));
-            });
+        const applicantBody = await applicantProfileService.getApplicantData(
+            applicantID as string,
+        );
+
+        const resumeList = await applicantProfileService.getResumeList(
+            applicantID,
+        );
+
+        dispatch(applicantActions.update(applicantBody));
+        console.log(resumeList);
+        this.setState(state => ({ ...state, resume: resumeList }));
     }
 
     componentDidMount() {
@@ -126,7 +137,7 @@ class ApplicantProfile extends ReactsComponent<ApplicantPropsType> {
                 />
                 <div className={'columns g-24'}>
                     <div className={'col-12 col-md-9 column g-16'}>
-                        <ApplicantResumeList applicantID={this.props.id} />
+                        <ApplicantResumeList resume={this.state.resume} />
                     </div>
                     <div className={'col-12 col-md-3'}>
                         <ResumeSidebar creatorID={this.props.id} />
