@@ -46,6 +46,9 @@
   --background-red-100: #FEECEC;
   --background-green-100: #EEFBF3;
   //--background-modal: rgba(15, 15, 15, 0.4);
+
+  // TODO: добавить разные shadow для тем
+  --shadow-grey-md: 0px 6px 20px rgba(0, 0, 0, 0.08);
 }
 
 :root {
@@ -60,7 +63,6 @@
 
   --shadow-grey-xs: 0 4px 4px rgba(0, 0, 0, 0.02);
   --shadow-grey-sm: 0 4px 8px rgba(0, 0, 0, 0.04);
-  --shadow-grey-md: 0px 6px 20px rgba(0, 0, 0, 0.08);
   --shadow-grey-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
   --shadow-blue-md: 0px 4px 16px rgba(28, 52, 236, 0.16);
   --shadow-blue-lg: 0px 4px 24px rgba(28, 52, 236, 0.24);

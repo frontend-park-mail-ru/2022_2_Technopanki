@@ -5,9 +5,7 @@
   box-shadow: var(--shadow-grey-sm);
   transition: var(--transition-sfast);
   &:hover {
-    outline: var(--border-blue);
-    outline-width: 2px;
-    box-shadow: 0 4px 16px rgba(81, 101, 255, 0.24);
+    box-shadow: var(--shadow-grey-md);
   }
 }
 

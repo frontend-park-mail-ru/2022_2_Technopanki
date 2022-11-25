@@ -27,6 +27,7 @@ import { APPLICANT_PATHS } from '../../../utils/routerConstants';
 import { useValidation } from '../../../utils/validation/formValidation';
 import {
     dateOfBirthValidation,
+    emailValidation,
     fileFormatValidation,
     fileSizeValidation,
     locationValidation,
@@ -63,6 +64,7 @@ class ApplicantSettings extends ReactsComponent<
         avatar: [fileSizeValidation, fileFormatValidation],
         dateOfBirth: [dateOfBirthValidation],
         location: [locationValidation],
+        email: [emailValidation],
     });
 
     submitForm = (e: SubmitEvent) => {

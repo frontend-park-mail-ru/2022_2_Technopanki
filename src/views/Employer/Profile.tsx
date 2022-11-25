@@ -22,22 +22,28 @@ import { vacancyActions } from '../../store/vacancy/actions';
 import ProfileVacancies from './ProfileVacancies';
 import RenderWithCondition from '../../components/RenderWithCondition';
 import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../utils/routerConstants';
+import { vacancyService } from '../../services/vacancyService';
 
 class Profile extends ReactsComponent<
-    ProfileState & { userID: string },
-    { vacancies: VacancyCardPropsType[] }
+    { userID: string } & ProfileState,
+    { profile: ProfileState; vacancies: VacancyCardPropsType[] }
 > {
     state = {
         vacancies: [],
     };
 
-    getDataFromServer() {
+    async getDataFromServer() {
         const employerID = location.pathname.split('/').at(-1);
-        if (employerID !== this.props.id) {
-            employerProfileService.getProfileData(employerID).then(body => {
-                dispatch(profileActions.update({ ...body, id: employerID }));
-            });
-        }
+
+        const employerProfile = await employerProfileService.getProfileData(
+            employerID,
+        );
+        const vacancies = await vacancyService.getAllVacanciesForEmployer(
+            employerID,
+        );
+
+        dispatch(profileActions.update({ ...employerProfile, id: employerID }));
+        this.setState(state => ({ ...state, vacancies: vacancies.data }));
     }
 
     componentDidMount() {
@@ -127,7 +133,9 @@ class Profile extends ReactsComponent<
                                         </button>
                                     }
                                 />
-                                <ProfileVacancies profileID={this.props.id} />
+                                <ProfileVacancies
+                                    vacancies={this.state.vacancies}
+                                />
                             </div>
                         </div>
                     </div>
@@ -145,9 +153,9 @@ class Profile extends ReactsComponent<
     }
 }
 
-const UserWrapper = userConnect((state, props) => ({
+const userWrapper = userConnect((state, props) => ({
     ...props,
     userID: state.id,
 }))(Profile);
 
-export default profileConnect(state => state)(UserWrapper);
+export default profileConnect(state => state)(userWrapper);

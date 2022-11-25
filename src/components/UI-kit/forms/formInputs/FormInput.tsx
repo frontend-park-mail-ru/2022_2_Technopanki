@@ -83,6 +83,7 @@ export default class FormInput extends ReactsComponent<FormInputProps> {
                         validationMode: null,
                         setError: null,
                         getValue: null,
+                        label: null,
                     }}
                 />
                 {this.state.error ? (

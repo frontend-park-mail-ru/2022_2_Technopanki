@@ -1,16 +1,9 @@
 import { Service } from './types';
 import network from '../lib/network';
 import { requestHeaders } from './headers';
-import {
-    PROFILE_URLS,
-    SERVER_URLS,
-    USER_URLS,
-} from '../utils/networkConstants';
-import { response } from 'express';
-import { applicantActions } from '../store/applicant/actions';
+import { PROFILE_URLS, SERVER_URLS } from '../utils/networkConstants';
 import { startLoading, stopLoading } from '../store/loading/actions';
 import { dispatch } from '../store';
-import Form from '../components/UI-kit/forms/Form';
 
 export const applicantProfileService: Service = {
     getApplicantData: async (applicantID: string) => {
@@ -31,7 +24,9 @@ export const applicantProfileService: Service = {
         formData: FormData,
     ) => {
         dispatch(startLoading());
-        const date = new Date(formData.get('dateOfBirth'));
+        const date = formData.get('dateOfBirth')
+            ? new Date(formData.get('dateOfBirth'))
+            : undefined;
         return await network
             .POST(
                 SERVER_URLS.USER,
@@ -41,7 +36,7 @@ export const applicantProfileService: Service = {
                     applicant_name: formData.get('name'),
                     applicant_surname: formData.get('surname'),
                     status: formData.get('status'),
-                    date_of_birth: date.toISOString(),
+                    date_of_birth: date?.toISOString(),
                     location: formData.get('location'),
                     contact_number: formData.get('phone'),
                     email: formData.get('email'),

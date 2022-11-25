@@ -33,7 +33,7 @@ export default class VacancyCard extends ReactsComponent<
         isOpen: false,
     };
 
-    handleDetails = (e: MouseEvent) => {
+    handleDetails = () => {
         this.setState(state => ({
             ...state,
             isOpen: !this.state.isOpen,
@@ -46,18 +46,13 @@ export default class VacancyCard extends ReactsComponent<
                 className={`grid grid-template-columns g-16 rounded-lg p-24 ${styles.vacancy}`}
             >
                 <img
-                    key={'img'}
                     className={'rounded-md'}
                     height={40}
                     width={40}
                     src={IMAGE_URL + this.props.icon}
                 />
-                <div
-                    key={'vacancy-data'}
-                    className={'flex flex-start column g-4'}
-                >
+                <div className={'flex flex-start column g-4'}>
                     <Link
-                        key={'vacancy-name'}
                         to={VACANCY_PATHS.INDEX + this.props.id}
                         content={
                             <h4
@@ -68,52 +63,31 @@ export default class VacancyCard extends ReactsComponent<
                             </h4>
                         }
                     />
-                    <div
-                        key={'vacancy-metadata'}
-                        className={'flex flex-start row g-16'}
-                    >
-                        <div
-                            key={'location'}
-                            className={'flex row align-items-center g-6'}
-                        >
+                    <div className={'flex flex-start row g-16'}>
+                        <div className={'flex row align-items-center g-6'}>
                             <div
-                                key={'meta'}
                                 className={`${styles.metadata_icon}`}
                                 dangerouslySetInnerHTML={{ __html: Location }}
                             />
-                            <div
-                                key={'location'}
-                                className={`${styles.metadata}`}
-                            >
+                            <div className={`${styles.metadata}`}>
                                 {this.props.location}
                             </div>
                         </div>
-                        <div
-                            key={'clock'}
-                            className={'flex row align-items-center g-6'}
-                        >
+                        <div className={'flex row align-items-center g-6'}>
                             <div
-                                key={'clock'}
                                 className={`${styles.metadata_icon}`}
                                 dangerouslySetInnerHTML={{ __html: Clock }}
                             />
-                            <div
-                                key={'format'}
-                                className={`${styles.metadata}`}
-                            >
+                            <div className={`${styles.metadata}`}>
                                 {this.props.format}
                             </div>
                         </div>
-                        <div
-                            key={'icon'}
-                            className={'flex row align-items-center g-6'}
-                        >
+                        <div className={'flex row align-items-center g-6'}>
                             <div
-                                key={'icon'}
                                 className={`${styles.metadata_icon}`}
                                 dangerouslySetInnerHTML={{ __html: Calendar }}
                             />
-                            <div key={'hours'} className={`${styles.metadata}`}>
+                            <div className={`${styles.metadata}`}>
                                 {this.props.hours}
                             </div>
                         </div>

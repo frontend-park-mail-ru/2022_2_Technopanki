@@ -6,6 +6,7 @@ import { userConnect } from '../../store';
 import { UserState } from '../../store/user/types';
 import { resumeService } from '../../services/resumeService';
 import { IMAGE_URL } from '../../utils/networkConstants';
+import { APPLICANT_PATHS } from '../../utils/routerConstants';
 
 class SettingsHat extends ReactsComponent<
     {
@@ -67,7 +68,7 @@ class SettingsHat extends ReactsComponent<
                 name={this.state.name}
                 surname={this.props.surname ?? ''}
                 status={this.state.status}
-                linkTo={this.props.linkTo}
+                linkTo={APPLICANT_PATHS.PROFILE + this.props.userID}
             />
         );
     }

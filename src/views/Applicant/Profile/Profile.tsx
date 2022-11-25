@@ -61,7 +61,6 @@ class ApplicantProfile extends ReactsComponent<ApplicantPropsType> {
         );
 
         dispatch(applicantActions.update(applicantBody));
-        console.log(resumeList);
         this.setState(state => ({ ...state, resume: resumeList }));
     }
 

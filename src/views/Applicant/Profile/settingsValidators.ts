@@ -2,11 +2,13 @@ import {
     validateAvatarImageFormat,
     validateAvatarImageSize,
     validateCompanyName,
+    validateEmail,
     validateNameSymbols,
 } from '../../../utils/validation/validation';
 import {
     AVATAR_FORMAT_ERROR,
     AVATAR_SIZE_ERROR,
+    EMAIL_ERROR,
     NAME_SYMBOLS_ERROR,
     PHONE_ERROR,
     SURNAME_SYMBOLS_ERROR,
@@ -75,4 +77,8 @@ export const locationValidation = (value: string): [boolean, string] => {
     return validateLocation(value);
 };
 
-export const experinceValidation = (value: string): [boolean, string] => {};
+// export const experinceValidation = (value: string): [boolean, string] => {};
+
+export const emailValidation = (value: string): [boolean, string] => {
+    return [validateEmail(value), EMAIL_ERROR];
+};

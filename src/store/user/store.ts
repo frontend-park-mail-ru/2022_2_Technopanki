@@ -4,8 +4,8 @@ import { UserState } from './types';
 
 export const userStore = new Store<UserState>(userReducer, {
     id: '3',
-    name: 'Vladislav',
-    surname: 'Kirpichov',
+    name: 'VK',
+    surname: '',
     userType: 'applicant',
     avatarSrc: '',
     authorized: true,
