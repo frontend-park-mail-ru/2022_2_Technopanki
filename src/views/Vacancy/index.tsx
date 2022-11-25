@@ -3,7 +3,7 @@ import Header from '../../components/UI-kit/header/Header';
 import styles from './vacancy.module.scss';
 import TextBlock from '../../components/UI-kit/text/TextBlock';
 import VacancySideBar from '../../components/sidebars/VacancySideBar';
-import VacancyHat from './VacancyHat';
+import VacancyHat, { ProfileHatProps } from './VacancyHat';
 import Footer from '../../components/UI-kit/footer/Footer';
 import { dispatch, vacancyConnect } from '../../store';
 import { vacancyService } from '../../services/vacancyService';
@@ -11,39 +11,51 @@ import { vacancyActions } from '../../store/vacancy/actions';
 import { VacancyState } from '../../store/vacancy/type';
 import SuccessPopup from '../../components/SuccessPopup/SuccessPopup';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
+import { IMAGE_URL } from '../../utils/networkConstants';
 
-type VacancyPropsType = {
-    id?: string;
-    postedByUserID: string;
-    title: string;
-    description: string;
-    tasks: string;
-    requirements: string;
-    extra: string;
-    sideBar: {
-        salary: string;
-        experience: string;
-        location: string;
-        format: string;
-        hours: string;
-        skills: string[];
+class Vacancy extends ReactsComponent<
+    VacancyState,
+    { profile: ProfileHatProps }
+> {
+    state = {
+        profile: {} as ProfileHatProps,
     };
-};
 
-class Vacancy extends ReactsComponent<VacancyPropsType> {
-    getDataFromServer() {
+    async getDataFromServer() {
         // Мы точно уверены что путь будет vacancy/{0,9}+
         const vacancyID = location.pathname.split('/').at(-1);
-
+        let vacancyData = null;
+        let postedByUserID = this.props.postedByUserID;
         if (this.props.id !== vacancyID) {
-            vacancyService.getVacancyData(vacancyID as string).then(body => {
-                dispatch(vacancyActions.update(body));
-            });
+            vacancyData = await vacancyService.getVacancyData(
+                vacancyID as string,
+            );
+            postedByUserID = vacancyData.postedByUserId.toString();
+        }
+
+        const profileData = await vacancyService.getVacancyHatData(
+            postedByUserID,
+        );
+
+        this.setState(state => ({
+            ...state,
+            profile: {
+                creatorImgSrc: IMAGE_URL + profileData.image,
+                companyName: profileData.company_name,
+                status: profileData.status,
+            },
+        }));
+        if (vacancyData) {
+            dispatch(vacancyActions.update(vacancyData));
         }
     }
 
     componentDidMount() {
         this.getDataFromServer();
+    }
+
+    shouldUpdate(nextProps: Readonly<VacancyState> | VacancyState): boolean {
+        return this.props.id !== nextProps.id;
     }
 
     render() {
@@ -59,6 +71,9 @@ class Vacancy extends ReactsComponent<VacancyPropsType> {
                             vacancyID={this.props.id}
                             postedByUserID={this.props.postedByUserID}
                             sendRequest={!!this.props.id}
+                            companyName={this.state.profile.companyName}
+                            creatorImgSrc={this.state.profile.creatorImgSrc}
+                            status={this.state.profile.status}
                         />
                     </div>
                     <h3 className={'col-12'}>{this.props.title}</h3>
@@ -81,7 +96,14 @@ class Vacancy extends ReactsComponent<VacancyPropsType> {
                         />
                     </div>
                     <div className={'col-12 col-md-3'}>
-                        <VacancySideBar />
+                        <VacancySideBar
+                            salary={this.props.salary}
+                            experience={this.props.experience}
+                            location={this.props.location}
+                            format={this.props.format}
+                            hours={this.props.hours}
+                            skills={this.props.skills}
+                        />
                     </div>
                 </div>
                 <Footer />
@@ -91,14 +113,5 @@ class Vacancy extends ReactsComponent<VacancyPropsType> {
 }
 
 export default vacancyConnect(state => {
-    const storeState = state as VacancyState;
-    return {
-        id: storeState.id,
-        postedByUserID: storeState.postedByUserID,
-        title: storeState.title,
-        description: storeState.description,
-        tasks: storeState.tasks,
-        requirements: storeState.requirements,
-        extra: storeState.extra,
-    };
+    return state;
 })(Vacancy);

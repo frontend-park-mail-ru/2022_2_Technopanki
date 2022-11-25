@@ -113,7 +113,6 @@ class VacancySettings extends ReactsComponent<
     }
 
     render() {
-        console.log(this.props);
         return (
             <div className={'screen-responsive relative hidden'}>
                 <Header />

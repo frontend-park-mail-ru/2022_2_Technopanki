@@ -91,7 +91,6 @@ export const applicantProfileService: Service = {
         surname: string,
         title: string,
     ) => {
-        console.log('RESUME_ID:', resumeID);
         return network
             .POST(
                 PROFILE_URLS.APPLICANT_RESUMES + vacancyID,

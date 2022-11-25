@@ -21,7 +21,6 @@ class Resume extends ReactsComponent<
     ResumeType & { name: string; surname: string; vacancyID: string }
 > {
     async sendResponseToServer() {
-        console.log('before apply: ', this.props);
         return await applicantProfileService.apply(
             this.props.vacancyID,
             this.props.id,

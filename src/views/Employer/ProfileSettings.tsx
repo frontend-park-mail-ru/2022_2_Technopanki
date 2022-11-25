@@ -161,7 +161,6 @@ class ProfileSettingsComponent extends ReactsComponent<
     };
 
     render() {
-        console.log('RENDER OF PROFILE SETTINGS');
         return (
             <div className={'screen-responsive relative hidden'}>
                 <ErrorPopup />

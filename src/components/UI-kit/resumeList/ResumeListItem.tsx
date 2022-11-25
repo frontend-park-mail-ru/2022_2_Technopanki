@@ -70,7 +70,6 @@ export default class ResumeListItem extends ReactsComponent<ResumeListItemPropsT
     ];
 
     render() {
-        console.log(this.props);
         return (
             <div className={'columns g-24 p-16 border-top-default'}>
                 <div

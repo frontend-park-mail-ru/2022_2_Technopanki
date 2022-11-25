@@ -14,56 +14,30 @@ import Vacancy from './index';
 import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../utils/routerConstants';
 import { IMAGE_URL } from '../../utils/networkConstants';
 
+export type ProfileHatProps = {
+    creatorImgSrc: string;
+    companyName: string;
+    status: string;
+};
+
 class VacancyHat extends ReactsComponent<
-    {
+    ProfileHatProps & {
+        // props
         postedByUserID: string;
         vacancyID: string;
+        // user store
         userID: string;
         userType: string | null;
         authorized: boolean;
-        sendRequest: boolean;
-    },
-    {
-        creatorImgSrc: string;
-        companyName: string;
-        status: string;
     }
 > {
-    state = {
-        vacancyID: this.props.vacancyID,
-        creatorImgSrc: ' ',
-        companyName: ' ',
-        status: ' ',
-        postedByUserID: ' ',
-    };
-
-    getCreatorDataFromServer = () => {
-        if (this.props.postedByUserID !== this.state.postedByUserID) {
-            vacancyService
-                .getVacancyHatData(this.props.postedByUserID)
-                .then(body => {
-                    this.setState(() => ({
-                        creatorImgSrc: IMAGE_URL + body.image,
-                        companyName: body.company_name,
-                        status: body.status,
-                        postedByUserID: this.props.postedByUserID,
-                    }));
-                })
-                .catch(err => console.error(err));
-        }
-    };
-
-    componentDidUpdate() {
-        this.getCreatorDataFromServer();
-    }
-
     render() {
         return (
             <Hat
-                imgSrc={this.state.creatorImgSrc}
-                name={this.state.companyName}
+                imgSrc={this.props.creatorImgSrc}
+                name={this.props.companyName}
                 surname={''}
-                status={this.state.status}
+                status={this.props.status}
                 linkTo={EMPLOYER_PATHS.PROFILE + this.props.postedByUserID}
                 rightSideContent={
                     <div className={'flex row flex-wrap g-12'}>
@@ -138,6 +112,7 @@ export default userConnect((state, props) => {
         vacancyID: props.vacancyID,
         postedByUserID: props.postedByUserID,
         sendRequest: props.sendRequest,
+        companyName: props.companyName,
         userID: state.id,
         userType: state.userType,
         authorized: state.authorized,

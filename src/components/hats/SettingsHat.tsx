@@ -84,7 +84,6 @@ class SettingsHat extends ReactsComponent<
     }
 
     render() {
-        console.log('HAT RENDER');
         return (
             <Hat
                 imgSrc={this.state.imgSrc}
