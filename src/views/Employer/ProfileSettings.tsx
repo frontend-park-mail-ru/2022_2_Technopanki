@@ -39,7 +39,6 @@ import FormItem from '../../components/UI-kit/forms/FormItem';
 import FormInput from '../../components/UI-kit/forms/formInputs/FormInput';
 import FormTextarea from '../../components/UI-kit/forms/formInputs/FormTextarea';
 import FormFileInput from '../../components/UI-kit/forms/formInputs/FormFileInput';
-import FormInputGroup from '../../components/UI-kit/forms/formInputs/FormInputGroup';
 import { useValidation } from '../../utils/validation/formValidation';
 import {
     fileFormatValidation,
@@ -55,65 +54,6 @@ import {
     validateSizeLength,
     validateSizeSymbols,
 } from './settingsValidators';
-
-class AvatarSettingsComponent extends ReactsComponent<
-    { previewSrc: string },
-    { previewSrc: string }
-> {
-    setPreview = (event: InputEvent) => {
-        // @ts-ignore
-        const [file]: [File] = event.target.files;
-        if (file.size > MAX_PHOTO_SIZE) {
-            dispatch(
-                activateError(
-                    'Размер файл слишком большой',
-                    'Размер файла не должен превышать 1MB',
-                ),
-            );
-            setTimeout(() => dispatch(deactivateError()), 3000);
-            return;
-        }
-        if (file.type) {
-            console.log(file.type);
-        }
-        const fileUrl = URL.createObjectURL(file);
-
-        this.setState(state => ({ ...state, previewSrc: fileUrl }));
-    };
-
-    state = {
-        previewSrc: this.props.previewSrc,
-    };
-
-    render() {
-        return (
-            <div className={'columns g-16'}>
-                <div className={'col-12 col-md-3'}>
-                    <img
-                        height={64}
-                        width={64}
-                        id={'preview_img'}
-                        alt={'preview'}
-                        src={this.state.previewSrc}
-                    />
-                </div>
-                <div className={'col-12 col-md-9'}>
-                    <FileInput
-                        id={'avatar'}
-                        label={'Загрузить новую фотогрфию'}
-                        onUpload={this.setPreview}
-                    />
-                </div>
-            </div>
-        );
-    }
-}
-
-const AvatarSettings = profileConnect(state => {
-    return {
-        previewSrc: state.avatarSrc,
-    };
-})(AvatarSettingsComponent);
 
 class ProfileSettingsComponent extends ReactsComponent<
     ProfileState & { userID: string },
@@ -234,7 +174,7 @@ class ProfileSettingsComponent extends ReactsComponent<
                     <Form onSubmit={this.submitForm}>
                         <FormFileInput
                             id={'avatar'}
-                            label={'Аватарка'}
+                            label={'Загрузить новую фотографию'}
                             name={'avatar'}
                             size={'12'}
                             setError={this.validation.setError}

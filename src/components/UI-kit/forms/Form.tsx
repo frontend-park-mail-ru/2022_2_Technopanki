@@ -18,7 +18,7 @@ export default class Form extends ReactsComponent<FormPropsType> {
             <form
                 id={this.props.id}
                 onSubmit={this.props.onSubmit}
-                className={'col-12 col-md-9 flex column g-24'}
+                className={'col-12 flex column g-24'}
             >
                 {this.props.children}
             </form>

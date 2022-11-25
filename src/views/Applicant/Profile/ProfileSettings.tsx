@@ -46,70 +46,23 @@ import {
 import { employerProfileService } from '../../../services/employerProfileService';
 import navigator from '../../../router/navigator';
 import { applicantProfileService } from '../../../services/applicantService';
-import Textarea from '../../../components/UI-kit/forms/inputs/Textarea';
 import Footer from '../../../components/UI-kit/footer/Footer';
-import FileInput from '../../../components/UI-kit/forms/inputs/FileInput';
 import FormFileInput from '../../../components/UI-kit/forms/formInputs/FormFileInput';
 import { authService } from '../../../services/authService';
 import { userActions } from '../../../store/user/actions';
 import ButtonRed from '../../../components/UI-kit/buttons/ButtonRed';
 import { profileActions } from '../../../store/profile/actions';
-import FormSection from '../../../components/UI-kit/forms/FormSection';
 import { APPLICANT_PATHS } from '../../../utils/routerConstants';
 import { useValidation } from '../../../utils/validation/formValidation';
 import {
+    fileFormatValidation,
+    fileSizeValidation,
     nameLengthValidation,
     nameSymbolsValidation,
     phoneValidation,
     surnameLengthValidation,
     surnameSymbolsValidation,
 } from './settingsValidators';
-
-class AvatarSettingsComponent extends ReactsComponent<
-    { previewSrc: string },
-    { previewSrc: string }
-> {
-    setPreview = (event: InputEvent) => {
-        // @ts-ignore
-        const [file] = event.target.files;
-        const fileUrl = URL.createObjectURL(file);
-
-        this.setState(state => ({ ...state, previewSrc: fileUrl }));
-    };
-
-    state = {
-        previewSrc: this.props.previewSrc,
-    };
-
-    render() {
-        return (
-            <div key={'avatar'} className={'columns g-16'}>
-                <div key={'preview'} className={'col-12 col-md-4'}>
-                    <img
-                        height={64}
-                        width={64}
-                        id={'preview_img'}
-                        alt={'preview'}
-                        src={this.state.previewSrc}
-                    />
-                </div>
-                <div key={'input'} className={'col-12 col-md-4'}>
-                    <FileInput
-                        id={'avatar'}
-                        label={'Загрузить новую фотогрфию'}
-                        onUpload={this.setPreview}
-                    />
-                </div>
-            </div>
-        );
-    }
-}
-
-const AvatarSettings = profileConnect(store => {
-    return {
-        previewSrc: store.previewSrc,
-    };
-})(AvatarSettingsComponent);
 
 class ApplicantSettings extends ReactsComponent<
     ProfileState,
@@ -128,131 +81,13 @@ class ApplicantSettings extends ReactsComponent<
 > {
     state = {
         profile: { ...this.props },
-        sections: [
-            {
-                header: 'О себе',
-                fields: {
-                    name: {
-                        size: 4,
-                        type: 'text',
-                        placeholder: 'Имя',
-                        label: 'Имя',
-                        name: 'name',
-                        required: true,
-                        value: this.props.name,
-                        validator: validateNameSymbols,
-                        error: false,
-                        errorMessage: NAME_SYMBOLS_ERROR,
-                    },
-                    surname: {
-                        size: 4,
-                        type: 'text',
-                        placeholder: 'Фамилия',
-                        label: 'Фамилия',
-                        name: 'surname',
-                        required: true,
-                        value: this.props.surname,
-                        validator: validateNameSymbols,
-                        error: false,
-                        errorMessage: NAME_SYMBOLS_ERROR,
-                    },
-                },
-            },
-            {
-                header: '',
-                fields: {
-                    dateOfBirth: {
-                        size: 4,
-                        type: 'date',
-                        placeholder: '',
-                        label: 'Дата рождения',
-                        name: 'dateOfBirth',
-                        required: false,
-                        value: `${
-                            this.props.dateOfBirth
-                                ? this.props.dateOfBirth.slice(0, 10)
-                                : ''
-                        }`,
-                    },
-                    location: {
-                        size: 4,
-                        type: 'text',
-                        placeholder: 'Город',
-                        label: 'Город проживания',
-                        name: 'location',
-                        required: true,
-                        value: this.props.location,
-                    },
-                    status: {
-                        size: 8,
-                        type: 'text',
-                        placeholder: 'Статус',
-                        label: 'Статус',
-                        name: 'status',
-                        required: true,
-                        value: this.props.status,
-                    },
-                },
-            },
-            {
-                header: 'Контактные данные',
-                fields: {
-                    phone: {
-                        size: 4,
-                        type: 'text',
-                        placeholder: '+7 (999) 999-99-99',
-                        label: 'Телефон',
-                        name: 'phone',
-                        required: false,
-                        value: this.props.phone,
-                        validator: phoneValidation,
-                        errorMessage: PHONE_ERROR,
-                    },
-                    email: {
-                        size: 4,
-                        type: 'text',
-                        placeholder: 'example@mail.ru',
-                        label: 'Email',
-                        name: 'email',
-                        required: true,
-                        value: this.props.email,
-                        validator: validateEmail,
-                        error: false,
-                        errorMessage: EMAIL_ERROR,
-                    },
-                },
-            },
-            {
-                header: 'Пароль',
-                fields: {
-                    password: {
-                        size: 4,
-                        type: 'password',
-                        placeholder: '********',
-                        label: 'Новый пароль',
-                        name: 'password',
-                        validator: validatePasswordSymbols,
-                        error: false,
-                        errorMessage: PASSWORD_SYMBOLS_ERROR,
-                        value: undefined,
-                    },
-                    repeatPassword: {
-                        size: 4,
-                        type: 'password',
-                        placeholder: '********',
-                        label: 'Повторите пароль',
-                        name: 'repeatPassword',
-                        value: undefined,
-                    },
-                },
-            },
-        ],
     };
 
     validation = useValidation({
         name: [nameSymbolsValidation, nameLengthValidation],
         surname: [surnameSymbolsValidation, surnameLengthValidation],
         phone: [phoneValidation],
+        avatar: [fileSizeValidation, fileFormatValidation],
     });
 
     submitForm = (e: SubmitEvent) => {
@@ -261,10 +96,11 @@ class ApplicantSettings extends ReactsComponent<
             return;
         }
 
-        const formData = new FormData(e.target);
+        const formData = new FormData(e.target as HTMLFormElement);
 
         const applicantID = location.pathname.split('/').at(-1);
 
+        // @ts-ignore
         const image = document.querySelector('#avatar').files[0];
         const formDataImage = new FormData();
         formDataImage.append('avatar', image);
@@ -323,18 +159,18 @@ class ApplicantSettings extends ReactsComponent<
                 <Header />
                 <div class={'column g-24'}>
                     <div className={`col-12 mt-header`}>
-                        <SettingsHat
-                            creatorID={this.props.id}
-                            submit={() =>
-                                document
-                                    .querySelector('#profile_form')
-                                    .dispatchEvent(new Event('submit'))
-                            }
-                        />
+                        <SettingsHat creatorID={this.props.id} />
                     </div>
                     <h3 className={'col-12'}>Настройки профиля</h3>
                     <Form onSubmit={this.submitForm}>
-                        <AvatarSettings />
+                        <FormFileInput
+                            id={'avatar'}
+                            label={'Загрузить новую фотографию'}
+                            name={'avatar'}
+                            size={'12'}
+                            setError={this.validation.setError}
+                            validation={this.validation.getValidation('avatar')}
+                        />
                         <FormItem header={'О себе'}>
                             <FormInput
                                 size={'4'}
@@ -383,7 +219,7 @@ class ApplicantSettings extends ReactsComponent<
                                 size={'4'}
                                 id={'dateOfBirth'}
                                 label={'Дата рождения'}
-                                type={'text'}
+                                type={'date'}
                                 placeholder={'Иванов'}
                                 name={'dateOfBirth'}
                                 value={this.props.dateOfBirth}

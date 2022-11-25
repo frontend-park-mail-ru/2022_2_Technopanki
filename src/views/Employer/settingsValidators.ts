@@ -1,10 +1,14 @@
 import {
+    validateAvatarImageFormat,
+    validateAvatarImageSize,
     validateCompanyName,
     validatePasswordLength,
     validatePasswordSymbols,
     validateStatusSymbols,
 } from '../../utils/validation/validation';
 import {
+    AVATAR_FORMAT_ERROR,
+    AVATAR_SIZE_ERROR,
     MAX_PHOTO_SIZE,
     PASSWORD_LENGTH_ERROR,
     PASSWORD_SYMBOLS_ERROR,
@@ -75,20 +79,9 @@ export const passwordLengthValidation = (value: string): [boolean, string] => {
 };
 
 export const fileSizeValidation = (file: File): [boolean, string] => {
-    return [file.size < MAX_PHOTO_SIZE, 'Размер файла не должен превышать 1МБ'];
+    return [validateAvatarImageSize(file), AVATAR_SIZE_ERROR];
 };
 
 export const fileFormatValidation = (file: File): [boolean, string] => {
-    // TODO: вынести в константы
-    const ALLOWED_FILE_TYPES = {
-        PNG: 'image/png',
-        JPG: 'image/jpg',
-    };
-
-    return [
-        Boolean(
-            Object.values(ALLOWED_FILE_TYPES).find(key => key === file.type),
-        ),
-        'Поддерживаемые форматы файлов: png, jpg, gif',
-    ];
+    return [validateAvatarImageFormat(file), AVATAR_FORMAT_ERROR];
 };

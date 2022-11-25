@@ -30,3 +30,7 @@ export const COMPANY_NAME_ERROR =
 
 // Max size of avatar in bytes (1MB)
 export const MAX_PHOTO_SIZE = 1024 * 1024;
+
+export const AVATAR_SIZE_ERROR = 'Размер файла не должен превышать 1МБ';
+export const AVATAR_FORMAT_ERROR =
+    'Поддерживаемые форматы файлов: png, jpg, gif';

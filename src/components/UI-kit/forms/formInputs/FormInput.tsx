@@ -7,7 +7,7 @@ type FormInputProps = {
     id: string;
     label: string;
     type: string;
-    placeholder: string;
+    placeholder?: string;
     name: string;
     setError: Function;
     size: '3' | '4' | '6' | '12';

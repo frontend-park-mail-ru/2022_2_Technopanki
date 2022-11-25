@@ -1,8 +1,12 @@
 import {
+    validateAvatarImageFormat,
+    validateAvatarImageSize,
     validateCompanyName,
     validateNameSymbols,
 } from '../../../utils/validation/validation';
 import {
+    AVATAR_FORMAT_ERROR,
+    AVATAR_SIZE_ERROR,
     NAME_SYMBOLS_ERROR,
     PHONE_ERROR,
     SURNAME_SYMBOLS_ERROR,
@@ -42,4 +46,12 @@ export const phoneValidation = (value: string): [boolean, string] => {
         /^\+[0-9]{1,4} \([0-9]{1,4}\) [0-9]{3}-[0-9]{2}-[0-9]{2}$/.test(value),
         PHONE_ERROR,
     ];
+};
+
+export const fileSizeValidation = (file: File): [boolean, string] => {
+    return [validateAvatarImageSize(file), AVATAR_SIZE_ERROR];
+};
+
+export const fileFormatValidation = (file: File): [boolean, string] => {
+    return [validateAvatarImageFormat(file), AVATAR_FORMAT_ERROR];
 };
