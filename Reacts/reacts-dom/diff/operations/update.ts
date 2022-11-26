@@ -13,10 +13,7 @@ import {
 } from '../../../shared/constants/symbols';
 import { applyChildrenDiff } from '../applyChildrenDiff';
 import { isArray } from '../../utils/isArray';
-import { render } from 'sass';
-import { renderNode } from '../../render/renderNode';
 import { applyDiff } from '../applyDiff';
-import { removeNode } from './remove';
 
 // TODO: оставить один аргумент - operation
 export const updateElementAttributes = (
