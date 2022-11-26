@@ -21,16 +21,6 @@ class TestComponent extends ReactsComponent<{ content: string[] }> {
 }
 
 class App extends ReactsComponent {
-    state = {
-        content: [],
-    };
-
-    componentDidMount() {
-        this.setState(state => ({
-            content: [...state.content, 'Hello world'],
-        }));
-    }
-
     render() {
         return <StartPage />;
     }
@@ -51,6 +41,7 @@ authService
                     ? body.company_name
                     : body.applicant_name,
                 body.applicant_surname,
+                body.email,
                 body.image ?? body.imgSrc,
                 body.user_type,
             ),
