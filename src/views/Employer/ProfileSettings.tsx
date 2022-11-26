@@ -46,14 +46,16 @@ import {
     locationValidation,
     nameLengthValidation,
     nameSymbolsValidation,
-    passwordLengthValidation,
-    passwordSymbolsValidation,
     sloganLengthValidation,
     sloganSymbolsValidation,
     sloganZeroLengthValidation,
     validateSizeLength,
     validateSizeSymbols,
 } from './settingsValidators';
+import {
+    passwordLengthValidator,
+    passwordSymbolsValidator,
+} from '../../utils/validation/commonValidators';
 
 class ProfileSettingsComponent extends ReactsComponent<
     ProfileState & { userID: string },
@@ -73,7 +75,7 @@ class ProfileSettingsComponent extends ReactsComponent<
             sloganSymbolsValidation,
         ],
         name: [nameSymbolsValidation, nameLengthValidation],
-        password: [passwordLengthValidation, passwordSymbolsValidation],
+        password: [passwordLengthValidator, passwordSymbolsValidator],
         location: [locationValidation],
         size: [validateSizeSymbols, validateSizeLength],
         avatar: [fileSizeValidation, fileFormatValidation],

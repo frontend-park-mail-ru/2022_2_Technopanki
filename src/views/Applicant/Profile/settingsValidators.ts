@@ -12,27 +12,27 @@ import {
     SURNAME_SYMBOLS_ERROR,
 } from '../../../utils/validation/messages';
 import { validateLocation } from '../../Vacancy/settingsValidators';
+import {
+    applicantNameLengthValidator,
+    applicantNameSymbolsValidator,
+    applicantSurnameLengthValidator,
+    applicantSurnameSymbolsValidator,
+} from '../../../utils/validation/commonValidators';
 
 export const nameLengthValidation = (value: string): [boolean, string] => {
-    return [
-        value.length >= 1 && value.length <= 150,
-        'Длина имени должна быть между 1 и 50 символами',
-    ];
+    return applicantNameLengthValidator(value);
 };
 
 export const surnameLengthValidation = (value: string): [boolean, string] => {
-    return [
-        value.length >= 1 && value.length <= 150,
-        'Длина фамилии должна быть между 1 и 50 символами',
-    ];
+    return applicantNameSymbolsValidator(value);
 };
 
 export const nameSymbolsValidation = (value: string): [boolean, string] => {
-    return [validateNameSymbols(value), NAME_SYMBOLS_ERROR];
+    return applicantSurnameLengthValidator(value);
 };
 
 export const surnameSymbolsValidation = (value: string): [boolean, string] => {
-    return [validateNameSymbols(value), SURNAME_SYMBOLS_ERROR];
+    return applicantSurnameSymbolsValidator(value);
 };
 
 export const dateOfBirthValidation = (value: string): [boolean, string] => {

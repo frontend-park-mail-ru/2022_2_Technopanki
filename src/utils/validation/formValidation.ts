@@ -7,6 +7,11 @@ export type ValidationConfig = {
 
 export type ValidationReturnFunc = (field: string) => ValidationFunc[];
 
+/**
+ * Hook that allows you to use validation
+ * @param config
+ * @return {{getValidation, setError, ok}}
+ */
 export const useValidation = (
     config: ValidationConfig,
 ): {
@@ -22,7 +27,7 @@ export const useValidation = (
     return {
         getValidation: (field: string) => validators[field],
         setError: (isValid: boolean, name: string) =>
-            (errorStore[name] = isValid),
+            ((<{ [key: string]: boolean }>errorStore)[name] = isValid),
         ok: (): boolean => {
             return Object.values(errorStore).indexOf(true) === -1;
         },
