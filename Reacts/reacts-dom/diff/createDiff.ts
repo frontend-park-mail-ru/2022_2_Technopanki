@@ -53,6 +53,11 @@ export const compareProps = (
     };
 };
 
+/**
+ * Creates diff operation for primitive nodes
+ * @param oldNode
+ * @param newNode
+ */
 export const createDiffPrimitive = (
     oldNode: ReactsNode,
     newNode: ReactsNode,
@@ -72,6 +77,11 @@ export const createDiffPrimitive = (
     return skip();
 };
 
+/**
+ * Creates diff operation for children
+ * @param oldChildren
+ * @param newChildren
+ */
 export const createDiffForChildren = (
     oldChildren: ChildrenType,
     newChildren: ChildrenType,
@@ -86,6 +96,11 @@ export const createDiffForChildren = (
     );
 };
 
+/**
+ * Compares 2 component nodes and returns diff operation
+ * @param oldNode
+ * @param newNode
+ */
 export const createDiffComponent = (
     oldNode: ReactsComponentNode,
     newNode: ReactsComponentNode,
@@ -112,6 +127,11 @@ export const createDiffComponent = (
     return update(newNode, childrenDiff, propsUpdater);
 };
 
+/**
+ * Compares 2 DOM nodes and returns diff operation
+ * @param oldNode
+ * @param newNode
+ */
 export const createDiffDOM = (
     oldNode: ReactsDOMNode,
     newNode: ReactsDOMNode,

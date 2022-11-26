@@ -16,15 +16,20 @@ import { isArray } from '../../utils/isArray';
 import { applyDiff } from '../applyDiff';
 import { doc } from 'prettier';
 
-// TODO: оставить один аргумент - operation
-export const updateElementAttributes = (
-    operation: UpdateOperation,
-    node: ReactsDOMNode,
-) => {
-    removeProps(node, operation.attrUpdater.remove);
-    setNewProps(node, operation.attrUpdater.set);
+/**
+ * Updates DOM node attributes
+ * @param operation
+ */
+export const updateElementAttributes = (operation: UpdateOperation) => {
+    removeProps(operation.node as ReactsDOMNode, operation.attrUpdater.remove);
+    setNewProps(operation.node as ReactsDOMNode, operation.attrUpdater.set);
 };
 
+/**
+ * Updates primitive node
+ * @param element
+ * @param node
+ */
 const updatePrimitiveNode = (
     element: HTMLElement,
     node: ReactsPrimitiveNode,
@@ -38,10 +43,14 @@ const updatePrimitiveNode = (
     }
 };
 
+/**
+ * Updates DOM node
+ * @param operation
+ */
 const updateDOMNode = (
     operation: UpdateOperation & { node: ReactsDOMNode },
 ) => {
-    updateElementAttributes(operation, operation.node);
+    updateElementAttributes(operation);
     isArray(operation.childrenUpdater)
         ? applyChildrenDiff(
               operation.node.ref as HTMLElement,
@@ -53,6 +62,10 @@ const updateDOMNode = (
           );
 };
 
+/**
+ * Updates component node
+ * @param operation
+ */
 const updateComponentNode = (
     operation: UpdateOperation & { node: ReactsComponentNode },
 ) => {
@@ -73,6 +86,11 @@ const updateComponentNode = (
     }
 };
 
+/**
+ * Update switcher
+ * @param element
+ * @param operation
+ */
 export const updateNode = (
     element: HTMLElement,
     operation: UpdateOperation,

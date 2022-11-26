@@ -13,6 +13,11 @@ import { removeAllProps } from '../../props/props';
 import { isPrimitive } from '../../utils/isPrimitive';
 import { isArray } from '../../utils/isArray';
 
+/**
+ * Remove primitive node from node
+ * @param element
+ * @param node
+ */
 const removePrimitiveNode = (
     element: HTMLElement,
     node: ReactsPrimitiveNode,
@@ -22,18 +27,30 @@ const removePrimitiveNode = (
     return;
 };
 
+/**
+ * Remove DOM node from DOM
+ * @param node
+ */
 const removeDOMNode = (node: ReactsDOMNode) => {
     removeAllProps(node as ReactsDOMNode);
     node.ref?.remove();
     node.ref = null;
 };
 
+/**
+ * Remove component node (calls unmount lifecycle methods)
+ * @param node
+ */
 const removeComponentNode = (node: ReactsComponentNode) => {
     node.instance?.componentWillUnmount();
     node.instance?.unmount();
     removeChildren(node);
 };
 
+/**
+ * Helper function to remove children
+ * @param node
+ */
 const childrenSwitch = (node: ReactsNode) => {
     if (isPrimitive(node)) {
         return;
@@ -51,6 +68,10 @@ const childrenSwitch = (node: ReactsNode) => {
     removeChildren(node);
 };
 
+/**
+ * Calls remove on children
+ * @param node
+ */
 export const removeChildren = (node: ReactsNode) => {
     if (isPrimitive(node)) {
         // We don't remove primitive children, because GC does all work for us
@@ -79,6 +100,11 @@ export const removeChildren = (node: ReactsNode) => {
     }
 };
 
+/**
+ * Remove switcher
+ * @param element
+ * @param node
+ */
 export const removeNode = (element: HTMLElement, node: ReactsNode) => {
     if (isPrimitive(node)) {
         removePrimitiveNode(element, node as ReactsPrimitiveNode);

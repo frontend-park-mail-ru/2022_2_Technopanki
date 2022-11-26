@@ -20,6 +20,12 @@ export const emptyAttributeUpdater: PropsUpdater = {
     remove: [],
 };
 
+/**
+ * Creates update operation
+ * @param node
+ * @param childUpdater
+ * @param attrUpdater
+ */
 export const update = (
     node: ReactsNode,
     childUpdater: Operation | Operation[],
@@ -31,6 +37,11 @@ export const update = (
     attrUpdater: attrUpdater,
 });
 
+/**
+ * Creates replace operation
+ * @param oldNode
+ * @param newNode
+ */
 export const replace = (
     oldNode: ReactsNode,
     newNode: ReactsNode,
@@ -40,13 +51,24 @@ export const replace = (
     newNode,
 });
 
+/**
+ * Creates skip operation
+ */
 export const skip = (): SkipOperation => ({ type: SKIP_OPERATION });
 
+/**
+ * Creates remove operation
+ * @param node
+ */
 export const remove = (node: ReactsNode): RemoveOperation => ({
     type: REMOVE_OPERATION,
     node: node,
 });
 
+/**
+ * Creates insert operation
+ * @param node
+ */
 export const insert = (node: ReactsNode): InsertOperation => ({
     type: INSERT_OPERATION,
     node: node,
