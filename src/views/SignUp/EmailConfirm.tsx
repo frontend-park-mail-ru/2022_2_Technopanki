@@ -8,6 +8,7 @@ import navigator from '../../router/navigator';
 import { APPLICANT_PATHS, EMPLOYER_PATHS } from '../../utils/routerConstants';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 import { activateError, deactivateError } from '../../store/errors/actions';
+import JobflowLogo from '../../components/UI-kit/JobflowLogo';
 import styles from './signup.module.scss';
 
 class EmailConfirm extends ReactsComponent<{
@@ -34,18 +35,19 @@ class EmailConfirm extends ReactsComponent<{
         return (
             <div
                 className={
-                    'l-0 h-100vh text-align-center flex align-items-center justify-items-center column g-24'
+                    'l-0 h-100vh text-align-center flex align-items-center justify-content-center column g-24'
                 }
             >
-                <div className={styles.confirm}>
+                <div className={`flex column g-24 ${styles.confirm}`}>
                     <ErrorPopup />
+                    <JobflowLogo />
                     <h3>Подтвердите email</h3>
                     <Form onSubmit={this.onSubmit.bind(this)}>
                         <FormInput
                             id={'token'}
                             name={'token'}
-                            label={'Код'}
                             type={'text'}
+                            placeholder={'Введите код в это поле'}
                             size={'12'}
                         />
                         <Button type={'submit'}>Подтвердить</Button>
