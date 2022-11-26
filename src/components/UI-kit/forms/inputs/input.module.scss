@@ -33,6 +33,10 @@
   }
 }
 
+.form {
+  height: 52px;
+}
+
 .input__error {
   color: var(--primary-red);
   border: var(--border-red);
@@ -92,7 +96,7 @@
 }
 
 .menu_data {
-  font-size: 16px;
+  font-size: 14px;
   color: var(--background-400);
   @media (max-width: $screen-md) {
     font-size: 14px;
@@ -116,8 +120,7 @@
 }
 
 .search_button {
-  border-radius: var(--border-radius-xl);
-  color: black;
+  top: 5px;
 }
 
 .chips_input {
@@ -129,6 +132,19 @@
   color: var(--background-700);
   ::placeholder {
     color: var(--background-700);
+  }
+}
+
+.dropdown {
+  width: max-content;
+  margin-left: 8px;
+  color: var(--background-400);
+}
+
+.dropdown_options {
+  cursor: pointer;
+  &:hover {
+    color: var(--background-600);
   }
 }
 

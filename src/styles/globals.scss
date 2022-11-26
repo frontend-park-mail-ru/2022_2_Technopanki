@@ -248,6 +248,9 @@ p {
   &-4 {
     right: 4px;
   }
+  &-5 {
+    right: 5px;
+  }
   &-16 {
     right: 16px;
   }
@@ -334,6 +337,9 @@ p {
   }
   &-40 {
     margin-top: 40px;
+  }
+  &-50 {
+    margin-top: 50px;
   }
   &-64 {
     margin-top: 64px;
@@ -470,6 +476,9 @@ p {
     &-4 {
       padding-top: 4px;
     }
+    &-5 {
+      padding-top: 5px;
+    }
   }
   &b {
     &-2 {
@@ -539,6 +548,19 @@ p {
 
 .fixed {
   position: fixed;
+}
+
+.float {
+  &-r {
+    float: right;
+  }
+  &-l {
+    float: left;
+  }
+}
+
+.static {
+  position: static;
 }
 
 .none {

@@ -1,14 +1,15 @@
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
-import styles from './radio.module.scss';
+import styles from '../radioButton/radio.module.scss';
 
-export default class RadioButton extends ReactsComponent<{
+export default class CheckBox extends ReactsComponent<{
     checked?: boolean;
     id?: string;
     name: string;
     value?: string;
+    inSearch?: boolean;
     children: string;
     onClick?: Function;
-}> {
+}>{
     render() {
         return (
             <div
@@ -19,7 +20,7 @@ export default class RadioButton extends ReactsComponent<{
                     <input
                         className={`rounded-max ${styles.radio_input}`}
                         id={this.props.id}
-                        type={'radio'}
+                        type={'checkbox'}
                         name={this.props.name}
                         value={this.props.value}
                     />
@@ -27,7 +28,7 @@ export default class RadioButton extends ReactsComponent<{
                     <input
                         className={`rounded-max ${styles.radio_input}`}
                         id={this.props.id}
-                        type={'radio'}
+                        type={'checkbox'}
                         name={this.props.name}
                         value={this.props.value}
                     />
