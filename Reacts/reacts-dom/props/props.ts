@@ -2,6 +2,7 @@ import {
     PropsWithChildren,
     PropType,
     ReactsDOMNode,
+    ReactsNode,
 } from '../../shared/types/node';
 import { attributes, events } from './constants';
 // TODO: rename to attributes

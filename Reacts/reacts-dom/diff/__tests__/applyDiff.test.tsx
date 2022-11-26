@@ -57,7 +57,6 @@ describe('onClick applyDiff', () => {
         expect(node.instance.state).toEqual(newState);
     });
 
-    // TODO: ошибка в связанная с тем, что почему-то в children ноды остается старое значение
     it('should update render', () => {
         const oldState = { value: 'Hello' };
         const newState = { value: 'World' };

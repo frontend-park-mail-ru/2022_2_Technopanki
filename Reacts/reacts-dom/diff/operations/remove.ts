@@ -35,6 +35,8 @@ const removeDOMNode = (node: ReactsDOMNode) => {
     removeAllProps(node as ReactsDOMNode);
     node.ref?.remove();
     node.ref = null;
+    removeChildren(node);
+    node.props.children = null;
 };
 
 /**
@@ -45,6 +47,7 @@ const removeComponentNode = (node: ReactsComponentNode) => {
     node.instance?.componentWillUnmount();
     node.instance?.unmount();
     removeChildren(node);
+    node.props.children = null;
 };
 
 /**
@@ -64,8 +67,6 @@ const childrenSwitch = (node: ReactsNode) => {
             removeComponentNode(node as ReactsComponentNode);
             break;
     }
-
-    removeChildren(node);
 };
 
 /**
@@ -111,18 +112,18 @@ export const removeNode = (element: HTMLElement, node: ReactsNode) => {
         return;
     }
 
-    switch ((<ReactsNotPrimitiveNode>node).$$typeof) {
-        case DOM_SYMBOL:
-            removeDOMNode(node as ReactsDOMNode);
-            break;
-        case COMPONENT_SYMBOL:
-            removeComponentNode(<ReactsComponentNode>node);
-            break;
-        default:
-            throw new Error(`undefined type of node: ${node}`);
-    }
+    childrenSwitch(node);
+    // switch ((<ReactsNotPrimitiveNode>node).$$typeof) {
+    //     case DOM_SYMBOL:
+    //         removeDOMNode(node as ReactsDOMNode);
+    //         break;
+    //     case COMPONENT_SYMBOL:
+    //         removeComponentNode(<ReactsComponentNode>node);
+    //         break;
+    //     default:
+    //         throw new Error(`undefined type of node: ${node}`);
+    // }
 
-    removeChildren(node);
     (<ReactsNotPrimitiveNode>node).ref = null;
     (<ReactsNotPrimitiveNode>node).props.children = null;
 };

@@ -8,6 +8,7 @@ import {
 } from '../../shared/types/node';
 import { Operation, PropsUpdater } from './types';
 import {
+    emptyAttributeUpdater,
     insert,
     remove,
     replace,
@@ -18,6 +19,7 @@ import {
 import { COMPONENT_SYMBOL, DOM_SYMBOL } from '../../shared/constants/symbols';
 import { childrenDiff } from './childrenDiff';
 import { isPrimitiveNodes } from '../utils/isPrimitive';
+import { isArray } from '../utils/isArray';
 
 /**
  * A function that compares object props and returns
@@ -127,6 +129,17 @@ export const createDiffComponent = (
     return update(newNode, childrenDiff, propsUpdater);
 };
 
+const shouldSkip = (childrenDiff: Operation | Operation[]): boolean => {
+    if (isArray(childrenDiff)) {
+        return !Boolean(
+            (<Operation[]>childrenDiff).find(
+                operation => !shouldSkip(operation),
+            ),
+        );
+    }
+    return (<Operation>childrenDiff).type === SKIP_OPERATION;
+};
+
 /**
  * Compares 2 DOM nodes and returns diff operation
  * @param oldNode
@@ -149,6 +162,9 @@ export const createDiffDOM = (
     newNode.ref = oldNode.ref;
     newNode.eventMap = oldNode.eventMap;
 
+    if (shouldSkip(childrenDiff) && propsUpdater === emptyAttributeUpdater) {
+        return skip();
+    }
     return update(newNode, childrenDiff, propsUpdater);
 };
 
