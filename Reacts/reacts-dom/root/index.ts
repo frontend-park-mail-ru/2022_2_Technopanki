@@ -21,7 +21,11 @@ Object.defineProperty(Element.prototype, 'clearChildren', {
     },
 });
 
-export default class Root implements RootType {
+/**
+ * Class that contains logic for mounting node in some root DOM element
+ */
+export default // @ts-ignore we just added private in unmount
+class Root implements RootType {
     root: HTMLElement;
     node: ReactsNode;
 
@@ -29,13 +33,17 @@ export default class Root implements RootType {
         this.root = root;
     }
 
+    /**
+     * Unmounts previous node and renders new node in root
+     * @param node
+     */
     render(node: ReactsNode): void {
         this.unmount();
         renderNode(this.root, node);
         this.node = node;
     }
 
-    unmount() {
+    private unmount() {
         if (isPrimitive(this.node)) {
             this.node = null;
             return;

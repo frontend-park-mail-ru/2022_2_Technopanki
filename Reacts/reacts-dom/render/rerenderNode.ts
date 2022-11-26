@@ -6,6 +6,12 @@ import {
     REPLACE_OPERATION,
 } from '../diff/operations/operations';
 
+/**
+ * Compare 2 nodes and apply changes
+ * @param element
+ * @param oldNode
+ * @param newNode
+ */
 export const rerenderNode = (
     element: HTMLElement,
     oldNode: ReactsNode,
