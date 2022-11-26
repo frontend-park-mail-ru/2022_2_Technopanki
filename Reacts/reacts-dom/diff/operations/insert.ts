@@ -29,6 +29,9 @@ export const insertPrimitiveNode = (
             nodeDOM = document.createTextNode(node);
             element.insertBefore(nodeDOM, beforeElement);
             return;
+        default:
+            element.insertBefore(document.createTextNode(''), beforeElement);
+            return;
     }
 };
 

@@ -63,7 +63,7 @@ export const replaceNode = (
                 );
                 break;
             default:
-                element?.remove();
+                element.replaceWith(document.createTextNode(''));
         }
 
         return;

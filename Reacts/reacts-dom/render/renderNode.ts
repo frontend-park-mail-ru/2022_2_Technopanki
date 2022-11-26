@@ -58,6 +58,9 @@ export const renderNode = (root: HTMLElement, node: ReactsNode) => {
             case 'number':
                 root.appendChild(document.createTextNode(node.toString()));
                 break;
+            default:
+                root.appendChild(document.createTextNode(''));
+                break;
         }
         return;
     }

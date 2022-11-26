@@ -13,6 +13,7 @@ import Resume from '../views/Applicant/Resume/Resume';
 import ApplicantProfile from '../views/Applicant/Profile/Profile';
 import ApplicantSettings from '../views/Applicant/Profile/ProfileSettings';
 import ResumeSettings from '../views/Applicant/Resume/ResumeSettings';
+import EmailConfirm from '../views/SignUp/EmailConfirm';
 
 export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
     {
@@ -25,6 +26,13 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
             validator: (url: string) => url === '/signup',
         },
         component: SignUp,
+    },
+    {
+        path: {
+            path: '/confirm',
+            validator: (url: string) => url === '/confirm',
+        },
+        component: EmailConfirm,
     },
     {
         path: {

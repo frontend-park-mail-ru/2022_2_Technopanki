@@ -17,7 +17,7 @@ export const setAttribute = (
         (<HTMLElement>node.ref).innerHTML = value.__html;
     } else if (value) {
         if (node.ref === null) {
-            debugger;
+            return;
         }
         (<HTMLElement>node.ref).setAttribute(attributes[attr], value);
     }

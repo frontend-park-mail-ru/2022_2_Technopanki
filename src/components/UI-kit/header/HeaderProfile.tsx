@@ -30,7 +30,6 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                     className={`flex row w-100 g-40 align-items-center justify-content-end ${styles.auth}`}
                 >
                     <div
-                        key={'theme_toggle'}
                         onClick={toggleTheme}
                         className={'inner-svg-h-24 cursor-pointer'}
                         dangerouslySetInnerHTML={{

@@ -56,6 +56,7 @@ class ApplicantProfile extends ReactsComponent<ApplicantPropsType> {
             applicantID,
         );
 
+        this.setState(state => ({ ...state, resume: resumeList }));
         if (applicantID !== this.props.id) {
             const applicantBody =
                 await applicantProfileService.getApplicantData(
@@ -63,7 +64,6 @@ class ApplicantProfile extends ReactsComponent<ApplicantPropsType> {
                 );
             dispatch(applicantActions.update(applicantBody));
         }
-        this.setState(state => ({ ...state, resume: resumeList }));
     }
 
     componentDidMount() {

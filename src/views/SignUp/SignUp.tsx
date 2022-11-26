@@ -312,7 +312,7 @@ export default class SignUp extends ReactsComponent<
                             formData.get('toggle') as 'applicant' | 'employer',
                         ),
                     );
-                    navigator.navigate(`/${formData.get('toggle')}/${body.id}`);
+                    navigator.navigate(`/confirm`);
                 })
                 .catch(body => {
                     setInvalidFieldsFromServer(

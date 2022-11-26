@@ -30,6 +30,9 @@ export const applyChildrenDiff = (
         }
 
         const operation = operations[i];
+        if (element === null) {
+            debugger;
+        }
         const childElem = element.childNodes[i + offset] as HTMLElement;
 
         if (operation.type === REPLACE_OPERATION) {

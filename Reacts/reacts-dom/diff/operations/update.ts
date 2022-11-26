@@ -14,6 +14,7 @@ import {
 import { applyChildrenDiff } from '../applyChildrenDiff';
 import { isArray } from '../../utils/isArray';
 import { applyDiff } from '../applyDiff';
+import { doc } from 'prettier';
 
 // TODO: оставить один аргумент - operation
 export const updateElementAttributes = (
@@ -30,6 +31,10 @@ const updatePrimitiveNode = (
 ) => {
     if (typeof node === 'string') {
         element.replaceWith(document.createTextNode(node));
+    } else if (typeof node === 'number') {
+        element.replaceWith(document.createTextNode(node.toString()));
+    } else {
+        element.replaceWith(document.createTextNode(''));
     }
 };
 
@@ -51,6 +56,7 @@ const updateDOMNode = (
 const updateComponentNode = (
     operation: UpdateOperation & { node: ReactsComponentNode },
 ) => {
+    operation.node.instance?.componentDidUpdate();
     if (
         operation.node.props.children &&
         isArray(operation.node.props.children)
