@@ -43,7 +43,7 @@ class Profile extends ReactsComponent<
         );
 
         dispatch(profileActions.update({ ...employerProfile, id: employerID }));
-        this.setState(state => ({ ...state, vacancies: vacancies.data }));
+        this.setState(state => ({ ...state, vacancies: vacancies.data ?? [] }));
     }
 
     componentDidMount() {

@@ -56,14 +56,12 @@ class ApplicantProfile extends ReactsComponent<ApplicantPropsType> {
             applicantID,
         );
 
+        const applicantBody = await applicantProfileService.getApplicantData(
+            applicantID as string,
+        );
+
+        dispatch(applicantActions.update(applicantBody));
         this.setState(state => ({ ...state, resume: resumeList }));
-        if (applicantID !== this.props.id) {
-            const applicantBody =
-                await applicantProfileService.getApplicantData(
-                    applicantID as string,
-                );
-            dispatch(applicantActions.update(applicantBody));
-        }
     }
 
     componentDidMount() {
@@ -156,6 +154,7 @@ const UserWrapper = userConnect((state, props) => ({
 }))(ApplicantProfile);
 
 export default applicantConnect((state: ProfileState, props) => {
+    console.log(state);
     return {
         id: props.id ? props.id : state.id,
         name: state.applicant_name,
