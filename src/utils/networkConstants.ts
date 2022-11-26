@@ -6,6 +6,7 @@ export const USER_URLS = {
     SIGN_UP: SERVER_URL + 'auth/sign-up',
     SIGN_IN: SERVER_URL + 'auth/sign-in',
     AUTH: SERVER_URL + 'auth/',
+    AUTH_CONFIRM: SERVER_URL + 'auth/confirm/',
     LOGOUT: SERVER_URL + 'auth/logout',
     CSRF: SERVER_URL + 'protected/',
 };

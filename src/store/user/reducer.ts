@@ -20,6 +20,7 @@ export const userReducer: Reducer<UserState> = (
                         : '',
                 userType: (<AuthAction>action).userType,
                 avatarSrc: IMAGE_URL + (<AuthAction>action).imgSrc,
+                email: (<AuthAction>action).email,
                 authorized: true,
             };
         case 'UPDATE_USER':
@@ -41,6 +42,7 @@ export const userReducer: Reducer<UserState> = (
                 avatarSrc: 'default.png',
                 userType: null,
                 authorized: false,
+                email: '',
             };
         default:
             return state;

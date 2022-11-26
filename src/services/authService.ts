@@ -49,6 +49,19 @@ export const authService: Service = {
             });
     },
 
+    authConfirm: async (code: string, email: string) => {
+        dispatch(startLoading());
+        return network
+            .POST(USER_URLS.AUTH_CONFIRM, JSON.stringify({ code, email }))
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+                return response.status;
+            });
+    },
+
     auth: async () => {
         dispatch(startLoading());
         return network

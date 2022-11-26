@@ -1,7 +1,6 @@
 import { ReactsComponent } from '../../../../../Reacts/reacts/src/Component';
 import styles from '../inputs/input.module.scss';
 import { ValidationFunc } from '../../../../utils/validation/formValidation';
-import { validateStatusSymbols } from '../../../../utils/validation/validation';
 
 type FormInputProps = {
     id: string;
@@ -9,9 +8,9 @@ type FormInputProps = {
     type: string;
     placeholder?: string;
     name: string;
-    setError: Function;
     size: '3' | '4' | '6' | '12';
-    validationMode: 'onblur' | 'oninput';
+    validationMode?: 'onblur' | 'oninput';
+    setError?: Function;
     value?: string;
     required?: boolean;
     validation?: ValidationFunc[];

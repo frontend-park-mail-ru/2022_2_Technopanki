@@ -611,6 +611,24 @@ p {
   }
 }
 
+justify-items {
+  &-start {
+    justify-items: flex-start;
+  }
+  &-center {
+    justify-items: center;
+  }
+  &-end {
+    justify-items: flex-end;
+  }
+  &-end {
+    justify-items: flex-end;
+  }
+  &-strech {
+    justify-items: stretch;
+  }
+}
+
 .flex {
   &-left {
     display: flex;

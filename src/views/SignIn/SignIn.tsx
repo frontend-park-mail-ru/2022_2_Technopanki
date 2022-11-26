@@ -114,6 +114,7 @@ export default class SignIn extends ReactsComponent<
                                 ? body.company_name
                                 : body.applicant_name,
                             body.applicant_surname,
+                            body.email,
                             body.image,
                             body.user_type,
                         ),
