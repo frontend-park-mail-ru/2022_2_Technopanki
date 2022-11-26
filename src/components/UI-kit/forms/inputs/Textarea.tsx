@@ -1,7 +1,7 @@
-import { Component } from '../../../../../Reacts/index';
+import { ReactsComponent } from '../../../../../Reacts/reacts/src/Component';
 import styles from './input.module.scss';
 
-export default class Textarea extends Component<{
+export default class Textarea extends ReactsComponent<{
     type?: string;
     placeholder: string;
     id: string;

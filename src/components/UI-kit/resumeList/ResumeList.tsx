@@ -1,8 +1,8 @@
-import { Component } from '../../../../Reacts';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import ResumeListItem, { ResumeListItemPropsType } from './ResumeListItem';
 import { IMAGE_URL } from '../../../utils/networkConstants';
 
-export default class ResumeList extends Component<
+export default class ResumeList extends ReactsComponent<
     {
         someNewValue: string;
         resume: ResumeListItemPropsType[];
@@ -35,21 +35,11 @@ export default class ResumeList extends Component<
                         .slice(0, this.state.limit)
                         .map(resume => (
                             <ResumeListItem
-                                key={
-                                    resume.resume_id.toString() ??
-                                    resume.id.toString()
-                                }
-                                id={
-                                    resume.resume_id.toString() ??
-                                    resume.id.toString()
-                                }
-                                resume_id={
-                                    typeof resume.resume_id === 'string'
-                                        ? resume.resume_id
-                                        : resume.resume_id.toString()
-                                }
+                                key={resume.id}
+                                id={resume.id}
+                                resume_id={resume.id}
                                 imgSrc={
-                                    IMAGE_URL + resume.imgSrc ?? resume.image
+                                    IMAGE_URL + (resume.image ?? resume.imgSrc)
                                 }
                                 name={resume.user_name}
                                 surname={resume.user_surname}

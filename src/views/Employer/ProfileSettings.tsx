@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Header from '../../components/UI-kit/header/Header';
 import SettingsHat from '../../components/hats/SettingsHat';
 import { InputPropsType } from '../../components/UI-kit/forms/inputs/Input';
@@ -15,6 +15,7 @@ import {
     validatePasswordSymbols,
 } from '../../utils/validation/validation';
 import {
+    COMPANY_NAME_ERROR,
     EMAIL_ERROR,
     NAME_SYMBOLS_ERROR,
     PASSWORD_REPEAT_ERROR,
@@ -37,7 +38,7 @@ import {
 } from '../../store/succeses/actions';
 import { EMPLOYER_PATHS } from '../../utils/routerConstants';
 
-class AvatarSettingsComponent extends Component<
+class AvatarSettingsComponent extends ReactsComponent<
     { previewSrc: string },
     { previewSrc: string }
 > {
@@ -83,7 +84,7 @@ const AvatarSettings = profileConnect(state => {
     };
 })(AvatarSettingsComponent);
 
-class ProfileSettingsComponent extends Component<
+class ProfileSettingsComponent extends ReactsComponent<
     ProfileState & { userID: string },
     {
         profile: EmployerProfile;
@@ -114,7 +115,7 @@ class ProfileSettingsComponent extends Component<
                         value: this.props.name,
                         validator: validateCompanyName,
                         error: false,
-                        errorMessage: NAME_SYMBOLS_ERROR,
+                        errorMessage: COMPANY_NAME_ERROR,
                     },
                     status: {
                         size: 4,
@@ -234,9 +235,12 @@ class ProfileSettingsComponent extends Component<
             return;
         }
 
+        const image = document.querySelector('#avatar').files[0];
+        const formDataImage = new FormData();
+        formDataImage.append('avatar', image);
         employerProfileService
-            .updateProfileImg(this.state.profile.id, formData)
-            .then(() => console.log('send image to server'));
+            .updateProfileImg(this.state.profile.id, formDataImage)
+            .then(body => userActions.updateAvatar(body.image));
 
         employerProfileService
             .updateProfile(
@@ -247,24 +251,32 @@ class ProfileSettingsComponent extends Component<
                 formData,
             )
             .then(body => {
-                dispatch(
-                    profileActions.updateFromFormData(
-                        this.state.profile.id,
-                        this.state.profile.profileType
-                            ? this.state.profile.profileType
-                            : 'employer',
-                        body.image,
-                        formData,
-                    ),
-                );
+                // console.log('SETTINGS: ', body.image);
+                // dispatch(
+                //     profileActions.updateFromFormData(
+                //         this.state.profile.id,
+                //         this.state.profile.profileType
+                //             ? this.state.profile.profileType
+                //             : 'employer',
+                //         body.image,
+                //         formData,
+                //     ),
+                // );
                 dispatch(
                     userActions.updateName(formData.get('name') as string, ''),
                 );
+                // dispatch(userActions.updateAvatar(body.image ?? body.imgSrc));
                 dispatch(
                     activateSuccess('Данные профиля успешно изменены!', ''),
                 );
                 setTimeout(() => dispatch(deactivateSuccess()), 3000);
-                navigator.navigate(EMPLOYER_PATHS.PROFILE + this.props.id);
+                setTimeout(
+                    () =>
+                        navigator.navigate(
+                            EMPLOYER_PATHS.PROFILE + this.props.id,
+                        ),
+                    750,
+                );
             })
             .catch(err => {
                 dispatch(

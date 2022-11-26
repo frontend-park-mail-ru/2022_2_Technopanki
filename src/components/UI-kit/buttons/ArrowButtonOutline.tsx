@@ -1,8 +1,8 @@
-import { Component } from '../../../../Reacts';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import styles from './button.module.scss';
 import Arrow from '../../../static/icons/arrow.svg';
 
-export default class ArrowButtonOutline extends Component<{
+export default class ArrowButtonOutline extends ReactsComponent<{
     onClick?: Function;
 }> {
     render() {

@@ -1,22 +1,22 @@
-import { Component } from '../../../Reacts';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import styles from './profileHeader.module.scss';
-import { VNodeType } from '../../../Reacts/shared/common';
+import { ReactsComponentNode } from '../../../Reacts/shared/types/node';
 
-export default class ProfileHeader extends Component<{
+export default class ProfileHeader extends ReactsComponent<{
     profileID: string;
     bannerSrc: string;
     avatarSrc: string;
     name: string;
     surname?: string;
     status: string;
-    buttons: VNodeType;
+    buttons: ReactsComponentNode;
 }> {
     render() {
         return (
             <div className={`flex column ${styles.profile}`}>
                 <div key={'banner'} className={styles.profile_banner}></div>
                 <div key={'content'} className={styles.profile_content}>
-                    <div key={'info'} className={styles.info}>
+                    <div className={styles.info}>
                         <img
                             className={styles.info__avatar}
                             src={this.props.avatarSrc}
@@ -29,7 +29,7 @@ export default class ProfileHeader extends Component<{
                             <p key={'status'}>{this.props.status}</p>
                         </div>
                     </div>
-                    <div key={'buttons'}>{this.props.buttons}</div>
+                    <div>{this.props.buttons}</div>
                 </div>
             </div>
         );

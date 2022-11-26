@@ -1,4 +1,3 @@
-import { Component } from '../../../../Reacts';
 import styles from './header.module.scss';
 import { toggleTheme } from '../../../utils/toggleTheme';
 import ThemeIcon from '../../../static/icons/theme.svg';
@@ -8,6 +7,7 @@ import { userConnect } from '../../../store';
 import { UserState } from '../../../store/user/types';
 import HeaderUserInfo from './HeaderUserInfo';
 import { SIGN_IN_PATH, SIGN_UP_PATH } from '../../../utils/routerConstants';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 
 type HeaderProps = {
     id: string;
@@ -18,7 +18,7 @@ type HeaderProps = {
     authorized: boolean;
 };
 
-class HeaderProfile extends Component<HeaderProps> {
+class HeaderProfile extends ReactsComponent<HeaderProps> {
     render() {
         return (
             <div className={'flex-wrap w-100'}>

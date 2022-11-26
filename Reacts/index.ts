@@ -1,4 +1,7 @@
-import { createRoot, rerenderNode, renderNode } from './reacts-dom/index';
-import { Component, createContext } from './reacts';
+import { ReactsComponent } from './reacts/src/Component';
+import { ReactsNode } from './shared/types/node';
+import { RootType } from './reacts-dom/root';
+import Root from './reacts-dom/root';
+import createConnect from './reacts-flux/connect';
 
-export { createRoot, rerenderNode, renderNode, Component, createContext };
+export { ReactsNode, ReactsComponent, Root, RootType, createConnect };

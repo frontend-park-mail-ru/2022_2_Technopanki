@@ -1,5 +1,5 @@
-export const FRONT_URL = 'http://95.163.208.72:8000/';
-export const SERVER_URL = 'http://95.163.208.72:8080/';
+export const FRONT_URL = 'http://localhost:8000/';
+export const SERVER_URL = 'http://localhost:8080/';
 export const IMAGE_URL = FRONT_URL + 'image/';
 
 export const USER_URLS = {
@@ -27,7 +27,7 @@ export const VACANCY_URLS = {
     VACANCY_RESPONSES: SERVER_URL + 'api/vacancy/applies/',
     VACANCY_NEW: SERVER_URL + 'api/vacancy/new/',
     PROFILE_VACANCIES: SERVER_URL + 'api/vacancy/company/',
-    VACANCY_DELETE: SERVER_URL + 'api/vacancy/delete',
+    VACANCY_DELETE: SERVER_URL + 'api/vacancy/',
 };
 
 export const SERVER_URLS = {
@@ -42,7 +42,7 @@ export const SERVER_URLS = {
     RESUME: SERVER_URL + 'api/resume/',
     ADD_RESUME: SERVER_URL + 'api/resume/new',
 
-    APPLICANT: SERVER_URL + 'api/user/',
+    APPLICANT: SERVER_URL + 'api/user/safety/',
     APPLICANT_RESUMES: SERVER_URL + 'api/resume/applicant/preview/',
 
     USER: SERVER_URL + 'api/user/',

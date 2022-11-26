@@ -1,11 +1,11 @@
-import { Component } from '../../../../Reacts';
-import { VNodeType } from '../../../../Reacts/shared/common';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
+import { ReactsComponentNode } from '../../../../Reacts/shared/types/node';
 import styles from './dropdown.module.scss';
 
-export default class Dropdown extends Component<
+export default class Dropdown extends ReactsComponent<
     {
-        hidden: VNodeType;
-        content: VNodeType;
+        hidden: ReactsComponentNode;
+        content: ReactsComponentNode;
         direction: 'left' | 'center' | 'right';
     },
     { isOpen: boolean }

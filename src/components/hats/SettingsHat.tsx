@@ -1,13 +1,13 @@
-import { Component } from '../../../Reacts';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Hat from '../UI-kit/hat/Hat';
 import CancelSaveButtons from '../CancelSaveButtons/CancelSaveButtons';
-import navigator from '../../router/navigator.tsx';
+import navigator from '../../router/navigator';
 import { userConnect } from '../../store';
 import { UserState } from '../../store/user/types';
 import { resumeService } from '../../services/resumeService';
 import { IMAGE_URL } from '../../utils/networkConstants';
 
-class SettingsHat extends Component<
+class SettingsHat extends ReactsComponent<
     {
         // Flux
         name: string;
@@ -18,6 +18,7 @@ class SettingsHat extends Component<
         creatorID: string;
         submit: Function;
         linkTo: string;
+        userID: string;
     },
     {
         // Flux
@@ -82,6 +83,7 @@ class SettingsHat extends Component<
 
 export default userConnect((state, props) => {
     return {
+        userID: state.id,
         name: state.name,
         surname: state.surname,
         status: props.status,

@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import styles from './vacancies.module.scss';
 import Header from '../../components/UI-kit/header/Header';
 import SearchInput from '../../components/UI-kit/forms/inputs/SearchInput';
@@ -10,9 +10,8 @@ import RenderWithCondition from '../../components/RenderWithCondition';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 import { dispatch } from '../../store';
 import { activateError, deactivateError } from '../../store/errors/actions';
-import { IMAGE_URL } from '../../utils/networkConstants';
 
-export default class Vacancies extends Component<
+export default class Vacancies extends ReactsComponent<
     {},
     {
         vacancies: {
@@ -72,7 +71,7 @@ export default class Vacancies extends Component<
                             setTimeout(() => dispatch(deactivateError()), 3000);
                         }}
                     >
-                        <SearchInput key={'search'} />
+                        <SearchInput />
                     </div>
                     {this.state.vacancies
                         ?.slice(0, this.state.limit)
@@ -81,7 +80,7 @@ export default class Vacancies extends Component<
                                 key={vacancy.id.toString()}
                                 id={vacancy.id.toString()}
                                 name={vacancy.title}
-                                icon={IMAGE_URL + vacancy.image}
+                                icon={vacancy.image}
                                 salary={vacancy.salary}
                                 currency={vacancy.currency}
                                 location={vacancy.location}

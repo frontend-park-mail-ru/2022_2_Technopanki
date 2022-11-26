@@ -1,4 +1,3 @@
-import { Component } from '../../../../Reacts';
 import styles from './header.module.scss';
 import HeaderProfile from './HeaderProfile';
 import JobflowLogo from '../JobflowLogo';
@@ -11,9 +10,10 @@ import {
     START_PATH,
     VACANCIES_PATH,
 } from '../../../utils/routerConstants';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 
 // TODO: refactor
-class Header extends Component<{ userType: string }> {
+class Header extends ReactsComponent<{ userType: string }> {
     setActive = (event: MouseEvent) => {
         let cur = document.querySelector(`.${styles.item__active}`);
         let target = event.target as Element;
@@ -55,7 +55,7 @@ class Header extends Component<{ userType: string }> {
                             }
                         />
                         <RenderWithCondition
-                            condition={this.props.userType !== 'employer'}
+                            condition={this.props.userType === 'applicant'}
                             onSuccess={
                                 <Link
                                     to={RESUME_PATHS.NEW}

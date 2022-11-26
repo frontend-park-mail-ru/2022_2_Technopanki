@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import SideBar from '../UI-kit/sideBar/SideBar';
 import IconField from './utils/IconField';
 import MapIcon from '../../static/icons/map.svg';
@@ -21,7 +21,7 @@ type ResumeSidebarProps = {
     };
 };
 
-export default class ResumeSidebar extends Component<
+export default class ResumeSidebar extends ReactsComponent<
     { creatorID: string },
     ResumeSidebarProps
 > {

@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Hat from '../../components/UI-kit/hat/Hat';
 import Button from '../../components/UI-kit/buttons/Button';
 import Link from '../../components/Link/Link';
@@ -7,7 +7,7 @@ import { vacancyService } from '../../services/vacancyService';
 import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../utils/routerConstants';
 import { IMAGE_URL } from '../../utils/networkConstants';
 
-class VacancyResponsesHat extends Component<{
+class VacancyResponsesHat extends ReactsComponent<{
     name: string;
     status: string;
     // ---

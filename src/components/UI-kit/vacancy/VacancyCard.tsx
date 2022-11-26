@@ -1,4 +1,4 @@
-import { Component } from '../../../../Reacts';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import styles from '../../../views/Vacancies/vacancies.module.scss';
 import Location from '../../../static/icons/location.svg';
 import Clock from '../../../static/icons/clock.svg';
@@ -7,9 +7,9 @@ import ArrowDown from '../../../static/icons/small_arrow_down.svg';
 import ArrowUp from '../../../static/icons/small_arrow_up.svg';
 import Hr from '../../../static/icons/hr.svg';
 import ArrowButtonWithTextOutline from '../buttons/ArrowButtonWithTextOutline';
-import { VNodeType } from '../../../../Reacts/shared/common';
 import Link from '../../Link/Link';
-import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../../utils/routerConstants';
+import { VACANCY_PATHS } from '../../../utils/routerConstants';
+import { IMAGE_URL } from '../../../utils/networkConstants';
 
 export type VacancyCardPropsType = {
     id: string;
@@ -23,7 +23,7 @@ export type VacancyCardPropsType = {
     description: string;
 };
 
-export default class VacancyCard extends Component<
+export default class VacancyCard extends ReactsComponent<
     VacancyCardPropsType,
     {
         isOpen: boolean;
@@ -45,17 +45,12 @@ export default class VacancyCard extends Component<
             <div
                 className={`grid grid-template-columns g-16 rounded-lg p-24 ${styles.vacancy}`}
             >
-                <Link
-                    key={'link'}
-                    to={EMPLOYER_PATHS.PROFILE + this.props.id}
-                    content={
-                        <img
-                            className={'rounded-md'}
-                            height={40}
-                            width={40}
-                            src={this.props.icon}
-                        />
-                    }
+                <img
+                    key={'img'}
+                    className={'rounded-md'}
+                    height={40}
+                    width={40}
+                    src={IMAGE_URL + this.props.icon}
                 />
                 <div
                     key={'vacancy-data'}

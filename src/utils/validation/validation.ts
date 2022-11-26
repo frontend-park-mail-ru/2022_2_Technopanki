@@ -47,7 +47,7 @@ export const validateNameSymbols = (name: string): boolean => {
 
 export const validateCompanyName = (name: string): boolean => {
     const regexp = /^[a-zA-Z а-яА-Я]*$/;
-    return regexp.test(name);
+    return regexp.test(name) && name.length > 0;
 };
 
 export const phoneValidation = (phone: string): boolean => {

@@ -1,8 +1,8 @@
-import { Component } from '../../../../Reacts';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import Logo from '../../../static/assets/Jobflow.svg';
 import styles from './jobflowLogo.module.scss';
 
-export default class JobflowLogo extends Component {
+export default class JobflowLogo extends ReactsComponent {
     render() {
         return (
             <div

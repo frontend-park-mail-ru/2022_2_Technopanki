@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Header from '../../components/UI-kit/header/Header';
 import Footer from '../../components/UI-kit/footer/Footer';
 import VacancyResponsesHat from './VacancyResponsesHat';
@@ -10,7 +10,7 @@ import { vacancyActions } from '../../store/vacancy/actions';
 import VacanciesResumeList from './VacanciesResumeList';
 import RenderWithCondition from '../../components/RenderWithCondition';
 
-class VacancyResponses extends Component<{
+class VacancyResponses extends ReactsComponent<{
     userID: string;
     title: string;
     postedByUserID: string;

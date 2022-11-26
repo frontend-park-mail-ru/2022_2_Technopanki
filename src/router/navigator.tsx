@@ -1,7 +1,6 @@
-import { Component, createRoot } from '../../Reacts';
 import Router from './router';
 import { Path } from './types';
-import { RootType } from '../../Reacts/reacts-dom/root';
+import Root, { RootType } from '../../Reacts/reacts-dom/root';
 
 export type PathType = {
     path: string;
@@ -17,7 +16,7 @@ class Navigator {
     private prevUrl: string;
 
     constructor(root: HTMLElement, restoreScroll?: boolean) {
-        this.root = createRoot(root);
+        this.root = new Root(root);
         restoreScroll
             ? this.router.enableScrollRestoration()
             : this.router.disableScrollRestoration();
@@ -56,6 +55,7 @@ class Navigator {
     }
 
     navigate(to: string, pop: boolean = false) {
+        console.log('navigate');
         if (to === this.prevUrl) {
             return;
         }

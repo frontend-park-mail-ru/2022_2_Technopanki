@@ -1,11 +1,11 @@
-import { Component } from '../../../Reacts';
-import router from '../../router/navigator.tsx';
-import { VNodeType } from '../../../Reacts/shared/common';
+import router from '../../router/navigator';
 import styles from './link.module.scss';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
+import { ReactsNode } from '../../../Reacts/shared/types/node';
 
-export default class Link extends Component<{
+export default class Link extends ReactsComponent<{
     to: string;
-    content: VNodeType;
+    content: ReactsNode;
     onClick?: Function;
 }> {
     onClick = (e: MouseEvent) => {

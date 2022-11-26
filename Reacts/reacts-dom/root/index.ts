@@ -1,52 +1,67 @@
-import { VNodeType } from '../../shared/common';
+import {
+    ReactsComponentNode,
+    ReactsDOMNode,
+    ReactsFunctionalComponentNode,
+    ReactsNode,
+    ReactsNotPrimitiveNode,
+    ReactsPrimitiveNode,
+} from '../../shared/types/node';
 import { renderNode } from '../render/renderNode';
-import { Component } from '../../reacts';
+import { isPrimitive } from '../utils/isPrimitive';
+import { COMPONENT_SYMBOL, DOM_SYMBOL } from '../../shared/constants/symbols';
+import { removeAllProps } from '../props/props';
+import { removeChildren } from '../diff/operations/remove';
 
-/**
- * RootType object interface
- */
+Object.defineProperty(Element.prototype, 'clearChildren', {
+    configurable: true,
+    enumerable: false,
+    value: function () {
+        while (this.firstChild) this.removeChild(this.lastChild);
+    },
+});
+
 export interface RootType {
-    render(node: VNodeType): void;
+    render(node: ReactsNode): void;
     unmount(): void;
 }
 
-/**
- * The class that is responsible for rendering
- * the tree root of the virtual tree in DOM
- */
-class Root implements RootType {
+export default class Root implements RootType {
     root: HTMLElement;
-    prevMount?: VNodeType;
+    node: ReactsNode;
+
     constructor(root: HTMLElement) {
         this.root = root;
     }
 
-    /**
-     * Render node in root DOM node
-     * @param node
-     */
-    render(node: VNodeType): void {
+    render(node: ReactsNode): void {
         this.unmount();
         renderNode(this.root, node);
-        this.prevMount = node;
+        this.node = node;
     }
 
     unmount() {
+        if (isPrimitive(this.node)) {
+            this.node = null;
+            return;
+        }
+
+        switch ((<ReactsNotPrimitiveNode>this.node).$$typeof) {
+            case DOM_SYMBOL:
+                removeAllProps(this.node as ReactsDOMNode);
+                removeChildren(this.node);
+                (<ReactsDOMNode>this.node).ref?.remove();
+                break;
+            case COMPONENT_SYMBOL:
+                (<ReactsComponentNode>(
+                    this.node
+                )).instance?.componentWillUnmount();
+                (<ReactsComponentNode>this.node).instance?.unmount();
+                removeChildren(this.node);
+                break;
+            default:
+                throw new Error(`undefined type of node: ${this.node}`);
+        }
+
         this.root.innerHTML = '';
-        this.prevMount?.unmount(false);
-        // delete this.prevMount?.props;
-        delete this.prevMount;
     }
-}
-
-/**
- * Creates Root instance
- * @param root
- */
-export function createRoot(root: HTMLElement | null): RootType {
-    if (!root) {
-        throw new Error(`Root element: ${root}`);
-    }
-
-    return new Root(root);
 }

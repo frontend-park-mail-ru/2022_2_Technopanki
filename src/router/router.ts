@@ -24,6 +24,7 @@ class Router implements RouterType {
             window.history.pushState(to.options, '', `${to.path}${urlParams}`);
         }
 
+        console.log('router');
         to.callback();
     }
 

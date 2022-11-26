@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Button from '../../components/UI-kit/buttons/Button';
 import ButtonPrimary from '../../components/UI-kit/buttons/ButtonPrimary';
 import Dropdown from '../../components/UI-kit/dropdown/Dropdown';
@@ -14,12 +14,12 @@ import Vacancy from './index';
 import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../utils/routerConstants';
 import { IMAGE_URL } from '../../utils/networkConstants';
 
-class VacancyHat extends Component<
+class VacancyHat extends ReactsComponent<
     {
         postedByUserID: string;
         vacancyID: string;
         userID: string;
-        userType: string;
+        userType: string | null;
         authorized: boolean;
         sendRequest: boolean;
     },
@@ -30,35 +30,28 @@ class VacancyHat extends Component<
     }
 > {
     state = {
-        vacancyID: '',
-        creatorImgSrc: '',
-        companyName: '',
-        status: '',
+        vacancyID: this.props.vacancyID,
+        creatorImgSrc: ' ',
+        companyName: ' ',
+        status: ' ',
+        postedByUserID: ' ',
     };
 
     getCreatorDataFromServer = () => {
-        if (
-            this.props.postedByUserID &&
-            this.props.vacancyID !== this.state.vacancyID &&
-            this.props.sendRequest
-        ) {
+        if (this.props.postedByUserID !== this.state.postedByUserID) {
             vacancyService
                 .getVacancyHatData(this.props.postedByUserID)
                 .then(body => {
                     this.setState(() => ({
-                        vacancyID: this.props.vacancyID,
                         creatorImgSrc: IMAGE_URL + body.image,
                         companyName: body.company_name,
                         status: body.status,
+                        postedByUserID: this.props.postedByUserID,
                     }));
                 })
                 .catch(err => console.error(err));
         }
     };
-
-    componentDidMount() {
-        this.getCreatorDataFromServer();
-    }
 
     componentDidUpdate() {
         this.getCreatorDataFromServer();
@@ -75,7 +68,6 @@ class VacancyHat extends Component<
                 rightSideContent={
                     <div className={'flex row flex-wrap g-12'}>
                         <RenderWithCondition
-                            key={'responses'}
                             condition={
                                 this.props.userID === this.props.postedByUserID
                             }
@@ -94,7 +86,6 @@ class VacancyHat extends Component<
                             }
                         />
                         <RenderWithCondition
-                            key={'settings'}
                             condition={
                                 this.props.userID === this.props.postedByUserID
                             }
@@ -109,7 +100,6 @@ class VacancyHat extends Component<
                             }
                         />
                         <RenderWithCondition
-                            key={'resume'}
                             condition={this.props.userType === 'applicant'}
                             onSuccess={
                                 <Dropdown
@@ -128,7 +118,6 @@ class VacancyHat extends Component<
                             }
                         />
                         <RenderWithCondition
-                            key={'login'}
                             condition={!this.props.authorized}
                             onSuccess={
                                 <ButtonNotActive>

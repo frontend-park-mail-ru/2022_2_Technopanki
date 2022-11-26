@@ -1,11 +1,10 @@
-import { Component } from '../../../Reacts';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Header from '../../components/UI-kit/header/Header';
 import styles from './vacancy.module.scss';
 import TextBlock from '../../components/UI-kit/text/TextBlock';
 import VacancySideBar from '../../components/sidebars/VacancySideBar';
 import VacancyHat from './VacancyHat';
 import Footer from '../../components/UI-kit/footer/Footer';
-import { vacancyStore } from '../../store/vacancy/store';
 import { dispatch, vacancyConnect } from '../../store';
 import { vacancyService } from '../../services/vacancyService';
 import { vacancyActions } from '../../store/vacancy/actions';
@@ -31,13 +30,16 @@ type VacancyPropsType = {
     };
 };
 
-class Vacancy extends Component<VacancyPropsType> {
+class Vacancy extends ReactsComponent<VacancyPropsType> {
     getDataFromServer() {
         // Мы точно уверены что путь будет vacancy/{0,9}+
         const vacancyID = location.pathname.split('/').at(-1);
-        vacancyService.getVacancyData(vacancyID as string).then(body => {
-            dispatch(vacancyActions.update(body));
-        });
+
+        if (this.props.id !== vacancyID) {
+            vacancyService.getVacancyData(vacancyID as string).then(body => {
+                dispatch(vacancyActions.update(body));
+            });
+        }
     }
 
     componentDidMount() {
@@ -47,54 +49,42 @@ class Vacancy extends Component<VacancyPropsType> {
     render() {
         return (
             <div className={'screen-responsive relative hidden g-24'}>
-                <Header key={'header'} />
-                <SuccessPopup key={'success'} />
-                <ErrorPopup key={'eror'} />
-                <div
-                    key={'substrate'}
-                    className={styles.header_substrate}
-                ></div>
-                <div key={'user'} className={'columns mt-header g-24'}>
-                    <div key={'hat'} className={`col-12 ${styles.header}`}>
+                <Header />
+                <SuccessPopup />
+                <ErrorPopup />
+                <div className={styles.header_substrate}></div>
+                <div className={'columns mt-header g-24'}>
+                    <div className={`col-12 ${styles.header}`}>
                         <VacancyHat
                             vacancyID={this.props.id}
                             postedByUserID={this.props.postedByUserID}
                             sendRequest={!!this.props.id}
                         />
                     </div>
-                    <h3 key={'header'} className={'col-12'}>
-                        {this.props.title}
-                    </h3>
-                    <div
-                        key={'text'}
-                        className={'col-12 col-md-9 flex column g-40'}
-                    >
+                    <h3 className={'col-12'}>{this.props.title}</h3>
+                    <div className={'col-12 col-md-9 flex column g-40'}>
                         <TextBlock
-                            key={'description'}
                             headline={'Описание'}
                             content={this.props.description}
                         />
                         <TextBlock
-                            key={'tasks'}
                             headline={'Задачи'}
                             content={this.props.tasks}
                         />
                         <TextBlock
-                            key={'requirements'}
                             headline={'Требования'}
                             content={this.props.requirements}
                         />
                         <TextBlock
-                            key={'extra'}
                             headline={'Будет плюсом'}
                             content={this.props.extra}
                         />
                     </div>
-                    <div key={'sidebar'} className={'col-12 col-md-3'}>
+                    <div className={'col-12 col-md-3'}>
                         <VacancySideBar />
                     </div>
                 </div>
-                <Footer key={'footer'} />
+                <Footer />
             </div>
         );
     }

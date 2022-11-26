@@ -1,11 +1,11 @@
-import { Component } from '../../../../Reacts';
-import { VNodeType } from '../../../../Reacts/shared/common';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
+import { ReactsComponentNode } from '../../../../Reacts/shared/types/node';
 import styles from './sideBar.module.scss';
 
-export default class SideBar extends Component<{
+export default class SideBar extends ReactsComponent<{
     content: {
         header: string;
-        inside: VNodeType;
+        inside: ReactsComponentNode;
     }[];
 }> {
     render() {

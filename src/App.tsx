@@ -1,15 +1,14 @@
-import { Component, renderNode } from '../Reacts';
 import './styles/globals.scss';
 import { setTheme } from './utils/toggleTheme';
-import StartPage from './views/StartPage/StartPage';
-// TODO: rename navigator
 import router from './router/navigator';
+import { ReactsComponent } from '../Reacts/reacts/src/Component';
 import { ROUTER_PATHS } from './config/router.config';
 import { authService } from './services/authService';
 import { dispatch } from './store';
+import StartPage from './views/StartPage/StartPage';
 import { userActions } from './store/user/actions';
 
-class App extends Component {
+class App extends ReactsComponent {
     render() {
         return <StartPage />;
     }
@@ -19,7 +18,6 @@ router.disableScrollRestoration();
 
 router.addNewPath({ path: '/', validator: (url: string) => url === '/' }, App);
 router.addNewPaths(ROUTER_PATHS);
-// router.setFallback('/404', <NotFound />);
 
 authService
     .auth()

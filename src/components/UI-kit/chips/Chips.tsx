@@ -1,4 +1,4 @@
-import { Component } from '../../../../Reacts';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import styles from './chips.module.scss';
 import Svg from '../../Svg';
 import CloseIcon from '../../../static/icons/x-close.svg';
@@ -8,7 +8,7 @@ import CloseIcon from '../../../static/icons/x-close.svg';
  * IMPORTANT: Don’t use chip text longer than 20 characters. Don’t display a single chip by itself. Chips should appear in a set.
  */
 /*TODO condition render component*/
-export default class Chips extends Component<
+export default class Chips extends ReactsComponent<
     { children: string; withDelete?: boolean; onDelete?: Function },
     any
 > {

@@ -1,8 +1,8 @@
-import { Component } from '../../../../Reacts';
 import styles from './prelodaer.module.scss';
 import { loadingConnect } from '../../../store';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 
-class Preloader extends Component<{ isLoading: boolean }> {
+class Preloader extends ReactsComponent<{ isLoading: boolean }> {
     render() {
         return (
             <div

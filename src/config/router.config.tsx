@@ -1,5 +1,5 @@
 import { PathType } from '../router/navigator.tsx';
-import { VNodeType } from '../../Reacts/shared/common';
+import { VNodeType } from '../../__Reacts__old_version__/shared/common';
 import StartPage from '../views/StartPage/StartPage';
 import SignUp from '../views/SignUp/SignUp';
 import SignIn from '../views/SignIn/SignIn';

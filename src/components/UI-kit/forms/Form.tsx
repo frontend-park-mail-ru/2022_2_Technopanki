@@ -1,19 +1,19 @@
-import { Component } from '../../../../Reacts';
-import { VNodeType } from '../../../../Reacts/shared/common';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
+import { ReactsComponentNode } from '../../../../Reacts/shared/types/node';
 
 export type FormSectionType = {
     header: string;
-    content: VNodeType;
+    content: ReactsComponentNode;
 };
 
 type FormPropsType = {
     sections: FormSectionType[];
-    submitComponent: VNodeType;
+    submitComponent: ReactsComponentNode;
     onSubmit: Function;
     id?: string;
 };
 
-export default class Form extends Component<FormPropsType> {
+export default class Form extends ReactsComponent<FormPropsType> {
     render() {
         return (
             <form

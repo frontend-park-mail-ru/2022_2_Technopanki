@@ -1,4 +1,4 @@
-import { Component } from '../../../../Reacts';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import Form, { FormSectionType } from '../../../components/UI-kit/forms/Form';
 import Header from '../../../components/UI-kit/header/Header';
 import SettingsHat from '../../../components/hats/SettingsHat';
@@ -26,7 +26,7 @@ import {
 } from '../../../utils/validation/messages';
 import { SERVER_URLS } from '../../../utils/networkConstants';
 
-class ResumeSettings extends Component<
+class ResumeSettings extends ReactsComponent<
     ResumeState & { isNew: boolean },
     {
         sections: {

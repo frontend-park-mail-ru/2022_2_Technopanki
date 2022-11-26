@@ -1,7 +1,7 @@
-import { Component } from '../../../../../Reacts';
+import { ReactsComponent } from '../../../../../Reacts/reacts/src/Component';
 import styles from './input.module.scss';
 
-export default class IconInput extends Component<{
+export default class IconInput extends ReactsComponent<{
     id: string;
     icon: any;
     type: string;

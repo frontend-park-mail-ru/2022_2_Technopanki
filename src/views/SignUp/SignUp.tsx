@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Input from '../../components/UI-kit/forms/inputs/Input';
 import styles from './signup.module.scss';
 import Link from '../../components/Link/Link';
@@ -6,6 +6,7 @@ import ButtonPrimaryBigBlue from '../../components/UI-kit/buttons/ButtonPrimaryB
 import RadioButton from '../../components/UI-kit/radioButton/radioButton';
 import Description from '../../components/auth/Description';
 import {
+    COMPANY_NAME_ERROR,
     EMAIL_ERROR,
     NAME_LENGTH_ERROR,
     NAME_SYMBOLS_ERROR,
@@ -23,7 +24,7 @@ import {
     validatePasswordLength,
     validatePasswordSymbols,
 } from '../../utils/validation/validation';
-import navigator from '../../router/navigator.tsx';
+import navigator from '../../router/navigator';
 import { dispatch } from '../../store';
 import { userActions } from '../../store/user/actions';
 import { authService } from '../../services/authService';
@@ -102,7 +103,7 @@ export const validateField = (
     return false;
 };
 
-export default class SignUp extends Component<
+export default class SignUp extends ReactsComponent<
     {},
     {
         inputs: {
@@ -258,22 +259,8 @@ export default class SignUp extends Component<
                     File
                 >,
                 newState.inputs['company_name'],
-                validateNameLength,
-                NAME_LENGTH_ERROR,
-            )
-        ) {
-            validFlag = false;
-        }
-        if (
-            this.state.toggleType === 'employer' &&
-            !validateField(
-                formData.get('company_name') as Exclude<
-                    FormDataEntryValue,
-                    File
-                >,
-                newState.inputs['company_name'],
                 validateCompanyName,
-                NAME_SYMBOLS_ERROR,
+                COMPANY_NAME_ERROR,
             )
         ) {
             validFlag = false;
@@ -309,7 +296,7 @@ export default class SignUp extends Component<
 
         this.setState(() => newState);
 
-        // TODO: здесь новоеизображение надо не забыть засетить
+        // TODO: здесь новое изображение надо не забыть засетить
         if (validFlag) {
             authService
                 .signUp(formData)
@@ -341,16 +328,14 @@ export default class SignUp extends Component<
         return (
             <div className={'grid h-100vh columns'}>
                 <div
-                    key={'form'}
                     className={`col-md-6 col-12 h-100vh p-24 flex align-items-center justify-content-center screen-responsive ${styles.form_block}`}
                 >
                     <form
                         onSubmit={this.onSubmit}
-                        key={'form'}
                         className={`flex w-100 column g-24`}
                     >
-                        <h5 key={'header'}>Зарегистрироваться</h5>
-                        <div key={'inputs'} className={'flex column g-16'}>
+                        <h5>Зарегистрироваться</h5>
+                        <div className={'flex column g-16'}>
                             {Object.entries(this.state.inputs).map(
                                 ([name, value]) => (
                                     <Input
@@ -368,9 +353,8 @@ export default class SignUp extends Component<
                                 ),
                             )}
                         </div>
-                        <div key={'toggle'} className={'flex column g-12'}>
+                        <div className={'flex column g-12'}>
                             <RadioButton
-                                key={'toggle1'}
                                 checked={this.state.toggleType === 'applicant'}
                                 id={'applicant'}
                                 name={'toggle'}
@@ -411,7 +395,6 @@ export default class SignUp extends Component<
                                 Я соискатель
                             </RadioButton>
                             <RadioButton
-                                key={'toggle2'}
                                 checked={this.state.toggleType === 'employer'}
                                 id={'employer'}
                                 name={'toggle'}
@@ -442,11 +425,10 @@ export default class SignUp extends Component<
                                 Я работодатель
                             </RadioButton>
                         </div>
-                        <ButtonPrimaryBigBlue key={'button'} type={'submit'}>
+                        <ButtonPrimaryBigBlue type={'submit'}>
                             Создать аккаунт
                         </ButtonPrimaryBigBlue>
                         <Link
-                            key={'signin'}
                             to={SIGN_IN_PATH}
                             content={
                                 <p className={styles.form_link}>
@@ -468,7 +450,7 @@ export default class SignUp extends Component<
                         />
                     </form>
                 </div>
-                <Description key={'desc'} />
+                <Description />
             </div>
         );
     }

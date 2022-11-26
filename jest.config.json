@@ -1,0 +1,6 @@
+{
+  "bail": false,
+  "verbose": true,
+  "setupFilesAfterEnv": ["./jest-setup.ts"],
+  "testEnvironment": "jest-environment-jsdom"
+}

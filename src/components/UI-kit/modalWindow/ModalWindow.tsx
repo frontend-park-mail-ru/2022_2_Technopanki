@@ -1,9 +1,9 @@
-import { Component } from '../../../../Reacts';
-import { VNodeType } from '../../../../Reacts/shared/common';
 import styles from './modal.module.scss';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
+import { ReactsComponentNode } from '../../../../Reacts/shared/types/node';
 
-export default class ModalWindow extends Component<
-    { content: VNodeType; hidden: VNodeType },
+export default class ModalWindow extends ReactsComponent<
+    { content: ReactsComponentNode; hidden: ReactsComponentNode },
     { isOpen: boolean }
 > {
     state = {

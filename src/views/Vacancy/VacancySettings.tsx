@@ -1,4 +1,4 @@
-import { Component } from '../../../Reacts';
+import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Header from '../../components/UI-kit/header/Header';
 import SettingsHat from '../../components/hats/SettingsHat';
 import Form, { FormSectionType } from '../../components/UI-kit/forms/Form';
@@ -8,7 +8,7 @@ import Textarea from '../../components/UI-kit/forms/inputs/Textarea';
 import Footer from '../../components/UI-kit/footer/Footer';
 import { dispatch, userConnect, vacancyConnect } from '../../store';
 import { vacancyService } from '../../services/vacancyService';
-import navigator from '../../router/navigator.tsx';
+import navigator from '../../router/navigator';
 import { vacancyActions } from '../../store/vacancy/actions';
 import ChipsInput from '../../components/UI-kit/forms/inputs/ChipsInput';
 import Button from '../../components/UI-kit/buttons/Button';
@@ -19,7 +19,7 @@ import ButtonPrimary from '../../components/UI-kit/buttons/ButtonPrimary';
 import ButtonRed from '../../components/UI-kit/buttons/ButtonRed';
 import RenderWithCondition from '../../components/RenderWithCondition';
 
-class AboutVacancyComponent extends Component<{
+class AboutVacancyComponent extends ReactsComponent<{
     title: string;
     salary: string;
     experience: string;
@@ -70,7 +70,7 @@ const AboutVacancy = vacancyConnect((state, props) => {
     };
 })(AboutVacancyComponent);
 
-class Skills extends Component<
+class Skills extends ReactsComponent<
     { skills: string[] },
     {
         skills: string[];
@@ -117,7 +117,7 @@ class Skills extends Component<
     }
 }
 
-class AdditionalInformationComponent extends Component<{
+class AdditionalInformationComponent extends ReactsComponent<{
     location: string;
     schedule: string;
     format: string;
@@ -168,7 +168,7 @@ const AdditionalInformation = vacancyConnect(state => {
     };
 })(AdditionalInformationComponent);
 
-class VacancyDescriptionComponent extends Component<{
+class VacancyDescriptionComponent extends ReactsComponent<{
     description: string;
     tasks: string;
     requirements: string;
@@ -227,7 +227,7 @@ const VacancyDescription = vacancyConnect(state => {
     };
 })(VacancyDescriptionComponent);
 
-class VacancySettings extends Component<
+class VacancySettings extends ReactsComponent<
     { id: string; postedByUserID: string; avatarSrc: string },
     { sections: FormSectionType[] }
 > {
@@ -274,7 +274,11 @@ class VacancySettings extends Component<
 
         if (this.state.isNew) {
             vacancyService
-                .createVacancy(this.props.postedByUserID, formData)
+                .createVacancy(
+                    this.props.postedByUserID,
+                    formData,
+                    this.props.avatarSrc.split('/').at(-1) as string,
+                )
                 .then(body => {
                     if (body.id) {
                         navigator.navigate('/vacancy/' + body.id.toString());

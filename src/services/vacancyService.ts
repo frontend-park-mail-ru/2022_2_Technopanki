@@ -17,7 +17,8 @@ export const vacancyService: Service = {
                 }
 
                 return response.body;
-            });
+            })
+            .catch(() => dispatch(stopLoading()));
     },
 
     getAllVacanciesForEmployer: async (profileID: string) => {
@@ -52,7 +53,8 @@ export const vacancyService: Service = {
                 }
 
                 return response.body;
-            });
+            })
+            .catch(() => dispatch(stopLoading()));
     },
 
     getVacancyHatData: async (userID: string) => {
@@ -112,10 +114,15 @@ export const vacancyService: Service = {
                 }
 
                 return response.body;
-            });
+            })
+            .catch(() => dispatch(stopLoading()));
     },
 
-    createVacancy: async (userID: string, formData: FormData) => {
+    createVacancy: async (
+        userID: string,
+        formData: FormData,
+        avatarSrc: string,
+    ) => {
         return await network
             .POST(
                 VACANCY_URLS.VACANCY,
@@ -131,6 +138,7 @@ export const vacancyService: Service = {
                     experience: formData.get('experience'),
                     hours: formData.get('schedule'),
                     format: formData.get('format'),
+                    image: avatarSrc,
                 }),
             )
             .then(response => {
@@ -139,7 +147,8 @@ export const vacancyService: Service = {
                 }
 
                 return response.body;
-            });
+            })
+            .catch(() => dispatch(stopLoading()));
     },
 
     deleteVacancy: async (vacancyID: string) => {

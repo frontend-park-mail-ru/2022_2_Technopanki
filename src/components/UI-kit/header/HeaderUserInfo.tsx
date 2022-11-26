@@ -1,6 +1,6 @@
-import { Component } from '../../../../Reacts';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 
-export default class HeaderUserInfo extends Component<{
+export default class HeaderUserInfo extends ReactsComponent<{
     imgSrc: string;
     name: string;
     surname: string;

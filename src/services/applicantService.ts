@@ -101,7 +101,7 @@ export const applicantProfileService: Service = {
             .POST(
                 PROFILE_URLS.APPLICANT_RESUMES + vacancyID,
                 JSON.stringify({
-                    resume_id: resumeID,
+                    id: resumeID,
                     user_name: name,
                     user_surname: surname,
                     resume_title: title,
