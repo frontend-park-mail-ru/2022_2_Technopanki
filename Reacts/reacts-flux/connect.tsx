@@ -30,13 +30,6 @@ export default function createConnect(store: StoreType) {
                         .bind(this);
                 }
 
-                componentDidUpdate() {
-                    this.unsubscribe();
-                    this.unsubscribe = store
-                        .subscribe(this.handleChange.bind(this))
-                        .bind(this);
-                }
-
                 componentWillUnmount() {
                     this.unsubscribe();
                 }

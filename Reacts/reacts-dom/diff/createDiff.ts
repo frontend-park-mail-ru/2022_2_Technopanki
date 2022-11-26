@@ -96,8 +96,8 @@ export const createDiffComponent = (
 
     if (!oldNode.instance?.shouldUpdate(newNode.instance?.props)) {
         newNode.props = oldNode.props;
-        // @ts-ignore
-        newNode.instance.currentRenderNode = oldNode.instance.currentRenderNode;
+        newNode.ref = oldNode.ref;
+        newNode.instance = oldNode.instance;
         return skip();
     }
 
@@ -108,6 +108,7 @@ export const createDiffComponent = (
     );
 
     newNode.ref = oldNode.ref;
+    newNode.instance = oldNode.instance;
     return update(newNode, childrenDiff, propsUpdater);
 };
 
