@@ -39,10 +39,11 @@ export default class Store<S = any> implements StoreType {
      */
     subscribe(listener: () => void): Function {
         this.listeners.push(listener);
-
         return () => {
             const index = this.listeners.indexOf(listener);
+            console.log(this.listeners);
             this.listeners.splice(index, 1);
+            console.log(this.listeners);
         };
     }
 

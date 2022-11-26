@@ -31,6 +31,7 @@ const removeDOMNode = (node: ReactsDOMNode) => {
 const removeComponentNode = (node: ReactsComponentNode) => {
     node.instance?.componentWillUnmount();
     node.instance?.unmount();
+    removeChildren(node);
 };
 
 const childrenSwitch = (node: ReactsNode) => {

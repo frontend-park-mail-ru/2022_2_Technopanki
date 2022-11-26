@@ -5,6 +5,7 @@ import {
 } from '../../shared/types/node';
 import { ComponentType } from '../../shared/types/component';
 import { rerenderNode } from '../../reacts-dom/render/rerenderNode';
+import { removeChildren } from '../../reacts-dom/diff/operations/remove';
 
 export abstract class ReactsComponent<P extends PropsType = {}, S = {}>
     implements ComponentType

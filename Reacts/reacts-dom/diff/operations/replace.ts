@@ -53,7 +53,6 @@ export const replaceNode = (
     newNode: ReactsNode,
 ) => {
     if (isPrimitiveNodes(oldNode, newNode)) {
-        console.log('replace');
         switch (typeof newNode) {
             case 'string':
                 element?.replaceWith(document.createTextNode(newNode));
