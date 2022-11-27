@@ -30,80 +30,10 @@ export type ResponseBody = {
     error: string;
 };
 
-export type AuthField = {
-    id: string;
-    type: string;
-    label: string;
-    placeholder: string;
-    value: string | null;
-    required: boolean;
-    error: boolean;
-    errorMessage: string | null;
-};
-
-export type AuthFields = { [key: string]: AuthField };
-
-export const setFieldAsInvalid = (field: AuthField, errorMessage: string) => {
-    if (field) {
-        field.error = true;
-        field.errorMessage = errorMessage;
-    }
-};
-
-export const setInvalidFieldsFromServer = (
-    responseBody: ResponseBody,
-    inputs: AuthFields,
-    callback: Function,
-) => {
-    if (
-        responseBody &&
-        Array.isArray(responseBody.descriptors) &&
-        responseBody.descriptors[0]
-    ) {
-        setFieldAsInvalid(
-            inputs[responseBody.descriptors[0]],
-            responseBody.error,
-        );
-        callback();
-        setFieldAsInvalid(inputs[responseBody.descriptors[0]] as AuthField, '');
-    } else {
-        throw new Error(`empty body: ${responseBody}`);
-    }
-};
-
-export const validateField = (
-    formDataElement: Exclude<FormDataEntryValue, File>,
-    field: AuthField,
-    validate: (data: string) => boolean,
-    errorMessage: string,
-): boolean => {
-    if (formDataElement) {
-        field.value = formDataElement;
-
-        if (validate(formDataElement)) {
-            if (
-                errorMessage === field.errorMessage ||
-                field.errorMessage === ''
-            ) {
-                field.error = false;
-                field.errorMessage = '';
-                return true;
-            }
-            return false;
-        }
-        setFieldAsInvalid(field, errorMessage);
-        return false;
-    }
-
-    return false;
-};
-
 export default class SignUp extends ReactsComponent<
     {},
     {
-        inputs: {
-            [key: string]: AuthField;
-        };
+        toggleType: string;
     }
 > {
     state = {
@@ -131,7 +61,7 @@ export default class SignUp extends ReactsComponent<
             return;
         }
 
-        const formData = new FormData(e.target);
+        const formData = new FormData(e.target as HTMLFormElement);
 
         authService
             .signUp(formData)
