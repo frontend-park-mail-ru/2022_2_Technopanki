@@ -55,7 +55,6 @@ class Navigator {
     }
 
     navigate(to: string, pop: boolean = false) {
-        console.log('navigate');
         if (to === this.prevUrl) {
             return;
         }

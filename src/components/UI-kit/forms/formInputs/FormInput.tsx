@@ -52,13 +52,11 @@ export default class FormInput extends ReactsComponent<FormInputProps> {
 
     onBlur = (e: Event) => {
         e.preventDefault();
-        console.log(this.props.validationMode);
         this.props.validationMode === 'onblur' && this.validate(e.target.value);
     };
 
     onInput = (e: Event) => {
         e.preventDefault();
-        console.log(this.props.validationMode);
         this.props.validationMode === 'oninput' &&
             this.validate(e.target.value);
     };

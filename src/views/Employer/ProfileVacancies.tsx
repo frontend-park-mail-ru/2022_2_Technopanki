@@ -67,7 +67,6 @@ export default class ProfileVacancies extends ReactsComponent<
     }
 
     render() {
-        console.log(this.props, this.state);
         return (
             <div className={'flex column g-16'}>
                 {this.state.vacancies
