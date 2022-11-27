@@ -1,8 +1,7 @@
-import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
+import { Component } from '../../../../Reacts';
 import styles from './button.module.scss';
 
-export default class ButtonPrimaryBigBlue extends ReactsComponent<{
-    type?: string;
+export default class ButtonPrimaryBigBlue extends Component<{
     onClick?: Function;
     children: string;
 }> {
