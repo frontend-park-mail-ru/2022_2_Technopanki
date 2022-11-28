@@ -1,16 +1,15 @@
-import { Component } from '../../../../Reacts';
+import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import styles from './button.module.scss';
 
-export default class ButtonPrimaryBigBlue extends Component<{
+export default class ButtonSearchBlue extends ReactsComponent<{
     onClick?: Function;
     children: string;
 }> {
     render() {
         return (
             <button
-                type={this.props.type}
                 onClick={this.props.onClick}
-                className={`${styles.btn} ${styles['btn-primary-blue__big']}`}
+                className={`${styles.btn} ${styles['btn-primary-blue__search']}`}
             >
                 {this.props.children}
             </button>
