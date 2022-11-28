@@ -8,7 +8,7 @@ import ProfileSettings from '../views/Employer/ProfileSettings';
 import Vacancy from '../views/Vacancy';
 import VacancySettings from '../views/Vacancy/VacancySettings';
 import VacancyResponses from '../views/Vacancy/VacancyResponses';
-import Vacancies from '../views/Vacancies/Vacancies';
+import Search from '../views/Search/Search';
 import Resume from '../views/Applicant/Resume/Resume';
 import ApplicantProfile from '../views/Applicant/Profile/Profile';
 import ApplicantSettings from '../views/Applicant/Profile/ProfileSettings';
@@ -79,10 +79,10 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
     },
     {
         path: {
-            path: '/vacancies',
-            validator: (url: string) => url === '/vacancies',
+            path: '/search',
+            validator: (url: string) => url === '/search',
         },
-        component: Vacancies,
+        component: Search,
     },
     {
         path: {

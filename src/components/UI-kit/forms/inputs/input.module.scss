@@ -8,14 +8,13 @@
   align-items: center;
   gap: var(--gap-8);
   padding: var(--padding-16);
-  padding-left: 220px;
   background: var(--background-0);
   border: var(--border-default);
   border-radius: var(--border-radius-xl);
   box-shadow: var(--shadow-grey-xs);
   transition: var(--transition-sfast);
   outline: none;
-  font-size: 16px;
+  font-size: 14px;
   color: var(--background-600);
   &::placeholder {
     font-size: var(--input-font-size);
@@ -26,10 +25,6 @@
   }
   &[type="date" i] {
     font-family: Inter, sans-serif;
-  }
-  @media (max-width: $screen-md) {
-    font-size: 14px;
-    padding-left: 150px;
   }
 }
 
@@ -108,11 +103,11 @@
 }
 
 .search_input {
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04);
-  &:hover {
-    cursor: not-allowed;
+  padding-left: 220px;
+  @media (max-width: $screen-md) {
+    font-size: 14px;
+    padding-left: 150px;
   }
-  pointer-events: none;
 }
 
 .search_arrow {
@@ -120,7 +115,7 @@
 }
 
 .search_button {
-  top: 5px;
+  top: 4px;
 }
 
 .chips_input {

@@ -9,7 +9,7 @@ import Dropdown from '../../dropdown/Dropdown';
 import DropdownMenu from './SearchDropdownMenu';
 
 export default class SearchInput extends ReactsComponent<
-    {},
+    { onSubmitSearch: Function },
     { isOpen: boolean }
     > {
 
@@ -33,19 +33,19 @@ export default class SearchInput extends ReactsComponent<
 
     switchSearchOptions = (e: MouseEvent) => {
         document.getElementById('searchOption').innerHTML = e.target.innerHTML;
-        this.setState(state => ({
-            ...state,
-            isOpen: !this.state.isOpen,
-        }))
+        this.handleMenu()
     }
 
     render() {
         return (
             <div className={`flex column relative screen-responsive ${styles.form}`}>
-                <form>
+                <form
+                    onSubmit={this.props.onSubmitSearch}
+                >
                     <div className={'relative'}>
                         <input
-                            className={`w-100 absolute ${styles.input}`}
+                            id={'search'}
+                            className={`w-100 absolute l-220 ${styles.input} ${styles.search_input}`}
                             type={'text'}
                             placeholder={'Поиск...'}
                         />
@@ -109,8 +109,10 @@ export default class SearchInput extends ReactsComponent<
                             mt={'50'}
                             isOpen={this.state.isOpen}
                         />
-                        <div className={`absolute r-0-5 ${styles.search_button}`}>
-                            <ButtonSearchBlue>
+                        <div className={`absolute r-0-4 ${styles.search_button}`}>
+                            <ButtonSearchBlue
+                                type={'submit'}
+                            >
                                 Найти
                             </ButtonSearchBlue>
                         </div>

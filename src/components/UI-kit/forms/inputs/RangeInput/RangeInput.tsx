@@ -6,6 +6,7 @@ export default class RangeInput extends ReactsComponent<
     {
         min: string | Function;
         max: string | Function;
+        name: string;
     }
 >{
     handleFromInput = (fromSlider, fromInput, toInput, slider) => {
@@ -112,8 +113,8 @@ export default class RangeInput extends ReactsComponent<
         return (
             <div className={'flex column g-8'}>
                 <div className={'flex row justify-content-space-between'}>
-                    <input id={'fromInput'} type={'number'} placeholder={'0'} className={`${styles.range_input}`} />
-                    <input id={'toInput'} type={'number'} placeholder={'Не указано'} className={`text-align-center ${styles.range_input}`} />
+                    <input id={'fromInput'} name={this.props.name} type={'number'} placeholder={'0'} className={`${styles.range_input}`} value={this.props.min}/>
+                    <input id={'toInput'} name={this.props.name} type={'number'} placeholder={'Не указано'} className={`text-align-center ${styles.range_input}`} value={this.props.max}/>
                 </div>
                 <div className={'relative flex row align-items-center'}>
                     <input

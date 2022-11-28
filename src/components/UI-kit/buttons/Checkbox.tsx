@@ -16,24 +16,24 @@ export default class CheckBox extends ReactsComponent<{
                 onClick={this.props.onClick}
                 className={`flex row g-8 align-items-center ${styles.radio}`}
             >
-                {this.props.checked ? (
-                    <input
-                        className={`rounded-max ${styles.radio_input}`}
-                        id={this.props.id}
-                        type={'checkbox'}
-                        name={this.props.name}
-                        value={this.props.value}
-                    />
-                ) : (
-                    <input
-                        className={`rounded-max ${styles.radio_input}`}
-                        id={this.props.id}
-                        type={'checkbox'}
-                        name={this.props.name}
-                        value={this.props.value}
-                    />
-                )}
-                <label className={`${styles.radio_label_search}`} for={this.props.id}>
+                <label name={this.props.name} className={`flex row g-8 align-items-center ${styles.radio_label_search}`} for={this.props.id} checked={this.props.checked}>
+                    {this.props.checked ? (
+                        <input
+                            className={`rounded-max ${styles.radio_input}`}
+                            id={this.props.id}
+                            type={'checkbox'}
+                            name={this.props.name}
+                            value={this.props.children}
+                        />
+                    ) : (
+                        <input
+                            className={`rounded-max ${styles.radio_input}`}
+                            id={this.props.id}
+                            type={'checkbox'}
+                            name={this.props.name}
+                            value={this.props.children}
+                        />
+                    )}
                     {this.props.children}
                 </label>
             </div>
