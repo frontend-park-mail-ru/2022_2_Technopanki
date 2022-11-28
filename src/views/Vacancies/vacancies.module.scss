@@ -4,8 +4,13 @@
   outline: var(--border-default);
   box-shadow: var(--shadow-grey-sm);
   transition: var(--transition-sfast);
+  display: grid;
+  grid-template-columns: 40px 1fr 120px;
   &:hover {
     box-shadow: var(--shadow-grey-md);
+  }
+  @media (min-width: $screen-lg) {
+    grid-template-columns: 32px 1fr 1fr;
   }
 }
 
@@ -14,6 +19,7 @@
   font-size: 18px;
   line-height: 22px;
   width: max-content;
+  cursor: pointer;
 }
 
 .icon {
@@ -32,6 +38,20 @@
 }
 
 .salary {
+  @media (min-width: $screen-sm) and (max-width: $screen-md) {
+    grid-column-start: 3;
+    grid-row-start: 2;
+  }
+  @media (max-width: $screen-sm) {
+    grid-column-start: 1;
+    grid-column: 1/4;
+    grid-row-start: 3;
+    align-items: end;
+    justify-content: flex-start;
+  }
+}
+
+.salary-content {
   font-size: 18px;
   font-weight: 500;
 }
@@ -41,19 +61,37 @@
   font-weight: 500;
 }
 
-.content {
-  margin-top: 143px;
+.card-content {
+  @media (max-width: $screen-md) {
+    grid-column-start: 1;
+    grid-row-start: 2;
+  }
+  width: max-content;
 }
 
 .link {
   grid-column-start: 2;
   grid-row-start: 2;
+  @media (min-width: $screen-sm) and (max-width: $screen-md) {
+    grid-column-start: 1;
+    grid-row-start: 3;
+  }
+  @media (max-width: $screen-sm) {
+    grid-column-start: 1;
+    grid-row-start: 4;
+  }
   width: max-content;
 }
 
 .details {
   grid-column-start: 3;
   grid-row-start: 2;
+  @media (min-width: $screen-sm) and (max-width: $screen-md) {
+    grid-row-start: 3;
+  }
+  @media (max-width: $screen-sm) {
+    display: none;
+  }
 }
 
 .details_text {
@@ -74,6 +112,10 @@
   grid-row-start: 3;
   font-size: 14px;
   font-weight: 400;
+  @media (max-width: $screen-md) {
+    grid-column: 1/4;
+    grid-row-start: 4;
+  }
 }
 
 .description_text {

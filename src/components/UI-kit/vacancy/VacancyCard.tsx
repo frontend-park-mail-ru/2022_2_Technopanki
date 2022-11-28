@@ -10,6 +10,7 @@ import ArrowButtonWithTextOutline from '../buttons/ArrowButtonWithTextOutline';
 import Link from '../../Link/Link';
 import { VACANCY_PATHS } from '../../../utils/routerConstants';
 import { IMAGE_URL } from '../../../utils/networkConstants';
+import RenderWithCondition from '../../RenderWithCondition';
 
 export type VacancyCardPropsType = {
     id: string;
@@ -42,28 +43,25 @@ export default class VacancyCard extends ReactsComponent<
 
     render() {
         return (
-            <div
-                className={`grid grid-template-columns g-16 rounded-lg p-24 ${styles.vacancy}`}
-            >
+            <div className={`g-16 rounded-lg p-24 ${styles.vacancy}`}>
                 <img
                     className={'rounded-md'}
                     height={40}
                     width={40}
                     src={IMAGE_URL + this.props.icon}
                 />
-                <div className={'flex flex-start column g-4'}>
+                <div
+                    className={`flex flex-wrap flex-start column g-4 ${styles['card-content']}`}
+                >
                     <Link
                         to={VACANCY_PATHS.INDEX + this.props.id}
                         content={
-                            <h4
-                                key={'vacancy-name'}
-                                className={`cursor-pointer ${styles.vacancy_name}`}
-                            >
+                            <h4 className={`${styles.vacancy_name}`}>
                                 {this.props.name}
                             </h4>
                         }
                     />
-                    <div className={'flex flex-start row g-16'}>
+                    <div className={'flex flex-wrap flex-start row g-16'}>
                         <div className={'flex row align-items-center g-6'}>
                             <div
                                 className={`${styles.metadata_icon}`}
@@ -94,16 +92,14 @@ export default class VacancyCard extends ReactsComponent<
                     </div>
                 </div>
                 <div
-                    key={'vacancy-salary'}
-                    className={'flex row g-4 mx-0 justify-content-end'}
+                    className={`flex row g-4 mx-0 justify-content-end ${styles.salary}`}
                 >
-                    <h4 className={`mx-0 ${styles.salary}`}>
+                    <h4 className={`mx-0 ${styles['salary-content']}`}>
                         {this.props.salary}
+                        <span className={styles.per_month}> руб/мес</span>
                     </h4>
-                    <h4 className={`mx-0 ${styles.per_month}`}>руб/мес</h4>
                 </div>
-                <div key={'vacancy'} className={styles.link}>
-                    <div className={'none'}></div>
+                <div className={styles.link}>
                     <Link
                         to={VACANCY_PATHS.INDEX + this.props.id}
                         content={
@@ -114,7 +110,6 @@ export default class VacancyCard extends ReactsComponent<
                     />
                 </div>
                 <div
-                    key={'details'}
                     className={`flex row g-4 justify-content-end align-items-end ${styles.details}`}
                 >
                     <div
@@ -136,20 +131,23 @@ export default class VacancyCard extends ReactsComponent<
                         />
                     </div>
                 </div>
-                {this.state.isOpen ? (
-                    <div className={`flex column g-12 ${styles.description}`}>
+                <RenderWithCondition
+                    condition={this.state.isOpen}
+                    onSuccess={
                         <div
-                            className={'w-100'}
-                            dangerouslySetInnerHTML={{ __html: Hr }}
-                        />
-                        <h5 className={'mx-0'}>Описание вакансии</h5>
-                        <p className={styles.description_text}>
-                            {this.props.description}
-                        </p>
-                    </div>
-                ) : (
-                    <p></p>
-                )}
+                            className={`flex column g-12 ${styles.description}`}
+                        >
+                            <div
+                                className={'w-100'}
+                                dangerouslySetInnerHTML={{ __html: Hr }}
+                            />
+                            <h5 className={'mx-0'}>Описание вакансии</h5>
+                            <p className={styles.description_text}>
+                                {this.props.description}
+                            </p>
+                        </div>
+                    }
+                />
             </div>
         );
     }

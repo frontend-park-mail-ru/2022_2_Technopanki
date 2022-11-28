@@ -29,11 +29,11 @@ export default class Dropdown extends ReactsComponent<
                 >
                     {this.props.content}
                 </div>
-                <div key={'hidden'} className={'relative cursor-default'}>
+                <div className={'relative cursor-default'}>
                     <div
                         className={`absolute ${
                             this.state.isOpen
-                                ? `flex-${this.props.direction}`
+                                ? `flex flex-${this.props.direction}`
                                 : 'none'
                         } mt-8`}
                     >
