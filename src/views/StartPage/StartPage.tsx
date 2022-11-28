@@ -4,7 +4,7 @@ import ArrowButtonWithText from '../../components/UI-kit/buttons/ArrowButtonWith
 import ArrowButtonWithTextOutline from '../../components/UI-kit/buttons/ArrowButtonWithTextOutline';
 import Logo from '../../static/assets/JobflowDefault.svg';
 import Link from '../../components/Link/Link';
-import { SIGN_UP_PATH, VACANCIES_PATH } from '../../utils/routerConstants';
+import { SIGN_UP_PATH, SEARCH_PATH } from '../../utils/routerConstants';
 import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 
 export default class StartPage extends ReactsComponent {
@@ -46,7 +46,7 @@ export default class StartPage extends ReactsComponent {
                             }
                         />
                         <Link
-                            to={VACANCIES_PATH}
+                            to={SEARCH_PATH}
                             content={
                                 <ArrowButtonWithTextOutline>
                                     <p>Посмотреть все вакансии</p>

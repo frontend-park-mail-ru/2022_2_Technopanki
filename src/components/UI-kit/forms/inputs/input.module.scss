@@ -8,6 +8,7 @@
   align-items: center;
   gap: var(--gap-8);
   padding: var(--padding-16);
+  padding-left: 220px;
   background: var(--background-0);
   border: var(--border-default);
   border-radius: var(--border-radius-xl);
@@ -26,10 +27,10 @@
   &[type="date" i] {
     font-family: Inter, sans-serif;
   }
-  @media (max-width: $screen-md) {
-    font-size: 14px;
-    padding-left: 150px;
-  }
+}
+
+.form {
+  height: 52px;
 }
 
 .input__error {
@@ -103,9 +104,10 @@
 }
 
 .search_input {
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04);
-  &:hover {
-    cursor: not-allowed;
+  padding-left: 220px;
+  @media (max-width: $screen-md) {
+    font-size: 14px;
+    padding-left: 150px;
   }
   pointer-events: none;
 }
@@ -144,3 +146,16 @@
   font-size: 14px;
   color: var(--background-900);
 }
+.dropdown {
+  width: max-content;
+  margin-left: 8px;
+  color: var(--background-400);
+}
+
+.dropdown_options {
+  cursor: pointer;
+  &:hover {
+    color: var(--background-600);
+  }
+}
+
