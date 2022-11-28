@@ -8,19 +8,6 @@ import Footer from '../../components/UI-kit/footer/Footer';
 import { employerProfileService } from '../../services/employerProfileService';
 import { EmployerProfile, ProfileState } from '../../store/profile/types';
 import { dispatch, profileConnect, userConnect } from '../../store';
-import {
-    phoneValidation,
-    validateCompanyName,
-    validateEmail,
-    validatePasswordLength,
-    validatePasswordSymbols,
-    validateStatusSymbols,
-} from '../../utils/validation/validation';
-import {
-    MAX_PHOTO_SIZE,
-    PASSWORD_LENGTH_ERROR,
-    PASSWORD_SYMBOLS_ERROR,
-} from '../../utils/validation/messages';
 import { profileActions } from '../../store/profile/actions';
 import { userActions } from '../../store/user/actions';
 import { authService } from '../../services/authService';
@@ -316,6 +303,6 @@ const UserWrapper = userConnect((state, props) => {
     return { userID: state.id, ...props };
 })(ProfileSettingsComponent);
 
-export default profileConnect((state, props) => {
+export default profileConnect(state => {
     return { ...state };
 })(UserWrapper);

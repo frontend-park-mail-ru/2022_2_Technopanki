@@ -39,6 +39,8 @@ import {
 import FormInput from '../../components/UI-kit/forms/formInputs/FormInput';
 import Form from '../../components/UI-kit/forms/Form';
 import FormItem from '../../components/UI-kit/forms/FormItem';
+import { activateError, deactivateError } from '../../store/errors/actions';
+import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 
 export default class SignIn extends ReactsComponent {
     validation = useValidation({
@@ -73,17 +75,15 @@ export default class SignIn extends ReactsComponent {
                 );
             })
             .catch(body => {
-                // setInvalidFieldsFromServer(
-                //     body as ResponseBody,
-                //     newState.inputs,
-                //     (() => this.setState(() => newState)).bind(this),
-                // );
+                dispatch(activateError(body.error, body.descriptors[0]));
+                setTimeout(() => dispatch(deactivateError()), 3000);
             });
     };
 
     render() {
         return (
             <div className={'grid h-100vh columns'}>
+                <ErrorPopup />
                 <div
                     className={`col-md-6 col-12 h-100vh p-24 flex align-items-center justify-content-center screen-responsive ${styles.form_block}`}
                 >

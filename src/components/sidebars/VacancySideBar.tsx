@@ -11,7 +11,7 @@ import TelegramIcon from '../../static/icons/logos/Telegram.svg';
 import RenderWithCondition from '../RenderWithCondition';
 import { vacancyConnect } from '../../store';
 
-export default class VacancySideBar extends ReactsComponent<{
+class VacancySideBar extends ReactsComponent<{
     salary: string;
     experience: string;
     location: string;
@@ -82,3 +82,5 @@ export default class VacancySideBar extends ReactsComponent<{
         );
     }
 }
+
+export default vacancyConnect(state => ({ ...state }))(VacancySideBar);

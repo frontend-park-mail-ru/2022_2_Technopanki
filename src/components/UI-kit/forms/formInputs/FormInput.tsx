@@ -60,6 +60,11 @@ export default class FormInput extends ReactsComponent<FormInputProps> {
             this.validate(e.target.value);
     };
 
+    onSubmit = (e: Event) => {
+        e.preventDefault();
+        this.validate(e.target.value);
+    };
+
     render() {
         return (
             <div
@@ -71,6 +76,7 @@ export default class FormInput extends ReactsComponent<FormInputProps> {
                 <input
                     onBlur={this.onBlur}
                     onInput={this.onInput}
+                    onSubmit={this.onSubmit}
                     className={`${styles.input} ${
                         this.state.error ? styles.input__error : ''
                     }`}

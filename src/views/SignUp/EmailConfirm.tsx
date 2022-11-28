@@ -20,11 +20,6 @@ class EmailConfirm extends ReactsComponent<{
         e.preventDefault();
         // @ts-ignore
         const token = new FormData(e.target).get('token');
-        // TODO: temp
-        this.props.userType === 'applicant'
-            ? navigator.navigate(APPLICANT_PATHS.PROFILE + this.props.id)
-            : navigator.navigate(EMPLOYER_PATHS.PROFILE + this.props.id);
-        return;
         try {
             await authService.authConfirm(token, this.props.email);
             this.props.userType === 'applicant'

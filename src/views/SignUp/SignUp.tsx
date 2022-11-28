@@ -23,8 +23,11 @@ import {
     employerNameSymbolsValidator,
     passwordLengthValidator,
     passwordSymbolsValidator,
+    repeatPasswordValidator,
 } from '../../utils/validation/commonValidators';
 import { USER_URLS } from '../../utils/networkConstants';
+import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
+import { activateError, deactivateError } from '../../store/errors/actions';
 
 export type ResponseBody = {
     descriptors: string[];
@@ -40,11 +43,16 @@ export default class SignUp extends ReactsComponent<
     state = {
         toggleType: 'applicant',
     };
+    password = '';
 
     validation = useValidation({
         email: [emailValidator],
         password: [passwordSymbolsValidator, passwordLengthValidator],
-        repeatPassword: [passwordSymbolsValidator, passwordLengthValidator],
+        repeatPassword: [
+            passwordSymbolsValidator,
+            passwordLengthValidator,
+            repeatPasswordValidator.isPasswordsEqualValidators.bind(this),
+        ],
         name: [applicantNameLengthValidator, applicantNameSymbolsValidator],
         surname: [
             applicantSurnameLengthValidator,
@@ -82,17 +90,15 @@ export default class SignUp extends ReactsComponent<
                 navigator.navigate(USER_URLS.CONFIRM);
             })
             .catch(body => {
-                // setInvalidFieldsFromServer(
-                //     body as ResponseBody,
-                //     newState.inputs,
-                //     () => this.setState(() => newState),
-                // );
+                dispatch(activateError(body.error, body.descriptors[0]));
+                setTimeout(() => dispatch(deactivateError()), 3000);
             });
     };
 
     render() {
         return (
             <div className={'grid h-100vh columns'}>
+                <ErrorPopup />
                 <div
                     className={`col-md-6 col-12 h-100vh p-24 flex align-items-center justify-content-center screen-responsive ${styles.form_block}`}
                 >
@@ -120,6 +126,9 @@ export default class SignUp extends ReactsComponent<
                                 setError={this.validation.setError}
                                 size={'12'}
                                 validationMode={'oninput'}
+                                getValue={repeatPasswordValidator.setPassword.bind(
+                                    this,
+                                )}
                                 validation={this.validation.getValidation(
                                     'password',
                                 )}

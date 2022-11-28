@@ -68,3 +68,16 @@ export const passwordSymbolsValidator = (value: string): [boolean, string] => {
 export const passwordLengthValidator = (value: string): [boolean, string] => {
     return [validatePasswordLength(value), PASSWORD_LENGTH_ERROR];
 };
+
+/**
+ *
+ */
+export const repeatPasswordValidator = {
+    setPassword(value: string) {
+        // @ts-ignore
+        this.password = value;
+    },
+    isPasswordsEqualValidators(value: string): [boolean, string] {
+        return [this.password === value, 'Пароли должны совпадать'];
+    },
+};
