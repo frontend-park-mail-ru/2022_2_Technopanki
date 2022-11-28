@@ -66,5 +66,18 @@
   }
 }
 
+.account {
+  min-width: 200px;
+  margin-top: var(--header-height);
+}
+
+.account-link {
+  padding: var(--padding-8);
+  &:hover {
+    border-radius: var(--border-radius-sm);
+    background: var(--background-50);
+  }
+}
+
 
 

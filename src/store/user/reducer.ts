@@ -39,7 +39,7 @@ export const userReducer: Reducer<UserState> = (
                 id: '',
                 name: '',
                 surname: '',
-                avatarSrc: 'default.png',
+                avatarSrc: '',
                 userType: null,
                 authorized: false,
                 email: '',

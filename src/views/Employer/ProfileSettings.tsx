@@ -136,18 +136,6 @@ class ProfileSettingsComponent extends ReactsComponent<
         );
     }
 
-    // TODO: перенести logout в header
-
-    logout = () => {
-        authService
-            .logout()
-            .then(() => {
-                dispatch(userActions.LOGOUT());
-                navigator.navigate('/');
-            })
-            .catch(err => console.error(err));
-    };
-
     render() {
         return (
             <div className={'screen-responsive relative hidden'}>

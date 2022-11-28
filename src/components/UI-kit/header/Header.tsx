@@ -12,7 +12,6 @@ import {
 } from '../../../utils/routerConstants';
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 
-// TODO: refactor
 class Header extends ReactsComponent<{ userType: string }> {
     setActive = (event: MouseEvent) => {
         let cur = document.querySelector(`.${styles.item__active}`);
@@ -23,6 +22,12 @@ class Header extends ReactsComponent<{ userType: string }> {
             target.classList.add(`${styles.item__active}`);
         }
     };
+
+    shouldUpdate(
+        nextProps: Readonly<{ userType: string }> | { userType: string },
+    ): boolean {
+        return this.props.userType !== nextProps.userType;
+    }
 
     render() {
         return (

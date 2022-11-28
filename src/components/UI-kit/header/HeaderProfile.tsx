@@ -19,9 +19,13 @@ type HeaderProps = {
 };
 
 class HeaderProfile extends ReactsComponent<HeaderProps> {
-    shouldUpdate(nextProps: Readonly<HeaderProps> | HeaderProps): boolean {
-        return this.props.id !== nextProps.id;
-    }
+    // TODO изменить логику
+    // shouldUpdate(nextProps: Readonly<HeaderProps> | HeaderProps): boolean {
+    //     return (
+    //         this.props.id !== nextProps.id ||
+    //         this.props.authorized !== nextProps.authorized
+    //     );
+    // }
 
     render() {
         return (
@@ -29,27 +33,13 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                 <div
                     className={`flex row w-100 g-40 align-items-center justify-content-end ${styles.auth}`}
                 >
-                    <div
-                        onClick={toggleTheme}
-                        className={'inner-svg-h-24 cursor-pointer'}
-                        dangerouslySetInnerHTML={{
-                            __html: ThemeIcon,
-                        }}
-                    />
                     {this.props.authorized ? (
-                        <Link
-                            to={`/${
-                                this.props.userType === 'applicant'
-                                    ? 'applicant'
-                                    : 'employer'
-                            }/${this.props.id}`}
-                            content={
-                                <HeaderUserInfo
-                                    imgSrc={this.props.imgSrc}
-                                    name={this.props.name}
-                                    surname={this.props.surname}
-                                />
-                            }
+                        <HeaderUserInfo
+                            id={this.props.id}
+                            imgSrc={this.props.imgSrc}
+                            name={this.props.name}
+                            surname={this.props.surname}
+                            userType={this.props.userType}
                         />
                     ) : (
                         <div className={'flex row g-24 align-items-center'}>
