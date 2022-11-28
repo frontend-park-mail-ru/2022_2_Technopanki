@@ -8,18 +8,6 @@ import { dispatch } from './store';
 import StartPage from './views/StartPage/StartPage';
 import { userActions } from './store/user/actions';
 
-class TestComponent extends ReactsComponent<{ content: string[] }> {
-    render() {
-        return (
-            <div>
-                {this.props.content?.map(elem => (
-                    <div>{elem}</div>
-                ))}
-            </div>
-        );
-    }
-}
-
 class App extends ReactsComponent {
     render() {
         return <StartPage />;

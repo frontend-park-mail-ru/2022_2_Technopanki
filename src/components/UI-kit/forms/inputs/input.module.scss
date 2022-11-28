@@ -8,14 +8,15 @@
   align-items: center;
   gap: var(--gap-8);
   padding: var(--padding-16);
+  padding-left: var(--padding-200);
   background: var(--background-0);
   border: var(--border-default);
-  border-radius: var(--border-radius-md);
+  border-radius: var(--border-radius-xl);
   box-shadow: var(--shadow-grey-xs);
   transition: var(--transition-sfast);
   outline: none;
   font-size: 14px;
-  color: var(--background-900);
+  color: var(--background-200);
   &::placeholder {
     font-size: var(--input-font-size);
   }
@@ -50,15 +51,11 @@
   color: var(--background-600);
 }
 
-.icon_cursor{
-  padding-left: 45px;
-}
-
 .icon {
   width: 16px;
-  padding-top: 18px;
-  padding-left: 16px;
-  position: absolute;
+  //padding-top: 18px;
+  //padding-left: 16px;
+  //position: absolute;
   cursor: pointer;
 }
 
@@ -79,14 +76,19 @@
 }
 
 .menu {
-  right: 0;
+  left: 0;
+  align-items: center;
   padding-top: 13px;
-  padding-right: 16px;
+  padding-left: 24px;
 }
 
 .menu_data {
   font-size: 14px;
-  color: var(--background-200);
+  color: var(--background-400);
+}
+
+.search_line {
+  width: 1px;
 }
 
 .search_input {
@@ -99,6 +101,11 @@
 
 .search_arrow {
   width: 6px;
+}
+
+.search_button {
+  border-radius: var(--border-radius-xl);
+  color: black;
 }
 
 .chips_input {

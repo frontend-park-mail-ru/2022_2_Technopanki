@@ -13,19 +13,17 @@ import {
     PASSWORD_LENGTH_ERROR,
     PASSWORD_SYMBOLS_ERROR,
 } from '../../utils/validation/messages';
+import {
+    employerNameLengthValidator,
+    employerNameSymbolsValidator,
+} from '../../utils/validation/commonValidators';
 
 export const nameLengthValidation = (value: string): [boolean, string] => {
-    return [
-        value.length >= 1 && value.length <= 150,
-        'Длина названия компании должна быть между 1 и 150 символами',
-    ];
+    return employerNameLengthValidator(value);
 };
 
 export const nameSymbolsValidation = (value: string): [boolean, string] => {
-    return [
-        validateCompanyName(value),
-        'Название компании должно содержать только буквы русского или английского алфавита',
-    ];
+    return employerNameSymbolsValidator(value);
 };
 
 export const sloganLengthValidation = (value: string): [boolean, string] => {
@@ -68,14 +66,6 @@ export const validateSizeLength = (value: string): [boolean, string] => {
         value.length < 10,
         'Размер компании должен быть меньше 10 символов',
     ];
-};
-
-export const passwordSymbolsValidation = (value: string): [boolean, string] => {
-    return [validatePasswordSymbols(value), PASSWORD_SYMBOLS_ERROR];
-};
-
-export const passwordLengthValidation = (value: string): [boolean, string] => {
-    return [validatePasswordLength(value), PASSWORD_LENGTH_ERROR];
 };
 
 export const fileSizeValidation = (file: File): [boolean, string] => {

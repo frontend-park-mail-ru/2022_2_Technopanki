@@ -11,24 +11,27 @@ import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 import { dispatch } from '../../store';
 import { activateError, deactivateError } from '../../store/errors/actions';
 
+type VacancyPreview = {
+    id: number;
+    title: string;
+    image: string;
+    salary: string;
+    currency: string;
+    location: string;
+    format: string;
+    hours: string;
+    description: string;
+};
+
 export default class Vacancies extends ReactsComponent<
     {},
     {
-        vacancies: {
-            id: number;
-            title: string;
-            image: string;
-            salary: string;
-            currency: string;
-            location: string;
-            format: string;
-            hours: string;
-        }[];
+        vacancies: VacancyPreview[];
         limit: number;
     }
 > {
     state = {
-        vacancies: [],
+        vacancies: [] as VacancyPreview[],
         limit: 10,
     };
 
@@ -103,7 +106,7 @@ export default class Vacancies extends ReactsComponent<
                     </div>
                 </div>
                 <div className={'screen-responsive'}>
-                    <Footer key={'footer'} />
+                    <Footer />
                 </div>
             </div>
         );
