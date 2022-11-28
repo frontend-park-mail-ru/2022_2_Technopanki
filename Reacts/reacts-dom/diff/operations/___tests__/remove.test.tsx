@@ -12,7 +12,7 @@ describe('removeNode', () => {
         const elem = document.createElement('div');
 
         renderNode(elem, node);
-        removeNode(node.ref, node);
+        removeNode(node.ref as HTMLElement, node);
 
         expect(node.ref).toEqual(null);
         expect(node.props.children).toEqual(null);

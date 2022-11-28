@@ -11,7 +11,6 @@ export default class Description extends ReactsComponent {
             <div className={`col-md-6 col-0 ${styles.description} relative`}>
                 <div className={`flex column g-24 ${styles.description_text}`}>
                     <Link
-                        key={'logo'}
                         to={START_PATH}
                         content={
                             <div
@@ -20,10 +19,10 @@ export default class Description extends ReactsComponent {
                             ></div>
                         }
                     />
-                    <h3 key={'header'} className={styles.description_header}>
+                    <h3 className={styles.description_header}>
                         Создай свою команду. Найди свою миссию
                     </h3>
-                    <p key={'text'} className={styles.description_p}>
+                    <p className={styles.description_p}>
                         Мы создаем передовые технологии на всех доступных
                         платформах для того, чтобы работодатели могли быстро
                         найти подходящего сотрудника, а соискатели — хорошую
@@ -31,7 +30,6 @@ export default class Description extends ReactsComponent {
                     </p>
                 </div>
                 <div
-                    key={'ullistraion'}
                     className={`absolute l-24 r-0 b-0 ${styles.description_illustration}`}
                     dangerouslySetInnerHTML={{ __html: Illustration }}
                 ></div>

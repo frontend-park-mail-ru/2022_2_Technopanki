@@ -36,7 +36,7 @@ const removeUntilKey = (
  */
 const insertUntilKey = (
     operations: Operation[],
-    newChildren: [KeyType, ChildrenType][],
+    newChildren: [KeyType, ReactsNode][],
     key: KeyType,
 ) => {
     while (newChildren[0] && newChildren[0][0] !== key) {
@@ -45,6 +45,11 @@ const insertUntilKey = (
     }
 };
 
+/**
+ * Finds first pair of nodes with same keys
+ * @param oldChildrenWithKeys
+ * @param newChildrenWithKeys
+ */
 export const findNextUpdateKey = (
     oldChildrenWithKeys: [KeyType, ReactsComponentNode | ReactsDOMNode][],
     newChildrenWithKeys: [KeyType, ReactsComponentNode | ReactsDOMNode][],
@@ -55,6 +60,12 @@ export const findNextUpdateKey = (
     return newChildrenKeys.find(k => oldChildrenKeys.indexOf(k) !== -1) || null;
 };
 
+/**
+ * Compares 2 arrays of children and returns
+ * operations that must be applied to nodes
+ * @param oldChildren
+ * @param newChildren
+ */
 export const arrayChildrenDiff = (
     oldChildren: ReactsDOMNode[] | ReactsComponentNode[],
     newChildren: ReactsDOMNode[] | ReactsComponentNode[],
@@ -103,6 +114,11 @@ export const arrayChildrenDiff = (
     return operations;
 };
 
+/**
+ * Compares old and new children and returns operations
+ * @param oldChildren
+ * @param newChildren
+ */
 export const childrenDiff = (
     oldChildren: ReactsNode[],
     newChildren: ReactsNode[],
