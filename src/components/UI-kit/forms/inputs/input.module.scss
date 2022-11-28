@@ -10,7 +10,7 @@
   padding: var(--padding-16);
   background: var(--background-0);
   border: var(--border-default);
-  border-radius: var(--border-radius-lg);
+  border-radius: var(--border-radius-xl);
   box-shadow: var(--shadow-grey-xs);
   transition: var(--transition-sfast);
   outline: none;
@@ -18,12 +18,17 @@
   color: var(--background-900);
   &::placeholder {
     font-size: var(--input-font-size);
+    color: var(--background-200);
   }
   &:focus {
     outline: 2px solid var(--primary-blue)
   }
   &[type="date" i] {
     font-family: Inter, sans-serif;
+  }
+  @media (max-width: $screen-md) {
+    font-size: 14px;
+    padding-left: 150px;
   }
 }
 
@@ -75,15 +80,22 @@
 }
 
 .menu {
+  gap: var(--gap-32);
   left: 0;
   align-items: center;
   padding-top: 13px;
   padding-left: 24px;
+  @media (max-width: $screen-md) {
+    gap: var(--gap-12);
+  }
 }
 
 .menu_data {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--background-400);
+  @media (max-width: $screen-md) {
+    font-size: 14px;
+  }
 }
 
 .search_line {

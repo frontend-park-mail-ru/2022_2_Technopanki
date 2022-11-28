@@ -59,23 +59,7 @@ export default class Vacancies extends ReactsComponent<
                     key={'vacacnies'}
                     className={`flex column g-24 relative screen-responsive ${styles.content}`}
                 >
-                    <ErrorPopup />
-                    <h3 key={'h'} className={'mx-0'}>
-                        Поиск
-                    </h3>
-                    <div
-                        onClick={() => {
-                            dispatch(
-                                activateError(
-                                    'В данный момент эта функция не работает:(',
-                                    'Мы работаем над тем, чтобы реализовать ее как можно быстрее',
-                                ),
-                            );
-                            setTimeout(() => dispatch(deactivateError()), 3000);
-                        }}
-                    >
-                        <SearchInput />
-                    </div>
+                    <SearchInput />
                     {this.state.vacancies
                         ?.slice(0, this.state.limit)
                         .map(vacancy => (
