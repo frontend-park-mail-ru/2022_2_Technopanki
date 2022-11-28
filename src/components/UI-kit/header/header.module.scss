@@ -9,6 +9,19 @@
   z-index: 50;
 }
 
+.modal {
+  min-width: 80vw;
+}
+
+.modal-item {
+  padding: var(--padding-32);
+  border-radius: var(--border-radius-lg);
+  background-color: var(--background-50);
+  &:hover {
+    background: var(--background-100);
+  }
+}
+
 .logo {
   svg {
     height: 24px;
@@ -22,24 +35,6 @@
 .items {
   @media (max-width: $screen-md) {
     display: none;
-  }
-}
-
-.item__def {
-  cursor: pointer;
-  color: var(--background-700);
-  transition: var(--transition-sfast);
-  &:hover {
-    color: var(--background-500);
-  }
-}
-
-.item__active {
-  cursor: pointer;
-  color: var(--background-900);
-  text-shadow: var(--shadow-header);
-  &:hover {
-    color: var(--background-900);
   }
 }
 
