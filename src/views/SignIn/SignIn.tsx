@@ -59,10 +59,9 @@ export default class SignIn extends ReactsComponent {
                 dispatch(
                     userActions.SIGN_IN(
                         body.id,
-                        body.user_type === 'employer'
-                            ? body.company_name
-                            : body.applicant_name,
+                        body.applicant_name,
                         body.applicant_surname,
+                        body.email,
                         body.image,
                         body.user_type,
                     ),

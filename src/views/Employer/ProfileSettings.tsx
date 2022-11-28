@@ -85,7 +85,6 @@ class ProfileSettingsComponent extends ReactsComponent<
         dispatch(
             profileActions.updateFromFormData(id, 'employer', image, formData),
         );
-        debugger;
         dispatch(userActions.updateName(formData.get('name') as string, ''));
         dispatch(userActions.updateAvatar(image));
         dispatch(activateSuccess('Данные профиля успешно изменены!', ''));

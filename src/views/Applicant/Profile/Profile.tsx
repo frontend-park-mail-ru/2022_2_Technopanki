@@ -7,16 +7,13 @@ import ButtonPrimary from '../../../components/UI-kit/buttons/ButtonPrimary';
 import Link from '../../../components/Link/Link';
 import Button from '../../../components/UI-kit/buttons/Button';
 import ProfileHeader from '../../../components/ProfileHeader/ProfileHeader';
-import Chips from '../../../components/UI-kit/chips/Chips';
 import ResumeList from '../../../components/UI-kit/resumeList/ResumeList';
 import ResumeSidebar from '../../../components/sidebars/ResumeSidebar';
-import { ReactsComponentNode } from '../../../../Reacts/shared/types/node';
 import { ResumeListItemPropsType } from '../../../components/UI-kit/resumeList/ResumeListItem';
 import { applicantProfileService } from '../../../services/applicantService';
 import { applicantConnect, dispatch, userConnect } from '../../../store';
 import { applicantActions } from '../../../store/applicant/actions';
 import { ProfileState } from '../../../store/applicant/type';
-import ApplicantResumeList from './ApplicantResumeList';
 import Footer from '../../../components/UI-kit/footer/Footer';
 import { resumeActions } from '../../../store/resume/actions';
 import { APPLICANT_PATHS, RESUME_PATHS } from '../../../utils/routerConstants';
@@ -46,7 +43,7 @@ type ApplicantPropsType = {
 
 class ApplicantProfile extends ReactsComponent<ApplicantPropsType> {
     state = {
-        resume: [],
+        resume: [] as ResumeListItemPropsType[],
     };
 
     async getDataFromServer() {
@@ -136,7 +133,7 @@ class ApplicantProfile extends ReactsComponent<ApplicantPropsType> {
                 />
                 <div className={'columns g-24'}>
                     <div className={'col-12 col-md-9 column g-16'}>
-                        <ApplicantResumeList resume={this.state.resume} />
+                        <ResumeList resume={this.state.resume} />
                     </div>
                     <div className={'col-12 col-md-3'}>
                         <ResumeSidebar creatorID={this.props.id} />

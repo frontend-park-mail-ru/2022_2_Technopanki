@@ -26,11 +26,11 @@ export const nameLengthValidation = (value: string): [boolean, string] => {
 };
 
 export const surnameLengthValidation = (value: string): [boolean, string] => {
-    return applicantNameSymbolsValidator(value);
+    return applicantSurnameLengthValidator(value);
 };
 
 export const nameSymbolsValidation = (value: string): [boolean, string] => {
-    return applicantSurnameLengthValidator(value);
+    return applicantNameSymbolsValidator(value);
 };
 
 export const surnameSymbolsValidation = (value: string): [boolean, string] => {

@@ -8,15 +8,14 @@
   align-items: center;
   gap: var(--gap-8);
   padding: var(--padding-16);
-  padding-left: var(--padding-200);
   background: var(--background-0);
   border: var(--border-default);
-  border-radius: var(--border-radius-xl);
+  border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-grey-xs);
   transition: var(--transition-sfast);
   outline: none;
   font-size: 14px;
-  color: var(--background-200);
+  color: var(--background-900);
   &::placeholder {
     font-size: var(--input-font-size);
   }

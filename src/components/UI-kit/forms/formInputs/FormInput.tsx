@@ -4,7 +4,7 @@ import { ValidationFunc } from '../../../../utils/validation/formValidation';
 
 type FormInputProps = {
     id: string;
-    label: string;
+    label?: string;
     type: string;
     placeholder?: string;
     name: string;
@@ -41,7 +41,7 @@ export default class FormInput extends ReactsComponent<FormInputProps> {
             });
         }
 
-        this.props.setError(error, this.props.name);
+        this.props.setError && this.props.setError(error, this.props.name);
         this.setState(() => ({
             error,
             errorMessage: errorMessage,

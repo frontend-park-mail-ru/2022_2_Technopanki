@@ -4,11 +4,9 @@ import { IMAGE_URL } from '../../../utils/networkConstants';
 
 export default class ResumeList extends ReactsComponent<
     {
-        someNewValue: string;
         resume: ResumeListItemPropsType[];
-        test: Function;
     },
-    { resume: ResumeListItemPropsType[]; limit: number }
+    { limit: number }
 > {
     state = {
         limit: 6,

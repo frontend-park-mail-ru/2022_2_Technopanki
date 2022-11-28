@@ -46,7 +46,6 @@ export const employerProfileService: Service = {
                     throw response.json();
                 }
 
-                debugger;
                 return response.json().then(body => body.image);
             })
             .catch(err => {

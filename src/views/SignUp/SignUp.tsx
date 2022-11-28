@@ -24,6 +24,7 @@ import {
     passwordLengthValidator,
     passwordSymbolsValidator,
 } from '../../utils/validation/commonValidators';
+import { USER_URLS } from '../../utils/networkConstants';
 
 export type ResponseBody = {
     descriptors: string[];
@@ -73,11 +74,12 @@ export default class SignUp extends ReactsComponent<
                             ? (formData.get('applicant_name') as string)
                             : (formData.get('company_name') as string),
                         formData.get('applicant_surname') as string,
+                        formData.get('email') as string,
                         body.image,
                         formData.get('toggle') as 'applicant' | 'employer',
                     ),
                 );
-                navigator.navigate(`/${formData.get('toggle')}/${body.id}`);
+                navigator.navigate(USER_URLS.CONFIRM);
             })
             .catch(body => {
                 // setInvalidFieldsFromServer(
