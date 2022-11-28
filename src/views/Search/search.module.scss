@@ -127,3 +127,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.content {
+  margin-top: calc(var(--header-height) + 40px);
+}

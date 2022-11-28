@@ -7,9 +7,6 @@ import VacancyCard from '../../components/UI-kit/vacancy/VacancyCard';
 import { vacancyService } from '../../services/vacancyService';
 import Button from '../../components/UI-kit/buttons/Button';
 import RenderWithCondition from '../../components/RenderWithCondition';
-import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
-import { dispatch } from '../../store';
-import { activateError, deactivateError } from '../../store/errors/actions';
 
 type VacancyPreview = {
     id: number;
@@ -39,7 +36,7 @@ export default class Vacancies extends ReactsComponent<
         vacancyService
             .getAllVacancies()
             .then(body => {
-                this.setState(state => ({
+                this.setState(() => ({
                     limit: 10,
                     vacancies: [...body.data],
                 }));

@@ -11,6 +11,7 @@ import SearchFilter from '../../components/UI-kit/filters/SearchFilter';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 import { dispatch } from '../../store';
 import { activateError, deactivateError } from '../../store/errors/actions';
+import { VacancyState } from '../../store/vacancy/type';
 
 export default class Search extends ReactsComponent<
     {},
@@ -29,7 +30,7 @@ export default class Search extends ReactsComponent<
     }
 > {
     state = {
-        vacancies: [],
+        vacancies: [] as VacancyState[],
         limit: 10,
     };
 
@@ -43,7 +44,7 @@ export default class Search extends ReactsComponent<
                     'Смешанный формат',
                     'Удаленная работа',
                     'Гибкий график',
-                    'Сменный график'
+                    'Сменный график',
                 ],
                 name: 'format',
             },
@@ -55,7 +56,7 @@ export default class Search extends ReactsComponent<
                     'Нет опыта',
                     'От 1 года до 3 лет',
                     'От 3 до 6 лет',
-                    'Более 6 лет'
+                    'Более 6 лет',
                 ],
                 name: 'experience',
             },
@@ -70,62 +71,67 @@ export default class Search extends ReactsComponent<
                 header: 'Город',
                 type: 'input',
                 name: 'city',
-            }
-        ]
-    }
+            },
+        ],
+    };
 
     queryParams = {
         search: 'search',
-    }
+    };
 
     onSubmitSearch = async (e: SubmitEvent) => {
         e.preventDefault();
-        const queryParam = document.getElementById('search').value
-        console.log(queryParam)
+        const queryParam = document.getElementById('search').value;
+        console.log(queryParam);
         vacancyService
             .searchByVacancies(queryParam)
             .then(body => {
                 this.setState(state => ({
                     limit: 10,
-                    vacancies:[...body.data],
-                }))
+                    vacancies: [...body.data],
+                }));
             })
-            .catch(err => console.error(err))
-    }
+            .catch(err => console.error(err));
+    };
 
     onSubmitFilters = async (e: SubmitEvent) => {
         e.preventDefault();
-        console.log('filters submitted')
-        const searchParam = document.getElementById('search').value
+        console.log('filters submitted');
+        const searchParam = document.getElementById('search').value;
 
         const formData = new FormData(e.target);
 
-        searchParam
-            ? formData.append('search', searchParam)
-            : ''
-        formData.get('city') === ''
-            ? formData.delete('city')
-            : ''
+        searchParam ? formData.append('search', searchParam) : '';
+        formData.get('city') === '' ? formData.delete('city') : '';
 
         const data = [...formData.entries()];
-        console.log(data)
+        console.log(data);
 
-        const groupByParam = data.reduce((groupData, elem, index) => {
-            if (index > 0) {
-                groupData.at(-1)[0] === elem[0]
-                    ? groupData.at(-1).push(elem[1])
-                    : groupData.push(elem);
-            }
+        const groupByParam = data.reduce(
+            (groupData, elem, index) => {
+                if (index > 0) {
+                    groupData.at(-1)[0] === elem[0]
+                        ? groupData.at(-1).push(elem[1])
+                        : groupData.push(elem);
+                }
 
-            return groupData
-        }, [data[0]])
+                return groupData;
+            },
+            [data[0]],
+        );
 
-        console.log(groupByParam)
+        console.log(groupByParam);
 
         const queryString = groupByParam
-            .map(x => x[0] === 'salary'
-                ? `${encodeURIComponent(x[0])}=${encodeURIComponent(x.slice(1).join(':'))}`
-                : `${encodeURIComponent(x[0])}=${encodeURIComponent(x.slice(1).join(','))}`)
+            .map(x =>
+                x[0] === 'salary'
+                    ? `${encodeURIComponent(x[0])}=${encodeURIComponent(
+                          x.slice(1).join(':'),
+                      )}`
+                    : `${encodeURIComponent(x[0])}=${encodeURIComponent(
+                          x.slice(1).join(','),
+                      )}`,
+            )
             .join('&');
         console.log(queryString);
 
@@ -134,11 +140,11 @@ export default class Search extends ReactsComponent<
             .then(body => {
                 this.setState(state => ({
                     limit: 10,
-                    vacancies:[...body.data],
-                }))
+                    vacancies: [...body.data],
+                }));
             })
-            .catch(err => console.error(err))
-    }
+            .catch(err => console.error(err));
+    };
 
     componentDidMount() {
         vacancyService
@@ -159,53 +165,51 @@ export default class Search extends ReactsComponent<
     render() {
         return (
             <div>
-                <Header key={'header'} />
-                <div
-                    key={'vacacnies'}
-                    className={`flex column g-24 relative screen-responsive ${styles.content}`}
-                >
-                    <SearchInput
-                        onSubmitSearch={this.onSubmitSearch}
-                    />
-                    <div className={'flex row justify-content-space-between g-16 screen-responsive'}>
+                <Header />
+                <div className={'screen-responsive columns g-16'}>
+                    <div className={`col-12 column ${styles.content}`}>
+                        <SearchInput onSubmitSearch={this.onSubmitSearch} />
+                    </div>
+                    <div className={'col-12 col-md-3'}>
                         <SearchFilter
                             filters={this.filters.vacancyFilter}
                             onSubmit={this.onSubmitFilters}
                         />
-                        <div className={'flex column g-8 w-100'}>
-                            {this.state.vacancies
-                                ?.slice(0, this.state.limit)
-                                .map(vacancy => (
-                                    <VacancyCard
-                                        key={vacancy.id.toString()}
-                                        id={vacancy.id.toString()}
-                                        name={vacancy.title}
-                                        icon={vacancy.image}
-                                        salary={vacancy.salary}
-                                        currency={vacancy.currency}
-                                        location={vacancy.location}
-                                        format={vacancy.format}
-                                        hours={vacancy.hours}
-                                        description={vacancy.description}
-                                    />
-                                ))}
-                            <div className={'w-100'}>
-                                <RenderWithCondition
-                                    condition={
-                                        this.state.limit < this.state.vacancies.length
-                                    }
-                                    onSuccess={
-                                        <Button onClick={this.increaseLimit}>
-                                            Посмотреть еще
-                                        </Button>
-                                    }
+                    </div>
+                    <div className={'col-12 col-md-9 flex column g-8 w-100'}>
+                        {this.state.vacancies
+                            ?.slice(0, this.state.limit)
+                            .map(vacancy => (
+                                <VacancyCard
+                                    key={vacancy.id.toString()}
+                                    id={vacancy.id.toString()}
+                                    name={vacancy.title}
+                                    icon={vacancy.image}
+                                    salary={vacancy.salary}
+                                    currency={vacancy.currency}
+                                    location={vacancy.location}
+                                    format={vacancy.format}
+                                    hours={vacancy.hours}
+                                    description={vacancy.description}
                                 />
-                            </div>
+                            ))}
+                        <div className={'w-100'}>
+                            <RenderWithCondition
+                                condition={
+                                    this.state.limit <
+                                    this.state.vacancies.length
+                                }
+                                onSuccess={
+                                    <Button onClick={this.increaseLimit}>
+                                        Посмотреть еще
+                                    </Button>
+                                }
+                            />
                         </div>
                     </div>
                 </div>
                 <div className={'screen-responsive'}>
-                    <Footer key={'footer'} />
+                    <Footer />
                 </div>
             </div>
         );

@@ -11,6 +11,11 @@ import { authService } from '../../../services/authService';
 import { userActions } from '../../../store/user/actions';
 import navigator from '../../../router/navigator';
 import { IMAGE_URL } from '../../../utils/networkConstants';
+import {
+    SIGN_IN_PATH,
+    SIGN_UP_PATH,
+    SEARCH_PATH,
+} from '../../../utils/routerConstants';
 
 class HeaderModal extends ReactsComponent<{
     authorized: boolean;
@@ -86,15 +91,6 @@ class HeaderModal extends ReactsComponent<{
                                             />
                                         </div>
                                         <a
-                                            onClick={(e: MouseEvent) => {
-                                                e.stopPropagation();
-                                                toggleTheme();
-                                            }}
-                                            className={`${styles['modal-item']}`}
-                                        >
-                                            Переключить тему
-                                        </a>
-                                        <a
                                             onClick={this.logout}
                                             className={styles['modal-item']}
                                         >
@@ -103,18 +99,40 @@ class HeaderModal extends ReactsComponent<{
                                     </div>
                                 }
                             />
-                            <p
+                            <a
+                                onClick={(e: MouseEvent) => {
+                                    e.stopPropagation();
+                                    toggleTheme();
+                                }}
+                                className={`${styles['modal-item']}`}
+                            >
+                                Переключить тему
+                            </a>
+                            <a
                                 id={'item1'}
                                 className={`mt-16 ${styles['modal-item']}`}
                             >
-                                Вакансии
-                            </p>
-                            <p id={'item2'} className={styles['modal-item']}>
-                                Соискатели
-                            </p>
-                            <p id={'item3'} className={styles['modal-item']}>
-                                Создать резюме
-                            </p>
+                                <Link to={SEARCH_PATH} content={'Вакансии'} />
+                            </a>
+                            <RenderWithCondition
+                                condition={this.props.userType === 'applicant'}
+                                onSuccess={
+                                    <a
+                                        id={'item3'}
+                                        className={styles['modal-item']}
+                                    >
+                                        Создать резюме
+                                    </a>
+                                }
+                            />
+                            <Link
+                                to={SIGN_UP_PATH}
+                                content={
+                                    <a className={styles['modal-item']}>
+                                        Зарегистрироваться
+                                    </a>
+                                }
+                            />
                         </div>
                     </div>
                 }
