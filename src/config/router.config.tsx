@@ -58,29 +58,29 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
     },
     {
         path: {
-            path: '/vacancy',
+            path: '/searchCards',
             validator: (url: string) => /vacancy\/[1-9]+/.test(url),
         },
         component: Vacancy,
     },
     {
         path: {
-            path: '/vacancy/new',
-            validator: (url: string) => url === '/vacancy/new',
+            path: '/searchCards/new',
+            validator: (url: string) => url === '/searchCards/new',
         },
         component: VacancySettings,
         // component: VacancySettings isNew={true},
     },
     {
         path: {
-            path: '/vacancy/settings',
+            path: '/searchCards/settings',
             validator: (url: string) => /vacancy\/settings\/[0-9]+/.test(url),
         },
         component: VacancySettings,
     },
     {
         path: {
-            path: '/vacancy/responses',
+            path: '/searchCards/responses',
             validator: (url: string) => /vacancy\/responses\/[0-9]+/.test(url),
         },
         component: VacancyResponses,

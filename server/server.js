@@ -12,7 +12,7 @@ app.use(
     express.static(path.join(__dirname, '../../backend/data/image/avatar/')),
 );
 app.use('/js', express.static(path.join(__dirname, './js/')));
-app.use('/vacancy/js', express.static(path.join(__dirname, './js/')));
+app.use('/searchCards/js', express.static(path.join(__dirname, './js/')));
 
 app.get('*', (req, res) => {
     console.log(req.headers);

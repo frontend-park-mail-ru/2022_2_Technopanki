@@ -39,10 +39,12 @@ export const SERVER_URLS = {
     AUTH: SERVER_URL + 'auth/',
     LOGOUT: SERVER_URL + 'auth/logout/',
 
-    VACANCIES: SERVER_URL + 'api/vacancy/',
-    VACANCY: SERVER_URL + 'api/vacancy/',
+    VACANCIES: SERVER_URL + 'api/searchCards/',
+    VACANCY: SERVER_URL + 'api/searchCards/',
 
     RESUME: SERVER_URL + 'api/resume/',
+    ALL_RESUMES: SERVER_URL + 'api/resume',
+    RESUME_SEARCH: SERVER_URL + 'api/resume',
     ADD_RESUME: SERVER_URL + 'api/resume/new',
 
     APPLICANT: SERVER_URL + 'api/user/safety/',

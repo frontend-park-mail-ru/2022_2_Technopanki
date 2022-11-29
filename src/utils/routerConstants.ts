@@ -16,10 +16,10 @@ export const SIGN_UP_PATH = '/signup';
 export const SEARCH_PATH = '/search';
 
 export const VACANCY_PATHS = {
-    INDEX: '/vacancy/',
-    RESUME_LIST: '/vacancy/responses/',
-    SETTINGS: '/vacancy/settings/',
-    NEW: '/vacancy/new',
+    INDEX: '/searchCards/',
+    RESUME_LIST: '/searchCards/responses/',
+    SETTINGS: '/searchCards/settings/',
+    NEW: '/searchCards/new',
 };
 
 export const RESUME_PATHS = {

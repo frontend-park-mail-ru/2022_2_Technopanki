@@ -10,7 +10,6 @@ import ArrowButtonWithTextOutline from '../buttons/ArrowButtonWithTextOutline';
 import Link from '../../Link/Link';
 import { VACANCY_PATHS } from '../../../utils/routerConstants';
 import { IMAGE_URL } from '../../../utils/networkConstants';
-import RenderWithCondition from '../../RenderWithCondition';
 
 export type VacancyCardPropsType = {
     id: string;
@@ -34,7 +33,7 @@ export default class VacancyCard extends ReactsComponent<
         isOpen: false,
     };
 
-    handleDetails = () => {
+    handleDetails = (e: MouseEvent) => {
         this.setState(state => ({
             ...state,
             isOpen: !this.state.isOpen,
@@ -43,63 +42,94 @@ export default class VacancyCard extends ReactsComponent<
 
     render() {
         return (
-            <div className={`g-16 rounded-lg p-24 ${styles.vacancy}`}>
+            <div
+                className={`grid grid-template-columns g-16 rounded-lg p-24 ${styles.card}`}
+            >
                 <img
+                    key={'img'}
                     className={'rounded-md'}
                     height={40}
                     width={40}
                     src={IMAGE_URL + this.props.icon}
                 />
                 <div
-                    className={`flex flex-wrap flex-start column g-4 ${styles['card-content']}`}
+                    key={'searchCards-data'}
+                    className={'flex flex-start column g-4'}
                 >
                     <Link
+                        key={'searchCards-name'}
                         to={VACANCY_PATHS.INDEX + this.props.id}
                         content={
-                            <h4 className={`${styles.vacancy_name}`}>
+                            <h4
+                                key={'searchCards-name'}
+                                className={`cursor-pointer ${styles.vacancy_name}`}
+                            >
                                 {this.props.name}
                             </h4>
                         }
                     />
-                    <div className={'flex flex-wrap flex-start row g-16'}>
-                        <div className={'flex row align-items-center g-6'}>
+                    <div
+                        key={'searchCards-metadata'}
+                        className={'flex flex-start row g-16'}
+                    >
+                        <div
+                            key={'location'}
+                            className={'flex row align-items-center g-6'}
+                        >
                             <div
+                                key={'meta'}
                                 className={`${styles.metadata_icon}`}
                                 dangerouslySetInnerHTML={{ __html: Location }}
                             />
-                            <div className={`${styles.metadata}`}>
+                            <div
+                                key={'location'}
+                                className={`${styles.metadata}`}
+                            >
                                 {this.props.location}
                             </div>
                         </div>
-                        <div className={'flex row align-items-center g-6'}>
+                        <div
+                            key={'clock'}
+                            className={'flex row align-items-center g-6'}
+                        >
                             <div
+                                key={'clock'}
                                 className={`${styles.metadata_icon}`}
                                 dangerouslySetInnerHTML={{ __html: Clock }}
                             />
-                            <div className={`${styles.metadata}`}>
+                            <div
+                                key={'format'}
+                                className={`${styles.metadata}`}
+                            >
                                 {this.props.format}
                             </div>
                         </div>
-                        <div className={'flex row align-items-center g-6'}>
+                        <div
+                            key={'icon'}
+                            className={'flex row align-items-center g-6'}
+                        >
                             <div
+                                key={'icon'}
                                 className={`${styles.metadata_icon}`}
                                 dangerouslySetInnerHTML={{ __html: Calendar }}
                             />
-                            <div className={`${styles.metadata}`}>
+                            <div key={'hours'} className={`${styles.metadata}`}>
                                 {this.props.hours}
                             </div>
                         </div>
                     </div>
                 </div>
                 <div
-                    className={`flex row g-4 mx-0 justify-content-end ${styles.salary}`}
+                    key={'searchCards-salary'}
+                    className={'flex row g-4 mx-0 justify-content-end'}
                 >
-                    <h4 className={`mx-0 ${styles['salary-content']}`}>
+                    <h4 className={`mx-0 ${styles.salary}`}>
                         {this.props.salary}
-                        <span className={styles.per_month}> руб/мес</span>
                     </h4>
+                    <h4 className={`mx-0 ${styles.per_month}`}>руб/мес</h4>
                 </div>
-                <div className={styles.link}>
+                <div key={'vacancy'} className={styles.link}>
+                    <div className={'none'}></div>
                     <Link
                         to={VACANCY_PATHS.INDEX + this.props.id}
                         content={
@@ -110,6 +140,7 @@ export default class VacancyCard extends ReactsComponent<
                     />
                 </div>
                 <div
+                    key={'details'}
                     className={`flex row g-4 justify-content-end align-items-end ${styles.details}`}
                 >
                     <div
@@ -131,23 +162,20 @@ export default class VacancyCard extends ReactsComponent<
                         />
                     </div>
                 </div>
-                <RenderWithCondition
-                    condition={this.state.isOpen}
-                    onSuccess={
+                {this.state.isOpen ? (
+                    <div className={`flex column g-12 ${styles.description}`}>
                         <div
-                            className={`flex column g-12 ${styles.description}`}
-                        >
-                            <div
-                                className={'w-100'}
-                                dangerouslySetInnerHTML={{ __html: Hr }}
-                            />
-                            <h5 className={'mx-0'}>Описание вакансии</h5>
-                            <p className={styles.description_text}>
-                                {this.props.description}
-                            </p>
-                        </div>
-                    }
-                />
+                            className={'w-100'}
+                            dangerouslySetInnerHTML={{ __html: Hr }}
+                        />
+                        <h5 className={'mx-0'}>Описание вакансии</h5>
+                        <p className={styles.description_text}>
+                            {this.props.description}
+                        </p>
+                    </div>
+                ) : (
+                    <p></p>
+                )}
             </div>
         );
     }
