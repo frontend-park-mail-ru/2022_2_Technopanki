@@ -39,7 +39,7 @@ class VacancySettings extends ReactsComponent<
     { isNew: boolean }
 > {
     state = {
-        isNew: location.pathname.split('/').at(-1) !== 'new',
+        isNew: location.pathname.split('/').at(-1) === 'new',
     };
 
     validation = useValidation({
@@ -56,24 +56,6 @@ class VacancySettings extends ReactsComponent<
         }
 
         const formData = new FormData(e.target);
-        let errorFlag = false;
-
-        formData.forEach(value => {
-            if (!value || value === '') {
-                dispatch(
-                    activateError(
-                        'Пожалуйста, заполните все поля формы',
-                        'В форме не должно быть пустых полей',
-                    ),
-                );
-                setTimeout(() => dispatch(deactivateError()), 5000);
-                errorFlag = true;
-            }
-        });
-
-        if (errorFlag) {
-            return;
-        }
 
         if (this.state.isNew) {
             vacancyService
@@ -103,7 +85,7 @@ class VacancySettings extends ReactsComponent<
     };
 
     componentDidMount() {
-        if (this.state.isNew) {
+        if (!this.state.isNew) {
             const vacancyID = location.pathname.split('/').at(-1);
             vacancyService
                 .getVacancyData(vacancyID)

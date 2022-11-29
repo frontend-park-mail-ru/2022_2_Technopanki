@@ -37,9 +37,11 @@ class ApplicantHat extends ReactsComponent<
     };
 
     getCreatorDataFromServer = () => {
-        resumeService.getResumeHatData(this.props.creatorID).then(body => {
-            dispatch(profileActions.update(body));
-        });
+        if (this.props.creatorID) {
+            resumeService.getResumeHatData(this.props.creatorID).then(body => {
+                dispatch(profileActions.update(body));
+            });
+        }
     };
 
     componentDidMount() {

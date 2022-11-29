@@ -72,20 +72,18 @@ export default class ResumeListItem extends ReactsComponent<ResumeListItemPropsT
         return (
             <div className={'columns g-24 p-16 border-top-default'}>
                 <div
-                    key={'data'}
                     className={
                         'col-11 col-sm-6 col-md-7 flex row align-items-center g-16'
                     }
                 >
                     <img
-                        key={'img'}
                         height={40}
                         width={40}
                         className={'rounded-max'}
                         src={this.props.imgSrc}
                         alt={'Avatar'}
                     />
-                    <div key={'data'} className={'flex column g-4'}>
+                    <div className={'flex column g-4'}>
                         <Link
                             to={RESUME_PATHS.INDEX + this.props.resume_id}
                             content={
