@@ -105,7 +105,6 @@ export default class Search extends ReactsComponent<
         formData.get('city') === '' ? formData.delete('city') : '';
 
         const data = [...formData.entries()];
-        console.log(data);
 
         const groupByParam = data.reduce(
             (groupData, elem, index) => {
@@ -120,8 +119,6 @@ export default class Search extends ReactsComponent<
             [data[0]],
         );
 
-        console.log(groupByParam);
-
         const queryString = groupByParam
             .map(x =>
                 x[0] === 'salary'
@@ -133,7 +130,6 @@ export default class Search extends ReactsComponent<
                       )}`,
             )
             .join('&');
-        console.log(queryString);
 
         vacancyService
             .filterVacancies(queryString)

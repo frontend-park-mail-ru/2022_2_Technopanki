@@ -81,7 +81,7 @@ export default class SignUp extends ReactsComponent<
                 navigator.navigate(USER_URLS.CONFIRM);
             })
             .catch(body => {
-                dispatch(activateError(body.error, body.descriptors[0]));
+                dispatch(activateError(body.descriptors[0], ''));
                 setTimeout(() => dispatch(deactivateError()), 3000);
             });
     };

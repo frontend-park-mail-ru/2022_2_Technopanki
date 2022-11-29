@@ -46,6 +46,9 @@ export const authService: Service = {
                 }
 
                 return response.body;
+            })
+            .catch(err => {
+                throw err;
             });
     },
 

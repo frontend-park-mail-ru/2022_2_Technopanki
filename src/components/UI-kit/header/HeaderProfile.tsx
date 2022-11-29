@@ -43,6 +43,12 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                         />
                     ) : (
                         <div className={'flex row g-24 align-items-center'}>
+                            <a
+                                className={'cursor-pointer'}
+                                onClick={toggleTheme}
+                            >
+                                Сменить тему
+                            </a>
                             <Link
                                 to={SIGN_IN_PATH}
                                 content={
