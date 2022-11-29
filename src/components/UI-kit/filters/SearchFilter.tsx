@@ -6,7 +6,7 @@ import CheckBox from '../buttons/Checkbox';
 import ButtonPrimaryBlue from '../buttons/ButtonPrimaryBlue';
 import { Input } from 'postcss';
 
-type FilterPropsType = {
+export type FilterPropsType = {
     type: string;
     header: string;
     name: string;

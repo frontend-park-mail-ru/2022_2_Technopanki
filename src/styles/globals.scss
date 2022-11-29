@@ -426,6 +426,27 @@ p {
     height: 100%;
   }
   &-50vh {
+    height: 50vh;
+  }
+  &-100vh {
+    height: 100vh;
+  }
+}
+
+.mh {
+  &-25 {
+    min-height: 25%;
+  }
+  &-50 {
+    min-height: 50%;
+  }
+  &-75 {
+    min-height: 75%;
+  }
+  &-100 {
+    min-height: 100%;
+  }
+  &-50vh {
     min-height: 50vh;
   }
   &-100vh {

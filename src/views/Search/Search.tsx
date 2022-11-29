@@ -12,6 +12,7 @@ import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 import { dispatch } from '../../store';
 import { activateError, deactivateError } from '../../store/errors/actions';
 import { VacancyState } from '../../store/vacancy/type';
+import SearchFilterMobile from '../../components/UI-kit/filters/SearchFilterMobile';
 
 export default class Search extends ReactsComponent<
     {},
@@ -166,8 +167,14 @@ export default class Search extends ReactsComponent<
                     <div className={`col-12 column ${styles.content}`}>
                         <SearchInput onSubmitSearch={this.onSubmitSearch} />
                     </div>
-                    <div className={'col-12 col-md-3'}>
+                    <div className={`col-0 col-md-3`}>
                         <SearchFilter
+                            filters={this.filters.vacancyFilter}
+                            onSubmit={this.onSubmitFilters}
+                        />
+                    </div>
+                    <div className={'col-12 col-md-0 justify-content-end'}>
+                        <SearchFilterMobile
                             filters={this.filters.vacancyFilter}
                             onSubmit={this.onSubmitFilters}
                         />
