@@ -3,7 +3,7 @@ import { setTheme } from './utils/toggleTheme';
 import router from './router/navigator';
 import { ReactsComponent } from '../Reacts/reacts/src/Component';
 import { ROUTER_PATHS } from './config/router.config';
-import { authService } from './services/auth/authService';
+import { authService, USER_TYPE } from './services/auth/authService';
 import { dispatch } from './store';
 import StartPage from './views/StartPage/StartPage';
 import { userActions } from './store/user/actions';
@@ -24,13 +24,13 @@ authService
     .then(body => {
         dispatch(
             userActions.SIGN_IN(
-                body.id,
-                body.user_type === 'employer'
+                body.id.toString(),
+                body.user_type === USER_TYPE.EMPLOYER
                     ? body.company_name
                     : body.applicant_name,
                 body.applicant_surname,
                 body.email,
-                body.image ?? body.imgSrc,
+                body.image,
                 body.user_type,
             ),
         );

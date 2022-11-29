@@ -14,8 +14,8 @@ export const authService: Service & {
     signIn: (formDate: FormData) => Promise<SignInResponse>;
     signUp: (formDate: FormData) => Promise<SignUpResponse>;
     authConfirm: (code: string, email: string) => Promise<ConfirmResponse>;
-    auth: Function;
-    logout: Function;
+    auth: () => Promise<SignInResponse>;
+    logout: () => Promise<number>;
     CSRF: Function;
 } = {
     signIn: async (formData: FormData): Promise<SignInResponse> => {
@@ -81,7 +81,7 @@ export const authService: Service & {
             });
     },
 
-    auth: async () => {
+    auth: async (): Promise<SignInResponse> => {
         dispatch(startLoading());
         return network
             .GET(USER_URLS.AUTH)
@@ -100,20 +100,22 @@ export const authService: Service & {
             });
     },
 
-    logout: async () => {
+    logout: async (): Promise<number> => {
         dispatch(startLoading());
 
-        return network
+        return await network
             .POST(USER_URLS.LOGOUT, '')
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
                     throw response.status;
                 }
+
+                return response.status;
             })
             .catch(err => {
                 dispatch(stopLoading());
-                console.error(err);
+                return err;
             });
     },
 

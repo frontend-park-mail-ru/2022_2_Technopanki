@@ -15,7 +15,7 @@ import { VacancyCardPropsType } from '../../components/UI-kit/vacancy/VacancyCar
 import Footer from '../../components/UI-kit/footer/Footer';
 import { employerProfileService } from '../../services/employerProfileService';
 import { userStore } from '../../store/user/store';
-import { EmployerProfile, ProfileState } from '../../store/profile/types';
+import { ProfileState } from '../../store/profile/types';
 import { dispatch, profileConnect, userConnect } from '../../store';
 import { profileActions } from '../../store/profile/actions';
 import { vacancyActions } from '../../store/vacancy/actions';
@@ -42,7 +42,7 @@ class Profile extends ReactsComponent<
             employerID,
         );
 
-        dispatch(profileActions.update({ ...employerProfile, id: employerID }));
+        dispatch(profileActions.updateEmployerFromServer(employerProfile));
         this.setState(state => ({ ...state, vacancies: vacancies.data ?? [] }));
     }
 
