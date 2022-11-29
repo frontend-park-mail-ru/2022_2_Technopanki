@@ -6,7 +6,7 @@ import VacancySideBar from '../../components/sidebars/VacancySideBar';
 import VacancyHat, { ProfileHatProps } from './VacancyHat';
 import Footer from '../../components/UI-kit/footer/Footer';
 import { dispatch, profileConnect, vacancyConnect } from '../../store';
-import { vacancyService } from '../../services/vacancyService';
+import { vacancyService } from '../../services/vacancy/vacancyService';
 import { vacancyActions } from '../../store/vacancy/actions';
 import { VacancyState } from '../../store/vacancy/type';
 import SuccessPopup from '../../components/SuccessPopup/SuccessPopup';

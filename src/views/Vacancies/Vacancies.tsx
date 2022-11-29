@@ -4,7 +4,7 @@ import Header from '../../components/UI-kit/header/Header';
 import SearchInput from '../../components/UI-kit/forms/inputs/SearchInput';
 import Footer from '../../components/UI-kit/footer/Footer';
 import VacancyCard from '../../components/UI-kit/vacancy/VacancyCard';
-import { vacancyService } from '../../services/vacancyService';
+import { vacancyService } from '../../services/vacancy/vacancyService';
 import Button from '../../components/UI-kit/buttons/Button';
 import RenderWithCondition from '../../components/RenderWithCondition';
 

@@ -22,7 +22,7 @@ import { vacancyActions } from '../../store/vacancy/actions';
 import ProfileVacancies from './ProfileVacancies';
 import RenderWithCondition from '../../components/RenderWithCondition';
 import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../utils/routerConstants';
-import { vacancyService } from '../../services/vacancyService';
+import { vacancyService } from '../../services/vacancy/vacancyService';
 
 class Profile extends ReactsComponent<
     { userID: string } & ProfileState,

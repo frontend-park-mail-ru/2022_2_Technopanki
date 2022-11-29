@@ -5,7 +5,7 @@ import Dropdown from '../../components/UI-kit/dropdown/Dropdown';
 import VacancyDropdownResume from './VacancyDropdownResume';
 import Hat from '../../components/UI-kit/hat/Hat';
 import Link from '../../components/Link/Link';
-import { vacancyService } from '../../services/vacancyService';
+import { vacancyService } from '../../services/vacancy/vacancyService';
 import { profileConnect, userConnect } from '../../store';
 import RenderWithCondition from '../../components/RenderWithCondition';
 import ButtonNotActive from '../../components/UI-kit/buttons/ButtonNotActive';

@@ -2,7 +2,7 @@ import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Button from '../../components/UI-kit/buttons/Button';
 import Hat from '../../components/UI-kit/hat/Hat';
 import Link from '../../components/Link/Link';
-import { resumeService } from '../../services/resumeService';
+import { resumeService } from '../../services/resume/resumeService';
 import { APPLICANT_PATHS, RESUME_PATHS } from '../../utils/routerConstants';
 import { IMAGE_URL } from '../../utils/networkConstants';
 import { userConnect } from '../../store';

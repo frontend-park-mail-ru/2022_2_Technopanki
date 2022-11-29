@@ -1,11 +1,14 @@
-import network from '../lib/network';
-import { PROFILE_URLS, VACANCY_URLS } from '../utils/networkConstants';
-import { Service } from './types';
-import { dispatch } from '../store';
-import { startLoading, stopLoading } from '../store/loading/actions';
-import { requestHeaders } from './headers';
+import network from '../../lib/network';
+import { PROFILE_URLS, VACANCY_URLS } from '../../utils/networkConstants';
+import { Service } from '../types';
+import { dispatch } from '../../store';
+import { startLoading, stopLoading } from '../../store/loading/actions';
+import { requestHeaders } from '../headers';
+import { EmployerResponse } from '../auth/types';
 
-export const vacancyService: Service = {
+export const vacancyService: {
+    getVacancyHatData: (userID: string) => Promise<EmployerResponse>;
+} & Service = {
     getAllVacancies: async () => {
         dispatch(startLoading());
         return await network
@@ -57,7 +60,7 @@ export const vacancyService: Service = {
             .catch(() => dispatch(stopLoading()));
     },
 
-    getVacancyHatData: async (userID: string) => {
+    getVacancyHatData: async (userID: string): Promise<EmployerResponse> => {
         dispatch(startLoading());
         return await network
             .GET(PROFILE_URLS.USER_PREVIEW(userID), requestHeaders.jsonHeader)
@@ -181,5 +184,5 @@ export const vacancyService: Service = {
                 return response.body;
             })
             .catch(err => console.error(err));
-    }
+    },
 };

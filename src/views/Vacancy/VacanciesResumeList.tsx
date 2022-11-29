@@ -1,6 +1,6 @@
 import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import ResumeList from '../../components/UI-kit/resumeList/ResumeList';
-import { vacancyService } from '../../services/vacancyService';
+import { vacancyService } from '../../services/vacancy/vacancyService';
 import { vacancyConnect } from '../../store';
 
 class VacanciesResumeList extends ReactsComponent<

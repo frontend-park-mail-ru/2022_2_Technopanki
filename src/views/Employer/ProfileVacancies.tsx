@@ -1,5 +1,5 @@
 import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
-import { vacancyService } from '../../services/vacancyService';
+import { vacancyService } from '../../services/vacancy/vacancyService';
 import VacancyCard from '../../components/UI-kit/vacancy/VacancyCard';
 import Button from '../../components/UI-kit/buttons/Button';
 import RenderWithCondition from '../../components/RenderWithCondition';

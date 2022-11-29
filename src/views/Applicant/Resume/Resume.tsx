@@ -4,7 +4,7 @@ import styles from '../Resume/resume.module.scss';
 import TextBlock from '../../../components/UI-kit/text/TextBlock';
 import Education from '../../../components/UI-kit/education/Education';
 import ResumeSidebar from '../../../components/sidebars/ResumeSidebar';
-import { resumeService } from '../../../services/resumeService';
+import { resumeService } from '../../../services/resume/resumeService';
 import { dispatch, resumeConnect } from '../../../store';
 import { resumeActions } from '../../../store/resume/actions';
 import ApplicantHat from '../ApplicantHat';

@@ -10,7 +10,7 @@ import FormInputGroup from '../../components/UI-kit/forms/formInputs/FormInputGr
 import Textarea from '../../components/UI-kit/forms/inputs/Textarea';
 import Footer from '../../components/UI-kit/footer/Footer';
 import { dispatch, userConnect, vacancyConnect } from '../../store';
-import { vacancyService } from '../../services/vacancyService';
+import { vacancyService } from '../../services/vacancy/vacancyService';
 import navigator from '../../router/navigator';
 import { vacancyActions } from '../../store/vacancy/actions';
 import Button from '../../components/UI-kit/buttons/Button';

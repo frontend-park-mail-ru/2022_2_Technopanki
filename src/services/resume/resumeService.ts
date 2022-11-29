@@ -1,11 +1,15 @@
-import network from '../lib/network';
-import { SERVER_URL, SERVER_URLS } from '../utils/networkConstants';
-import { requestHeaders } from './headers';
-import { Service } from './types';
-import { dispatch } from '../store';
-import { stopLoading } from '../store/loading/actions';
+import network from '../../lib/network';
+import { SERVER_URL, SERVER_URLS } from '../../utils/networkConstants';
+import { requestHeaders } from '../headers';
+import { Service } from '../types';
+import { dispatch } from '../../store';
+import { stopLoading } from '../../store/loading/actions';
+import { ApplicantResponse } from '../auth/types';
 
-export const resumeService: Service = {
+export const resumeService: {
+    getResumeData: (resumeID: string) => Promise<any>;
+    getResumeHatData: (userID: string) => Promise<ApplicantResponse>;
+} & Service = {
     getResumeData: (resumeID: string) => {
         return network
             .GET(SERVER_URLS.RESUME + resumeID, requestHeaders.jsonHeader)

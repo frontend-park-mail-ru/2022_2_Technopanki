@@ -185,7 +185,7 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 value={this.props.status}
                                 type={'text'}
                                 placeholder={'Привет мир!'}
-                                name={'Слоган'}
+                                name={'status'}
                                 setError={this.validation.setError}
                                 required={true}
                                 validation={this.validation.getValidation(
@@ -212,7 +212,7 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 name={'size'}
                                 id={'size'}
                                 label={'Размер компании'}
-                                value={this.props.location}
+                                value={this.props.size}
                                 type={'text'}
                                 placeholder={'10.000'}
                                 setError={this.validation.setError}

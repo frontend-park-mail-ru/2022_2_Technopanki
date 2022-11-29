@@ -2,6 +2,7 @@ import { Action } from '../../../Fluxs/types/action';
 import { ApplicantProfileType, EmployerProfile, ProfileState } from './types';
 import { EmployerResponse } from '../../services/auth/types';
 import { USER_TYPE } from '../../services/auth/authService';
+import { IMAGE_URL } from '../../utils/networkConstants';
 
 export const PROFILE_ACTION_TYPES = {
     UPDATE: 'PROFILE_UPDATE',
@@ -28,7 +29,7 @@ export const profileActions: {
             description: serverState.description,
             phone: serverState.contact_number,
             email: serverState.email,
-            avatarSrc: serverState.image,
+            avatarSrc: IMAGE_URL + serverState.image,
             size: serverState.company_size.toString(),
             bannerSrc: '',
             fieldOfActivity: [],

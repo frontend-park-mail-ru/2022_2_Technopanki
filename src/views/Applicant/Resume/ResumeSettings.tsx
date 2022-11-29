@@ -4,9 +4,9 @@ import SettingsHat from '../../../components/hats/SettingsHat';
 import Input, {
     InputPropsType,
 } from '../../../components/UI-kit/forms/inputs/Input';
-import { resumeService } from '../../../services/resumeService';
+import { resumeService } from '../../../services/resume/resumeService';
 import navigator from '../../../router/navigator';
-import { vacancyService } from '../../../services/vacancyService';
+import { vacancyService } from '../../../services/vacancy/vacancyService';
 import { ResumeState } from '../../../store/resume/type';
 import FormSection from '../../../components/UI-kit/forms/FormSection';
 import ButtonPrimary from '../../../components/UI-kit/buttons/ButtonPrimary';

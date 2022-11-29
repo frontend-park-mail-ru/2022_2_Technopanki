@@ -5,7 +5,7 @@ import VacancyResponsesHat from './VacancyResponsesHat';
 import styles from './vacancy.module.scss';
 import VacancySideBar from '../../components/sidebars/VacancySideBar';
 import { dispatch, userConnect, vacancyConnect } from '../../store';
-import { vacancyService } from '../../services/vacancyService';
+import { vacancyService } from '../../services/vacancy/vacancyService';
 import { vacancyActions } from '../../store/vacancy/actions';
 import RenderWithCondition from '../../components/RenderWithCondition';
 import ResumeList from '../../components/UI-kit/resumeList/ResumeList';
