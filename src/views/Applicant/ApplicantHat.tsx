@@ -5,14 +5,20 @@ import Link from '../../components/Link/Link';
 import { resumeService } from '../../services/resumeService';
 import { APPLICANT_PATHS, RESUME_PATHS } from '../../utils/routerConstants';
 import { IMAGE_URL } from '../../utils/networkConstants';
-import { userConnect } from '../../store';
+import { dispatch, profileConnect, userConnect } from '../../store';
 import RenderWithCondition from '../../components/RenderWithCondition';
+import { profileActions } from '../../store/profile/actions';
 
 class ApplicantHat extends ReactsComponent<
     {
         userID: string;
         creatorID: string;
         resumeID: string;
+        creatorImgSrc: string;
+        name: string;
+        surname: string;
+        status: string;
+        id: string;
     },
     {
         creatorImgSrc: string;
@@ -32,13 +38,7 @@ class ApplicantHat extends ReactsComponent<
 
     getCreatorDataFromServer = () => {
         resumeService.getResumeHatData(this.props.creatorID).then(body => {
-            this.setState(() => ({
-                creatorImgSrc: IMAGE_URL + (body.image ?? body.imgSrc),
-                name: body.applicant_name,
-                surname: body.applicant_surname,
-                status: body.status,
-                id: body.id.toString(),
-            }));
+            dispatch(profileActions.update(body));
         });
     };
 
@@ -77,7 +77,12 @@ class ApplicantHat extends ReactsComponent<
     }
 }
 
+const profileWrapper = profileConnect((state, props) => ({
+    ...state,
+    ...props,
+}))(ApplicantHat);
+
 export default userConnect((state, props) => ({
     ...props,
     userID: state.id,
-}))(ApplicantHat);
+}))(profileWrapper);
