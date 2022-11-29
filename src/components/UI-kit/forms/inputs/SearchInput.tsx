@@ -9,7 +9,10 @@ import Dropdown from '../../dropdown/Dropdown';
 import DropdownMenu from './SearchDropdownMenu';
 
 export default class SearchInput extends ReactsComponent<
-    { onSubmitSearch: Function },
+    {
+        onSubmitSearch: Function,
+        onSwitch: Function,
+    },
     { isOpen: boolean }
     > {
 
@@ -29,11 +32,6 @@ export default class SearchInput extends ReactsComponent<
             ...state,
             isOpen: !this.state.isOpen,
         }))
-    }
-
-    switchSearchOptions = (e: MouseEvent) => {
-        document.getElementById('searchOption').innerHTML = e.target.innerHTML;
-        this.handleMenu()
     }
 
     render() {
@@ -61,7 +59,7 @@ export default class SearchInput extends ReactsComponent<
                                             {this.options.map(option => (
                                                 <p
                                                     className={`${styles.dropdown_options}`}
-                                                    onClick={this.switchSearchOptions}
+                                                    onClick={this.props.onSwitch}
                                                 >
                                                     {option}
                                                 </p>

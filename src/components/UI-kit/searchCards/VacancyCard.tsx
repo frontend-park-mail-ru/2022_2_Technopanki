@@ -43,7 +43,7 @@ export default class VacancyCard extends ReactsComponent<
     render() {
         return (
             <div
-                className={`grid grid-template-columns g-16 rounded-lg p-24 ${styles.vacancy}`}
+                className={`grid grid-template-columns g-16 rounded-lg p-24 ${styles.card}`}
             >
                 <img
                     key={'img'}
@@ -53,15 +53,15 @@ export default class VacancyCard extends ReactsComponent<
                     src={IMAGE_URL + this.props.icon}
                 />
                 <div
-                    key={'vacancy-data'}
+                    key={'searchCards-data'}
                     className={'flex flex-start column g-4'}
                 >
                     <Link
-                        key={'vacancy-name'}
+                        key={'searchCards-name'}
                         to={VACANCY_PATHS.INDEX + this.props.id}
                         content={
                             <h4
-                                key={'vacancy-name'}
+                                key={'searchCards-name'}
                                 className={`cursor-pointer ${styles.vacancy_name}`}
                             >
                                 {this.props.name}
@@ -69,7 +69,7 @@ export default class VacancyCard extends ReactsComponent<
                         }
                     />
                     <div
-                        key={'vacancy-metadata'}
+                        key={'searchCards-metadata'}
                         className={'flex flex-start row g-16'}
                     >
                         <div
@@ -120,7 +120,7 @@ export default class VacancyCard extends ReactsComponent<
                     </div>
                 </div>
                 <div
-                    key={'vacancy-salary'}
+                    key={'searchCards-salary'}
                     className={'flex row g-4 mx-0 justify-content-end'}
                 >
                     <h4 className={`mx-0 ${styles.salary}`}>

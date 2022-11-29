@@ -11,7 +11,7 @@ import ArrowButtonWithText from '../../components/UI-kit/buttons/ArrowButtonWith
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
 import EmployerProfileSideBar from '../../components/sidebars/EmployerProfileSideBar';
 import Link from '../../components/Link/Link';
-import { VacancyCardPropsType } from '../../components/UI-kit/vacancy/VacancyCard';
+import { VacancyCardPropsType } from '../../components/UI-kit/searchCards/VacancyCard';
 import Footer from '../../components/UI-kit/footer/Footer';
 import { employerProfileService } from '../../services/employerProfileService';
 import { userStore } from '../../store/user/store';

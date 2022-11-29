@@ -281,7 +281,7 @@ class VacancySettings extends ReactsComponent<
                 )
                 .then(body => {
                     if (body.id) {
-                        navigator.navigate('/vacancy/' + body.id.toString());
+                        navigator.navigate('/searchCards/' + body.id.toString());
                     } else {
                         navigator.navigate(
                             EMPLOYER_PATHS.PROFILE + this.props.postedByUserID,

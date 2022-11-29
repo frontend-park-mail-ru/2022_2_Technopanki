@@ -1,11 +1,26 @@
 import network from '../lib/network';
-import { SERVER_URL, SERVER_URLS } from '../utils/networkConstants';
+import { SERVER_URL, SERVER_URLS, VACANCY_URLS } from '../utils/networkConstants';
 import { requestHeaders } from './headers';
 import { Service } from './types';
 import { dispatch } from '../store';
-import { stopLoading } from '../store/loading/actions';
+import { startLoading, stopLoading } from '../store/loading/actions';
 
 export const resumeService: Service = {
+    getAllResumes: async () => {
+        dispatch(startLoading());
+        return await network
+            .GET(SERVER_URLS.ALL_RESUMES, requestHeaders.jsonHeader)
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            })
+            .catch(() => dispatch(stopLoading()));
+    },
+
     getResumeData: (resumeID: string) => {
         return network
             .GET(SERVER_URLS.RESUME + resumeID, requestHeaders.jsonHeader)

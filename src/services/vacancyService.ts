@@ -154,32 +154,4 @@ export const vacancyService: Service = {
     deleteVacancy: async (vacancyID: string) => {
         return await network.DELETE(VACANCY_URLS.VACANCY_DELETE + vacancyID);
     },
-
-    searchByVacancies: async (queryParam: string) => {
-        return await network
-            .GET(VACANCY_URLS.VACANCIES_SEARCH + `?search=%25${queryParam}%25`)
-            .then(response => {
-                dispatch(stopLoading());
-                if (response.status > 399) {
-                    throw response.status;
-                }
-
-                return response.body;
-            })
-            .catch(err => console.error(err));
-    },
-
-    filterVacancies: async (queryString: string) => {
-        return await network
-            .GET(VACANCY_URLS.VACANCIES_SEARCH + `?${queryString}`)
-            .then(response => {
-                dispatch(stopLoading());
-                if (response.status > 399) {
-                    throw response.status;
-                }
-
-                return response.body;
-            })
-            .catch(err => console.error(err));
-    }
 };

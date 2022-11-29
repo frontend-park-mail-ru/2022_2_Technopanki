@@ -32,7 +32,7 @@ type VacancyPropsType = {
 
 class Vacancy extends ReactsComponent<VacancyPropsType> {
     getDataFromServer() {
-        // Мы точно уверены что путь будет vacancy/{0,9}+
+        // Мы точно уверены что путь будет searchCards/{0,9}+
         const vacancyID = location.pathname.split('/').at(-1);
 
         if (this.props.id !== vacancyID) {

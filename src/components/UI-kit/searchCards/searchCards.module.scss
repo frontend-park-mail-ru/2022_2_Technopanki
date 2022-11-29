@@ -1,6 +1,6 @@
 @import '../../../styles/screens';
 
-.vacancy {
+.card {
   outline: var(--border-default);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
   transition: var(--transition-sfast);
@@ -87,4 +87,16 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  font-size: 14px;
+}
+
+.resume_img {
+  height: 24px;
+  width: 24px;
+  font-size: 12px;
+  border-radius: var(--border-radius-sm);
+}
+
+.details_button {
+  max-width: 100px;
 }

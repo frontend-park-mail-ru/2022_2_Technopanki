@@ -41,7 +41,7 @@ export default class VacancyHat extends ReactsComponent<{
                         {/*TODO: добавить уловие по типу пользователя рендер кнопок*/}
                         <Button>Посмотреть отклики на вакансию</Button>
                         <Link
-                            to={'/vacancy/settings'}
+                            to={'/searchCards/settings'}
                             content={<Button>Настройки</Button>}
                         />
                         <Dropdown
