@@ -68,7 +68,7 @@ class ApplicantSettings extends ReactsComponent<
         email: [emailValidation],
     });
 
-    updateProfile = (id: string, formData: FormData, image: string) => {
+    updateProfile = (id: string, formData: FormData) => {
         dispatch(
             profileActions.updateFromFormData(id, 'applicant', image, formData),
         );
@@ -78,10 +78,32 @@ class ApplicantSettings extends ReactsComponent<
                 formData.get('surname') as string,
             ),
         );
-        dispatch(userActions.updateAvatar(image));
         dispatch(activateSuccess('Данные профиля успешно изменены!', ''));
     };
 
+    // TODO: refactor
+    submitAvatar = async (e: SubmitEvent) => {
+        e.preventDefault();
+        if (!this.validation.ok) {
+            return;
+        }
+
+        const applicantID = location.pathname.split('/').at(-1);
+
+        // @ts-ignore
+        const image = document.querySelector('#avatar').files[0];
+        const formDataImage = new FormData();
+        formDataImage.append('avatar', image);
+
+        const newImage = await employerProfileService.updateProfileImg(
+            applicantID,
+            formDataImage,
+        );
+
+        dispatch(userActions.updateAvatar(newImage));
+    };
+
+    // TODO: refactor
     submitForm = async (e: SubmitEvent) => {
         e.preventDefault();
         if (!this.validation.ok()) {
@@ -94,21 +116,21 @@ class ApplicantSettings extends ReactsComponent<
 
         try {
             // @ts-ignore
-            const image = document.querySelector('#avatar').files[0];
-            const formDataImage = new FormData();
-            formDataImage.append('avatar', image);
+            // const image = document.querySelector('#avatar').files[0];
+            // const formDataImage = new FormData();
+            // formDataImage.append('avatar', image);
 
-            const newImage = await employerProfileService.updateProfileImg(
-                applicantID,
-                formDataImage,
-            );
+            // const newImage = await employerProfileService.updateProfileImg(
+            //     applicantID,
+            //     formDataImage,
+            // );
 
             await applicantProfileService.updateProfile(
                 this.state.profile.id,
                 this.state.profile.profileType,
                 formData,
             );
-            this.updateProfile(this.props.id, formData, newImage);
+            this.updateProfile(this.props.id, formData);
 
             setTimeout(
                 () =>
@@ -151,7 +173,7 @@ class ApplicantSettings extends ReactsComponent<
                         <SettingsHat creatorID={this.props.id} />
                     </div>
                     <h3 className={'col-12 mb-40'}>Настройки профиля</h3>
-                    <Form onSubmit={this.submitForm}>
+                    <Form onSubmit={this.submitAvatar}>
                         <FormFileInput
                             id={'avatar'}
                             label={'Загрузить новую фотографию'}
@@ -160,6 +182,13 @@ class ApplicantSettings extends ReactsComponent<
                             setError={this.validation.setError}
                             validation={this.validation.getValidation('avatar')}
                         />
+                        <div>
+                            <ButtonPrimary type={'submit'}>
+                                Сохранить новый аватар
+                            </ButtonPrimary>
+                        </div>
+                    </Form>
+                    <Form onSubmit={this.submitForm}>
                         <FormItem header={'О себе'}>
                             <FormInput
                                 size={'4'}

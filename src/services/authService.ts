@@ -21,6 +21,9 @@ export const authService: Service = {
                     throw response.body;
                 }
                 return response.body;
+            })
+            .catch(err => {
+                throw err;
             });
     },
 

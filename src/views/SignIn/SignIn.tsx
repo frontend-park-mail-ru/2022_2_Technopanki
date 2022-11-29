@@ -4,22 +4,6 @@ import styles from './signin.module.scss';
 import Link from '../../components/Link/Link';
 import ButtonPrimaryBigBlue from '../../components/UI-kit/buttons/ButtonPrimaryBigBlue';
 import Description from '../../components/auth/Description';
-import {
-    validateEmail,
-    validatePasswordLength,
-    validatePasswordSymbols,
-} from '../../utils/validation/validation';
-import {
-    EMAIL_ERROR,
-    PASSWORD_LENGTH_ERROR,
-    PASSWORD_SYMBOLS_ERROR,
-} from '../../utils/validation/messages';
-import {
-    AuthField,
-    ResponseBody,
-    setInvalidFieldsFromServer,
-    validateField,
-} from '../SignUp/SignUp';
 import navigator from '../../router/navigator';
 import { dispatch } from '../../store';
 import { userActions } from '../../store/user/actions';
@@ -116,7 +100,9 @@ export default class SignIn extends ReactsComponent {
                                 )}
                             />
                         </FormItem>
-                        <ButtonPrimaryBigBlue>Войти</ButtonPrimaryBigBlue>
+                        <ButtonPrimaryBigBlue type={'submit'}>
+                            Войти
+                        </ButtonPrimaryBigBlue>
                         <Link
                             to={SIGN_UP_PATH}
                             content={
