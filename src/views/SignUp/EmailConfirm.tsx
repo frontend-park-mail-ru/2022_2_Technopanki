@@ -10,10 +10,9 @@ import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 import { activateError, deactivateError } from '../../store/errors/actions';
 import JobflowLogo from '../../components/UI-kit/JobflowLogo';
 import styles from './signup.module.scss';
+import { userActions } from '../../store/user/actions';
 
 class EmailConfirm extends ReactsComponent<{
-    id: string;
-    userType: string;
     email: string;
 }> {
     async onSubmit(e: SubmitEvent) {
@@ -21,10 +20,27 @@ class EmailConfirm extends ReactsComponent<{
         // @ts-ignore
         const token = new FormData(e.target).get('token');
         try {
-            await authService.authConfirm(token, this.props.email);
-            this.props.userType === 'applicant'
-                ? navigator.navigate(APPLICANT_PATHS.PROFILE + this.props.id)
-                : navigator.navigate(EMPLOYER_PATHS.PROFILE + this.props.id);
+            const response = await authService.authConfirm(
+                token,
+                this.props.email,
+            );
+
+            dispatch(
+                userActions.SIGN_UP(
+                    response.id,
+                    response.user_type === 'applicant'
+                        ? response.applicant_name
+                        : response.company_name,
+                    response.applicant_surname,
+                    response.email,
+                    response.image,
+                    response.user_type,
+                ),
+            );
+
+            response.user_type === 'applicant'
+                ? navigator.navigate(APPLICANT_PATHS.PROFILE + response.id)
+                : navigator.navigate(EMPLOYER_PATHS.PROFILE + response.id);
         } catch (e) {
             dispatch(activateError('Ошибка', 'Пожалуйста, проверьте токен'));
             setTimeout(() => deactivateError(), 3000);

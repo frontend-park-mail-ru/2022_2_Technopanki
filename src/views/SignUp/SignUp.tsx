@@ -77,14 +77,12 @@ export default class SignUp extends ReactsComponent<
             .then(body => {
                 dispatch(
                     userActions.SIGN_UP(
-                        body.id,
-                        (formData.get('toggle') as string) === 'applicant'
-                            ? (formData.get('applicant_name') as string)
-                            : (formData.get('company_name') as string),
-                        formData.get('applicant_surname') as string,
+                        '',
+                        '',
+                        '',
                         formData.get('email') as string,
-                        body.image,
-                        formData.get('toggle') as 'applicant' | 'employer',
+                        '',
+                        '',
                     ),
                 );
                 navigator.navigate(USER_URLS.CONFIRM);
