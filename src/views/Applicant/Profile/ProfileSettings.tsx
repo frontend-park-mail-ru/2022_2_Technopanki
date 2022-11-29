@@ -77,7 +77,9 @@ class ApplicantSettings extends ReactsComponent<
     });
 
     updateProfile = (id: string, formData: FormData) => {
-        dispatch(profileActions.updateFromFormData(id, 'applicant', formData));
+        dispatch(
+            profileActions.updateFromFormData(id, 'applicant', './', formData),
+        );
         dispatch(
             userActions.updateName(
                 formData.get('name') as string,
@@ -107,6 +109,7 @@ class ApplicantSettings extends ReactsComponent<
         );
 
         dispatch(userActions.updateAvatar(newImage));
+        navigator.navigate(APPLICANT_PATHS.PROFILE + applicantID);
     };
 
     // TODO: refactor

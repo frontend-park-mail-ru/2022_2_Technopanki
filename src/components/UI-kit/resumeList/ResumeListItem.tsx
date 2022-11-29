@@ -8,11 +8,10 @@ import { RESUME_PATHS } from '../../../utils/routerConstants';
 export type ResumeListItemPropsType = {
     resume_id: string;
     id: string;
-    image: string;
     applicant_name: string;
     applicant_surname: string;
     title: string;
-    created_date: string;
+    timeWhenCreated: string;
     imgSrc: string;
     skills: string[];
 };
@@ -91,34 +90,32 @@ export default class ResumeListItem extends ReactsComponent<ResumeListItemPropsT
                             to={RESUME_PATHS.INDEX + this.props.resume_id}
                             content={
                                 <p key={'name'}>
-                                    {this.props.user_name}{' '}
-                                    {this.props.user_surname}
+                                    {this.props.applicant_name}{' '}
+                                    {this.props.applicant_surname}
                                 </p>
                             }
                         />
                         <p key={'title'}>{this.props.title}</p>
                     </div>
                 </div>
-                <div
-                    key={'time'}
-                    className={'col-0 row align-items-center col-md-4'}
-                ></div>
+                <div className={'col-0 row align-items-center col-md-4'}></div>
                 <p>
                     {`${
-                        this.props.created_date[8] === '0'
-                            ? this.props.created_date.slice(9, 10)
-                            : this.props.created_date.slice(8, 10)
+                        this.props.timeWhenCreated[8] === '0'
+                            ? this.props.timeWhenCreated.slice(9, 10)
+                            : this.props.timeWhenCreated.slice(8, 10)
                     } ${
                         this.months.find(
-                            m => m.date === this.props.created_date.slice(5, 7),
+                            m =>
+                                m.date ===
+                                this.props.timeWhenCreated.slice(5, 7),
                         ).name
-                    } ${this.props.created_date.slice(
+                    } ${this.props.timeWhenCreated.slice(
                         0,
                         4,
-                    )} • ${this.props.created_date.slice(11, 16)}`}
+                    )} • ${this.props.timeWhenCreated.slice(11, 16)}`}
                 </p>
                 <div
-                    key={'button'}
                     className={
                         'col-1 row align-items-center flex h-100 justify-content-end'
                     }

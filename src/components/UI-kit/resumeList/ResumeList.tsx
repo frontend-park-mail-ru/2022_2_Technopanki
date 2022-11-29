@@ -34,13 +34,14 @@ export default class ResumeList extends ReactsComponent<
                         .map(resume => (
                             <ResumeListItem
                                 key={resume.id}
+                                title={resume.title}
                                 id={resume.id}
                                 resume_id={resume.id}
                                 imgSrc={
                                     IMAGE_URL + (resume.image ?? resume.imgSrc)
                                 }
-                                name={resume.applicant_name}
-                                surname={resume.applicant_surname}
+                                applicant_name={resume.applicant_name}
+                                applicant_surname={resume.applicant_surname}
                                 resumeTitle={resume.title}
                                 timeWhenCreated={resume.created_date}
                             />
