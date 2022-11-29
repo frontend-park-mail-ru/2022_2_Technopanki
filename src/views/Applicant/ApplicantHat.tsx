@@ -33,7 +33,7 @@ class ApplicantHat extends ReactsComponent<
     getCreatorDataFromServer = () => {
         resumeService.getResumeHatData(this.props.creatorID).then(body => {
             this.setState(() => ({
-                creatorImgSrc: IMAGE_URL + body.image ?? body.imgSrc,
+                creatorImgSrc: IMAGE_URL + (body.image ?? body.imgSrc),
                 name: body.applicant_name,
                 surname: body.applicant_surname,
                 status: body.status,

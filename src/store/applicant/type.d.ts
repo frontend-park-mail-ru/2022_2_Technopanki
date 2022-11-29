@@ -1,13 +1,13 @@
 export type ProfileState = {
     id: string;
-    avatar_src: string;
-    applicant_name: string;
-    applicant_surname: string;
+    avatarSrc: string;
+    name: string;
+    surname: string;
     status: string;
-    contact_number: string;
+    phone: string;
     email: string;
     location: string;
-    date_of_birth: string;
+    dateOfBirth: string;
     skills: string[];
     vk: string | null | undefined;
     facebook: string | null | undefined;

@@ -5,8 +5,8 @@ import { applicantProfileReducer } from './reducer';
 
 export const defaultApplicantProfile: ProfileState = {
     id: '',
-    imgSrc: '',
-    applicant_name: '',
+    avatarSrc: '',
+    name: '',
     surname: '',
     status: '',
     phone: '',

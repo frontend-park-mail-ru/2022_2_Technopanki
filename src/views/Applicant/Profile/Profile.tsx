@@ -151,17 +151,16 @@ const UserWrapper = userConnect((state, props) => ({
 }))(ApplicantProfile);
 
 export default applicantConnect((state: ProfileState, props) => {
-    console.log(state);
     return {
         id: props.id ? props.id : state.id,
-        name: state.applicant_name,
-        surname: state.applicant_surname,
+        name: state.name,
+        surname: state.surname,
         status: state.status,
-        phone: state.contact_number,
+        phone: state.phone,
         email: state.email,
         sideBar: {
             location: state.location,
-            dateOfBirth: state.date_of_birth,
+            dateOfBirth: state.dateOfBirth,
             skills: state.skills,
         },
         socialNetworks: {
@@ -169,6 +168,6 @@ export default applicantConnect((state: ProfileState, props) => {
             facebook: state.facebook,
             telegram: state.telegram,
         },
-        avatarSrc: state.avatar_src,
+        avatarSrc: state.avatarSrc,
     };
 })(UserWrapper);
