@@ -36,19 +36,21 @@ class SettingsHat extends ReactsComponent<
     };
 
     getCreatorDataFromServer = () => {
+        const applicantID = location.pathname.split('/').at(-1);
+
         if (this.state.name === '') {
-            resumeService.getResumeHatData(this.props.creatorID).then(body => {
+            resumeService.getResumeHatData(applicantID).then(body => {
                 this.setState(() => ({
-                    imgSrc: IMAGE_URL + body.image ?? body.imgSrc,
+                    imgSrc: IMAGE_URL + (body.image ?? body.imgSrc),
                     name: body.company_name,
                     status: body.status,
                 }));
             });
         }
         if (this.state.surname !== '') {
-            resumeService.getResumeHatData(this.props.creatorID).then(body => {
+            resumeService.getResumeHatData(applicantID).then(body => {
                 this.setState(() => ({
-                    imgSrc: IMAGE_URL + body.image ?? body.imgSrc,
+                    imgSrc: IMAGE_URL + (body.image ?? body.imgSrc),
                     name: body.applicant_name,
                     surname: body.applicant_surname,
                     status: body.status,

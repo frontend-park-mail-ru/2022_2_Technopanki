@@ -112,8 +112,6 @@ class ApplicantSettings extends ReactsComponent<
 
         const formData = new FormData(e.target as HTMLFormElement);
 
-        const applicantID = location.pathname.split('/').at(-1);
-
         try {
             // @ts-ignore
             // const image = document.querySelector('#avatar').files[0];
@@ -138,7 +136,7 @@ class ApplicantSettings extends ReactsComponent<
                 750,
             );
         } catch (e) {
-            dispatch(activateError(e));
+            dispatch(activateError(e, ''));
             setTimeout(() => dispatch(deactivateError()), 3000);
         }
     };
