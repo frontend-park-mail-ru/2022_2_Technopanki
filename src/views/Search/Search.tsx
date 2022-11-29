@@ -173,7 +173,7 @@ export default class Search extends ReactsComponent<
                             onSubmit={this.onSubmitFilters}
                         />
                     </div>
-                    <div className={'col-12 col-md-0 justify-content-end'}>
+                    <div className={'col-12 col-md-0 justify-content-center'}>
                         <SearchFilterMobile
                             filters={this.filters.vacancyFilter}
                             onSubmit={this.onSubmitFilters}

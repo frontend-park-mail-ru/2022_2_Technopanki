@@ -24,7 +24,10 @@ export default class ProfileHeader extends ReactsComponent<{
                         />
                         <div className={`flex column g-4`}>
                             <h3 key={'header'}>
-                                {this.props.name} {this.props.surname}
+                                {this.props.name +
+                                    (this.props.surname
+                                        ? this.props.surname + ' '
+                                        : '')}
                             </h3>
                             <p key={'status'}>{this.props.status}</p>
                         </div>
