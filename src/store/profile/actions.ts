@@ -15,6 +15,15 @@ export const profileActions: {
         type: string;
         state: EmployerProfile;
     };
+    updateFromFormData: (
+        profileID: string,
+        userType: string,
+        formData: FormData,
+    ) => {
+        type: string;
+        profileID: string;
+        formData: FormData;
+    };
 } & { [key: string]: (...data: any[]) => Action } = {
     updateEmployerFromServer: (serverState: EmployerResponse) => ({
         type: PROFILE_ACTION_TYPES.UPDATE_FROM_SERVER,
@@ -43,12 +52,11 @@ export const profileActions: {
     updateFromFormData: (
         profileID: string,
         userType: string,
-        avatarSrc: string,
         formData: FormData,
     ) => ({
         type: PROFILE_ACTION_TYPES.UPDATE_FROM_FORM,
+        userType,
         profileID: profileID,
-        avatarSrc: avatarSrc,
         formData: formData,
     }),
 };

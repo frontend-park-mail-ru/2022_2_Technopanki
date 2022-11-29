@@ -14,6 +14,7 @@ import { EmployerResponse } from './auth/types';
 
 export const employerProfileService: {
     getProfileData: (profileID: string) => Promise<EmployerResponse>;
+    updateProfileImg: (profileID: string, image: FormData) => Promise<string>;
 } & Service = {
     getProfileData: async (profileID: string): Promise<EmployerResponse> => {
         dispatch(startLoading());

@@ -19,7 +19,6 @@ class SettingsHat extends ReactsComponent<
         // Props
         status: string;
         imgSrc: string;
-        creatorID: string;
         userID: string;
     },
     {
@@ -39,28 +38,30 @@ class SettingsHat extends ReactsComponent<
     };
 
     getCreatorDataFromServer = () => {
-        switch (this.props.userType) {
-            case USER_TYPE.APPLICANT:
-                return resumeService
-                    .getResumeHatData(this.props.creatorID)
-                    .then(body => {
-                        this.setState(() => ({
-                            imgSrc: IMAGE_URL + body.image,
-                            name: body.applicant_name,
-                            surname: body.applicant_surname,
-                            status: body.status,
-                        }));
-                    });
-            case USER_TYPE.EMPLOYER:
-                return vacancyService
-                    .getVacancyHatData(this.props.creatorID)
-                    .then(body => {
-                        this.setState(() => ({
-                            imgSrc: IMAGE_URL + body.image,
-                            name: body.company_name,
-                            status: body.status,
-                        }));
-                    });
+        if (this.props.userID) {
+            switch (this.props.userType) {
+                case USER_TYPE.APPLICANT:
+                    return resumeService
+                        .getResumeHatData(this.props.userID)
+                        .then(body => {
+                            this.setState(() => ({
+                                imgSrc: IMAGE_URL + body.image,
+                                name: body.applicant_name,
+                                surname: body.applicant_surname,
+                                status: body.status,
+                            }));
+                        });
+                case USER_TYPE.EMPLOYER:
+                    return vacancyService
+                        .getVacancyHatData(this.props.userID)
+                        .then(body => {
+                            this.setState(() => ({
+                                imgSrc: IMAGE_URL + body.image,
+                                name: body.company_name,
+                                status: body.status,
+                            }));
+                        });
+            }
         }
     };
 
@@ -71,7 +72,6 @@ class SettingsHat extends ReactsComponent<
                   surname?: string;
                   status: string;
                   imgSrc: string;
-                  creatorID: string;
                   userID: string;
               }>
             | {
@@ -79,7 +79,6 @@ class SettingsHat extends ReactsComponent<
                   surname?: string;
                   status: string;
                   imgSrc: string;
-                  creatorID: string;
                   userID: string;
               },
     ): boolean {
@@ -88,6 +87,10 @@ class SettingsHat extends ReactsComponent<
 
     componentDidMount() {
         this.getCreatorDataFromServer();
+    }
+
+    componentDidUpdate() {
+        super.componentDidUpdate();
     }
 
     render() {

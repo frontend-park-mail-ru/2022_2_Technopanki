@@ -10,7 +10,7 @@ import { EmployerProfile, ProfileState } from '../../store/profile/types';
 import { dispatch, profileConnect, userConnect } from '../../store';
 import { profileActions } from '../../store/profile/actions';
 import { userActions } from '../../store/user/actions';
-import { authService } from '../../services/auth/authService';
+import { authService, USER_TYPE } from '../../services/auth/authService';
 import ButtonPrimary from '../../components/UI-kit/buttons/ButtonPrimary';
 import ButtonRed from '../../components/UI-kit/buttons/ButtonRed';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
@@ -26,7 +26,6 @@ import FormItem from '../../components/UI-kit/forms/FormItem';
 import FormInput from '../../components/UI-kit/forms/formInputs/FormInput';
 import FormTextarea from '../../components/UI-kit/forms/formInputs/FormTextarea';
 import FormFileInput from '../../components/UI-kit/forms/formInputs/FormFileInput';
-import { useValidation } from '../../utils/validation/formValidation';
 import {
     fileFormatValidation,
     fileSizeValidation,
@@ -39,10 +38,12 @@ import {
     validateSizeLength,
     validateSizeSymbols,
 } from './settingsValidators';
+import { VacancyUpdateError } from '../../services/vacancy/types';
 import {
     passwordLengthValidator,
     passwordSymbolsValidator,
 } from '../../utils/validation/commonValidators';
+import { useValidation } from '../../utils/validation/formValidation';
 
 class ProfileSettingsComponent extends ReactsComponent<
     ProfileState & { userID: string },
@@ -55,7 +56,7 @@ class ProfileSettingsComponent extends ReactsComponent<
         profile: { ...this.props },
     };
 
-    validation = useValidation({
+    profileFieldsValidation = useValidation({
         slogan: [
             sloganLengthValidation,
             sloganZeroLengthValidation,
@@ -65,58 +66,74 @@ class ProfileSettingsComponent extends ReactsComponent<
         password: [passwordLengthValidator, passwordSymbolsValidator],
         location: [locationValidation],
         size: [validateSizeSymbols, validateSizeLength],
+    });
+
+    avatarValidation = useValidation({
         avatar: [fileSizeValidation, fileFormatValidation],
     });
 
-    updateProfile = (id: string, formData: FormData, image: string) => {
+    updateProfile = (id: string, formData: FormData) => {
         dispatch(
-            profileActions.updateFromFormData(id, 'employer', image, formData),
+            profileActions.updateFromFormData(id, USER_TYPE.EMPLOYER, formData),
         );
         dispatch(userActions.updateName(formData.get('name') as string, ''));
-        dispatch(userActions.updateAvatar(image));
         dispatch(activateSuccess('Данные профиля успешно изменены!', ''));
+    };
+
+    submitAvatar = async (e: SubmitEvent) => {
+        e.preventDefault();
+        if (!this.avatarValidation.ok()) {
+            return;
+        }
+        // @ts-ignore
+        const image = document.querySelector('#avatar').files[0];
+        const formData = new FormData();
+        formData.append('avatar', image);
+
+        try {
+            const newImageSrc = await employerProfileService.updateProfileImg(
+                this.props.id,
+                formData,
+            );
+
+            dispatch(userActions.updateAvatar(newImageSrc));
+            navigator.navigate(EMPLOYER_PATHS.PROFILE + this.props.id);
+        } catch (e) {
+            dispatch(activateError((e as VacancyUpdateError).error));
+            setTimeout(() => dispatch(deactivateError()), 3000);
+        }
     };
 
     submitForm = async (e: SubmitEvent) => {
         e.preventDefault();
-        if (!this.validation.ok()) {
+        if (!this.profileFieldsValidation.ok()) {
             return;
         }
 
         const formData = new FormData(e.target as HTMLFormElement);
 
-        // @ts-ignore
-        const image = document.querySelector('#avatar').files[0];
-        const formDataImage = new FormData();
-        formDataImage.append('avatar', image);
-
         try {
-            // const newImage = await employerProfileService.updateProfileImg(
-            //     this.state.profile.id,
-            //     formDataImage,
-            // );
-
             await employerProfileService.updateProfile(
                 this.props.id,
-                'employer',
+                USER_TYPE.EMPLOYER,
                 formData,
             );
 
-            this.updateProfile(this.props.id, formData, './');
+            this.updateProfile(this.props.id, formData);
             setTimeout(() => dispatch(deactivateSuccess()), 3000);
             navigator.navigate(EMPLOYER_PATHS.PROFILE + this.props.id);
         } catch (e) {
             // @ts-ignore
-            dispatch(activateError('Упс... что-то пошло не так', e.error));
+            dispatch(activateError((e as VacancyUpdateError).error));
             setTimeout(() => dispatch(deactivateError()), 3000);
         }
     };
 
     getDataFromServer() {
-        const employerID = location.pathname.split('/').at(-1);
+        const employerID = location.pathname.split('/').at(-1) as string;
         if (employerID !== this.props.id && employerID === this.props.userID) {
             employerProfileService.getProfileData(employerID).then(body => {
-                dispatch(profileActions.update({ ...body, id: employerID }));
+                dispatch(profileActions.updateEmployerFromServer(body));
             });
         }
     }
@@ -153,15 +170,24 @@ class ProfileSettingsComponent extends ReactsComponent<
                         />
                     </div>
                     <h3 className={'col-12'}>Настройки профиля</h3>
-                    <Form onSubmit={this.submitForm}>
+                    <Form onSubmit={this.submitAvatar}>
                         <FormFileInput
                             id={'avatar'}
                             label={'Загрузить новую фотографию'}
                             name={'avatar'}
                             size={'12'}
-                            setError={this.validation.setError}
-                            validation={this.validation.getValidation('avatar')}
+                            setError={this.avatarValidation.setError}
+                            profileFieldsValidation={this.avatarValidation.getValidation(
+                                'avatar',
+                            )}
                         />
+                        <div>
+                            <ButtonPrimary type={'submit'}>
+                                Сохранить
+                            </ButtonPrimary>
+                        </div>
+                    </Form>
+                    <Form onSubmit={this.submitForm}>
                         <FormItem header={'О пользователе'}>
                             <FormInput
                                 size={'12'}
@@ -171,12 +197,12 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 type={'text'}
                                 placeholder={'Название компании'}
                                 name={'name'}
-                                setError={this.validation.setError}
+                                setError={this.profileFieldsValidation.setError}
                                 required={true}
-                                validation={this.validation.getValidation(
+                                profileFieldsValidation={this.profileFieldsValidation.getValidation(
                                     'name',
                                 )}
-                                validationMode={'oninput'}
+                                profileFieldsValidationMode={'oninput'}
                             />
                             <FormInput
                                 size={'4'}
@@ -186,12 +212,12 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 type={'text'}
                                 placeholder={'Привет мир!'}
                                 name={'status'}
-                                setError={this.validation.setError}
+                                setError={this.profileFieldsValidation.setError}
                                 required={true}
-                                validation={this.validation.getValidation(
+                                profileFieldsValidation={this.profileFieldsValidation.getValidation(
                                     'slogan',
                                 )}
-                                validationMode={'oninput'}
+                                profileFieldsValidationMode={'oninput'}
                             />
                             <FormInput
                                 size={'4'}
@@ -201,11 +227,11 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 type={'text'}
                                 placeholder={'Местоположение компании'}
                                 name={'location'}
-                                setError={this.validation.setError}
-                                validation={this.validation.getValidation(
+                                setError={this.profileFieldsValidation.setError}
+                                profileFieldsValidation={this.profileFieldsValidation.getValidation(
                                     'location',
                                 )}
-                                validationMode={'oninput'}
+                                profileFieldsValidationMode={'oninput'}
                             />
                             <FormInput
                                 size={'4'}
@@ -215,11 +241,11 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 value={this.props.size}
                                 type={'text'}
                                 placeholder={'10.000'}
-                                setError={this.validation.setError}
-                                validation={this.validation.getValidation(
+                                setError={this.profileFieldsValidation.setError}
+                                profileFieldsValidation={this.profileFieldsValidation.getValidation(
                                     'size',
                                 )}
-                                validationMode={'oninput'}
+                                profileFieldsValidationMode={'oninput'}
                             />
                             <FormTextarea
                                 size={'12'}
@@ -246,12 +272,12 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 type={'password'}
                                 placeholder={'********'}
                                 name={'password'}
-                                setError={this.validation.setError}
+                                setError={this.profileFieldsValidation.setError}
                                 required={true}
-                                validation={this.validation.getValidation(
+                                profileFieldsValidation={this.profileFieldsValidation.getValidation(
                                     'password',
                                 )}
-                                validationMode={'oninput'}
+                                profileFieldsValidationMode={'oninput'}
                             />
                             <FormInput
                                 size={'4'}
@@ -260,12 +286,12 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 type={'password'}
                                 placeholder={'********'}
                                 name={'repeatPassword'}
-                                setError={this.validation.setError}
+                                setError={this.profileFieldsValidation.setError}
                                 required={true}
-                                validation={this.validation.getValidation(
+                                profileFieldsValidation={this.profileFieldsValidation.getValidation(
                                     'password',
                                 )}
-                                validationMode={'oninput'}
+                                profileFieldsValidationMode={'oninput'}
                             />
                         </FormItem>
                         <div>
