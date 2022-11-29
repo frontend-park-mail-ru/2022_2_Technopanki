@@ -32,7 +32,9 @@ export const authService: Service = {
                 JSON.stringify({
                     email: formData.get('email'),
                     password: formData.get('password'),
-                    applicant_name: formData.get('applicant_name'),
+                    applicant_name:
+                        formData.get('applicant_name') ??
+                        formData.get('company_name'),
                     applicant_surname: formData.get('applicant_surname'),
                     company_name: formData.get('company_name'),
                     user_type: formData.get('toggle'),
@@ -61,7 +63,7 @@ export const authService: Service = {
                 if (response.status > 399) {
                     throw response.status;
                 }
-                return response.status;
+                return response.body;
             });
     },
 

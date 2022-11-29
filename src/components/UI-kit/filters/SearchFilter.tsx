@@ -39,8 +39,8 @@ export default class SearchFilter extends ReactsComponent<{
                             ) : filter.type === 'range' ? (
                                 <div className={'col-12'}>
                                     <RangeInput
-                                        min={filter.rangeMin}
-                                        max={filter.rangeMax}
+                                        min={filter.rangeMin as string}
+                                        max={filter.rangeMax as string}
                                         name={filter.name}
                                     />
                                 </div>

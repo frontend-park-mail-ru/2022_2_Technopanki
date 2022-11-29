@@ -171,7 +171,7 @@ export default class SignUp extends ReactsComponent<
                                     id={'companyName'}
                                     label={'Название компании'}
                                     type={'text'}
-                                    name={'companyName'}
+                                    name={'company_name'}
                                     setError={this.validation.setError}
                                     size={'12'}
                                     validationMode={'oninput'}

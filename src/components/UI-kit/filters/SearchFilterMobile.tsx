@@ -47,7 +47,7 @@ export default class SearchFilterMobile extends ReactsComponent<
                         <form
                             className={'flex column g-24'}
                             onClick={(e: MouseEvent) => e.stopPropagation()}
-                            onSubmit={(e: SubmitEvent) => {
+                            onSubmisdvladt={(e: SubmitEvent) => {
                                 this.toggle();
                                 this.props.onSubmit(e);
                             }}

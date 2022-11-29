@@ -39,8 +39,12 @@ class EmailConfirm extends ReactsComponent<{
             );
 
             response.user_type === 'applicant'
-                ? navigator.navigate(APPLICANT_PATHS.PROFILE + response.id)
-                : navigator.navigate(EMPLOYER_PATHS.PROFILE + response.id);
+                ? navigator.navigate(
+                      APPLICANT_PATHS.PROFILE + response.id.toString(),
+                  )
+                : navigator.navigate(
+                      EMPLOYER_PATHS.PROFILE + response.id.toString(),
+                  );
         } catch (e) {
             dispatch(activateError('Ошибка', 'Пожалуйста, проверьте токен'));
             setTimeout(() => deactivateError(), 3000);
