@@ -74,16 +74,9 @@ export default class SignUp extends ReactsComponent<
 
         authService
             .signUp(formData)
-            .then(body => {
+            .then(() => {
                 dispatch(
-                    userActions.SIGN_UP(
-                        '',
-                        '',
-                        '',
-                        formData.get('email') as string,
-                        '',
-                        '',
-                    ),
+                    userActions.updateEmail(formData.get('email') as string),
                 );
                 navigator.navigate(USER_URLS.CONFIRM);
             })

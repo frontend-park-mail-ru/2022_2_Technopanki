@@ -23,6 +23,11 @@ export const userReducer: Reducer<UserState> = (
                 email: (<AuthAction>action).email,
                 authorized: true,
             };
+        case 'UPDATE_USER_EMAIL':
+            return {
+                ...state,
+                email: action.email,
+            };
         case 'UPDATE_USER':
             return {
                 ...state,
