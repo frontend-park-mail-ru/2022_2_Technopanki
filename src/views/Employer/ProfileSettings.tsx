@@ -84,6 +84,7 @@ class ProfileSettingsComponent extends ReactsComponent<
         }
 
         const formData = new FormData(e.target as HTMLFormElement);
+        const employerID = location.pathname.split('/').at(-1) as string;
 
         // @ts-ignore
         const image = document.querySelector('#avatar').files[0];
@@ -97,14 +98,14 @@ class ProfileSettingsComponent extends ReactsComponent<
             );
 
             await employerProfileService.updateProfile(
-                this.props.id,
+                this.state.profile.id,
                 'employer',
                 formData,
             );
 
             this.updateProfile(this.props.id, formData, newImage);
             setTimeout(() => dispatch(deactivateSuccess()), 3000);
-            navigator.navigate(EMPLOYER_PATHS.PROFILE + this.props.id);
+            navigator.navigate(EMPLOYER_PATHS.PROFILE + this.state.profile.id);
         } catch (e) {
             // @ts-ignore
             dispatch(activateError('Упс... что-то пошло не так', e.error));

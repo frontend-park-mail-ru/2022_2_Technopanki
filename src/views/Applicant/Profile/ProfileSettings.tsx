@@ -128,14 +128,17 @@ class ApplicantSettings extends ReactsComponent<
             //     formDataImage,
             // );
 
+            const applicantID = location.pathname.split('/').at(-1) as string;
+
             await applicantProfileService.updateProfile(
                 this.state.profile.id,
-                this.state.profile.profileType,
+                'applicant',
                 formData,
             );
-            this.updateProfile(this.props.id, formData);
+
+            this.updateProfile(applicantID, formData);
             setTimeout(() => dispatch(deactivateSuccess()), 3000);
-            navigator.navigate(APPLICANT_PATHS.PROFILE + this.props.id);
+            navigator.navigate(APPLICANT_PATHS.PROFILE + applicantID);
         } catch (e) {
             dispatch(activateError(e, ''));
             setTimeout(() => dispatch(deactivateError()), 3000);
