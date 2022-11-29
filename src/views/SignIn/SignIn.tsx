@@ -4,32 +4,10 @@ import styles from './signin.module.scss';
 import Link from '../../components/Link/Link';
 import ButtonPrimaryBigBlue from '../../components/UI-kit/buttons/ButtonPrimaryBigBlue';
 import Description from '../../components/auth/Description';
-import {
-    validateEmail,
-    validatePasswordLength,
-    validatePasswordSymbols,
-} from '../../utils/validation/validation';
-import {
-    EMAIL_ERROR,
-    PASSWORD_LENGTH_ERROR,
-    PASSWORD_SYMBOLS_ERROR,
-} from '../../utils/validation/messages';
-import {
-    AuthField,
-    ResponseBody,
-    setInvalidFieldsFromServer,
-    validateField,
-} from '../SignUp/SignUp';
-import navigator from '../../router/navigator';
 import { dispatch } from '../../store';
 import { userActions } from '../../store/user/actions';
-import { authService } from '../../services/authService';
-import {
-    APPLICANT_PATHS,
-    EMPLOYER_PATHS,
-    SIGN_UP_PATH,
-    START_PATH,
-} from '../../utils/routerConstants';
+import { authService } from '../../services/auth/authService';
+import { SIGN_UP_PATH, START_PATH } from '../../utils/routerConstants';
 import { useValidation } from '../../utils/validation/formValidation';
 import {
     emailValidator,
@@ -41,6 +19,7 @@ import Form from '../../components/UI-kit/forms/Form';
 import FormItem from '../../components/UI-kit/forms/FormItem';
 import { activateError, deactivateError } from '../../store/errors/actions';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
+import { AuthError } from '../../services/auth/types';
 
 export default class SignIn extends ReactsComponent {
     validation = useValidation({
@@ -53,31 +32,27 @@ export default class SignIn extends ReactsComponent {
         if (!this.validation.ok()) {
             return;
         }
+
         const formData = new FormData(e.target as HTMLFormElement);
 
-        authService
-            .signIn(formData)
-            .then(body => {
-                dispatch(
-                    userActions.SIGN_IN(
-                        body.id,
-                        body.applicant_name,
-                        body.applicant_surname,
-                        body.email,
-                        body.image,
-                        body.user_type,
-                    ),
-                );
-                navigator.navigate(
-                    body.user_type === 'employer'
-                        ? EMPLOYER_PATHS.PROFILE + body.id
-                        : APPLICANT_PATHS.PROFILE + body.id,
-                );
-            })
-            .catch(body => {
-                dispatch(activateError(body.error, body.descriptors[0]));
-                setTimeout(() => dispatch(deactivateError()), 3000);
-            });
+        try {
+            const response = await authService.signIn(formData);
+
+            dispatch(
+                userActions.SIGN_IN(
+                    response.id.toString(),
+                    response.applicant_name ?? response.company_name,
+                    response.applicant_surname,
+                    response.email,
+                    response.image,
+                    response.user_type,
+                ),
+            );
+        } catch (e) {
+            console.error(e);
+            dispatch(activateError((e as AuthError).error));
+            setTimeout(() => dispatch(deactivateError()), 3000);
+        }
     };
 
     render() {
@@ -116,7 +91,9 @@ export default class SignIn extends ReactsComponent {
                                 )}
                             />
                         </FormItem>
-                        <ButtonPrimaryBigBlue>Войти</ButtonPrimaryBigBlue>
+                        <ButtonPrimaryBigBlue type={'submit'}>
+                            Войти
+                        </ButtonPrimaryBigBlue>
                         <Link
                             to={SIGN_UP_PATH}
                             content={

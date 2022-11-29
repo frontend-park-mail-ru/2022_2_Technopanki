@@ -2,7 +2,7 @@ import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import styles from './header.module.scss';
 import { toggleTheme } from '../../../utils/toggleTheme';
 import Link from '../../Link/Link';
-import { authService } from '../../../services/authService';
+import { authService } from '../../../services/auth/authService';
 import { dispatch } from '../../../store';
 import { userActions } from '../../../store/user/actions';
 import navigator from '../../../router/navigator';

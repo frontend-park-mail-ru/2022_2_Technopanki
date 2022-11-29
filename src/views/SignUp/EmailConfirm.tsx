@@ -3,7 +3,7 @@ import Form from '../../components/UI-kit/forms/Form';
 import FormInput from '../../components/UI-kit/forms/formInputs/FormInput';
 import Button from '../../components/UI-kit/buttons/Button';
 import { dispatch, errorsConnect, userConnect } from '../../store';
-import { authService } from '../../services/authService';
+import { authService, USER_TYPE } from '../../services/auth/authService';
 import navigator from '../../router/navigator';
 import { APPLICANT_PATHS, EMPLOYER_PATHS } from '../../utils/routerConstants';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
@@ -18,7 +18,7 @@ class EmailConfirm extends ReactsComponent<{
     async onSubmit(e: SubmitEvent) {
         e.preventDefault();
         // @ts-ignore
-        const token = new FormData(e.target).get('token');
+        const token = new FormData(e.target).get('token') as string;
         try {
             const response = await authService.authConfirm(
                 token,
@@ -27,10 +27,8 @@ class EmailConfirm extends ReactsComponent<{
 
             dispatch(
                 userActions.SIGN_UP(
-                    response.id,
-                    response.user_type === 'applicant'
-                        ? response.applicant_name
-                        : response.company_name,
+                    response.id.toString(),
+                    response.applicant_name ?? response.company_name,
                     response.applicant_surname,
                     response.email,
                     response.image,
@@ -38,12 +36,16 @@ class EmailConfirm extends ReactsComponent<{
                 ),
             );
 
-            response.user_type === 'applicant'
-                ? navigator.navigate(APPLICANT_PATHS.PROFILE + response.id)
-                : navigator.navigate(EMPLOYER_PATHS.PROFILE + response.id);
+            response.user_type === USER_TYPE.APPLICANT
+                ? navigator.navigate(
+                      APPLICANT_PATHS.PROFILE + response.id.toString(),
+                  )
+                : navigator.navigate(
+                      EMPLOYER_PATHS.PROFILE + response.id.toString(),
+                  );
         } catch (e) {
             dispatch(activateError('Ошибка', 'Пожалуйста, проверьте токен'));
-            setTimeout(() => deactivateError(), 3000);
+            setTimeout(() => dispatch(deactivateError()), 3000);
         }
     }
 
@@ -75,7 +77,5 @@ class EmailConfirm extends ReactsComponent<{
 }
 
 export default userConnect(state => ({
-    id: state.id,
-    userType: state.userType,
     email: state.email,
 }))(EmailConfirm);

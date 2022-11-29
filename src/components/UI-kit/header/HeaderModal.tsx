@@ -7,7 +7,7 @@ import Link from '../../Link/Link';
 import { toggleTheme } from '../../../utils/toggleTheme';
 import { dispatch, userConnect } from '../../../store';
 import HeaderProfile from './HeaderProfile';
-import { authService } from '../../../services/authService';
+import { authService } from '../../../services/auth/authService';
 import { userActions } from '../../../store/user/actions';
 import navigator from '../../../router/navigator';
 import { IMAGE_URL } from '../../../utils/networkConstants';

@@ -10,7 +10,7 @@ import { EmployerProfile, ProfileState } from '../../store/profile/types';
 import { dispatch, profileConnect, userConnect } from '../../store';
 import { profileActions } from '../../store/profile/actions';
 import { userActions } from '../../store/user/actions';
-import { authService } from '../../services/authService';
+import { authService } from '../../services/auth/authService';
 import ButtonPrimary from '../../components/UI-kit/buttons/ButtonPrimary';
 import ButtonRed from '../../components/UI-kit/buttons/ButtonRed';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';

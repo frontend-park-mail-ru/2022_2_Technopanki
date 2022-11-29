@@ -7,7 +7,7 @@ import Description from '../../components/auth/Description';
 import navigator from '../../router/navigator';
 import { dispatch } from '../../store';
 import { userActions } from '../../store/user/actions';
-import { authService } from '../../services/authService';
+import { authService } from '../../services/auth/authService';
 import { SIGN_IN_PATH, START_PATH } from '../../utils/routerConstants';
 import Form from '../../components/UI-kit/forms/Form';
 import FormInput from '../../components/UI-kit/forms/formInputs/FormInput';
@@ -28,6 +28,7 @@ import {
 import { USER_URLS } from '../../utils/networkConstants';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 import { activateError, deactivateError } from '../../store/errors/actions';
+import { AuthError } from '../../services/auth/types';
 
 export type ResponseBody = {
     descriptors: string[];
@@ -72,18 +73,15 @@ export default class SignUp extends ReactsComponent<
 
         const formData = new FormData(e.target as HTMLFormElement);
 
-        authService
-            .signUp(formData)
-            .then(() => {
-                dispatch(
-                    userActions.updateEmail(formData.get('email') as string),
-                );
-                navigator.navigate(USER_URLS.CONFIRM);
-            })
-            .catch(body => {
-                dispatch(activateError(body.descriptors[0], ''));
-                setTimeout(() => dispatch(deactivateError()), 3000);
-            });
+        try {
+            await authService.signUp(formData);
+            dispatch(userActions.updateEmail(formData.get('email') as string));
+            navigator.navigate(USER_URLS.CONFIRM);
+        } catch (e) {
+            console.error(e);
+            dispatch(activateError((e as AuthError).error));
+            setTimeout(() => dispatch(deactivateError()), 3000);
+        }
     };
 
     render() {
@@ -171,7 +169,7 @@ export default class SignUp extends ReactsComponent<
                                     id={'companyName'}
                                     label={'Название компании'}
                                     type={'text'}
-                                    name={'companyName'}
+                                    name={'company_name'}
                                     setError={this.validation.setError}
                                     size={'12'}
                                     validationMode={'oninput'}

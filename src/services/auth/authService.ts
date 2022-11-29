@@ -1,11 +1,24 @@
-import { Service } from './types';
-import network from '../lib/network';
-import { SERVER_URLS, USER_URLS } from '../utils/networkConstants';
-import { dispatch } from '../store';
-import { startLoading, stopLoading } from '../store/loading/actions';
+import { Service } from '../types';
+import network from '../../lib/network';
+import { SERVER_URLS, USER_URLS } from '../../utils/networkConstants';
+import { dispatch } from '../../store';
+import { startLoading, stopLoading } from '../../store/loading/actions';
+import { ConfirmResponse, SignInResponse, SignUpResponse } from './types';
 
-export const authService: Service = {
-    signIn: async (formData: FormData) => {
+export const USER_TYPE = {
+    APPLICANT: 'applicant',
+    EMPLOYER: 'employer',
+};
+
+export const authService: Service & {
+    signIn: (formDate: FormData) => Promise<SignInResponse>;
+    signUp: (formDate: FormData) => Promise<SignUpResponse>;
+    authConfirm: (code: string, email: string) => Promise<ConfirmResponse>;
+    auth: Function;
+    logout: Function;
+    CSRF: Function;
+} = {
+    signIn: async (formData: FormData): Promise<SignInResponse> => {
         dispatch(startLoading());
         return await network
             .POST(
@@ -24,7 +37,7 @@ export const authService: Service = {
             });
     },
 
-    signUp: async (formData: FormData) => {
+    signUp: async (formData: FormData): Promise<SignUpResponse> => {
         dispatch(startLoading());
         return await network
             .POST(
@@ -52,7 +65,10 @@ export const authService: Service = {
             });
     },
 
-    authConfirm: async (code: string, email: string) => {
+    authConfirm: async (
+        code: string,
+        email: string,
+    ): Promise<ConfirmResponse> => {
         dispatch(startLoading());
         return network
             .POST(USER_URLS.AUTH_CONFIRM, JSON.stringify({ code, email }))
@@ -61,7 +77,7 @@ export const authService: Service = {
                 if (response.status > 399) {
                     throw response.status;
                 }
-                return response.status;
+                return response.body;
             });
     },
 

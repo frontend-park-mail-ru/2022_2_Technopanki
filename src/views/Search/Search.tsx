@@ -8,9 +8,6 @@ import { vacancyService } from '../../services/vacancyService';
 import Button from '../../components/UI-kit/buttons/Button';
 import RenderWithCondition from '../../components/RenderWithCondition';
 import SearchFilter from '../../components/UI-kit/filters/SearchFilter';
-import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
-import { dispatch } from '../../store';
-import { activateError, deactivateError } from '../../store/errors/actions';
 import { VacancyState } from '../../store/vacancy/type';
 import SearchFilterMobile from '../../components/UI-kit/filters/SearchFilterMobile';
 
