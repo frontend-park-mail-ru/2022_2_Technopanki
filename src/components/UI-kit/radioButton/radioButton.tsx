@@ -19,6 +19,7 @@ export default class RadioButton extends ReactsComponent<{
                     <input
                         className={`rounded-max ${styles.radio_input}`}
                         id={this.props.id}
+                        checked
                         type={'radio'}
                         name={this.props.name}
                         value={this.props.value}
@@ -32,7 +33,10 @@ export default class RadioButton extends ReactsComponent<{
                         value={this.props.value}
                     />
                 )}
-                <label className={`${styles.radio_label_search}`} for={this.props.id}>
+                <label
+                    className={`${styles.radio_label_search}`}
+                    for={this.props.id}
+                >
                     {this.props.children}
                 </label>
             </div>

@@ -34,12 +34,6 @@ export default class HeaderUserInfo extends ReactsComponent<
     render() {
         return (
             <div
-                // onClick={() =>
-                //     this.setState(state => ({
-                //         ...state,
-                //         isOpen: !state.isOpen,
-                //     }))
-                // }
                 onMouseOver={() => this.setState(() => ({ isOpen: true }))}
                 className={'flex row g-16 cursor-pointer justify-content-end'}
             >

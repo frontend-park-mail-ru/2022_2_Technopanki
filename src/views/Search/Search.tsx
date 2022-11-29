@@ -176,7 +176,7 @@ export default class Search extends ReactsComponent<
                             onSubmit={this.onSubmitFilters}
                         />
                     </div>
-                    <div className={'col-12 col-md-9 flex column g-8 w-100'}>
+                    <div className={'col-12 col-md-9 flex column g-16 w-100'}>
                         {this.state.vacancies
                             ?.slice(0, this.state.limit)
                             .map(vacancy => (
