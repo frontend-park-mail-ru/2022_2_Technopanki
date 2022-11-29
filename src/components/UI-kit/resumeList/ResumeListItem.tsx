@@ -9,8 +9,8 @@ export type ResumeListItemPropsType = {
     resume_id: string;
     id: string;
     image: string;
-    user_name: string;
-    user_surname: string;
+    applicant_name: string;
+    applicant_surname: string;
     title: string;
     created_date: string;
     imgSrc: string;
@@ -103,6 +103,20 @@ export default class ResumeListItem extends ReactsComponent<ResumeListItemPropsT
                     key={'time'}
                     className={'col-0 row align-items-center col-md-4'}
                 ></div>
+                <p>
+                    {`${
+                        this.props.created_date[8] === '0'
+                            ? this.props.created_date.slice(9, 10)
+                            : this.props.created_date.slice(8, 10)
+                    } ${
+                        this.months.find(
+                            m => m.date === this.props.created_date.slice(5, 7),
+                        ).name
+                    } ${this.props.created_date.slice(
+                        0,
+                        4,
+                    )} • ${this.props.created_date.slice(11, 16)}`}
+                </p>
                 <div
                     key={'button'}
                     className={
