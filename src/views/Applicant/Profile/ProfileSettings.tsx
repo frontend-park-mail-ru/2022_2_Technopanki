@@ -22,7 +22,10 @@ import { authService } from '../../../services/authService';
 import { userActions } from '../../../store/user/actions';
 import ButtonRed from '../../../components/UI-kit/buttons/ButtonRed';
 import { profileActions } from '../../../store/profile/actions';
-import { APPLICANT_PATHS } from '../../../utils/routerConstants';
+import {
+    APPLICANT_PATHS,
+    EMPLOYER_PATHS,
+} from '../../../utils/routerConstants';
 import { useValidation } from '../../../utils/validation/formValidation';
 import {
     dateOfBirthValidation,
@@ -37,7 +40,11 @@ import {
     surnameSymbolsValidation,
 } from './settingsValidators';
 import { activateError, deactivateError } from '../../../store/errors/actions';
-import { activateSuccess } from '../../../store/succeses/actions';
+import {
+    activateSuccess,
+    deactivateSuccess,
+} from '../../../store/succeses/actions';
+import SuccessPopup from '../../../components/SuccessPopup/SuccessPopup';
 
 class ApplicantSettings extends ReactsComponent<
     ProfileState,
@@ -69,9 +76,7 @@ class ApplicantSettings extends ReactsComponent<
     });
 
     updateProfile = (id: string, formData: FormData) => {
-        dispatch(
-            profileActions.updateFromFormData(id, 'applicant', image, formData),
-        );
+        dispatch(profileActions.updateFromFormData(id, 'applicant', formData));
         dispatch(
             userActions.updateName(
                 formData.get('name') as string,
@@ -129,12 +134,8 @@ class ApplicantSettings extends ReactsComponent<
                 formData,
             );
             this.updateProfile(this.props.id, formData);
-
-            setTimeout(
-                () =>
-                    navigator.navigate(APPLICANT_PATHS.PROFILE + this.props.id),
-                750,
-            );
+            setTimeout(() => dispatch(deactivateSuccess()), 3000);
+            navigator.navigate(APPLICANT_PATHS.PROFILE + this.props.id);
         } catch (e) {
             dispatch(activateError(e, ''));
             setTimeout(() => dispatch(deactivateError()), 3000);
@@ -165,6 +166,7 @@ class ApplicantSettings extends ReactsComponent<
     render() {
         return (
             <div className={'screen-responsive relative'}>
+                <SuccessPopup />
                 <Header />
                 <div class={'column g-24'}>
                     <div className={`col-12 mt-header`}>
