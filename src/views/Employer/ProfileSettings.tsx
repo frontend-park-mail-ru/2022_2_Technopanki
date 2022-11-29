@@ -91,10 +91,10 @@ class ProfileSettingsComponent extends ReactsComponent<
         formDataImage.append('avatar', image);
 
         try {
-            // const newImage = await employerProfileService.updateProfileImg(
-            //     this.state.profile.id,
-            //     formDataImage,
-            // );
+            const newImage = await employerProfileService.updateProfileImg(
+                this.state.profile.id,
+                formDataImage,
+            );
 
             await employerProfileService.updateProfile(
                 this.props.id,
@@ -102,7 +102,7 @@ class ProfileSettingsComponent extends ReactsComponent<
                 formData,
             );
 
-            this.updateProfile(this.props.id, formData, './');
+            this.updateProfile(this.props.id, formData, newImage);
             setTimeout(() => dispatch(deactivateSuccess()), 3000);
             navigator.navigate(EMPLOYER_PATHS.PROFILE + this.props.id);
         } catch (e) {

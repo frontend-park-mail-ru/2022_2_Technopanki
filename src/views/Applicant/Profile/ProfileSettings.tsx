@@ -17,7 +17,6 @@ import navigator from '../../../router/navigator';
 import { applicantProfileService } from '../../../services/applicantService';
 import Footer from '../../../components/UI-kit/footer/Footer';
 import FormFileInput from '../../../components/UI-kit/forms/formInputs/FormFileInput';
-import FormInputGroup from '../../../components/UI-kit/forms/formInputs/FormInputGroup';
 import WorkExperienceInput from '../../../components/WorkExperienceInput';
 import { authService } from '../../../services/authService';
 import { userActions } from '../../../store/user/actions';
@@ -37,6 +36,7 @@ import {
     surnameLengthValidation,
     surnameSymbolsValidation,
 } from './settingsValidators';
+import { activateError, deactivateError } from '../../../store/errors/actions';
 
 class ApplicantSettings extends ReactsComponent<
     ProfileState,
@@ -67,7 +67,7 @@ class ApplicantSettings extends ReactsComponent<
         email: [emailValidation],
     });
 
-    submitForm = (e: SubmitEvent) => {
+    submitForm = async (e: SubmitEvent) => {
         e.preventDefault();
         if (!this.validation.ok()) {
             return;
@@ -77,36 +77,39 @@ class ApplicantSettings extends ReactsComponent<
 
         const applicantID = location.pathname.split('/').at(-1);
 
-        // @ts-ignore
-        const image = document.querySelector('#avatar').files[0];
-        const formDataImage = new FormData();
-        formDataImage.append('avatar', image);
-        employerProfileService
-            .updateProfileImg(applicantID, formDataImage)
-            .then(body => userActions.updateAvatar(body.image));
+        try {
+            // @ts-ignore
+            const image = document.querySelector('#avatar').files[0];
+            const formDataImage = new FormData();
+            formDataImage.append('avatar', image);
 
-        applicantProfileService
-            .updateProfile(
+            const newImage = await employerProfileService.updateProfileImg(
+                applicantID,
+                formDataImage,
+            );
+            userActions.updateAvatar(newImage);
+
+            await applicantProfileService.updateProfile(
                 this.state.profile.id,
                 this.state.profile.profileType,
                 formData,
-            )
-            .then(body => {
-                dispatch(
-                    userActions.updateName(
-                        formData.get('name') as string,
-                        formData.get('surname') as string,
-                    ),
-                );
-                setTimeout(
-                    () =>
-                        navigator.navigate(
-                            APPLICANT_PATHS.PROFILE + this.props.id,
-                        ),
-                    750,
-                );
-            })
-            .catch(err => console.error(err));
+            );
+            dispatch(
+                userActions.updateName(
+                    formData.get('name') as string,
+                    formData.get('surname') as string,
+                ),
+            );
+
+            setTimeout(
+                () =>
+                    navigator.navigate(APPLICANT_PATHS.PROFILE + this.props.id),
+                750,
+            );
+        } catch (e) {
+            dispatch(activateError(e));
+            setTimeout(() => dispatch(deactivateError()), 3000);
+        }
     };
 
     getDataFromServer() {
