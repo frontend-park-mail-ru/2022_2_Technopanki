@@ -33,7 +33,7 @@ class Profile extends ReactsComponent<
     };
 
     async getDataFromServer() {
-        const employerID = location.pathname.split('/').at(-1);
+        const employerID = location.pathname.split('/').at(-1) as string;
 
         const employerProfile = await employerProfileService.getProfileData(
             employerID,
@@ -62,23 +62,38 @@ class Profile extends ReactsComponent<
                     profileID={this.props.id}
                     buttons={
                         <div className={'flex flex-wrap row g-16'}>
-                            <ButtonIcon
-                                onClick={() => {
-                                    window.navigator.clipboard
-                                        .writeText(this.props.phone)
-                                        .then(() => console.log('copied!'))
-                                        .catch(err => console.error(err));
-                                }}
-                                icon={PhoneIcon}
-                            />
-                            <ButtonIcon
-                                onClick={() => {
-                                    window.navigator.clipboard
-                                        .writeText(this.props.email)
-                                        .then(() => console.log('copied!'))
-                                        .catch(err => console.error(err));
-                                }}
-                                icon={MailIcon}
+                            <RenderWithCondition
+                                condition={Boolean(window.navigator.clipboard)}
+                                onSuccess={
+                                    <div className={'flex row g-16'}>
+                                        <ButtonIcon
+                                            onClick={() => {
+                                                window.navigator.clipboard
+                                                    .writeText(this.props.phone)
+                                                    .then(() =>
+                                                        console.log('copied!'),
+                                                    )
+                                                    .catch(err =>
+                                                        console.error(err),
+                                                    );
+                                            }}
+                                            icon={PhoneIcon}
+                                        />
+                                        <ButtonIcon
+                                            onClick={() => {
+                                                window.navigator.clipboard
+                                                    .writeText(this.props.email)
+                                                    .then(() =>
+                                                        console.log('copied!'),
+                                                    )
+                                                    .catch(err =>
+                                                        console.error(err),
+                                                    );
+                                            }}
+                                            icon={MailIcon}
+                                        />
+                                    </div>
+                                }
                             />
                             {userStore.getState().authorized &&
                             userStore.getState().userType === 'applicant' ? (

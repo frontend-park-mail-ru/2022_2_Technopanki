@@ -54,9 +54,9 @@ export default class SignIn extends ReactsComponent {
             );
 
             navigator.navigate(
-                response.user_type === USER_TYPE.APPLICANT
-                    ? EMPLOYER_PATHS.PROFILE + response.id.toString()
-                    : APPLICANT_PATHS.PROFILE + response.id.toString(),
+                (response.user_type === USER_TYPE.APPLICANT
+                    ? APPLICANT_PATHS.PROFILE
+                    : EMPLOYER_PATHS.PROFILE) + response.id.toString(),
             );
         } catch (e: unknown) {
             dispatch(activateError((e as AuthError).error));

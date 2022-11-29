@@ -1,4 +1,5 @@
 export type ApplicantResponse = {
+    id: number;
     applicant_name: string;
     applicant_surname: string;
     company_size: number;
@@ -6,7 +7,6 @@ export type ApplicantResponse = {
     date_of_birth: string;
     description: string;
     email: string;
-    id: number;
     image: string;
     is_confirmed: boolean;
     mailing_approval: boolean;
@@ -20,8 +20,25 @@ export type ApplicantResponse = {
     vacancy_activities: null;
 };
 
-type EmployerResponse = {
+export type EmployerResponse = {
+    id: number;
     company_name: string;
+    company_size: number;
+    contact_number: string;
+    date_of_birth: string;
+    description: string;
+    email: string;
+    image: string;
+    is_confirmed: boolean;
+    mailing_approval: boolean;
+    password: string;
+    public_fields: string;
+    resumes: null;
+    status: string;
+    two_factor_sign_in: boolean;
+    user_type: 'applicant' | 'employer';
+    vacancies: null;
+    vacancy_activities: null;
 };
 
 export type SignInResponse = ApplicantResponse & EmployerResponse;

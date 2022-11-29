@@ -9,9 +9,13 @@ import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
 import { requestHeaders } from './headers';
 import Form from '../components/UI-kit/forms/Form';
+import { EmployerProfile } from '../store/profile/types';
+import { EmployerResponse } from './auth/types';
 
-export const employerProfileService: Service = {
-    getProfileData: async (profileID: string) => {
+export const employerProfileService: {
+    getProfileData: (profileID: string) => Promise<EmployerResponse>;
+} & Service = {
+    getProfileData: async (profileID: string): Promise<EmployerResponse> => {
         dispatch(startLoading());
         return await network
             .GET(PROFILE_URLS.USER_SAFE + profileID)
