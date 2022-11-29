@@ -1,13 +1,17 @@
 import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
-import Input from '../../components/UI-kit/forms/inputs/Input';
 import styles from './signin.module.scss';
 import Link from '../../components/Link/Link';
 import ButtonPrimaryBigBlue from '../../components/UI-kit/buttons/ButtonPrimaryBigBlue';
 import Description from '../../components/auth/Description';
 import { dispatch } from '../../store';
 import { userActions } from '../../store/user/actions';
-import { authService } from '../../services/auth/authService';
-import { SIGN_UP_PATH, START_PATH } from '../../utils/routerConstants';
+import { authService, USER_TYPE } from '../../services/auth/authService';
+import {
+    APPLICANT_PATHS,
+    EMPLOYER_PATHS,
+    SIGN_UP_PATH,
+    START_PATH,
+} from '../../utils/routerConstants';
 import { useValidation } from '../../utils/validation/formValidation';
 import {
     emailValidator,
@@ -20,6 +24,7 @@ import FormItem from '../../components/UI-kit/forms/FormItem';
 import { activateError, deactivateError } from '../../store/errors/actions';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 import { AuthError } from '../../services/auth/types';
+import navigator from '../../router/navigator';
 
 export default class SignIn extends ReactsComponent {
     validation = useValidation({
@@ -34,7 +39,6 @@ export default class SignIn extends ReactsComponent {
         }
 
         const formData = new FormData(e.target as HTMLFormElement);
-
         try {
             const response = await authService.signIn(formData);
 
@@ -48,8 +52,13 @@ export default class SignIn extends ReactsComponent {
                     response.user_type,
                 ),
             );
-        } catch (e) {
-            console.error(e);
+
+            navigator.navigate(
+                response.user_type === USER_TYPE.APPLICANT
+                    ? EMPLOYER_PATHS.PROFILE + response.id.toString()
+                    : APPLICANT_PATHS.PROFILE + response.id.toString(),
+            );
+        } catch (e: unknown) {
             dispatch(activateError((e as AuthError).error));
             setTimeout(() => dispatch(deactivateError()), 3000);
         }

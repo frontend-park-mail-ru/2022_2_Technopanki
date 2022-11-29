@@ -36,13 +36,11 @@ class EmailConfirm extends ReactsComponent<{
                 ),
             );
 
-            response.user_type === USER_TYPE.APPLICANT
-                ? navigator.navigate(
-                      APPLICANT_PATHS.PROFILE + response.id.toString(),
-                  )
-                : navigator.navigate(
-                      EMPLOYER_PATHS.PROFILE + response.id.toString(),
-                  );
+            navigator.navigate(
+                response.user_type === USER_TYPE.APPLICANT
+                    ? EMPLOYER_PATHS.PROFILE + response.id.toString()
+                    : APPLICANT_PATHS.PROFILE + response.id.toString(),
+            );
         } catch (e) {
             dispatch(activateError('Ошибка', 'Пожалуйста, проверьте токен'));
             setTimeout(() => dispatch(deactivateError()), 3000);
