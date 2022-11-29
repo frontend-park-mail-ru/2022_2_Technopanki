@@ -51,6 +51,11 @@ export const profileReducer: Reducer<ProfileState> = (
                 email: action.formData.get('email'),
                 size: action.formData.get('size')?.toString(),
             };
+        case PROFILE_ACTION_TYPES.UPDATE_AVATAR:
+            return {
+                ...state,
+                avatarSrc: action.avatarSrc,
+            };
         default:
             return state;
     }

@@ -97,6 +97,7 @@ class ProfileSettingsComponent extends ReactsComponent<
             );
 
             dispatch(userActions.updateAvatar(newImageSrc));
+            dispatch(profileActions.updateProfileAvatar(newImageSrc));
             navigator.navigate(EMPLOYER_PATHS.PROFILE + this.props.id);
         } catch (e) {
             dispatch(activateError((e as VacancyUpdateError).error));
@@ -177,7 +178,7 @@ class ProfileSettingsComponent extends ReactsComponent<
                             name={'avatar'}
                             size={'12'}
                             setError={this.avatarValidation.setError}
-                            profileFieldsValidation={this.avatarValidation.getValidation(
+                            validation={this.avatarValidation.getValidation(
                                 'avatar',
                             )}
                         />
@@ -199,10 +200,10 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 name={'name'}
                                 setError={this.profileFieldsValidation.setError}
                                 required={true}
-                                profileFieldsValidation={this.profileFieldsValidation.getValidation(
+                                validation={this.profileFieldsValidation.getValidation(
                                     'name',
                                 )}
-                                profileFieldsValidationMode={'oninput'}
+                                validationMode={'oninput'}
                             />
                             <FormInput
                                 size={'4'}
@@ -214,10 +215,10 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 name={'status'}
                                 setError={this.profileFieldsValidation.setError}
                                 required={true}
-                                profileFieldsValidation={this.profileFieldsValidation.getValidation(
+                                validation={this.profileFieldsValidation.getValidation(
                                     'slogan',
                                 )}
-                                profileFieldsValidationMode={'oninput'}
+                                validationMode={'oninput'}
                             />
                             <FormInput
                                 size={'4'}
@@ -228,10 +229,10 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 placeholder={'Местоположение компании'}
                                 name={'location'}
                                 setError={this.profileFieldsValidation.setError}
-                                profileFieldsValidation={this.profileFieldsValidation.getValidation(
+                                validation={this.profileFieldsValidation.getValidation(
                                     'location',
                                 )}
-                                profileFieldsValidationMode={'oninput'}
+                                validationMode={'oninput'}
                             />
                             <FormInput
                                 size={'4'}
@@ -242,10 +243,10 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 type={'text'}
                                 placeholder={'10.000'}
                                 setError={this.profileFieldsValidation.setError}
-                                profileFieldsValidation={this.profileFieldsValidation.getValidation(
+                                validation={this.profileFieldsValidation.getValidation(
                                     'size',
                                 )}
-                                profileFieldsValidationMode={'oninput'}
+                                validationMode={'oninput'}
                             />
                             <FormTextarea
                                 size={'12'}
@@ -274,10 +275,10 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 name={'password'}
                                 setError={this.profileFieldsValidation.setError}
                                 required={true}
-                                profileFieldsValidation={this.profileFieldsValidation.getValidation(
+                                validation={this.profileFieldsValidation.getValidation(
                                     'password',
                                 )}
-                                profileFieldsValidationMode={'oninput'}
+                                validationMode={'oninput'}
                             />
                             <FormInput
                                 size={'4'}
@@ -288,10 +289,10 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 name={'repeatPassword'}
                                 setError={this.profileFieldsValidation.setError}
                                 required={true}
-                                profileFieldsValidation={this.profileFieldsValidation.getValidation(
+                                validation={this.profileFieldsValidation.getValidation(
                                     'password',
                                 )}
-                                profileFieldsValidationMode={'oninput'}
+                                validationMode={'oninput'}
                             />
                         </FormItem>
                         <div>

@@ -8,6 +8,7 @@ export const PROFILE_ACTION_TYPES = {
     UPDATE: 'PROFILE_UPDATE',
     UPDATE_FROM_FORM: 'PROFILE_UPDATE_FROM_FORM',
     UPDATE_FROM_SERVER: 'PROFILE_UPDATE_FROM_SERVER',
+    UPDATE_AVATAR: 'PROFILE_UPDATE_AVATAR',
 };
 
 export const profileActions: {
@@ -23,6 +24,10 @@ export const profileActions: {
         type: string;
         profileID: string;
         formData: FormData;
+    };
+    updateProfileAvatar: (image: string) => {
+        type: string;
+        avatarSrc: string;
     };
 } & { [key: string]: (...data: any[]) => Action } = {
     updateEmployerFromServer: (serverState: EmployerResponse) => ({
@@ -58,5 +63,9 @@ export const profileActions: {
         userType,
         profileID: profileID,
         formData: formData,
+    }),
+    updateProfileAvatar: (image: string) => ({
+        type: PROFILE_ACTION_TYPES.UPDATE_AVATAR,
+        avatarSrc: image,
     }),
 };

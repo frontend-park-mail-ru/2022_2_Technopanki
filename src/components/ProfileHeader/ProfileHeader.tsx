@@ -11,6 +11,30 @@ export default class ProfileHeader extends ReactsComponent<{
     status: string;
     buttons: ReactsComponentNode;
 }> {
+    shouldUpdate(
+        nextProps:
+            | Readonly<{
+                  profileID: string;
+                  bannerSrc: string;
+                  avatarSrc: string;
+                  name: string;
+                  surname?: string;
+                  status: string;
+                  buttons: ReactsComponentNode;
+              }>
+            | {
+                  profileID: string;
+                  bannerSrc: string;
+                  avatarSrc: string;
+                  name: string;
+                  surname?: string;
+                  status: string;
+                  buttons: ReactsComponentNode;
+              },
+    ): boolean {
+        return super.shouldUpdate(nextProps);
+    }
+
     render() {
         return (
             <div className={`flex column ${styles.profile}`}>
