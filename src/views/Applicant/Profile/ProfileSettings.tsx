@@ -45,6 +45,7 @@ import {
     deactivateSuccess,
 } from '../../../store/succeses/actions';
 import SuccessPopup from '../../../components/SuccessPopup/SuccessPopup';
+import ErrorPopup from '../../../components/ErrorPopup/ErrorPopup';
 
 class ApplicantSettings extends ReactsComponent<
     ProfileState,
@@ -136,11 +137,13 @@ class ApplicantSettings extends ReactsComponent<
                 formData,
             );
 
+            console.log(this, applicantID);
             this.updateProfile(applicantID, formData);
             setTimeout(() => dispatch(deactivateSuccess()), 3000);
             navigator.navigate(APPLICANT_PATHS.PROFILE + applicantID);
         } catch (e) {
             dispatch(activateError(e, ''));
+            console.error(e);
             setTimeout(() => dispatch(deactivateError()), 3000);
         }
     };
@@ -170,6 +173,7 @@ class ApplicantSettings extends ReactsComponent<
         return (
             <div className={'screen-responsive relative'}>
                 <SuccessPopup />
+                <ErrorPopup />
                 <Header />
                 <div class={'column g-24'}>
                     <div className={`col-12 mt-header`}>
