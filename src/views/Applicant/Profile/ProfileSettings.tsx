@@ -37,6 +37,7 @@ import {
     surnameSymbolsValidation,
 } from './settingsValidators';
 import { activateError, deactivateError } from '../../../store/errors/actions';
+import { activateSuccess } from '../../../store/succeses/actions';
 
 class ApplicantSettings extends ReactsComponent<
     ProfileState,
@@ -67,6 +68,20 @@ class ApplicantSettings extends ReactsComponent<
         email: [emailValidation],
     });
 
+    updateProfile = (id: string, formData: FormData, image: string) => {
+        dispatch(
+            profileActions.updateFromFormData(id, 'applicant', image, formData),
+        );
+        dispatch(
+            userActions.updateName(
+                formData.get('name') as string,
+                formData.get('surname') as string,
+            ),
+        );
+        dispatch(userActions.updateAvatar(image));
+        dispatch(activateSuccess('Данные профиля успешно изменены!', ''));
+    };
+
     submitForm = async (e: SubmitEvent) => {
         e.preventDefault();
         if (!this.validation.ok()) {
@@ -87,19 +102,13 @@ class ApplicantSettings extends ReactsComponent<
                 applicantID,
                 formDataImage,
             );
-            userActions.updateAvatar(newImage);
 
             await applicantProfileService.updateProfile(
                 this.state.profile.id,
                 this.state.profile.profileType,
                 formData,
             );
-            dispatch(
-                userActions.updateName(
-                    formData.get('name') as string,
-                    formData.get('surname') as string,
-                ),
-            );
+            this.updateProfile(this.props.id, formData, newImage);
 
             setTimeout(
                 () =>

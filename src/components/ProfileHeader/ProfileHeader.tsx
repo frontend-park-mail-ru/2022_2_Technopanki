@@ -14,8 +14,8 @@ export default class ProfileHeader extends ReactsComponent<{
     render() {
         return (
             <div className={`flex column ${styles.profile}`}>
-                <div key={'banner'} className={styles.profile_banner}></div>
-                <div key={'content'} className={styles.profile_content}>
+                <div className={styles.profile_banner}></div>
+                <div className={styles.profile_content}>
                     <div className={styles.info}>
                         <img
                             className={styles.info__avatar}
@@ -23,13 +23,13 @@ export default class ProfileHeader extends ReactsComponent<{
                             alt={'avatar'}
                         />
                         <div className={`flex column g-4`}>
-                            <h3 key={'header'}>
+                            <h3>
                                 {this.props.name +
                                     (this.props.surname
                                         ? ' ' + this.props.surname
                                         : '')}
                             </h3>
-                            <p key={'status'}>{this.props.status}</p>
+                            <p>{this.props.status}</p>
                         </div>
                     </div>
                     <div>{this.props.buttons}</div>
