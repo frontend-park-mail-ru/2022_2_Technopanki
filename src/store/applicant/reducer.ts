@@ -13,6 +13,10 @@ export const applicantProfileReducer: Reducer<ProfileState> = (
             return {
                 ...state,
                 ...action.applicantProfile,
+                name: action.applicantProfile.applicant_name,
+                surname: action.applicantProfile.applicant_surname,
+                dateOfBirth: action.applicantProfile.date_of_birth,
+                phone: action.applicantProfile.contact_number,
                 id: action.applicantProfile.id.toString(),
                 avatarSrc: IMAGE_URL + action.applicantProfile.image,
             };
