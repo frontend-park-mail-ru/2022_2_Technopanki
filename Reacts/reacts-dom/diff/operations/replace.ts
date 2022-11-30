@@ -85,7 +85,7 @@ export const replaceNode = (
                 );
                 return;
             default:
-                element.replaceWith(document.createTextNode(''));
+                element?.replaceWith(document.createTextNode(''));
                 return;
         }
     }
