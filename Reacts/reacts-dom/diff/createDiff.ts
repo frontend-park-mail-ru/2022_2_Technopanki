@@ -1,5 +1,6 @@
 import {
     ChildrenType,
+    PropsType,
     PropsWithChildren,
     PropType,
     ReactsComponentNode,
@@ -124,8 +125,9 @@ export const createDiffComponent = (
         newNode.props.children,
     );
 
-    newNode.ref = oldNode.ref;
+    oldNode.instance.props = newNode.instance?.props;
     newNode.instance = oldNode.instance;
+    newNode.ref = oldNode.ref;
     return update(newNode, childrenDiff, propsUpdater);
 };
 

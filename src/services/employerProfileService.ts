@@ -2,7 +2,8 @@ import network from '../lib/network';
 import {
     PROFILE_URLS,
     SERVER_URL,
-    SERVER_URLS, VACANCY_URLS,
+    SERVER_URLS,
+    VACANCY_URLS,
 } from '../utils/networkConstants';
 import { Service } from './types';
 import { dispatch } from '../store';
@@ -14,10 +15,7 @@ import { AuthError, EmployerResponse } from './auth/types';
 
 export const employerProfileService: {
     getProfileData: (profileID: string) => Promise<EmployerResponse>;
-    updateProfileImg: (
-        profileID: string,
-        image: FormData,
-    ) => Promise<AuthError>;
+    updateProfileImg: (profileID: string, image: FormData) => Promise<string>;
 } & Service = {
     getAllEmployers: async () => {
         dispatch(startLoading());

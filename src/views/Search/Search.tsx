@@ -312,7 +312,7 @@ export default class Search extends ReactsComponent<
 
         if (this.state.typeOfSearch === 'applicant') {
             searchService
-                .searchByApplicant(queryParam)
+                .searchByApplicants(queryParam)
                 .then(body => {
                     console.log(body);
                     this.setState(state => ({
