@@ -11,28 +11,8 @@ export default class ProfileHeader extends ReactsComponent<{
     status: string;
     buttons: ReactsComponentNode;
 }> {
-    shouldUpdate(
-        nextProps:
-            | Readonly<{
-                  profileID: string;
-                  bannerSrc: string;
-                  avatarSrc: string;
-                  name: string;
-                  surname?: string;
-                  status: string;
-                  buttons: ReactsComponentNode;
-              }>
-            | {
-                  profileID: string;
-                  bannerSrc: string;
-                  avatarSrc: string;
-                  name: string;
-                  surname?: string;
-                  status: string;
-                  buttons: ReactsComponentNode;
-              },
-    ): boolean {
-        return super.shouldUpdate(nextProps);
+    componentDidMount() {
+        this.forceUpdate();
     }
 
     render() {
@@ -48,7 +28,9 @@ export default class ProfileHeader extends ReactsComponent<{
                         />
                         <div className={`flex column g-4`}>
                             <h3>
-                                {this.props.name + ' ' + this.props.surname}
+                                {this.props.name +
+                                    ' ' +
+                                    (this.props.surname ?? '')}
                             </h3>
                             <p>{this.props.status}</p>
                         </div>
