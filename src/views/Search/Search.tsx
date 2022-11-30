@@ -15,6 +15,7 @@ import { resumeService } from '../../services/resume/resumeService';
 import { employerProfileService } from '../../services/employerProfileService';
 import { applicantProfileService } from '../../services/applicantService';
 import { searchService } from '../../services/searchService';
+import SearchFilterMobile from '../../components/UI-kit/filters/SearchFilterMobile';
 
 export default class Search extends ReactsComponent<
     {},
@@ -432,25 +433,37 @@ export default class Search extends ReactsComponent<
     render() {
         return (
             <div>
-                <Header key={'header'} />
+                <Header />
                 <div
-                    key={'vacacnies'}
                     className={`flex column g-24 relative screen-responsive ${styles.content}`}
                 >
+                    <h3 className={'text-align-center'}>Поиск</h3>
                     <SearchInput
                         onSubmitSearch={this.onSubmitSearch}
                         onSwitch={this.switchSearchType}
                     />
                     <div
                         className={
-                            'flex row justify-content-space-between g-16 screen-responsive'
+                            'columns justify-content-space-between g-16 screen-responsive'
                         }
                     >
-                        <SearchFilter
-                            filters={this.state.filters}
-                            onSubmit={this.onSubmitFilters}
-                        />
-                        <div className={'flex column g-16 w-100'}>
+                        <div className={'col-0 col-md-3'}>
+                            <SearchFilter
+                                filters={this.state.filters}
+                                onSubmit={this.onSubmitFilters}
+                            />
+                        </div>
+                        <div
+                            className={'col-12 col-md-0 justify-content-center'}
+                        >
+                            <SearchFilterMobile
+                                filters={this.state.filters}
+                                onSubmit={this.onSubmitFilters}
+                            />
+                        </div>
+                        <div
+                            className={'col-12 col-md-9 flex column g-16 w-100'}
+                        >
                             {this.state.typeOfSearch === 'vacancy'
                                 ? this.state.vacancies
                                       ?.slice(0, this.state.limit)

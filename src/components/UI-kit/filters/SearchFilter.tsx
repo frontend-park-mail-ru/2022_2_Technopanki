@@ -20,12 +20,12 @@ export default class SearchFilter extends ReactsComponent<{
     onSubmit: Function;
 }> {
     render() {
-        console.log(this.props.filters)
+        console.log(this.props.filters);
         return (
             <form onSubmit={this.props.onSubmit}>
-                <div className={'columns g-24'}>
+                <div className={'flex column g-24'}>
                     {this.props.filters.map(filter => (
-                        <div className={'col-6 col-md-12 column g-12'}>
+                        <div className={'flex column g-12'}>
                             <p>{filter.header}</p>
                             {filter.type === 'toggle' ? (
                                 <div
@@ -38,7 +38,7 @@ export default class SearchFilter extends ReactsComponent<{
                                     ))}
                                 </div>
                             ) : filter.type === 'range' ? (
-                                <div className={'col-12'}>
+                                <div>
                                     <RangeInput
                                         min={filter.rangeMin}
                                         max={filter.rangeMax}
@@ -46,7 +46,7 @@ export default class SearchFilter extends ReactsComponent<{
                                     />
                                 </div>
                             ) : (
-                                <div className={'col-12'}>
+                                <div>
                                     <input
                                         className={`${stylesInput.input} ${styles.filter_input}`}
                                         id={filter.name}

@@ -55,16 +55,16 @@ export default class HeaderUserInfo extends ReactsComponent<
                         this.state.isOpen ? 'flex' : 'none'
                     } column g-8 ${styles.account}`}
                 >
-                    <div className={styles['account-link']}>
-                        <Link
-                            to={`/${
-                                this.props.userType === 'applicant'
-                                    ? 'applicant'
-                                    : 'employer'
-                            }/${this.props.id}`}
-                            content={`${this.props.name} ${this.props.surname}`}
-                        />
-                    </div>
+                    <Link
+                        to={`/${this.props.userType}/${this.props.id}`}
+                        content={
+                            <div className={styles['account-link']}>
+                                <p>
+                                    {`${this.props.name} ${this.props.surname}`}
+                                </p>
+                            </div>
+                        }
+                    />
                     <a
                         onClick={(e: MouseEvent) => {
                             e.stopPropagation();
