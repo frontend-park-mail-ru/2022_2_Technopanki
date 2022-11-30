@@ -61,10 +61,9 @@ class VacancySettings extends ReactsComponent<
                 formData,
                 this.props.avatarSrc.split('/').at(-1) as string,
             );
-
             navigator.navigate(VACANCY_PATHS.INDEX + response.id.toString());
         } else {
-            await vacancyService.updateVacancy(this.props.id, formData);
+            await vacancyService.updateVacancy(this.props.vacancy.id, formData);
             navigator.goBack();
         }
     };
@@ -74,7 +73,7 @@ class VacancySettings extends ReactsComponent<
             const vacancyID = location.pathname.split('/').at(-1) as string;
             vacancyService
                 .getVacancyData(vacancyID)
-                .then(body => dispatch(vacancyActions.update(body)))
+                .then(body => dispatch(vacancyActions.updateFromServer(body)))
                 .catch(err => console.error(err));
         }
     }

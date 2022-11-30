@@ -37,7 +37,6 @@ export const vacancyActions: {
             isActive: vacancy.isActive,
             format: vacancy.format,
             hours: vacancy.hours ?? '',
-            skills: [],
         } as VacancyState,
     }),
     clear: () => ({
