@@ -3,14 +3,18 @@ import styles from './search.module.scss';
 import Header from '../../components/UI-kit/header/Header';
 import SearchInput from '../../components/UI-kit/forms/inputs/SearchInput';
 import Footer from '../../components/UI-kit/footer/Footer';
-import VacancyCard from '../../components/UI-kit/vacancy/VacancyCard';
-import { vacancyService } from '../../services/vacancyService';
+import VacancyCard from '../../components/UI-kit/searchCards/VacancyCard';
+import EmployerCard from '../../components/UI-kit/searchCards/EmployerCard';
+import ApplicantCard from '../../components/UI-kit/searchCards/ApplicantCard';
+import ResumeCard from '../../components/UI-kit/searchCards/ResumeCard';
+import { vacancyService } from '../../services/vacancy/vacancyService';
 import Button from '../../components/UI-kit/buttons/Button';
 import RenderWithCondition from '../../components/RenderWithCondition';
 import SearchFilter from '../../components/UI-kit/filters/SearchFilter';
-import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
-import { dispatch } from '../../store';
-import { activateError, deactivateError } from '../../store/errors/actions';
+import { resumeService } from '../../services/resume/resumeService';
+import { employerProfileService } from '../../services/employerProfileService';
+import { applicantProfileService } from '../../services/applicantService';
+import { searchService } from '../../services/searchService';
 
 export default class Search extends ReactsComponent<
     {},
@@ -32,14 +36,9 @@ export default class Search extends ReactsComponent<
             description: string;
         }[];
         limit: number;
-        typeOfSearch: 'vacancy' | 'resume' | 'applicant' | 'employer'
+        typeOfSearch: 'vacancy' | 'resume' | 'applicant' | 'employer';
     }
 > {
-    state = {
-        vacancies: [] as VacancyState[],
-        limit: 10,
-    };
-
     filters = {
         vacancyFilter: [
             {
@@ -79,9 +78,6 @@ export default class Search extends ReactsComponent<
                 name: 'city',
             },
         ],
-    };
-            }
-        ],
 
         resumeFilter: [
             {
@@ -92,7 +88,7 @@ export default class Search extends ReactsComponent<
                     'Нет опыта',
                     'От 1 года до 3 лет',
                     'От 3 до 6 лет',
-                    'Более 6 лет'
+                    'Более 6 лет',
                 ],
                 name: 'experience',
             },
@@ -139,7 +135,7 @@ export default class Search extends ReactsComponent<
                     'Нет опыта',
                     'От 1 года до 3 лет',
                     'От 3 до 6 лет',
-                    'Более 6 лет'
+                    'Более 6 лет',
                 ],
                 name: 'experience',
             },
@@ -155,7 +151,7 @@ export default class Search extends ReactsComponent<
                 type: 'input',
                 name: 'city',
             },
-        ]
+        ],
     };
 
     state = {
@@ -171,7 +167,7 @@ export default class Search extends ReactsComponent<
     search = '';
 
     switchSearchType = (e: MouseEvent) => {
-        const type = e.target.innerHTML
+        const type = e.target.innerHTML;
         document.getElementById('searchOption').innerHTML = e.target.innerHTML;
         if (type === 'Вакансии') {
             this.setState(state => ({
@@ -204,13 +200,13 @@ export default class Search extends ReactsComponent<
                 filters: this.filters.applicantFilter,
             }));
         }
-    }
+    };
 
     getVacanciesFromServer = () => {
         vacancyService
             .getAllVacancies()
             .then(body => {
-                console.log(body)
+                console.log(body);
                 this.setState(state => ({
                     ...state,
                     limit: 10,
@@ -219,119 +215,119 @@ export default class Search extends ReactsComponent<
             })
             .catch(err => console.error(err));
 
-        console.log(this.state)
-    }
+        console.log(this.state);
+    };
 
     getResumesFromServer = () => {
         resumeService
             .getAllResumes()
             .then(body => {
-                console.log(body)
+                console.log(body);
                 this.setState(state => ({
                     ...state,
                     limit: 10,
                     resumes: [...body.data],
-                }))
+                }));
             })
-            .catch(err => console.error(err))
-    }
+            .catch(err => console.error(err));
+    };
 
     getEmployersFromServer = () => {
         employerProfileService
             .getAllEmployers()
             .then(body => {
-                console.log(body)
+                console.log(body);
                 this.setState(state => ({
                     ...state,
                     limit: 10,
                     employers: [...body.data],
-                }))
+                }));
             })
-            .catch(err => console.error(err))
-    }
+            .catch(err => console.error(err));
+    };
 
     getApplicantsFromServer = () => {
         applicantProfileService
             .getAllApplicants()
             .then(body => {
-                console.log(body)
+                console.log(body);
                 this.setState(state => ({
                     ...state,
                     limit: 10,
                     applicants: [...body.data],
-                }))
+                }));
             })
-            .catch(err => console.error(err))
-    }
+            .catch(err => console.error(err));
+    };
 
     onSubmitSearch = async (e: SubmitEvent) => {
         e.preventDefault();
 
         // TODO rename
-        const queryParam = document.getElementById('search').value
-        this.search = queryParam
+        const queryParam = document.getElementById('search').value;
+        this.search = queryParam;
 
         if (this.state.typeOfSearch === 'vacancy') {
             searchService
                 .searchByVacancies(queryParam)
                 .then(body => {
-                    console.log('here..')
+                    console.log('here..');
                     this.setState(state => ({
                         ...state,
                         limit: 10,
                         vacancies: [...body.data],
-                    }))
+                    }));
                 })
-                .catch(err => console.error(err))
+                .catch(err => console.error(err));
         }
 
         if (this.state.typeOfSearch === 'resume') {
             searchService
                 .searchByResumes(queryParam)
                 .then(body => {
-                    console.log(body)
+                    console.log(body);
                     this.setState(state => ({
                         ...state,
                         limit: 10,
                         resumes: [...body.data],
-                    }))
+                    }));
                 })
-                .catch(err => console.error(err))
+                .catch(err => console.error(err));
         }
 
         if (this.state.typeOfSearch === 'employer') {
             searchService
                 .searchByEmployers(queryParam)
                 .then(body => {
-                    console.log(body)
+                    console.log(body);
                     this.setState(state => ({
                         ...state,
                         limit: 10,
                         employers: [...body.data],
-                    }))
+                    }));
                 })
-                .catch(err => console.error(err))
+                .catch(err => console.error(err));
         }
 
         if (this.state.typeOfSearch === 'applicant') {
             searchService
                 .searchByApplicant(queryParam)
                 .then(body => {
-                    console.log(body)
+                    console.log(body);
                     this.setState(state => ({
                         ...state,
                         limit: 10,
                         applicants: [...body.data],
-                    }))
+                    }));
                 })
-                .catch(err => console.error(err))
+                .catch(err => console.error(err));
         }
-    }
+    };
 
     onSubmitFilters = async (e: SubmitEvent) => {
         e.preventDefault();
-        console.log('filters submitted')
-        const searchParam = this.search
+        console.log('filters submitted');
+        const searchParam = this.search;
 
         const formData = new FormData(e.target);
 
@@ -340,22 +336,31 @@ export default class Search extends ReactsComponent<
 
         const data = [...formData.entries()];
 
-        const groupByParam = data.reduce((groupData, elem, index) => {
-            if (index > 0) {
-                groupData.at(-1)[0] === elem[0]
-                    ? groupData.at(-1).push(elem[1])
-                    : groupData.push(elem);
-            }
+        const groupByParam = data.reduce(
+            (groupData, elem, index) => {
+                if (index > 0) {
+                    groupData.at(-1)[0] === elem[0]
+                        ? groupData.at(-1).push(elem[1])
+                        : groupData.push(elem);
+                }
 
-            return groupData
-        }, [data[0]])
+                return groupData;
+            },
+            [data[0]],
+        );
 
-        console.log(groupByParam)
+        console.log(groupByParam);
 
         const queryString = groupByParam
-            .map(x => x[0] === 'salary' || x[0] === 'size'
-                ? `${encodeURIComponent(x[0])}=${encodeURIComponent(x.slice(1).join(':'))}`
-                : `${encodeURIComponent(x[0])}=${encodeURIComponent(x.slice(1).join(','))}`)
+            .map(x =>
+                x[0] === 'salary' || x[0] === 'size'
+                    ? `${encodeURIComponent(x[0])}=${encodeURIComponent(
+                          x.slice(1).join(':'),
+                      )}`
+                    : `${encodeURIComponent(x[0])}=${encodeURIComponent(
+                          x.slice(1).join(','),
+                      )}`,
+            )
             .join('&');
         console.log(queryString);
 
@@ -410,27 +415,15 @@ export default class Search extends ReactsComponent<
                 })
                 .catch(err => console.error(err));
         }
-    }
+    };
 
     componentDidMount() {
-        console.log("MOUNT", this.state);
+        console.log('MOUNT', this.state);
         this.getVacanciesFromServer();
         this.getResumesFromServer();
         this.getEmployersFromServer();
         this.getApplicantsFromServer();
     }
-
-    // componentDidUpdate() {
-    //     console.log("UPDATE", this.state)
-    //     // this.state.typeOfSearch === 'vacancy'
-    //     //     ? this.getVacanciesFromServer()
-    //     //     : this.getResumesFromServer()
-    // }
-    //
-    // shouldUpdateState(nextState: { vacancies?: { id: number; title: string; image: string; salary: string; currency: string; location: string; format: string; hours: string }[]; resumes?: { id: number; postedByUserID: string; title: string; description: string }[]; limit: number; typeOfSearch: 'vacancy' | 'resume' | 'applicant' | 'employer' }): boolean {
-    //     console.log('should update...')
-    //     return this.state.typeOfSearch !== nextState.typeOfSearch || JSON.stringify(this.state.resumes) !== JSON.stringify(nextState.resumes) || JSON.stringify(this.state.vacancies) !== JSON.stringify(nextState.vacancies)
-    // }
 
     increaseLimit = () => {
         this.setState(state => ({ ...state, limit: state.limit + 10 }));
@@ -448,74 +441,86 @@ export default class Search extends ReactsComponent<
                         onSubmitSearch={this.onSubmitSearch}
                         onSwitch={this.switchSearchType}
                     />
-                    <div className={'flex row justify-content-space-between g-16 screen-responsive'}>
+                    <div
+                        className={
+                            'flex row justify-content-space-between g-16 screen-responsive'
+                        }
+                    >
                         <SearchFilter
                             filters={this.state.filters}
                             onSubmit={this.onSubmitFilters}
                         />
                         <div className={'flex column g-16 w-100'}>
-                            {this.state.typeOfSearch === 'vacancy' ? (
-                                this.state.vacancies
-                                    ?.slice(0, this.state.limit)
-                                    .map(vacancy => (
-                                        <VacancyCard
-                                            key={vacancy.id.toString()}
-                                            id={vacancy.id.toString()}
-                                            name={vacancy.title}
-                                            icon={vacancy.image}
-                                            salary={vacancy.salary}
-                                            currency={vacancy.currency}
-                                            location={vacancy.location}
-                                            format={vacancy.format}
-                                            hours={vacancy.hours}
-                                            description={vacancy.description}
-                                        />
-                                    ))
-                            ) : this.state.typeOfSearch === 'resume' ? (
-                                this.state.resumes
-                                    ?.slice(0, this.state.limit)
-                                    .map(resume => (
-                                        <ResumeCard
-                                            id={resume.id.toString()}
-                                            postedByUserID={resume.user_account_id.toString()}
-                                            title={resume.title}
-                                            description={resume.description}
-                                        />
-                                    ))
-                            ) : this.state.typeOfSearch === 'employer' ? (
-                                this.state.employers
-                                    ?.slice(0, this.state.limit)
-                                    .map(employer => (
-                                        <EmployerCard
-                                            id={employer.id.toString()}
-                                            imgSrc={employer.image}
-                                            companyName={employer.company_name}
-                                            description={employer.description}
-                                        />
-                                    ))
-                            ) : (
-                                this.state.applicants
-                                    ?.slice(0, this.state.limit)
-                                    .map(applicant => (
-                                        <ApplicantCard
-                                            id={applicant.id.toString()}
-                                            imgSrc={applicant.image}
-                                            name={applicant.applicant_name}
-                                            surname={applicant.applicant_surname}
-                                            description={applicant.status}
-                                        />
-                                    ))
-                            )}
+                            {this.state.typeOfSearch === 'vacancy'
+                                ? this.state.vacancies
+                                      ?.slice(0, this.state.limit)
+                                      .map(vacancy => (
+                                          <VacancyCard
+                                              key={vacancy.id.toString()}
+                                              id={vacancy.id.toString()}
+                                              name={vacancy.title}
+                                              icon={vacancy.image}
+                                              salary={vacancy.salary}
+                                              currency={vacancy.currency}
+                                              location={vacancy.location}
+                                              format={vacancy.format}
+                                              hours={vacancy.hours}
+                                              description={vacancy.description}
+                                          />
+                                      ))
+                                : this.state.typeOfSearch === 'resume'
+                                ? this.state.resumes
+                                      ?.slice(0, this.state.limit)
+                                      .map(resume => (
+                                          <ResumeCard
+                                              id={resume.id.toString()}
+                                              postedByUserID={resume.user_account_id.toString()}
+                                              title={resume.title}
+                                              description={resume.description}
+                                          />
+                                      ))
+                                : this.state.typeOfSearch === 'employer'
+                                ? this.state.employers
+                                      ?.slice(0, this.state.limit)
+                                      .map(employer => (
+                                          <EmployerCard
+                                              id={employer.id.toString()}
+                                              imgSrc={employer.image}
+                                              companyName={
+                                                  employer.company_name
+                                              }
+                                              description={employer.description}
+                                          />
+                                      ))
+                                : this.state.applicants
+                                      ?.slice(0, this.state.limit)
+                                      .map(applicant => (
+                                          <ApplicantCard
+                                              id={applicant.id.toString()}
+                                              imgSrc={applicant.image}
+                                              name={applicant.applicant_name}
+                                              surname={
+                                                  applicant.applicant_surname
+                                              }
+                                              description={applicant.status}
+                                          />
+                                      ))}
                             <div className={'w-100'}>
                                 <RenderWithCondition
                                     condition={
                                         this.state.typeOfSearch === 'vacancy'
-                                        ? this.state.limit < this.state.vacancies.length
-                                        : this.state.typeOfSearch === 'resume'
-                                        ? this.state.limit < this.state.resumes.length
-                                        : this.state.typeOfSearch === 'employer'
-                                        ? this.state.limit < this.state.employers.length
-                                        : this.state.limit < this.state.applicants.length
+                                            ? this.state.limit <
+                                              this.state.vacancies.length
+                                            : this.state.typeOfSearch ===
+                                              'resume'
+                                            ? this.state.limit <
+                                              this.state.resumes.length
+                                            : this.state.typeOfSearch ===
+                                              'employer'
+                                            ? this.state.limit <
+                                              this.state.employers.length
+                                            : this.state.limit <
+                                              this.state.applicants.length
                                     }
                                     onSuccess={
                                         <Button onClick={this.increaseLimit}>

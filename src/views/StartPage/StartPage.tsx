@@ -49,7 +49,7 @@ export default class StartPage extends ReactsComponent {
                             to={SEARCH_PATH}
                             content={
                                 <ArrowButtonWithTextOutline>
-                                    <p>Посмотреть все вакансии</p>
+                                    <p>Поиск</p>
                                 </ArrowButtonWithTextOutline>
                             }
                         />

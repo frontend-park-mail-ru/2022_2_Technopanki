@@ -1,9 +1,15 @@
-import network from '../lib/network';
-import { SERVER_URL, SERVER_URLS, VACANCY_URLS } from '../utils/networkConstants';
-import { requestHeaders } from './headers';
-import { Service } from './types';
-import { dispatch } from '../store';
-import { startLoading, stopLoading } from '../store/loading/actions';
+import network from '../../lib/network';
+import {
+    SERVER_URL,
+    SERVER_URLS,
+    VACANCY_URLS,
+} from '../../utils/networkConstants';
+import { requestHeaders } from '../headers';
+import { Service } from '../types';
+import { dispatch } from '../../store';
+import { startLoading, stopLoading } from '../../store/loading/actions';
+import { ResumeResponse } from './types';
+import { ApplicantResponse } from '../auth/types';
 
 export const resumeService: {
     getResumeData: (resumeID: string) => Promise<ResumeResponse>;

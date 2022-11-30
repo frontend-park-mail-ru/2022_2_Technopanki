@@ -23,10 +23,6 @@ export const applicantProfileService: Service = {
             .catch(() => dispatch(stopLoading()));
     },
 
-export const applicantProfileService: {
-    getApplicantData: (applicantID: string) => Promise<ApplicantResponse>;
-    getResumeList: (applicantID: string) => Promise<ResumePreviewResponse>;
-} & Service = {
     getApplicantData: async (applicantID: string) => {
         return await network
             .GET(SERVER_URLS.APPLICANT + applicantID, requestHeaders.jsonHeader)

@@ -7,8 +7,7 @@ import { stopLoading } from '../store/loading/actions';
 const searchTypes = {
     vacancy: VACANCY_URLS.VACANCIES_SEARCH,
     resume: SERVER_URLS.RESUME_SEARCH,
-
-}
+};
 
 export const searchService: Service = {
     searchByVacancies: async (queryParam: string) => {
@@ -122,4 +121,4 @@ export const searchService: Service = {
             })
             .catch(err => console.error(err));
     },
-}
+};

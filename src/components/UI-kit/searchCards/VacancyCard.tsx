@@ -43,7 +43,7 @@ export default class VacancyCard extends ReactsComponent<
 
     render() {
         return (
-            <div className={`g-16 rounded-lg p-24 ${styles.vacancy}`}>
+            <div className={`g-16 rounded-lg p-24 ${styles.card}`}>
                 <img
                     key={'img'}
                     className={'rounded-md'}

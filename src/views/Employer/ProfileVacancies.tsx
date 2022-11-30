@@ -1,9 +1,7 @@
 import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
-import { vacancyService } from '../../services/vacancyService';
-import VacancyCard from '../../components/UI-kit/vacancy/VacancyCard';
+import VacancyCard from '../../components/UI-kit/searchCards/VacancyCard';
 import Button from '../../components/UI-kit/buttons/Button';
 import RenderWithCondition from '../../components/RenderWithCondition';
-import Vacancy from '../Vacancy';
 import { VacancyState } from '../../store/vacancy/type';
 
 export default class ProfileVacancies extends ReactsComponent<

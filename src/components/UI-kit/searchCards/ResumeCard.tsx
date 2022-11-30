@@ -2,7 +2,7 @@ import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import { applicantProfileService } from '../../../services/applicantService';
 import { dispatch } from '../../../store';
 import { profileActions } from '../../../store/profile/actions';
-import { resumeService } from '../../../services/resumeService';
+import { resumeService } from '../../../services/resume/resumeService';
 import { IMAGE_URL } from '../../../utils/networkConstants';
 import styles from './searchCards.module.scss';
 import { Input } from 'postcss';
@@ -18,7 +18,7 @@ export default class ResumeCard extends ReactsComponent<{
     title: string;
     postedByUserID: string;
     description: string;
-}>{
+}> {
     state = {
         imgSrc: this.props.imgSrc,
         name: this.props.name,
@@ -26,25 +26,17 @@ export default class ResumeCard extends ReactsComponent<{
     };
 
     getCreatorDataFromServer = () => {
-        if (this.state.name === '') {
-            // TODO new request
-            resumeService.getResumeHatData(this.props.postedByUserID).then(body => {
-                this.setState(() => ({
-                    imgSrc: IMAGE_URL + body.image ?? body.imgSrc,
-                    name: body.company_name,
-                    status: body.status,
-                }));
-            });
-        }
         if (this.state.surname !== '') {
-            resumeService.getResumeHatData(this.props.postedByUserID).then(body => {
-                this.setState(() => ({
-                    imgSrc: IMAGE_URL + body.image ?? body.imgSrc,
-                    name: body.applicant_name,
-                    surname: body.applicant_surname,
-                    status: body.status,
-                }));
-            });
+            resumeService
+                .getResumeHatData(this.props.postedByUserID)
+                .then(body => {
+                    this.setState(() => ({
+                        imgSrc: IMAGE_URL + body.image ?? body.imgSrc,
+                        name: body.applicant_name,
+                        surname: body.applicant_surname,
+                        status: body.status,
+                    }));
+                });
         }
     };
 
@@ -66,9 +58,7 @@ export default class ResumeCard extends ReactsComponent<{
                     </p>
                 </div>
                 <div className={`flex column g-4`}>
-                    <p className={`mx-0`}>
-                        {this.props.title}
-                    </p>
+                    <p className={`mx-0`}>{this.props.title}</p>
                     <div className={`mx-0 ${styles.description_text}`}>
                         {this.props.description}
                     </div>
@@ -82,6 +72,6 @@ export default class ResumeCard extends ReactsComponent<{
                     }
                 />
             </div>
-        )
+        );
     }
 }

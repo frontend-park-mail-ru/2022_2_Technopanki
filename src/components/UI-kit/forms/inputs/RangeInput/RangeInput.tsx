@@ -1,14 +1,11 @@
 import { ReactsComponent } from '../../../../../../Reacts/reacts/src/Component';
-import styles from './range.module.scss'
-import { Input } from 'postcss';
+import styles from './range.module.scss';
 
-export default class RangeInput extends ReactsComponent<
-    {
-        min: string | Function;
-        max: string | Function;
-        name: string;
-    }
->{
+export default class RangeInput extends ReactsComponent<{
+    min: string | Function;
+    max: string | Function;
+    name: string;
+}> {
     handleFromInput = (fromSlider, fromInput, toInput, slider) => {
         const [from, to] = [parseInt(fromInput.value), parseInt(toInput.value)];
         this.fillSlider(fromInput, toInput, slider, '#dadae0', '#1C34EC');
@@ -18,7 +15,7 @@ export default class RangeInput extends ReactsComponent<
         } else {
             fromSlider.value = from;
         }
-    }
+    };
 
     handleToInput = (toSlider, fromInput, toInput, slider) => {
         const [from, to] = [parseInt(fromInput.value), parseInt(toInput.value)];
@@ -30,23 +27,29 @@ export default class RangeInput extends ReactsComponent<
         } else {
             toInput.value = from;
         }
-    }
+    };
 
     handleFromSlider = (fromSlider, toSlider, fromInput) => {
-        const [from, to] = [parseInt(fromSlider.value), parseInt(toSlider.value)];
-        this.fillSlider(fromSlider, toSlider, toSlider, '#dadae0', '#1C34EC')
+        const [from, to] = [
+            parseInt(fromSlider.value),
+            parseInt(toSlider.value),
+        ];
+        this.fillSlider(fromSlider, toSlider, toSlider, '#dadae0', '#1C34EC');
         if (from > to) {
             fromSlider.value = to;
             fromInput.value = to;
         } else {
             fromInput.value = from;
         }
-    }
+    };
 
     handleToSlider = (fromSlider, toSlider, toInput) => {
-        const [from, to] = [parseInt(fromSlider.value), parseInt(toSlider.value)];
-        this.fillSlider(fromSlider, toSlider, toSlider, '#dadae0', '#1C34EC')
-        this.handleCollision(toSlider)
+        const [from, to] = [
+            parseInt(fromSlider.value),
+            parseInt(toSlider.value),
+        ];
+        this.fillSlider(fromSlider, toSlider, toSlider, '#dadae0', '#1C34EC');
+        this.handleCollision(toSlider);
         if (from <= to) {
             toSlider.value = to;
             toInput.value = to;
@@ -54,16 +57,16 @@ export default class RangeInput extends ReactsComponent<
             toInput.value = from;
             toSlider.value = from;
         }
-    }
+    };
 
-    handleCollision = (target) => {
+    handleCollision = target => {
         const toSlider = document.getElementById('toSlider');
         if (Number(target.value) <= 0) {
             toSlider.style.zIndex = 2;
         } else {
             toSlider.style.zIndex = 0;
         }
-    }
+    };
 
     fillSlider = (from, to, slider, sliderColor, rangeColor) => {
         const rangeDist = to.max - to.min;
@@ -77,7 +80,7 @@ export default class RangeInput extends ReactsComponent<
         ${rangeColor} ${(toPos / rangeDist) * 100}%,
         ${sliderColor} ${(toPos / rangeDist) * 100}%,
         ${sliderColor} 100%)`;
-    }
+    };
 
     handleRangeInput = () => {
         const fromSlider = document.getElementById('fromSlider');
@@ -87,11 +90,15 @@ export default class RangeInput extends ReactsComponent<
         this.fillSlider(fromSlider, toSlider, toSlider, '#dadae0', '#1C34EC');
         this.handleCollision(toSlider);
 
-        fromSlider.oninput = () => this.handleFromSlider(fromSlider, toSlider, fromInput);
-        toSlider.oninput = () => this.handleToSlider(fromSlider, toSlider, toInput);
-        fromInput.oninput = () => this.handleFromInput(fromSlider, fromInput, toInput, toSlider);
-        toInput.oninput = () => this.handleToInput(toSlider, fromInput, toInput, toSlider);
-    }
+        fromSlider.oninput = () =>
+            this.handleFromSlider(fromSlider, toSlider, fromInput);
+        toSlider.oninput = () =>
+            this.handleToSlider(fromSlider, toSlider, toInput);
+        fromInput.oninput = () =>
+            this.handleFromInput(fromSlider, fromInput, toInput, toSlider);
+        toInput.oninput = () =>
+            this.handleToInput(toSlider, fromInput, toInput, toSlider);
+    };
 
     // getMaxValue = () => {
     //     if (document.getElementById('toInput')) {
@@ -113,8 +120,22 @@ export default class RangeInput extends ReactsComponent<
         return (
             <div className={'flex column g-8'}>
                 <div className={'flex row justify-content-space-between'}>
-                    <input id={'fromInput'} name={this.props.name} type={'number'} placeholder={'0'} className={`${styles.range_input}`} value={this.props.min}/>
-                    <input id={'toInput'} name={this.props.name} type={'number'} placeholder={'Не указано'} className={`text-align-center ${styles.range_input}`} value={this.props.max}/>
+                    <input
+                        id={'fromInput'}
+                        name={this.props.name}
+                        type={'number'}
+                        placeholder={'0'}
+                        className={`${styles.range_input}`}
+                        value={this.props.min}
+                    />
+                    <input
+                        id={'toInput'}
+                        name={this.props.name}
+                        type={'number'}
+                        placeholder={'Не указано'}
+                        className={`text-align-center ${styles.range_input}`}
+                        value={this.props.max}
+                    />
                 </div>
                 <div className={'relative flex row align-items-center'}>
                     <input
@@ -139,6 +160,6 @@ export default class RangeInput extends ReactsComponent<
                     />
                 </div>
             </div>
-        )
+        );
     }
 }
