@@ -13,29 +13,7 @@ import { ResumeState } from '../../../store/resume/type';
 import { applicantProfileService } from '../../../services/applicantService';
 import { applicantActions } from '../../../store/applicant/actions';
 
-type ResumePropsType = {
-    id?: string;
-    postedByUserID: string;
-    title: string;
-    description: string;
-    education: {
-        university: string;
-        faculty: string;
-        status: string;
-    };
-    sideBar: {
-        location: string;
-        dateOfBirth: string;
-        skills: string[];
-    };
-    socialNetworks: {
-        vk: string | null | undefined;
-        facebook: string | null | undefined;
-        telegram: string | null | undefined;
-    };
-};
-
-class Resume extends ReactsComponent<ResumePropsType> {
+class Resume extends ReactsComponent<ResumeState> {
     async getDataFromServer() {
         const resumeID = location.pathname.split('/').at(-1);
         const resume = await resumeService.getResumeData(resumeID as string);
@@ -78,9 +56,9 @@ class Resume extends ReactsComponent<ResumePropsType> {
                             content={this.props.description}
                         />
                         <Education
-                            university={this.props.education.university}
-                            faculty={this.props.education.faculty}
-                            status={this.props.education.status}
+                            university={this.props.university}
+                            faculty={this.props.faculty}
+                            status={this.props.status}
                         />
                     </div>
                     <div className={'col-12 col-md-3'}>
@@ -93,28 +71,6 @@ class Resume extends ReactsComponent<ResumePropsType> {
     }
 }
 
-export default resumeConnect((state, props) => {
-    const storeState = state as ResumeState;
-    return {
-        id: props.id ? props.id : storeState.id,
-        postedByUserID: storeState.postedByUserID,
-        title: storeState.title,
-        description: storeState.description,
-        avatarSrc: storeState.avatarSrc,
-        education: {
-            university: storeState.university,
-            faculty: storeState.faculty,
-            status: storeState.status,
-        },
-        sideBar: {
-            location: storeState.location,
-            dateOfBirth: storeState.dateOfBirth,
-            skills: storeState.skills,
-        },
-        socialNetworks: {
-            vk: storeState.vk,
-            facebook: storeState.facebook,
-            telegram: storeState.telegram,
-        },
-    };
-})(Resume);
+export default resumeConnect(state => ({
+    ...state,
+}))(Resume);
