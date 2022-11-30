@@ -2,10 +2,9 @@ import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Button from '../../components/UI-kit/buttons/Button';
 import Hat from '../../components/UI-kit/hat/Hat';
 import Link from '../../components/Link/Link';
-import { resumeService } from '../../services/resume/resumeService';
 import { APPLICANT_PATHS, RESUME_PATHS } from '../../utils/routerConstants';
-import { IMAGE_URL } from '../../utils/networkConstants';
-import { applicantConnect, profileConnect, userConnect } from '../../store';
+import { applicantConnect, userConnect } from '../../store';
+
 import RenderWithCondition from '../../components/RenderWithCondition';
 import { ApplicantProfileType } from '../../store/profile/types';
 
