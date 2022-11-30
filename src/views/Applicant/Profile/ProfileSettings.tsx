@@ -18,11 +18,14 @@ import { applicantProfileService } from '../../../services/applicantService';
 import Footer from '../../../components/UI-kit/footer/Footer';
 import FormFileInput from '../../../components/UI-kit/forms/formInputs/FormFileInput';
 import WorkExperienceInput from '../../../components/WorkExperienceInput';
-import { authService } from '../../../services/auth/authService';
+import { authService, USER_TYPE } from '../../../services/auth/authService';
 import { userActions } from '../../../store/user/actions';
 import ButtonRed from '../../../components/UI-kit/buttons/ButtonRed';
 import { profileActions } from '../../../store/profile/actions';
-import { APPLICANT_PATHS } from '../../../utils/routerConstants';
+import {
+    APPLICANT_PATHS,
+    EMPLOYER_PATHS,
+} from '../../../utils/routerConstants';
 import { useValidation } from '../../../utils/validation/formValidation';
 import {
     dateOfBirthValidation,
@@ -36,6 +39,11 @@ import {
     surnameLengthValidation,
     surnameSymbolsValidation,
 } from './settingsValidators';
+import { activateSuccess } from '../../../store/succeses/actions';
+import { applicantActions } from '../../../store/applicant/actions';
+import ErrorPopup from '../../../components/ErrorPopup/ErrorPopup';
+import { activateError, deactivateError } from '../../../store/errors/actions';
+import { VacancyUpdateError } from '../../../services/vacancy/types';
 
 class ApplicantSettings extends ReactsComponent<
     ProfileState,
@@ -66,23 +74,51 @@ class ApplicantSettings extends ReactsComponent<
         email: [emailValidation],
     });
 
-    submitForm = (e: SubmitEvent) => {
+    profileValidation = useValidation({
+        name: [nameSymbolsValidation, nameLengthValidation],
+        surname: [surnameSymbolsValidation, surnameLengthValidation],
+        phone: [phoneValidation],
+        dateOfBirth: [dateOfBirthValidation],
+        location: [locationValidation],
+        email: [emailValidation],
+    });
+
+    avatarValidation = useValidation({
+        avatar: [fileSizeValidation, fileFormatValidation],
+    });
+
+    submitAvatar = async (e: SubmitEvent) => {
         e.preventDefault();
-        if (!this.validation.ok()) {
+        if (!this.avatarValidation.ok()) {
             return;
         }
-
-        const formData = new FormData(e.target as HTMLFormElement);
-
-        const applicantID = location.pathname.split('/').at(-1) as string;
 
         // @ts-ignore
         const image = document.querySelector('#avatar').files[0];
         const formDataImage = new FormData();
         formDataImage.append('avatar', image);
-        employerProfileService
-            .updateProfileImg(applicantID, formDataImage)
-            .then(body => userActions.updateAvatar(body.image));
+
+        try {
+            const newImageSrc = await employerProfileService.updateProfileImg(
+                this.props.id,
+                formDataImage,
+            );
+
+            dispatch(userActions.updateAvatar(newImageSrc));
+            navigator.navigate(APPLICANT_PATHS.PROFILE + this.props.id);
+        } catch (e) {
+            dispatch(activateError((e as VacancyUpdateError).error));
+            setTimeout(() => dispatch(deactivateError()), 3000);
+        }
+    };
+
+    submitForm = (e: SubmitEvent) => {
+        e.preventDefault();
+        if (!this.profileValidation.ok()) {
+            return;
+        }
+
+        const formData = new FormData(e.target as HTMLFormElement);
 
         applicantProfileService
             .updateProfile(
@@ -97,15 +133,13 @@ class ApplicantSettings extends ReactsComponent<
                         formData.get('surname') as string,
                     ),
                 );
-                setTimeout(
-                    () =>
-                        navigator.navigate(
-                            APPLICANT_PATHS.PROFILE + this.props.id,
-                        ),
-                    750,
-                );
+                navigator.navigate(APPLICANT_PATHS.PROFILE + this.props.id);
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                console.error(err);
+                dispatch(activateError((err as VacancyUpdateError).error));
+                setTimeout(() => dispatch(deactivateError()), 3000);
+            });
     };
 
     getDataFromServer() {
@@ -133,20 +167,30 @@ class ApplicantSettings extends ReactsComponent<
         return (
             <div className={'screen-responsive relative'}>
                 <Header />
+                <ErrorPopup />
                 <div class={'column g-24'}>
                     <div className={`col-12 mt-header`}>
                         <SettingsHat creatorID={this.props.id} />
                     </div>
                     <h3 className={'col-12 mb-40'}>Настройки профиля</h3>
-                    <Form onSubmit={this.submitForm}>
+                    <Form onSubmit={this.submitAvatar}>
                         <FormFileInput
                             id={'avatar'}
                             label={'Загрузить новую фотографию'}
                             name={'avatar'}
                             size={'12'}
-                            setError={this.validation.setError}
-                            validation={this.validation.getValidation('avatar')}
+                            setError={this.avatarValidation.setError}
+                            validation={this.avatarValidation.getValidation(
+                                'avatar',
+                            )}
                         />
+                        <div>
+                            <ButtonPrimary type={'submit'}>
+                                Сохранить
+                            </ButtonPrimary>
+                        </div>
+                    </Form>
+                    <Form onSubmit={this.submitForm}>
                         <FormItem header={'О себе'}>
                             <FormInput
                                 size={'4'}
@@ -156,9 +200,9 @@ class ApplicantSettings extends ReactsComponent<
                                 placeholder={'Иван'}
                                 name={'name'}
                                 value={this.props.name}
-                                setError={this.validation.setError}
+                                setError={this.profileValidation.setError}
                                 required={true}
-                                validation={this.validation.getValidation(
+                                validation={this.profileValidation.getValidation(
                                     'name',
                                 )}
                                 validationMode={'oninput'}
@@ -171,9 +215,9 @@ class ApplicantSettings extends ReactsComponent<
                                 placeholder={'Иванов'}
                                 name={'surname'}
                                 value={this.props.surname}
-                                setError={this.validation.setError}
+                                setError={this.profileValidation.setError}
                                 required={true}
-                                validation={this.validation.getValidation(
+                                validation={this.profileValidation.getValidation(
                                     'surname',
                                 )}
                                 validationMode={'oninput'}
@@ -185,8 +229,8 @@ class ApplicantSettings extends ReactsComponent<
                                 type={'text'}
                                 name={'status'}
                                 value={this.props.status}
-                                setError={this.validation.setError}
-                                validation={this.validation.getValidation(
+                                setError={this.profileValidation.setError}
+                                validation={this.profileValidation.getValidation(
                                     'status',
                                 )}
                                 validationMode={'oninput'}
@@ -199,8 +243,8 @@ class ApplicantSettings extends ReactsComponent<
                                 placeholder={'Иванов'}
                                 name={'dateOfBirth'}
                                 value={this.props.dateOfBirth}
-                                setError={this.validation.setError}
-                                validation={this.validation.getValidation(
+                                setError={this.profileValidation.setError}
+                                validation={this.profileValidation.getValidation(
                                     'dateOfBirth',
                                 )}
                                 validationMode={'oninput'}
@@ -213,8 +257,8 @@ class ApplicantSettings extends ReactsComponent<
                                 type={'text'}
                                 name={'location'}
                                 value={this.props.location}
-                                setError={this.validation.setError}
-                                validation={this.validation.getValidation(
+                                setError={this.profileValidation.setError}
+                                validation={this.profileValidation.getValidation(
                                     'location',
                                 )}
                                 validationMode={'oninput'}
@@ -229,8 +273,8 @@ class ApplicantSettings extends ReactsComponent<
                                 name={'phone'}
                                 value={this.props.phone}
                                 placeholder={'+7 (999) 999-99-99'}
-                                setError={this.validation.setError}
-                                validation={this.validation.getValidation(
+                                setError={this.profileValidation.setError}
+                                validation={this.profileValidation.getValidation(
                                     'phone',
                                 )}
                                 validationMode={'oninput'}
@@ -243,8 +287,8 @@ class ApplicantSettings extends ReactsComponent<
                                 name={'email'}
                                 value={this.props.email}
                                 placeholder={'example@mail.ru'}
-                                setError={this.validation.setError}
-                                validation={this.validation.getValidation(
+                                setError={this.profileValidation.setError}
+                                validation={this.profileValidation.getValidation(
                                     'email',
                                 )}
                                 validationMode={'oninput'}
