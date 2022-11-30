@@ -1,13 +1,11 @@
 import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Header from '../../components/UI-kit/header/Header';
 import SettingsHat from '../../components/hats/SettingsHat';
-import Input from '../../components/UI-kit/forms/inputs/Input';
 import Form from '../../components/UI-kit/forms/Form';
 import FormInput from '../../components/UI-kit/forms/formInputs/FormInput';
 import FormItem from '../../components/UI-kit/forms/FormItem';
 import FormTextarea from '../../components/UI-kit/forms/formInputs/FormTextarea';
 import FormInputGroup from '../../components/UI-kit/forms/formInputs/FormInputGroup';
-import Textarea from '../../components/UI-kit/forms/inputs/Textarea';
 import Footer from '../../components/UI-kit/footer/Footer';
 import { dispatch, userConnect, vacancyConnect } from '../../store';
 import { vacancyService } from '../../services/vacancy/vacancyService';
@@ -39,7 +37,7 @@ class VacancySettings extends ReactsComponent<
     { isNew: boolean }
 > {
     state = {
-        isNew: location.pathname.split('/').at(-1) !== 'new',
+        isNew: location.pathname.split('/').at(-1) === 'new',
     };
 
     validation = useValidation({
@@ -104,7 +102,7 @@ class VacancySettings extends ReactsComponent<
 
     componentDidMount() {
         if (this.state.isNew) {
-            const vacancyID = location.pathname.split('/').at(-1);
+            const vacancyID = location.pathname.split('/').at(-1) as string;
             vacancyService
                 .getVacancyData(vacancyID)
                 .then(body => dispatch(vacancyActions.update(body)))
@@ -297,7 +295,7 @@ class VacancySettings extends ReactsComponent<
                                             .then(() =>
                                                 navigator.navigate(
                                                     EMPLOYER_PATHS.PROFILE +
-                                                        this.props
+                                                        this.props.vacancy
                                                             .postedByUserID,
                                                 ),
                                             )

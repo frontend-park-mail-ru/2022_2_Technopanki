@@ -12,6 +12,10 @@ export const vacancyReducer: Reducer<VacancyState> = (state, action) => {
                 id: action.vacancy.id.toString(),
                 postedByUserID: action.vacancy.postedByUserId.toString(),
             };
+        case VACANCY_ACTION_TYPES.UPDATE_FROM_SERVER:
+            return {
+                ...action.vacancy,
+            };
         case VACANCY_ACTION_TYPES.CLEAR:
             return defaultVacancy;
         default:

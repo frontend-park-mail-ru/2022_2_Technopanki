@@ -22,24 +22,18 @@ class Vacancy extends ReactsComponent<
     async getDataFromServer() {
         // Мы точно уверены что путь будет vacancy/{0,9}+
         const vacancyID = location.pathname.split('/').at(-1);
-        let vacancyData = null;
-        let postedByUserID = this.props.postedByUserID;
 
-        if (this.props.id !== vacancyID) {
-            vacancyData = await vacancyService.getVacancyData(
-                vacancyID as string,
-            );
-            postedByUserID = vacancyData.postedByUserId.toString();
-        }
+        const vacancyData = await vacancyService.getVacancyData(
+            vacancyID as string,
+        );
+        const postedByUserID = vacancyData.postedByUserId.toString();
 
         const profileData = await employerProfileService.getProfileData(
             postedByUserID,
         );
 
-        if (vacancyData) {
-            dispatch(vacancyActions.update(vacancyData));
-        }
-        dispatch(profileActions.update(profileData));
+        dispatch(vacancyActions.updateFromServer(vacancyData));
+        dispatch(profileActions.updateEmployerFromServer(profileData));
     }
 
     componentDidMount() {
@@ -84,14 +78,7 @@ class Vacancy extends ReactsComponent<
                         />
                     </div>
                     <div className={'col-12 col-md-3'}>
-                        <VacancySideBar
-                            salary={this.props.salary}
-                            experience={this.props.experience}
-                            location={this.props.location}
-                            format={this.props.format}
-                            hours={this.props.hours}
-                            skills={this.props.skills}
-                        />
+                        <VacancySideBar />
                     </div>
                 </div>
                 <Footer />
