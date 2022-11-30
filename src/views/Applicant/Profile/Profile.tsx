@@ -18,6 +18,7 @@ import Footer from '../../../components/UI-kit/footer/Footer';
 import { resumeActions } from '../../../store/resume/actions';
 import { APPLICANT_PATHS, RESUME_PATHS } from '../../../utils/routerConstants';
 import RenderWithCondition from '../../../components/RenderWithCondition';
+import { ResumePreviewResponse } from '../../../services/resume/types';
 
 type ApplicantPropsType = {
     id: string;
@@ -38,26 +39,26 @@ type ApplicantPropsType = {
         facebook: string | null | undefined;
         telegram: string | null | undefined;
     };
-    resume: ResumeListItemPropsType[];
+    resume: ResumePreviewResponse[];
 };
 
 class ApplicantProfile extends ReactsComponent<ApplicantPropsType> {
     state = {
-        resume: [] as ResumeListItemPropsType[],
+        resume: [] as ResumePreviewResponse[],
     };
 
     async getDataFromServer() {
         const applicantID = location.pathname.split('/').at(-1);
 
-        const resumeList = await applicantProfileService.getResumeList(
-            applicantID,
-        );
-
         const applicantBody = await applicantProfileService.getApplicantData(
             applicantID as string,
         );
 
-        dispatch(applicantActions.update(applicantBody));
+        const resumeList = await applicantProfileService.getResumeList(
+            applicantID as string,
+        );
+
+        dispatch(applicantActions.updateFromServer(applicantBody));
         this.setState(state => ({ ...state, resume: resumeList }));
     }
 
@@ -150,25 +151,6 @@ const UserWrapper = userConnect((state, props) => ({
     userID: state.id,
 }))(ApplicantProfile);
 
-export default applicantConnect((state: ProfileState, props) => {
-    console.log(state);
-    return {
-        id: props.id ? props.id : state.id,
-        name: state.applicant_name,
-        surname: state.applicant_surname,
-        status: state.status,
-        phone: state.contact_number,
-        email: state.email,
-        sideBar: {
-            location: state.location,
-            dateOfBirth: state.date_of_birth,
-            skills: state.skills,
-        },
-        socialNetworks: {
-            vk: state.vk,
-            facebook: state.facebook,
-            telegram: state.telegram,
-        },
-        avatarSrc: state.avatar_src,
-    };
-})(UserWrapper);
+export default applicantConnect((state: ProfileState, props) => ({
+    ...state,
+}))(UserWrapper);

@@ -1,10 +1,11 @@
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import ResumeListItem, { ResumeListItemPropsType } from './ResumeListItem';
 import { IMAGE_URL } from '../../../utils/networkConstants';
+import { ResumePreviewResponse } from '../../../services/resume/types';
 
 export default class ResumeList extends ReactsComponent<
     {
-        resume: ResumeListItemPropsType[];
+        resume: ResumePreviewResponse[];
     },
     { limit: number }
 > {
@@ -33,14 +34,12 @@ export default class ResumeList extends ReactsComponent<
                         .slice(0, this.state.limit)
                         .map(resume => (
                             <ResumeListItem
-                                key={resume.id}
-                                id={resume.id}
-                                resume_id={resume.id}
-                                imgSrc={
-                                    IMAGE_URL + (resume.image ?? resume.imgSrc)
-                                }
-                                name={resume.user_name}
-                                surname={resume.user_surname}
+                                key={resume.id.toString()}
+                                id={resume.id.toString()}
+                                resume_id={resume.id.toString()}
+                                imgSrc={IMAGE_URL + resume.image}
+                                name={resume.applicant_name}
+                                surname={resume.applicant_surname}
                                 resumeTitle={resume.title}
                                 timeWhenCreated={resume.created_date}
                             />

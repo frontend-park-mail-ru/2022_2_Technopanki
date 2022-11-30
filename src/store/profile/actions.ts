@@ -38,7 +38,6 @@ export const profileActions: {
             name: serverState.company_name,
             surname: '',
             location: '',
-            dateOfBirth: serverState.date_of_birth,
             status: serverState.status,
             description: serverState.description,
             phone: serverState.contact_number,

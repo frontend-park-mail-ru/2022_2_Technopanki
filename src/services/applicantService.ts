@@ -4,8 +4,13 @@ import { requestHeaders } from './headers';
 import { PROFILE_URLS, SERVER_URLS } from '../utils/networkConstants';
 import { startLoading, stopLoading } from '../store/loading/actions';
 import { dispatch } from '../store';
+import { ApplicantResponse } from './auth/types';
+import { ResumePreviewResponse } from './resume/types';
 
-export const applicantProfileService: Service = {
+export const applicantProfileService: {
+    getApplicantData: (applicantID: string) => Promise<ApplicantResponse>;
+    getResumeList: (applicantID: string) => Promise<ResumePreviewResponse>;
+} & Service = {
     getApplicantData: async (applicantID: string) => {
         return await network
             .GET(SERVER_URLS.APPLICANT + applicantID, requestHeaders.jsonHeader)

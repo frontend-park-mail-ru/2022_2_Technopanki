@@ -21,7 +21,6 @@ export type EmployerProfile = {
     email: string;
     location: string;
     size: string;
-    dateOfBirth: string;
     fieldOfActivity: string[];
     socialNetworks: EmployerSocialNetworks;
 };
@@ -39,7 +38,7 @@ export type ApplicantProfileType = {
     phone: string;
     email: string;
     location: string;
-    size: string;
+    dateOfBirth: string;
     skills: string[];
     socialNetworks: EmployerSocialNetworks;
 };
