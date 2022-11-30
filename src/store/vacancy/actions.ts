@@ -1,9 +1,5 @@
 import { VacancyState } from './type';
 import { Action } from '../../../Fluxs/types/action';
-<<<<<<< HEAD
-=======
-import vacancy from '../../views/Vacancy';
->>>>>>> cf85744e95637fa1c82c1cb5cb0a1179f5db8009
 import { VacancyResponse } from '../../services/vacancy/types';
 
 export const VACANCY_ACTION_TYPES = {
