@@ -42,6 +42,7 @@ export default class ResumeList extends ReactsComponent<
                                 surname={resume.applicant_surname}
                                 resumeTitle={resume.title}
                                 timeWhenCreated={resume.created_date}
+                                created_date={resume.created_date}
                             />
                         ))}
                 </div>

@@ -10,6 +10,8 @@ import { resumeActions } from '../../../store/resume/actions';
 import ApplicantHat from '../ApplicantHat';
 import Footer from '../../../components/UI-kit/footer/Footer';
 import { ResumeState } from '../../../store/resume/type';
+import { applicantProfileService } from '../../../services/applicantService';
+import { applicantActions } from '../../../store/applicant/actions';
 
 type ResumePropsType = {
     id?: string;
@@ -34,11 +36,17 @@ type ResumePropsType = {
 };
 
 class Resume extends ReactsComponent<ResumePropsType> {
-    getDataFromServer() {
+    async getDataFromServer() {
         const resumeID = location.pathname.split('/').at(-1);
-        resumeService.getResumeData(resumeID as string).then(body => {
-            dispatch(resumeActions.update(body));
-        });
+        const resume = await resumeService.getResumeData(resumeID as string);
+        const postedByUserID = resume.user_account_id.toString();
+
+        const profileData = await applicantProfileService.getApplicantData(
+            postedByUserID,
+        );
+
+        dispatch(applicantActions.updateFromServer(profileData));
+        dispatch(resumeActions.updateFromServer(resume));
     }
 
     componentDidMount() {

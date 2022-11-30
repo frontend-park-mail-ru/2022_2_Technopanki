@@ -5,9 +5,10 @@ import { Service } from '../types';
 import { dispatch } from '../../store';
 import { stopLoading } from '../../store/loading/actions';
 import { ApplicantResponse } from '../auth/types';
+import { ResumeResponse } from './types';
 
 export const resumeService: {
-    getResumeData: (resumeID: string) => Promise<any>;
+    getResumeData: (resumeID: string) => Promise<ResumeResponse>;
     getResumeHatData: (userID: string) => Promise<ApplicantResponse>;
 } & Service = {
     getResumeData: (resumeID: string) => {

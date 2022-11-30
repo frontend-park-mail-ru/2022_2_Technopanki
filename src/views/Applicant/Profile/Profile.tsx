@@ -79,23 +79,38 @@ class ApplicantProfile extends ReactsComponent<ApplicantPropsType> {
                     status={this.props.status}
                     buttons={
                         <div className={'flex flex-wrap row g-16'}>
-                            <ButtonIcon
-                                onClick={() => {
-                                    window.navigator.clipboard
-                                        .writeText(this.props.phone)
-                                        .then(() => alert('copied!'))
-                                        .catch(err => console.error(err));
-                                }}
-                                icon={PhoneIcon}
-                            />
-                            <ButtonIcon
-                                onClick={() => {
-                                    window.navigator.clipboard
-                                        .writeText(this.props.email)
-                                        .then(() => alert('copied!'))
-                                        .catch(err => console.error(err));
-                                }}
-                                icon={MailIcon}
+                            <RenderWithCondition
+                                condition={Boolean(window.navigator.clipboard)}
+                                onSuccess={
+                                    <div className={'flex row g-16'}>
+                                        <ButtonIcon
+                                            onClick={() => {
+                                                window.navigator.clipboard
+                                                    .writeText(this.props.phone)
+                                                    .then(() =>
+                                                        console.log('copied!'),
+                                                    )
+                                                    .catch(err =>
+                                                        console.error(err),
+                                                    );
+                                            }}
+                                            icon={PhoneIcon}
+                                        />
+                                        <ButtonIcon
+                                            onClick={() => {
+                                                window.navigator.clipboard
+                                                    .writeText(this.props.email)
+                                                    .then(() =>
+                                                        console.log('copied!'),
+                                                    )
+                                                    .catch(err =>
+                                                        console.error(err),
+                                                    );
+                                            }}
+                                            icon={MailIcon}
+                                        />
+                                    </div>
+                                }
                             />
                             <RenderWithCondition
                                 condition={this.props.userID === this.props.id}

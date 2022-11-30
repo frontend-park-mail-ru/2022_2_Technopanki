@@ -21,6 +21,10 @@ export const resumeReducer: Reducer<ResumeState> = (state, action) => {
                 dateOfBirth: action.resume.date_of_birth,
                 skills: action.resume.skills,
             };
+        case RESUME_ACTIONS_TYPE.UPDATE_FROM_SERVER:
+            return {
+                ...action.state,
+            };
         case RESUME_ACTIONS_TYPE.CLEAR:
             return {
                 postedByUserID: action.postedByUserID.toString(),
