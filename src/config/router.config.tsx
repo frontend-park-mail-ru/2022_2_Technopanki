@@ -66,7 +66,7 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
     {
         path: {
             path: '/vacancy/new',
-            validator: (url: string) => url === '/vacancy/new',
+            validator: (url: string) => url === '/searchCards/new',
         },
         component: VacancySettings,
         // component: VacancySettings isNew={true},

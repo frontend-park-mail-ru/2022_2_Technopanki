@@ -2,7 +2,7 @@ import network from '../lib/network';
 import {
     PROFILE_URLS,
     SERVER_URL,
-    SERVER_URLS,
+    SERVER_URLS, VACANCY_URLS,
 } from '../utils/networkConstants';
 import { Service } from './types';
 import { dispatch } from '../store';
@@ -19,6 +19,21 @@ export const employerProfileService: {
         image: FormData,
     ) => Promise<AuthError>;
 } & Service = {
+    getAllEmployers: async () => {
+        dispatch(startLoading());
+        return await network
+            .GET(SERVER_URLS.ALL_EMPLOYERS, requestHeaders.jsonHeader)
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            })
+            .catch(() => dispatch(stopLoading()));
+    },
+
     getProfileData: async (profileID: string): Promise<EmployerResponse> => {
         dispatch(startLoading());
         return await network

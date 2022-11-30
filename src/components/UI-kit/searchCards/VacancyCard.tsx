@@ -34,7 +34,7 @@ export default class VacancyCard extends ReactsComponent<
         isOpen: false,
     };
 
-    handleDetails = () => {
+    handleDetails = (e: MouseEvent) => {
         this.setState(state => ({
             ...state,
             isOpen: !this.state.isOpen,
@@ -45,6 +45,7 @@ export default class VacancyCard extends ReactsComponent<
         return (
             <div className={`g-16 rounded-lg p-24 ${styles.vacancy}`}>
                 <img
+                    key={'img'}
                     className={'rounded-md'}
                     height={40}
                     width={40}
@@ -54,6 +55,7 @@ export default class VacancyCard extends ReactsComponent<
                     className={`flex flex-wrap flex-start column g-4 ${styles['card-content']}`}
                 >
                     <Link
+                        key={'vacancy-name'}
                         to={VACANCY_PATHS.INDEX + this.props.id}
                         content={
                             <h4 className={`${styles.vacancy_name}`}>
@@ -64,6 +66,7 @@ export default class VacancyCard extends ReactsComponent<
                     <div className={'flex flex-wrap flex-start row g-16'}>
                         <div className={'flex row align-items-center g-6'}>
                             <div
+                                key={'meta'}
                                 className={`${styles.metadata_icon}`}
                                 dangerouslySetInnerHTML={{ __html: Location }}
                             />
@@ -82,6 +85,7 @@ export default class VacancyCard extends ReactsComponent<
                         </div>
                         <div className={'flex row align-items-center g-6'}>
                             <div
+                                key={'icon'}
                                 className={`${styles.metadata_icon}`}
                                 dangerouslySetInnerHTML={{ __html: Calendar }}
                             />

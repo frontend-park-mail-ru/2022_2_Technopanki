@@ -9,37 +9,43 @@ import Dropdown from '../../dropdown/Dropdown';
 import DropdownMenu from './SearchDropdownMenu';
 
 export default class SearchInput extends ReactsComponent<
-    { onSubmitSearch: Function },
+    {
+        onSubmitSearch: Function,
+        onSwitch: Function,
+    },
     { isOpen: boolean }
-> {
+    > {
+
     state = {
-        isOpen: false,
+        isOpen: false
     };
 
-    options = ['Вакансии', 'Соискатели', 'Работодатели', 'Должности'];
+    options = [
+        'Вакансии',
+        'Соискатели',
+        'Работодатели',
+        'Должности',
+    ]
 
     handleMenu = () => {
         this.setState(state => ({
             ...state,
             isOpen: !this.state.isOpen,
-        }));
-    };
+        }))
+    }
 
-    switchSearchOptions = (e: MouseEvent) => {
-        document.getElementById('searchOption').innerHTML = e.target.innerHTML;
+    closeMenu = (e: MouseEvent) => {
+        this.props.onSwitch(e);
         this.handleMenu();
-    };
+    }
 
     render() {
         return (
-            <div
-                className={`col-12 flex column screen-responsive ${styles.form}`}
-            >
+            <div className={`flex column relative screen-responsive ${styles.form}`}>
                 <form
-                    className={'w-100 screen-responsive'}
                     onSubmit={this.props.onSubmitSearch}
                 >
-                    <div className={'w-100 relative'}>
+                    <div className={'relative'}>
                         <input
                             id={'search'}
                             className={`w-100 absolute l-220 ${styles.input} ${styles.search_input}`}
@@ -60,9 +66,7 @@ export default class SearchInput extends ReactsComponent<
                                             {this.options.map(option => (
                                                 <p
                                                     className={`${styles.dropdown_options}`}
-                                                    onClick={
-                                                        this.switchSearchOptions
-                                                    }
+                                                    onClick={this.closeMenu}
                                                 >
                                                     {option}
                                                 </p>
@@ -72,9 +76,7 @@ export default class SearchInput extends ReactsComponent<
                                 </div>
                             }
                             content={
-                                <div
-                                    className={`absolute flex row ${styles.menu}`}
-                                >
+                                <div className={`absolute flex row ${styles.menu}`}>
                                     <div
                                         className={'flex row g-8'}
                                         onClick={this.handleMenu}
@@ -85,33 +87,26 @@ export default class SearchInput extends ReactsComponent<
                                         >
                                             Вакансии
                                         </p>
-                                        {this.state.isOpen ? (
-                                            <div
-                                                className={`cursor-pointer ${styles.search_arrow}`}
-                                                dangerouslySetInnerHTML={{
-                                                    __html: SearchArrowUp,
-                                                }}
-                                            />
-                                        ) : (
-                                            <div
-                                                className={`cursor-pointer ${styles.search_arrow}`}
-                                                dangerouslySetInnerHTML={{
-                                                    __html: SearchArrow,
-                                                }}
-                                            />
-                                        )}
+                                        {this.state.isOpen
+                                            ? (
+                                                <div
+                                                    className={`cursor-pointer ${styles.search_arrow}`}
+                                                    dangerouslySetInnerHTML={{ __html: SearchArrowUp }}
+                                                />
+                                            ) : (
+                                                <div
+                                                    className={`cursor-pointer ${styles.search_arrow}`}
+                                                    dangerouslySetInnerHTML={{ __html: SearchArrow }}
+                                                />
+                                            )
+                                        }
                                     </div>
-                                    <div
-                                        className={`${styles.search_line} ${styles.menu_data}`}
-                                        dangerouslySetInnerHTML={{
-                                            __html: Line,
-                                        }}
+                                    <div className={`${styles.search_line} ${styles.menu_data}`}
+                                         dangerouslySetInnerHTML={{ __html: Line }}
                                     />
                                     <div
                                         className={`cursor-pointer ${styles.icon}`}
-                                        dangerouslySetInnerHTML={{
-                                            __html: Loupe,
-                                        }}
+                                        dangerouslySetInnerHTML={{ __html: Loupe }}
                                     />
                                 </div>
                             }
@@ -119,10 +114,10 @@ export default class SearchInput extends ReactsComponent<
                             mt={'50'}
                             isOpen={this.state.isOpen}
                         />
-                        <div
-                            className={`absolute r-0-4 ${styles.search_button}`}
-                        >
-                            <ButtonSearchBlue type={'submit'}>
+                        <div className={`absolute r-0-4 ${styles.search_button}`}>
+                            <ButtonSearchBlue
+                                type={'submit'}
+                            >
                                 Найти
                             </ButtonSearchBlue>
                         </div>

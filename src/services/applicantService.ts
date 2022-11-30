@@ -7,6 +7,22 @@ import { dispatch } from '../store';
 import { ApplicantResponse } from './auth/types';
 import { ResumePreviewResponse } from './resume/types';
 
+export const applicantProfileService: Service = {
+    getAllApplicants: async () => {
+        dispatch(startLoading());
+        return await network
+            .GET(SERVER_URLS.ALL_APPLICANTS, requestHeaders.jsonHeader)
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            })
+            .catch(() => dispatch(stopLoading()));
+    },
+
 export const applicantProfileService: {
     getApplicantData: (applicantID: string) => Promise<ApplicantResponse>;
     getResumeList: (applicantID: string) => Promise<ResumePreviewResponse>;
@@ -29,9 +45,7 @@ export const applicantProfileService: {
         formData: FormData,
     ) => {
         dispatch(startLoading());
-        const date = formData.get('dateOfBirth')
-            ? new Date(formData.get('dateOfBirth'))
-            : undefined;
+        const date = new Date(formData.get('dateOfBirth'));
         return await network
             .POST(
                 SERVER_URLS.USER,
@@ -96,6 +110,7 @@ export const applicantProfileService: {
         surname: string,
         title: string,
     ) => {
+        console.log('RESUME_ID:', resumeID);
         return network
             .POST(
                 PROFILE_URLS.APPLICANT_RESUMES + vacancyID,
