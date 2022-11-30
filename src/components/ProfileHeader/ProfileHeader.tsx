@@ -11,9 +11,10 @@ export default class ProfileHeader extends ReactsComponent<{
     status: string;
     buttons: ReactsComponentNode;
 }> {
-    componentDidMount() {
-        this.forceUpdate();
-    }
+    // TODO
+    // componentDidMount() {
+    //     this.forceUpdate();
+    // }
 
     render() {
         return (
@@ -23,7 +24,10 @@ export default class ProfileHeader extends ReactsComponent<{
                     <div className={styles.info}>
                         <img
                             className={styles.info__avatar}
-                            src={this.props.avatarSrc}
+                            src={
+                                this.props.avatarSrc +
+                                `?${Math.random().toString(36).substring(7)}`
+                            }
                             alt={'avatar'}
                         />
                         <div className={`flex column g-4`}>
