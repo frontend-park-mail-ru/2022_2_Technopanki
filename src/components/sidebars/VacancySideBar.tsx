@@ -4,10 +4,6 @@ import IconField from './utils/IconField';
 import MapIcon from '../../static/icons/map.svg';
 import ClockIcon from '../../static/icons/clock.svg';
 import CalendarIcon from '../../static/icons/calendar.svg';
-import Chips from '../UI-kit/chips/Chips';
-import VKIcon from '../../static/icons/logos/VK.svg';
-import FacebookIcon from '../../static/icons/logos/Facebook.svg';
-import TelegramIcon from '../../static/icons/logos/Telegram.svg';
 import RenderWithCondition from '../RenderWithCondition';
 import { vacancyConnect } from '../../store';
 

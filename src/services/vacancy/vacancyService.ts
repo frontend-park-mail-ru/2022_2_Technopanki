@@ -5,9 +5,11 @@ import { dispatch } from '../../store';
 import { startLoading, stopLoading } from '../../store/loading/actions';
 import { requestHeaders } from '../headers';
 import { EmployerResponse } from '../auth/types';
+import { VacancyResponse } from './types';
 
 export const vacancyService: {
     getVacancyHatData: (userID: string) => Promise<EmployerResponse>;
+    getVacancyData: (vacancyID: string) => Promise<VacancyResponse>;
 } & Service = {
     getAllVacancies: async () => {
         dispatch(startLoading());

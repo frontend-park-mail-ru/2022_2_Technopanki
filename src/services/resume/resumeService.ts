@@ -1,5 +1,5 @@
 import network from '../../lib/network';
-import { SERVER_URL, SERVER_URLS } from '../../utils/networkConstants';
+import { SERVER_URLS } from '../../utils/networkConstants';
 import { requestHeaders } from '../headers';
 import { Service } from '../types';
 import { dispatch } from '../../store';
