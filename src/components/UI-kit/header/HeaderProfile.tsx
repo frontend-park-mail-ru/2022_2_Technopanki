@@ -1,6 +1,5 @@
 import styles from './header.module.scss';
 import { toggleTheme } from '../../../utils/toggleTheme';
-import ThemeIcon from '../../../static/icons/theme.svg';
 import Link from '../../Link/Link';
 import HeaderModal from './HeaderModal';
 import { userConnect } from '../../../store';
@@ -19,14 +18,6 @@ type HeaderProps = {
 };
 
 class HeaderProfile extends ReactsComponent<HeaderProps> {
-    // TODO изменить логику
-    // shouldUpdate(nextProps: Readonly<HeaderProps> | HeaderProps): boolean {
-    //     return (
-    //         this.props.id !== nextProps.id ||
-    //         this.props.authorized !== nextProps.authorized
-    //     );
-    // }
-
     render() {
         return (
             <div className={'flex-wrap w-100'}>
@@ -34,15 +25,18 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                     className={`flex row w-100 g-40 align-items-center justify-content-end ${styles.auth}`}
                 >
                     {this.props.authorized ? (
-                        <HeaderUserInfo
-                            id={this.props.id}
-                            imgSrc={this.props.imgSrc}
-                            name={this.props.name}
-                            surname={this.props.surname}
-                            userType={this.props.userType}
-                        />
+                        <div>
+                            <HeaderUserInfo
+                                id={this.props.id}
+                                imgSrc={this.props.imgSrc}
+                                name={this.props.name}
+                                surname={this.props.surname}
+                                userType={this.props.userType}
+                            />
+                        </div>
                     ) : (
                         <div className={'flex row g-24 align-items-center'}>
+                            <p className={'none'}></p>
                             <a
                                 className={'cursor-pointer'}
                                 onClick={toggleTheme}

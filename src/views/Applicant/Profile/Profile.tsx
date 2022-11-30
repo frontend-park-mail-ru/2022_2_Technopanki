@@ -9,7 +9,6 @@ import Button from '../../../components/UI-kit/buttons/Button';
 import ProfileHeader from '../../../components/ProfileHeader/ProfileHeader';
 import ResumeList from '../../../components/UI-kit/resumeList/ResumeList';
 import ResumeSidebar from '../../../components/sidebars/ResumeSidebar';
-import { ResumeListItemPropsType } from '../../../components/UI-kit/resumeList/ResumeListItem';
 import { applicantProfileService } from '../../../services/applicantService';
 import { applicantConnect, dispatch, userConnect } from '../../../store';
 import { applicantActions } from '../../../store/applicant/actions';
@@ -42,7 +41,9 @@ type ApplicantPropsType = {
     resume: ResumePreviewResponse[];
 };
 
-class ApplicantProfile extends ReactsComponent<ApplicantPropsType> {
+class ApplicantProfile extends ReactsComponent<
+    ApplicantPropsType & { userID: string }
+> {
     state = {
         resume: [] as ResumePreviewResponse[],
     };
@@ -166,6 +167,6 @@ const UserWrapper = userConnect((state, props) => ({
     userID: state.id,
 }))(ApplicantProfile);
 
-export default applicantConnect((state: ProfileState, props) => ({
+export default applicantConnect((state: ProfileState) => ({
     ...state,
 }))(UserWrapper);
