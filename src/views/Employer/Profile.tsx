@@ -33,7 +33,7 @@ class Profile extends ReactsComponent<
     };
 
     async getDataFromServer() {
-        const employerID = '1';
+        const employerID = location.pathname.split('/').at(-1) as string;
 
         const employerProfile = await employerProfileService.getProfileData(
             employerID,
@@ -51,7 +51,6 @@ class Profile extends ReactsComponent<
     }
 
     render() {
-        console.log(this);
         return (
             <div className={'screen-responsive flex column g-40'}>
                 <Header />
