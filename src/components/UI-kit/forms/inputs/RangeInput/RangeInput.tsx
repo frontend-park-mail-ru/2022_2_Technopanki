@@ -122,7 +122,7 @@ export default class RangeInput extends ReactsComponent<
                         type={'range'}
                         min={this.props.min}
                         max={this.props.max}
-                        value={(parseInt(this.props.min) + parseInt(this.props.max)) / 2}
+                        value={this.props.min}
                         step={'10000'}
                         className={`${styles.slider} ${styles.from_slider}`}
                         onClick={this.handleRangeInput}
@@ -132,7 +132,7 @@ export default class RangeInput extends ReactsComponent<
                         type={'range'}
                         min={this.props.min}
                         max={this.props.max}
-                        value={(parseInt(this.props.min) + parseInt(this.props.max)) / 2}
+                        value={this.props.max}
                         step={'10000'}
                         className={`${styles.slider}`}
                         onClick={this.handleRangeInput}

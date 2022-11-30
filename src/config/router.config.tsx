@@ -50,14 +50,14 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
     },
     {
         path: {
-            path: '/searchCards',
+            path: '/vacancy',
             validator: (url: string) => /vacancy\/[1-9]+/.test(url),
         },
         component: Vacancy,
     },
     {
         path: {
-            path: '/searchCards/new',
+            path: '/vacancy/new',
             validator: (url: string) => url === '/searchCards/new',
         },
         component: VacancySettings,
@@ -65,14 +65,14 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
     },
     {
         path: {
-            path: '/searchCards/settings',
+            path: '/vacancy/settings',
             validator: (url: string) => /vacancy\/settings\/[0-9]+/.test(url),
         },
         component: VacancySettings,
     },
     {
         path: {
-            path: '/searchCards/responses',
+            path: '/vacancy/responses',
             validator: (url: string) => /vacancy\/responses\/[0-9]+/.test(url),
         },
         component: VacancyResponses,

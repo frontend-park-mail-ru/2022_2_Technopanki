@@ -45,6 +45,11 @@ export const SERVER_URLS = {
     RESUME_SEARCH: SERVER_URL + 'api/resume',
     ADD_RESUME: SERVER_URL + 'api/resume/new',
 
+    ALL_EMPLOYERS: SERVER_URL +'api/user/employers',
+    EMPLOYER_SEARCH: SERVER_URL +'api/user/employers',
+    ALL_APPLICANTS: SERVER_URL + 'api/user/applicants',
+    APPLICANT_SEARCH: + 'api/user/applicants',
+
     APPLICANT: SERVER_URL + 'api/user/safety/',
     APPLICANT_RESUMES: SERVER_URL + 'api/resume/applicant/preview/',
 

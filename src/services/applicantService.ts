@@ -13,6 +13,21 @@ import { dispatch } from '../store';
 import Form from '../components/UI-kit/forms/Form';
 
 export const applicantProfileService: Service = {
+    getAllApplicants: async () => {
+        dispatch(startLoading());
+        return await network
+            .GET(SERVER_URLS.ALL_APPLICANTS, requestHeaders.jsonHeader)
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            })
+            .catch(() => dispatch(stopLoading()));
+    },
+
     getApplicantData: async (applicantID: string) => {
         return await network
             .GET(SERVER_URLS.APPLICANT + applicantID, requestHeaders.jsonHeader)

@@ -27,6 +27,7 @@ export default class ResumeCard extends ReactsComponent<{
 
     getCreatorDataFromServer = () => {
         if (this.state.name === '') {
+            // TODO new request
             resumeService.getResumeHatData(this.props.postedByUserID).then(body => {
                 this.setState(() => ({
                     imgSrc: IMAGE_URL + body.image ?? body.imgSrc,

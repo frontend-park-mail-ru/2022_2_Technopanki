@@ -53,7 +53,7 @@ export const searchService: Service = {
             .catch(err => console.error(err));
     },
 
-    filterResume: async (queryString: string) => {
+    filterResumes: async (queryString: string) => {
         return await network
             .GET(SERVER_URLS.RESUME_SEARCH + `?${queryString}`)
             .then(response => {
@@ -67,4 +67,59 @@ export const searchService: Service = {
             .catch(err => console.error(err));
     },
 
+    searchByEmployers: async (queryParam: string) => {
+        return await network
+            .GET(SERVER_URLS.EMPLOYER_SEARCH + `?search=%25${queryParam}%25`)
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            })
+            .catch(err => console.error(err));
+    },
+
+    filterEmployers: async (queryString: string) => {
+        return await network
+            .GET(SERVER_URLS.EMPLOYER_SEARCH + `?${queryString}`)
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            })
+            .catch(err => console.error(err));
+    },
+
+    searchByApplicants: async (queryParam: string) => {
+        return await network
+            .GET(SERVER_URLS.APPLICANT_SEARCH + `?search=%25${queryParam}%25`)
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            })
+            .catch(err => console.error(err));
+    },
+
+    filterApplicants: async (queryString: string) => {
+        return await network
+            .GET(SERVER_URLS.APPLICANT_SEARCH + `?${queryString}`)
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            })
+            .catch(err => console.error(err));
+    },
 }

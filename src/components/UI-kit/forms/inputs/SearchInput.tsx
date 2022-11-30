@@ -34,6 +34,11 @@ export default class SearchInput extends ReactsComponent<
         }))
     }
 
+    closeMenu = (e: MouseEvent) => {
+        this.props.onSwitch(e);
+        this.handleMenu();
+    }
+
     render() {
         return (
             <div className={`flex column relative screen-responsive ${styles.form}`}>
@@ -59,7 +64,7 @@ export default class SearchInput extends ReactsComponent<
                                             {this.options.map(option => (
                                                 <p
                                                     className={`${styles.dropdown_options}`}
-                                                    onClick={this.props.onSwitch}
+                                                    onClick={this.closeMenu}
                                                 >
                                                     {option}
                                                 </p>
