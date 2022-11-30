@@ -74,7 +74,7 @@ class ApplicantSettings extends ReactsComponent<
 
         const formData = new FormData(e.target as HTMLFormElement);
 
-        const applicantID = location.pathname.split('/').at(-1);
+        const applicantID = location.pathname.split('/').at(-1) as string;
 
         // @ts-ignore
         const image = document.querySelector('#avatar').files[0];

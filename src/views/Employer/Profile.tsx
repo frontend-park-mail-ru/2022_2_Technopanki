@@ -14,7 +14,6 @@ import Link from '../../components/Link/Link';
 import { VacancyCardPropsType } from '../../components/UI-kit/searchCards/VacancyCard';
 import Footer from '../../components/UI-kit/footer/Footer';
 import { employerProfileService } from '../../services/employerProfileService';
-import { userStore } from '../../store/user/store';
 import { ProfileState } from '../../store/profile/types';
 import { dispatch, profileConnect, userConnect } from '../../store';
 import { profileActions } from '../../store/profile/actions';
@@ -23,9 +22,10 @@ import ProfileVacancies from './ProfileVacancies';
 import RenderWithCondition from '../../components/RenderWithCondition';
 import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../utils/routerConstants';
 import { vacancyService } from '../../services/vacancy/vacancyService';
+import { USER_TYPE } from '../../services/auth/authService';
 
 class Profile extends ReactsComponent<
-    { userID: string } & ProfileState,
+    { userID: string; userType: string; authorized: boolean } & ProfileState,
     { profile: ProfileState; vacancies: VacancyCardPropsType[] }
 > {
     state = {
@@ -95,16 +95,16 @@ class Profile extends ReactsComponent<
                                     </div>
                                 }
                             />
-                            {userStore.getState().authorized &&
-                            userStore.getState().userType === 'applicant' ? (
+                            {this.props.authorized &&
+                            this.props.userType === USER_TYPE.APPLICANT ? (
                                 <ButtonPrimary>
                                     Хочу здесь работать
                                 </ButtonPrimary>
                             ) : (
                                 <p className={'none'}></p>
                             )}
-                            {userStore.getState().id === this.props.id &&
-                            userStore.getState().userType === 'employer' ? (
+                            {this.props.id === this.props.userID &&
+                            this.props.userType === USER_TYPE.EMPLOYER ? (
                                 <Link
                                     to={EMPLOYER_PATHS.SETTINGS + this.props.id}
                                     content={<Button>Настройки</Button>}
@@ -171,6 +171,8 @@ class Profile extends ReactsComponent<
 const userWrapper = userConnect((state, props) => ({
     ...props,
     userID: state.id,
+    userType: state.userType,
+    authorized: state.authorized,
 }))(Profile);
 
 export default profileConnect(state => state)(userWrapper);
