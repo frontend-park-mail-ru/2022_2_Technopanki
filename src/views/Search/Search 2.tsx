@@ -3,8 +3,7 @@ import styles from './search.module.scss';
 import Header from '../../components/UI-kit/header/Header';
 import SearchInput from '../../components/UI-kit/forms/inputs/SearchInput';
 import Footer from '../../components/UI-kit/footer/Footer';
-import VacancyCard from '../../components/UI-kit/searchCards/VacancyCard';
-import ResumeCard from '../../components/UI-kit/searchCards/ResumeCard';
+import VacancyCard from '../../components/UI-kit/vacancy/VacancyCard';
 import { vacancyService } from '../../services/vacancyService';
 import Button from '../../components/UI-kit/buttons/Button';
 import RenderWithCondition from '../../components/RenderWithCondition';
@@ -13,8 +12,6 @@ import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 import { dispatch } from '../../store';
 import { activateError, deactivateError } from '../../store/errors/actions';
 import { resumeService } from '../../services/resumeService';
-import { searchService } from '../../services/searchService';
-import { stat } from 'copy-webpack-plugin/types/utils';
 
 export default class Search extends ReactsComponent<
     {},
@@ -29,14 +26,14 @@ export default class Search extends ReactsComponent<
             format: string;
             hours: string;
         }[];
-        resumes?: {
-            id: number;
-            postedByUserID: string;
-            title: string;
-            description: string;
-        }[];
+        // resumes?: {
+        //     id: string;
+        //     title: string;
+        //     description: string;
+        //     postedByUserID: string;
+        // }[];
         limit: number;
-        typeOfSearch: 'vacancy' | 'resume' | 'applicant' | 'employer'
+        searchType: string;
     }
 > {
     filters = {
@@ -78,7 +75,6 @@ export default class Search extends ReactsComponent<
                 name: 'city',
             }
         ],
-
         resumeFilter: [
             {
                 type: 'toggle',
@@ -103,102 +99,79 @@ export default class Search extends ReactsComponent<
                 header: 'Город',
                 type: 'input',
                 name: 'city',
-            },
+            }
         ]
-    };
+    }
 
     state = {
         vacancies: [],
-        resumes: [],
+        // resumes: [],
         limit: 10,
-        typeOfSearch: 'vacancy',
-        filters: this.filters.vacancyFilter,
+        // searchType: 'vacancies',
+        filter: this.filters.vacancyFilter
     };
 
-    search = '';
-
-    switchSearchType = (e: MouseEvent) => {
-        const type = e.target.innerHTML
-        document.getElementById('searchOption').innerHTML = e.target.innerHTML;
-        type === 'Вакансии'
-            ? this.setState(state => ({
-                ...state,
-                typeOfSearch: 'vacancy',
-                filters: this.filters.vacancyFilter,
-            }))
-            : this.setState(state => ({
-                ...state,
-                typeOfSearch: 'resume',
-                filters: this.filters.resumeFilter,
-            }))
+    getDataFromServer = () => {
+        document.getElementById('searchOption')?.innerHTML === 'Вакансии' ? (
+            vacancyService
+                .getAllVacancies()
+                .then(body => {
+                    this.setState(state => ({
+                        searchType: 'vacancies',
+                        limit: 10,
+                        vacancies: [...body.data],
+                        filter: this.filters.vacancyFilter
+                    }));
+                })
+                .catch(err => console.error(err))
+        ) : (
+            resumeService
+                .getAllResumes()
+                .then(body => {
+                    this.setState(state => ({
+                        searchType: 'resumes',
+                        limit: 10,
+                        resumes: [...body.data],
+                        filter: this.filters.vacancyFilter
+                    }));
+                })
+                .catch(err => console.error(err))
+        )
     }
 
-    getVacanciesFromServer = () => {
-        vacancyService
-            .getAllVacancies()
-            .then(body => {
-                console.log(body)
-                this.setState(state => ({
-                    ...state,
-                    limit: 10,
-                    vacancies: [...body.data],
-                }));
-            })
-            .catch(err => console.error(err));
-
-        console.log(this.state)
-    }
-
-    getResumesFromServer = () => {
-        resumeService
-            .getAllResumes()
-            .then(body => {
-                console.log(body)
-                this.setState(state => ({
-                    ...state,
-                    limit: 10,
-                    resumes: [...body.data],
-                }))
-            })
-            .catch(err => console.error(err))
+    switchFilters = () => {
+        document.getElementById('searchOption')?.innerHTML === 'Вакансии' ? (
+        this.setState(state => ({
+            ...state,
+            filter: this.filters.vacancyFilter
+        }))
+        ) : (
+            this.setState(state => ({
+                ...state,
+                filter: this.filters.resumeFilter
+            }))
+        )
     }
 
     onSubmitSearch = async (e: SubmitEvent) => {
         e.preventDefault();
-        // TODO rename
         const queryParam = document.getElementById('search').value
-        this.search = queryParam
-
-        this.state.typeOfSearch === 'vacancy'
-            ? searchService
+        console.log(queryParam)
+        vacancyService
             .searchByVacancies(queryParam)
             .then(body => {
-                console.log('here..')
                 this.setState(state => ({
-                    ...state,
                     limit: 10,
-                    vacancies: [...body.data],
+                    vacancies:[...body.data],
                 }))
             })
             .catch(err => console.error(err))
-
-            : searchService
-                .searchByResumes(queryParam)
-                .then(body => {
-                    console.log(body)
-                    this.setState(state => ({
-                        ...state,
-                        limit: 10,
-                        resumes: [...body.data],
-                    }))
-                })
-                .catch(err => console.error(err))
     }
 
     onSubmitFilters = async (e: SubmitEvent) => {
         e.preventDefault();
         console.log('filters submitted')
-        const searchParam = this.search
+        const searchParam = document.getElementById('search').value
 
         const formData = new FormData(e.target);
 
@@ -231,11 +204,10 @@ export default class Search extends ReactsComponent<
             .join('&');
         console.log(queryString);
 
-        searchService
+        vacancyService
             .filterVacancies(queryString)
             .then(body => {
                 this.setState(state => ({
-                    ...state,
                     limit: 10,
                     vacancies:[...body.data],
                 }))
@@ -244,29 +216,24 @@ export default class Search extends ReactsComponent<
     }
 
     componentDidMount() {
-        console.log("MOUNT", this.state)
-        this.getVacanciesFromServer()
-        this.getResumesFromServer()
+        vacancyService
+            .getAllVacancies()
+            .then(body => {
+                this.setState(state => ({
+                    searchType: 'vacancies',
+                    limit: 10,
+                    vacancies: [...body.data],
+                    filter: this.filters.vacancyFilter
+                }));
+            })
+            .catch(err => console.error(err))
     }
-
-    // componentDidUpdate() {
-    //     console.log("UPDATE", this.state)
-    //     // this.state.typeOfSearch === 'vacancy'
-    //     //     ? this.getVacanciesFromServer()
-    //     //     : this.getResumesFromServer()
-    // }
-    //
-    // shouldUpdateState(nextState: { vacancies?: { id: number; title: string; image: string; salary: string; currency: string; location: string; format: string; hours: string }[]; resumes?: { id: number; postedByUserID: string; title: string; description: string }[]; limit: number; typeOfSearch: 'vacancy' | 'resume' | 'applicant' | 'employer' }): boolean {
-    //     console.log('should update...')
-    //     return this.state.typeOfSearch !== nextState.typeOfSearch || JSON.stringify(this.state.resumes) !== JSON.stringify(nextState.resumes) || JSON.stringify(this.state.vacancies) !== JSON.stringify(nextState.vacancies)
-    // }
 
     increaseLimit = () => {
         this.setState(state => ({ ...state, limit: state.limit + 10 }));
     };
 
     render() {
-        console.log('state: ', this.state)
         return (
             <div>
                 <Header key={'header'} />
@@ -276,46 +243,33 @@ export default class Search extends ReactsComponent<
                 >
                     <SearchInput
                         onSubmitSearch={this.onSubmitSearch}
-                        onSwitch={this.switchSearchType}
+                        onSwitch={this.switchFilters}
                     />
                     <div className={'flex row justify-content-space-between g-16 screen-responsive'}>
                         <SearchFilter
-                            filters={this.state.filters}
+                            filters={this.state.filter}
                             onSubmit={this.onSubmitFilters}
                         />
-                        <div className={'flex column g-16 w-100'}>
-                            {this.state.typeOfSearch === 'vacancy' ? (
-                                this.state.vacancies
-                                    ?.slice(0, this.state.limit)
-                                    .map(vacancy => (
-                                        <VacancyCard
-                                            key={vacancy.id.toString()}
-                                            id={vacancy.id.toString()}
-                                            name={vacancy.title}
-                                            icon={vacancy.image}
-                                            salary={vacancy.salary}
-                                            currency={vacancy.currency}
-                                            location={vacancy.location}
-                                            format={vacancy.format}
-                                            hours={vacancy.hours}
-                                            description={vacancy.description}
-                                        />
-                                ))) : (
-                                    this.state.resumes
-                                        ?.slice(0, this.state.limit)
-                                        .map(resume => (
-                                            <ResumeCard
-                                                id={resume.id.toString()}
-                                                postedByUserID={resume.user_account_id.toString()}
-                                                title={resume.title}
-                                                description={resume.description}
-                                            />
-                                        ))
-                                )}
+                        <div className={'flex column g-8 w-100'}>
+                            {this.state.vacancies
+                                ?.slice(0, this.state.limit)
+                                .map(vacancy => (
+                                    <VacancyCard
+                                        key={vacancy.id.toString()}
+                                        id={vacancy.id.toString()}
+                                        name={vacancy.title}
+                                        icon={vacancy.image}
+                                        salary={vacancy.salary}
+                                        currency={vacancy.currency}
+                                        location={vacancy.location}
+                                        format={vacancy.format}
+                                        hours={vacancy.hours}
+                                        description={vacancy.description}
+                                    />))}
                             <div className={'w-100'}>
                                 <RenderWithCondition
                                     condition={
-                                        this.state.limit < this.state.resumes.length
+                                        this.state.limit < this.state.vacancies.length
                                     }
                                     onSuccess={
                                         <Button onClick={this.increaseLimit}>

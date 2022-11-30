@@ -52,4 +52,19 @@ export const searchService: Service = {
             })
             .catch(err => console.error(err));
     },
+
+    filterResume: async (queryString: string) => {
+        return await network
+            .GET(SERVER_URLS.RESUME_SEARCH + `?${queryString}`)
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            })
+            .catch(err => console.error(err));
+    },
+
 }
