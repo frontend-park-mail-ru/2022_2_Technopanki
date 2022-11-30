@@ -36,7 +36,7 @@ export const vacancyActions: {
             experience: vacancy.experience,
             isActive: vacancy.isActive,
             format: vacancy.format,
-            hours: '',
+            hours: vacancy.hours ?? '',
             skills: [],
         } as VacancyState,
     }),

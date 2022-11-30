@@ -108,7 +108,7 @@ export const vacancyService: {
                     salary: parseInt(formData.get('salary')),
                     location: formData.get('location'),
                     experience: formData.get('experience'),
-                    hours: formData.get('schedule'),
+                    hours: formData.get('hours'),
                     format: formData.get('format'),
                 }),
             )

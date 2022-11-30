@@ -14,7 +14,7 @@ import { vacancyActions } from '../../store/vacancy/actions';
 import Button from '../../components/UI-kit/buttons/Button';
 import { activateError, deactivateError } from '../../store/errors/actions';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
-import { EMPLOYER_PATHS } from '../../utils/routerConstants';
+import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../utils/routerConstants';
 import ButtonRed from '../../components/UI-kit/buttons/ButtonRed';
 import RenderWithCondition from '../../components/RenderWithCondition';
 import { VacancyState } from '../../store/vacancy/type';
@@ -47,61 +47,30 @@ class VacancySettings extends ReactsComponent<
         location: [validateLocation],
     });
 
-    submitForm = (e: SubmitEvent) => {
+    submitForm = async (e: SubmitEvent) => {
         e.preventDefault();
         if (!this.validation.ok()) {
             return;
         }
 
-        const formData = new FormData(e.target);
-        let errorFlag = false;
-
-        formData.forEach(value => {
-            if (!value || value === '') {
-                dispatch(
-                    activateError(
-                        'Пожалуйста, заполните все поля формы',
-                        'В форме не должно быть пустых полей',
-                    ),
-                );
-                setTimeout(() => dispatch(deactivateError()), 5000);
-                errorFlag = true;
-            }
-        });
-
-        if (errorFlag) {
-            return;
-        }
+        const formData = new FormData(e.target as HTMLFormElement);
 
         if (this.state.isNew) {
-            vacancyService
-                .createVacancy(
-                    this.props.vacancy.postedByUserID,
-                    formData,
-                    this.props.avatarSrc.split('/').at(-1) as string,
-                )
-                .then(body => {
-                    if (body.id) {
-                        navigator.navigate('/vacancy/' + body.id.toString());
-                    } else {
-                        navigator.navigate(
-                            EMPLOYER_PATHS.PROFILE +
-                                this.props.vacancy.postedByUserID,
-                        );
-                    }
-                });
+            const response = await vacancyService.createVacancy(
+                this.props.vacancy.postedByUserID,
+                formData,
+                this.props.avatarSrc.split('/').at(-1) as string,
+            );
+
+            navigator.navigate(VACANCY_PATHS.INDEX + response.id.toString());
         } else {
-            vacancyService
-                .updateVacancy(this.props.id, formData)
-                .then(() => {
-                    navigator.goBack();
-                })
-                .catch(err => console.error(err));
+            await vacancyService.updateVacancy(this.props.id, formData);
+            navigator.goBack();
         }
     };
 
     componentDidMount() {
-        if (this.state.isNew) {
+        if (!this.state.isNew) {
             const vacancyID = location.pathname.split('/').at(-1) as string;
             vacancyService
                 .getVacancyData(vacancyID)
@@ -124,11 +93,6 @@ class VacancySettings extends ReactsComponent<
                             linkTo={
                                 EMPLOYER_PATHS.PROFILE +
                                 this.props.vacancy.postedByUserID
-                            }
-                            submit={() =>
-                                document
-                                    .querySelector('#vacancy_form')
-                                    .dispatchEvent(new Event('submit'))
                             }
                         />
                     </div>
