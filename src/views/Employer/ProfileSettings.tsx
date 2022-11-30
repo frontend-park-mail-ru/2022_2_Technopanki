@@ -100,6 +100,7 @@ class ProfileSettingsComponent extends ReactsComponent<
             dispatch(profileActions.updateProfileAvatar(newImageSrc));
             navigator.navigate(EMPLOYER_PATHS.PROFILE + this.props.id);
         } catch (e) {
+            console.log(e);
             dispatch(activateError((e as VacancyUpdateError).error));
             setTimeout(() => dispatch(deactivateError()), 3000);
         }

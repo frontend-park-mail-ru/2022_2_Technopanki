@@ -23,14 +23,14 @@ export const employerProfileService: {
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
-                    throw response.status;
+                    throw response.body;
                 }
 
                 return response.body;
             })
             .catch(err => {
                 dispatch(stopLoading());
-                console.error(err);
+                throw err;
             });
     },
 
@@ -44,19 +44,14 @@ export const employerProfileService: {
             credentials: 'include' as RequestCredentials,
         };
 
-        return await fetch(SERVER_URLS.IMAGE, options)
-            .then(response => {
-                dispatch(stopLoading());
-                if (response.status > 399) {
-                    throw response.json();
-                }
+        return await fetch(SERVER_URLS.IMAGE, options).then(response => {
+            dispatch(stopLoading());
+            if (response.status > 399) {
+                throw response.json();
+            }
 
-                return response.json().then(body => body.image);
-            })
-            .catch(err => {
-                dispatch(stopLoading());
-                throw new Error(err);
-            });
+            return response.json().then(body => body.image);
+        });
     },
 
     updateProfile: async (
