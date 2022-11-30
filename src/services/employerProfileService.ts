@@ -10,11 +10,14 @@ import { startLoading, stopLoading } from '../store/loading/actions';
 import { requestHeaders } from './headers';
 import Form from '../components/UI-kit/forms/Form';
 import { EmployerProfile } from '../store/profile/types';
-import { EmployerResponse } from './auth/types';
+import { AuthError, EmployerResponse } from './auth/types';
 
 export const employerProfileService: {
     getProfileData: (profileID: string) => Promise<EmployerResponse>;
-    updateProfileImg: (profileID: string, image: FormData) => Promise<string>;
+    updateProfileImg: (
+        profileID: string,
+        image: FormData,
+    ) => Promise<AuthError>;
 } & Service = {
     getProfileData: async (profileID: string): Promise<EmployerResponse> => {
         dispatch(startLoading());
@@ -44,14 +47,16 @@ export const employerProfileService: {
             credentials: 'include' as RequestCredentials,
         };
 
-        return await fetch(SERVER_URLS.IMAGE, options).then(response => {
-            dispatch(stopLoading());
-            if (response.status > 399) {
-                throw response.json();
-            }
+        return await (await fetch(SERVER_URLS.IMAGE, options))
+            .json()
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.body;
+                }
 
-            return response.json().then(body => body.image);
-        });
+                return response.body;
+            });
     },
 
     updateProfile: async (
