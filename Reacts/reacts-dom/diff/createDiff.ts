@@ -126,6 +126,8 @@ export const createDiffComponent = (
     );
 
     oldNode.instance.props = newNode.instance?.props;
+    oldNode.instance.currentNode = newNode.instance?.currentNode;
+    oldNode.instance.currentRenderNode = newNode.instance?.currentRenderNode;
     newNode.instance = oldNode.instance;
     newNode.ref = oldNode.ref;
     return update(newNode, childrenDiff, propsUpdater);

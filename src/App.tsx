@@ -17,28 +17,34 @@ class App extends ReactsComponent {
 
 router.disableScrollRestoration();
 
-router.addNewPath({ path: '/', validator: (url: string) => url === '/' }, App);
+router.addNewPath(
+    { path: '/', validator: (url: string) => url === '/' },
+    Profile,
+);
 router.addNewPaths(ROUTER_PATHS);
 
-authService
-    .auth()
-    .then(body => {
-        dispatch(
-            userActions.SIGN_IN(
-                body.id.toString(),
-                body.user_type === USER_TYPE.EMPLOYER
-                    ? body.company_name
-                    : body.applicant_name,
-                body.applicant_surname,
-                body.email,
-                body.image,
-                body.user_type,
-            ),
-        );
-        router.navigate(location.pathname);
-    })
-    .catch(() => {
-        router.navigate(location.pathname);
-    });
+userActions.SIGN_IN('1', 'asd', 'asd', 'asdasd', 'asda', 'employer'),
+    router.navigate(location.pathname);
+
+// authService
+//     .auth()
+//     .then(body => {
+//         dispatch(
+//             userActions.SIGN_IN(
+//                 body.id.toString(),
+//                 body.user_type === USER_TYPE.EMPLOYER
+//                     ? body.company_name
+//                     : body.applicant_name,
+//                 body.applicant_surname,
+//                 body.email,
+//                 body.image,
+//                 body.user_type,
+//             ),
+//         );
+//         router.navigate(location.pathname);
+//     })
+//     .catch(() => {
+//         router.navigate(location.pathname);
+//     });
 
 setTheme();

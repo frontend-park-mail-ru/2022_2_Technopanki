@@ -37,7 +37,7 @@ export default class ProfileHeader extends ReactsComponent<{
                                     ' ' +
                                     (this.props.surname ?? '')}
                             </h3>
-                            <p>{this.props.status + ' '}</p>
+                            <p>{this.props.status}</p>
                         </div>
                     </div>
                     <div>{this.props.buttons}</div>
