@@ -12,6 +12,20 @@
   @media (min-width: $screen-lg) {
     grid-template-columns: 32px 1fr 1fr;
   }
+  text-overflow: ellipsis;
+}
+
+.card-content {
+  @media (max-width: $screen-md) {
+    grid-column-start: 1;
+    grid-row-start: 2;
+  }
+  width: max-content;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 .vacancy_name {
@@ -32,6 +46,12 @@
 }
 
 .metadata {
+  @media (max-width: $screen-md) {
+    display: none;
+  }
+}
+
+.metadata-item {
   font-size: 12px;
   letter-spacing: -0.02em;
   color: var(--background-200)
@@ -61,13 +81,6 @@
   font-weight: 500;
 }
 
-.card-content {
-  @media (max-width: $screen-md) {
-    grid-column-start: 1;
-    grid-row-start: 2;
-  }
-  width: max-content;
-}
 
 .link {
   grid-column-start: 2;

@@ -14,9 +14,8 @@
 }
 
 .modal-item {
-  padding: var(--padding-32);
+  padding: var(--padding-8);
   border-radius: var(--border-radius-lg);
-  background-color: var(--background-50);
   &:hover {
     background: var(--background-100);
   }
