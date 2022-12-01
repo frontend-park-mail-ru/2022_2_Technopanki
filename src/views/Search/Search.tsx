@@ -444,9 +444,7 @@ export default class Search extends ReactsComponent<
                         onSwitch={this.switchSearchType}
                     />
                     <div
-                        className={
-                            'columns justify-content-space-between g-16 screen-responsive'
-                        }
+                        className={'columns justify-content-space-between g-16'}
                     >
                         <div className={'col-0 col-md-3'}>
                             <SearchFilter
