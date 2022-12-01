@@ -257,7 +257,7 @@ export default class Search extends ReactsComponent<
         const queryParam = document.getElementById('search').value;
         this.search = queryParam;
 
-        if (this.state.typeOfSearch === 'vacancy') {
+        if (this.state.typeOfSearch === 'vacancy' && (queryParam !== '' && queryParam !== ' ')) {
             searchService
                 .searchByVacancies(queryParam)
                 .then(body => {
@@ -271,7 +271,7 @@ export default class Search extends ReactsComponent<
                 .catch(err => console.error(err));
         }
 
-        if (this.state.typeOfSearch === 'resume') {
+        if (this.state.typeOfSearch === 'resume' && (queryParam !== '' && queryParam !== ' ')) {
             searchService
                 .searchByResumes(queryParam)
                 .then(body => {
@@ -285,7 +285,7 @@ export default class Search extends ReactsComponent<
                 .catch(err => console.error(err));
         }
 
-        if (this.state.typeOfSearch === 'employer') {
+        if (this.state.typeOfSearch === 'employer' && (queryParam !== '' && queryParam !== ' ')) {
             searchService
                 .searchByEmployers(queryParam)
                 .then(body => {
@@ -299,7 +299,7 @@ export default class Search extends ReactsComponent<
                 .catch(err => console.error(err));
         }
 
-        if (this.state.typeOfSearch === 'applicant') {
+        if (this.state.typeOfSearch === 'applicant' && (queryParam !== '' && queryParam !== ' ')) {
             searchService
                 .searchByApplicants(queryParam)
                 .then(body => {
@@ -354,7 +354,7 @@ export default class Search extends ReactsComponent<
             .join('&');
         console.log(queryString);
 
-        if (this.state.typeOfSearch === 'vacancy') {
+        if (this.state.typeOfSearch === 'vacancy' && (this.search !== '' && this.search !== ' ')) {
             searchService
                 .filterVacancies(queryString)
                 .then(body => {
@@ -367,7 +367,7 @@ export default class Search extends ReactsComponent<
                 .catch(err => console.error(err));
         }
 
-        if (this.state.typeOfSearch === 'resume') {
+        if (this.state.typeOfSearch === 'resume' && (this.search !== '' && this.search !== ' ')) {
             searchService
                 .filterResumes(queryString)
                 .then(body => {
@@ -380,7 +380,7 @@ export default class Search extends ReactsComponent<
                 .catch(err => console.error(err));
         }
 
-        if (this.state.typeOfSearch === 'employer') {
+        if (this.state.typeOfSearch === 'employer' && (this.search !== '' && this.search !== ' ')) {
             searchService
                 .filterEmployers(queryString)
                 .then(body => {
@@ -393,7 +393,7 @@ export default class Search extends ReactsComponent<
                 .catch(err => console.error(err));
         }
 
-        if (this.state.typeOfSearch === 'applicant') {
+        if (this.state.typeOfSearch === 'applicant' && (this.search !== '' && this.search !== ' ')) {
             searchService
                 .filterApplicants(queryString)
                 .then(body => {
