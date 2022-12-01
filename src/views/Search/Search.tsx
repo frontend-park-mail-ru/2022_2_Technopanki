@@ -449,7 +449,7 @@ export default class Search extends ReactsComponent<
                         <div className={'col-0 col-md-3'}>
                             <SearchFilter
                                 filters={this.state.filters}
-                                onSubmit={this.onSubmitFilters}
+                                onSubmit={this.onSubmitFilters.bind(this)}
                             />
                         </div>
                         <div
@@ -457,7 +457,7 @@ export default class Search extends ReactsComponent<
                         >
                             <SearchFilterMobile
                                 filters={this.state.filters}
-                                onSubmit={this.onSubmitFilters}
+                                onSubmit={this.onSubmitFilters.bind(this)}
                             />
                         </div>
                         <div
