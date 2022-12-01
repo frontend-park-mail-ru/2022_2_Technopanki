@@ -80,15 +80,28 @@ export default class VacancyCard extends ReactsComponent<
                                 {this.props.format}
                             </div>
                         </div>
-                        <div className={'flex row align-items-center g-6'}>
-                            <div
-                                className={`${styles.metadata_icon}`}
-                                dangerouslySetInnerHTML={{ __html: Calendar }}
-                            />
-                            <div className={`${styles['metadata-item']}`}>
-                                {this.props.hours}
-                            </div>
-                        </div>
+                        <RenderWithCondition
+                            condition={Boolean(this.props.hours)}
+                            onSuccess={
+                                <div
+                                    className={
+                                        'flex row align-items-center g-6'
+                                    }
+                                >
+                                    <div
+                                        className={`${styles.metadata_icon}`}
+                                        dangerouslySetInnerHTML={{
+                                            __html: Calendar,
+                                        }}
+                                    />
+                                    <div
+                                        className={`${styles['metadata-item']}`}
+                                    >
+                                        {this.props.hours}
+                                    </div>
+                                </div>
+                            }
+                        />
                     </div>
                 </div>
                 <div
@@ -110,7 +123,7 @@ export default class VacancyCard extends ReactsComponent<
                     />
                 </div>
                 <div
-                    className={`flex row g-4 justify-content-end align-items-center ${styles.details}`}
+                    className={`flex row g-4 justify-content-end align-items-end ${styles.details}`}
                 >
                     <div
                         className={

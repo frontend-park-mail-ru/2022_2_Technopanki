@@ -23,6 +23,7 @@ export type EmployerProfile = {
     size: string;
     fieldOfActivity: string[];
     socialNetworks: EmployerSocialNetworks;
+    businessType: string;
 };
 
 export type ApplicantProfileType = {

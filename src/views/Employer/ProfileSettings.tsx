@@ -27,6 +27,7 @@ import FormInput from '../../components/UI-kit/forms/formInputs/FormInput';
 import FormTextarea from '../../components/UI-kit/forms/formInputs/FormTextarea';
 import FormFileInput from '../../components/UI-kit/forms/formInputs/FormFileInput';
 import {
+    businessTypeValidation,
     fileFormatValidation,
     fileSizeValidation,
     locationValidation,
@@ -66,6 +67,7 @@ class ProfileSettingsComponent extends ReactsComponent<
         password: [passwordLengthValidator, passwordSymbolsValidator],
         location: [locationValidation],
         size: [validateSizeSymbols, validateSizeLength],
+        businessType: [businessTypeValidation],
     });
 
     avatarValidation = useValidation({
@@ -246,6 +248,20 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 setError={this.profileFieldsValidation.setError}
                                 validation={this.profileFieldsValidation.getValidation(
                                     'size',
+                                )}
+                                validationMode={'oninput'}
+                            />
+                            <FormInput
+                                size={'4'}
+                                name={'businessType'}
+                                id={'businessType'}
+                                label={'Размер компании'}
+                                value={this.props.businessType}
+                                type={'text'}
+                                placeholder={'10.000'}
+                                setError={this.profileFieldsValidation.setError}
+                                validation={this.profileFieldsValidation.getValidation(
+                                    'businessType',
                                 )}
                                 validationMode={'oninput'}
                             />

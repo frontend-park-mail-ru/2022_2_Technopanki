@@ -47,6 +47,7 @@ export const profileActions: {
             bannerSrc: '',
             fieldOfActivity: [],
             socialNetworks: [],
+            businessType: serverState.business_type,
         } as EmployerProfile,
     }),
     update: (newState: { [key: string]: any }) => ({

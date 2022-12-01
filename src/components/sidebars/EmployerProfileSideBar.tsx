@@ -13,6 +13,7 @@ type EmployerProfileSideBarProps = {
     companySize: string;
     fieldOfActivity: string[];
     socialNetworks: EmployerSocialNetworks;
+    businessType: string;
 };
 
 export default class EmployerProfileSideBar extends ReactsComponent<EmployerProfileSideBarProps> {
@@ -30,6 +31,14 @@ export default class EmployerProfileSideBar extends ReactsComponent<EmployerProf
                                         this.props.companySize
                                             ? this.props.companySize +
                                               ' человек'
+                                            : 'Не указано'
+                                    }
+                                />
+                                <IconField
+                                    icon={UsersIcon}
+                                    content={
+                                        this.props.businessType
+                                            ? this.props.businessType
                                             : 'Не указано'
                                     }
                                 />

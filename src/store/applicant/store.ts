@@ -10,6 +10,7 @@ export const defaultApplicantProfile: ProfileState = {
     surname: '',
     status: '',
     phone: '',
+    experiene: '',
     email: '',
     location: '',
     dateOfBirth: '',
