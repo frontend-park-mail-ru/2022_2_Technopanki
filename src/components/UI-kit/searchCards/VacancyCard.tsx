@@ -43,16 +43,17 @@ export default class VacancyCard extends ReactsComponent<
 
     render() {
         return (
-            <div className={`g-16 rounded-lg p-24 ${styles.card}`}>
+            <div
+                className={`grid grid-template-columns g-16 rounded-lg p-24 ${styles.card}`}
+            >
                 <img
-                    key={'img'}
                     className={'rounded-md'}
                     height={40}
                     width={40}
                     src={IMAGE_URL + this.props.icon}
                 />
                 <div
-                    className={`flex flex-wrap flex-start column g-4 ${styles['card-content']}`}
+                    className={`grid grid-template-columns column g-4 ${styles['card-content']}`}
                 >
                     <Link
                         to={VACANCY_PATHS.INDEX + this.props.id}
@@ -62,9 +63,7 @@ export default class VacancyCard extends ReactsComponent<
                             </h4>
                         }
                     />
-                    <div
-                        className={`flex flex-wrap hidden row g-16 ${styles.metadata}`}
-                    >
+                    <div className={`flex hidden row g-16 ${styles.metadata}`}>
                         <div className={'flex row align-items-center g-6'}>
                             <div
                                 className={`${styles.metadata_icon}`}
@@ -117,7 +116,7 @@ export default class VacancyCard extends ReactsComponent<
                 >
                     <div
                         className={
-                            'flex align-items-end g-8 justify-content-center cursor-pointer'
+                            'flex align-items-center g-8 justify-content-center cursor-pointer'
                         }
                         onClick={this.handleDetails}
                     >
