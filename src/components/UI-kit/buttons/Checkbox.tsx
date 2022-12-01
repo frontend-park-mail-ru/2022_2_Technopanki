@@ -18,10 +18,14 @@ export default class CheckBox extends ReactsComponent<{
 
     disableChecked = (e: MouseEvent) => {
         console.log(e.target)
-        if (e.target.value === this.state.checkedName && e.target.checked === true)
-            this.setState(state => ({ ...state, checked: false, checkedName: '' }))
-        else
-            this.setState(state => ({ ...state, checked: true, checkedName: e.target.value }))
+        if (e.target.value === this.state.checkedName && e.target.checked === true) {
+            console.log(e.target.value, this.state.checkedName);
+            this.setState(state => ({ ...state, checked: false }));
+        }
+        else {
+            console.log('changed');
+            this.setState(state => ({ ...state, checked: true, checkedName: e.target.value }));
+        }
         console.log('state: ', this.state)
         e.target.checked = this.state.checked
     }
