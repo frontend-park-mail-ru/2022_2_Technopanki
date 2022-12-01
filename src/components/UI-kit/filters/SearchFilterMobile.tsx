@@ -1,5 +1,4 @@
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
-import ButtonPrimaryBigBlue from '../buttons/ButtonPrimaryBigBlue';
 import styles from './filter.module.scss';
 import { FilterPropsType } from './SearchFilter';
 import CheckBox from '../buttons/Checkbox';

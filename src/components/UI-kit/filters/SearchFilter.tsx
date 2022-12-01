@@ -19,20 +19,12 @@ export default class SearchFilter extends ReactsComponent<{
     filters: FilterPropsType[];
     onSubmit: Function;
 }> {
-    state = {
-        filters: this.props.filters
-    }
-
-    componentDidUpdate() {
-        console.log('update filters')
-    }
-
     render() {
-        console.log('search: ',this.state.filters);
+        console.log(this.props.filters);
         return (
             <form onSubmit={this.props.onSubmit}>
                 <div className={'flex column g-24'}>
-                    {this.state.filters.map(filter => (
+                    {this.props.filters.map(filter => (
                         <div className={'flex column g-12'}>
                             <p>{filter.header}</p>
                             {filter.type === 'toggle' ? (
