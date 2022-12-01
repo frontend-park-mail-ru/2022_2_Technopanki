@@ -40,6 +40,7 @@ export default class ResumeList extends ReactsComponent<
                                 imgSrc={IMAGE_URL + resume.image}
                                 name={resume.applicant_name}
                                 surname={resume.applicant_surname}
+                                title={resume.title}
                                 resumeTitle={resume.title}
                                 timeWhenCreated={resume.created_date}
                                 created_date={resume.created_date}

@@ -43,7 +43,10 @@ class Profile extends ReactsComponent<
         );
 
         dispatch(profileActions.updateEmployerFromServer(employerProfile));
-        this.setState(state => ({ ...state, vacancies: vacancies.data ?? [] }));
+        this.setState(state => ({
+            ...state,
+            vacancies: vacancies?.data ?? [],
+        }));
     }
 
     componentDidMount() {
@@ -97,9 +100,11 @@ class Profile extends ReactsComponent<
                             />
                             {this.props.authorized &&
                             this.props.userType === USER_TYPE.APPLICANT ? (
-                                <ButtonPrimary>
-                                    Хочу здесь работать
-                                </ButtonPrimary>
+                                <a href={'#vacancies'}>
+                                    <ButtonPrimary>
+                                        Хочу здесь работать
+                                    </ButtonPrimary>
+                                </a>
                             ) : (
                                 <p className={'none'}></p>
                             )}
@@ -122,7 +127,9 @@ class Profile extends ReactsComponent<
                             content={this.props.description}
                         />
                         <div className={'flex column g-16'}>
-                            <h6>Вакансии</h6>
+                            <a name={'vacancies'}>
+                                <h6>Вакансии</h6>
+                            </a>
                             <div className={'flex column g-16'}>
                                 <RenderWithCondition
                                     condition={

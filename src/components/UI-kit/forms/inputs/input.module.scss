@@ -91,7 +91,7 @@
 }
 
 .menu_data {
-  font-size: 16px;
+  font-size: 14px;
   color: var(--background-400);
   @media (max-width: $screen-md) {
     font-size: 14px;
@@ -104,6 +104,7 @@
 
 .search_input {
   padding-left: 220px;
+  border-radius: var(--border-radius-xl);
   @media (max-width: $screen-md) {
     font-size: 14px;
     padding-left: 150px;
@@ -145,15 +146,32 @@
   color: var(--background-900);
 }
 .dropdown {
-  width: max-content;
+  max-width: 140px;
   margin-left: 8px;
+  font-size: 14px;
   color: var(--background-400);
+  transition:height 0.3s ease-in-out;
+  transition-delay: 0.1s;
 }
 
 .dropdown_options {
   cursor: pointer;
+  width: 116px;
+  padding: var(--padding-8);
+  border-bottom: 1px solid black;
   &:hover {
+    border-radius: var(--border-radius-md);
     color: var(--background-600);
+    background: var(--background-100);
+  }
+}
+
+.modal-item {
+  padding: var(--padding-32);
+  border-radius: var(--border-radius-lg);
+  background-color: var(--background-50);
+  &:hover {
+    background: var(--background-100);
   }
 }
 

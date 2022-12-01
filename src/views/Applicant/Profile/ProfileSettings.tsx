@@ -242,6 +242,7 @@ class ApplicantSettings extends ReactsComponent<
                                 type={'date'}
                                 placeholder={'Иванов'}
                                 name={'dateOfBirth'}
+                                required={true}
                                 value={this.props.dateOfBirth}
                                 setError={this.profileValidation.setError}
                                 validation={this.profileValidation.getValidation(

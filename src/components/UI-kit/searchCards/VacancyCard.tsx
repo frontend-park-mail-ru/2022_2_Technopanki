@@ -55,7 +55,6 @@ export default class VacancyCard extends ReactsComponent<
                     className={`flex flex-wrap flex-start column g-4 ${styles['card-content']}`}
                 >
                     <Link
-                        key={'vacancy-name'}
                         to={VACANCY_PATHS.INDEX + this.props.id}
                         content={
                             <h4 className={`${styles.vacancy_name}`}>
@@ -63,14 +62,15 @@ export default class VacancyCard extends ReactsComponent<
                             </h4>
                         }
                     />
-                    <div className={'flex flex-wrap flex-start row g-16'}>
+                    <div
+                        className={`flex flex-wrap hidden row g-16 ${styles.metadata}`}
+                    >
                         <div className={'flex row align-items-center g-6'}>
                             <div
-                                key={'meta'}
                                 className={`${styles.metadata_icon}`}
                                 dangerouslySetInnerHTML={{ __html: Location }}
                             />
-                            <div className={`${styles.metadata}`}>
+                            <div className={`${styles['metadata-item']}`}>
                                 {this.props.location}
                             </div>
                         </div>
@@ -79,17 +79,16 @@ export default class VacancyCard extends ReactsComponent<
                                 className={`${styles.metadata_icon}`}
                                 dangerouslySetInnerHTML={{ __html: Clock }}
                             />
-                            <div className={`${styles.metadata}`}>
+                            <div className={`${styles['metadata-item']}`}>
                                 {this.props.format}
                             </div>
                         </div>
                         <div className={'flex row align-items-center g-6'}>
                             <div
-                                key={'icon'}
                                 className={`${styles.metadata_icon}`}
                                 dangerouslySetInnerHTML={{ __html: Calendar }}
                             />
-                            <div className={`${styles.metadata}`}>
+                            <div className={`${styles['metadata-item']}`}>
                                 {this.props.hours}
                             </div>
                         </div>

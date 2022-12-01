@@ -1,6 +1,7 @@
 import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import styles from './profileHeader.module.scss';
 import { ReactsComponentNode } from '../../../Reacts/shared/types/node';
+import RenderWithCondition from '../RenderWithCondition';
 
 export default class ProfileHeader extends ReactsComponent<{
     profileID: string;

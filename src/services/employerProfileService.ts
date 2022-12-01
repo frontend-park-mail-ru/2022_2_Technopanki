@@ -68,7 +68,7 @@ export const employerProfileService: {
                     throw response.body;
                 }
 
-                return response.body;
+                return response.image;
             });
     },
 

@@ -51,7 +51,7 @@ class HeaderModal extends ReactsComponent<{
                     >
                         <div
                             id={'links-group'}
-                            className={`flex column justify-content-center w-100 g-8`}
+                            className={`flex column justify-content-center w-100 g-32 p-16`}
                         >
                             <RenderWithCondition
                                 condition={this.props.authorized}

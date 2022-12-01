@@ -9,47 +9,42 @@ import VKIcon from '../../static/icons/logos/VK.svg';
 import FacebookIcon from '../../static/icons/logos/Facebook.svg';
 import TelegramIcon from '../../static/icons/logos/Telegram.svg';
 import { applicantProfileService } from '../../services/applicantService';
+import { applicantConnect, dispatch } from '../../store';
+import { applicantActions } from '../../store/applicant/actions';
+import { Application } from 'express';
+import { ApplicantProfileType } from '../../store/profile/types';
+import { ProfileState } from '../../store/applicant/type';
 
-type ResumeSidebarProps = {
-    location: string;
-    dateOfBirth: string;
-    skills: string[];
-    socialNetworks: {
-        vk: string | null | undefined;
-        facebook: string | null | undefined;
-        telegram: string | null | undefined;
-    };
-};
-
-export default class ResumeSidebar extends ReactsComponent<
-    { creatorID: string },
-    ResumeSidebarProps
+class ResumeSidebar extends ReactsComponent<
+    ApplicantProfileType & { creatorID: string }
 > {
-    state = {
-        location: '',
-        dateOfBirth: '',
-        skills: [''],
-        vk: '',
-        facebook: '',
-        telegram: '',
-    };
-
-    getCreatorData() {
+    async getCreatorData() {
         if (this.props.creatorID) {
-            applicantProfileService
-                .getApplicantData(this.props.creatorID as string)
-                .then(body => {
-                    this.setState(() => ({
-                        location: body.location,
-                        dateOfBirth: body.date_of_birth,
-                        skills: [''],
-                    }));
-                });
+            const applicantBody =
+                await applicantProfileService.getApplicantData(
+                    this.props.creatorID as string,
+                );
+            dispatch(applicantActions.updateFromServer(applicantBody));
         }
     }
 
     componentDidMount() {
         this.getCreatorData();
+    }
+
+    componentDidUpdate() {
+        this.getCreatorData();
+    }
+
+    shouldUpdate(
+        nextProps:
+            | Readonly<ApplicantProfileType & { creatorID: string }>
+            | (ApplicantProfileType & { creatorID: string }),
+    ): boolean {
+        return (
+            this.props.location !== nextProps.location ||
+            this.props.dateOfBirth !== nextProps.dateOfBirth
+        );
     }
 
     render() {
@@ -60,8 +55,8 @@ export default class ResumeSidebar extends ReactsComponent<
                         header: 'Город проживания',
                         inside: (
                             <p className={'font-size-24 bold'}>
-                                {this.state.location
-                                    ? this.state.location
+                                {this.props.location
+                                    ? this.props.location + ' '
                                     : 'Не указано'}
                             </p>
                         ),
@@ -70,38 +65,22 @@ export default class ResumeSidebar extends ReactsComponent<
                         header: 'Дата рождения',
                         inside: (
                             <p className={'font-size-24 bold'}>
-                                {this.state.dateOfBirth
-                                    ? this.state.dateOfBirth ===
+                                {this.props.dateOfBirth
+                                    ? this.props.dateOfBirth ===
                                       '0001-01-01T00:00:00Z'
                                         ? 'Не указано'
-                                        : `${this.state.dateOfBirth.slice(
+                                        : `${this.props.dateOfBirth.slice(
                                               8,
                                               10,
-                                          )}.${this.state.dateOfBirth.slice(
+                                          )}.${this.props.dateOfBirth.slice(
                                               5,
                                               7,
-                                          )}.${this.state.dateOfBirth.slice(
+                                          )}.${this.props.dateOfBirth.slice(
                                               0,
                                               4,
-                                          )}`
+                                          )} `
                                     : ''}
                             </p>
-                        ),
-                    },
-                    {
-                        header: 'Профессиональные навыки',
-                        inside: (
-                            <div className={'flex row g-8 flex-wrap'}>
-                                {this.state.skills.length === 0 ? (
-                                    this.state.skills?.map(item => (
-                                        <Chips>{item}</Chips>
-                                    ))
-                                ) : (
-                                    <p className={'mx-0 font-size-24 bold'}>
-                                        Не указано
-                                    </p>
-                                )}
-                            </div>
                         ),
                     },
                 ]}
@@ -109,3 +88,8 @@ export default class ResumeSidebar extends ReactsComponent<
         );
     }
 }
+
+export default applicantConnect((state: ProfileState, props) => ({
+    ...state,
+    creatorID: props.creatorID,
+}))(ResumeSidebar);

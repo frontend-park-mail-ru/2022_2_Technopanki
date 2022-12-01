@@ -25,7 +25,7 @@ class VacancyResponses extends ReactsComponent<
     state = {
         responses: [] as ResumeListItemPropsType[],
     };
-    async getDateFromServer() {
+    async getDataFromServer() {
         const vacancyID: string = location.pathname.split('/').at(-1) as string;
 
         let vacancyData = null;
@@ -42,15 +42,7 @@ class VacancyResponses extends ReactsComponent<
             postedByUserID,
         );
 
-        const responses = await vacancyService
-            .getResponses(this.props.id)
-            .then(body => {
-                this.setState(state => ({
-                    ...state,
-                    responses: body.data,
-                }));
-            })
-            .catch(err => console.error(err));
+        const responses = await vacancyService.getResponses(vacancyID);
 
         if (vacancyData) {
             dispatch(vacancyActions.update(vacancyData));
@@ -60,7 +52,7 @@ class VacancyResponses extends ReactsComponent<
     }
 
     componentDidMount() {
-        this.getDateFromServer();
+        this.getDataFromServer();
     }
 
     render() {
@@ -70,7 +62,9 @@ class VacancyResponses extends ReactsComponent<
                 <div key={'vacancies'} className={'columns mt-header g-24'}>
                     <div className={`col-12 ${styles.header}`}>
                         <VacancyResponsesHat
-                            vacancyID={this.props.id}
+                            vacancyID={
+                                location.pathname.split('/').at(-1) as string
+                            }
                             postedByUserID={this.props.postedByUserID}
                         />
                     </div>
