@@ -62,7 +62,9 @@ class VacancyResponses extends ReactsComponent<
                 <div key={'vacancies'} className={'columns mt-header g-24'}>
                     <div className={`col-12 ${styles.header}`}>
                         <VacancyResponsesHat
-                            vacancyID={this.props.id}
+                            vacancyID={
+                                location.pathname.split('/').at(-1) as string
+                            }
                             postedByUserID={this.props.postedByUserID}
                         />
                     </div>
