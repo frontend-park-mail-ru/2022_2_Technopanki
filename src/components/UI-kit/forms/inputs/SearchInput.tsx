@@ -10,45 +10,37 @@ import DropdownMenu from './SearchDropdownMenu';
 
 export default class SearchInput extends ReactsComponent<
     {
-        onSubmitSearch: Function,
-        onSwitch: Function,
+        onSubmitSearch: Function;
+        onSwitch: Function;
     },
     { isOpen: boolean }
-    > {
-
+> {
     state = {
-        isOpen: false
+        isOpen: false,
     };
 
-    options = [
-        'Вакансии',
-        'Соискатели',
-        'Работодатели',
-        'Должности',
-    ]
+    options = ['Вакансии', 'Соискатели', 'Работодатели', 'Должности'];
 
     handleMenu = () => {
         this.setState(state => ({
             ...state,
             isOpen: !this.state.isOpen,
-        }))
-    }
+        }));
+    };
 
     closeMenu = (e: MouseEvent) => {
         this.props.onSwitch(e);
         this.handleMenu();
-    }
+    };
 
     componentDidUpdate() {
-        console.log('update input')
+        console.log('update input');
     }
 
     render() {
         return (
-            <div className={`flex column relative screen-responsive ${styles.form}`}>
-                <form
-                    onSubmit={this.props.onSubmitSearch}
-                >
+            <div className={`flex column relative ${styles.form}`}>
+                <form onSubmit={this.props.onSubmitSearch}>
                     <div className={'relative'}>
                         <input
                             id={'search'}
@@ -80,7 +72,9 @@ export default class SearchInput extends ReactsComponent<
                                 </div>
                             }
                             content={
-                                <div className={`absolute flex row ${styles.menu}`}>
+                                <div
+                                    className={`absolute flex row ${styles.menu}`}
+                                >
                                     <div
                                         className={'flex row g-8'}
                                         onClick={this.handleMenu}
@@ -91,26 +85,33 @@ export default class SearchInput extends ReactsComponent<
                                         >
                                             Вакансии
                                         </p>
-                                        {this.state.isOpen
-                                            ? (
-                                                <div
-                                                    className={`cursor-pointer ${styles.search_arrow}`}
-                                                    dangerouslySetInnerHTML={{ __html: SearchArrowUp }}
-                                                />
-                                            ) : (
-                                                <div
-                                                    className={`cursor-pointer ${styles.search_arrow}`}
-                                                    dangerouslySetInnerHTML={{ __html: SearchArrow }}
-                                                />
-                                            )
-                                        }
+                                        {this.state.isOpen ? (
+                                            <div
+                                                className={`cursor-pointer ${styles.search_arrow}`}
+                                                dangerouslySetInnerHTML={{
+                                                    __html: SearchArrowUp,
+                                                }}
+                                            />
+                                        ) : (
+                                            <div
+                                                className={`cursor-pointer ${styles.search_arrow}`}
+                                                dangerouslySetInnerHTML={{
+                                                    __html: SearchArrow,
+                                                }}
+                                            />
+                                        )}
                                     </div>
-                                    <div className={`${styles.search_line} ${styles.menu_data}`}
-                                         dangerouslySetInnerHTML={{ __html: Line }}
+                                    <div
+                                        className={`${styles.search_line} ${styles.menu_data}`}
+                                        dangerouslySetInnerHTML={{
+                                            __html: Line,
+                                        }}
                                     />
                                     <div
                                         className={`cursor-pointer ${styles.icon}`}
-                                        dangerouslySetInnerHTML={{ __html: Loupe }}
+                                        dangerouslySetInnerHTML={{
+                                            __html: Loupe,
+                                        }}
                                     />
                                 </div>
                             }
@@ -118,10 +119,10 @@ export default class SearchInput extends ReactsComponent<
                             mt={'50'}
                             isOpen={this.state.isOpen}
                         />
-                        <div className={`absolute r-0-4 ${styles.search_button}`}>
-                            <ButtonSearchBlue
-                                type={'submit'}
-                            >
+                        <div
+                            className={`absolute r-0-4 ${styles.search_button}`}
+                        >
+                            <ButtonSearchBlue type={'submit'}>
                                 Найти
                             </ButtonSearchBlue>
                         </div>

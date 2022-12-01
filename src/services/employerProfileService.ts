@@ -78,7 +78,6 @@ export const employerProfileService: {
         formData: FormData,
     ) => {
         dispatch(startLoading());
-        console.log(formData.get('businessType'));
         return await network
             .POST(
                 PROFILE_URLS.USER,
