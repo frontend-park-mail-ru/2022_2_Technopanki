@@ -1,5 +1,5 @@
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
-import styles from '../../../views/Search/search.module.scss';
+import styles from './searchCards.module.scss';
 import Location from '../../../static/icons/location.svg';
 import Clock from '../../../static/icons/clock.svg';
 import Calendar from '../../../static/icons/calendar.svg';
