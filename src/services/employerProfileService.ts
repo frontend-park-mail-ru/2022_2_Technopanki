@@ -24,7 +24,7 @@ export const employerProfileService: {
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
-                    throw response.status;
+                    throw response.body;
                 }
 
                 return response.body;
@@ -98,15 +98,10 @@ export const employerProfileService: {
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
-                    throw response.status;
+                    throw response.body;
                 }
 
                 return response.body;
-            })
-            .catch(err => {
-                dispatch(stopLoading());
-                console.error(err);
-                throw err;
             });
     },
 };

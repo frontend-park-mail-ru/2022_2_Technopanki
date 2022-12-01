@@ -4,8 +4,6 @@ import { requestHeaders } from './headers';
 import { PROFILE_URLS, SERVER_URLS } from '../utils/networkConstants';
 import { startLoading, stopLoading } from '../store/loading/actions';
 import { dispatch } from '../store';
-import { ApplicantResponse } from './auth/types';
-import { ResumePreviewResponse } from './resume/types';
 
 export const applicantProfileService: Service = {
     getAllApplicants: async () => {
@@ -113,9 +111,9 @@ export const applicantProfileService: Service = {
                 PROFILE_URLS.APPLICANT_RESUMES + vacancyID,
                 JSON.stringify({
                     id: resumeID,
-                    applicant_name: name,
-                    applicant_surname: surname,
-                    title: title,
+                    user_name: name,
+                    user_surname: surname,
+                    resume_title: title,
                 }),
             )
             .then(response => {

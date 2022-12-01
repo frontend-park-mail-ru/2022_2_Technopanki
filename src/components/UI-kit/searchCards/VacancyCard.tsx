@@ -16,7 +16,7 @@ export type VacancyCardPropsType = {
     id: string;
     name: string;
     icon: string;
-    salary: string;
+    salary: number;
     currency: string;
     location: string;
     format: string;
@@ -108,7 +108,11 @@ export default class VacancyCard extends ReactsComponent<
                     className={`flex row g-4 mx-0 justify-content-end ${styles.salary}`}
                 >
                     <h4 className={`mx-0 ${styles['salary-content']}`}>
-                        {this.props.salary}
+                        ;
+                        {Intl.NumberFormat('ru-RU', {
+                            style: 'currency',
+                            currency: 'RUB',
+                        }).format(this.props.salary)}
                         <span className={styles.per_month}> руб/мес</span>
                     </h4>
                 </div>

@@ -102,7 +102,7 @@ class ResumeSettings extends ReactsComponent<
                             <FormInput
                                 size={'12'}
                                 id={'title'}
-                                label={'Заголовок вакансии'}
+                                label={'Заголовок резюме'}
                                 type={'text'}
                                 name={'title'}
                                 setError={this.validation.setError}

@@ -8,7 +8,7 @@ import RenderWithCondition from '../RenderWithCondition';
 import { vacancyConnect } from '../../store';
 
 class VacancySideBar extends ReactsComponent<{
-    salary: string;
+    salary: number;
     experience: string;
     location: string;
     format: string;
@@ -24,7 +24,10 @@ class VacancySideBar extends ReactsComponent<{
                         inside: (
                             <p className={'font-size-24 bold'}>
                                 {this.props.salary
-                                    ? this.props.salary + ' руб/мес'
+                                    ? new Intl.NumberFormat('ru-RE', {
+                                          style: 'currency',
+                                          currency: 'RUB',
+                                      }).format(this.props.salary)
                                     : 'Не указано'}
                             </p>
                         ),

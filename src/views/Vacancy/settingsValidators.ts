@@ -12,10 +12,10 @@ export const validateTitleSymbols = (value: string): [boolean, string] => {
     ];
 };
 
-export const validateSalary = (value: string): [boolean, string] => {
+export const validateSalary = (value: number): [boolean, string] => {
     return [
-        /^[0-9]+(?:[0-9.0]+)*$/.test(value),
-        'Зарплата должна содержать только цифры или точки',
+        value.toString().length < 10,
+        'Длина числа зарплаты не может быть больше 10 цифр',
     ];
 };
 

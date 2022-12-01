@@ -111,14 +111,14 @@ class VacancySettings extends ReactsComponent<
                                 validation={this.validation.getValidation(
                                     'title',
                                 )}
-                                validationMode={'oninput'}
+                                validationMode={'onblur'}
                             />
                             <FormInput
                                 size={'4'}
                                 id={'salary'}
                                 label={'Заработная плата'}
                                 value={this.props.vacancy.salary}
-                                type={'text'}
+                                type={'number'}
                                 placeholder={'100.000'}
                                 name={'salary'}
                                 setError={this.validation.setError}
@@ -126,13 +126,14 @@ class VacancySettings extends ReactsComponent<
                                 validation={this.validation.getValidation(
                                     'salary',
                                 )}
-                                validationMode={'oninput'}
+                                validationMode={'onblur'}
                             />
                             <FormInputGroup
                                 id={'experience'}
                                 size={'4'}
                                 label={'Опыт работы'}
                                 name={'experience'}
+                                required={true}
                                 options={[
                                     {
                                         value: 'Не имеет значения',
@@ -170,7 +171,7 @@ class VacancySettings extends ReactsComponent<
                                 validation={this.validation.getValidation(
                                     'location',
                                 )}
-                                validationMode={'oninput'}
+                                validationMode={'onblur'}
                             />
                             <FormInput
                                 size={'4'}
@@ -184,7 +185,7 @@ class VacancySettings extends ReactsComponent<
                                 validation={this.validation.getValidation(
                                     'hours',
                                 )}
-                                validationMode={'oninput'}
+                                validationMode={'onblur'}
                             />
                             <FormInputGroup
                                 id={'format'}
