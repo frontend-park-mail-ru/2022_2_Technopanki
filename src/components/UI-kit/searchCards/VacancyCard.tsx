@@ -53,7 +53,7 @@ export default class VacancyCard extends ReactsComponent<
                     src={IMAGE_URL + this.props.icon}
                 />
                 <div
-                    className={`grid grid-template-columns flex column g-4 ${styles['card-content']}`}
+                    className={`grid grid-template-columns column g-4 ${styles['card-content']}`}
                 >
                     <Link
                         to={VACANCY_PATHS.INDEX + this.props.id}

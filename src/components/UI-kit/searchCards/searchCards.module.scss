@@ -43,12 +43,15 @@
 }
 
 .metadata {
-  font-size: 12px;
-  letter-spacing: -0.02em;
-  color: var(--background-200);
   @media (max-width: $screen-md) {
     display: none;
   }
+}
+
+.metadata-item {
+  font-size: 12px;
+  letter-spacing: -0.02em;
+  color: var(--background-200)
 }
 
 .salary {
