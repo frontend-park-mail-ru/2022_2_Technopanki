@@ -16,6 +16,7 @@ import { employerProfileService } from '../../services/employerProfileService';
 import { applicantProfileService } from '../../services/applicantService';
 import { searchService } from '../../services/searchService';
 import SearchFilterMobile from '../../components/UI-kit/filters/SearchFilterMobile';
+import { IMAGE_URL } from '../../utils/networkConstants';
 
 export default class Search extends ReactsComponent<
     {},
@@ -443,7 +444,9 @@ export default class Search extends ReactsComponent<
                         onSwitch={this.switchSearchType}
                     />
                     <div
-                        className={'columns justify-content-space-between g-16 screen-responsive'}
+                        className={
+                            'columns justify-content-space-between g-16 screen-responsive'
+                        }
                     >
                         <div className={'col-0 col-md-3'}>
                             <SearchFilter
@@ -496,7 +499,9 @@ export default class Search extends ReactsComponent<
                                       .map(employer => (
                                           <EmployerCard
                                               id={employer.id.toString()}
-                                              imgSrc={employer.image}
+                                              imgSrc={
+                                                  IMAGE_URL + employer.image
+                                              }
                                               companyName={
                                                   employer.company_name
                                               }
@@ -508,7 +513,9 @@ export default class Search extends ReactsComponent<
                                       .map(applicant => (
                                           <ApplicantCard
                                               id={applicant.id.toString()}
-                                              imgSrc={applicant.image}
+                                              imgSrc={
+                                                  IMAGE_URL + applicant.image
+                                              }
                                               name={applicant.applicant_name}
                                               surname={
                                                   applicant.applicant_surname

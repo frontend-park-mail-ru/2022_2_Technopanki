@@ -113,7 +113,7 @@ export default class VacancyCard extends ReactsComponent<
                     />
                 </div>
                 <div
-                    className={`flex row g-4 justify-content-end align-items-end ${styles.details}`}
+                    className={`flex row g-4 justify-content-end align-items-center ${styles.details}`}
                 >
                     <div
                         className={

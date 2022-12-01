@@ -100,7 +100,7 @@ class Profile extends ReactsComponent<
                             />
                             {this.props.authorized &&
                             this.props.userType === USER_TYPE.APPLICANT ? (
-                                <a href={'#vacancies'}>
+                                <a className={''} href={'#vacancies'}>
                                     <ButtonPrimary>
                                         Хочу здесь работать
                                     </ButtonPrimary>

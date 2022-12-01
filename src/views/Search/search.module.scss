@@ -21,11 +21,6 @@
     grid-row-start: 2;
   }
   width: max-content;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
 }
 
 .vacancy_name {
@@ -34,6 +29,7 @@
   line-height: 22px;
   width: max-content;
   cursor: pointer;
+  overflow: hidden;
 }
 
 .icon {
