@@ -255,10 +255,10 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 size={'4'}
                                 name={'businessType'}
                                 id={'businessType'}
-                                label={'Размер компании'}
+                                label={'Тип бизнеса'}
                                 value={this.props.businessType}
                                 type={'text'}
-                                placeholder={'10.000'}
+                                required={true}
                                 setError={this.profileFieldsValidation.setError}
                                 validation={this.profileFieldsValidation.getValidation(
                                     'businessType',

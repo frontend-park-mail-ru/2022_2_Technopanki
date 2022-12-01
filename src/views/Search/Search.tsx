@@ -130,23 +130,11 @@ export default class Search extends ReactsComponent<
 
         applicantFilter: [
             {
-                type: 'toggle',
-                header: 'Опыт работы',
-                options: [
-                    'Не имеет значения',
-                    'Нет опыта',
-                    'От 1 года до 3 лет',
-                    'От 3 до 6 лет',
-                    'Более 6 лет',
-                ],
-                name: 'experience',
-            },
-            {
-                header: 'Зарплата',
+                header: 'Возраст',
                 type: 'range',
                 rangeMin: '0',
-                rangeMax: '300000',
-                name: 'salary',
+                rangeMax: '100',
+                name: 'age',
             },
             {
                 header: 'Город',
