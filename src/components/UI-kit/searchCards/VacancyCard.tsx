@@ -52,9 +52,7 @@ export default class VacancyCard extends ReactsComponent<
                     width={40}
                     src={IMAGE_URL + this.props.icon}
                 />
-                <div
-                    className={`flex flex-wrap flex-start column g-4 ${styles['card-content']}`}
-                >
+                <div className={`flex column g-4 ${styles['card-content']}`}>
                     <Link
                         to={VACANCY_PATHS.INDEX + this.props.id}
                         content={
@@ -63,9 +61,7 @@ export default class VacancyCard extends ReactsComponent<
                             </h4>
                         }
                     />
-                    <div
-                        className={`flex flex-wrap flex-start hidden row g-16 ${styles.metadata}`}
-                    >
+                    <div className={`flex hidden row g-16 ${styles.metadata}`}>
                         <div className={'flex row align-items-center g-6'}>
                             <div
                                 className={`${styles.metadata_icon}`}
