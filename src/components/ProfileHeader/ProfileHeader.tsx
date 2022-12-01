@@ -1,6 +1,7 @@
 import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import styles from './profileHeader.module.scss';
 import { ReactsComponentNode } from '../../../Reacts/shared/types/node';
+import RenderWithCondition from '../RenderWithCondition';
 
 export default class ProfileHeader extends ReactsComponent<{
     profileID: string;
@@ -36,7 +37,7 @@ export default class ProfileHeader extends ReactsComponent<{
                                     ' ' +
                                     (this.props.surname ?? '')}
                             </h3>
-                            <p>{this.props.status}</p>
+                            <p>{this.props.status + ' '}</p>
                         </div>
                     </div>
                     <div>{this.props.buttons}</div>

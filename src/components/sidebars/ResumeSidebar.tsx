@@ -61,7 +61,7 @@ export default class ResumeSidebar extends ReactsComponent<
                         inside: (
                             <p className={'font-size-24 bold'}>
                                 {this.state.location
-                                    ? this.state.location
+                                    ? this.state.location + ' '
                                     : 'Не указано'}
                             </p>
                         ),
@@ -83,7 +83,7 @@ export default class ResumeSidebar extends ReactsComponent<
                                           )}.${this.state.dateOfBirth.slice(
                                               0,
                                               4,
-                                          )}`
+                                          )} `
                                     : ''}
                             </p>
                         ),
