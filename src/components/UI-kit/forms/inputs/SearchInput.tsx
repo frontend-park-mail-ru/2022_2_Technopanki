@@ -59,13 +59,13 @@ export default class SearchInput extends ReactsComponent<
                                 >
                                     <div
                                         className={
-                                            'flex row border-tb-light align-items-center justify-content-space-between p-16'
+                                            'flex row border-tb-light align-items-center justify-content-space-between p-4'
                                         }
                                     >
                                         <div className={'flex column'}>
                                             {this.options.map(option => (
                                                 <p
-                                                    className={`${styles.dropdown_options}`}
+                                                    className={`transition-fast ${styles.dropdown_options}`}
                                                     onClick={this.closeMenu}
                                                 >
                                                     {option}
