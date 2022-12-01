@@ -184,7 +184,7 @@ class ApplicantSettings extends ReactsComponent<
                                 'avatar',
                             )}
                         />
-                        <div>
+                        <div className={'mb-24'}>
                             <ButtonPrimary type={'submit'}>
                                 Сохранить
                             </ButtonPrimary>
