@@ -22,7 +22,6 @@ class Resume extends ReactsComponent<
 > {
     async sendResponseToServer() {
         return await applicantProfileService.apply(
-            // TODO
             location.pathname.split('/').at(-1) as string,
             this.props.id,
             this.props.name,
@@ -173,7 +172,7 @@ class VacancyDropdownResume extends ReactsComponent<
                                     name={this.props.name}
                                     surname={this.props.surname}
                                     title={resume.title}
-                                    id={resume.id.toString()}
+                                    id={resume.id}
                                 />
                             ))
                         )}
