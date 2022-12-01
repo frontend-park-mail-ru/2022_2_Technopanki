@@ -11,7 +11,11 @@ import RenderWithCondition from '../../components/RenderWithCondition';
 import ButtonNotActive from '../../components/UI-kit/buttons/ButtonNotActive';
 import { UserState } from '../../store/user/types';
 import Vacancy from './index';
-import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../utils/routerConstants';
+import {
+    EMPLOYER_PATHS,
+    SIGN_UP_PATH,
+    VACANCY_PATHS,
+} from '../../utils/routerConstants';
 import { IMAGE_URL } from '../../utils/networkConstants';
 
 export type ProfileHatProps = {
@@ -94,10 +98,15 @@ class VacancyHat extends ReactsComponent<
                         <RenderWithCondition
                             condition={!this.props.authorized}
                             onSuccess={
-                                <ButtonNotActive>
-                                    Зарегестрируйтесь или войдите чтобы
-                                    отправить резюме
-                                </ButtonNotActive>
+                                <Link
+                                    to={SIGN_UP_PATH}
+                                    content={
+                                        <ButtonNotActive>
+                                            Зарегестрируйтесь или войдите чтобы
+                                            отправить резюме
+                                        </ButtonNotActive>
+                                    }
+                                />
                             }
                         />
                     </div>
