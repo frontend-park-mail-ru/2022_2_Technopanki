@@ -43,9 +43,10 @@ export default class VacancyCard extends ReactsComponent<
 
     render() {
         return (
-            <div className={`g-16 rounded-lg p-24 ${styles.card}`}>
+            <div
+                className={`grid grid-template-columns g-16 rounded-lg p-24 ${styles.card}`}
+            >
                 <img
-                    key={'img'}
                     className={'rounded-md'}
                     height={40}
                     width={40}
@@ -63,7 +64,7 @@ export default class VacancyCard extends ReactsComponent<
                         }
                     />
                     <div
-                        className={`flex flex-wrap hidden row g-16 ${styles.metadata}`}
+                        className={`flex flex-wrap flex-start hidden row g-16 ${styles.metadata}`}
                     >
                         <div className={'flex row align-items-center g-6'}>
                             <div
