@@ -39,6 +39,10 @@ export default class SearchInput extends ReactsComponent<
         this.handleMenu();
     }
 
+    componentDidUpdate() {
+        console.log('update input')
+    }
+
     render() {
         return (
             <div className={`flex column relative screen-responsive ${styles.form}`}>
