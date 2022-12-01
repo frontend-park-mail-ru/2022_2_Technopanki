@@ -68,8 +68,7 @@ export const employerProfileService: {
                     throw response.body;
                 }
 
-                console.log('UPDATE PROFILE IMAGE', response.body);
-                return response.body;
+                return response.image;
             });
     },
 
