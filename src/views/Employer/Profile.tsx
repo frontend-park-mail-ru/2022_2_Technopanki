@@ -33,7 +33,7 @@ class Profile extends ReactsComponent<
     };
 
     async getDataFromServer() {
-        const employerID = location.pathname.split('/').at(-1);
+        const employerID = location.pathname.split('/').at(-1) as string;
 
         const employerProfile = await employerProfileService.getProfileData(
             employerID,

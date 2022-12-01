@@ -104,6 +104,7 @@ class ApplicantSettings extends ReactsComponent<
                 formDataImage,
             );
 
+            console.log(newImageSrc);
             dispatch(userActions.updateAvatar(newImageSrc));
             navigator.navigate(APPLICANT_PATHS.PROFILE + this.props.id);
         } catch (e) {
