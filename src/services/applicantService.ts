@@ -113,9 +113,9 @@ export const applicantProfileService: Service = {
                 PROFILE_URLS.APPLICANT_RESUMES + vacancyID,
                 JSON.stringify({
                     id: resumeID,
-                    user_name: name,
-                    user_surname: surname,
-                    resume_title: title,
+                    applicant_name: name,
+                    applicant_surname: surname,
+                    title: title,
                 }),
             )
             .then(response => {
