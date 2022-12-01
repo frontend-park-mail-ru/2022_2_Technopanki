@@ -117,7 +117,7 @@ export default class VacancyCard extends ReactsComponent<
                 >
                     <div
                         className={
-                            'flex align-items-end g-8 justify-content-center cursor-pointer'
+                            'flex align-items-center g-8 justify-content-center cursor-pointer'
                         }
                         onClick={this.handleDetails}
                     >

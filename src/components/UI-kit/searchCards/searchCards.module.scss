@@ -9,6 +9,17 @@
     outline-width: 2px;
     box-shadow: 0 4px 16px rgba(81, 101, 255, 0.24);
   }
+  @media (min-width: $screen-lg) {
+    grid-template-columns: 32px 1fr 1fr;
+  }
+}
+
+.card-content {
+  @media (max-width: $screen-md) {
+    grid-column-start: 1;
+    grid-row-start: 2;
+  }
+  width: max-content;
 }
 
 .vacancy_name {
@@ -30,12 +41,24 @@
 .metadata {
   font-size: 12px;
   letter-spacing: -0.02em;
-  color: var(--background-200)
+  color: var(--background-200);
+  @media (max-width: $screen-md) {
+    display: none;
+  }
 }
 
 .salary {
-  font-size: 18px;
-  font-weight: 500;
+  @media (min-width: $screen-sm) and (max-width: $screen-md) {
+    grid-column-start: 3;
+    grid-row-start: 2;
+  }
+  @media (max-width: $screen-sm) {
+    grid-column-start: 1;
+    grid-column: 1/4;
+    grid-row-start: 3;
+    align-items: end;
+    justify-content: flex-start;
+  }
 }
 
 .per_month {
@@ -50,12 +73,26 @@
 .link {
   grid-column-start: 2;
   grid-row-start: 2;
+  @media (min-width: $screen-sm) and (max-width: $screen-md) {
+    grid-column-start: 1;
+    grid-row-start: 3;
+  }
+  @media (max-width: $screen-sm) {
+    grid-column-start: 1;
+    grid-row-start: 4;
+  }
   width: max-content;
 }
 
 .details {
   grid-column-start: 3;
   grid-row-start: 2;
+  @media (min-width: $screen-sm) and (max-width: $screen-md) {
+    grid-row-start: 3;
+  }
+  @media (max-width: $screen-sm) {
+    display: none;
+  }
 }
 
 .details_text {
@@ -77,6 +114,10 @@
   grid-row-start: 3;
   font-size: 14px;
   font-weight: 400;
+  @media (max-width: $screen-md) {
+    grid-column: 1/4;
+    grid-row-start: 4;
+  }
 }
 
 .description_text {
