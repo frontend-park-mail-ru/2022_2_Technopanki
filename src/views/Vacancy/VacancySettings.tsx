@@ -128,20 +128,33 @@ class VacancySettings extends ReactsComponent<
                                 )}
                                 validationMode={'oninput'}
                             />
-                            <FormInput
-                                size={'4'}
+                            <FormInputGroup
                                 id={'experience'}
+                                size={'4'}
                                 label={'Опыт работы'}
-                                value={this.props.vacancy.experience}
-                                type={'text'}
-                                placeholder={'3-6'}
                                 name={'experience'}
-                                setError={this.validation.setError}
-                                required={true}
-                                validation={this.validation.getValidation(
-                                    'experience',
-                                )}
-                                validationMode={'oninput'}
+                                options={[
+                                    {
+                                        value: 'Не имеет значения',
+                                        children: 'Не имеет значения',
+                                    },
+                                    {
+                                        value: 'Нет опыта',
+                                        children: 'Нет опыта',
+                                    },
+                                    {
+                                        value: 'От 1 года до 3 лет',
+                                        children: 'От 1 года до 3 лет',
+                                    },
+                                    {
+                                        value: 'От 3 до 6 лет',
+                                        children: 'От 3 до 6 лет',
+                                    },
+                                    {
+                                        value: 'Более 6 лет',
+                                        children: 'Более 6 лет',
+                                    },
+                                ]}
                             />
                         </FormItem>
                         <FormItem header={'Дополнительная информация'}>
