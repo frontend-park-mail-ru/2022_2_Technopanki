@@ -53,6 +53,7 @@ export const applicantProfileService: Service = {
                     status: formData.get('status'),
                     date_of_birth: date?.toISOString(),
                     location: formData.get('location'),
+                    experience: formData.get('experience'),
                     contact_number: formData.get('phone'),
                     email: formData.get('email'),
                     password: formData.get('password'),

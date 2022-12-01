@@ -8,29 +8,29 @@ export default class WorkExperienceInput extends ReactsComponent<{
         return (
             <FormInputGroup
                 id={'experience'}
-                size={this.props.size}
+                size={'4'}
                 label={'Опыт работы'}
                 name={'experience'}
                 options={[
                     {
-                        value: 'Нет опыта работы',
-                        children: 'Нет опыта работы',
+                        value: 'Не имеет значения',
+                        children: 'Не имеет значения',
+                    },
+                    {
+                        value: 'Нет опыта',
+                        children: 'Нет опыта',
                     },
                     {
                         value: 'От 1 года до 3 лет',
                         children: 'От 1 года до 3 лет',
                     },
                     {
-                        value: 'От 3 до 5 лет',
-                        children: 'От 3 до 5 лет',
+                        value: 'От 3 до 6 лет',
+                        children: 'От 3 до 6 лет',
                     },
                     {
-                        value: 'От 5 до 10 лет',
-                        children: 'От 5 до 10 лет',
-                    },
-                    {
-                        value: 'Больше 10 лет',
-                        children: 'Больше 10 лет',
+                        value: 'Более 6 лет',
+                        children: 'Более 6 лет',
                     },
                 ]}
             />
