@@ -42,7 +42,7 @@ class VacancyResponses extends ReactsComponent<
             postedByUserID,
         );
 
-        const responses = await vacancyService.getResponses(this.props.id);
+        const responses = await vacancyService.getResponses(vacancyID);
 
         if (vacancyData) {
             dispatch(vacancyActions.update(vacancyData));
