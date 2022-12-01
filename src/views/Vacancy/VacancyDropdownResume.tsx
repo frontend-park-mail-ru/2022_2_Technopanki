@@ -22,7 +22,7 @@ class Resume extends ReactsComponent<
 > {
     async sendResponseToServer() {
         return await applicantProfileService.apply(
-            this.props.vacancyID,
+            this.props.vacancyID.toString(),
             this.props.id,
             this.props.name,
             this.props.surname,
