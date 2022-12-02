@@ -19,8 +19,6 @@ export default class SearchFilter extends ReactsComponent<{
     filters: FilterPropsType[];
     onSubmit: Function;
 }> {
-
-
     render() {
         console.log(this.props.filters);
         return (
@@ -42,8 +40,8 @@ export default class SearchFilter extends ReactsComponent<{
                             ) : filter.type === 'range' ? (
                                 <div>
                                     <RangeInput
-                                        min={filter.rangeMin}
-                                        max={filter.rangeMax}
+                                        min={filter.rangeMin as string}
+                                        max={filter.rangeMax as string}
                                         name={filter.name}
                                     />
                                 </div>

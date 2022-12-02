@@ -111,7 +111,6 @@ export default class VacancyCard extends ReactsComponent<
                         {Intl.NumberFormat('ru-RU', {
                             style: 'currency',
                             currency: 'RUB',
-                            currencyDisplay: '',
                         }).format(this.props.salary)}
                     </h4>
                 </div>
