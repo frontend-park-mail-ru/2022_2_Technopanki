@@ -7,7 +7,7 @@ export const validateTitleLength = (value: string): [boolean, string] => {
 
 export const validateTitleSymbols = (value: string): [boolean, string] => {
     return [
-        /^[a-zA-Zа-яА-Я]+(?:[a-zA-Zа-яА-Я \-(){}]+)*$/.test(value),
+        !value.split('').some(value => !/[a-zA-Z а-яА-Я]/.test(value)),
         'Название вакансии должно состоять из букв русского, английского алфавита или из символов {}()',
     ];
 };

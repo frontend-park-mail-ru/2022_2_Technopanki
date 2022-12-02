@@ -108,12 +108,11 @@ export default class VacancyCard extends ReactsComponent<
                     className={`flex row g-4 mx-0 justify-content-end ${styles.salary}`}
                 >
                     <h4 className={`mx-0 ${styles['salary-content']}`}>
-                        ;
                         {Intl.NumberFormat('ru-RU', {
                             style: 'currency',
                             currency: 'RUB',
+                            currencyDisplay: '',
                         }).format(this.props.salary)}
-                        <span className={styles.per_month}> руб/мес</span>
                     </h4>
                 </div>
                 <div className={styles.link}>
