@@ -257,7 +257,11 @@ export default class Search extends ReactsComponent<
         const queryParam = document.getElementById('search').value;
         this.search = queryParam;
 
-        if (this.state.typeOfSearch === 'vacancy' && (queryParam !== '' && queryParam !== ' ')) {
+        if (
+            this.state.typeOfSearch === 'vacancy' &&
+            queryParam !== '' &&
+            queryParam !== ' '
+        ) {
             searchService
                 .searchByVacancies(queryParam)
                 .then(body => {
@@ -271,7 +275,11 @@ export default class Search extends ReactsComponent<
                 .catch(err => console.error(err));
         }
 
-        if (this.state.typeOfSearch === 'resume' && (queryParam !== '' && queryParam !== ' ')) {
+        if (
+            this.state.typeOfSearch === 'resume' &&
+            queryParam !== '' &&
+            queryParam !== ' '
+        ) {
             searchService
                 .searchByResumes(queryParam)
                 .then(body => {
@@ -285,7 +293,11 @@ export default class Search extends ReactsComponent<
                 .catch(err => console.error(err));
         }
 
-        if (this.state.typeOfSearch === 'employer' && (queryParam !== '' && queryParam !== ' ')) {
+        if (
+            this.state.typeOfSearch === 'employer' &&
+            queryParam !== '' &&
+            queryParam !== ' '
+        ) {
             searchService
                 .searchByEmployers(queryParam)
                 .then(body => {
@@ -299,7 +311,11 @@ export default class Search extends ReactsComponent<
                 .catch(err => console.error(err));
         }
 
-        if (this.state.typeOfSearch === 'applicant' && (queryParam !== '' && queryParam !== ' ')) {
+        if (
+            this.state.typeOfSearch === 'applicant' &&
+            queryParam !== '' &&
+            queryParam !== ' '
+        ) {
             searchService
                 .searchByApplicants(queryParam)
                 .then(body => {
@@ -354,7 +370,7 @@ export default class Search extends ReactsComponent<
             .join('&');
         console.log(queryString);
 
-        if (this.state.typeOfSearch === 'vacancy' && (this.search !== '' && this.search !== ' ')) {
+        if (this.state.typeOfSearch === 'vacancy') {
             searchService
                 .filterVacancies(queryString)
                 .then(body => {
@@ -367,7 +383,11 @@ export default class Search extends ReactsComponent<
                 .catch(err => console.error(err));
         }
 
-        if (this.state.typeOfSearch === 'resume' && (this.search !== '' && this.search !== ' ')) {
+        if (
+            this.state.typeOfSearch === 'resume' &&
+            this.search !== '' &&
+            this.search !== ' '
+        ) {
             searchService
                 .filterResumes(queryString)
                 .then(body => {
@@ -380,7 +400,7 @@ export default class Search extends ReactsComponent<
                 .catch(err => console.error(err));
         }
 
-        if (this.state.typeOfSearch === 'employer' && (this.search !== '' && this.search !== ' ')) {
+        if (this.state.typeOfSearch === 'employer') {
             searchService
                 .filterEmployers(queryString)
                 .then(body => {
@@ -393,7 +413,7 @@ export default class Search extends ReactsComponent<
                 .catch(err => console.error(err));
         }
 
-        if (this.state.typeOfSearch === 'applicant' && (this.search !== '' && this.search !== ' ')) {
+        if (this.state.typeOfSearch === 'applicant') {
             searchService
                 .filterApplicants(queryString)
                 .then(body => {
@@ -473,6 +493,7 @@ export default class Search extends ReactsComponent<
                                       ?.slice(0, this.state.limit)
                                       .map(resume => (
                                           <ResumeCard
+                                              key={resume.id.toString()}
                                               id={resume.id.toString()}
                                               postedByUserID={resume.user_account_id.toString()}
                                               title={resume.title}
@@ -484,6 +505,7 @@ export default class Search extends ReactsComponent<
                                       ?.slice(0, this.state.limit)
                                       .map(employer => (
                                           <EmployerCard
+                                              key={employer.id.toString()}
                                               id={employer.id.toString()}
                                               imgSrc={
                                                   IMAGE_URL + employer.image
@@ -498,6 +520,7 @@ export default class Search extends ReactsComponent<
                                       ?.slice(0, this.state.limit)
                                       .map(applicant => (
                                           <ApplicantCard
+                                              key={applicant.id.toString()}
                                               id={applicant.id.toString()}
                                               imgSrc={
                                                   IMAGE_URL + applicant.image
