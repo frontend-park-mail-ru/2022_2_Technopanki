@@ -121,7 +121,7 @@ export default class RangeInput extends ReactsComponent<{
     render() {
         return (
             <div className={'flex column g-8'}>
-                <div className={'flex row justify-content-space-between'}>
+                <div className={'flex row justify-content-space-between g-16'}>
                     <input
                         id={'fromInput'}
                         name={this.props.name}
