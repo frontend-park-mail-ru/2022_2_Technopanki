@@ -27,6 +27,7 @@ export type ResumeResponse = {
     education_detail: ExperienceDetails;
     experience_detail: ExperienceDetails;
     applicant_skills: null;
+    experience: string;
 };
 
 export type ResumePreviewResponse = {

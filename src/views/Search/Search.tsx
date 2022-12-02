@@ -54,6 +54,7 @@ export default class Search extends ReactsComponent<
                     'Сменный график',
                 ],
                 name: 'format',
+                value: null,
             },
             {
                 type: 'toggle',
@@ -66,6 +67,7 @@ export default class Search extends ReactsComponent<
                     'Более 6 лет',
                 ],
                 name: 'experience',
+                value: null,
             },
             {
                 header: 'Зарплата',
@@ -73,11 +75,13 @@ export default class Search extends ReactsComponent<
                 rangeMin: '0',
                 rangeMax: '300000',
                 name: 'salary',
+                value: null,
             },
             {
                 header: 'Город',
                 type: 'input',
                 name: 'city',
+                value: null,
             },
         ],
 
@@ -93,6 +97,7 @@ export default class Search extends ReactsComponent<
                     'Более 6 лет',
                 ],
                 name: 'experience',
+                value: null,
             },
             {
                 header: 'Зарплата',
@@ -100,11 +105,13 @@ export default class Search extends ReactsComponent<
                 rangeMin: '0',
                 rangeMax: '300000',
                 name: 'salary',
+                value: null,
             },
             {
                 header: 'Город',
                 type: 'input',
                 name: 'city',
+                value: null,
             },
         ],
 
@@ -113,11 +120,13 @@ export default class Search extends ReactsComponent<
                 header: 'Город',
                 type: 'input',
                 name: 'city',
+                value: null,
             },
             {
                 header: 'Сфера деятельности',
                 type: 'input',
                 name: 'field',
+                value: null,
             },
             {
                 header: 'Размер компании',
@@ -125,6 +134,7 @@ export default class Search extends ReactsComponent<
                 rangeMin: '0',
                 rangeMax: '300000',
                 name: 'size',
+                value: null,
             },
         ],
 
@@ -135,11 +145,13 @@ export default class Search extends ReactsComponent<
                 rangeMin: '0',
                 rangeMax: '100',
                 name: 'age',
+                value: null,
             },
             {
                 header: 'Город',
                 type: 'input',
                 name: 'city',
+                value: null,
             },
         ],
     };

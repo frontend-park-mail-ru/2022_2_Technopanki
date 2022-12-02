@@ -1,0 +1,13 @@
+@import '../../../styles/screens';
+
+.dropdown {
+  max-width: 90vw;
+  @media (max-width: $screen-md) {
+    align-items: flex-start;
+    left: 0;
+  }
+  @media (min-width: $screen-md) {
+    align-items: flex-end;
+    right: 0;
+  }
+}

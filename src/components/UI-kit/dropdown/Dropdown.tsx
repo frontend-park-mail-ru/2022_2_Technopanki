@@ -18,9 +18,9 @@ export default class Dropdown extends ReactsComponent<
     handleDropdown = () => {
         this.setState(state => ({
             ...state,
-            isOpen: !this.state.isOpen
-        }))
-    }
+            isOpen: !this.state.isOpen,
+        }));
+    };
 
     render() {
         return (
@@ -29,26 +29,20 @@ export default class Dropdown extends ReactsComponent<
                     this.state.isOpen ? 'cursor-default' : ''
                 }`}
             >
-                <div
-                    key={'content'}
-                    onClick={this.handleDropdown}
-                >
+                <div key={'content'} onClick={this.handleDropdown}>
                     {this.props.content}
                 </div>
                 <div className={'relative cursor-default'}>
                     <div
-                        className={`absolute ${
-                            this.state.isOpen
-                                ? `flex flex-${this.props.direction}`
-                                : 'none'
+                        className={`absolute ${styles.dropdown} ${
+                            this.state.isOpen ? `flex` : 'none'
                         } ${
-                            this.state.isOpen?
-                                this.props.mt
+                            this.state.isOpen
+                                ? this.props.mt
                                     ? `mt-${this.props.mt}`
                                     : 'mt-8'
                                 : 'none'
-                        }`
-                        }
+                        }`}
                     >
                         {this.props.hidden}
                     </div>

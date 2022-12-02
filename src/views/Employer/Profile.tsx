@@ -64,7 +64,7 @@ class Profile extends ReactsComponent<
                     status={this.props.status}
                     profileID={this.props.id}
                     buttons={
-                        <div className={'flex flex-wrap row g-16'}>
+                        <div className={'flex flex-wrap row g-16 gm-8'}>
                             <RenderWithCondition
                                 condition={Boolean(window.navigator.clipboard)}
                                 onSuccess={

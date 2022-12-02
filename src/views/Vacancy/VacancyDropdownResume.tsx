@@ -129,7 +129,7 @@ class VacancyDropdownResume extends ReactsComponent<
                 loading: false,
             }));
         } catch (e) {
-            dispatch(activateError('Ошибка при получении резюме', ''));
+            dispatch(activateError('Вы уже отправили резюме на эту вакансию'));
             setTimeout(() => dispatch(deactivateError()), 3000);
             console.error(e);
         }

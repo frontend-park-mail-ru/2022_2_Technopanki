@@ -26,6 +26,7 @@ export const resumeActions: {
             title: resume.title,
             description: resume.description,
             timeWhenCreated: resume.created_date,
+            experience: resume.experience,
         } as ResumeState,
     }),
     clear: (postedByUserID: string) => ({
