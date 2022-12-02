@@ -93,6 +93,7 @@ export const employerProfileService: {
                     company_size: parseInt(formData.get('size') as string),
                     password: formData.get('password'),
                     business_type: formData.get('businessType'),
+                    location: formData.get('location'),
                 }),
             )
             .then(response => {

@@ -167,6 +167,7 @@ class Profile extends ReactsComponent<
                             fieldOfActivity={this.props.fieldOfActivity}
                             socialNetworks={this.props.socialNetworks}
                             businessType={this.props.businessType}
+                            location={this.props.location}
                         />
                     </div>
                 </div>

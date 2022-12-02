@@ -14,8 +14,10 @@ type EmployerProfileSideBarProps = {
     fieldOfActivity: string[];
     socialNetworks: EmployerSocialNetworks;
     businessType: string;
+    location: string;
 };
 
+// TODO: icons
 export default class EmployerProfileSideBar extends ReactsComponent<EmployerProfileSideBarProps> {
     render() {
         return (
@@ -39,6 +41,14 @@ export default class EmployerProfileSideBar extends ReactsComponent<EmployerProf
                                     content={
                                         this.props.businessType
                                             ? this.props.businessType
+                                            : 'Не указано'
+                                    }
+                                />
+                                <IconField
+                                    icon={UsersIcon}
+                                    content={
+                                        this.props.location
+                                            ? this.props.location
                                             : 'Не указано'
                                     }
                                 />

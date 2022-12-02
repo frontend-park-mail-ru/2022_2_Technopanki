@@ -40,6 +40,7 @@ export type EmployerResponse = {
     vacancies: null;
     vacancy_activities: null;
     business_type: string;
+    location: string;
 };
 
 export type SignInResponse = ApplicantResponse & EmployerResponse;

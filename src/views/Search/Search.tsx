@@ -330,7 +330,6 @@ export default class Search extends ReactsComponent<
         e.preventDefault();
         console.log('filters submitted');
         const searchParam = this.search;
-
         const formData = new FormData(e.target);
 
         searchParam ? formData.append('search', searchParam) : '';

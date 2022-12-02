@@ -37,7 +37,7 @@ export const profileActions: {
             profileType: USER_TYPE.EMPLOYER,
             name: serverState.company_name,
             surname: '',
-            location: '',
+            location: serverState.location,
             status: serverState.status,
             description: serverState.description,
             phone: serverState.contact_number,
