@@ -270,10 +270,7 @@ export default class Search extends ReactsComponent<
         this.search = queryParam;
 
         if (
-            this.state.typeOfSearch === 'vacancy' &&
-            queryParam !== '' &&
-            queryParam !== ' '
-        ) {
+            this.state.typeOfSearch === 'vacancy') {
             searchService
                 .searchByVacancies(queryParam)
                 .then(body => {
@@ -288,10 +285,7 @@ export default class Search extends ReactsComponent<
         }
 
         if (
-            this.state.typeOfSearch === 'resume' &&
-            queryParam !== '' &&
-            queryParam !== ' '
-        ) {
+            this.state.typeOfSearch === 'resume') {
             searchService
                 .searchByResumes(queryParam)
                 .then(body => {
@@ -306,10 +300,7 @@ export default class Search extends ReactsComponent<
         }
 
         if (
-            this.state.typeOfSearch === 'employer' &&
-            queryParam !== '' &&
-            queryParam !== ' '
-        ) {
+            this.state.typeOfSearch === 'employer') {
             searchService
                 .searchByEmployers(queryParam)
                 .then(body => {
