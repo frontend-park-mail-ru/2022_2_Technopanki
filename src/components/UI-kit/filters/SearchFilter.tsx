@@ -19,6 +19,10 @@ export default class SearchFilter extends ReactsComponent<{
     filters: FilterPropsType[];
     onSubmit: Function;
 }> {
+    componentDidUpdate() {
+        console.log('update filters')
+    }
+
     render() {
         console.log(this.props.filters);
         return (

@@ -90,6 +90,8 @@ export default class RangeInput extends ReactsComponent<{
         this.fillSlider(fromSlider, toSlider, toSlider, '#dadae0', '#1C34EC');
         this.handleCollision(toSlider);
 
+        console.log(fromSlider, toSlider)
+
         fromSlider.oninput = () =>
             this.handleFromSlider(fromSlider, toSlider, fromInput);
         toSlider.oninput = () =>
@@ -151,7 +153,7 @@ export default class RangeInput extends ReactsComponent<{
                                 : '10000'
                         }`}
                         className={`${styles.slider} ${styles.from_slider}`}
-                        onClick={this.handleRangeInput}
+                        onMouseDown={this.handleRangeInput}
                     />
                     <input
                         id={'toSlider'}
@@ -166,7 +168,7 @@ export default class RangeInput extends ReactsComponent<{
                                 : '10000'
                         }`}
                         className={`${styles.slider}`}
-                        onClick={this.handleRangeInput}
+                        onMouseDown={this.handleRangeInput}
                     />
                 </div>
             </div>
