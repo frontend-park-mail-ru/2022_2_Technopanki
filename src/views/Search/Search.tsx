@@ -366,7 +366,7 @@ export default class Search extends ReactsComponent<
 
         const queryString = groupByParam
             .map(x =>
-                x[0] === 'salary' || x[0] === 'size'
+                x[0] === 'salary' || x[0] === 'size' || x[0] === 'age'
                     ? `${encodeURIComponent(x[0])}=${encodeURIComponent(
                           x.slice(1).join(':'),
                       )}`
