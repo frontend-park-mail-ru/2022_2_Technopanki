@@ -41,6 +41,7 @@ export type ApplicantProfileType = {
     location: string;
     dateOfBirth: string;
     skills: string[];
+    experience: string;
     socialNetworks: EmployerSocialNetworks;
 };
 

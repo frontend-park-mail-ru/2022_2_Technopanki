@@ -73,6 +73,7 @@ export const resumeService: {
                         job_location_city: formData.get('location'),
                         description: formData.get('description'),
                     },
+                    experience: formData.get('experience'),
                     applicant_skills: null,
                 }),
             )
@@ -105,6 +106,7 @@ export const resumeService: {
                         job_location_city: formData.get('location'),
                         description: formData.get('description'),
                     },
+                    experience: formData.get('experience'),
                     applicant_skills: null,
                 }),
             )

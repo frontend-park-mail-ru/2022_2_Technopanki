@@ -251,30 +251,6 @@ class ApplicantSettings extends ReactsComponent<
                                 )}
                                 validationMode={'oninput'}
                             />
-                            <FormInputGroup
-                                id={'experience'}
-                                size={'4'}
-                                label={'Опыт работы'}
-                                name={'experience'}
-                                options={[
-                                    {
-                                        value: 'Нет опыта',
-                                        children: 'Нет опыта',
-                                    },
-                                    {
-                                        value: 'От 1 года до 3 лет',
-                                        children: 'От 1 года до 3 лет',
-                                    },
-                                    {
-                                        value: 'От 3 до 6 лет',
-                                        children: 'От 3 до 6 лет',
-                                    },
-                                    {
-                                        value: 'Более 6 лет',
-                                        children: 'Более 6 лет',
-                                    },
-                                ]}
-                            />
                             <FormInput
                                 size={'4'}
                                 id={'location'}

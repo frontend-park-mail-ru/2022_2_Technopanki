@@ -18,6 +18,8 @@ export type ApplicantResponse = {
     user_type: 'applicant' | 'employer';
     vacancies: null;
     vacancy_activities: null;
+    location: string | undefined;
+    experience: string | null;
 };
 
 export type EmployerResponse = {

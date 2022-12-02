@@ -55,6 +55,10 @@ class Resume extends ReactsComponent<ResumeState> {
                             headline={'О себе'}
                             content={this.props.description}
                         />
+                        <TextBlock
+                            headline={'Опыт работы'}
+                            content={this.props.experience}
+                        />
                         <Education
                             university={this.props.university}
                             faculty={this.props.faculty}
