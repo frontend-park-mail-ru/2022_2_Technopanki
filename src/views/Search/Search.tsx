@@ -100,14 +100,6 @@ export default class Search extends ReactsComponent<
                 value: null,
             },
             {
-                header: 'Зарплата',
-                type: 'range',
-                rangeMin: '0',
-                rangeMax: '300000',
-                name: 'salary',
-                value: null,
-            },
-            {
                 header: 'Город',
                 type: 'input',
                 name: 'city',
@@ -208,7 +200,6 @@ export default class Search extends ReactsComponent<
         vacancyService
             .getAllVacancies()
             .then(body => {
-                console.log(body);
                 this.setState(state => ({
                     ...state,
                     limit: 10,
@@ -216,15 +207,12 @@ export default class Search extends ReactsComponent<
                 }));
             })
             .catch(err => console.error(err));
-
-        console.log(this.state);
     };
 
     getResumesFromServer = () => {
         resumeService
             .getAllResumes()
             .then(body => {
-                console.log(body);
                 this.setState(state => ({
                     ...state,
                     limit: 10,
@@ -238,7 +226,6 @@ export default class Search extends ReactsComponent<
         employerProfileService
             .getAllEmployers()
             .then(body => {
-                console.log(body);
                 this.setState(state => ({
                     ...state,
                     limit: 10,
@@ -252,7 +239,6 @@ export default class Search extends ReactsComponent<
         applicantProfileService
             .getAllApplicants()
             .then(body => {
-                console.log(body);
                 this.setState(state => ({
                     ...state,
                     limit: 10,
@@ -274,7 +260,6 @@ export default class Search extends ReactsComponent<
             searchService
                 .searchByVacancies(queryParam)
                 .then(body => {
-                    console.log('here..');
                     this.setState(state => ({
                         ...state,
                         limit: 10,
@@ -289,7 +274,6 @@ export default class Search extends ReactsComponent<
             searchService
                 .searchByResumes(queryParam)
                 .then(body => {
-                    console.log(body);
                     this.setState(state => ({
                         ...state,
                         limit: 10,
@@ -304,7 +288,6 @@ export default class Search extends ReactsComponent<
             searchService
                 .searchByEmployers(queryParam)
                 .then(body => {
-                    console.log(body);
                     this.setState(state => ({
                         ...state,
                         limit: 10,
@@ -318,7 +301,6 @@ export default class Search extends ReactsComponent<
             searchService
                 .searchByApplicants(queryParam)
                 .then(body => {
-                    console.log(body);
                     this.setState(state => ({
                         ...state,
                         limit: 10,
@@ -331,7 +313,6 @@ export default class Search extends ReactsComponent<
 
     onSubmitFilters = async (e: SubmitEvent) => {
         e.preventDefault();
-        console.log('filters submitted');
         const searchParam = this.search;
         const formData = new FormData(e.target);
 
@@ -353,8 +334,6 @@ export default class Search extends ReactsComponent<
             [data[0]],
         );
 
-        console.log(groupByParam);
-
         const queryString = groupByParam
             .map(x =>
                 x[0] === 'salary' || x[0] === 'size' || x[0] === 'age'
@@ -366,7 +345,6 @@ export default class Search extends ReactsComponent<
                       )}`,
             )
             .join('&');
-        console.log(queryString);
 
         if (this.state.typeOfSearch === 'vacancy') {
             searchService
@@ -422,7 +400,6 @@ export default class Search extends ReactsComponent<
     };
 
     componentDidMount() {
-        console.log('MOUNT', this.state);
         this.getVacanciesFromServer();
         this.getResumesFromServer();
         this.getEmployersFromServer();

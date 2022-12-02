@@ -153,7 +153,7 @@ export default class RangeInput extends ReactsComponent<{
                                 : '10000'
                         }`}
                         className={`${styles.slider} ${styles.from_slider}`}
-                        onMouseDown={this.handleRangeInput}
+                        onMouseDown={this.handleRanxgeInput}
                     />
                     <input
                         id={'toSlider'}
