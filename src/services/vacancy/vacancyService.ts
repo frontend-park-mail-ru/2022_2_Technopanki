@@ -1,11 +1,16 @@
-import network from '../lib/network';
-import { PROFILE_URLS, VACANCY_URLS } from '../utils/networkConstants';
-import { Service } from './types';
-import { dispatch } from '../store';
-import { startLoading, stopLoading } from '../store/loading/actions';
-import { requestHeaders } from './headers';
+import network from '../../lib/network';
+import { PROFILE_URLS, VACANCY_URLS } from '../../utils/networkConstants';
+import { Service } from '../types';
+import { dispatch } from '../../store';
+import { startLoading, stopLoading } from '../../store/loading/actions';
+import { requestHeaders } from '../headers';
+import { EmployerResponse } from '../auth/types';
+import { VacancyResponse } from './types';
 
-export const vacancyService: Service = {
+export const vacancyService: {
+    getVacancyHatData: (userID: string) => Promise<EmployerResponse>;
+    getVacancyData: (vacancyID: string) => Promise<VacancyResponse>;
+} & Service = {
     getAllVacancies: async () => {
         dispatch(startLoading());
         return await network
@@ -57,7 +62,7 @@ export const vacancyService: Service = {
             .catch(() => dispatch(stopLoading()));
     },
 
-    getVacancyHatData: async (userID: string) => {
+    getVacancyHatData: async (userID: string): Promise<EmployerResponse> => {
         dispatch(startLoading());
         return await network
             .GET(PROFILE_URLS.USER_PREVIEW(userID), requestHeaders.jsonHeader)
@@ -100,10 +105,10 @@ export const vacancyService: Service = {
                     tasks: formData.get('tasks'),
                     requirements: formData.get('requirements'),
                     extra: formData.get('extra'),
-                    salary: formData.get('salary'),
+                    salary: parseInt(formData.get('salary')),
                     location: formData.get('location'),
                     experience: formData.get('experience'),
-                    hours: formData.get('schedule'),
+                    hours: formData.get('hours'),
                     format: formData.get('format'),
                 }),
             )
@@ -132,7 +137,7 @@ export const vacancyService: Service = {
                     tasks: formData.get('tasks'),
                     requirements: formData.get('requirements'),
                     extra: formData.get('extra'),
-                    salary: formData.get('salary'),
+                    salary: parseInt(formData.get('salary')),
                     isActive: true,
                     location: formData.get('location'),
                     experience: formData.get('experience'),

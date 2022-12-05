@@ -1,3 +1,5 @@
+@import '../../../styles/screens';
+
 .radio {
   cursor: pointer;
 }
@@ -15,6 +17,7 @@
     border: 4px solid var(--primary-blue);
     + label {
       color: var(--primary-blue);
+      font-weight: 600;
     }
   }
 }
@@ -23,6 +26,20 @@
   cursor: pointer;
   font-weight: 600;
   font-size: 14px;
+  color: var(--background-200);
+  transition: var(--transition-fast);
+  &:hover {
+    color: var(--background-400);
+  }
+}
+
+.radio_label_search {
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 12px;
+  @media (max-width: $screen-md) {
+    font-size: 16px;
+  }
   color: var(--background-200);
   transition: var(--transition-fast);
   &:hover {

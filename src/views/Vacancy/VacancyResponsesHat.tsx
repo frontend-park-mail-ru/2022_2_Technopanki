@@ -3,7 +3,7 @@ import Hat from '../../components/UI-kit/hat/Hat';
 import Button from '../../components/UI-kit/buttons/Button';
 import Link from '../../components/Link/Link';
 import { profileConnect } from '../../store';
-import { vacancyService } from '../../services/vacancyService';
+import { vacancyService } from '../../services/vacancy/vacancyService';
 import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../utils/routerConstants';
 import { IMAGE_URL } from '../../utils/networkConstants';
 

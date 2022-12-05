@@ -5,23 +5,54 @@ import VacancyResponsesHat from './VacancyResponsesHat';
 import styles from './vacancy.module.scss';
 import VacancySideBar from '../../components/sidebars/VacancySideBar';
 import { dispatch, userConnect, vacancyConnect } from '../../store';
-import { vacancyService } from '../../services/vacancyService';
+import { vacancyService } from '../../services/vacancy/vacancyService';
 import { vacancyActions } from '../../store/vacancy/actions';
-import VacanciesResumeList from './VacanciesResumeList';
 import RenderWithCondition from '../../components/RenderWithCondition';
+import ResumeList from '../../components/UI-kit/resumeList/ResumeList';
+import { employerProfileService } from '../../services/employerProfileService';
+import { profileActions } from '../../store/profile/actions';
+import { ResumeListItemPropsType } from '../../components/UI-kit/resumeList/ResumeListItem';
+import { VacancyState } from '../../store/vacancy/type';
 
-class VacancyResponses extends ReactsComponent<{
-    userID: string;
-    title: string;
-    postedByUserID: string;
-    vacancyID: string;
-}> {
+class VacancyResponses extends ReactsComponent<
+    {
+        userID: string;
+    } & VacancyState,
+    {
+        responses: ResumeListItemPropsType[];
+    }
+> {
+    state = {
+        responses: [] as ResumeListItemPropsType[],
+    };
+    async getDataFromServer() {
+        const vacancyID: string = location.pathname.split('/').at(-1) as string;
+
+        let vacancyData = null;
+        let postedByUserID = this.props.postedByUserID;
+
+        if (this.props.id !== vacancyID) {
+            vacancyData = await vacancyService.getVacancyData(
+                vacancyID as string,
+            );
+            postedByUserID = vacancyData.postedByUserId.toString();
+        }
+
+        const profileData = await employerProfileService.getProfileData(
+            postedByUserID,
+        );
+
+        const responses = await vacancyService.getResponses(vacancyID);
+
+        if (vacancyData) {
+            dispatch(vacancyActions.update(vacancyData));
+        }
+        dispatch(profileActions.update(profileData));
+        this.setState(state => ({ ...state, responses: responses.data }));
+    }
+
     componentDidMount() {
-        vacancyService
-            .getVacancyData(location.pathname.split('/').at(-1) as string)
-            .then(body => {
-                dispatch(vacancyActions.update(body));
-            });
+        this.getDataFromServer();
     }
 
     render() {
@@ -31,7 +62,9 @@ class VacancyResponses extends ReactsComponent<{
                 <div key={'vacancies'} className={'columns mt-header g-24'}>
                     <div className={`col-12 ${styles.header}`}>
                         <VacancyResponsesHat
-                            vacancyID={this.props.vacancyID}
+                            vacancyID={
+                                location.pathname.split('/').at(-1) as string
+                            }
                             postedByUserID={this.props.postedByUserID}
                         />
                     </div>
@@ -42,14 +75,16 @@ class VacancyResponses extends ReactsComponent<{
                             condition={
                                 this.props.userID === this.props.postedByUserID
                             }
-                            onSuccess={<VacanciesResumeList />}
+                            onSuccess={
+                                <ResumeList resume={this.state.responses} />
+                            }
                         />
                     </div>
                     <div className={'col-12 col-md-3'}>
                         <VacancySideBar />
                     </div>
                 </div>
-                <Footer key={'footer'} />
+                <Footer />
             </div>
         );
     }
@@ -57,15 +92,7 @@ class VacancyResponses extends ReactsComponent<{
 
 const UserWrapper = userConnect((state, props) => ({
     userID: state.id,
-    vacancyID: props.vacancyID,
-    title: props.title,
-    postedByUserID: props.postedByUserID,
+    ...state,
 }))(VacancyResponses);
 
-export default vacancyConnect(state => {
-    return {
-        vacancyID: state.id,
-        title: state.title,
-        postedByUserID: state.postedByUserID,
-    };
-})(UserWrapper);
+export default vacancyConnect(state => ({ ...state }))(UserWrapper);

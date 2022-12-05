@@ -2,12 +2,41 @@ import styles from './header.module.scss';
 import MenuIcon from '../../../static/icons/menu.svg';
 import ModalWindow from '../modalWindow/ModalWindow';
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
+import RenderWithCondition from '../../RenderWithCondition';
+import Link from '../../Link/Link';
+import { toggleTheme } from '../../../utils/toggleTheme';
+import { dispatch, userConnect } from '../../../store';
+import { authService } from '../../../services/auth/authService';
+import { userActions } from '../../../store/user/actions';
+import navigator from '../../../router/navigator';
+import { IMAGE_URL } from '../../../utils/networkConstants';
+import {
+    SIGN_IN_PATH,
+    SIGN_UP_PATH,
+    SEARCH_PATH,
+} from '../../../utils/routerConstants';
 
-export default class HeaderModal extends ReactsComponent {
+class HeaderModal extends ReactsComponent<{
+    authorized: boolean;
+    name: string;
+    surname: string;
+    avatarSrc: string;
+    userType: string;
+    id: string;
+}> {
+    logout() {
+        authService
+            .logout()
+            .then(() => {
+                dispatch(userActions.LOGOUT());
+                navigator.navigate('/');
+            })
+            .catch(err => console.error(err));
+    }
+
     render() {
         return (
             <ModalWindow
-                key={'navIcon'}
                 content={
                     <div
                         className={`flex g-24 w-100 justify-content-end ${styles.menu_icon}`}
@@ -17,33 +46,109 @@ export default class HeaderModal extends ReactsComponent {
                     ></div>
                 }
                 hidden={
-                    <div className={'flex w-100 background-0 rounded-lg p-32'}>
+                    <div
+                        className={`flex rounded-lg p-4 background-0 ${styles.modal}`}
+                    >
                         <div
-                            key={'items'}
                             id={'links-group'}
-                            className={`flex column justify-content-center w-100 g-16`}
+                            className={`flex column justify-content-center w-100 g-32 p-16`}
                         >
-                            <p
-                                key={'item1'}
-                                id={'item1'}
-                                className={`${styles.item__def} ${styles.item__active}`}
+                            <RenderWithCondition
+                                condition={this.props.authorized}
+                                onSuccess={
+                                    <div className={'flex g-16 column'}>
+                                        <div className={styles['modal-item']}>
+                                            <Link
+                                                to={`/${
+                                                    this.props.userType ===
+                                                    'applicant'
+                                                        ? 'applicant'
+                                                        : 'employer'
+                                                }/${this.props.id}`}
+                                                content={
+                                                    <div
+                                                        className={
+                                                            'flex row g-8 align-items-center'
+                                                        }
+                                                    >
+                                                    <p>
+                                                        {this.props.name}{' '}
+                                                        {this.props.surname}
+                                                    </p>
+                                                    </div>
+                                                }
+                                            />
+                                        </div>
+                                        <RenderWithCondition
+                                            condition={
+                                                this.props.userType ===
+                                                'applicant'
+                                            }
+                                            onSuccess={
+                                                <Link
+                                                    to={SEARCH_PATH}
+                                                    content={
+                                                        <p
+                                                            className={
+                                                                styles[
+                                                                    'modal-item'
+                                                                    ]
+                                                            }
+                                                        >
+                                                            Создать резюме
+                                                        </p>
+                                                    }
+                                                />
+                                            }
+                                        />
+                                        <a
+                                            onClick={this.logout}
+                                            className={styles['modal-item']}
+                                        >
+                                            Выйти из аккаунта
+                                        </a>
+                                    </div>
+                                }
+                            />
+                            <a
+                                onClick={(e: MouseEvent) => {
+                                    e.stopPropagation();
+                                    toggleTheme();
+                                }}
+                                className={`${styles['modal-item']}`}
                             >
-                                Вакансии
-                            </p>
-                            <p
-                                key={'item2'}
-                                id={'item2'}
-                                className={styles.item__def}
-                            >
-                                Соискатели
-                            </p>
-                            <p
-                                key={'item3'}
-                                id={'item3'}
-                                className={styles.item__def}
-                            >
-                                Создать резюме
-                            </p>
+                                Переключить тему
+                            </a>
+                            <Link
+                                to={SEARCH_PATH}
+                                content={
+                                    <p className={styles['modal-item']}>
+                                        Поиск
+                                    </p>
+                                }
+                            />
+                            <div className={'flex row g-8 text-align-center'}>
+                                <div className={'flex-grow-1'}>
+                                    <Link
+                                        to={SIGN_IN_PATH}
+                                        content={
+                                            <p className={styles['modal-item']}>
+                                                Войти
+                                            </p>
+                                        }
+                                    />
+                                </div>
+                                <div className={'flex-grow-1'}>
+                                    <Link
+                                        to={SIGN_UP_PATH}
+                                        content={
+                                            <p className={styles['modal-item']}>
+                                                Зарегистрироваться
+                                            </p>
+                                        }
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 }
@@ -51,3 +156,9 @@ export default class HeaderModal extends ReactsComponent {
         );
     }
 }
+
+export default userConnect(state => ({
+    ...state,
+    name: state.name,
+    surname: state.surname,
+}))(HeaderModal);

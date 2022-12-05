@@ -13,6 +13,7 @@ export type ResumeState = {
     dateOfBirth: string;
     isActive: boolean;
     skills: string[];
+    experience: string;
     vk: string | null | undefined;
     facebook: string | null | undefined;
     telegram: string | null | undefined;

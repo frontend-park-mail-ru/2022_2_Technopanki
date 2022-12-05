@@ -17,6 +17,11 @@ import { removeNode } from './operations/remove';
 import { updateNode } from './operations/update';
 import { replaceNode } from './operations/replace';
 
+/**
+ * Diff switcher
+ * @param element
+ * @param operation
+ */
 export const applyDiff = (element: HTMLElement, operation: Operation) => {
     switch (operation.type) {
         case SKIP_OPERATION:
@@ -32,7 +37,6 @@ export const applyDiff = (element: HTMLElement, operation: Operation) => {
                 element,
                 (<ReplaceOperation>operation).oldNode,
                 (<ReplaceOperation>operation).newNode,
-                element.nextElementSibling as HTMLElement,
             );
             return;
         case UPDATE_OPERATION:

@@ -21,6 +21,8 @@
   --background-red: rgba(243, 42, 42, 0.10);
   --background-red-100: #2A1212;
   --background-green-100: #12261A;
+
+  --shadow-grey-md: 0px 4px 12px rgba(255, 255, 255, 0.08);
           //--background-modal: rgba(255, 255, 255, 0.4);
 }
 
@@ -44,6 +46,9 @@
   --background-red-100: #FEECEC;
   --background-green-100: #EEFBF3;
   //--background-modal: rgba(15, 15, 15, 0.4);
+
+  // TODO: добавить разные shadow для тем
+  --shadow-grey-md: 0px 6px 20px rgba(0, 0, 0, 0.08);
 }
 
 :root {
@@ -54,11 +59,10 @@
   --background-red: rgba(243, 42, 42, 0.12);
   --primary-purple: rgba(128, 137, 215, 0.5);
 
-  --background-modal: rgba(15, 15, 15, 0.4);
+  --background-modal: rgba(15, 15, 15, 0.75);
 
   --shadow-grey-xs: 0 4px 4px rgba(0, 0, 0, 0.02);
   --shadow-grey-sm: 0 4px 8px rgba(0, 0, 0, 0.04);
-  --shadow-grey-md: 0px 6px 20px rgba(0, 0, 0, 0.08);
   --shadow-grey-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
   --shadow-blue-md: 0px 4px 16px rgba(28, 52, 236, 0.16);
   --shadow-blue-lg: 0px 4px 24px rgba(28, 52, 236, 0.24);
@@ -77,7 +81,7 @@
   --border-radius-md: 12px;
   --border-radius-lg: 16px;
   --border-radius-xl: 24px;
-  --border-radius-max: 50%;
+  --border-radius-max: 999px;
 
   --border-light: 1px solid var(--background-50);
   --border-default: 1px solid var(--background-100);
@@ -85,6 +89,8 @@
   --border-dark: 1px solid var(--background-900);
   --border-red: 2px solid var(--primary-red);
 
+  --padding-2: 2px;
+  --padding-4: 4px;
   --padding-8: 8px;
   --padding-16: 16px;
   --padding-24: 24px;
@@ -99,6 +105,7 @@
   --gap-12: 12px;
   --gap-16: 16px;
   --gap-24: 24px;
+  --gap-32: 32px;
   --gap-40: 40px;
 
   --padding-screen-sm: 16px;
@@ -188,6 +195,10 @@ p {
   font-size: 14px;
 }
 
+a {
+  text-decoration: none;
+}
+
 .font-size {
   &-12 {
     font-size: 12px;
@@ -238,6 +249,9 @@ p {
   &-24 {
     left: 24px;
   }
+  &-220 {
+    left: 220px;
+  }
 }
 
 .r-0 {
@@ -246,6 +260,9 @@ p {
   }
   &-4 {
     right: 4px;
+  }
+  &-5 {
+    right: 5px;
   }
   &-16 {
     right: 16px;
@@ -334,11 +351,20 @@ p {
   &-40 {
     margin-top: 40px;
   }
+  &-50 {
+    margin-top: 50px;
+  }
   &-64 {
     margin-top: 64px;
   }
   &-header {
     margin-top: var(--header-height);
+  }
+}
+
+.transition {
+  &-fast {
+    transition: var(--transition-sfast);
   }
 }
 
@@ -404,6 +430,27 @@ p {
     height: 100%;
   }
   &-50vh {
+    height: 50vh;
+  }
+  &-100vh {
+    height: 100vh;
+  }
+}
+
+.mh {
+  &-25 {
+    min-height: 25%;
+  }
+  &-50 {
+    min-height: 50%;
+  }
+  &-75 {
+    min-height: 75%;
+  }
+  &-100 {
+    min-height: 100%;
+  }
+  &-50vh {
     min-height: 50vh;
   }
   &-100vh {
@@ -415,11 +462,9 @@ p {
   &-4 {
     gap: 4px
   }
-
   &-6 {
     gap: 6px;
   }
-
   &-8 {
     gap: 8px
   }
@@ -438,9 +483,22 @@ p {
   &-40 {
     gap: 40px
   }
+  &-m4 {
+    @media (max-width: $screen-md) {
+      gap: 4px;
+    }
+  }
+  &m-8 {
+    @media (max-width: $screen-md) {
+      gap: 8px;
+    }
+  }
 }
 
 .p {
+  &-4 {
+    padding: var(--padding-4);
+  }
   &-8 {
     padding: var(--padding-8);
   }
@@ -468,6 +526,9 @@ p {
     }
     &-4 {
       padding-top: 4px;
+    }
+    &-5 {
+      padding-top: 5px;
     }
   }
   &b {
@@ -538,6 +599,19 @@ p {
 
 .fixed {
   position: fixed;
+}
+
+.float {
+  &-r {
+    float: right;
+  }
+  &-l {
+    float: left;
+  }
+}
+
+.static {
+  position: static;
 }
 
 .none {
@@ -623,6 +697,24 @@ p {
   }
 }
 
+justify-items {
+  &-start {
+    justify-items: flex-start;
+  }
+  &-center {
+    justify-items: center;
+  }
+  &-end {
+    justify-items: flex-end;
+  }
+  &-end {
+    justify-items: flex-end;
+  }
+  &-strech {
+    justify-items: stretch;
+  }
+}
+
 .flex {
   &-left {
     display: flex;
@@ -697,6 +789,9 @@ p {
   &-900 {
     background-color: var(--background-900);
   }
+  &-red {
+    background-color: var(--background-red);
+  }
 }
 
 .color {
@@ -732,6 +827,9 @@ p {
   }
   &-900 {
     color: var(--background-900);
+  }
+  &-red {
+    color: var(--primary-red);
   }
 }
 
@@ -785,6 +883,12 @@ p {
     &-default {
       border-bottom: var(--border-default)
     }
+  }
+  &-blue {
+    border: var(--border-blue)
+  }
+  &-red {
+    border: var(--border-red);
   }
 }
 
@@ -913,6 +1017,9 @@ p {
   }
   &-lg {
     box-shadow: var(--shadow-grey-lg);
+  }
+  &-blue {
+    box-shadow: var(--shadow-blue-md);
   }
 }
 

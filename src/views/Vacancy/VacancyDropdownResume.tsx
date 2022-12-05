@@ -21,10 +21,9 @@ class Resume extends ReactsComponent<
     ResumeType & { name: string; surname: string; vacancyID: string }
 > {
     async sendResponseToServer() {
-        console.log('before apply: ', this.props);
         return await applicantProfileService.apply(
-            this.props.vacancyID,
-            this.props.id,
+            location.pathname.split('/').at(-1) as string,
+            parseInt(this.props.id),
             this.props.name,
             this.props.surname,
             this.props.title,
@@ -91,18 +90,53 @@ class Resume extends ReactsComponent<
 
 class VacancyDropdownResume extends ReactsComponent<
     { userID: string; name: string; surname: string; vacancyID: string },
-    { resume: ResumeType[] }
+    { resume: ResumeType[]; loading: boolean }
 > {
     state = {
         resume: [] as ResumeType[],
+        loading: false,
     };
 
+    shouldUpdate(
+        nextProps:
+            | Readonly<{
+                  userID: string;
+                  name: string;
+                  surname: string;
+                  vacancyID: string;
+              }>
+            | {
+                  userID: string;
+                  name: string;
+                  surname: string;
+                  vacancyID: string;
+              },
+    ): boolean {
+        return this.props.userID !== nextProps.userID;
+    }
+
+    async getResumeFromServer() {
+        try {
+            this.setState(state => ({ ...state, loading: true }));
+            const resumeData =
+                await applicantProfileService.getResumePreviewList(
+                    this.props.userID,
+                );
+
+            this.setState(state => ({
+                ...state,
+                resume: resumeData as ResumeType[],
+                loading: false,
+            }));
+        } catch (e) {
+            dispatch(activateError('Вы уже отправили резюме на эту вакансию'));
+            setTimeout(() => dispatch(deactivateError()), 3000);
+            console.error(e);
+        }
+    }
+
     componentDidMount() {
-        applicantProfileService
-            .getResumePreviewList(this.props.userID)
-            .then(body => {
-                this.setState(state => ({ ...state, resume: body }));
-            });
+        this.getResumeFromServer();
     }
 
     render() {
@@ -110,27 +144,39 @@ class VacancyDropdownResume extends ReactsComponent<
             <div
                 className={`flex hidden column g-0 background-0 rounded-md shadow-md ${styles.vacancy_dropdown}`}
             >
-                {this.state.resume.length === 0 ? (
-                    <div className={'rounded-md flex column g-16 p-24'}>
-                        <p key={'text'}>Похоже у вас нет резюме:(</p>
-                        <ArrowButtonWithText
-                            key={'button'}
-                            onClick={() => navigator.navigate(RESUME_PATHS.NEW)}
-                        >
-                            Создать резюме
-                        </ArrowButtonWithText>
+                {this.state.loading ? (
+                    <div
+                        className={
+                            'flex align-items-center justify-content-center p-40'
+                        }
+                    >
+                        <p>Загрузка...</p>
                     </div>
                 ) : (
-                    this.state.resume.map(resume => (
-                        <Resume
-                            vacancyID={this.props.vacancyID}
-                            key={resume.id}
-                            name={this.props.name}
-                            surname={this.props.surname}
-                            title={resume.title}
-                            id={resume.id}
-                        />
-                    ))
+                    <div className={'flex column'}>
+                        {this.state.resume.length === 0 ? (
+                            <div className={'rounded-md flex column g-16 p-24'}>
+                                <p>Похоже у вас нет резюме:(</p>
+                                <ArrowButtonWithText
+                                    onClick={() =>
+                                        navigator.navigate(RESUME_PATHS.NEW)
+                                    }
+                                >
+                                    Создать резюме
+                                </ArrowButtonWithText>
+                            </div>
+                        ) : (
+                            this.state.resume.map(resume => (
+                                <Resume
+                                    vacancyID={this.props.vacancyID}
+                                    name={this.props.name}
+                                    surname={this.props.surname}
+                                    title={resume.title}
+                                    id={resume.id}
+                                />
+                            ))
+                        )}
+                    </div>
                 )}
             </div>
         );

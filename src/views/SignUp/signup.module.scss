@@ -17,3 +17,18 @@
     color: var(--background-700);
   }
 }
+
+.confirm {
+  @media (max-width: $screen-sm) {
+    width: 80vw;
+  }
+  @media (min-width: $screen-sm) {
+    width: 60vw;
+  }
+  @media (min-width: $screen-md) {
+    width: 40vw;
+  }
+  @media (min-width: $screen-lg) {
+    width: 500px;
+  }
+}

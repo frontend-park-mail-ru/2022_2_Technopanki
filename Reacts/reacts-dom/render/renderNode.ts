@@ -7,6 +7,11 @@ import {
 } from '../../shared/types/node';
 import { setProps } from '../props/props';
 
+/**
+ * Renders children of node
+ * @param element
+ * @param children
+ */
 const renderChildren = (element: HTMLElement, children: ChildrenType) => {
     if (Array.isArray(children)) {
         children.forEach(child => {
@@ -21,6 +26,11 @@ const renderChildren = (element: HTMLElement, children: ChildrenType) => {
     }
 };
 
+/**
+ * Renders DOM node
+ * @param element
+ * @param node
+ */
 const renderDOMNode = (element: HTMLElement, node: ReactsDOMNode) => {
     const nodeDOMElement = document.createElement(node.type);
     node.ref = nodeDOMElement;
@@ -33,6 +43,11 @@ const renderDOMNode = (element: HTMLElement, node: ReactsDOMNode) => {
     element.appendChild(nodeDOMElement);
 };
 
+/**
+ * Creates instance of component and calls render children
+ * @param root
+ * @param node
+ */
 const renderComponent = (root: HTMLElement, node: ReactsComponentNode) => {
     node.ref = root;
     if (node.instance) {
@@ -48,6 +63,11 @@ const renderComponent = (root: HTMLElement, node: ReactsComponentNode) => {
     node.instance?.componentDidMount();
 };
 
+/**
+ * Render switcher
+ * @param root
+ * @param node
+ */
 export const renderNode = (root: HTMLElement, node: ReactsNode) => {
     if (!node || typeof node !== 'object') {
         switch (typeof node) {
@@ -56,6 +76,9 @@ export const renderNode = (root: HTMLElement, node: ReactsNode) => {
                 break;
             case 'number':
                 root.appendChild(document.createTextNode(node.toString()));
+                break;
+            default:
+                root.appendChild(document.createTextNode(''));
                 break;
         }
         return;
@@ -70,14 +93,6 @@ export const renderNode = (root: HTMLElement, node: ReactsNode) => {
             // @ts-ignore node guaranteed to be typeof ReactsComponentNode
             renderComponent(root, node);
             break;
-        // TODO
-        // case PROVIDER_NODE_SYMBOL:
-        //     renderProvider(root, node);
-        //     break;
-        // case CONTEXT_NODE_SYMBOL:
-        //     // @ts-ignore node type is Context
-        //     renderContext(root, node);
-        //     break;
         default:
             // @ts-ignore
             if (__DEV__) {

@@ -8,6 +8,7 @@ export interface ComponentType {
     props: any;
     ref: HTMLElement | null;
     currentNode: ReactsNode | null;
+    currentRenderNode: ReactsNode | null;
 
     componentDidMount(): void;
     componentDidUpdate(): void;
@@ -17,4 +18,9 @@ export interface ComponentType {
 
     unmount(): void;
     render(): ReactsNode;
+}
+
+export interface RootType {
+    render(node: ReactsNode): void;
+    unmount(): void;
 }

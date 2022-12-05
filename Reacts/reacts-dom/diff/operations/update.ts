@@ -13,33 +13,44 @@ import {
 } from '../../../shared/constants/symbols';
 import { applyChildrenDiff } from '../applyChildrenDiff';
 import { isArray } from '../../utils/isArray';
-import { render } from 'sass';
-import { renderNode } from '../../render/renderNode';
 import { applyDiff } from '../applyDiff';
-import { removeNode } from './remove';
+import { doc } from 'prettier';
 
-// TODO: оставить один аргумент - operation
-export const updateElementAttributes = (
-    operation: UpdateOperation,
-    node: ReactsDOMNode,
-) => {
-    removeProps(node, operation.attrUpdater.remove);
-    setNewProps(node, operation.attrUpdater.set);
+/**
+ * Updates DOM node attributes
+ * @param operation
+ */
+export const updateElementAttributes = (operation: UpdateOperation) => {
+    removeProps(operation.node as ReactsDOMNode, operation.attrUpdater.remove);
+    setNewProps(operation.node as ReactsDOMNode, operation.attrUpdater.set);
 };
 
+/**
+ * Updates primitive node
+ * @param element
+ * @param node
+ */
 const updatePrimitiveNode = (
     element: HTMLElement,
     node: ReactsPrimitiveNode,
 ) => {
     if (typeof node === 'string') {
         element.replaceWith(document.createTextNode(node));
+    } else if (typeof node === 'number') {
+        element.replaceWith(document.createTextNode(node.toString()));
+    } else {
+        element.replaceWith(document.createTextNode(''));
     }
 };
 
+/**
+ * Updates DOM node
+ * @param operation
+ */
 const updateDOMNode = (
     operation: UpdateOperation & { node: ReactsDOMNode },
 ) => {
-    updateElementAttributes(operation, operation.node);
+    updateElementAttributes(operation);
     isArray(operation.childrenUpdater)
         ? applyChildrenDiff(
               operation.node.ref as HTMLElement,
@@ -51,9 +62,14 @@ const updateDOMNode = (
           );
 };
 
+/**
+ * Updates component node
+ * @param operation
+ */
 const updateComponentNode = (
     operation: UpdateOperation & { node: ReactsComponentNode },
 ) => {
+    operation.node.instance?.componentDidUpdate();
     if (
         operation.node.props.children &&
         isArray(operation.node.props.children)
@@ -70,6 +86,11 @@ const updateComponentNode = (
     }
 };
 
+/**
+ * Update switcher
+ * @param element
+ * @param operation
+ */
 export const updateNode = (
     element: HTMLElement,
     operation: UpdateOperation,
@@ -77,10 +98,6 @@ export const updateNode = (
     if (isPrimitive(operation.node)) {
         updatePrimitiveNode(element, operation.node as ReactsPrimitiveNode);
         return;
-    }
-
-    if (!operation.node.ref) {
-        debugger;
     }
 
     switch (

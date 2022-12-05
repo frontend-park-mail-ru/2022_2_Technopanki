@@ -17,7 +17,14 @@ import { insertNode } from './operations/insert';
 import { removeNode } from './operations/remove';
 import { applyDiff } from './applyDiff';
 import { isArray } from '../utils/isArray';
+import { ReactsNotPrimitiveNode } from '../../shared/types/node';
 
+/**
+ * Applies diff for every DOM node child
+ * @param element
+ * @param operations
+ * @param startOffset
+ */
 export const applyChildrenDiff = (
     element: HTMLElement,
     operations: Operation[],
@@ -53,12 +60,16 @@ export const applyChildrenDiff = (
         }
 
         if (operation.type === UPDATE_OPERATION) {
-            applyDiff((<UpdateOperation>operation).node.ref, operation);
+            applyDiff(
+                (<ReactsNotPrimitiveNode>(<UpdateOperation>operation).node)
+                    .ref as HTMLElement,
+                operation,
+            );
             continue;
         }
 
         if (isArray(operation)) {
-            applyChildrenDiff(element, operation as Operation[], i);
+            applyChildrenDiff(element, <Operation[]>(<unknown>operation), i);
             continue;
         }
 

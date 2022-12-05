@@ -8,7 +8,7 @@ type HatPropsType = {
     name: string;
     surname: string;
     status: string;
-    rightSideContent: ReactsComponentNode;
+    rightSideContent?: ReactsComponentNode;
     linkTo?: string;
 };
 
@@ -29,7 +29,7 @@ export default class Hat extends ReactsComponent<HatPropsType> {
                             />
                             <div className={'flex column'}>
                                 <p className={styles.content_name}>
-                                    {this.props.name} {this.props.surname}
+                                    {`${this.props.name} ${this.props.surname}`}
                                 </p>
                                 <p>{this.props.status}</p>
                             </div>

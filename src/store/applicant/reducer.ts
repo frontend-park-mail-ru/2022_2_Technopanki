@@ -9,6 +9,10 @@ export const applicantProfileReducer: Reducer<ProfileState> = (
     action,
 ) => {
     switch (action.type) {
+        case APPLICANT_ACTIONS_TYPE.UPDATE_FROM_SERVER:
+            return {
+                ...action.state,
+            };
         case APPLICANT_ACTIONS_TYPE.UPDATE:
             return {
                 ...state,

@@ -54,7 +54,7 @@ app.get('/protected', (req, res) => {
     res.json({ value: crypto.randomUUID() });
 });
 
-app.get('api/vacancy/applies/:id', (req, res) => {
+app.get('api/searchCards/applies/:id', (req, res) => {
     res.json({
         data: [
             {
@@ -184,36 +184,28 @@ app.post('/api/user/', (req, res) => {
 });
 
 app.get('/api/user/safety/:id', (req, res) => {
-    console.log(users.user);
+    const applicantPreview = {
+        creator_img_src: './',
+        id: '3',
+        name: 'Sonya',
+        surname: 'Sitnichenko',
+        status: 'BMSTU student',
+    };
+    console.log(req.params);
 
-    res.status(200);
-
-    if (req.params.id === '2') {
+    if (req.params.id === '3') {
+        res.json(applicantPreview);
+    } else if (req.params.id === '2') {
         res.json(users.specialUser);
     } else {
         res.json(users.user);
     }
 });
 
-app.get('/api/vacancy/company/:id', (req, res) => {
+app.get('/api/searchCards/company/:id', (req, res) => {
     console.log('vacancies');
     res.json({ data: vacancies });
 });
-
-// app.post('/api/user/safety/:id', (req, res) => {
-//     console.log(req.body.image);
-//
-//     if (req.params.id === 2) {
-//         users.specialUser = { ...users.specialUser, ...req.body };
-//     } else {
-//         users.user.company_name = req.body.company_name;
-//         users.user.description = req.body.description;
-//     }
-//
-//     console.log(users.user);
-//
-//     res.json({ status: 'ok' });
-// });
 
 // TODO: поменять путь
 app.get('/api/user/preview/:id', (req, res) => {
@@ -250,24 +242,24 @@ app.get('/api/user/:id/preview', (req, res) => {
     }
 });
 
-app.get('/api/vacancy/', (req, res) => {
-    console.log('api/vacancy');
+app.get('/api/searchCards/', (req, res) => {
+    console.log('api/searchCards');
     res.json({ data: vacancies });
 });
 
-app.post('/api/vacancy/', (req, res) => {
+app.post('/api/searchCards/', (req, res) => {
     vacancies.push({
         ...defaultVacancy,
         postedByUserId: req.body.postedByUserId,
     });
     console.log(vacancies[vacancies.length - 1]);
-    console.log('/api/vacancy/');
+    console.log('/api/searchCards/');
 
     res.json(defaultVacancy);
 });
 
-app.get('/api/vacancy/:id', (req, res) => {
-    console.log('/api/vacancy/', req.params.id);
+app.get('/api/searchCards/:id', (req, res) => {
+    console.log('/api/searchCards/', req.params.id);
 
     if (req.params.id === '2') {
         res.json(testVacancy);
@@ -276,7 +268,7 @@ app.get('/api/vacancy/:id', (req, res) => {
     }
 });
 
-app.post('/api/vacancy/new', (req, res) => {
+app.post('/api/searchCards/new', (req, res) => {
     vacancies.push(req.body);
     console.log(vacancies[vacancies.length - 1]);
     console.log('VACANCY_NEW');
@@ -284,7 +276,7 @@ app.post('/api/vacancy/new', (req, res) => {
     res.status(200).send();
 });
 
-app.put('/api/vacancy/:id', (req, res) => {
+app.put('/api/searchCards/:id', (req, res) => {
     console.log(vacancies);
     vacancies[req.params.id].title = req.body.title;
     console.log(vacancies);
@@ -387,7 +379,7 @@ app.get('/api/applicant/resumes/:id', (req, res) => {
 app.get('/api/user/image/:id', (req, res) => {
     console.log(req.body);
 
-    res.status(200);
+    res.json({ image: 'hello.png' });
 });
 
 app.get('/authh', (req, res) => {

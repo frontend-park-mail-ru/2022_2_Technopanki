@@ -4,15 +4,11 @@ import IconField from './utils/IconField';
 import MapIcon from '../../static/icons/map.svg';
 import ClockIcon from '../../static/icons/clock.svg';
 import CalendarIcon from '../../static/icons/calendar.svg';
-import Chips from '../UI-kit/chips/Chips';
-import VKIcon from '../../static/icons/logos/VK.svg';
-import FacebookIcon from '../../static/icons/logos/Facebook.svg';
-import TelegramIcon from '../../static/icons/logos/Telegram.svg';
 import RenderWithCondition from '../RenderWithCondition';
 import { vacancyConnect } from '../../store';
 
 class VacancySideBar extends ReactsComponent<{
-    salary: string;
+    salary: number;
     experience: string;
     location: string;
     format: string;
@@ -28,7 +24,10 @@ class VacancySideBar extends ReactsComponent<{
                         inside: (
                             <p className={'font-size-24 bold'}>
                                 {this.props.salary
-                                    ? this.props.salary + ' руб/мес'
+                                    ? new Intl.NumberFormat('ru-RE', {
+                                          style: 'currency',
+                                          currency: 'RUB',
+                                      }).format(this.props.salary)
                                     : 'Не указано'}
                             </p>
                         ),
@@ -83,13 +82,4 @@ class VacancySideBar extends ReactsComponent<{
     }
 }
 
-export default vacancyConnect(state => {
-    return {
-        salary: state.salary,
-        experience: state.experience,
-        location: state.location,
-        format: state.format,
-        hours: state.hours,
-        skills: state.skills,
-    };
-})(VacancySideBar);
+export default vacancyConnect(state => ({ ...state }))(VacancySideBar);

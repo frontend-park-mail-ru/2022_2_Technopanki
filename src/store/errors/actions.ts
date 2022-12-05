@@ -1,4 +1,4 @@
-export const activateError = (header: string, text: string) => ({
+export const activateError = (header: string, text: string = '') => ({
     type: 'ERRORS_ACTIVATE',
     header,
     text,

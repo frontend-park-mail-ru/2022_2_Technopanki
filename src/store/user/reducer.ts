@@ -12,7 +12,7 @@ export const userReducer: Reducer<UserState> = (
         case 'SIGN_IN':
             return {
                 ...state,
-                id: (<AuthAction>action).id.toString(),
+                id: (<AuthAction>action).id,
                 name: (<AuthAction>action).name,
                 surname:
                     (<AuthAction>action).userType === 'applicant'
@@ -20,7 +20,13 @@ export const userReducer: Reducer<UserState> = (
                         : '',
                 userType: (<AuthAction>action).userType,
                 avatarSrc: IMAGE_URL + (<AuthAction>action).imgSrc,
+                email: (<AuthAction>action).email,
                 authorized: true,
+            };
+        case 'UPDATE_USER_EMAIL':
+            return {
+                ...state,
+                email: action.email,
             };
         case 'UPDATE_USER':
             return {
@@ -38,9 +44,10 @@ export const userReducer: Reducer<UserState> = (
                 id: '',
                 name: '',
                 surname: '',
-                avatarSrc: 'default.png',
+                avatarSrc: '',
                 userType: null,
                 authorized: false,
+                email: '',
             };
         default:
             return state;

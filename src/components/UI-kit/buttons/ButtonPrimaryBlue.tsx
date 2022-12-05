@@ -2,6 +2,7 @@ import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import styles from './button.module.scss';
 
 export default class ButtonPrimaryBlue extends ReactsComponent<{
+    type: string;
     onClick?: Function;
     children: string;
 }> {

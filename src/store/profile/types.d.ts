@@ -1,3 +1,5 @@
+import { IMAGE_URL } from '../../utils/networkConstants';
+
 export type EmployerSocialNetworks = {
     vk?: string;
     facebook?: string;
@@ -21,6 +23,7 @@ export type EmployerProfile = {
     size: string;
     fieldOfActivity: string[];
     socialNetworks: EmployerSocialNetworks;
+    businessType: string;
 };
 
 export type ApplicantProfileType = {
@@ -36,8 +39,9 @@ export type ApplicantProfileType = {
     phone: string;
     email: string;
     location: string;
-    size: string;
+    dateOfBirth: string;
     skills: string[];
+    experience: string;
     socialNetworks: EmployerSocialNetworks;
 };
 

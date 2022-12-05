@@ -15,19 +15,31 @@ import { removeChildren } from './remove';
 import { ComponentType } from '../../../shared/types/component';
 import { ReactsComponent } from '../../../reacts/src/Component';
 
-// TODO: needs fixes
+/**
+ * Removes DOM node
+ * @param node
+ */
 const removeDOMNode = (node: ReactsDOMNode) => {
     removeAllProps(node);
     removeChildren(node);
     node.ref = null;
 };
 
+/**
+ * Removes Component node
+ * @param node
+ */
 const removeComponentNode = (node: ReactsComponentNode) => {
     node.instance?.componentWillUnmount();
     node.instance?.unmount();
     removeChildren(node);
 };
 
+/**
+ * Replace DOM node
+ * @param replaceElement
+ * @param node
+ */
 const replaceDOMNode = (replaceElement: HTMLElement, node: ReactsDOMNode) => {
     node.ref = document.createElement(node.type);
     setProps(node);
@@ -35,6 +47,10 @@ const replaceDOMNode = (replaceElement: HTMLElement, node: ReactsDOMNode) => {
     replaceElement.replaceWith(node.ref);
 };
 
+/**
+ * Finds first DOM node in component render tree
+ * @param node
+ */
 const findReplaceElementForComponent = (
     node: ReactsNotPrimitiveNode,
 ): ReactsDOMNode => {
@@ -47,6 +63,12 @@ const findReplaceElementForComponent = (
     }
 };
 
+/**
+ * Applies remove operation
+ * @param element
+ * @param oldNode
+ * @param newNode
+ */
 export const replaceNode = (
     element: HTMLElement,
     oldNode: ReactsNode,
@@ -55,21 +77,20 @@ export const replaceNode = (
     if (isPrimitiveNodes(oldNode, newNode)) {
         switch (typeof newNode) {
             case 'string':
-                element.replaceWith(document.createTextNode(newNode));
-                break;
+                element?.replaceWith(document.createTextNode(newNode));
+                return;
             case 'number':
-                element.replaceWith(
+                element?.replaceWith(
                     document.createTextNode(newNode.toString()),
                 );
-                break;
+                return;
             default:
-                element.remove();
+                element?.replaceWith(document.createTextNode(''));
+                return;
         }
-
-        return;
     }
 
-    // Нужно сохранить DOM элемент который мы реплейсим
+    // Save DOM element that we will replace
     let replaceElement: HTMLElement = element;
 
     // "remove"
@@ -101,9 +122,6 @@ export const replaceNode = (
             (<ReactsComponentNode>newNode).ref = element;
             (<ReactsComponent>(<ReactsComponentNode>newNode).instance).ref =
                 element;
-            if (!element) {
-                debugger;
-            }
             (<ReactsComponentNode>newNode).instance?.componentDidMount();
             break;
         default:

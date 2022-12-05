@@ -1,5 +1,6 @@
 import {
     ChildrenType,
+    PropsType,
     PropsWithChildren,
     PropType,
     ReactsComponentNode,
@@ -8,6 +9,7 @@ import {
 } from '../../shared/types/node';
 import { Operation, PropsUpdater } from './types';
 import {
+    emptyAttributeUpdater,
     insert,
     remove,
     replace,
@@ -18,6 +20,7 @@ import {
 import { COMPONENT_SYMBOL, DOM_SYMBOL } from '../../shared/constants/symbols';
 import { childrenDiff } from './childrenDiff';
 import { isPrimitiveNodes } from '../utils/isPrimitive';
+import { isArray } from '../utils/isArray';
 
 /**
  * A function that compares object props and returns
@@ -53,6 +56,11 @@ export const compareProps = (
     };
 };
 
+/**
+ * Creates diff operation for primitive nodes
+ * @param oldNode
+ * @param newNode
+ */
 export const createDiffPrimitive = (
     oldNode: ReactsNode,
     newNode: ReactsNode,
@@ -72,6 +80,11 @@ export const createDiffPrimitive = (
     return skip();
 };
 
+/**
+ * Creates diff operation for children
+ * @param oldChildren
+ * @param newChildren
+ */
 export const createDiffForChildren = (
     oldChildren: ChildrenType,
     newChildren: ChildrenType,
@@ -86,6 +99,11 @@ export const createDiffForChildren = (
     );
 };
 
+/**
+ * Compares 2 component nodes and returns diff operation
+ * @param oldNode
+ * @param newNode
+ */
 export const createDiffComponent = (
     oldNode: ReactsComponentNode,
     newNode: ReactsComponentNode,
@@ -96,8 +114,8 @@ export const createDiffComponent = (
 
     if (!oldNode.instance?.shouldUpdate(newNode.instance?.props)) {
         newNode.props = oldNode.props;
-        // @ts-ignore
-        newNode.instance.currentNode = oldNode.instance.currentNode;
+        newNode.ref = oldNode.ref;
+        newNode.instance = oldNode.instance;
         return skip();
     }
 
@@ -107,10 +125,30 @@ export const createDiffComponent = (
         newNode.props.children,
     );
 
+    oldNode.instance.props = newNode.instance?.props;
+    oldNode.instance.currentNode = newNode.instance?.currentNode;
+    oldNode.instance.currentRenderNode = newNode.instance?.currentRenderNode;
+    newNode.instance = oldNode.instance;
     newNode.ref = oldNode.ref;
     return update(newNode, childrenDiff, propsUpdater);
 };
 
+const shouldSkip = (childrenDiff: Operation | Operation[]): boolean => {
+    if (isArray(childrenDiff)) {
+        return !Boolean(
+            (<Operation[]>childrenDiff).find(
+                operation => !shouldSkip(operation),
+            ),
+        );
+    }
+    return (<Operation>childrenDiff).type === SKIP_OPERATION;
+};
+
+/**
+ * Compares 2 DOM nodes and returns diff operation
+ * @param oldNode
+ * @param newNode
+ */
 export const createDiffDOM = (
     oldNode: ReactsDOMNode,
     newNode: ReactsDOMNode,
@@ -128,6 +166,9 @@ export const createDiffDOM = (
     newNode.ref = oldNode.ref;
     newNode.eventMap = oldNode.eventMap;
 
+    if (shouldSkip(childrenDiff) && propsUpdater === emptyAttributeUpdater) {
+        return skip();
+    }
     return update(newNode, childrenDiff, propsUpdater);
 };
 

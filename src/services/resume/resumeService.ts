@@ -1,11 +1,35 @@
-import network from '../lib/network';
-import { SERVER_URL, SERVER_URLS } from '../utils/networkConstants';
-import { requestHeaders } from './headers';
-import { Service } from './types';
-import { dispatch } from '../store';
-import { stopLoading } from '../store/loading/actions';
+import network from '../../lib/network';
+import {
+    SERVER_URL,
+    SERVER_URLS,
+    VACANCY_URLS,
+} from '../../utils/networkConstants';
+import { requestHeaders } from '../headers';
+import { Service } from '../types';
+import { dispatch } from '../../store';
+import { startLoading, stopLoading } from '../../store/loading/actions';
+import { ResumeResponse } from './types';
+import { ApplicantResponse } from '../auth/types';
 
-export const resumeService: Service = {
+export const resumeService: {
+    getResumeData: (resumeID: string) => Promise<ResumeResponse>;
+    getResumeHatData: (userID: string) => Promise<ApplicantResponse>;
+} & Service = {
+    getAllResumes: async () => {
+        dispatch(startLoading());
+        return await network
+            .GET(SERVER_URLS.ALL_RESUMES, requestHeaders.jsonHeader)
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            })
+            .catch(() => dispatch(stopLoading()));
+    },
+
     getResumeData: (resumeID: string) => {
         return network
             .GET(SERVER_URLS.RESUME + resumeID, requestHeaders.jsonHeader)
@@ -49,6 +73,7 @@ export const resumeService: Service = {
                         job_location_city: formData.get('location'),
                         description: formData.get('description'),
                     },
+                    experience: formData.get('experience'),
                     applicant_skills: null,
                 }),
             )
@@ -81,6 +106,7 @@ export const resumeService: Service = {
                         job_location_city: formData.get('location'),
                         description: formData.get('description'),
                     },
+                    experience: formData.get('experience'),
                     applicant_skills: null,
                 }),
             )
@@ -94,8 +120,9 @@ export const resumeService: Service = {
     },
 
     deleteResume: async (resumeID: string) => {
-        return await network
-            .DELETE(SERVER_URLS.RESUME + resumeID, requestHeaders.jsonHeader)
-            .then(() => console.log('deleted'));
+        return await network.DELETE(
+            SERVER_URLS.RESUME + resumeID,
+            requestHeaders.jsonHeader,
+        );
     },
 };

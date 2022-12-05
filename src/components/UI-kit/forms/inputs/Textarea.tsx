@@ -9,8 +9,6 @@ export default class Textarea extends ReactsComponent<{
     name: string;
     value?: string;
     required?: boolean;
-    error?: boolean;
-    errorMessage?: string;
 }> {
     render() {
         return (

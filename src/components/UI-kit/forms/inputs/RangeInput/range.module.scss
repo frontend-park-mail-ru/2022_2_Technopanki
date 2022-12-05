@@ -1,0 +1,62 @@
+@import '../../../../../styles/screens';
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 3px;
+  width: 160px;
+  background: var(--background-100);
+  border-radius: 5px;
+  background-image: linear-gradient(#172bc2, #1a2fd3);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: absolute;
+  pointer-events: none;
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    pointer-events: all;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 3px solid var(--primary-blue);
+    cursor: ew-resize;
+  }
+  &::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+  }
+}
+
+.from_slider {
+  height: 0;
+  z-index: 1;
+}
+
+.range_input {
+  border: none;
+  max-width: 12ch;
+  font-size: 12px;
+  @media (max-width: $screen-md) {
+    font-size: 16px;
+  }
+  color: var(--background-400);
+  background-color: var(--background-body);
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button
+  {
+    -webkit-appearance: none;
+  }
+  &:focus-visible {
+    -webkit-appearance: none;
+    outline: none;
+  }
+  &::placeholder {
+    color: var(--background-100);
+  }
+  &:focus::placeholder {
+    color: transparent;
+  }
+}

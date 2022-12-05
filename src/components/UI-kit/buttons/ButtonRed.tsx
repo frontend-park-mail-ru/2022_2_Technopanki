@@ -3,11 +3,13 @@ import styles from './button.module.scss';
 
 export default class ButtonRed extends ReactsComponent<{
     onClick?: Function;
+    type?: string;
     children: string;
 }> {
     render() {
         return (
             <button
+                type={this.props.type}
                 onClick={this.props.onClick}
                 className={`${styles.btn} ${styles['btn-red']}`}
             >

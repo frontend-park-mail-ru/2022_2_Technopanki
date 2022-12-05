@@ -11,33 +11,42 @@ import ArrowButtonWithText from '../../components/UI-kit/buttons/ArrowButtonWith
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
 import EmployerProfileSideBar from '../../components/sidebars/EmployerProfileSideBar';
 import Link from '../../components/Link/Link';
-import { VacancyCardPropsType } from '../../components/UI-kit/vacancy/VacancyCard';
+import { VacancyCardPropsType } from '../../components/UI-kit/searchCards/VacancyCard';
 import Footer from '../../components/UI-kit/footer/Footer';
 import { employerProfileService } from '../../services/employerProfileService';
-import { userStore } from '../../store/user/store';
-import { EmployerProfile, ProfileState } from '../../store/profile/types';
+import { ProfileState } from '../../store/profile/types';
 import { dispatch, profileConnect, userConnect } from '../../store';
 import { profileActions } from '../../store/profile/actions';
 import { vacancyActions } from '../../store/vacancy/actions';
 import ProfileVacancies from './ProfileVacancies';
 import RenderWithCondition from '../../components/RenderWithCondition';
 import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../utils/routerConstants';
+import { vacancyService } from '../../services/vacancy/vacancyService';
+import { USER_TYPE } from '../../services/auth/authService';
 
 class Profile extends ReactsComponent<
-    ProfileState & { userID: string },
-    { vacancies: VacancyCardPropsType[] }
+    { userID: string; userType: string; authorized: boolean } & ProfileState,
+    { profile: ProfileState; vacancies: VacancyCardPropsType[] }
 > {
     state = {
         vacancies: [],
     };
 
-    getDataFromServer() {
-        const employerID = location.pathname.split('/').at(-1);
-        if (employerID !== this.props.id) {
-            employerProfileService.getProfileData(employerID).then(body => {
-                dispatch(profileActions.update({ ...body, id: employerID }));
-            });
-        }
+    async getDataFromServer() {
+        const employerID = location.pathname.split('/').at(-1) as string;
+
+        const employerProfile = await employerProfileService.getProfileData(
+            employerID,
+        );
+        const vacancies = await vacancyService.getAllVacanciesForEmployer(
+            employerID,
+        );
+
+        dispatch(profileActions.updateEmployerFromServer(employerProfile));
+        this.setState(state => ({
+            ...state,
+            vacancies: vacancies?.data ?? [],
+        }));
     }
 
     componentDidMount() {
@@ -55,35 +64,52 @@ class Profile extends ReactsComponent<
                     status={this.props.status}
                     profileID={this.props.id}
                     buttons={
-                        <div className={'flex flex-wrap row g-16'}>
-                            <ButtonIcon
-                                onClick={() => {
-                                    window.navigator.clipboard
-                                        .writeText(this.props.phone)
-                                        .then(() => console.log('copied!'))
-                                        .catch(err => console.error(err));
-                                }}
-                                icon={PhoneIcon}
+                        <div className={'flex flex-wrap row g-16 gm-8'}>
+                            <RenderWithCondition
+                                condition={Boolean(window.navigator.clipboard)}
+                                onSuccess={
+                                    <div className={'flex row g-16'}>
+                                        <ButtonIcon
+                                            onClick={() => {
+                                                window.navigator.clipboard
+                                                    .writeText(this.props.phone)
+                                                    .then(() =>
+                                                        console.log('copied!'),
+                                                    )
+                                                    .catch(err =>
+                                                        console.error(err),
+                                                    );
+                                            }}
+                                            icon={PhoneIcon}
+                                        />
+                                        <ButtonIcon
+                                            onClick={() => {
+                                                window.navigator.clipboard
+                                                    .writeText(this.props.email)
+                                                    .then(() =>
+                                                        console.log('copied!'),
+                                                    )
+                                                    .catch(err =>
+                                                        console.error(err),
+                                                    );
+                                            }}
+                                            icon={MailIcon}
+                                        />
+                                    </div>
+                                }
                             />
-                            <ButtonIcon
-                                onClick={() => {
-                                    window.navigator.clipboard
-                                        .writeText(this.props.email)
-                                        .then(() => console.log('copied!'))
-                                        .catch(err => console.error(err));
-                                }}
-                                icon={MailIcon}
-                            />
-                            {userStore.getState().authorized &&
-                            userStore.getState().userType === 'applicant' ? (
-                                <ButtonPrimary>
-                                    Хочу здесь работать
-                                </ButtonPrimary>
+                            {this.props.authorized &&
+                            this.props.userType === USER_TYPE.APPLICANT ? (
+                                <a className={''} href={'#vacancies'}>
+                                    <ButtonPrimary>
+                                        Хочу здесь работать
+                                    </ButtonPrimary>
+                                </a>
                             ) : (
                                 <p className={'none'}></p>
                             )}
-                            {userStore.getState().id === this.props.id &&
-                            userStore.getState().userType === 'employer' ? (
+                            {this.props.id === this.props.userID &&
+                            this.props.userType === USER_TYPE.EMPLOYER ? (
                                 <Link
                                     to={EMPLOYER_PATHS.SETTINGS + this.props.id}
                                     content={<Button>Настройки</Button>}
@@ -101,7 +127,9 @@ class Profile extends ReactsComponent<
                             content={this.props.description}
                         />
                         <div className={'flex column g-16'}>
-                            <h6>Вакансии</h6>
+                            <a name={'vacancies'}>
+                                <h6>Вакансии</h6>
+                            </a>
                             <div className={'flex column g-16'}>
                                 <RenderWithCondition
                                     condition={
@@ -127,7 +155,9 @@ class Profile extends ReactsComponent<
                                         </button>
                                     }
                                 />
-                                <ProfileVacancies profileID={this.props.id} />
+                                <ProfileVacancies
+                                    vacancies={this.state.vacancies}
+                                />
                             </div>
                         </div>
                     </div>
@@ -136,6 +166,8 @@ class Profile extends ReactsComponent<
                             companySize={this.props.size}
                             fieldOfActivity={this.props.fieldOfActivity}
                             socialNetworks={this.props.socialNetworks}
+                            businessType={this.props.businessType}
+                            location={this.props.location}
                         />
                     </div>
                 </div>
@@ -145,9 +177,11 @@ class Profile extends ReactsComponent<
     }
 }
 
-const UserWrapper = userConnect((state, props) => ({
+const userWrapper = userConnect((state, props) => ({
     ...props,
     userID: state.id,
+    userType: state.userType,
+    authorized: state.authorized,
 }))(Profile);
 
-export default profileConnect(state => state)(UserWrapper);
+export default profileConnect(state => state)(userWrapper);

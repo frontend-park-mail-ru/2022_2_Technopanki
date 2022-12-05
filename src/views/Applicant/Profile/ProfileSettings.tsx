@@ -1,105 +1,50 @@
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import Header from '../../../components/UI-kit/header/Header';
-import ProfileHeader from '../../../components/ProfileHeader/ProfileHeader';
-import ButtonIcon from '../../../components/UI-kit/buttons/ButtonIcon';
-import PhoneIcon from '../../../static/icons/phone.svg';
-import MailIcon from '../../../static/icons/mail.svg';
 import ButtonPrimary from '../../../components/UI-kit/buttons/ButtonPrimary';
-import Link from '../../../components/Link/Link';
 import Button from '../../../components/UI-kit/buttons/Button';
 import SettingsHat from '../../../components/hats/SettingsHat';
-// import ProfileSettings, { AvatarSettings, Password, SocialNetworks } from '../../Employer/ProfileSettings';
-import Form, { FormSectionType } from '../../../components/UI-kit/forms/Form';
-import Input, {
-    InputPropsType,
-} from '../../../components/UI-kit/forms/inputs/Input';
-import CancelSaveButtons from '../../../components/CancelSaveButtons/CancelSaveButtons';
-import IconInput from '../../../components/UI-kit/forms/inputs/IconInput';
-// import Location from '../../../static/icons/location_input.svg'
-import styles from './profileSettings.module.scss';
-import ApplicantProfile from './Profile';
-import ProfileSettings from '../../Employer/ProfileSettings';
+import Form from '../../../components/UI-kit/forms/Form';
+import FormInput from '../../../components/UI-kit/forms/formInputs/FormInput';
+import FormItem from '../../../components/UI-kit/forms/FormItem';
+import { InputPropsType } from '../../../components/UI-kit/forms/inputs/Input';
 import {
     ApplicantProfileType,
-    EmployerProfile,
     ProfileState,
 } from '../../../store/profile/types';
-import {
-    dispatch,
-    errorsConnect,
-    profileConnect,
-    userConnect,
-} from '../../../store';
-import {
-    phoneValidation,
-    validateEmail,
-    validateNameSymbols,
-    validatePasswordSymbols,
-} from '../../../utils/validation/validation';
-import {
-    EMAIL_ERROR,
-    NAME_SYMBOLS_ERROR,
-    PASSWORD_SYMBOLS_ERROR,
-    PHONE_ERROR,
-} from '../../../utils/validation/messages';
+import { dispatch, profileConnect, userConnect } from '../../../store';
 import { employerProfileService } from '../../../services/employerProfileService';
 import navigator from '../../../router/navigator';
 import { applicantProfileService } from '../../../services/applicantService';
-import Textarea from '../../../components/UI-kit/forms/inputs/Textarea';
 import Footer from '../../../components/UI-kit/footer/Footer';
-import FileInput from '../../../components/UI-kit/forms/inputs/FileInput';
-import { authService } from '../../../services/authService';
+import FormFileInput from '../../../components/UI-kit/forms/formInputs/FormFileInput';
+import WorkExperienceInput from '../../../components/WorkExperienceInput';
+import { authService, USER_TYPE } from '../../../services/auth/authService';
 import { userActions } from '../../../store/user/actions';
 import ButtonRed from '../../../components/UI-kit/buttons/ButtonRed';
 import { profileActions } from '../../../store/profile/actions';
-import FormSection from '../../../components/UI-kit/forms/FormSection';
-import { APPLICANT_PATHS } from '../../../utils/routerConstants';
-
-class AvatarSettingsComponent extends ReactsComponent<
-    { previewSrc: string },
-    { previewSrc: string }
-> {
-    setPreview = (event: InputEvent) => {
-        // @ts-ignore
-        const [file] = event.target.files;
-        const fileUrl = URL.createObjectURL(file);
-
-        this.setState(state => ({ ...state, previewSrc: fileUrl }));
-    };
-
-    state = {
-        previewSrc: this.props.previewSrc,
-    };
-
-    render() {
-        return (
-            <div key={'avatar'} className={'columns g-16'}>
-                <div key={'preview'} className={'col-12 col-md-4'}>
-                    <img
-                        height={64}
-                        width={64}
-                        id={'preview_img'}
-                        alt={'preview'}
-                        src={this.state.previewSrc}
-                    />
-                </div>
-                <div key={'input'} className={'col-12 col-md-4'}>
-                    <FileInput
-                        id={'avatar'}
-                        label={'Загрузить новую фотогрфию'}
-                        onUpload={this.setPreview}
-                    />
-                </div>
-            </div>
-        );
-    }
-}
-
-const AvatarSettings = profileConnect(store => {
-    return {
-        previewSrc: store.previewSrc,
-    };
-})(AvatarSettingsComponent);
+import {
+    APPLICANT_PATHS,
+    EMPLOYER_PATHS,
+} from '../../../utils/routerConstants';
+import { useValidation } from '../../../utils/validation/formValidation';
+import {
+    dateOfBirthValidation,
+    emailValidation,
+    fileFormatValidation,
+    fileSizeValidation,
+    locationValidation,
+    nameLengthValidation,
+    nameSymbolsValidation,
+    phoneValidation,
+    surnameLengthValidation,
+    surnameSymbolsValidation,
+} from './settingsValidators';
+import { activateSuccess } from '../../../store/succeses/actions';
+import { applicantActions } from '../../../store/applicant/actions';
+import ErrorPopup from '../../../components/ErrorPopup/ErrorPopup';
+import { activateError, deactivateError } from '../../../store/errors/actions';
+import { VacancyUpdateError } from '../../../services/vacancy/types';
+import FormInputGroup from '../../../components/UI-kit/forms/formInputs/FormInputGroup';
 
 class ApplicantSettings extends ReactsComponent<
     ProfileState,
@@ -118,174 +63,63 @@ class ApplicantSettings extends ReactsComponent<
 > {
     state = {
         profile: { ...this.props },
-        sections: [
-            {
-                header: 'О себе',
-                fields: {
-                    name: {
-                        size: 4,
-                        type: 'text',
-                        placeholder: 'Имя',
-                        label: 'Имя',
-                        name: 'name',
-                        required: true,
-                        value: this.props.name,
-                        validator: validateNameSymbols,
-                        error: false,
-                        errorMessage: NAME_SYMBOLS_ERROR,
-                    },
-                    surname: {
-                        size: 4,
-                        type: 'text',
-                        placeholder: 'Фамилия',
-                        label: 'Фамилия',
-                        name: 'surname',
-                        required: true,
-                        value: this.props.surname,
-                        validator: validateNameSymbols,
-                        error: false,
-                        errorMessage: NAME_SYMBOLS_ERROR,
-                    },
-                },
-            },
-            {
-                header: ' ',
-                fields: {
-                    dateOfBirth: {
-                        size: 4,
-                        type: 'date',
-                        placeholder: '',
-                        label: 'Дата рождения',
-                        name: 'dateOfBirth',
-                        required: false,
-                        value: `${
-                            this.props.dateOfBirth
-                                ? this.props.dateOfBirth.slice(0, 10)
-                                : ''
-                        }`,
-                    },
-                    location: {
-                        size: 4,
-                        type: 'text',
-                        placeholder: 'Город',
-                        label: 'Город проживания',
-                        name: 'location',
-                        required: true,
-                        value: this.props.location,
-                    },
-                    status: {
-                        size: 8,
-                        type: 'text',
-                        placeholder: 'Статус',
-                        label: 'Статус',
-                        name: 'status',
-                        required: true,
-                        value: this.props.status,
-                    },
-                },
-            },
-            {
-                header: 'Контактные данные',
-                fields: {
-                    phone: {
-                        size: 4,
-                        type: 'text',
-                        placeholder: '+7 (999) 999-99-99',
-                        label: 'Телефон',
-                        name: 'phone',
-                        required: false,
-                        value: this.props.phone,
-                        validator: phoneValidation,
-                        errorMessage: PHONE_ERROR,
-                    },
-                    email: {
-                        size: 4,
-                        type: 'text',
-                        placeholder: 'example@mail.ru',
-                        label: 'Email',
-                        name: 'email',
-                        required: true,
-                        value: this.props.email,
-                        validator: validateEmail,
-                        error: false,
-                        errorMessage: EMAIL_ERROR,
-                    },
-                },
-            },
-            {
-                header: 'Пароль',
-                fields: {
-                    password: {
-                        size: 4,
-                        type: 'password',
-                        placeholder: '********',
-                        label: 'Новый пароль',
-                        name: 'password',
-                        validator: validatePasswordSymbols,
-                        error: false,
-                        errorMessage: PASSWORD_SYMBOLS_ERROR,
-                        value: undefined,
-                    },
-                    repeatPassword: {
-                        size: 4,
-                        type: 'password',
-                        placeholder: '********',
-                        label: 'Повторите пароль',
-                        name: 'repeatPassword',
-                        value: undefined,
-                    },
-                },
-            },
-        ],
+    };
+
+    validation = useValidation({
+        name: [nameSymbolsValidation, nameLengthValidation],
+        surname: [surnameSymbolsValidation, surnameLengthValidation],
+        phone: [phoneValidation],
+        avatar: [fileSizeValidation, fileFormatValidation],
+        dateOfBirth: [dateOfBirthValidation],
+        location: [locationValidation],
+        email: [emailValidation],
+    });
+
+    profileValidation = useValidation({
+        name: [nameSymbolsValidation, nameLengthValidation],
+        surname: [surnameSymbolsValidation, surnameLengthValidation],
+        phone: [phoneValidation],
+        dateOfBirth: [dateOfBirthValidation],
+        location: [locationValidation],
+        email: [emailValidation],
+    });
+
+    avatarValidation = useValidation({
+        avatar: [fileSizeValidation, fileFormatValidation],
+    });
+
+    submitAvatar = async (e: SubmitEvent) => {
+        e.preventDefault();
+        if (!this.avatarValidation.ok()) {
+            return;
+        }
+
+        // @ts-ignore
+        const image = document.querySelector('#avatar').files[0];
+        const formDataImage = new FormData();
+        formDataImage.append('avatar', image);
+
+        try {
+            const newImageSrc = await employerProfileService.updateProfileImg(
+                this.props.id,
+                formDataImage,
+            );
+
+            dispatch(userActions.updateAvatar(newImageSrc));
+            navigator.navigate(APPLICANT_PATHS.PROFILE + this.props.id);
+        } catch (e) {
+            dispatch(activateError((e as VacancyUpdateError).error));
+            setTimeout(() => dispatch(deactivateError()), 3000);
+        }
     };
 
     submitForm = (e: SubmitEvent) => {
         e.preventDefault();
-        const formData = new FormData(e.target);
-
-        let sections = this.state.sections;
-        let isValid = true;
-
-        formData.forEach((value, key) => {
-            sections.forEach(section => {
-                if (section.fields[key]) {
-                    if (
-                        section.fields[key].validator &&
-                        !section.fields[key].validator(value) &&
-                        (section.fields[key].required || value)
-                    ) {
-                        section.fields[key].error = true;
-                        isValid = false;
-                    } else {
-                        section.fields[key].error = false;
-                    }
-                    section.fields[key].value = value;
-                    return;
-                }
-            });
-        });
-
-        if (
-            this.state.sections[3].fields.password.value !==
-            this.state.sections[3].fields.repeatPassword.value
-        ) {
-            this.state.sections[3].fields.repeatPassword.error = true;
-            isValid = false;
-        }
-
-        if (!isValid) {
-            this.setState(state => ({ ...state, sections: sections }));
+        if (!this.profileValidation.ok()) {
             return;
         }
 
-        const applicantID = location.pathname.split('/').at(-1);
-
-        const image = document.querySelector('#avatar').files[0];
-        const formDataImage = new FormData();
-        formDataImage.append('avatar', image);
-        employerProfileService
-            .updateProfileImg(applicantID, formDataImage)
-            .then(body => userActions.updateAvatar(body.image));
+        const formData = new FormData(e.target as HTMLFormElement);
 
         applicantProfileService
             .updateProfile(
@@ -300,15 +134,13 @@ class ApplicantSettings extends ReactsComponent<
                         formData.get('surname') as string,
                     ),
                 );
-                setTimeout(
-                    () =>
-                        navigator.navigate(
-                            APPLICANT_PATHS.PROFILE + this.props.id,
-                        ),
-                    750,
-                );
+                navigator.navigate(APPLICANT_PATHS.PROFILE + this.props.id);
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                console.error(err);
+                dispatch(activateError((err as VacancyUpdateError).error));
+                setTimeout(() => dispatch(deactivateError()), 3000);
+            });
     };
 
     getDataFromServer() {
@@ -336,46 +168,143 @@ class ApplicantSettings extends ReactsComponent<
         return (
             <div className={'screen-responsive relative'}>
                 <Header />
+                <ErrorPopup />
                 <div class={'column g-24'}>
                     <div className={`col-12 mt-header`}>
-                        <SettingsHat
-                            creatorID={this.props.id}
-                            submit={() =>
-                                document
-                                    .querySelector('#profile_form')
-                                    .dispatchEvent(new Event('submit'))
-                            }
-                        />
+                        <SettingsHat creatorID={this.props.id} />
                     </div>
-                    <h3 className={'col-12'}>Настройки профиля</h3>
-                    <form
-                        onSubmit={this.submitForm.bind(this)}
-                        id={'profile_form'}
-                        key={'form'}
-                        className={'col-12 col-md-4 column g-24'}
-                    >
-                        <div key={'avatar'} className={'w-100'}>
-                            <AvatarSettings key={'avatar'} />
+                    <h3 className={'col-12 mb-40'}>Настройки профиля</h3>
+                    <Form onSubmit={this.submitAvatar}>
+                        <FormFileInput
+                            id={'avatar'}
+                            label={'Загрузить новую фотографию'}
+                            name={'avatar'}
+                            size={'12'}
+                            setError={this.avatarValidation.setError}
+                            validation={this.avatarValidation.getValidation(
+                                'avatar',
+                            )}
+                        />
+                        <div className={'mb-24'}>
+                            <ButtonPrimary type={'submit'}>
+                                Сохранить
+                            </ButtonPrimary>
                         </div>
-                        {this.state.sections.map(section => (
-                            <FormSection
-                                key={section.header}
-                                header={section.header}
-                                fields={section.fields}
+                    </Form>
+                    <Form onSubmit={this.submitForm}>
+                        <FormItem header={'О себе'}>
+                            <FormInput
+                                size={'4'}
+                                id={'name'}
+                                label={'Имя'}
+                                type={'text'}
+                                placeholder={'Иван'}
+                                name={'name'}
+                                value={this.props.name}
+                                setError={this.profileValidation.setError}
+                                required={true}
+                                validation={this.profileValidation.getValidation(
+                                    'name',
+                                )}
+                                validationMode={'oninput'}
                             />
-                        ))}
+                            <FormInput
+                                size={'4'}
+                                id={'surname'}
+                                label={'Фамилия'}
+                                type={'text'}
+                                placeholder={'Иванов'}
+                                name={'surname'}
+                                value={this.props.surname}
+                                setError={this.profileValidation.setError}
+                                required={true}
+                                validation={this.profileValidation.getValidation(
+                                    'surname',
+                                )}
+                                validationMode={'oninput'}
+                            />
+                            <FormInput
+                                size={'4'}
+                                id={'status'}
+                                label={'Статус'}
+                                type={'text'}
+                                name={'status'}
+                                value={this.props.status}
+                                setError={this.profileValidation.setError}
+                                validation={this.profileValidation.getValidation(
+                                    'status',
+                                )}
+                                validationMode={'oninput'}
+                            />
+                            <FormInput
+                                size={'4'}
+                                id={'dateOfBirth'}
+                                label={'Дата рождения'}
+                                type={'date'}
+                                placeholder={'Иванов'}
+                                name={'dateOfBirth'}
+                                required={true}
+                                value={this.props.dateOfBirth}
+                                setError={this.profileValidation.setError}
+                                validation={this.profileValidation.getValidation(
+                                    'dateOfBirth',
+                                )}
+                                validationMode={'oninput'}
+                            />
+                            <FormInput
+                                size={'4'}
+                                id={'location'}
+                                label={'Город проживания'}
+                                type={'text'}
+                                name={'location'}
+                                value={this.props.location}
+                                setError={this.profileValidation.setError}
+                                validation={this.profileValidation.getValidation(
+                                    'location',
+                                )}
+                                validationMode={'oninput'}
+                            />
+                        </FormItem>
+                        <FormItem header={'Контактные данные'}>
+                            <FormInput
+                                size={'4'}
+                                id={'phone'}
+                                label={'Телефон'}
+                                type={'text'}
+                                name={'phone'}
+                                value={this.props.phone}
+                                placeholder={'+7 (999) 999-99-99'}
+                                setError={this.profileValidation.setError}
+                                validation={this.profileValidation.getValidation(
+                                    'phone',
+                                )}
+                                validationMode={'oninput'}
+                            />
+                            <FormInput
+                                size={'4'}
+                                id={'email'}
+                                label={'Телефон'}
+                                type={'text'}
+                                name={'email'}
+                                value={this.props.email}
+                                placeholder={'example@mail.ru'}
+                                setError={this.profileValidation.setError}
+                                validation={this.profileValidation.getValidation(
+                                    'email',
+                                )}
+                                validationMode={'oninput'}
+                            />
+                        </FormItem>
                         <div>
                             <ButtonPrimary type={'submit'}>
                                 Сохранить
                             </ButtonPrimary>
                         </div>
-                    </form>
+                    </Form>
                 </div>
                 <div className={'flex row g-16 mt-40'}>
                     <Button onClick={navigator.goBack}>Пропустить</Button>
-                    <ButtonRed key={'logout'} onClick={this.logout}>
-                        Выйти
-                    </ButtonRed>
+                    <ButtonRed onClick={this.logout}>Выйти</ButtonRed>
                 </div>
                 <Footer />
             </div>

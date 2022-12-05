@@ -3,43 +3,37 @@ import Header from '../../components/UI-kit/header/Header';
 import styles from './vacancy.module.scss';
 import TextBlock from '../../components/UI-kit/text/TextBlock';
 import VacancySideBar from '../../components/sidebars/VacancySideBar';
-import VacancyHat from './VacancyHat';
+import VacancyHat, { ProfileHatProps } from './VacancyHat';
 import Footer from '../../components/UI-kit/footer/Footer';
-import { dispatch, vacancyConnect } from '../../store';
-import { vacancyService } from '../../services/vacancyService';
+import { dispatch, profileConnect, vacancyConnect } from '../../store';
+import { vacancyService } from '../../services/vacancy/vacancyService';
 import { vacancyActions } from '../../store/vacancy/actions';
 import { VacancyState } from '../../store/vacancy/type';
 import SuccessPopup from '../../components/SuccessPopup/SuccessPopup';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
+import { profileActions } from '../../store/profile/actions';
+import { employerProfileService } from '../../services/employerProfileService';
+import { ProfileState } from '../../store/profile/types';
 
-type VacancyPropsType = {
-    id?: string;
-    postedByUserID: string;
-    title: string;
-    description: string;
-    tasks: string;
-    requirements: string;
-    extra: string;
-    sideBar: {
-        salary: string;
-        experience: string;
-        location: string;
-        format: string;
-        hours: string;
-        skills: string[];
-    };
-};
-
-class Vacancy extends ReactsComponent<VacancyPropsType> {
-    getDataFromServer() {
+class Vacancy extends ReactsComponent<
+    VacancyState & { profile: ProfileState }
+> {
+    // TODO: можно оптимизировать
+    async getDataFromServer() {
         // Мы точно уверены что путь будет vacancy/{0,9}+
         const vacancyID = location.pathname.split('/').at(-1);
 
-        if (this.props.id !== vacancyID) {
-            vacancyService.getVacancyData(vacancyID as string).then(body => {
-                dispatch(vacancyActions.update(body));
-            });
-        }
+        const vacancyData = await vacancyService.getVacancyData(
+            vacancyID as string,
+        );
+        const postedByUserID = vacancyData.postedByUserId.toString();
+
+        const profileData = await employerProfileService.getProfileData(
+            postedByUserID,
+        );
+
+        dispatch(vacancyActions.updateFromServer(vacancyData));
+        dispatch(profileActions.updateEmployerFromServer(profileData));
     }
 
     componentDidMount() {
@@ -59,6 +53,9 @@ class Vacancy extends ReactsComponent<VacancyPropsType> {
                             vacancyID={this.props.id}
                             postedByUserID={this.props.postedByUserID}
                             sendRequest={!!this.props.id}
+                            companyName={this.props.profile.name}
+                            creatorImgSrc={this.props.profile.avatarSrc}
+                            status={this.props.profile.status}
                         />
                     </div>
                     <h3 className={'col-12'}>{this.props.title}</h3>
@@ -90,15 +87,10 @@ class Vacancy extends ReactsComponent<VacancyPropsType> {
     }
 }
 
-export default vacancyConnect(state => {
-    const storeState = state as VacancyState;
-    return {
-        id: storeState.id,
-        postedByUserID: storeState.postedByUserID,
-        title: storeState.title,
-        description: storeState.description,
-        tasks: storeState.tasks,
-        requirements: storeState.requirements,
-        extra: storeState.extra,
-    };
+const vacancyWrapper = vacancyConnect((state, props) => {
+    return { ...state, profile: props.profile };
 })(Vacancy);
+
+export default profileConnect(state => {
+    return { profile: state };
+})(vacancyWrapper);

@@ -3,23 +3,28 @@ import { Action } from '../../../Fluxs/types/action';
 import { ProfileState } from './types';
 import { PROFILE_ACTION_TYPES } from './actions';
 import { IMAGE_URL } from '../../utils/networkConstants';
+import { USER_TYPE } from '../../services/auth/authService';
 
 export const profileReducer: Reducer<ProfileState> = (
     state: ProfileState,
     action: Action,
 ): ProfileState => {
     switch (action.type) {
+        case PROFILE_ACTION_TYPES.UPDATE_FROM_SERVER:
+            return {
+                ...action.state,
+            };
         case PROFILE_ACTION_TYPES.UPDATE:
             return {
                 ...state,
                 id: action.state.id.toString(),
                 profileType: action.state.user_type,
                 name:
-                    action.state.user_type === 'employer'
+                    action.state.user_type === USER_TYPE.EMPLOYER
                         ? action.state.company_name
                         : action.state.applicant_name,
                 surname:
-                    action.state.user_type === 'applicant'
+                    action.state.user_type === USER_TYPE.APPLICANT
                         ? action.state.applicant_surname
                         : '',
                 location: action.state.location,
@@ -29,10 +34,7 @@ export const profileReducer: Reducer<ProfileState> = (
                 phone: action.state.contact_number,
                 email: action.state.email,
                 avatarSrc: IMAGE_URL + action.state.image,
-                // avatarSrc: IMAGE_URL + '__tests__.png',
-                size: action.state.company_size
-                    ? action.state.company_size.toString()
-                    : '',
+                size: action.state.company_size?.toString(),
             };
         case PROFILE_ACTION_TYPES.UPDATE_FROM_FORM:
             return {
@@ -47,7 +49,12 @@ export const profileReducer: Reducer<ProfileState> = (
                 description: action.formData.get('description'),
                 phone: action.formData.get('phone'),
                 email: action.formData.get('email'),
-                size: action.formData.get('size').toString(),
+                size: action.formData.get('size')?.toString(),
+            };
+        case PROFILE_ACTION_TYPES.UPDATE_AVATAR:
+            return {
+                ...state,
+                avatarSrc: action.avatarSrc,
             };
         default:
             return state;

@@ -1,3 +1,11 @@
+import { MAX_PHOTO_SIZE } from './messages';
+
+const ALLOWED_FILE_TYPES = {
+    PNG: 'image/png',
+    JPG: 'image/jpeg',
+    GIF: 'image/gif',
+};
+
 /**
  *
  * @param {string} password
@@ -55,10 +63,25 @@ export const phoneValidation = (phone: string): boolean => {
     return regexp.test(phone);
 };
 
+export const validateStatusSymbols = (value: string): boolean => {
+    const regexp = /^[a-zA-Z а-яА-Я]*$/;
+    return regexp.test(value);
+};
+
 export const validateResumeTitle = (title: string): boolean => {
     return !!title;
 };
 
 export const validateResumeDescription = (description: string): boolean => {
     return !!description;
+};
+
+export const validateAvatarImageSize = (file: File): boolean => {
+    return file.size < MAX_PHOTO_SIZE;
+};
+
+export const validateAvatarImageFormat = (file: File): boolean => {
+    return Boolean(
+        Object.values(ALLOWED_FILE_TYPES).find(key => key === file.type),
+    );
 };

@@ -31,7 +31,8 @@ const renderComponent = (
 
     node.props.children = instanceRender;
     node.instance = instance;
-    node.instance.currentNode = instanceRender;
+    node.instance.currentNode = node;
+    node.instance.currentRenderNode = instanceRender;
 };
 
 const createComponent = (
@@ -52,30 +53,6 @@ const createComponent = (
 };
 
 /**
- * The function is required to enable dynamic generation of JSX elements. Example:
- * {this.state.data.map((item, index) => (
- *  <p key={item.id}>{item.name}</p>
- * ))}
- * @param type
- * @param props
- * @param maybeKey
- */
-// const resolveArraysInChildren = (children: ReactsNode[]): ReactsNode[] => {
-//     const newChildren: ReactsNode[] = [];
-//     children.forEach(elem => {
-//         if (Array.isArray(elem)) {
-//             elem.forEach(item => {
-//                 newChildren.push(item);
-//             });
-//         } else {
-//             newChildren.push(elem);
-//         }
-//     });
-//
-//     return newChildren;
-// };
-
-/**
  *
  * @param type
  * @param props
@@ -92,10 +69,6 @@ export const createNode = (
         case 'function':
             return createComponent(type, props, maybeKey);
         default:
-            // @ts-ignore
-            // if (__DEV__) {
-            //     throw new Error(`undefined type: ${type}`);
-            // }
             throw new Error(`undefined type: ${type}`);
     }
 };

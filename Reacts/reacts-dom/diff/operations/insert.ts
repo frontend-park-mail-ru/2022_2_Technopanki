@@ -14,6 +14,12 @@ import {
 } from '../../../shared/constants/symbols';
 import { setProps } from '../../props/props';
 
+/**
+ * Inserts primitive node in DOM
+ * @param element
+ * @param node
+ * @param beforeElement
+ */
 export const insertPrimitiveNode = (
     element: HTMLElement,
     node: ReactsTextNode | ReactsEmptyNode,
@@ -29,9 +35,18 @@ export const insertPrimitiveNode = (
             nodeDOM = document.createTextNode(node);
             element.insertBefore(nodeDOM, beforeElement);
             return;
+        default:
+            element.insertBefore(document.createTextNode(''), beforeElement);
+            return;
     }
 };
 
+/**
+ * Helper function to insert children
+ * @param element
+ * @param children
+ * @param beforeElement
+ */
 export const insertChildren = (
     element: HTMLElement,
     children: ChildrenType,
@@ -48,6 +63,12 @@ export const insertChildren = (
         : insertNode(element, children, beforeElement);
 };
 
+/**
+ * Inserts DOM node in DOM
+ * @param element
+ * @param node
+ * @param beforeElement
+ */
 export const insertDOMNode = (
     element: HTMLElement,
     node: ReactsDOMNode,
@@ -59,6 +80,12 @@ export const insertDOMNode = (
     insertChildren(node.ref, node.props.children);
 };
 
+/**
+ * Inserts component node
+ * @param element
+ * @param node
+ * @param beforeElement
+ */
 export const insertComponentNode = (
     element: HTMLElement,
     node: ReactsComponentNode,
@@ -67,6 +94,7 @@ export const insertComponentNode = (
     node.ref = element;
     if (node.instance) {
         node.instance.ref = element;
+        node.instance.currentNode = node;
     } else {
         // TODO: __DEV__
     }
@@ -75,6 +103,12 @@ export const insertComponentNode = (
     node.instance?.componentDidMount();
 };
 
+/**
+ * Insert switcher
+ * @param element
+ * @param node
+ * @param beforeElement
+ */
 export const insertNode = (
     element: HTMLElement,
     node: ReactsNode,

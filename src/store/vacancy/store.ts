@@ -18,6 +18,7 @@ export const defaultVacancy: VacancyState = {
     experience: '',
     format: '',
     hours: '',
+    skills: [],
 };
 
 export const vacancyStore = new Store<VacancyState>(

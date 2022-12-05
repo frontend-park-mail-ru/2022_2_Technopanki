@@ -4,41 +4,27 @@ import styles from '../Resume/resume.module.scss';
 import TextBlock from '../../../components/UI-kit/text/TextBlock';
 import Education from '../../../components/UI-kit/education/Education';
 import ResumeSidebar from '../../../components/sidebars/ResumeSidebar';
-import { resumeService } from '../../../services/resumeService';
+import { resumeService } from '../../../services/resume/resumeService';
 import { dispatch, resumeConnect } from '../../../store';
 import { resumeActions } from '../../../store/resume/actions';
 import ApplicantHat from '../ApplicantHat';
 import Footer from '../../../components/UI-kit/footer/Footer';
 import { ResumeState } from '../../../store/resume/type';
+import { applicantProfileService } from '../../../services/applicantService';
+import { applicantActions } from '../../../store/applicant/actions';
 
-type ResumePropsType = {
-    id?: string;
-    postedByUserID: string;
-    title: string;
-    description: string;
-    education: {
-        university: string;
-        faculty: string;
-        status: string;
-    };
-    sideBar: {
-        location: string;
-        dateOfBirth: string;
-        skills: string[];
-    };
-    socialNetworks: {
-        vk: string | null | undefined;
-        facebook: string | null | undefined;
-        telegram: string | null | undefined;
-    };
-};
-
-class Resume extends ReactsComponent<ResumePropsType> {
-    getDataFromServer() {
+class Resume extends ReactsComponent<ResumeState> {
+    async getDataFromServer() {
         const resumeID = location.pathname.split('/').at(-1);
-        resumeService.getResumeData(resumeID as string).then(body => {
-            dispatch(resumeActions.update(body));
-        });
+        const resume = await resumeService.getResumeData(resumeID as string);
+        const postedByUserID = resume.user_account_id.toString();
+
+        const profileData = await applicantProfileService.getApplicantData(
+            postedByUserID,
+        );
+
+        dispatch(applicantActions.updateFromServer(profileData));
+        dispatch(resumeActions.updateFromServer(resume));
     }
 
     componentDidMount() {
@@ -69,10 +55,14 @@ class Resume extends ReactsComponent<ResumePropsType> {
                             headline={'О себе'}
                             content={this.props.description}
                         />
+                        <TextBlock
+                            headline={'Опыт работы'}
+                            content={this.props.experience}
+                        />
                         <Education
-                            university={this.props.education.university}
-                            faculty={this.props.education.faculty}
-                            status={this.props.education.status}
+                            university={this.props.university}
+                            faculty={this.props.faculty}
+                            status={this.props.status}
                         />
                     </div>
                     <div className={'col-12 col-md-3'}>
@@ -85,28 +75,6 @@ class Resume extends ReactsComponent<ResumePropsType> {
     }
 }
 
-export default resumeConnect((state, props) => {
-    const storeState = state as ResumeState;
-    return {
-        id: props.id ? props.id : storeState.id,
-        postedByUserID: storeState.postedByUserID,
-        title: storeState.title,
-        description: storeState.description,
-        avatarSrc: storeState.avatarSrc,
-        education: {
-            university: storeState.university,
-            faculty: storeState.faculty,
-            status: storeState.status,
-        },
-        sideBar: {
-            location: storeState.location,
-            dateOfBirth: storeState.dateOfBirth,
-            skills: storeState.skills,
-        },
-        socialNetworks: {
-            vk: storeState.vk,
-            facebook: storeState.facebook,
-            telegram: storeState.telegram,
-        },
-    };
-})(Resume);
+export default resumeConnect(state => ({
+    ...state,
+}))(Resume);

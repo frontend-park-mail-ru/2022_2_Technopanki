@@ -12,7 +12,7 @@ describe('removeNode', () => {
         const elem = document.createElement('div');
 
         renderNode(elem, node);
-        removeNode(node.ref, node);
+        removeNode(node.ref as HTMLElement, node);
 
         expect(node.ref).toEqual(null);
         expect(node.props.children).toEqual(null);
@@ -40,7 +40,7 @@ describe('removeNode', () => {
         expect(node.ref).toEqual(null);
         expect(node.props.children).toEqual(null);
         expect(node.instance?.ref).toEqual(null);
-        expect(node.instance?.currentNode).toEqual(null);
+        expect(node.instance?.currentRenderNode).toEqual(null);
         expect(isCalledUnmount).toEqual(true);
     });
 });

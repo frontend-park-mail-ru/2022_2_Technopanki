@@ -1,6 +1,6 @@
 import Router from './router';
 import { Path } from './types';
-import Root, { RootType } from '../../Reacts/reacts-dom/root';
+import Root from '../../Reacts/reacts-dom/root';
 
 export type PathType = {
     path: string;
@@ -55,7 +55,6 @@ class Navigator {
     }
 
     navigate(to: string, pop: boolean = false) {
-        console.log('navigate');
         if (to === this.prevUrl) {
             return;
         }

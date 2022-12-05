@@ -1,5 +1,5 @@
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
-import styles from '../../../views/Vacancies/vacancies.module.scss';
+import styles from './searchCards.module.scss';
 import Location from '../../../static/icons/location.svg';
 import Clock from '../../../static/icons/clock.svg';
 import Calendar from '../../../static/icons/calendar.svg';
@@ -10,12 +10,13 @@ import ArrowButtonWithTextOutline from '../buttons/ArrowButtonWithTextOutline';
 import Link from '../../Link/Link';
 import { VACANCY_PATHS } from '../../../utils/routerConstants';
 import { IMAGE_URL } from '../../../utils/networkConstants';
+import RenderWithCondition from '../../RenderWithCondition';
 
 export type VacancyCardPropsType = {
     id: string;
     name: string;
     icon: string;
-    salary: string;
+    salary: number;
     currency: string;
     location: string;
     format: string;
@@ -43,93 +44,77 @@ export default class VacancyCard extends ReactsComponent<
     render() {
         return (
             <div
-                className={`grid grid-template-columns g-16 rounded-lg p-24 ${styles.vacancy}`}
+                className={`grid grid-template-columns g-16 rounded-lg p-24 ${styles.card}`}
             >
                 <img
-                    key={'img'}
                     className={'rounded-md'}
                     height={40}
                     width={40}
                     src={IMAGE_URL + this.props.icon}
                 />
-                <div
-                    key={'vacancy-data'}
-                    className={'flex flex-start column g-4'}
-                >
+                <div className={`flex column g-4 ${styles['card-content']}`}>
                     <Link
-                        key={'vacancy-name'}
                         to={VACANCY_PATHS.INDEX + this.props.id}
                         content={
-                            <h4
-                                key={'vacancy-name'}
-                                className={`cursor-pointer ${styles.vacancy_name}`}
-                            >
+                            <h4 className={`${styles.vacancy_name}`}>
                                 {this.props.name}
                             </h4>
                         }
                     />
-                    <div
-                        key={'vacancy-metadata'}
-                        className={'flex flex-start row g-16'}
-                    >
-                        <div
-                            key={'location'}
-                            className={'flex row align-items-center g-6'}
-                        >
+                    <div className={`flex hidden row g-16 ${styles.metadata}`}>
+                        <div className={'flex row align-items-center g-6'}>
                             <div
-                                key={'meta'}
                                 className={`${styles.metadata_icon}`}
                                 dangerouslySetInnerHTML={{ __html: Location }}
                             />
-                            <div
-                                key={'location'}
-                                className={`${styles.metadata}`}
-                            >
+                            <div className={`${styles['metadata-item']}`}>
                                 {this.props.location}
                             </div>
                         </div>
-                        <div
-                            key={'clock'}
-                            className={'flex row align-items-center g-6'}
-                        >
+                        <div className={'flex row align-items-center g-6'}>
                             <div
-                                key={'clock'}
                                 className={`${styles.metadata_icon}`}
                                 dangerouslySetInnerHTML={{ __html: Clock }}
                             />
-                            <div
-                                key={'format'}
-                                className={`${styles.metadata}`}
-                            >
+                            <div className={`${styles['metadata-item']}`}>
                                 {this.props.format}
                             </div>
                         </div>
-                        <div
-                            key={'icon'}
-                            className={'flex row align-items-center g-6'}
-                        >
-                            <div
-                                key={'icon'}
-                                className={`${styles.metadata_icon}`}
-                                dangerouslySetInnerHTML={{ __html: Calendar }}
-                            />
-                            <div key={'hours'} className={`${styles.metadata}`}>
-                                {this.props.hours}
-                            </div>
-                        </div>
+                        <RenderWithCondition
+                            condition={Boolean(this.props.hours)}
+                            onSuccess={
+                                <div
+                                    className={
+                                        'flex row align-items-center g-6'
+                                    }
+                                >
+                                    <div
+                                        className={`${styles.metadata_icon}`}
+                                        dangerouslySetInnerHTML={{
+                                            __html: Calendar,
+                                        }}
+                                    />
+                                    <div
+                                        className={`${styles['metadata-item']}`}
+                                    >
+                                        {this.props.hours}
+                                    </div>
+                                </div>
+                            }
+                        />
                     </div>
                 </div>
                 <div
-                    key={'vacancy-salary'}
-                    className={'flex row g-4 mx-0 justify-content-end'}
+                    className={`flex row g-4 mx-0 justify-content-end ${styles.salary}`}
                 >
-                    <h4 className={`mx-0 ${styles.salary}`}>
-                        {this.props.salary}
+                    <h4 className={`mx-0 ${styles['salary-content']}`}>
+                        {Intl.NumberFormat('ru-RU', {
+                            style: 'currency',
+                            currency: 'RUB',
+                        }).format(this.props.salary)}
                     </h4>
-                    <h4 className={`mx-0 ${styles.per_month}`}>руб/мес</h4>
                 </div>
-                <div key={'vacancy'} className={styles.link}>
-                    <div className={'none'}></div>
+                <div className={styles.link}>
                     <Link
                         to={VACANCY_PATHS.INDEX + this.props.id}
                         content={
@@ -140,12 +125,11 @@ export default class VacancyCard extends ReactsComponent<
                     />
                 </div>
                 <div
-                    key={'details'}
                     className={`flex row g-4 justify-content-end align-items-end ${styles.details}`}
                 >
                     <div
                         className={
-                            'flex align-items-end g-8 justify-content-center cursor-pointer'
+                            'flex align-items-center g-8 justify-content-center cursor-pointer'
                         }
                         onClick={this.handleDetails}
                     >
@@ -162,20 +146,23 @@ export default class VacancyCard extends ReactsComponent<
                         />
                     </div>
                 </div>
-                {this.state.isOpen ? (
-                    <div className={`flex column g-12 ${styles.description}`}>
+                <RenderWithCondition
+                    condition={this.state.isOpen}
+                    onSuccess={
                         <div
-                            className={'w-100'}
-                            dangerouslySetInnerHTML={{ __html: Hr }}
-                        />
-                        <h5 className={'mx-0'}>Описание вакансии</h5>
-                        <p className={styles.description_text}>
-                            {this.props.description}
-                        </p>
-                    </div>
-                ) : (
-                    <p></p>
-                )}
+                            className={`flex column g-12 ${styles.description}`}
+                        >
+                            <div
+                                className={'w-100'}
+                                dangerouslySetInnerHTML={{ __html: Hr }}
+                            />
+                            <h5 className={'mx-0'}>Описание вакансии</h5>
+                            <p className={styles.description_text}>
+                                {this.props.description}
+                            </p>
+                        </div>
+                    }
+                />
             </div>
         );
     }

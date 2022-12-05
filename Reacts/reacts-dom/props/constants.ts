@@ -61,4 +61,7 @@ export const attributes: { [key: string]: string } = {
     for: 'for',
     required: 'required',
     href: 'href',
+    max: 'max',
+    min: 'min',
+    step: 'step',
 };

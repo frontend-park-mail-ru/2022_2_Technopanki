@@ -22,10 +22,9 @@ export default function createConnect(store: StoreType) {
                 }
 
                 componentDidMount() {
-                    this.handleChange();
-                    this.unsubscribe = store.subscribe(
-                        this.handleChange.bind(this),
-                    );
+                    this.unsubscribe = store
+                        .subscribe(this.handleChange.bind(this))
+                        .bind(this);
                 }
 
                 componentWillUnmount() {

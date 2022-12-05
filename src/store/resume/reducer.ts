@@ -20,6 +20,11 @@ export const resumeReducer: Reducer<ResumeState> = (state, action) => {
                 location: action.resume.location,
                 dateOfBirth: action.resume.date_of_birth,
                 skills: action.resume.skills,
+                experience: action.resume.experience,
+            };
+        case RESUME_ACTIONS_TYPE.UPDATE_FROM_SERVER:
+            return {
+                ...action.state,
             };
         case RESUME_ACTIONS_TYPE.CLEAR:
             return {

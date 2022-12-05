@@ -1,11 +1,24 @@
-import { Service } from './types';
-import network from '../lib/network';
-import { SERVER_URLS, USER_URLS } from '../utils/networkConstants';
-import { dispatch } from '../store';
-import { startLoading, stopLoading } from '../store/loading/actions';
+import { Service } from '../types';
+import network from '../../lib/network';
+import { SERVER_URLS, USER_URLS } from '../../utils/networkConstants';
+import { dispatch } from '../../store';
+import { startLoading, stopLoading } from '../../store/loading/actions';
+import { ConfirmResponse, SignInResponse, SignUpResponse } from './types';
 
-export const authService: Service = {
-    signIn: async (formData: FormData) => {
+export const USER_TYPE = {
+    APPLICANT: 'applicant',
+    EMPLOYER: 'employer',
+};
+
+export const authService: Service & {
+    signIn: (formDate: FormData) => Promise<SignInResponse>;
+    signUp: (formDate: FormData) => Promise<SignUpResponse>;
+    authConfirm: (code: string, email: string) => Promise<ConfirmResponse>;
+    auth: () => Promise<SignInResponse>;
+    logout: () => Promise<number>;
+    CSRF: Function;
+} = {
+    signIn: async (formData: FormData): Promise<SignInResponse> => {
         dispatch(startLoading());
         return await network
             .POST(
@@ -24,7 +37,7 @@ export const authService: Service = {
             });
     },
 
-    signUp: async (formData: FormData) => {
+    signUp: async (formData: FormData): Promise<SignUpResponse> => {
         dispatch(startLoading());
         return await network
             .POST(
@@ -46,10 +59,29 @@ export const authService: Service = {
                 }
 
                 return response.body;
+            })
+            .catch(err => {
+                throw err;
             });
     },
 
-    auth: async () => {
+    authConfirm: async (
+        code: string,
+        email: string,
+    ): Promise<ConfirmResponse> => {
+        dispatch(startLoading());
+        return network
+            .POST(USER_URLS.AUTH_CONFIRM, JSON.stringify({ code, email }))
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+                return response.body;
+            });
+    },
+
+    auth: async (): Promise<SignInResponse> => {
         dispatch(startLoading());
         return network
             .GET(USER_URLS.AUTH)
@@ -68,20 +100,22 @@ export const authService: Service = {
             });
     },
 
-    logout: async () => {
+    logout: async (): Promise<number> => {
         dispatch(startLoading());
 
-        return network
+        return await network
             .POST(USER_URLS.LOGOUT, '')
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
                     throw response.status;
                 }
+
+                return response.status;
             })
             .catch(err => {
                 dispatch(stopLoading());
-                console.error(err);
+                return err;
             });
     },
 

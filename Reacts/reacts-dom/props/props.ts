@@ -5,7 +5,6 @@ import {
     ReactsNode,
 } from '../../shared/types/node';
 import { attributes, events } from './constants';
-// TODO: rename to attributes
 
 export const setAttribute = (
     node: ReactsDOMNode,
@@ -16,7 +15,7 @@ export const setAttribute = (
         // @ts-ignore
         (<HTMLElement>node.ref).innerHTML = value.__html;
     } else if (value) {
-        (<HTMLElement>node.ref).setAttribute(attributes[attr], value);
+        (<ReactsDOMNode>node).ref?.setAttribute(attributes[attr], value);
     }
 };
 

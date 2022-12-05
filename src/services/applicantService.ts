@@ -1,18 +1,26 @@
 import { Service } from './types';
 import network from '../lib/network';
 import { requestHeaders } from './headers';
-import {
-    PROFILE_URLS,
-    SERVER_URLS,
-    USER_URLS,
-} from '../utils/networkConstants';
-import { response } from 'express';
-import { applicantActions } from '../store/applicant/actions';
+import { PROFILE_URLS, SERVER_URLS } from '../utils/networkConstants';
 import { startLoading, stopLoading } from '../store/loading/actions';
 import { dispatch } from '../store';
-import Form from '../components/UI-kit/forms/Form';
 
 export const applicantProfileService: Service = {
+    getAllApplicants: async () => {
+        dispatch(startLoading());
+        return await network
+            .GET(SERVER_URLS.ALL_APPLICANTS, requestHeaders.jsonHeader)
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            })
+            .catch(() => dispatch(stopLoading()));
+    },
+
     getApplicantData: async (applicantID: string) => {
         return await network
             .GET(SERVER_URLS.APPLICANT + applicantID, requestHeaders.jsonHeader)
@@ -41,8 +49,9 @@ export const applicantProfileService: Service = {
                     applicant_name: formData.get('name'),
                     applicant_surname: formData.get('surname'),
                     status: formData.get('status'),
-                    date_of_birth: date.toISOString(),
+                    date_of_birth: date?.toISOString(),
                     location: formData.get('location'),
+                    experience: formData.get('experience'),
                     contact_number: formData.get('phone'),
                     email: formData.get('email'),
                     password: formData.get('password'),
@@ -96,7 +105,6 @@ export const applicantProfileService: Service = {
         surname: string,
         title: string,
     ) => {
-        console.log('RESUME_ID:', resumeID);
         return network
             .POST(
                 PROFILE_URLS.APPLICANT_RESUMES + vacancyID,

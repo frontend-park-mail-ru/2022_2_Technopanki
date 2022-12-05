@@ -1,5 +1,4 @@
-import { PathType } from '../router/navigator.tsx';
-import { VNodeType } from '../../__Reacts__old_version__/shared/common';
+import { PathType } from '../router/navigator';
 import StartPage from '../views/StartPage/StartPage';
 import SignUp from '../views/SignUp/SignUp';
 import SignIn from '../views/SignIn/SignIn';
@@ -8,11 +7,12 @@ import ProfileSettings from '../views/Employer/ProfileSettings';
 import Vacancy from '../views/Vacancy';
 import VacancySettings from '../views/Vacancy/VacancySettings';
 import VacancyResponses from '../views/Vacancy/VacancyResponses';
-import Vacancies from '../views/Vacancies/Vacancies';
+import Search from '../views/Search/Search';
 import Resume from '../views/Applicant/Resume/Resume';
 import ApplicantProfile from '../views/Applicant/Profile/Profile';
 import ApplicantSettings from '../views/Applicant/Profile/ProfileSettings';
 import ResumeSettings from '../views/Applicant/Resume/ResumeSettings';
+import EmailConfirm from '../views/SignUp/EmailConfirm';
 
 export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
     {
@@ -25,6 +25,13 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
             validator: (url: string) => url === '/signup',
         },
         component: SignUp,
+    },
+    {
+        path: {
+            path: '/confirm',
+            validator: (url: string) => url === '/confirm',
+        },
+        component: EmailConfirm,
     },
     {
         path: {
@@ -46,7 +53,6 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
             validator: (url: string) => /employer\/settings\/[0-9]+/.test(url),
         },
         component: ProfileSettings,
-        // component: ProfileSettings key={'profileSettings'},
     },
     {
         path: {
@@ -61,7 +67,6 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
             validator: (url: string) => url === '/vacancy/new',
         },
         component: VacancySettings,
-        // component: VacancySettings isNew={true},
     },
     {
         path: {
@@ -79,10 +84,10 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
     },
     {
         path: {
-            path: '/vacancies',
-            validator: (url: string) => url === '/vacancies',
+            path: '/search',
+            validator: (url: string) => url === '/search',
         },
-        component: Vacancies,
+        component: Search,
     },
     {
         path: {

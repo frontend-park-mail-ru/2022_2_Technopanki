@@ -7,18 +7,18 @@
   justify-content: space-between;
   align-items: center;
   gap: var(--gap-8);
-  padding: var(--padding-16);
-  padding-left: var(--padding-200);
+  padding: var(--padding-16) 0 var(--padding-16) var(--padding-16);
   background: var(--background-0);
   border: var(--border-default);
-  border-radius: var(--border-radius-xl);
+  border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-grey-xs);
   transition: var(--transition-sfast);
   outline: none;
   font-size: 14px;
-  color: var(--background-200);
+  color: var(--background-900);
   &::placeholder {
     font-size: var(--input-font-size);
+    color: var(--background-200);
   }
   &:focus {
     outline: 2px solid var(--primary-blue)
@@ -26,6 +26,10 @@
   &[type="date" i] {
     font-family: Inter, sans-serif;
   }
+}
+
+.form {
+  height: 52px;
 }
 
 .input__error {
@@ -42,7 +46,7 @@
 
 .textarea {
   width: 100%;
-  height: 80px;
+  min-height: 120px;
   font-family: Inter, sans-serif;
 }
 
@@ -76,15 +80,22 @@
 }
 
 .menu {
+  gap: var(--gap-32);
   left: 0;
   align-items: center;
   padding-top: 13px;
   padding-left: 24px;
+  @media (max-width: $screen-md) {
+    gap: var(--gap-12);
+  }
 }
 
 .menu_data {
   font-size: 14px;
   color: var(--background-400);
+  @media (max-width: $screen-md) {
+    font-size: 14px;
+  }
 }
 
 .search_line {
@@ -92,11 +103,12 @@
 }
 
 .search_input {
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04);
-  &:hover {
-    cursor: not-allowed;
+  padding-left: 220px;
+  border-radius: var(--border-radius-xl);
+  @media (max-width: $screen-md) {
+    font-size: 14px;
+    padding-left: 150px;
   }
-  pointer-events: none;
 }
 
 .search_arrow {
@@ -117,6 +129,49 @@
   color: var(--background-700);
   ::placeholder {
     color: var(--background-700);
+  }
+}
+
+.select {
+  max-height: 100%;
+  width: 100%;
+  padding: var(--padding-16);
+  background: var(--background-0);
+  border: var(--border-default);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-grey-xs);
+  transition: var(--transition-sfast);
+  outline: none;
+  font-size: 14px;
+  color: var(--background-900);
+}
+.dropdown {
+  max-width: 140px;
+  margin-left: 8px;
+  font-size: 14px;
+  color: var(--background-400);
+  transition:height 0.3s ease-in-out;
+  transition-delay: 0.1s;
+  z-index: 2;
+}
+
+.dropdown_options {
+  cursor: pointer;
+  width: 116px;
+  padding: var(--padding-8);
+  &:hover {
+    border-radius: var(--border-radius-md);
+    color: var(--background-600);
+    background: var(--background-100);
+  }
+}
+
+.modal-item {
+  padding: var(--padding-32);
+  border-radius: var(--border-radius-lg);
+  background-color: var(--background-50);
+  &:hover {
+    background: var(--background-100);
   }
 }
 

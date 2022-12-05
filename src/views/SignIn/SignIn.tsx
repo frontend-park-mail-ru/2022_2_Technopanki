@@ -1,171 +1,108 @@
 import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
-import Input from '../../components/UI-kit/forms/inputs/Input';
 import styles from './signin.module.scss';
 import Link from '../../components/Link/Link';
 import ButtonPrimaryBigBlue from '../../components/UI-kit/buttons/ButtonPrimaryBigBlue';
 import Description from '../../components/auth/Description';
-import {
-    validateEmail,
-    validatePasswordLength,
-    validatePasswordSymbols,
-} from '../../utils/validation/validation';
-import {
-    EMAIL_ERROR,
-    PASSWORD_LENGTH_ERROR,
-    PASSWORD_SYMBOLS_ERROR,
-} from '../../utils/validation/messages';
-import {
-    AuthField,
-    ResponseBody,
-    setInvalidFieldsFromServer,
-    validateField,
-} from '../SignUp/SignUp';
-import navigator from '../../router/navigator';
 import { dispatch } from '../../store';
 import { userActions } from '../../store/user/actions';
-import { authService } from '../../services/authService';
+import { authService, USER_TYPE } from '../../services/auth/authService';
 import {
     APPLICANT_PATHS,
     EMPLOYER_PATHS,
     SIGN_UP_PATH,
     START_PATH,
 } from '../../utils/routerConstants';
+import { useValidation } from '../../utils/validation/formValidation';
+import {
+    emailValidator,
+    passwordLengthValidator,
+    passwordSymbolsValidator,
+} from '../../utils/validation/commonValidators';
+import FormInput from '../../components/UI-kit/forms/formInputs/FormInput';
+import Form from '../../components/UI-kit/forms/Form';
+import FormItem from '../../components/UI-kit/forms/FormItem';
+import { activateError, deactivateError } from '../../store/errors/actions';
+import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
+import { AuthError } from '../../services/auth/types';
+import navigator from '../../router/navigator';
 
-export default class SignIn extends ReactsComponent<
-    {},
-    {
-        inputs: {
-            [key: string]: AuthField;
-        };
-    }
-> {
-    state = {
-        inputs: {
-            email: {
-                id: 'email',
-                type: 'email',
-                label: 'Email',
-                placeholder: 'example@mail.ru',
-                value: null,
-                required: true,
-                error: false,
-                errorMessage: '',
-            },
-            password: {
-                id: 'password',
-                type: 'password',
-                label: 'Пароль',
-                placeholder: '*********',
-                value: null,
-                required: true,
-                error: false,
-                errorMessage: '',
-            },
-        },
-    };
+export default class SignIn extends ReactsComponent {
+    validation = useValidation({
+        email: [emailValidator],
+        password: [passwordLengthValidator, passwordSymbolsValidator],
+    });
 
     onSubmit = async (e: SubmitEvent) => {
         e.preventDefault();
-        const formData = new FormData(e.target);
-        let validFlag = true;
-        let newState = this.state;
-
-        if (
-            !validateField(
-                formData.get('email') as Exclude<FormDataEntryValue, File>,
-                newState.inputs['email'],
-                validateEmail,
-                EMAIL_ERROR,
-            )
-        ) {
-            validFlag = false;
-        }
-        if (
-            !validateField(
-                formData.get('password') as Exclude<FormDataEntryValue, File>,
-                newState.inputs['password'],
-                validatePasswordSymbols,
-                PASSWORD_SYMBOLS_ERROR,
-            )
-        ) {
-            validFlag = false;
-        }
-        if (
-            !validateField(
-                formData.get('password') as Exclude<FormDataEntryValue, File>,
-                newState.inputs['password'],
-                validatePasswordLength,
-                PASSWORD_LENGTH_ERROR,
-            )
-        ) {
-            validFlag = false;
+        if (!this.validation.ok()) {
+            return;
         }
 
-        this.setState(() => newState);
+        const formData = new FormData(e.target as HTMLFormElement);
+        try {
+            const response = await authService.signIn(formData);
 
-        if (validFlag) {
-            authService
-                .signIn(formData)
-                .then(body => {
-                    dispatch(
-                        userActions.SIGN_IN(
-                            body.id,
-                            body.user_type === 'employer'
-                                ? body.company_name
-                                : body.applicant_name,
-                            body.applicant_surname,
-                            body.image,
-                            body.user_type,
-                        ),
-                    );
-                    navigator.navigate(
-                        body.user_type === 'employer'
-                            ? EMPLOYER_PATHS.PROFILE + body.id
-                            : APPLICANT_PATHS.PROFILE + body.id,
-                    );
-                })
-                .catch(body => {
-                    setInvalidFieldsFromServer(
-                        body as ResponseBody,
-                        newState.inputs,
-                        (() => this.setState(() => newState)).bind(this),
-                    );
-                });
+            dispatch(
+                userActions.SIGN_IN(
+                    response.id.toString(),
+                    response.applicant_name ?? response.company_name,
+                    response.applicant_surname,
+                    response.email,
+                    response.image,
+                    response.user_type,
+                ),
+            );
+
+            navigator.navigate(
+                (response.user_type === USER_TYPE.APPLICANT
+                    ? APPLICANT_PATHS.PROFILE
+                    : EMPLOYER_PATHS.PROFILE) + response.id.toString(),
+            );
+        } catch (e: unknown) {
+            dispatch(activateError((e as AuthError).error));
+            setTimeout(() => dispatch(deactivateError()), 3000);
         }
     };
 
     render() {
         return (
             <div className={'grid h-100vh columns'}>
+                <ErrorPopup />
                 <div
                     className={`col-md-6 col-12 h-100vh p-24 flex align-items-center justify-content-center screen-responsive ${styles.form_block}`}
                 >
-                    <form
-                        onSubmit={this.onSubmit}
-                        className={`flex w-100 column g-24`}
-                    >
-                        <h5>Войти</h5>
-                        <div className={'flex column g-16'}>
-                            {Object.entries(this.state.inputs).map(
-                                ([name, value]) => (
-                                    <div>
-                                        <Input
-                                            key={value.id}
-                                            id={value.id}
-                                            type={value.type}
-                                            placeholder={value.placeholder}
-                                            label={value.label}
-                                            name={name}
-                                            required={value.required}
-                                            value={value.value}
-                                            error={value.error}
-                                            errorMessage={value.errorMessage}
-                                        />
-                                    </div>
-                                ),
-                            )}
-                        </div>
-                        <ButtonPrimaryBigBlue>Войти</ButtonPrimaryBigBlue>
+                    <Form onSubmit={this.onSubmit}>
+                        <FormItem header={'Зарегистрироваться'}>
+                            <FormInput
+                                id={'email'}
+                                label={'Email'}
+                                type={'email'}
+                                placeholder={'example@mail.ru'}
+                                name={'email'}
+                                setError={this.validation.setError}
+                                size={'12'}
+                                validationMode={'oninput'}
+                                validation={this.validation.getValidation(
+                                    'email',
+                                )}
+                            />
+                            <FormInput
+                                id={'password'}
+                                label={'Пароль'}
+                                type={'password'}
+                                placeholder={'********'}
+                                name={'password'}
+                                setError={this.validation.setError}
+                                size={'12'}
+                                validationMode={'oninput'}
+                                validation={this.validation.getValidation(
+                                    'password',
+                                )}
+                            />
+                        </FormItem>
+                        <ButtonPrimaryBigBlue type={'submit'}>
+                            Войти
+                        </ButtonPrimaryBigBlue>
                         <Link
                             to={SIGN_UP_PATH}
                             content={
@@ -186,7 +123,7 @@ export default class SignIn extends ReactsComponent<
                                 </p>
                             }
                         />
-                    </form>
+                    </Form>
                 </div>
                 <Description />
             </div>

@@ -3,29 +3,50 @@ import {
     PROFILE_URLS,
     SERVER_URL,
     SERVER_URLS,
+    VACANCY_URLS,
 } from '../utils/networkConstants';
 import { Service } from './types';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
 import { requestHeaders } from './headers';
 import Form from '../components/UI-kit/forms/Form';
+import { EmployerProfile } from '../store/profile/types';
+import { AuthError, EmployerResponse } from './auth/types';
 
-export const employerProfileService: Service = {
-    getProfileData: async (profileID: string) => {
+export const employerProfileService: {
+    getProfileData: (profileID: string) => Promise<EmployerResponse>;
+    updateProfileImg: (profileID: string, image: FormData) => Promise<string>;
+} & Service = {
+    getAllEmployers: async () => {
+        dispatch(startLoading());
+        return await network
+            .GET(SERVER_URLS.ALL_EMPLOYERS, requestHeaders.jsonHeader)
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.body;
+                }
+
+                return response.body;
+            })
+            .catch(() => dispatch(stopLoading()));
+    },
+
+    getProfileData: async (profileID: string): Promise<EmployerResponse> => {
         dispatch(startLoading());
         return await network
             .GET(PROFILE_URLS.USER_SAFE + profileID)
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
-                    throw response.status;
+                    throw response.body;
                 }
 
                 return response.body;
             })
             .catch(err => {
                 dispatch(stopLoading());
-                console.error(err);
+                throw err;
             });
     },
 
@@ -39,16 +60,16 @@ export const employerProfileService: Service = {
             credentials: 'include' as RequestCredentials,
         };
 
-        return await fetch(SERVER_URLS.IMAGE, options)
+        return await (await fetch(SERVER_URLS.IMAGE, options))
+            .json()
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
-                    throw response.status;
+                    throw response.body;
                 }
 
-                return response.json();
-            })
-            .catch(() => dispatch(stopLoading()));
+                return response.image;
+            });
     },
 
     updateProfile: async (
@@ -69,22 +90,19 @@ export const employerProfileService: Service = {
                     company_name: formData.get('name'),
                     contact_number: formData.get('phone'),
                     email: formData.get('email'),
-                    company_size: parseInt(formData.get('size')),
+                    company_size: parseInt(formData.get('size') as string),
                     password: formData.get('password'),
+                    business_type: formData.get('businessType'),
+                    location: formData.get('location'),
                 }),
             )
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
-                    throw response.status;
+                    throw response.body;
                 }
 
                 return response.body;
-            })
-            .catch(err => {
-                dispatch(stopLoading());
-                console.error(err);
-                throw err;
             });
     },
 };

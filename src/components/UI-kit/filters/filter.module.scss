@@ -1,0 +1,45 @@
+.filter_body {
+  width: max-content;
+}
+
+.filter_input {
+  border-radius: var(--border-radius-md);
+  height: 40px;
+}
+
+.filter-modal {
+  z-index: 100;
+  position: fixed;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: var(--background-modal);
+  left: 0;
+  top: 0;
+}
+
+.modal {
+  padding-top: 24px;
+  padding-bottom: 24px;
+  max-height: 70vh;
+  overflow-y: scroll;
+  border-radius: 16px 16px 0 0;
+  background-color: var(--background-0);
+}
+
+.filter-button__mobile {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  gap: 8px;
+  color: var(--background-900);
+  font-size: 14px;
+  font-weight: 600;
+  padding: var(--padding-8);
+  &:hover {
+    background-color: var(--background-50);
+    border-radius: var(--border-radius-md);
+  }
+}

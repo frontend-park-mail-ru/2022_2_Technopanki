@@ -8,11 +8,10 @@ import RenderWithCondition from '../../RenderWithCondition';
 import {
     RESUME_PATHS,
     START_PATH,
-    VACANCIES_PATH,
+    SEARCH_PATH,
 } from '../../../utils/routerConstants';
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 
-// TODO: refactor
 class Header extends ReactsComponent<{ userType: string }> {
     setActive = (event: MouseEvent) => {
         let cur = document.querySelector(`.${styles.item__active}`);
@@ -23,6 +22,12 @@ class Header extends ReactsComponent<{ userType: string }> {
             target.classList.add(`${styles.item__active}`);
         }
     };
+
+    shouldUpdate(
+        nextProps: Readonly<{ userType: string }> | { userType: string },
+    ): boolean {
+        return this.props.userType !== nextProps.userType;
+    }
 
     render() {
         return (
@@ -42,7 +47,7 @@ class Header extends ReactsComponent<{ userType: string }> {
                         className={`flex justify-content-center w-100 g-16 ${styles.items}`}
                     >
                         <Link
-                            to={VACANCIES_PATH}
+                            to={SEARCH_PATH}
                             content={
                                 <p
                                     key={'item1'}
@@ -50,7 +55,7 @@ class Header extends ReactsComponent<{ userType: string }> {
                                     className={`${styles.item__def} ${styles.item__active}`}
                                     onClick={this.setActive}
                                 >
-                                    Вакансии
+                                    Поиск
                                 </p>
                             }
                         />

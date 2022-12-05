@@ -7,20 +7,17 @@ import ButtonPrimary from '../../../components/UI-kit/buttons/ButtonPrimary';
 import Link from '../../../components/Link/Link';
 import Button from '../../../components/UI-kit/buttons/Button';
 import ProfileHeader from '../../../components/ProfileHeader/ProfileHeader';
-import Chips from '../../../components/UI-kit/chips/Chips';
 import ResumeList from '../../../components/UI-kit/resumeList/ResumeList';
 import ResumeSidebar from '../../../components/sidebars/ResumeSidebar';
-import { ReactsComponentNode } from '../../../../Reacts/shared/types/node';
-import { ResumeListItemPropsType } from '../../../components/UI-kit/resumeList/ResumeListItem';
 import { applicantProfileService } from '../../../services/applicantService';
 import { applicantConnect, dispatch, userConnect } from '../../../store';
 import { applicantActions } from '../../../store/applicant/actions';
 import { ProfileState } from '../../../store/applicant/type';
-import ApplicantResumeList from './ApplicantResumeList';
 import Footer from '../../../components/UI-kit/footer/Footer';
 import { resumeActions } from '../../../store/resume/actions';
 import { APPLICANT_PATHS, RESUME_PATHS } from '../../../utils/routerConstants';
 import RenderWithCondition from '../../../components/RenderWithCondition';
+import { ResumePreviewResponse } from '../../../services/resume/types';
 
 type ApplicantPropsType = {
     id: string;
@@ -41,17 +38,29 @@ type ApplicantPropsType = {
         facebook: string | null | undefined;
         telegram: string | null | undefined;
     };
+    resume: ResumePreviewResponse[];
 };
 
-class ApplicantProfile extends ReactsComponent<ApplicantPropsType> {
-    getDataFromServer() {
+class ApplicantProfile extends ReactsComponent<
+    ApplicantPropsType & { userID: string }
+> {
+    state = {
+        resume: [] as ResumePreviewResponse[],
+    };
+
+    async getDataFromServer() {
         const applicantID = location.pathname.split('/').at(-1);
 
-        applicantProfileService
-            .getApplicantData(applicantID as string)
-            .then(body => {
-                dispatch(applicantActions.update(body));
-            });
+        const applicantBody = await applicantProfileService.getApplicantData(
+            applicantID as string,
+        );
+
+        const resumeList = await applicantProfileService.getResumeList(
+            applicantID as string,
+        );
+
+        dispatch(applicantActions.updateFromServer(applicantBody));
+        this.setState(state => ({ ...state, resume: resumeList }));
     }
 
     componentDidMount() {
@@ -71,23 +80,38 @@ class ApplicantProfile extends ReactsComponent<ApplicantPropsType> {
                     status={this.props.status}
                     buttons={
                         <div className={'flex flex-wrap row g-16'}>
-                            <ButtonIcon
-                                onClick={() => {
-                                    window.navigator.clipboard
-                                        .writeText(this.props.phone)
-                                        .then(() => alert('copied!'))
-                                        .catch(err => console.error(err));
-                                }}
-                                icon={PhoneIcon}
-                            />
-                            <ButtonIcon
-                                onClick={() => {
-                                    window.navigator.clipboard
-                                        .writeText(this.props.email)
-                                        .then(() => alert('copied!'))
-                                        .catch(err => console.error(err));
-                                }}
-                                icon={MailIcon}
+                            <RenderWithCondition
+                                condition={Boolean(window.navigator.clipboard)}
+                                onSuccess={
+                                    <div className={'flex row g-16'}>
+                                        <ButtonIcon
+                                            onClick={() => {
+                                                window.navigator.clipboard
+                                                    .writeText(this.props.phone)
+                                                    .then(() =>
+                                                        console.log('copied!'),
+                                                    )
+                                                    .catch(err =>
+                                                        console.error(err),
+                                                    );
+                                            }}
+                                            icon={PhoneIcon}
+                                        />
+                                        <ButtonIcon
+                                            onClick={() => {
+                                                window.navigator.clipboard
+                                                    .writeText(this.props.email)
+                                                    .then(() =>
+                                                        console.log('copied!'),
+                                                    )
+                                                    .catch(err =>
+                                                        console.error(err),
+                                                    );
+                                            }}
+                                            icon={MailIcon}
+                                        />
+                                    </div>
+                                }
                             />
                             <RenderWithCondition
                                 condition={this.props.userID === this.props.id}
@@ -126,7 +150,7 @@ class ApplicantProfile extends ReactsComponent<ApplicantPropsType> {
                 />
                 <div className={'columns g-24'}>
                     <div className={'col-12 col-md-9 column g-16'}>
-                        <ApplicantResumeList applicantID={this.props.id} />
+                        <ResumeList resume={this.state.resume} />
                     </div>
                     <div className={'col-12 col-md-3'}>
                         <ResumeSidebar creatorID={this.props.id} />
@@ -143,24 +167,6 @@ const UserWrapper = userConnect((state, props) => ({
     userID: state.id,
 }))(ApplicantProfile);
 
-export default applicantConnect((state: ProfileState, props) => {
-    return {
-        id: props.id ? props.id : state.id,
-        name: state.applicant_name,
-        surname: state.applicant_surname,
-        status: state.status,
-        phone: state.contact_number,
-        email: state.email,
-        sideBar: {
-            location: state.location,
-            dateOfBirth: state.date_of_birth,
-            skills: state.skills,
-        },
-        socialNetworks: {
-            vk: state.vk,
-            facebook: state.facebook,
-            telegram: state.telegram,
-        },
-        avatarSrc: state.avatar_src,
-    };
-})(UserWrapper);
+export default applicantConnect((state: ProfileState) => ({
+    ...state,
+}))(UserWrapper);

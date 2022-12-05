@@ -27,7 +27,6 @@ export default class FormSection extends ReactsComponent<{
                     >
                         {field.props.type === 'textarea' ? (
                             <Textarea
-                                key={id}
                                 id={id}
                                 placeholder={field.props.placeholder}
                                 value={field.props.value}
@@ -38,7 +37,6 @@ export default class FormSection extends ReactsComponent<{
                             />
                         ) : (
                             <Input
-                                key={id}
                                 id={id}
                                 type={field.props.type}
                                 placeholder={field.props.placeholder}

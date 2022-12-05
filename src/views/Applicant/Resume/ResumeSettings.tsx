@@ -1,30 +1,28 @@
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
-import Form, { FormSectionType } from '../../../components/UI-kit/forms/Form';
 import Header from '../../../components/UI-kit/header/Header';
 import SettingsHat from '../../../components/hats/SettingsHat';
-import Input, {
-    InputPropsType,
-} from '../../../components/UI-kit/forms/inputs/Input';
-import { resumeService } from '../../../services/resumeService';
+import { InputPropsType } from '../../../components/UI-kit/forms/inputs/Input';
+import { resumeService } from '../../../services/resume/resumeService';
 import navigator from '../../../router/navigator';
-import { vacancyService } from '../../../services/vacancyService';
 import { ResumeState } from '../../../store/resume/type';
-import FormSection from '../../../components/UI-kit/forms/FormSection';
 import ButtonPrimary from '../../../components/UI-kit/buttons/ButtonPrimary';
 import Button from '../../../components/UI-kit/buttons/Button';
 import ButtonRed from '../../../components/UI-kit/buttons/ButtonRed';
 import Footer from '../../../components/UI-kit/footer/Footer';
 import { dispatch, resumeConnect, userConnect } from '../../../store';
 import { resumeActions } from '../../../store/resume/actions';
+import Form from '../../../components/UI-kit/forms/Form';
+import FormInput from '../../../components/UI-kit/forms/formInputs/FormInput';
+import FormTextarea from '../../../components/UI-kit/forms/formInputs/FormTextarea';
+import FormItem from '../../../components/UI-kit/forms/FormItem';
+import { useValidation } from '../../../utils/validation/formValidation';
 import {
-    validateResumeDescription,
-    validateResumeTitle,
-} from '../../../utils/validation/validation';
-import {
-    RESUME_DESCRIPTION_ERROR,
-    RESUME_TITLE_ERROR,
-} from '../../../utils/validation/messages';
-import { SERVER_URLS } from '../../../utils/networkConstants';
+    validateTitleLength,
+    validateTitleSymbols,
+} from '../../Vacancy/settingsValidators';
+import RenderWithCondition from '../../../components/RenderWithCondition';
+import { RESUME_PATHS } from '../../../utils/routerConstants';
+import FormInputGroup from '../../../components/UI-kit/forms/formInputs/FormInputGroup';
 
 class ResumeSettings extends ReactsComponent<
     ResumeState & { isNew: boolean },
@@ -41,106 +39,24 @@ class ResumeSettings extends ReactsComponent<
 > {
     state = {
         isNew: location.pathname.split('/').at(-1) === 'new',
-        sections: [
-            {
-                fields: {
-                    title: {
-                        size: 8,
-                        type: 'text',
-                        placeholder: 'Название резюме',
-                        label: 'Название резюме',
-                        name: 'title',
-                        required: true,
-                        value: this.props.title,
-                        validator: validateResumeTitle,
-                        error: false,
-                        errorMessage: RESUME_TITLE_ERROR,
-                    },
-                    description: {
-                        size: 8,
-                        type: 'textarea',
-                        placeholder: 'О себе...',
-                        label: 'О себе',
-                        name: 'description',
-                        required: true,
-                        value: this.props.description,
-                        validator: validateResumeDescription,
-                        error: false,
-                        errorMessage: RESUME_DESCRIPTION_ERROR,
-                    },
-                },
-            },
-            {
-                fields: {
-                    university: {
-                        size: 4,
-                        type: 'text',
-                        placeholder: 'Университет',
-                        label: 'Университет',
-                        name: 'university',
-                        required: true,
-                        value: this.props.university,
-                    },
-                    faculty: {
-                        size: 4,
-                        type: 'text',
-                        placeholder: 'Направление',
-                        label: 'Направление',
-                        name: 'faculty',
-                        required: true,
-                        value: this.props.faculty,
-                    },
-                    status: {
-                        size: 4,
-                        type: 'text',
-                        placeholder: 'Статус',
-                        label: 'Статус',
-                        name: 'status',
-                        required: false,
-                        value: this.props.status,
-                    },
-                },
-            },
-        ],
     };
+
+    validation = useValidation({
+        title: [validateTitleSymbols, validateTitleLength],
+    });
 
     submitForm = (e: SubmitEvent) => {
         e.preventDefault();
-        const formData = new FormData(e.target);
-
-        let sections = this.state.sections;
-        let isValid = true;
-
-        formData.forEach((value, key) => {
-            sections.forEach(section => {
-                if (section.fields[key]) {
-                    if (
-                        section.fields[key].validator &&
-                        !section.fields[key].validator(value) &&
-                        (section.fields[key].required || value)
-                    ) {
-                        section.fields[key].error = true;
-                        isValid = false;
-                    } else {
-                        section.fields[key].error = false;
-                    }
-                    section.fields[key].value = value;
-                    return;
-                }
-            });
-        });
-
-        if (!isValid) {
-            this.setState(state => ({ ...state, sections: sections }));
+        if (!this.validation.ok()) {
             return;
         }
-
+        const formData = new FormData(e.target as HTMLFormElement);
         const resumeID = location.pathname.split('/').at(-1);
 
         if (this.state.isNew) {
             resumeService
                 .addResume(this.props.postedByUserID, formData)
-                .then(body => navigator.navigate('/resume/' + body.id));
+                .then(body => navigator.navigate(RESUME_PATHS.INDEX + body.id));
         } else {
             resumeService
                 .updateResume(resumeID, formData)
@@ -179,54 +95,83 @@ class ResumeSettings extends ReactsComponent<
                 <Header />
                 <div class={'column g-24'}>
                     <div className={`col-12 mt-header`}>
-                        <SettingsHat
-                            creatorID={this.props.postedByUserID}
-                            submit={() =>
-                                document
-                                    .querySelector('#profile_form')
-                                    .dispatchEvent(new Event('submit'))
-                            }
-                        />
+                        <SettingsHat creatorID={this.props.postedByUserID} />
                     </div>
                     <h3 className={'col-12'}>Настройки резюме</h3>
-                    <form
-                        key={'form'}
-                        id={'profile_form'}
-                        onSubmit={this.submitForm.bind(this)}
-                        className={'col-12 col-md-9 column g-24'}
-                    >
-                        {/*<div key={'avatar'} className={'w-100'}>*/}
-                        {/*    <AvatarSettings key={'avatar'} />*/}
-                        {/*</div>*/}
-                        {this.state.sections.map(section => (
-                            <FormSection
-                                key={'resume_form'}
-                                fields={section.fields}
+                    <Form onSubmit={this.submitForm}>
+                        <FormItem header={'О себе'}>
+                            <FormInput
+                                size={'12'}
+                                id={'title'}
+                                label={'Заголовок резюме'}
+                                type={'text'}
+                                name={'title'}
+                                setError={this.validation.setError}
+                                required={true}
+                                value={this.props.title}
+                                validation={this.validation.getValidation(
+                                    'title',
+                                )}
+                                validationMode={'oninput'}
                             />
-                        ))}
+                            <FormInputGroup
+                                id={'experience'}
+                                size={'4'}
+                                label={'Опыт работы'}
+                                name={'experience'}
+                                options={[
+                                    {
+                                        value: 'Нет опыта',
+                                        children: 'Нет опыта',
+                                    },
+                                    {
+                                        value: 'От 1 года до 3 лет',
+                                        children: 'От 1 года до 3 лет',
+                                    },
+                                    {
+                                        value: 'От 3 до 6 лет',
+                                        children: 'От 3 до 6 лет',
+                                    },
+                                    {
+                                        value: 'Более 6 лет',
+                                        children: 'Более 6 лет',
+                                    },
+                                ]}
+                            />
+                            <FormTextarea
+                                size={'12'}
+                                id={'description'}
+                                value={this.props.description}
+                                label={'Описание резюме'}
+                                name={'description'}
+                                required={true}
+                            />
+                        </FormItem>
                         <div>
                             <ButtonPrimary type={'submit'}>
                                 Сохранить
                             </ButtonPrimary>
                         </div>
-                    </form>
+                    </Form>
                 </div>
                 <div className={'flex row g-16 mt-40'}>
                     <Button onClick={navigator.goBack}>Пропустить</Button>
-                    {this.state.isNew ? (
-                        <div />
-                    ) : (
-                        <ButtonRed
-                            key={'removal'}
-                            onClick={() => {
-                                this.deleteResume(this.props.postedByUserID);
-                            }}
-                        >
-                            Удалить
-                        </ButtonRed>
-                    )}
+                    <RenderWithCondition
+                        condition={this.state.isNew}
+                        onSuccess={
+                            <ButtonRed
+                                onClick={() => {
+                                    this.deleteResume(
+                                        this.props.postedByUserID,
+                                    );
+                                }}
+                            >
+                                Удалить
+                            </ButtonRed>
+                        }
+                    />
                 </div>
-                <Footer key={'footer'} />
+                <Footer />
             </div>
         );
     }
@@ -242,8 +187,6 @@ const UserWrapper = userConnect((state, props) => {
     };
 })(ResumeSettings);
 
-export default resumeConnect((state, props) => {
-    return {
-        ...state,
-    };
-})(UserWrapper);
+export default resumeConnect(state => ({
+    ...state,
+}))(UserWrapper);

@@ -9,8 +9,8 @@ export type ResumeListItemPropsType = {
     resume_id: string;
     id: string;
     image: string;
-    user_name: string;
-    user_surname: string;
+    name: string;
+    surname: string;
     title: string;
     created_date: string;
     imgSrc: string;
@@ -70,7 +70,6 @@ export default class ResumeListItem extends ReactsComponent<ResumeListItemPropsT
     ];
 
     render() {
-        console.log(this.props);
         return (
             <div className={'columns g-24 p-16 border-top-default'}>
                 <div
@@ -92,7 +91,7 @@ export default class ResumeListItem extends ReactsComponent<ResumeListItemPropsT
                             to={RESUME_PATHS.INDEX + this.props.resume_id}
                             content={
                                 <p key={'name'}>
-                                    {this.props.user_name} {this.props.user_surname}
+                                    {this.props.name} {this.props.surname}
                                 </p>
                             }
                         />

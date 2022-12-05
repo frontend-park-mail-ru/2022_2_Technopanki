@@ -5,6 +5,7 @@ export const userActions = {
         id: string,
         name: string,
         surname: string,
+        email: string,
         imgSrc: string,
         userType: UserType,
     ): AuthAction => ({
@@ -12,6 +13,7 @@ export const userActions = {
         id,
         name,
         surname,
+        email,
         imgSrc,
         userType,
     }),
@@ -19,12 +21,14 @@ export const userActions = {
         id: string,
         name: string,
         surname: string,
+        email: string,
         imgSrc: string,
         userType: UserType,
     ): AuthAction => ({
         type: 'SIGN_IN',
         id,
         name,
+        email,
         surname,
         imgSrc,
         userType,
@@ -37,6 +41,10 @@ export const userActions = {
     updateAvatar: (avatarSrc: string) => ({
         type: 'UPDATE_USER_AVATAR',
         avatarSrc,
+    }),
+    updateEmail: (email: string) => ({
+        type: 'UPDATE_USER_EMAIL',
+        email,
     }),
     LOGOUT: () => ({
         type: 'LOGOUT',
