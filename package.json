@@ -8,7 +8,7 @@
       "path": "node_modules/cz-customizable"
     },
     "cz-customizable": {
-      "config": ".conif/git/commitizen.js"
+      "config": ".conf/git/commitizen.js"
     }
   },
   "scripts": {
