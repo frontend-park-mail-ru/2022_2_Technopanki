@@ -12,11 +12,6 @@ export default class ProfileHeader extends ReactsComponent<{
     status: string;
     buttons: ReactsComponentNode;
 }> {
-    // TODO
-    // componentDidMount() {
-    //     this.forceUpdate();
-    // }
-
     render() {
         return (
             <div className={`flex column ${styles.profile}`}>
@@ -34,8 +29,9 @@ export default class ProfileHeader extends ReactsComponent<{
                         <div className={`flex column g-4`}>
                             <h3>
                                 {this.props.name +
-                                    ' ' +
-                                    (this.props.surname ?? '')}
+                                    (this.props.surname
+                                        ? ' ' + this.props.surname
+                                        : '')}
                             </h3>
                             <p>{this.props.status}</p>
                         </div>

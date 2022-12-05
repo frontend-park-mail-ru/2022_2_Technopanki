@@ -3,4 +3,8 @@ services:
   web:
     build: .
     ports:
-      - "8080:8080"
+      - "80:80"
+      - "443:443"
+    restart: "unless-stopped"
+    stdin_open: true
+    tty: true
