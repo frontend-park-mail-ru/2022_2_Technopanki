@@ -1,5 +1,4 @@
-import { PathType } from '../router/navigator.tsx';
-import { VNodeType } from '../../__Reacts__old_version__/shared/common';
+import { PathType } from '../router/navigator';
 import StartPage from '../views/StartPage/StartPage';
 import SignUp from '../views/SignUp/SignUp';
 import SignIn from '../views/SignIn/SignIn';
@@ -54,7 +53,6 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
             validator: (url: string) => /employer\/settings\/[0-9]+/.test(url),
         },
         component: ProfileSettings,
-        // component: ProfileSettings key={'profileSettings'},
     },
     {
         path: {
@@ -69,7 +67,6 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
             validator: (url: string) => url === '/vacancy/new',
         },
         component: VacancySettings,
-        // component: VacancySettings isNew={true},
     },
     {
         path: {

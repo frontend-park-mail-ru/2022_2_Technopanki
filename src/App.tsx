@@ -15,6 +15,8 @@ class App extends ReactsComponent {
     }
 }
 
+document.querySelector('#root').innerHTML = '';
+
 router.disableScrollRestoration();
 
 router.addNewPath({ path: '/', validator: (url: string) => url === '/' }, App);
