@@ -24,6 +24,7 @@ export type EmployerProfile = {
     fieldOfActivity: string[];
     socialNetworks: EmployerSocialNetworks;
     businessType: string;
+    averageColor: string;
 };
 
 export type ApplicantProfileType = {
@@ -43,6 +44,7 @@ export type ApplicantProfileType = {
     skills: string[];
     experience: string;
     socialNetworks: EmployerSocialNetworks;
+    averageColor: string;
 };
 
 export type ProfileState = EmployerProfile & {

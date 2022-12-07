@@ -18,31 +18,10 @@ import { resumeActions } from '../../../store/resume/actions';
 import { APPLICANT_PATHS, RESUME_PATHS } from '../../../utils/routerConstants';
 import RenderWithCondition from '../../../components/RenderWithCondition';
 import { ResumePreviewResponse } from '../../../services/resume/types';
-
-type ApplicantPropsType = {
-    id: string;
-    userID: string;
-    avatarSrc: string;
-    name: string;
-    surname: string;
-    status: string;
-    phone: string;
-    email: string;
-    sideBar: {
-        location: string;
-        dateOfBirth: string;
-        skills: string[];
-    };
-    socialNetworks: {
-        vk: string | null | undefined;
-        facebook: string | null | undefined;
-        telegram: string | null | undefined;
-    };
-    resume: ResumePreviewResponse[];
-};
+import { ApplicantProfileType } from '../../../store/profile/types';
 
 class ApplicantProfile extends ReactsComponent<
-    ApplicantPropsType & { userID: string }
+    ApplicantProfileType & { userID: string }
 > {
     state = {
         resume: [] as ResumePreviewResponse[],
@@ -72,7 +51,8 @@ class ApplicantProfile extends ReactsComponent<
             <div className={'screen-responsive flex column g-40'}>
                 <Header />
                 <ProfileHeader
-                    bannerSrc={'./'}
+                    bannerSrc={this.props.averageColor}
+                    averageColor={'#F0F0F0'}
                     profileID={this.props.id}
                     avatarSrc={this.props.avatarSrc}
                     name={this.props.name}

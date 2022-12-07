@@ -58,6 +58,7 @@ class Profile extends ReactsComponent<
             <div className={'screen-responsive flex column g-40'}>
                 <Header />
                 <ProfileHeader
+                    averageColor={this.props.averageColor}
                     bannerSrc={this.props.bannerSrc}
                     avatarSrc={this.props.avatarSrc}
                     name={this.props.name}

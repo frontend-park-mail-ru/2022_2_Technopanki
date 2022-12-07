@@ -35,7 +35,7 @@ export default class HeaderUserInfo extends ReactsComponent<
         return (
             <div
                 onMouseOver={() => this.setState(() => ({ isOpen: true }))}
-                className={'flex row g-16 cursor-pointer justify-content-end'}
+                className={'flex row cursor-pointer justify-content-end'}
             >
                 <img
                     height={20}
@@ -46,7 +46,9 @@ export default class HeaderUserInfo extends ReactsComponent<
                 />
                 <div className={'flex row g-16 text-align-right'}>
                     <p>
-                        {this.props.name} {this.props.surname}
+                        {`${this.props.name}${
+                            this.props.surname ? ' ' + this.props.surname : ''
+                        }`}
                     </p>
                 </div>
                 <div
