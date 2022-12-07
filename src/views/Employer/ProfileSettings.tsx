@@ -276,7 +276,7 @@ class ProfileSettingsComponent extends ReactsComponent<
                         </FormItem>
                         <FormCheckbox
                             checked={this.props.twoFactor}
-                            name={'TwoFactorSignIn'}
+                            name={'twoFactor'}
                             value={'twoFactor'}
                             id={'twoFactor'}
                         >

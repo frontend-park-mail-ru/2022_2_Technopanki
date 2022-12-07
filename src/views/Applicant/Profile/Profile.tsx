@@ -52,7 +52,7 @@ class ApplicantProfile extends ReactsComponent<
                 <Header />
                 <ProfileHeader
                     bannerSrc={this.props.averageColor}
-                    averageColor={'#F0F0F0'}
+                    averageColor={this.props.averageColor}
                     profileID={this.props.id}
                     avatarSrc={this.props.avatarSrc}
                     name={this.props.name}

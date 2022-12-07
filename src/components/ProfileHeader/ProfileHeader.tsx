@@ -18,7 +18,7 @@ export default class ProfileHeader extends ReactsComponent<{
             <div className={`flex column ${styles.profile}`}>
                 <div
                     className={styles.profile_banner}
-                    style={`background-image: linear-gradient(60deg, #192ec4, ${this.props.averageColor})`}
+                    style={`background-image: linear-gradient(60deg, rgba(${this.props.averageColor}, 0.4), rgba(${this.props.averageColor}, 0.8))`}
                 ></div>
                 <div className={styles.profile_content}>
                     <div className={styles.info}>
