@@ -33,6 +33,7 @@ authService
                 body.applicant_surname,
                 body.email,
                 body.image,
+                body.two_factor_sign_in,
                 body.user_type,
             ),
         );

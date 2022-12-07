@@ -48,7 +48,7 @@ import { useValidation } from '../../utils/validation/formValidation';
 import FormCheckbox from '../../components/UI-kit/forms/formInputs/FormCheckbox';
 
 class ProfileSettingsComponent extends ReactsComponent<
-    ProfileState & { userID: string },
+    ProfileState & { userID: string; twoFactor: boolean },
     {
         profile: EmployerProfile;
         error: boolean;
@@ -274,7 +274,12 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 required={true}
                             />
                         </FormItem>
-                        <FormCheckbox name={'twoFactor'} id={'twoFactor'}>
+                        <FormCheckbox
+                            checked={this.props.twoFactor}
+                            name={'TwoFactorSignIn'}
+                            value={'twoFactor'}
+                            id={'twoFactor'}
+                        >
                             Включить двухфакторную авторизацию
                         </FormCheckbox>
                         <div>
@@ -335,7 +340,7 @@ class ProfileSettingsComponent extends ReactsComponent<
 }
 
 const UserWrapper = userConnect((state, props) => {
-    return { userID: state.id, ...props };
+    return { userID: state.id, ...props, twoFactor: state.twoFactor };
 })(ProfileSettingsComponent);
 
 export default profileConnect(state => {

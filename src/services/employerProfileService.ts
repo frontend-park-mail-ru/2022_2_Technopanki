@@ -94,6 +94,7 @@ export const employerProfileService: {
                     password: formData.get('password'),
                     business_type: formData.get('businessType'),
                     location: formData.get('location'),
+                    two_factor_sign_in: Boolean(formData.get('twoFactor')),
                 }),
             )
             .then(response => {
