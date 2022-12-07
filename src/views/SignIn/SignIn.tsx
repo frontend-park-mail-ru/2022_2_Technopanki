@@ -23,8 +23,9 @@ import Form from '../../components/UI-kit/forms/Form';
 import FormItem from '../../components/UI-kit/forms/FormItem';
 import { activateError, deactivateError } from '../../store/errors/actions';
 import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
-import { AuthError } from '../../services/auth/types';
+import { AuthError, SignInResponse } from '../../services/auth/types';
 import navigator from '../../router/navigator';
+import { SERVER_URLS, USER_URLS } from '../../utils/networkConstants';
 
 export default class SignIn extends ReactsComponent {
     validation = useValidation({
@@ -42,21 +43,29 @@ export default class SignIn extends ReactsComponent {
         try {
             const response = await authService.signIn(formData);
 
+            if (response === 202) {
+                navigator.navigate(USER_URLS.CONFIRM + '/signin');
+                return;
+            }
+
             dispatch(
                 userActions.SIGN_IN(
-                    response.id.toString(),
-                    response.applicant_name ?? response.company_name,
-                    response.applicant_surname,
-                    response.email,
-                    response.image,
-                    response.user_type,
+                    (response as SignInResponse).id.toString(),
+                    (response as SignInResponse).applicant_name ??
+                        (response as SignInResponse).company_name,
+                    (response as SignInResponse).applicant_surname,
+                    (response as SignInResponse).email,
+                    (response as SignInResponse).image,
+                    (response as SignInResponse).two_factor_sign_in,
+                    (response as SignInResponse).user_type,
                 ),
             );
 
             navigator.navigate(
-                (response.user_type === USER_TYPE.APPLICANT
+                ((response as SignInResponse).user_type === USER_TYPE.APPLICANT
                     ? APPLICANT_PATHS.PROFILE
-                    : EMPLOYER_PATHS.PROFILE) + response.id.toString(),
+                    : EMPLOYER_PATHS.PROFILE) +
+                    (response as SignInResponse).id.toString(),
             );
         } catch (e: unknown) {
             dispatch(activateError((e as AuthError).error));
@@ -81,7 +90,8 @@ export default class SignIn extends ReactsComponent {
                                 name={'email'}
                                 setError={this.validation.setError}
                                 size={'12'}
-                                validationMode={'oninput'}
+                                required={true}
+                                validationMode={'onblur'}
                                 validation={this.validation.getValidation(
                                     'email',
                                 )}
@@ -94,7 +104,8 @@ export default class SignIn extends ReactsComponent {
                                 name={'password'}
                                 setError={this.validation.setError}
                                 size={'12'}
-                                validationMode={'oninput'}
+                                required={true}
+                                validationMode={'onblur'}
                                 validation={this.validation.getValidation(
                                     'password',
                                 )}

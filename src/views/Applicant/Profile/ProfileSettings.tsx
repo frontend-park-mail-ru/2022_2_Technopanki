@@ -17,15 +17,11 @@ import navigator from '../../../router/navigator';
 import { applicantProfileService } from '../../../services/applicantService';
 import Footer from '../../../components/UI-kit/footer/Footer';
 import FormFileInput from '../../../components/UI-kit/forms/formInputs/FormFileInput';
-import WorkExperienceInput from '../../../components/WorkExperienceInput';
 import { authService, USER_TYPE } from '../../../services/auth/authService';
 import { userActions } from '../../../store/user/actions';
 import ButtonRed from '../../../components/UI-kit/buttons/ButtonRed';
 import { profileActions } from '../../../store/profile/actions';
-import {
-    APPLICANT_PATHS,
-    EMPLOYER_PATHS,
-} from '../../../utils/routerConstants';
+import { APPLICANT_PATHS } from '../../../utils/routerConstants';
 import { useValidation } from '../../../utils/validation/formValidation';
 import {
     dateOfBirthValidation,
@@ -39,26 +35,15 @@ import {
     surnameLengthValidation,
     surnameSymbolsValidation,
 } from './settingsValidators';
-import { activateSuccess } from '../../../store/succeses/actions';
-import { applicantActions } from '../../../store/applicant/actions';
 import ErrorPopup from '../../../components/ErrorPopup/ErrorPopup';
 import { activateError, deactivateError } from '../../../store/errors/actions';
 import { VacancyUpdateError } from '../../../services/vacancy/types';
-import FormInputGroup from '../../../components/UI-kit/forms/formInputs/FormInputGroup';
+import FormCheckbox from '../../../components/UI-kit/forms/formInputs/FormCheckbox';
 
 class ApplicantSettings extends ReactsComponent<
-    ProfileState,
+    ProfileState & { userID: string; twoFactor: boolean },
     {
         profile: ApplicantProfileType;
-        sections: {
-            header: string;
-            fields: {
-                [key: string]: {
-                    fieldHeader: string;
-                    props: InputPropsType;
-                };
-            };
-        }[];
     }
 > {
     state = {
@@ -294,6 +279,16 @@ class ApplicantSettings extends ReactsComponent<
                                 )}
                                 validationMode={'oninput'}
                             />
+                            <div className={'col-12'}>
+                                <FormCheckbox
+                                    checked={this.props.twoFactor}
+                                    name={'TwoFactorSignIn'}
+                                    value={'twoFactor'}
+                                    id={'twoFactor'}
+                                >
+                                    Включить двухфакторную авторизацию
+                                </FormCheckbox>
+                            </div>
                         </FormItem>
                         <div>
                             <ButtonPrimary type={'submit'}>
@@ -313,7 +308,7 @@ class ApplicantSettings extends ReactsComponent<
 }
 
 const UserWrapper = userConnect((state, props) => {
-    return { userID: state.id, ...props };
+    return { userID: state.id, twoFactor: state.twoFactor, ...props };
 })(ApplicantSettings);
 
 export default profileConnect((state, props) => {

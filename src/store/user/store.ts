@@ -3,11 +3,12 @@ import { userReducer } from './reducer';
 import { UserState } from './types';
 
 export const userStore = new Store<UserState>(userReducer, {
-    id: '',
-    name: '',
+    id: '1',
+    name: 'Vlad',
     surname: '',
-    userType: null,
+    userType: 'applicant',
     email: '',
     avatarSrc: '',
-    authorized: false,
+    twoFactor: false,
+    authorized: true,
 });

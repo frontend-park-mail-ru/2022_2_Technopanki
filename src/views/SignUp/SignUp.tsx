@@ -76,7 +76,7 @@ export default class SignUp extends ReactsComponent<
         try {
             await authService.signUp(formData);
             dispatch(userActions.updateEmail(formData.get('email') as string));
-            navigator.navigate(USER_URLS.CONFIRM);
+            navigator.navigate(USER_URLS.CONFIRM + '/signup');
         } catch (e) {
             console.error(e);
             dispatch(activateError((e as AuthError).error));

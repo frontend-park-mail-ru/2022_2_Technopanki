@@ -29,7 +29,7 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
     {
         path: {
             path: '/confirm',
-            validator: (url: string) => url === '/confirm',
+            validator: (url: string) => /^confirm/.test(url),
         },
         component: EmailConfirm,
     },

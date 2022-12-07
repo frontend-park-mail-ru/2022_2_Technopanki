@@ -144,7 +144,25 @@
   outline: none;
   font-size: 14px;
   color: var(--background-900);
+  appearance: none;
 }
+
+.select-block {
+  display: grid;
+  grid-template-areas: "select";
+  align-items: center;
+  &::after {
+    position: absolute;
+    grid-area: select;
+    justify-self: end;
+    content: "";
+    background-image: url("../../../../static/icons/chevron.svg");
+    margin-right: var(--padding-16);
+    width: 0.8em;
+    height: 0.5em;
+  }
+}
+
 .dropdown {
   max-width: 140px;
   margin-left: 8px;

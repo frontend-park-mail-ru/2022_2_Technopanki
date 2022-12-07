@@ -7,7 +7,6 @@ import { authService, USER_TYPE } from './services/auth/authService';
 import { dispatch } from './store';
 import StartPage from './views/StartPage/StartPage';
 import { userActions } from './store/user/actions';
-import Profile from './views/Employer/Profile';
 
 class App extends ReactsComponent {
     render() {

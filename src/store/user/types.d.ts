@@ -7,6 +7,7 @@ export type UserState = {
     email: string;
     userType: UserType | null;
     avatarSrc: string;
+    twoFactor: boolean;
     authorized: boolean;
 };
 
@@ -17,5 +18,6 @@ export interface AuthAction {
     email: string;
     surname: string;
     imgSrc: string;
+    twoFactor: boolean;
     userType: UserType;
 }

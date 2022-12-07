@@ -45,6 +45,7 @@ import {
     passwordSymbolsValidator,
 } from '../../utils/validation/commonValidators';
 import { useValidation } from '../../utils/validation/formValidation';
+import FormCheckbox from '../../components/UI-kit/forms/formInputs/FormCheckbox';
 
 class ProfileSettingsComponent extends ReactsComponent<
     ProfileState & { userID: string },
@@ -273,6 +274,9 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 required={true}
                             />
                         </FormItem>
+                        <FormCheckbox name={'twoFactor'} id={'twoFactor'}>
+                            Включить двухфакторную авторизацию
+                        </FormCheckbox>
                         <div>
                             <ButtonPrimary type={'submit'}>
                                 Сохранить

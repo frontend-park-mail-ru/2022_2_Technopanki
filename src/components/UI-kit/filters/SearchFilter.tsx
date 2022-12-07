@@ -20,7 +20,6 @@ export default class SearchFilter extends ReactsComponent<{
     onSubmit: Function;
 }> {
     render() {
-        console.log(this.props.filters);
         return (
             <form onSubmit={this.props.onSubmit}>
                 <div className={'flex column g-24'}>
