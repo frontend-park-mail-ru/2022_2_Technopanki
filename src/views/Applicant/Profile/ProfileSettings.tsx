@@ -282,7 +282,7 @@ class ApplicantSettings extends ReactsComponent<
                             <div className={'col-12'}>
                                 <FormCheckbox
                                     checked={this.props.twoFactor}
-                                    name={'TwoFactorSignIn'}
+                                    name={'twoFactor'}
                                     value={'twoFactor'}
                                     id={'twoFactor'}
                                 >
