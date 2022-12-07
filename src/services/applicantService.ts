@@ -55,6 +55,7 @@ export const applicantProfileService: Service = {
                     contact_number: formData.get('phone'),
                     email: formData.get('email'),
                     password: formData.get('password'),
+                    two_factor_sign_in: Boolean(formData.get('twoFactor')),
                 }),
             )
             .then(response => {
