@@ -92,7 +92,7 @@ export const replaceNode = (
 
     // Save DOM element that we will replace
     let replaceElement: HTMLElement = element;
-
+    console.log('sd');
     // "remove"
     switch ((<ReactsNotPrimitiveNode>oldNode).$$typeof) {
         case DOM_SYMBOL:
