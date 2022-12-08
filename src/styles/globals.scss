@@ -92,6 +92,7 @@
   --padding-2: 2px;
   --padding-4: 4px;
   --padding-8: 8px;
+  --padding-12: 12px;
   --padding-16: 16px;
   --padding-24: 24px;
   --padding-32: 32px;
@@ -501,6 +502,9 @@ a {
   }
   &-8 {
     padding: var(--padding-8);
+  }
+  &-12 {
+    padding: var(--padding-12);
   }
   &-16 {
     padding: var(--padding-16);

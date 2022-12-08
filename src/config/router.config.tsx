@@ -87,8 +87,29 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
     },
     {
         path: {
-            path: '/search',
-            validator: (url: string) => url === '/search',
+            path: '/search/vacancy',
+            validator: (url: string) => url === '/search/vacancy',
+        },
+        component: Search,
+    },
+    {
+        path: {
+            path: '/search/applicant',
+            validator: (url: string) => url === '/search/applicant',
+        },
+        component: Search,
+    },
+    {
+        path: {
+            path: '/search/employer',
+            validator: (url: string) => url === '/search/employer',
+        },
+        component: Search,
+    },
+    {
+        path: {
+            path: '/search/resume',
+            validator: (url: string) => url === '/search/resume',
         },
         component: Search,
     },

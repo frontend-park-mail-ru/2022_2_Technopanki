@@ -11,51 +11,58 @@ export default class CheckBox extends ReactsComponent<{
     children: string;
     onClick?: Function;
 }>{
-    state ={
+    state = {
         checked: false,
         checkedName: '',
     }
 
-    disableChecked = (e: MouseEvent) => {
-        console.log(e.target)
+    handleChecked = (e: MouseEvent) => {
         if (e.target.value === this.state.checkedName && e.target.checked === true) {
-            console.log(e.target.value, this.state.checkedName);
             this.setState(state => ({ ...state, checked: false }));
+            localStorage.setItem(this.props.children, '')
         }
         else {
-            console.log('changed');
             this.setState(state => ({ ...state, checked: true, checkedName: e.target.value }));
+            localStorage.setItem(this.props.children, e.target.value)
         }
-        console.log('state: ', this.state)
         e.target.checked = this.state.checked
+    }
+
+    componentDidMount() {
+        localStorage.setItem(this.props.children, '')
+        console.log('MOUNT filter radio', this.state)
     }
 
     render() {
         return (
             <div
-                onClick={this.disableChecked}
+                onClick={this.handleChecked}
                 className={`flex row g-8 align-items-center ${styles.radio}`}
             >
-                <label name={this.props.name} className={`flex row g-8 align-items-center ${styles.radio_label_search}`} for={this.props.id} checked={this.state.checked}>
-                    {this.props.checked ? (
+                <div name={this.props.name} className={`flex row g-8 align-items-center`}>
+                    {/*{this.state.checked ? (*/}
                         <input
                             className={`rounded-max ${styles.radio_input}`}
                             id={this.props.id}
                             type={'radio'}
                             name={this.props.name}
                             value={this.props.children}
+                            checked={this.props.children === localStorage.getItem(this.props.children)}
                         />
-                    ) : (
-                        <input
-                            className={`rounded-max ${styles.radio_input}`}
-                            id={this.props.id}
-                            type={'radio'}
-                            name={this.props.name}
-                            value={this.props.children}
-                        />
-                    )}
-                    {this.props.children}
-                </label>
+                    {/*) : (*/}
+                    {/*    <input*/}
+                    {/*        className={`rounded-max ${styles.radio_input}`}*/}
+                    {/*        id={this.props.id}*/}
+                    {/*        type={'radio'}*/}
+                    {/*        name={this.props.name}*/}
+                    {/*        value={this.props.children}*/}
+                    {/*        checked={this.state.checked}*/}
+                    {/*    />*/}
+                    {/*)}*/}
+                    <label className={`${styles.radio_label_search}`} for={this.props.children} checked={this.state.checked}>
+                        {this.props.children}
+                    </label>
+                </div>
             </div>
         );
     }

@@ -26,7 +26,7 @@ export default class DropdownMenu extends ReactsComponent<
     render() {
         return (
             <div
-                className={`relative flex column g-4 ${
+                className={`relative flex column justify-content-center g-4 ${
                     this.state.isOpen ? 'cursor-default' : ''
                 }`}
             >
@@ -43,14 +43,7 @@ export default class DropdownMenu extends ReactsComponent<
                                 this.state.isOpen
                                     ? `flex-${this.props.direction}`
                                     : 'none'
-                            } ${
-                                this.state.isOpen?
-                                    this.props.mt
-                                        ? `mt-${this.props.mt}`
-                                        : 'mt-8'
-                                    : 'none'
-                            }`
-                            }
+                            }`}
                         >
                             {this.props.hidden}
                         </div>

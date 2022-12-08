@@ -5,6 +5,7 @@ import stylesInput from '../forms/inputs/input.module.scss';
 import CheckBox from '../buttons/Checkbox';
 import ButtonPrimaryBlue from '../buttons/ButtonPrimaryBlue';
 import { Input } from 'postcss';
+import FilterInput from '../forms/inputs/FilterInput';
 
 export type FilterPropsType = {
     type: string;
@@ -19,10 +20,15 @@ export default class SearchFilter extends ReactsComponent<{
     filters: FilterPropsType[];
     onSubmit: Function;
 }> {
+    componentDidUpdate() {
+        console.log('filters updated')
+        console.log(this.state)
+    }
+
     render() {
         console.log(this.props.filters);
         return (
-            <form onSubmit={this.props.onSubmit}>
+            <form id={'searchFilters'} onSubmit={this.props.onSubmit}>
                 <div className={'flex column g-24'}>
                     {this.props.filters.map(filter => (
                         <div className={'flex column g-12'}>
@@ -32,7 +38,9 @@ export default class SearchFilter extends ReactsComponent<{
                                     className={`flex column g-8 ${styles.filter_body}`}
                                 >
                                     {filter.options?.map(option => (
-                                        <CheckBox name={filter.name}>
+                                        <CheckBox
+                                            name={filter.name}
+                                        >
                                             {option}
                                         </CheckBox>
                                     ))}
@@ -47,8 +55,7 @@ export default class SearchFilter extends ReactsComponent<{
                                 </div>
                             ) : (
                                 <div>
-                                    <input
-                                        className={`${stylesInput.input} ${styles.filter_input}`}
+                                    <FilterInput
                                         id={filter.name}
                                         type={'text'}
                                         placeholder={filter.header}
