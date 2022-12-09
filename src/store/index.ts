@@ -18,7 +18,6 @@ dispatcher.register(profileStore.dispatch.bind(profileStore));
 dispatcher.register(loadingStore.dispatch.bind(loadingStore));
 dispatcher.register(errorsStore.dispatch.bind(errorsStore));
 dispatcher.register(errorsStore.dispatch.bind(successStore));
-dispatcher.register(vacancyFilterStore.dispatch.bind(vacancyFilterStore))
 
 export const dispatch = dispatcher.dispatch.bind(dispatcher);
 
@@ -31,5 +30,3 @@ export const successConnect = createConnect(successStore);
 
 export const resumeConnect = createConnect(resumeStore);
 export const applicantConnect = createConnect(applicantProfileStore);
-
-export const vacancyFilterConnect = createConnect(vacancyFilterStore);
