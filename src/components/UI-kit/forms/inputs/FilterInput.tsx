@@ -22,23 +22,23 @@ export default class FilterInput extends ReactsComponent<FilterInputPropsType> {
         value: '',
     }
 
-    getInputValue = (e: MouseEvent) => {
-        this.setState(state => ({
-            ...state,
-            value: e.target.value
-        }))
+    // getInputValue = (e: MouseEvent) => {
+    //     this.setState(state => ({
+    //         ...state,
+    //         value: e.target.value
+    //     }))
+    //
+    //     localStorage.setItem(this.props.name, e.target.value)
+    //     console.log('filter input: ', this.state)
+    // }
 
-        localStorage.setItem(this.props.name, e.target.value)
-        console.log('filter input: ', this.state)
-    }
-
-    componentDidUpdate() {
-        console.log('update filter input')
-    }
-
-    componentDidMount() {
-        localStorage.setItem(this.props.name, '')
-    }
+    // componentDidUpdate() {
+    //     console.log('update filter input')
+    // }
+    //
+    // componentDidMount() {
+    //     localStorage.setItem(this.props.name, '')
+    // }
 
     render() {
         return (
@@ -60,7 +60,6 @@ export default class FilterInput extends ReactsComponent<FilterInputPropsType> {
                     placeholder={this.props.placeholder}
                     required={this.props.required}
                     value={localStorage.getItem(this.props.name)}
-                    onChange={this.getInputValue}
                 />
                 {this.props.error ? (
                     <p className={`input-error-${this.props.name}`}>

@@ -81,7 +81,6 @@ export default class SearchInput extends ReactsComponent<
                                     {this.options.map(option => (
                                         <p
                                             className={`${styles.dropdown_options}`}
-                                            // onClick={this.props.onSwitch}
                                         >
                                             <Link
                                                 to={`/search/${option.key}`}

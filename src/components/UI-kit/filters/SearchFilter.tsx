@@ -31,7 +31,7 @@ export default class SearchFilter extends ReactsComponent<{
             <form id={'searchFilters'} onSubmit={this.props.onSubmit}>
                 <div className={'flex column g-24'}>
                     {this.props.filters.map(filter => (
-                        <div className={'flex column g-12'}>
+                        <div key={filter.name} className={'flex column g-12'}>
                             <p>{filter.header}</p>
                             {filter.type === 'toggle' ? (
                                 <div
@@ -39,6 +39,7 @@ export default class SearchFilter extends ReactsComponent<{
                                 >
                                     {filter.options?.map(option => (
                                         <CheckBox
+                                            key={option}
                                             name={filter.name}
                                         >
                                             {option}
@@ -48,6 +49,7 @@ export default class SearchFilter extends ReactsComponent<{
                             ) : filter.type === 'range' ? (
                                 <div>
                                     <RangeInput
+                                        key={'rangeInput'}
                                         min={filter.rangeMin as string}
                                         max={filter.rangeMax as string}
                                         name={filter.name}
@@ -56,6 +58,7 @@ export default class SearchFilter extends ReactsComponent<{
                             ) : (
                                 <div>
                                     <FilterInput
+                                        key={'textInput'}
                                         id={filter.name}
                                         type={'text'}
                                         placeholder={filter.header}

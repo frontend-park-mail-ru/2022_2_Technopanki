@@ -19,18 +19,15 @@ export default class CheckBox extends ReactsComponent<{
     handleChecked = (e: MouseEvent) => {
         if (e.target.value === this.state.checkedName && e.target.checked === true) {
             this.setState(state => ({ ...state, checked: false }));
-            localStorage.setItem(this.props.children, '')
         }
         else {
             this.setState(state => ({ ...state, checked: true, checkedName: e.target.value }));
-            localStorage.setItem(this.props.children, e.target.value)
         }
-        e.target.checked = this.state.checked
+        e.target.checked = this.state.checked;
     }
 
-    componentDidMount() {
-        localStorage.setItem(this.props.children, '')
-        console.log('MOUNT filter radio', this.state)
+    componentDidUpdate() {
+        console.log('update checkbox')
     }
 
     render() {
