@@ -48,6 +48,7 @@ export const profileActions: {
             fieldOfActivity: [],
             socialNetworks: [],
             businessType: serverState.business_type,
+            averageColor: serverState.average_color,
         } as EmployerProfile,
     }),
     update: (newState: { [key: string]: any }) => ({

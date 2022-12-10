@@ -6,10 +6,10 @@ export default class RenderWithCondition extends ReactsComponent<{
     onSuccess: ReactsNode;
 }> {
     render() {
-        if (this.props.condition) {
-            return this.props.onSuccess;
-        } else {
-            return <p className={'none'}></p>;
-        }
+        return (
+            <div className={this.props.condition ? 'block' : 'none'}>
+                {this.props.onSuccess}
+            </div>
+        );
     }
 }
