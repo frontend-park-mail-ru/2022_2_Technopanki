@@ -21,8 +21,8 @@ export const validatePasswordSymbols = (password: string): boolean => {
  * @param {string} password
  * @returns {boolean}
  */
-export const validatePasswordLength = (password: string): boolean => {
-    return 8 <= password.length && password.length <= 20;
+export const validatePasswordLength = (password: string | undefined): boolean => {
+    return Boolean(password && 8 <= (<string>password).length && (<string>password).length <= 20);
 };
 
 /**

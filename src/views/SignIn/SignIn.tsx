@@ -42,10 +42,12 @@ export default class SignIn extends ReactsComponent {
         const formData = new FormData(e.target as HTMLFormElement);
         try {
             const response = await authService.signIn(formData);
-            dispatch(userActions.updateEmail(formData.get('email') as string));
-
             if (response === 202) {
-                navigator.navigate(USER_URLS.CONFIRM + '/signin');
+        	console.log(formData.get('email'));	
+	       dispatch(userActions.updateEmail(formData.get('email') as string));
+	
+
+		navigator.navigate(USER_URLS.CONFIRM + '/signin');
                 return;
             }
 

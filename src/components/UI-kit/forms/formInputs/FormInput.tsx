@@ -54,6 +54,14 @@ export default class FormInput extends ReactsComponent<FormInputProps> {
         this.validate(this.state.value);
     }
 
+    shouldUpdateState(nextState: FormInputProps | Readonly<FormInputProps>): boolean {
+        return this.state.value !== nextState.value || this.state.error !== nextState.error
+    }
+
+    shouldUpdate(nextProps: FormInputProps | Readonly<FormInputProps>): boolean {
+        return this.props.value !== nextProps.value
+    }
+
     onBlur = (e: Event) => {
         e.preventDefault();
         this.props.validationMode === 'onblur' && this.validate(e.target.value);
@@ -91,14 +99,13 @@ export default class FormInput extends ReactsComponent<FormInputProps> {
                         label: null,
                     }}
                 />
-                <RenderWithCondition
-                    condition={this.state.error}
-                    onSuccess={
-                        <p className={`input-error-${this.props.name}`}>
-                            {this.state.errorMessage}
-                        </p>
-                    }
-                />
+                {this.state.error ? (
+                    <p className={`input-error-${this.props.name}`}>
+                        {this.state.errorMessage}
+                    </p>
+                ) : (
+                    <p></p>
+                )}
             </div>
         );
     }

@@ -27,6 +27,7 @@ class EmailConfirm extends ReactsComponent<{
                 this.props.email,
             );
 
+            console.log(response)
             switch (typeOfOperation) {
                 case 'signin':
                     dispatch(
@@ -61,9 +62,14 @@ class EmailConfirm extends ReactsComponent<{
                     : EMPLOYER_PATHS.PROFILE) + response.id.toString(),
             );
         } catch (e) {
+            console.log(e)
             dispatch(activateError('Ошибка', 'Пожалуйста, проверьте токен'));
             setTimeout(() => dispatch(deactivateError()), 3000);
         }
+    }
+
+    shouldUpdate(nextProps: { email: string; } | Readonly<{ email: string; }>): boolean {
+        return false
     }
 
     render() {
