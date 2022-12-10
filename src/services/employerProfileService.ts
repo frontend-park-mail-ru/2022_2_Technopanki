@@ -24,7 +24,7 @@ export const employerProfileService: {
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
-                    throw response.status;
+                    throw response.body;
                 }
 
                 return response.body;
@@ -92,20 +92,18 @@ export const employerProfileService: {
                     email: formData.get('email'),
                     company_size: parseInt(formData.get('size') as string),
                     password: formData.get('password'),
+                    business_type: formData.get('businessType'),
+                    location: formData.get('location'),
+                    two_factor_sign_in: Boolean(formData.get('twoFactor')),
                 }),
             )
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
-                    throw response.status;
+                    throw response.body;
                 }
 
                 return response.body;
-            })
-            .catch(err => {
-                dispatch(stopLoading());
-                console.error(err);
-                throw err;
             });
     },
 };

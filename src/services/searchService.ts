@@ -95,6 +95,7 @@ export const searchService: Service = {
     },
 
     searchByApplicants: async (queryParam: string) => {
+        console.log('URL: ', SERVER_URLS.APPLICANT_SEARCH)
         return await network
             .GET(SERVER_URLS.APPLICANT_SEARCH + `?search=%25${queryParam}%25`)
             .then(response => {

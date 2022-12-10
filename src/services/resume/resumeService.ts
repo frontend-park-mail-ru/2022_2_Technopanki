@@ -73,6 +73,7 @@ export const resumeService: {
                         job_location_city: formData.get('location'),
                         description: formData.get('description'),
                     },
+                    experience: formData.get('experience'),
                     applicant_skills: null,
                 }),
             )
@@ -105,6 +106,7 @@ export const resumeService: {
                         job_location_city: formData.get('location'),
                         description: formData.get('description'),
                     },
+                    experience: formData.get('experience'),
                     applicant_skills: null,
                 }),
             )
@@ -118,8 +120,9 @@ export const resumeService: {
     },
 
     deleteResume: async (resumeID: string) => {
-        return await network
-            .DELETE(SERVER_URLS.RESUME + resumeID, requestHeaders.jsonHeader)
-            .then(() => console.log('deleted'));
+        return await network.DELETE(
+            SERVER_URLS.RESUME + resumeID,
+            requestHeaders.jsonHeader,
+        );
     },
 };

@@ -90,6 +90,8 @@ export default class RangeInput extends ReactsComponent<{
         this.fillSlider(fromSlider, toSlider, toSlider, '#dadae0', '#1C34EC');
         this.handleCollision(toSlider);
 
+        console.log(fromSlider, toSlider)
+
         fromSlider.oninput = () =>
             this.handleFromSlider(fromSlider, toSlider, fromInput);
         toSlider.oninput = () =>
@@ -100,26 +102,10 @@ export default class RangeInput extends ReactsComponent<{
             this.handleToInput(toSlider, fromInput, toInput, toSlider);
     };
 
-    // getMaxValue = () => {
-    //     if (document.getElementById('toInput')) {
-    //         console.log(document.getElementById('toInput').value)
-    //         return (document.getElementById('toInput').value
-    //             ? document.getElementById('toInput').value
-    //             : '1000')
-    //     }
-    // }
-    // getMinValue = () => {
-    //     if (document.getElementById('fromInput')) {
-    //         return (document.getElementById('fromInput').value
-    //             ? document.getElementById('fromInput').value
-    //             : '0')
-    //     }
-    // }
-
     render() {
         return (
             <div className={'flex column g-8'}>
-                <div className={'flex row justify-content-space-between'}>
+                <div className={'flex row justify-content-space-between g-16'}>
                     <input
                         id={'fromInput'}
                         name={this.props.name}
@@ -137,16 +123,21 @@ export default class RangeInput extends ReactsComponent<{
                         value={this.props.max}
                     />
                 </div>
-                <div className={'relative flex row align-items-center'}>
+                <div className={'flex row align-items-center'}>
                     <input
                         id={'fromSlider'}
                         type={'range'}
                         min={this.props.min}
                         max={this.props.max}
                         value={this.props.min}
-                        step={'10000'}
+                        step={`${this.props.max <= 100
+                            ? '1'
+                            : this.props.max <= 1000
+                                ? '50'
+                                : '10000'
+                        }`}
                         className={`${styles.slider} ${styles.from_slider}`}
-                        onClick={this.handleRangeInput}
+                        onMouseDown={this.handleRanxgeInput}
                     />
                     <input
                         id={'toSlider'}
@@ -154,9 +145,14 @@ export default class RangeInput extends ReactsComponent<{
                         min={this.props.min}
                         max={this.props.max}
                         value={this.props.max}
-                        step={'10000'}
+                        step={`${this.props.max <= 100
+                            ? '1'
+                            : this.props.max <= 1000
+                                ? '50'
+                                : '10000'
+                        }`}
                         className={`${styles.slider}`}
-                        onClick={this.handleRangeInput}
+                        onMouseDown={this.handleRangeInput}
                     />
                 </div>
             </div>

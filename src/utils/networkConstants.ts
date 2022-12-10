@@ -1,5 +1,5 @@
-export const FRONT_URL = 'http://localhost:8000/';
-export const SERVER_URL = 'http://localhost:8080/';
+export const FRONT_URL = 'https://jobflow.su/';
+export const SERVER_URL = 'https://jobflow.su/';
 export const IMAGE_URL = FRONT_URL + 'image/';
 
 export const USER_URLS = {
@@ -47,10 +47,10 @@ export const SERVER_URLS = {
     RESUME_SEARCH: SERVER_URL + 'api/resume',
     ADD_RESUME: SERVER_URL + 'api/resume/new',
 
-    ALL_EMPLOYERS: SERVER_URL +'api/user/employers',
-    EMPLOYER_SEARCH: SERVER_URL +'api/user/employers',
+    ALL_EMPLOYERS: SERVER_URL + 'api/user/employers',
+    EMPLOYER_SEARCH: SERVER_URL + 'api/user/employers',
     ALL_APPLICANTS: SERVER_URL + 'api/user/applicants',
-    APPLICANT_SEARCH: + 'api/user/applicants',
+    APPLICANT_SEARCH: SERVER_URL + 'api/user/applicants',
 
     APPLICANT: SERVER_URL + 'api/user/safety/',
     APPLICANT_RESUMES: SERVER_URL + 'api/resume/applicant/preview/',

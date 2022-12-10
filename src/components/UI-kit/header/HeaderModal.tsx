@@ -6,10 +6,9 @@ import RenderWithCondition from '../../RenderWithCondition';
 import Link from '../../Link/Link';
 import { toggleTheme } from '../../../utils/toggleTheme';
 import { dispatch, userConnect } from '../../../store';
-import { authService } from '../../../services/auth/authService';
+import { authService, USER_TYPE } from '../../../services/auth/authService';
 import { userActions } from '../../../store/user/actions';
 import navigator from '../../../router/navigator';
-import { IMAGE_URL } from '../../../utils/networkConstants';
 import {
     SIGN_IN_PATH,
     SIGN_UP_PATH,
@@ -46,119 +45,132 @@ class HeaderModal extends ReactsComponent<{
                     ></div>
                 }
                 hidden={
-                    <div
-                        className={`flex rounded-lg p-4 background-0 ${styles.modal}`}
-                    >
+                    <div className={`flex rounded-lg p-4 ${styles.modal}`}>
                         <div
                             id={'links-group'}
-                            className={`flex column justify-content-center w-100 g-32 p-16`}
-                        >
+                          className={`flex column justify-content-center w-100 g-32`}
+                       >
                             <RenderWithCondition
                                 condition={this.props.authorized}
                                 onSuccess={
-                                    <div className={'flex g-8 column'}>
-                                        <div className={styles['modal-item']}>
-                                            <Link
-                                                to={`/${
-                                                    this.props.userType ===
-                                                    'applicant'
-                                                        ? 'applicant'
-                                                        : 'employer'
-                                                }/${this.props.id}`}
-                                                content={
-                                                    <div
-                                                        className={
-                                                            'flex row g-8 align-items-center'
+                                    <div className={'flex g-16 column'}>
+                                        <Link
+                                            to={`/${
+                                                this.props.userType ===
+                                                'applicant'
+                                                    ? 'applicant'
+                                                    : 'employer'
+                                            }/${this.props.id}`}
+                                            content={
+                                                <div
+                                                    className={`flex row g-8 align-items-center justify-content-start ${styles['modal-item']}`}
+                                                >
+                                                    <img
+                                                        src={
+                                                            this.props.avatarSrc
                                                         }
-                                                    >
-                                                        <img
-                                                            src={
-                                                                IMAGE_URL +
-                                                                this.props
-                                                                    .avatarSrc
-                                                            }
-                                                            height={24}
-                                                            width={24}
-                                                            alt={'avatar'}
-                                                        />
-                                                        <p>
-                                                            {this.props.name}{' '}
-                                                            {this.props.surname}
-                                                        </p>
-                                                    </div>
-                                                }
-                                            />
-                                            <RenderWithCondition
-                                                condition={
-                                                    this.props.userType ===
-                                                    'applicant'
-                                                }
-                                                onSuccess={
-                                                    <Link
-                                                        to={SEARCH_PATH}
-                                                        content={
-                                                            <p
-                                                                className={
-                                                                    styles[
-                                                                        'modal-item'
-                                                                    ]
-                                                                }
-                                                            >
-                                                                Создать резюме
-                                                            </p>
+                                                        height={24}
+                                                        width={24}
+                                                        className={
+                                                            'rounded-max'
                                                         }
                                                     />
-                                                }
-                                            />
-                                        </div>
+                                                    <p>
+                                                        {`${this.props.name}
+                                                            ${
+                                                                this.props
+                                                                    .surname
+                                                                    ? this.props
+                                                                          .surname
+                                                                    : ''
+                                                            }`}
+                                                    </p>
+                                                </div>
+                                            }
+                                        />
+                                        <RenderWithCondition
+                                            condition={
+                                                this.props.userType ===
+                                                USER_TYPE.APPLICANT
+                                            }
+                                            onSuccess={
+                                                <Link
+                                                    to={SEARCH_PATH}
+                                                    content={
+                                                        <p
+                                                            className={
+                                                                styles[
+                                                                    'modal-item'
+                                                                ]
+                                                            }
+                                                        >
+                                                            Создать резюме
+                                                        </p>
+                                                    }
+                                                />
+                                            }
+                                        />
                                         <a
                                             onClick={this.logout}
-                                            className={styles['modal-item']}
+                                            className={`${styles['modal-item']} cursor-pointer`}
                                         >
                                             Выйти из аккаунта
                                         </a>
                                     </div>
                                 }
                             />
-                            <a
-                                onClick={(e: MouseEvent) => {
-                                    e.stopPropagation();
-                                    toggleTheme();
-                                }}
-                                className={`${styles['modal-item']}`}
-                            >
-                                Переключить тему
-                            </a>
-                            <Link
-                                to={SEARCH_PATH}
-                                content={
+                            <div className={'flex g-16 column'}>
+                                <a
+                                    className={`cursor-pointer`}
+                                    onClick={(e: MouseEvent) => {
+                                        e.stopPropagation();
+                                        toggleTheme();
+                                    }}
+                                >
                                     <p className={styles['modal-item']}>
-                                        Поиск
+                                        Переключить тему
                                     </p>
+                                </a>
+                                <Link
+                                    to={SEARCH_PATH}
+                                    content={
+                                        <p className={styles['modal-item']}>
+                                            Поиск
+                                        </p>
+                                    }
+                                />
+                            </div>
+                            <RenderWithCondition
+                                condition={!this.props.authorized}
+                                onSuccess={
+                                    <div className={'flex g-16 column'}>
+                                        <Link
+                                            to={SIGN_IN_PATH}
+                                            content={
+                                                <p
+                                                    className={
+                                                        styles['modal-item']
+                                                    }
+                                                >
+                                                    Войти
+                                                </p>
+                                            }
+                                        />
+                                        <Link
+                                            to={SIGN_UP_PATH}
+                                            content={
+                                                <p
+                                                    className={
+                                                        styles['modal-item']
+                                                    }
+                                                >
+                                                    Зарегистрироваться
+                                                </p>
+                                            }
+                                        />
+                                    </div>
                                 }
                             />
-                            <div className={'flex row g-8 text-align-center'}>
-                                <div className={'flex-grow-1'}>
-                                    <Link
-                                        to={SIGN_IN_PATH}
-                                        content={
-                                            <p className={styles['modal-item']}>
-                                                Войти
-                                            </p>
-                                        }
-                                    />
-                                </div>
-                                <div className={'flex-grow-1'}>
-                                    <Link
-                                        to={SIGN_UP_PATH}
-                                        content={
-                                            <p className={styles['modal-item']}>
-                                                Зарегистрироваться
-                                            </p>
-                                        }
-                                    />
-                                </div>
-                            </div>
                         </div>
                     </div>
                 }

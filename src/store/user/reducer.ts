@@ -22,6 +22,7 @@ export const userReducer: Reducer<UserState> = (
                 avatarSrc: IMAGE_URL + (<AuthAction>action).imgSrc,
                 email: (<AuthAction>action).email,
                 authorized: true,
+                twoFactor: (<AuthAction>action).twoFactor,
             };
         case 'UPDATE_USER_EMAIL':
             return {
@@ -33,6 +34,7 @@ export const userReducer: Reducer<UserState> = (
                 ...state,
                 name: action.name,
                 surname: action.surname,
+                twoFactor: action.twoFactor,
             };
         case 'UPDATE_USER_AVATAR':
             return {
@@ -48,6 +50,7 @@ export const userReducer: Reducer<UserState> = (
                 userType: null,
                 authorized: false,
                 email: '',
+                twoFactor: false,
             };
         default:
             return state;

@@ -37,7 +37,7 @@ export const profileActions: {
             profileType: USER_TYPE.EMPLOYER,
             name: serverState.company_name,
             surname: '',
-            location: '',
+            location: serverState.location,
             status: serverState.status,
             description: serverState.description,
             phone: serverState.contact_number,
@@ -47,6 +47,8 @@ export const profileActions: {
             bannerSrc: '',
             fieldOfActivity: [],
             socialNetworks: [],
+            businessType: serverState.business_type,
+            averageColor: serverState.average_color,
         } as EmployerProfile,
     }),
     update: (newState: { [key: string]: any }) => ({

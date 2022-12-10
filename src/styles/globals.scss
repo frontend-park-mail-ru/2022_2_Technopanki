@@ -92,6 +92,7 @@
   --padding-2: 2px;
   --padding-4: 4px;
   --padding-8: 8px;
+  --padding-12: 12px;
   --padding-16: 16px;
   --padding-24: 24px;
   --padding-32: 32px;
@@ -193,6 +194,10 @@ p {
   margin: 0;
   line-height: 22px;
   font-size: 14px;
+}
+
+a {
+  text-decoration: none;
 }
 
 .font-size {
@@ -458,11 +463,9 @@ p {
   &-4 {
     gap: 4px
   }
-
   &-6 {
     gap: 6px;
   }
-
   &-8 {
     gap: 8px
   }
@@ -481,6 +484,16 @@ p {
   &-40 {
     gap: 40px
   }
+  &-m4 {
+    @media (max-width: $screen-md) {
+      gap: 4px;
+    }
+  }
+  &m-8 {
+    @media (max-width: $screen-md) {
+      gap: 8px;
+    }
+  }
 }
 
 .p {
@@ -489,6 +502,9 @@ p {
   }
   &-8 {
     padding: var(--padding-8);
+  }
+  &-12 {
+    padding: var(--padding-12);
   }
   &-16 {
     padding: var(--padding-16);
@@ -890,6 +906,11 @@ justify-items {
 
 .inner-svg {
   &-h {
+    &-6 {
+      > svg {
+        height: 6px;
+      }
+    }
     &-16 {
       > svg {
         height: 16px;

@@ -27,6 +27,7 @@ import FormInput from '../../components/UI-kit/forms/formInputs/FormInput';
 import FormTextarea from '../../components/UI-kit/forms/formInputs/FormTextarea';
 import FormFileInput from '../../components/UI-kit/forms/formInputs/FormFileInput';
 import {
+    businessTypeValidation,
     fileFormatValidation,
     fileSizeValidation,
     locationValidation,
@@ -44,9 +45,10 @@ import {
     passwordSymbolsValidator,
 } from '../../utils/validation/commonValidators';
 import { useValidation } from '../../utils/validation/formValidation';
+import FormCheckbox from '../../components/UI-kit/forms/formInputs/FormCheckbox';
 
 class ProfileSettingsComponent extends ReactsComponent<
-    ProfileState & { userID: string },
+    ProfileState & { userID: string; twoFactor: boolean },
     {
         profile: EmployerProfile;
         error: boolean;
@@ -66,6 +68,7 @@ class ProfileSettingsComponent extends ReactsComponent<
         password: [passwordLengthValidator, passwordSymbolsValidator],
         location: [locationValidation],
         size: [validateSizeSymbols, validateSizeLength],
+        businessType: [businessTypeValidation],
     });
 
     avatarValidation = useValidation({
@@ -100,7 +103,6 @@ class ProfileSettingsComponent extends ReactsComponent<
             dispatch(profileActions.updateProfileAvatar(newImageSrc));
             navigator.navigate(EMPLOYER_PATHS.PROFILE + this.props.id);
         } catch (e) {
-            console.log(e);
             dispatch(activateError((e as VacancyUpdateError).error));
             setTimeout(() => dispatch(deactivateError()), 3000);
         }
@@ -249,6 +251,20 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 )}
                                 validationMode={'oninput'}
                             />
+                            <FormInput
+                                size={'4'}
+                                name={'businessType'}
+                                id={'businessType'}
+                                label={'Тип бизнеса'}
+                                value={this.props.businessType}
+                                type={'text'}
+                                required={true}
+                                setError={this.profileFieldsValidation.setError}
+                                validation={this.profileFieldsValidation.getValidation(
+                                    'businessType',
+                                )}
+                                validationMode={'oninput'}
+                            />
                             <FormTextarea
                                 size={'12'}
                                 id={'description'}
@@ -258,6 +274,14 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 required={true}
                             />
                         </FormItem>
+                        <FormCheckbox
+                            checked={this.props.twoFactor}
+                            name={'twoFactor'}
+                            value={'twoFactor'}
+                            id={'twoFactor'}
+                        >
+                            Включить двухфакторную авторизацию
+                        </FormCheckbox>
                         <div>
                             <ButtonPrimary type={'submit'}>
                                 Сохранить
@@ -316,7 +340,7 @@ class ProfileSettingsComponent extends ReactsComponent<
 }
 
 const UserWrapper = userConnect((state, props) => {
-    return { userID: state.id, ...props };
+    return { userID: state.id, ...props, twoFactor: state.twoFactor };
 })(ProfileSettingsComponent);
 
 export default profileConnect(state => {

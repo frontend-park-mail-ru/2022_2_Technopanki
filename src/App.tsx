@@ -15,6 +15,8 @@ class App extends ReactsComponent {
     }
 }
 
+document.querySelector('#root').innerHTML = '';
+
 router.disableScrollRestoration();
 
 router.addNewPath({ path: '/', validator: (url: string) => url === '/' }, App);
@@ -32,6 +34,7 @@ authService
                 body.applicant_surname,
                 body.email,
                 body.image,
+                body.two_factor_sign_in,
                 body.user_type,
             ),
         );

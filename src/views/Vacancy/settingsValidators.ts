@@ -7,15 +7,15 @@ export const validateTitleLength = (value: string): [boolean, string] => {
 
 export const validateTitleSymbols = (value: string): [boolean, string] => {
     return [
-        /^[a-zA-Zа-яА-Я]+(?:[a-zA-Zа-яА-Я \-(){}]+)*$/.test(value),
+        !value.split('').some(value => !/[a-zA-Z а-яА-Я]/.test(value)),
         'Название вакансии должно состоять из букв русского, английского алфавита или из символов {}()',
     ];
 };
 
-export const validateSalary = (value: string): [boolean, string] => {
+export const validateSalary = (value: number): [boolean, string] => {
     return [
-        /^[0-9]+(?:[0-9.0]+)*$/.test(value),
-        'Зарплата должна содержать только цифры или точки',
+        value.toString().length < 10,
+        'Длина числа зарплаты не может быть больше 10 цифр',
     ];
 };
 
@@ -29,6 +29,6 @@ export const validateExperience = (value: string): [boolean, string] => {
 export const validateLocation = (value: string): [boolean, string] => {
     return [
         value === '' ? true : /^[A-ZА-Я]+(?:[a-zA-Zа-яА-Я\-\s]+)*$/.test(value),
-        'Ошибка в названии города',
+        'Название города должно начинаться с большой буквы и содержать максимум 3 проблема',
     ];
 };

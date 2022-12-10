@@ -113,16 +113,6 @@ export const removeNode = (element: HTMLElement, node: ReactsNode) => {
     }
 
     childrenSwitch(node);
-    // switch ((<ReactsNotPrimitiveNode>node).$$typeof) {
-    //     case DOM_SYMBOL:
-    //         removeDOMNode(node as ReactsDOMNode);
-    //         break;
-    //     case COMPONENT_SYMBOL:
-    //         removeComponentNode(<ReactsComponentNode>node);
-    //         break;
-    //     default:
-    //         throw new Error(`undefined type of node: ${node}`);
-    // }
 
     (<ReactsNotPrimitiveNode>node).ref = null;
     (<ReactsNotPrimitiveNode>node).props.children = null;

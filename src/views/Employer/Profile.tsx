@@ -58,13 +58,14 @@ class Profile extends ReactsComponent<
             <div className={'screen-responsive flex column g-40'}>
                 <Header />
                 <ProfileHeader
+                    averageColor={this.props.averageColor}
                     bannerSrc={this.props.bannerSrc}
                     avatarSrc={this.props.avatarSrc}
                     name={this.props.name}
                     status={this.props.status}
                     profileID={this.props.id}
                     buttons={
-                        <div className={'flex flex-wrap row g-16'}>
+                        <div className={'flex flex-wrap row g-16 gm-8'}>
                             <RenderWithCondition
                                 condition={Boolean(window.navigator.clipboard)}
                                 onSuccess={
@@ -166,6 +167,8 @@ class Profile extends ReactsComponent<
                             companySize={this.props.size}
                             fieldOfActivity={this.props.fieldOfActivity}
                             socialNetworks={this.props.socialNetworks}
+                            businessType={this.props.businessType}
+                            location={this.props.location}
                         />
                     </div>
                 </div>

@@ -18,6 +18,9 @@ export type ApplicantResponse = {
     user_type: 'applicant' | 'employer';
     vacancies: null;
     vacancy_activities: null;
+    location: string | undefined;
+    experience: string | null;
+    average_color: string;
 };
 
 export type EmployerResponse = {
@@ -39,6 +42,9 @@ export type EmployerResponse = {
     user_type: 'applicant' | 'employer';
     vacancies: null;
     vacancy_activities: null;
+    business_type: string;
+    location: string;
+    average_color: string;
 };
 
 export type SignInResponse = ApplicantResponse & EmployerResponse;

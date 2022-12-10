@@ -16,6 +16,7 @@ export const userActions = {
         email,
         imgSrc,
         userType,
+        twoFactor: false,
     }),
     SIGN_IN: (
         id: string,
@@ -23,6 +24,7 @@ export const userActions = {
         surname: string,
         email: string,
         imgSrc: string,
+        twoFactor: boolean,
         userType: UserType,
     ): AuthAction => ({
         type: 'SIGN_IN',
@@ -32,6 +34,7 @@ export const userActions = {
         surname,
         imgSrc,
         userType,
+        twoFactor,
     }),
     updateName: (name: string, surname: string) => ({
         type: 'UPDATE_USER',

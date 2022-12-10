@@ -75,3 +75,10 @@ export const fileSizeValidation = (file: File): [boolean, string] => {
 export const fileFormatValidation = (file: File): [boolean, string] => {
     return [validateAvatarImageFormat(file), AVATAR_FORMAT_ERROR];
 };
+
+export const businessTypeValidation = (value: string): [boolean, string] => {
+    return [
+        validateStatusSymbols(value),
+        'Тип бизнеса должен содержать только буквы русского или английского алфавита',
+    ];
+};

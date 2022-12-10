@@ -11,7 +11,7 @@ export const USER_TYPE = {
 };
 
 export const authService: Service & {
-    signIn: (formDate: FormData) => Promise<SignInResponse>;
+    signIn: (formDate: FormData) => Promise<SignInResponse | number>;
     signUp: (formDate: FormData) => Promise<SignUpResponse>;
     authConfirm: (code: string, email: string) => Promise<ConfirmResponse>;
     auth: () => Promise<SignInResponse>;
@@ -32,6 +32,9 @@ export const authService: Service & {
                 dispatch(stopLoading());
                 if (response.status > 399) {
                     throw response.body;
+                }
+                if (response.status === 202) {
+                    return response.status;
                 }
                 return response.body;
             });

@@ -16,7 +16,7 @@ export type VacancyCardPropsType = {
     id: string;
     name: string;
     icon: string;
-    salary: string;
+    salary: number;
     currency: string;
     location: string;
     format: string;
@@ -52,9 +52,10 @@ export default class VacancyCard extends ReactsComponent<
                     width={40}
                     src={IMAGE_URL + this.props.icon}
                 />
-                <div
+               <div
                     className={`grid grid-template-columns column g-4 ${styles['card-content']}`}
                 >
+               <div className={`flex column g-4 ${styles['card-content']}`}>
                     <Link
                         to={VACANCY_PATHS.INDEX + this.props.id}
                         content={
@@ -82,23 +83,38 @@ export default class VacancyCard extends ReactsComponent<
                                 {this.props.format}
                             </div>
                         </div>
-                        <div className={'flex row align-items-center g-6'}>
-                            <div
-                                className={`${styles.metadata_icon}`}
-                                dangerouslySetInnerHTML={{ __html: Calendar }}
-                            />
-                            <div className={`${styles['metadata-item']}`}>
-                                {this.props.hours}
-                            </div>
-                        </div>
-                    </div>
+                        <RenderWithCondition
+                            condition={Boolean(this.props.hours)}
+                            onSuccess={
+                                <div
+                                    className={
+                                        'flex row align-items-center g-6'
+                                    }
+                                >
+                                    <div
+                                        className={`${styles.metadata_icon}`}
+                                        dangerouslySetInnerHTML={{
+                                            __html: Calendar,
+                                        }}
+                                    />
+                                    <div
+                                        className={`${styles['metadata-item']}`}
+                                    >
+                                        {this.props.hours}
+                                    </div>
+                                </div>
+                            }
+                        />
+                   </div>
                 </div>
                 <div
                     className={`flex row g-4 mx-0 justify-content-end ${styles.salary}`}
                 >
                     <h4 className={`mx-0 ${styles['salary-content']}`}>
-                        {this.props.salary}
-                        <span className={styles.per_month}> руб/мес</span>
+                        {Intl.NumberFormat('ru-RU', {
+                            style: 'currency',
+                            currency: 'RUB',
+                        }).format(this.props.salary)}
                     </h4>
                 </div>
                 <div className={styles.link}>

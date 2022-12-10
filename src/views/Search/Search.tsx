@@ -9,6 +9,7 @@ import ApplicantCard from '../../components/UI-kit/searchCards/ApplicantCard';
 import ResumeCard from '../../components/UI-kit/searchCards/ResumeCard';
 import { vacancyService } from '../../services/vacancy/vacancyService';
 import Button from '../../components/UI-kit/buttons/Button';
+import SearchDropdownButton from '../../components/UI-kit/buttons/SearchDropdownButton'
 import RenderWithCondition from '../../components/RenderWithCondition';
 import SearchFilter from '../../components/UI-kit/filters/SearchFilter';
 import { resumeService } from '../../services/resume/resumeService';
@@ -17,26 +18,11 @@ import { applicantProfileService } from '../../services/applicantService';
 import { searchService } from '../../services/searchService';
 import SearchFilterMobile from '../../components/UI-kit/filters/SearchFilterMobile';
 import { IMAGE_URL } from '../../utils/networkConstants';
+import FilterInput from '../../components/UI-kit/forms/inputs/FilterInput';
 
 export default class Search extends ReactsComponent<
     {},
     {
-        vacancies?: {
-            id: number;
-            title: string;
-            image: string;
-            salary: string;
-            currency: string;
-            location: string;
-            format: string;
-            hours: string;
-        }[];
-        resumes?: {
-            id: number;
-            postedByUserID: string;
-            title: string;
-            description: string;
-        }[];
         limit: number;
         typeOfSearch: 'vacancy' | 'resume' | 'applicant' | 'employer';
     }
@@ -54,6 +40,7 @@ export default class Search extends ReactsComponent<
                     'Сменный график',
                 ],
                 name: 'format',
+                value: null,
             },
             {
                 type: 'toggle',
@@ -66,6 +53,7 @@ export default class Search extends ReactsComponent<
                     'Более 6 лет',
                 ],
                 name: 'experience',
+                value: null,
             },
             {
                 header: 'Зарплата',
@@ -73,11 +61,13 @@ export default class Search extends ReactsComponent<
                 rangeMin: '0',
                 rangeMax: '300000',
                 name: 'salary',
+                value: null,
             },
             {
                 header: 'Город',
                 type: 'input',
                 name: 'city',
+                value: null,
             },
         ],
 
@@ -93,18 +83,13 @@ export default class Search extends ReactsComponent<
                     'Более 6 лет',
                 ],
                 name: 'experience',
-            },
-            {
-                header: 'Зарплата',
-                type: 'range',
-                rangeMin: '0',
-                rangeMax: '300000',
-                name: 'salary',
+                value: null,
             },
             {
                 header: 'Город',
                 type: 'input',
                 name: 'city',
+                value: null,
             },
         ],
 
@@ -113,11 +98,13 @@ export default class Search extends ReactsComponent<
                 header: 'Город',
                 type: 'input',
                 name: 'city',
+                value: null,
             },
             {
                 header: 'Сфера деятельности',
                 type: 'input',
                 name: 'field',
+                value: null,
             },
             {
                 header: 'Размер компании',
@@ -125,33 +112,24 @@ export default class Search extends ReactsComponent<
                 rangeMin: '0',
                 rangeMax: '300000',
                 name: 'size',
+                value: null,
             },
         ],
 
         applicantFilter: [
             {
-                type: 'toggle',
-                header: 'Опыт работы',
-                options: [
-                    'Не имеет значения',
-                    'Нет опыта',
-                    'От 1 года до 3 лет',
-                    'От 3 до 6 лет',
-                    'Более 6 лет',
-                ],
-                name: 'experience',
-            },
-            {
-                header: 'Зарплата',
+                header: 'Возраст',
                 type: 'range',
                 rangeMin: '0',
-                rangeMax: '300000',
-                name: 'salary',
+                rangeMax: '100',
+                name: 'age',
+                value: null,
             },
             {
                 header: 'Город',
                 type: 'input',
                 name: 'city',
+                value: null,
             },
         ],
     };
@@ -164,14 +142,14 @@ export default class Search extends ReactsComponent<
         limit: 10,
         typeOfSearch: 'vacancy',
         filters: this.filters.vacancyFilter,
+        filtersState: '',
     };
 
     search = '';
 
-    switchSearchType = (e: MouseEvent) => {
-        const type = e.target.innerHTML;
-        document.getElementById('searchOption').innerHTML = e.target.innerHTML;
-        if (type === 'Вакансии') {
+    switchSearchType = () => {
+        const type = location.pathname.split('/').at(-1);
+        if (type === 'vacancy') {
             this.setState(state => ({
                 ...state,
                 typeOfSearch: 'vacancy',
@@ -179,7 +157,7 @@ export default class Search extends ReactsComponent<
             }));
         }
 
-        if (type === 'Должности') {
+        if (type === 'resume') {
             this.setState(state => ({
                 ...state,
                 typeOfSearch: 'resume',
@@ -187,7 +165,7 @@ export default class Search extends ReactsComponent<
             }));
         }
 
-        if (type === 'Работодатели') {
+        if (type === 'employer') {
             this.setState(state => ({
                 ...state,
                 typeOfSearch: 'employer',
@@ -195,7 +173,7 @@ export default class Search extends ReactsComponent<
             }));
         }
 
-        if (type === 'Соискатели') {
+        if (type === 'applicant') {
             this.setState(state => ({
                 ...state,
                 typeOfSearch: 'applicant',
@@ -208,7 +186,6 @@ export default class Search extends ReactsComponent<
         vacancyService
             .getAllVacancies()
             .then(body => {
-                console.log(body);
                 this.setState(state => ({
                     ...state,
                     limit: 10,
@@ -216,15 +193,12 @@ export default class Search extends ReactsComponent<
                 }));
             })
             .catch(err => console.error(err));
-
-        console.log(this.state);
     };
 
     getResumesFromServer = () => {
         resumeService
             .getAllResumes()
             .then(body => {
-                console.log(body);
                 this.setState(state => ({
                     ...state,
                     limit: 10,
@@ -238,7 +212,6 @@ export default class Search extends ReactsComponent<
         employerProfileService
             .getAllEmployers()
             .then(body => {
-                console.log(body);
                 this.setState(state => ({
                     ...state,
                     limit: 10,
@@ -252,7 +225,6 @@ export default class Search extends ReactsComponent<
         applicantProfileService
             .getAllApplicants()
             .then(body => {
-                console.log(body);
                 this.setState(state => ({
                     ...state,
                     limit: 10,
@@ -269,11 +241,11 @@ export default class Search extends ReactsComponent<
         const queryParam = document.getElementById('search').value;
         this.search = queryParam;
 
-        if (this.state.typeOfSearch === 'vacancy') {
+        if (
+            this.state.typeOfSearch === 'vacancy') {
             searchService
                 .searchByVacancies(queryParam)
                 .then(body => {
-                    console.log('here..');
                     this.setState(state => ({
                         ...state,
                         limit: 10,
@@ -283,11 +255,11 @@ export default class Search extends ReactsComponent<
                 .catch(err => console.error(err));
         }
 
-        if (this.state.typeOfSearch === 'resume') {
+        if (
+            this.state.typeOfSearch === 'resume') {
             searchService
                 .searchByResumes(queryParam)
                 .then(body => {
-                    console.log(body);
                     this.setState(state => ({
                         ...state,
                         limit: 10,
@@ -297,11 +269,11 @@ export default class Search extends ReactsComponent<
                 .catch(err => console.error(err));
         }
 
-        if (this.state.typeOfSearch === 'employer') {
+        if (
+            this.state.typeOfSearch === 'employer') {
             searchService
                 .searchByEmployers(queryParam)
                 .then(body => {
-                    console.log(body);
                     this.setState(state => ({
                         ...state,
                         limit: 10,
@@ -315,7 +287,6 @@ export default class Search extends ReactsComponent<
             searchService
                 .searchByApplicants(queryParam)
                 .then(body => {
-                    console.log(body);
                     this.setState(state => ({
                         ...state,
                         limit: 10,
@@ -328,9 +299,7 @@ export default class Search extends ReactsComponent<
 
     onSubmitFilters = async (e: SubmitEvent) => {
         e.preventDefault();
-        console.log('filters submitted');
         const searchParam = this.search;
-
         const formData = new FormData(e.target);
 
         searchParam ? formData.append('search', searchParam) : '';
@@ -351,11 +320,9 @@ export default class Search extends ReactsComponent<
             [data[0]],
         );
 
-        console.log(groupByParam);
-
         const queryString = groupByParam
             .map(x =>
-                x[0] === 'salary' || x[0] === 'size'
+                x[0] === 'salary' || x[0] === 'size' || x[0] === 'age'
                     ? `${encodeURIComponent(x[0])}=${encodeURIComponent(
                           x.slice(1).join(':'),
                       )}`
@@ -364,7 +331,6 @@ export default class Search extends ReactsComponent<
                       )}`,
             )
             .join('&');
-        console.log(queryString);
 
         if (this.state.typeOfSearch === 'vacancy') {
             searchService
@@ -419,12 +385,14 @@ export default class Search extends ReactsComponent<
         }
     };
 
+
     componentDidMount() {
-        console.log('MOUNT', this.state);
         this.getVacanciesFromServer();
         this.getResumesFromServer();
         this.getEmployersFromServer();
         this.getApplicantsFromServer();
+
+        this.switchSearchType();
     }
 
     increaseLimit = () => {
@@ -441,15 +409,15 @@ export default class Search extends ReactsComponent<
                     <h3 className={'text-align-center'}>Поиск</h3>
                     <SearchInput
                         onSubmitSearch={this.onSubmitSearch}
-                        onSwitch={this.switchSearchType}
+                        onSwitch={this.switchSearchType.bind(this)}
                     />
                     <div
                         className={'columns justify-content-space-between g-16'}
                     >
-                        <div className={'col-0 col-md-3'}>
+                        <div className={'flex row '}>
                             <SearchFilter
                                 filters={this.state.filters}
-                                onSubmit={this.onSubmitFilters}
+                                onSubmit={this.onSubmitFilters.bind(this)}
                             />
                         </div>
                         <div
@@ -457,11 +425,11 @@ export default class Search extends ReactsComponent<
                         >
                             <SearchFilterMobile
                                 filters={this.state.filters}
-                                onSubmit={this.onSubmitFilters}
+                                onSubmit={this.onSubmitFilters.bind(this)}
                             />
                         </div>
                         <div
-                            className={'col-12 col-md-9 flex column g-16 w-100'}
+                            className={'col-12 col-md-10 flex column g-16 w-100'}
                         >
                             {this.state.typeOfSearch === 'vacancy'
                                 ? this.state.vacancies
