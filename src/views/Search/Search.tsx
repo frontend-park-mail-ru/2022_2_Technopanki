@@ -23,22 +23,6 @@ import FilterInput from '../../components/UI-kit/forms/inputs/FilterInput';
 export default class Search extends ReactsComponent<
     {},
     {
-        vacancies?: {
-            id: number;
-            title: string;
-            image: string;
-            salary: string;
-            currency: string;
-            location: string;
-            format: string;
-            hours: string;
-        }[];
-        resumes?: {
-            id: number;
-            postedByUserID: string;
-            title: string;
-            description: string;
-        }[];
         limit: number;
         typeOfSearch: 'vacancy' | 'resume' | 'applicant' | 'employer';
     }
@@ -165,8 +149,6 @@ export default class Search extends ReactsComponent<
 
     switchSearchType = () => {
         const type = location.pathname.split('/').at(-1);
-        console.log('type switched')
-        // document.getElementById('searchOption').innerHTML = e.target.innerHTML;
         if (type === 'vacancy') {
             this.setState(state => ({
                 ...state,
@@ -338,16 +320,6 @@ export default class Search extends ReactsComponent<
             [data[0]],
         );
 
-        // console.log(groupByParam)
-        // this.setState(state => ({
-        //     ...state,
-        //     filtersState: groupByParam,
-        // }))
-        //
-        // groupByParam.map(param => {
-        //     localStorage.setItem(param[0], param[1])
-        // })
-
         const queryString = groupByParam
             .map(x =>
                 x[0] === 'salary' || x[0] === 'size' || x[0] === 'age'
@@ -413,16 +385,6 @@ export default class Search extends ReactsComponent<
         }
     };
 
-    // setFiltersState = () => {
-    //     const formData = new FormData(document.getElementById('searchFilters'));
-    //     this.state.filtersState.map(filter => {
-    //         console.log(filter[0], filter[1])
-    //         formData.set(filter[0], filter[1])
-    //     })
-    //
-    //     console.log('form data: ', [...formData.entries()])
-    // }
-
 
     componentDidMount() {
         this.getVacanciesFromServer();
@@ -431,10 +393,6 @@ export default class Search extends ReactsComponent<
         this.getApplicantsFromServer();
 
         this.switchSearchType();
-    }
-
-    componentDidUpdate() {
-        console.log('filters state: ', this.state.filtersState)
     }
 
     increaseLimit = () => {

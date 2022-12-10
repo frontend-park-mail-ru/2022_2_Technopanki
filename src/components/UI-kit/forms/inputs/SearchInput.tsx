@@ -10,6 +10,7 @@ import ButtonPrimary from '../../buttons/ButtonPrimary';
 import Dropdown from '../../dropdown/Dropdown';
 import DropdownMenu from './SearchDropdownMenu';
 import Link from '../../../Link';
+import Svg from '../../../Svg';
 
 export default class SearchInput extends ReactsComponent<
     {
@@ -42,29 +43,11 @@ export default class SearchInput extends ReactsComponent<
     ];
 
     handleMenu = () => {
-        console.log('handle menu')
         this.setState(state => ({
             ...state,
             isOpen: !this.state.isOpen,
         }));
     };
-
-    // closeMenu = (e: MouseEvent) => {
-    //     console.log('close menu')
-    //     this.props.onSwitch(e);
-    //     this.handleMenu();
-    // };
-
-    // switchPage = (e: MouseEvent) => {
-    //     console.log('switched')
-    //     this.props.onSwitch(e);
-    //
-    //     console.log(this.state)
-    // }
-
-    componentDidUpdate() {
-        console.log('update input');
-    }
 
     render() {
         return (
@@ -110,14 +93,14 @@ export default class SearchInput extends ReactsComponent<
                                 </p>
                                 {this.state.isOpen
                                     ? (
-                                        <div
-                                            className={`cursor-pointer ${styles.search_arrow}`}
-                                            dangerouslySetInnerHTML={{ __html: SearchArrowUp }}
+                                        <Svg
+                                            src={SearchArrowUp}
+                                            height={6}
                                         />
                                     ) : (
-                                        <div
-                                            className={`cursor-pointer ${styles.search_arrow}`}
-                                            dangerouslySetInnerHTML={{ __html: SearchArrow }}
+                                        <Svg
+                                            src={SearchArrow}
+                                            height={6}
                                         />
                                     )
                                 }

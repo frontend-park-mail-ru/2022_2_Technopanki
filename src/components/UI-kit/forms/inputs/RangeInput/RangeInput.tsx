@@ -102,22 +102,6 @@ export default class RangeInput extends ReactsComponent<{
             this.handleToInput(toSlider, fromInput, toInput, toSlider);
     };
 
-    // getMaxValue = () => {
-    //     if (document.getElementById('toInput')) {
-    //         console.log(document.getElementById('toInput').value)
-    //         return (document.getElementById('toInput').value
-    //             ? document.getElementById('toInput').value
-    //             : '1000')
-    //     }
-    // }
-    // getMinValue = () => {
-    //     if (document.getElementById('fromInput')) {
-    //         return (document.getElementById('fromInput').value
-    //             ? document.getElementById('fromInput').value
-    //             : '0')
-    //     }
-    // }
-
     render() {
         return (
             <div className={'flex column g-8'}>

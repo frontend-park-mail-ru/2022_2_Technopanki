@@ -22,24 +22,6 @@ export default class FilterInput extends ReactsComponent<FilterInputPropsType> {
         value: '',
     }
 
-    // getInputValue = (e: MouseEvent) => {
-    //     this.setState(state => ({
-    //         ...state,
-    //         value: e.target.value
-    //     }))
-    //
-    //     localStorage.setItem(this.props.name, e.target.value)
-    //     console.log('filter input: ', this.state)
-    // }
-
-    // componentDidUpdate() {
-    //     console.log('update filter input')
-    // }
-    //
-    // componentDidMount() {
-    //     localStorage.setItem(this.props.name, '')
-    // }
-
     render() {
         return (
             <div className={'flex w-100 column g-8'}>

@@ -906,6 +906,11 @@ justify-items {
 
 .inner-svg {
   &-h {
+    &-6 {
+      > svg {
+        height: 6px;
+      }
+    }
     &-16 {
       > svg {
         height: 16px;

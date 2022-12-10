@@ -26,10 +26,6 @@ export default class CheckBox extends ReactsComponent<{
         e.target.checked = this.state.checked;
     }
 
-    componentDidUpdate() {
-        console.log('update checkbox')
-    }
-
     render() {
         return (
             <div
@@ -46,16 +42,6 @@ export default class CheckBox extends ReactsComponent<{
                             value={this.props.children}
                             checked={this.props.children === localStorage.getItem(this.props.children)}
                         />
-                    {/*) : (*/}
-                    {/*    <input*/}
-                    {/*        className={`rounded-max ${styles.radio_input}`}*/}
-                    {/*        id={this.props.id}*/}
-                    {/*        type={'radio'}*/}
-                    {/*        name={this.props.name}*/}
-                    {/*        value={this.props.children}*/}
-                    {/*        checked={this.state.checked}*/}
-                    {/*    />*/}
-                    {/*)}*/}
                     <label className={`${styles.radio_label_search}`} for={this.props.children} checked={this.state.checked}>
                         {this.props.children}
                     </label>
