@@ -7,7 +7,7 @@ import Description from '../../components/auth/Description';
 import navigator from '../../router/navigator';
 import { dispatch } from '../../store';
 import { userActions } from '../../store/user/actions';
-import { authService } from '../../services/auth/authService';
+import { authService, USER_TYPE } from '../../services/auth/authService';
 import { SIGN_IN_PATH, START_PATH } from '../../utils/routerConstants';
 import Form from '../../components/UI-kit/forms/Form';
 import FormInput from '../../components/UI-kit/forms/formInputs/FormInput';
@@ -42,7 +42,15 @@ export default class SignUp extends ReactsComponent<
     }
 > {
     state = {
-        toggleType: 'applicant',
+        toggleType: USER_TYPE.APPLICANT,
+        fieldsValues: {
+            email: '',
+            password: '',
+            repeatPassword: '',
+            applicantName: '',
+            applicantSurname: '',
+            companyName: '',
+        },
     };
     password = '';
 
@@ -76,13 +84,26 @@ export default class SignUp extends ReactsComponent<
         try {
             await authService.signUp(formData);
             dispatch(userActions.updateEmail(formData.get('email') as string));
-            navigator.navigate(USER_URLS.CONFIRM);
+            navigator.navigate(USER_URLS.CONFIRM + '/signup');
         } catch (e) {
             console.error(e);
             dispatch(activateError((e as AuthError).error));
             setTimeout(() => dispatch(deactivateError()), 3000);
         }
     };
+
+    switchUserType = (e: Event) => {
+        this.setState(state => ({
+            toggleType:
+                state.toggleType === USER_TYPE.APPLICANT
+                    ? USER_TYPE.EMPLOYER
+                    : USER_TYPE.APPLICANT,
+        }));
+    };
+
+    shouldUpdateState(nextState: { toggleType: string }): boolean {
+        return this.state.toggleType !== nextState.toggleType;
+    }
 
     render() {
         return (
@@ -94,6 +115,7 @@ export default class SignUp extends ReactsComponent<
                     <Form onSubmit={this.onSubmit}>
                         <FormItem header={'Зарегистрироваться'}>
                             <FormInput
+                                key={'email'}
                                 id={'email'}
                                 label={'Email'}
                                 type={'email'}
@@ -107,6 +129,7 @@ export default class SignUp extends ReactsComponent<
                                 )}
                             />
                             <FormInput
+                                key={'password'}
                                 id={'password'}
                                 label={'Пароль'}
                                 type={'password'}
@@ -123,6 +146,7 @@ export default class SignUp extends ReactsComponent<
                                 )}
                             />
                             <FormInput
+                                key={'repeatPassword'}
                                 id={'repeatPassword'}
                                 label={'Повторите пароль'}
                                 type={'password'}
@@ -138,6 +162,7 @@ export default class SignUp extends ReactsComponent<
                             {this.state.toggleType === 'applicant' ? (
                                 <div className={'col-12 column g-24'}>
                                     <FormInput
+                                        key={'applicantName'}
                                         id={'applicantName'}
                                         label={'Имя'}
                                         type={'text'}
@@ -151,6 +176,7 @@ export default class SignUp extends ReactsComponent<
                                         )}
                                     />
                                     <FormInput
+                                        key={'applicantSurname'}
                                         id={'surname'}
                                         label={'Фамилия'}
                                         type={'text'}
@@ -166,6 +192,7 @@ export default class SignUp extends ReactsComponent<
                                 </div>
                             ) : (
                                 <FormInput
+                                    key={'companyName'}
                                     id={'companyName'}
                                     label={'Название компании'}
                                     type={'text'}
@@ -181,10 +208,13 @@ export default class SignUp extends ReactsComponent<
                         </FormItem>
                         <div className={'flex column g-8'}>
                             <RadioButton
-                                checked={this.state.toggleType === 'applicant'}
-                                id={'applicant'}
+                                checked={
+                                    this.state.toggleType ===
+                                    USER_TYPE.APPLICANT
+                                }
+                                id={USER_TYPE.APPLICANT}
                                 name={'toggle'}
-                                value={'applicant'}
+                                value={USER_TYPE.APPLICANT}
                                 onClick={() =>
                                     this.setState(state => ({
                                         ...state,
@@ -195,10 +225,12 @@ export default class SignUp extends ReactsComponent<
                                 Я соискатель
                             </RadioButton>
                             <RadioButton
-                                checked={this.state.toggleType === 'employer'}
-                                id={'employer'}
+                                checked={
+                                    this.state.toggleType === USER_TYPE.EMPLOYER
+                                }
+                                id={USER_TYPE.EMPLOYER}
                                 name={'toggle'}
-                                value={'employer'}
+                                value={USER_TYPE.EMPLOYER}
                                 onClick={() =>
                                     this.setState(state => ({
                                         ...state,

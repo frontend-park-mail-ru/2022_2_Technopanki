@@ -29,6 +29,6 @@ export const validateExperience = (value: string): [boolean, string] => {
 export const validateLocation = (value: string): [boolean, string] => {
     return [
         value === '' ? true : /^[A-ZА-Я]+(?:[a-zA-Zа-яА-Я\-\s]+)*$/.test(value),
-        'Ошибка в названии города',
+        'Название города должно начинаться с большой буквы и содержать максимум 3 проблема',
     ];
 };

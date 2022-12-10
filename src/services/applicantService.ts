@@ -55,6 +55,7 @@ export const applicantProfileService: Service = {
                     contact_number: formData.get('phone'),
                     email: formData.get('email'),
                     password: formData.get('password'),
+                    two_factor_sign_in: Boolean(formData.get('twoFactor')),
                 }),
             )
             .then(response => {
@@ -105,7 +106,6 @@ export const applicantProfileService: Service = {
         surname: string,
         title: string,
     ) => {
-        console.log('RESUME_ID:', resumeID);
         return network
             .POST(
                 PROFILE_URLS.APPLICANT_RESUMES + vacancyID,

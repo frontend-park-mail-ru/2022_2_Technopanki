@@ -11,14 +11,18 @@
 
 .modal {
   min-width: 80vw;
+  @media (min-width: $screen-md) {
+    padding-left: 20vw;
+    padding-right: 20vw;
+  }
 }
 
 .modal-item {
-  padding: var(--padding-8);
+  padding: 16px 12px;
+  display: flex;
+  align-items: center;
+  background-color: var(--background-0);
   border-radius: var(--border-radius-lg);
-  &:hover {
-    background: var(--background-100);
-  }
 }
 
 .logo {
@@ -72,6 +76,3 @@
     background: var(--background-50);
   }
 }
-
-
-

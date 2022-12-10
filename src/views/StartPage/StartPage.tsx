@@ -4,10 +4,17 @@ import ArrowButtonWithText from '../../components/UI-kit/buttons/ArrowButtonWith
 import ArrowButtonWithTextOutline from '../../components/UI-kit/buttons/ArrowButtonWithTextOutline';
 import Logo from '../../static/assets/JobflowDefault.svg';
 import Link from '../../components/Link/Link';
-import { SIGN_UP_PATH, SEARCH_PATH } from '../../utils/routerConstants';
+import {
+    SIGN_UP_PATH,
+    SEARCH_PATH,
+    APPLICANT_PATHS,
+    EMPLOYER_PATHS,
+} from '../../utils/routerConstants';
 import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
+import { userConnect } from '../../store';
+import { UserState } from '../../store/user/types';
 
-export default class StartPage extends ReactsComponent {
+class StartPage extends ReactsComponent<UserState> {
     render() {
         return (
             <div
@@ -38,7 +45,14 @@ export default class StartPage extends ReactsComponent {
                     </div>
                     <div className={'flex column g-16'}>
                         <Link
-                            to={SIGN_UP_PATH}
+                            to={
+                                this.props.authorized
+                                    ? this.props.userType === 'applicant'
+                                        ? APPLICANT_PATHS.PROFILE +
+                                          this.props.id
+                                        : EMPLOYER_PATHS.PROFILE + this.props.id
+                                    : SIGN_UP_PATH
+                            }
                             content={
                                 <ArrowButtonWithText>
                                     <p>Создать аккаунт</p>
@@ -70,3 +84,5 @@ export default class StartPage extends ReactsComponent {
         );
     }
 }
+
+export default userConnect(state => ({ ...state }))(StartPage);

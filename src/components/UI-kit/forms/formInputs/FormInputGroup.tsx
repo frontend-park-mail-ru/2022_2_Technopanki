@@ -19,15 +19,19 @@ export default class FormInputGroup extends ReactsComponent<FormInputGroupProps>
                 <label className={`${styles.label}`} htmlFor={this.props.id}>
                     {this.props.label}
                 </label>
-                <select
-                    className={styles.select}
-                    id={this.props.id}
-                    name={this.props.name}
-                >
-                    {this.props.options.map(option => (
-                        <option value={option.value}>{option.children}</option>
-                    ))}
-                </select>
+                <div className={styles['select-block']}>
+                    <select
+                        className={styles.select}
+                        id={this.props.id}
+                        name={this.props.name}
+                    >
+                        {this.props.options.map(option => (
+                            <option value={option.value}>
+                                {option.children}
+                            </option>
+                        ))}
+                    </select>
+                </div>
             </div>
         );
     }

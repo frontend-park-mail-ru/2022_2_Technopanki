@@ -20,21 +20,41 @@ class EmailConfirm extends ReactsComponent<{
         // @ts-ignore
         const token = new FormData(e.target).get('token') as string;
         try {
+            const typeOfOperation = location.pathname.split('/').at(-1);
+
             const response = await authService.authConfirm(
                 token,
                 this.props.email,
             );
 
-            dispatch(
-                userActions.SIGN_UP(
-                    response.id.toString(),
-                    response.applicant_name ?? response.company_name,
-                    response.applicant_surname,
-                    response.email,
-                    response.image,
-                    response.user_type,
-                ),
-            );
+            console.log(response)
+            switch (typeOfOperation) {
+                case 'signin':
+                    dispatch(
+                        userActions.SIGN_IN(
+                            response.id.toString(),
+                            response.applicant_name ?? response.company_name,
+                            response.applicant_surname,
+                            response.email,
+                            response.image,
+                            response.two_factor_sign_in,
+                            response.user_type,
+                        ),
+                    );
+                    break;
+                case 'signup':
+                    dispatch(
+                        userActions.SIGN_UP(
+                            response.id.toString(),
+                            response.applicant_name ?? response.company_name,
+                            response.applicant_surname,
+                            response.email,
+                            response.image,
+                            response.user_type,
+                        ),
+                    );
+                    break;
+            }
 
             navigator.navigate(
                 (response.user_type === USER_TYPE.APPLICANT
@@ -42,9 +62,14 @@ class EmailConfirm extends ReactsComponent<{
                     : EMPLOYER_PATHS.PROFILE) + response.id.toString(),
             );
         } catch (e) {
+            console.log(e)
             dispatch(activateError('Ошибка', 'Пожалуйста, проверьте токен'));
             setTimeout(() => dispatch(deactivateError()), 3000);
         }
+    }
+
+    shouldUpdate(nextProps: { email: string; } | Readonly<{ email: string; }>): boolean {
+        return false
     }
 
     render() {

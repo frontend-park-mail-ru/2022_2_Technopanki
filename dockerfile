@@ -17,14 +17,14 @@ RUN mkdir /etc/nginx/sites-enabled
 RUN mkdir /etc/nginx/dh
 
 # SSL
-RUN curl https://ssl-config.mozilla.org/ffdhe2048.txt > /opt/homebrew/etc/nginx/dh/dhparam
-COPY secrets/ /opt/homebrew/etc/ssl/jobflow.com/
+RUN curl https://ssl-config.mozilla.org/ffdhe2048.txt > /etc/nginx/dh/dhparam
+COPY secrets/ /etc/ssl/jobflow.com/
 
-COPY .conf/.nginx/default.conf /opt/homebrew/etc/nginx/sites-available/default.conf
-COPY .conf/.nginx/frontend.conf /opt/homebrew/etc/nginx/sites-available/
-COPY .conf/.nginx/nginx.conf /opt/homebrew/etc/nginx/
+COPY .conf/.nginx/default.conf /etc/nginx/sites-available/default.conf
+COPY .conf/.nginx/frontend.conf /etc/nginx/sites-available/
+COPY .conf/.nginx/nginx.conf /etc/nginx/
 
 
-RUN ln -s /opt/homebrew/etc/nginx/sites-available/default.conf /opt/homebrew/etc/nginx/sites-enabled/default
-RUN ln -s /opt/homebrew/etc/nginx/sites-available/frontend.conf /opt/homebrew/etc/nginx/sites-enabled/
+RUN ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default
+RUN ln -s /etc/nginx/sites-available/frontend.conf /etc/nginx/sites-enabled/
 WORKDIR /app

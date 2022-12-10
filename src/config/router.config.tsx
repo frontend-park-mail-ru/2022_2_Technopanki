@@ -8,12 +8,11 @@ import ProfileSettings from '../views/Employer/ProfileSettings';
 import Vacancy from '../views/Vacancy';
 import VacancySettings from '../views/Vacancy/VacancySettings';
 import VacancyResponses from '../views/Vacancy/VacancyResponses';
-import Search from '../views/Search/Search';
+import Vacancies from '../views/Vacancies/Vacancies';
 import Resume from '../views/Applicant/Resume/Resume';
 import ApplicantProfile from '../views/Applicant/Profile/Profile';
 import ApplicantSettings from '../views/Applicant/Profile/ProfileSettings';
 import ResumeSettings from '../views/Applicant/Resume/ResumeSettings';
-import EmailConfirm from '../views/SignUp/EmailConfirm';
 
 export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
     {

@@ -7,13 +7,14 @@ import { authService, USER_TYPE } from './services/auth/authService';
 import { dispatch } from './store';
 import StartPage from './views/StartPage/StartPage';
 import { userActions } from './store/user/actions';
-import Profile from './views/Employer/Profile';
 
 class App extends ReactsComponent {
     render() {
         return <StartPage />;
     }
 }
+
+document.querySelector('#root').innerHTML = '';
 
 router.disableScrollRestoration();
 
@@ -32,6 +33,7 @@ authService
                 body.applicant_surname,
                 body.email,
                 body.image,
+                body.two_factor_sign_in,
                 body.user_type,
             ),
         );

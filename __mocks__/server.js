@@ -207,21 +207,6 @@ app.get('/api/searchCards/company/:id', (req, res) => {
     res.json({ data: vacancies });
 });
 
-// app.post('/api/user/safety/:id', (req, res) => {
-//     console.log(req.body.image);
-//
-//     if (req.params.id === 2) {
-//         users.specialUser = { ...users.specialUser, ...req.body };
-//     } else {
-//         users.user.company_name = req.body.company_name;
-//         users.user.description = req.body.description;
-//     }
-//
-//     console.log(users.user);
-//
-//     res.json({ status: 'ok' });
-// });
-
 // TODO: поменять путь
 app.get('/api/user/preview/:id', (req, res) => {
     const applicantPreview = {

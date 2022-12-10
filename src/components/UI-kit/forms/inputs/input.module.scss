@@ -57,9 +57,10 @@
 
 .icon {
   width: 16px;
+  //padding-top: 18px;
+  //padding-left: 16px;
+  //position: absolute;
   cursor: pointer;
-  z-index: 2;
-  padding: var(--padding-16);
 }
 
 .file_label {
@@ -102,12 +103,21 @@
 }
 
 .search_input {
-  padding-left: 48px;
-  border-radius: var(--border-radius-md);
+  padding-left: 220px;
+  border-radius: var(--border-radius-xl);
+  @media (max-width: $screen-md) {
+    font-size: 14px;
+    padding-left: 150px;
+  }
 }
 
 .search_arrow {
   width: 6px;
+}
+
+.search_button {
+  border-radius: var(--border-radius-xl);
+  color: black;
 }
 
 .chips_input {
@@ -134,16 +144,28 @@
   outline: none;
   font-size: 14px;
   color: var(--background-900);
+  appearance: none;
 }
 
-.dropdown_button {
-  color: var(--background-200);
-  padding: var(--padding-12) 0 var(--padding-12) var(--padding-12);
-  width: 146px;
+.select-block {
+  display: grid;
+  grid-template-areas: "select";
+  align-items: center;
+  &::after {
+    position: absolute;
+    grid-area: select;
+    justify-self: end;
+    content: "";
+    background-image: url("../../../../static/icons/chevron.svg");
+    margin-right: var(--padding-16);
+    width: 0.8em;
+    height: 0.5em;
+  }
 }
 
 .dropdown {
-  width: 172px;
+  max-width: 140px;
+  margin-left: 8px;
   font-size: 14px;
   color: var(--background-400);
   transition:height 0.3s ease-in-out;
@@ -152,11 +174,9 @@
 }
 
 .dropdown_options {
-  text-align: center;
   cursor: pointer;
+  width: 116px;
   padding: var(--padding-8);
-  padding-left: 32px;
-  padding-right: 32px;
   &:hover {
     border-radius: var(--border-radius-md);
     color: var(--background-600);
@@ -171,10 +191,5 @@
   &:hover {
     background: var(--background-100);
   }
-}
-
-.filter_input {
-  border-radius: var(--border-radius-md);
-  height: 40px;
 }
 
