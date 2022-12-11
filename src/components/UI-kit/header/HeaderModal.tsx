@@ -12,7 +12,7 @@ import navigator from '../../../router/navigator';
 import {
     SIGN_IN_PATH,
     SIGN_UP_PATH,
-    SEARCH_PATH,
+    SEARCH_PATHS,
 } from '../../../utils/routerConstants';
 
 class HeaderModal extends ReactsComponent<{
@@ -95,7 +95,7 @@ class HeaderModal extends ReactsComponent<{
                                             }
                                             onSuccess={
                                                 <Link
-                                                    to={SEARCH_PATH}
+                                                    to={SEARCH_PATHS.VACANCIES}
                                                     content={
                                                         <p
                                                             className={
@@ -132,7 +132,7 @@ class HeaderModal extends ReactsComponent<{
                                     </p>
                                 </a>
                                 <Link
-                                    to={SEARCH_PATH}
+                                    to={SEARCH_PATHS.VACANCIES}
                                     content={
                                         <p className={styles['modal-item']}>
                                             Поиск

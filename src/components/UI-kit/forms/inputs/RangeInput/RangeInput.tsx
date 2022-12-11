@@ -90,8 +90,6 @@ export default class RangeInput extends ReactsComponent<{
         this.fillSlider(fromSlider, toSlider, toSlider, '#dadae0', '#1C34EC');
         this.handleCollision(toSlider);
 
-        console.log(fromSlider, toSlider)
-
         fromSlider.oninput = () =>
             this.handleFromSlider(fromSlider, toSlider, fromInput);
         toSlider.oninput = () =>

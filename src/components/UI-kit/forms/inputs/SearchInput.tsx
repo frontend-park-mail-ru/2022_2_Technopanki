@@ -49,10 +49,6 @@ export default class SearchInput extends ReactsComponent<
         }));
     };
 
-    componentDidUpdate() {
-        console.log('update input')
-    }
-
     render() {
         return (
             <div className={'flex row g-24 relative'}>

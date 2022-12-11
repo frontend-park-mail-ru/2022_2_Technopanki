@@ -27,7 +27,7 @@ export default class FilterInput extends ReactsComponent<FilterInputPropsType> {
             <div className={'flex w-100 column g-8'}>
                 <label
                     key={'label'}
-                    className={`${styles.label}`}
+                    className={styles.label}
                     for={this.props.id}
                 >
                     {this.props.label}
@@ -41,7 +41,7 @@ export default class FilterInput extends ReactsComponent<FilterInputPropsType> {
                     name={this.props.name}
                     placeholder={this.props.placeholder}
                     required={this.props.required}
-                    value={localStorage.getItem(this.props.name)}
+                    value={this.props.value}
                 />
                 {this.props.error ? (
                     <p className={`input-error-${this.props.name}`}>

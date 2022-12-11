@@ -9,7 +9,7 @@ export default class ButtonSearchBlue extends ReactsComponent<{
         return (
             <button
                 onClick={this.props.onClick}
-                className={`${styles['btn-primary__dropdown']}`}
+                className={styles['btn-primary__dropdown']}
             >
                 {this.props.children}
             </button>

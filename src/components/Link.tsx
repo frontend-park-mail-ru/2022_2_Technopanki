@@ -10,7 +10,6 @@ export default class Link extends ReactsComponent<{
 }> {
     onClick = (e: MouseEvent) => {
         e.preventDefault();
-        console.log('navigate')
         router.navigate(this.props.to);
     };
 

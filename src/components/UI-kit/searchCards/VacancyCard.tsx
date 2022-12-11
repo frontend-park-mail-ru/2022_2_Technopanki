@@ -166,6 +166,7 @@ export default class VacancyCard extends ReactsComponent<
                         </div>
                     }
                 />
+                </div>
             </div>
         );
     }

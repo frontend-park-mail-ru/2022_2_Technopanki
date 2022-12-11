@@ -13,7 +13,12 @@ export const APPLICANT_PATHS = {
 export const SIGN_IN_PATH = '/signin';
 export const SIGN_UP_PATH = '/signup';
 
-export const SEARCH_PATH = '/search/vacancy';
+export const SEARCH_PATHS = {
+    VACANCIES: '/search/vacancy',
+    EMPLOYERS: '/search/employer',
+    APPLICANTS: '/search/applicant',
+    RESUMES: '/search/resume',
+}
 
 export const VACANCY_PATHS = {
     INDEX: '/vacancy/',

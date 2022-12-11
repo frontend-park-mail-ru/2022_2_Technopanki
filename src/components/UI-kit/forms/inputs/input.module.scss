@@ -57,9 +57,8 @@
 
 .icon {
   width: 16px;
-  //padding-top: 18px;
-  //padding-left: 16px;
-  //position: absolute;
+  z-index: 2;
+  padding: var(--padding-16);
   cursor: pointer;
 }
 
@@ -103,8 +102,8 @@
 }
 
 .search_input {
-  padding-left: 220px;
-  border-radius: var(--border-radius-xl);
+  padding-left: 48px;
+  border-radius: var(--border-radius-md);
   @media (max-width: $screen-md) {
     font-size: 14px;
     padding-left: 150px;
@@ -164,8 +163,7 @@
 }
 
 .dropdown {
-  max-width: 140px;
-  margin-left: 8px;
+  width: 172px;
   font-size: 14px;
   color: var(--background-400);
   transition:height 0.3s ease-in-out;
@@ -174,9 +172,11 @@
 }
 
 .dropdown_options {
+  text-align: center;
   cursor: pointer;
-  width: 116px;
   padding: var(--padding-8);
+  padding-left: 32px;
+  padding-right: 32px;
   &:hover {
     border-radius: var(--border-radius-md);
     color: var(--background-600);
@@ -193,3 +193,8 @@
   }
 }
 
+.dropdown_button {
+  color: var(--background-200);
+  padding: var(--padding-12) 0 var(--padding-12) var(--padding-12);
+  width: 146px;
+}

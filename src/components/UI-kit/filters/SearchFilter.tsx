@@ -24,10 +24,6 @@ export default class SearchFilter extends ReactsComponent<{
         filters: this.props.filters
     }
 
-    componentDidUpdate() {
-        console.log('update filters')
-    }
-
     render() {
         return (
             <form id={'searchFilters'} onSubmit={this.props.onSubmit}>

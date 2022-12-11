@@ -18,8 +18,7 @@ export default class CheckBox extends ReactsComponent<{
     handleChecked = (e: MouseEvent) => {
         if (e.target.value === this.state.checkedName && e.target.checked === true) {
             this.setState(state => ({ ...state, checked: false }));
-        }
-        else {
+        } else {
             this.setState(state => ({ ...state, checked: true, checkedName: e.target.value }));
         }
         e.target.checked = this.state.checked;
@@ -32,16 +31,14 @@ export default class CheckBox extends ReactsComponent<{
                 className={`flex row g-8 align-items-center ${styles.radio}`}
             >
                 <div name={this.props.name} className={`flex row g-8 align-items-center`}>
-                    {/*{this.state.checked ? (*/}
                         <input
                             className={`rounded-max ${styles.radio_input}`}
                             id={this.props.id}
                             type={'radio'}
                             name={this.props.name}
                             value={this.props.children}
-                            checked={this.props.children === localStorage.getItem(this.props.children)}
                         />
-                    <label className={`${styles.radio_label_search}`} for={this.props.children} checked={this.state.checked}>
+                    <label className={styles.radio_label_search} for={this.props.children} checked={this.state.checked}>
                         {this.props.children}
                     </label>
                 </div>
