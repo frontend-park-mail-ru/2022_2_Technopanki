@@ -1,4 +1,5 @@
 import { ReactsComponent } from '../../../../../Reacts/reacts/src/Component';
+import styles from'./input.module.scss'
 import { ReactsComponentNode } from '../../../../../Reacts/shared/types/node';
 
 export default class DropdownMenu extends ReactsComponent<
@@ -10,7 +11,7 @@ export default class DropdownMenu extends ReactsComponent<
         isOpen?: boolean;
     },
     { isOpen: boolean }
-> {
+    > {
     state = {
         isOpen: false,
     };
@@ -18,18 +19,21 @@ export default class DropdownMenu extends ReactsComponent<
     handleDropdown = () => {
         this.setState(state => ({
             ...state,
-            isOpen: !this.state.isOpen,
-        }));
-    };
+            isOpen: !this.state.isOpen
+        }))
+    }
 
     render() {
         return (
             <div
-                className={`relative flex column g-4 ${
+                className={`relative flex column justify-content-center g-4 ${
                     this.state.isOpen ? 'cursor-default' : ''
                 }`}
             >
-                <div key={'content'} onClick={this.handleDropdown}>
+                <div
+                    key={'content'}
+                    onClick={this.handleDropdown}
+                >
                     {this.props.content}
                 </div>
                 {this.props.isOpen ? (
@@ -38,12 +42,6 @@ export default class DropdownMenu extends ReactsComponent<
                             className={`absolute ${
                                 this.state.isOpen
                                     ? `flex-${this.props.direction}`
-                                    : 'none'
-                            } ${
-                                this.state.isOpen
-                                    ? this.props.mt
-                                        ? `mt-${this.props.mt}`
-                                        : 'mt-8'
                                     : 'none'
                             }`}
                         >

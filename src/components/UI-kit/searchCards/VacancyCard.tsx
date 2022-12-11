@@ -52,7 +52,10 @@ export default class VacancyCard extends ReactsComponent<
                     width={40}
                     src={IMAGE_URL + this.props.icon}
                 />
-                <div className={`flex column g-4 ${styles['card-content']}`}>
+               <div
+                    className={`grid grid-template-columns column g-4 ${styles['card-content']}`}
+                >
+               <div className={`flex column g-4 ${styles['card-content']}`}>
                     <Link
                         to={VACANCY_PATHS.INDEX + this.props.id}
                         content={
@@ -102,7 +105,7 @@ export default class VacancyCard extends ReactsComponent<
                                 </div>
                             }
                         />
-                    </div>
+                   </div>
                 </div>
                 <div
                     className={`flex row g-4 mx-0 justify-content-end ${styles.salary}`}
@@ -125,7 +128,7 @@ export default class VacancyCard extends ReactsComponent<
                     />
                 </div>
                 <div
-                    className={`flex row g-4 justify-content-end align-items-end ${styles.details}`}
+                    className={`flex row g-4 justify-content-end align-items-center ${styles.details}`}
                 >
                     <div
                         className={

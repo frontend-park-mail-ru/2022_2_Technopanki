@@ -48,8 +48,8 @@ class HeaderModal extends ReactsComponent<{
                     <div className={`flex rounded-lg p-4 ${styles.modal}`}>
                         <div
                             id={'links-group'}
-                            className={`flex column justify-content-center w-100 g-32`}
-                        >
+                          className={`flex column justify-content-center w-100 g-32`}
+                       >
                             <RenderWithCondition
                                 condition={this.props.authorized}
                                 onSuccess={

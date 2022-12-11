@@ -90,6 +90,8 @@ export default class RangeInput extends ReactsComponent<{
         this.fillSlider(fromSlider, toSlider, toSlider, '#dadae0', '#1C34EC');
         this.handleCollision(toSlider);
 
+        console.log(fromSlider, toSlider)
+
         fromSlider.oninput = () =>
             this.handleFromSlider(fromSlider, toSlider, fromInput);
         toSlider.oninput = () =>
@@ -128,10 +130,9 @@ export default class RangeInput extends ReactsComponent<{
                         min={this.props.min}
                         max={this.props.max}
                         value={this.props.min}
-                        step={`${
-                            this.props.max <= 100
-                                ? '1'
-                                : this.props.max <= 1000
+                        step={`${this.props.max <= 100
+                            ? '1'
+                            : this.props.max <= 1000
                                 ? '50'
                                 : '10000'
                         }`}
@@ -144,10 +145,9 @@ export default class RangeInput extends ReactsComponent<{
                         min={this.props.min}
                         max={this.props.max}
                         value={this.props.max}
-                        step={`${
-                            this.props.max <= 100
-                                ? '1'
-                                : this.props.max <= 1000
+                        step={`${this.props.max <= 100
+                            ? '1'
+                            : this.props.max <= 1000
                                 ? '50'
                                 : '10000'
                         }`}
