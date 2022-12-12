@@ -7,6 +7,7 @@ import { UserState } from '../../../store/user/types';
 import HeaderUserInfo from './HeaderUserInfo';
 import { SIGN_IN_PATH, SIGN_UP_PATH } from '../../../utils/routerConstants';
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
+import NotificationWindow from '../notifications/NotificationsWindow';
 
 type HeaderProps = {
     id: string;
@@ -24,6 +25,9 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                 <div
                     className={`flex row w-100 g-40 align-items-center justify-content-end ${styles.auth}`}
                 >
+                    <NotificationWindow
+
+                    />
                     {this.props.authorized ? (
                         <div>
                             <HeaderUserInfo

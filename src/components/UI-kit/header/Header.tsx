@@ -11,6 +11,8 @@ import {
     SEARCH_PATH,
 } from '../../../utils/routerConstants';
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
+import Svg from '../../Svg';
+import Bell from '../../../static/icons/bell.svg'
 
 class Header extends ReactsComponent<{ userType: string }> {
     setActive = (event: MouseEvent) => {

@@ -414,6 +414,12 @@ a {
   &-100vw {
     width: 100vw;
   }
+  &-max {
+    width: max-content;
+  }
+  &-border-box {
+    box-sizing: border-box;
+  }
 }
 
 .h {
@@ -529,6 +535,9 @@ a {
     }
     &-5 {
       padding-top: 5px;
+    }
+    &-10 {
+      padding-top: 10px;
     }
   }
   &b {
@@ -831,6 +840,9 @@ justify-items {
   &-red {
     color: var(--primary-red);
   }
+  &-blue {
+    color: var(--primary-blue)
+  }
 }
 
 .rounded {
@@ -902,6 +914,11 @@ justify-items {
 
 .inner-svg {
   &-h {
+    &-6 {
+      > svg {
+        height: 6px;
+      }
+    }
     &-16 {
       > svg {
         height: 16px;
