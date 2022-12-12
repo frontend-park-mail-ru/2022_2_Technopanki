@@ -7,7 +7,6 @@ import { UserState } from '../../../store/user/types';
 import HeaderUserInfo from './HeaderUserInfo';
 import { SIGN_IN_PATH, SIGN_UP_PATH } from '../../../utils/routerConstants';
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
-import { notificationService } from '../../../services/notificationService';
 import { notificationActions, NOTIFICATION_TYPES } from '../../../store/notification/action';
 import { Notification } from '../../../store/notification/type';
 import RenderWithCondition from '../../RenderWithCondition';
@@ -29,6 +28,9 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                 <div
                     className={`flex row w-100 g-40 align-items-center justify-content-end ${styles.auth}`}
                 >
+                    <NotificationWindow
+
+                    />
                     {this.props.authorized ? (
                         <div className={'flex align-items-center row g-40'}>
                             <NotificationWindow
