@@ -1,5 +1,4 @@
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
-import ModalWindow from '../modalWindow/ModalWindow';
 import Bell from '../../../static/icons/bell.svg'
 import Svg from '../../Svg';
 import Dropdown from '../dropdown/Dropdown';
@@ -13,7 +12,10 @@ type NotificationType = {
     userID: string;
     aboutUserID: string;
     userType: string;
-    resumeName: string;
+    resumeTitle: string;
+    applicantName: string;
+    vacancyTitle: string;
+    type: string;
 }
 
 export default class NotificationWindow extends ReactsComponent<NotificationType> {
@@ -26,7 +28,7 @@ export default class NotificationWindow extends ReactsComponent<NotificationType
         return (
             <Dropdown
                 content={
-                    <div className={'pt-10'}>
+                    <div className={'pt-5'}>
                         <Svg
                             src={Bell}
                             height={16}
@@ -38,11 +40,13 @@ export default class NotificationWindow extends ReactsComponent<NotificationType
                     <div className={`flex column g-0 background-0 rounded-md shadow-md mt-16 ${styles.notification_window}`}>
                         <h6 className={`w-border-box p-8 color-900 ${styles.borderline}`}>Последние уведомления</h6>
                         <NotificationCard
-                            type={'apply'}
+                            type={this.props.type}
+                            applicantName={this.props.applicantName}
+                            vacancyTitle={this.props.vacancyTitle}
                         />
-                        <NotificationCard
-                            type={'download resume'}
-                        />
+                        {/*<NotificationCard*/}
+                        {/*    type={'download resume'}*/}
+                        {/*/>*/}
                     </div>
                 }
                 direction={'left'}

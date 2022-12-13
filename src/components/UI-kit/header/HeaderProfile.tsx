@@ -11,6 +11,7 @@ import { notificationService } from '../../../services/notificationService';
 import { notificationActions, NOTIFICATION_TYPES } from '../../../store/notification/action';
 import { Notification } from '../../../store/notification/type';
 import RenderWithCondition from '../../RenderWithCondition';
+import NotificationWindow from '../notifications/NotificationsWindow';
 
 type HeaderProps = {
     id: string;
@@ -49,11 +50,13 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                 <div
                     className={`flex row w-100 g-40 align-items-center justify-content-end ${styles.auth}`}
                 >
-                    <NotificationWindow
-
-                    />
                     {this.props.authorized ? (
-                        <div>
+                        <div className={'flex row g-40'}>
+                            <NotificationWindow
+                                type={this.props.type}
+                                vacancyTitle={this.props.vacancyTitle}
+                                applicantName={this.props.applicantName}
+                            />
                             <HeaderUserInfo
                                 id={this.props.id}
                                 imgSrc={this.props.imgSrc}

@@ -3,7 +3,7 @@ import HeaderProfile from './HeaderProfile';
 import JobflowLogo from '../JobflowLogo';
 import Link from '../../Link/Link';
 import Preloader from '../prelodaer/Preloader';
-import { userConnect } from '../../../store';
+import { dispatch, userConnect } from '../../../store';
 import RenderWithCondition from '../../RenderWithCondition';
 import {
     RESUME_PATHS,
@@ -13,8 +13,9 @@ import {
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import Svg from '../../Svg';
 import Bell from '../../../static/icons/bell.svg'
+import { resumeActions } from '../../../store/resume/actions';
 
-class Header extends ReactsComponent<{ userType: string }> {
+class Header extends ReactsComponent<{ userType: string, id: number }> {
     setActive = (event: MouseEvent) => {
         let cur = document.querySelector(`.${styles.item__active}`);
         let target = event.target as Element;
@@ -28,7 +29,7 @@ class Header extends ReactsComponent<{ userType: string }> {
     
 
     shouldUpdate(
-        nextProps: Readonly<{ userType: string }> | { userType: string },
+        nextProps: Readonly<{ userType: string, id: string }> | { userType: string, id: string },
     ): boolean {
         return this.props.userType !== nextProps.userType;
     }
@@ -68,6 +69,12 @@ class Header extends ReactsComponent<{ userType: string }> {
                             onSuccess={
                                 <Link
                                     to={RESUME_PATHS.NEW}
+                                    onClick={() =>
+                                        dispatch(
+                                            resumeActions.clear(
+                                                this.props.id
+                                            ),
+                                        )}
                                     content={
                                         <p
                                             key={'item3'}
@@ -91,4 +98,5 @@ class Header extends ReactsComponent<{ userType: string }> {
 
 export default userConnect(state => ({
     userType: state.userType,
+    id: state.id
 }))(Header);

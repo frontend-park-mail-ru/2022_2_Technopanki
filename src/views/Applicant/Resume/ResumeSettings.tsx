@@ -180,8 +180,7 @@ class ResumeSettings extends ReactsComponent<
 const UserWrapper = userConnect((state, props) => {
     return {
         id: state.id,
-        postedByUserID:
-            props.postedByUserID !== '' ? props.postedByUserID : state.id,
+        postedByUserID: props.postedByUserID,
         isNew: props.isNew,
         ...props,
     };

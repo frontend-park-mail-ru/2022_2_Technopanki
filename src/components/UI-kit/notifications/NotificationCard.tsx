@@ -6,6 +6,8 @@ import TextLink from '../../TextLink/TextLink';
 
 export default class NotificationCard extends ReactsComponent<{
     type: 'apply' | 'download resume'
+    applicantName: string;
+    vacancyTitle: string;
 }> {
     state = {
         isWatched: false
@@ -43,12 +45,12 @@ export default class NotificationCard extends ReactsComponent<{
                         <p>
                             Пользователь <TextLink to={'/'} content={
                             <span className={'color-blue'}>
-                                            Захар Урванцев
+                                            {this.props.applicantName}
                                         </span>
                         }
                         /> оставил отклик на вашу вакансию <TextLink to={'/'} content={
                             <span className={'color-blue'}>
-                                            Фронтенд-разработчик
+                                            {this.props.vacancyTitle}
                                         </span>
                         }
                         />
