@@ -28,15 +28,20 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                 <div
                     className={`flex row w-100 g-40 align-items-center justify-content-end ${styles.auth}`}
                 >
-                    <NotificationWindow
-
-                    />
                     {this.props.authorized ? (
+<<<<<<< HEAD
                         <div className={'flex align-items-center row g-40'}>
                             <NotificationWindow
                                 type={this.props.type}
                                 vacancyTitle={this.props.vacancyTitle}
                                 vacancyID={this.props.vacancyID}
+=======
+                        <div className={'flex row g-40'}>
+                            <NotificationWindow
+                                type={this.props.type}
+                                vacancyTitle={this.props.vacancyTitle}
+                                applicantName={this.props.applicantName}
+>>>>>>> 7d4295f (fix(views): fixed bug with resume in hader)
                             />
                             <HeaderUserInfo
                                 id={this.props.id}

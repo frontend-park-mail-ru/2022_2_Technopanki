@@ -12,7 +12,21 @@ import { notificationService } from '../../../services/notificationService';
 import { NOTIFICATION_TYPES, notificationActions } from '../../../store/notification/action';
 import { dispatch } from '../../../store';
 
+<<<<<<< HEAD
 export default class NotificationWindow extends ReactsComponent<Notification> {
+=======
+type NotificationType = {
+    userID: string;
+    aboutUserID: string;
+    userType: string;
+    resumeTitle: string;
+    applicantName: string;
+    vacancyTitle: string;
+    type: string;
+}
+
+export default class NotificationWindow extends ReactsComponent<NotificationType> {
+>>>>>>> 7d4295f (fix(views): fixed bug with resume in hader)
     state = {
         isOpen: false,
         notifications: [],
@@ -80,6 +94,7 @@ export default class NotificationWindow extends ReactsComponent<Notification> {
                 hidden={
                     <div className={`flex column g-0 background-0 rounded-md shadow-md mt-16 ${styles.notification_window}`}>
                         <h6 className={`w-border-box p-8 color-900 ${styles.borderline}`}>Последние уведомления</h6>
+<<<<<<< HEAD
                         {this.state.notifications.length === 0 ? (
                             <p className={`g-16 p-16`}>Новых уведомлений нет</p>
                         ) : (
@@ -105,6 +120,16 @@ export default class NotificationWindow extends ReactsComponent<Notification> {
                                     ))}
                             </div>
                         )}
+=======
+                        <NotificationCard
+                            type={this.props.type}
+                            applicantName={this.props.applicantName}
+                            vacancyTitle={this.props.vacancyTitle}
+                        />
+                        {/*<NotificationCard*/}
+                        {/*    type={'download resume'}*/}
+                        {/*/>*/}
+>>>>>>> 7d4295f (fix(views): fixed bug with resume in hader)
                     </div>
                 }
                 direction={'left'}
