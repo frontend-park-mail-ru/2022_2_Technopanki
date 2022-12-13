@@ -8,7 +8,7 @@ import RenderWithCondition from '../../RenderWithCondition';
 import {
     RESUME_PATHS,
     START_PATH,
-    SEARCH_PATH,
+    SEARCH_PATHS,
 } from '../../../utils/routerConstants';
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 
@@ -47,7 +47,7 @@ class Header extends ReactsComponent<{ userType: string }> {
                         className={`flex justify-content-center w-100 g-16 ${styles.items}`}
                     >
                         <Link
-                            to={SEARCH_PATH}
+                            to={SEARCH_PATHS.VACANCIES}
                             content={
                                 <p
                                     key={'item1'}

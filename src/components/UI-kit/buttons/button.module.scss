@@ -52,12 +52,30 @@
   padding: var(--padding-16);
   color: var(--white);
   border: var(--border-blue);
-  border-radius: var(--border-radius-xl);
+  border-radius: var(--border-radius-md);
   background-color: var(--primary-blue);
   font-weight: 500;
   &:hover {
     background-color: var(--primary-blue-darker);
     box-shadow: var(--shadow-blue-md);
+  }
+}
+
+.btn-primary__dropdown {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: var(--background-900);
+  border: var(--border-default);
+  box-shadow: var(--shadow-grey-sm);
+  border-radius: var(--border-radius-md);
+  transition: var(--transition-sfast);
+  font-weight: 500;
+  cursor: pointer;
+  height: 100%;
+  &:hover {
+    box-shadow: var(--shadow-grey-md);
   }
 }
 

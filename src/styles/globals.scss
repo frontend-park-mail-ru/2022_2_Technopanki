@@ -59,7 +59,7 @@
   --background-red: rgba(243, 42, 42, 0.12);
   --primary-purple: rgba(128, 137, 215, 0.5);
 
-  --background-modal: rgba(15, 15, 15, 0.9);
+  --background-modal: rgba(15, 15, 15, 0.75);
 
   --shadow-grey-xs: 0 4px 4px rgba(0, 0, 0, 0.02);
   --shadow-grey-sm: 0 4px 8px rgba(0, 0, 0, 0.04);
@@ -92,6 +92,7 @@
   --padding-2: 2px;
   --padding-4: 4px;
   --padding-8: 8px;
+  --padding-12: 12px;
   --padding-16: 16px;
   --padding-24: 24px;
   --padding-32: 32px;
@@ -502,6 +503,9 @@ a {
   &-8 {
     padding: var(--padding-8);
   }
+  &-12 {
+    padding: var(--padding-12);
+  }
   &-16 {
     padding: var(--padding-16);
   }
@@ -902,6 +906,11 @@ justify-items {
 
 .inner-svg {
   &-h {
+    &-6 {
+      > svg {
+        height: 6px;
+      }
+    }
     &-16 {
       > svg {
         height: 16px;
