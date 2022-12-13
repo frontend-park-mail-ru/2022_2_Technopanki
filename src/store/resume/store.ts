@@ -4,6 +4,9 @@ import { resumeReducer } from './reducer';
 
 export const defaultResume: ResumeState = {
     id: '',
+    postedByUserID: '',
+    avatarSrc: '',
+    experience: '',
     title: '',
     description: '',
     university: '',

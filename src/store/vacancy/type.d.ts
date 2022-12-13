@@ -9,7 +9,7 @@ export type VacancyState = {
     extra: string;
     // Sidebar
     createdDate: string;
-    salary: number;
+    salary: string;
     location: string;
     isActive: boolean;
     experience: string;

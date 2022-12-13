@@ -8,6 +8,7 @@ import { errorsStore } from './errors/store';
 import { resumeStore } from './resume/store';
 import { applicantProfileStore } from './applicant/store';
 import { successStore } from './succeses/store';
+import { notificationStore } from './notification/store';
 
 dispatcher.register(userStore.dispatch.bind(userStore));
 dispatcher.register(vacancyStore.dispatch.bind(vacancyStore));
@@ -17,6 +18,7 @@ dispatcher.register(profileStore.dispatch.bind(profileStore));
 dispatcher.register(loadingStore.dispatch.bind(loadingStore));
 dispatcher.register(errorsStore.dispatch.bind(errorsStore));
 dispatcher.register(errorsStore.dispatch.bind(successStore));
+dispatcher.register(notificationStore.dispatch.bind(notificationStore))
 
 export const dispatch = dispatcher.dispatch.bind(dispatcher);
 
@@ -26,6 +28,6 @@ export const profileConnect = createConnect(profileStore);
 export const loadingConnect = createConnect(loadingStore);
 export const errorsConnect = createConnect(errorsStore);
 export const successConnect = createConnect(successStore);
-
+export const notificationConnect = createConnect(notificationStore)
 export const resumeConnect = createConnect(resumeStore);
 export const applicantConnect = createConnect(applicantProfileStore);

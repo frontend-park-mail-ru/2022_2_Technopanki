@@ -19,4 +19,5 @@ export type VacancyResponse = {
     image: string;
     vacancyActivities: null | [];
     skills: null | [];
+    hours: string
 };

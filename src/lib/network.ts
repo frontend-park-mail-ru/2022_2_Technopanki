@@ -58,6 +58,16 @@ class Network {
     ) {
         return await sendRequest('DELETE', url, '', headers, credentials);
     }
+    WEBSOCKET(
+        url: string,
+        onMessage: (message: string) => void,
+        protocols?: string[]
+    ) {
+        const socket = new WebSocket(url, protocols)
+        socket.onmessage = (event: MessageEvent<string>) => {
+            onMessage(event.data)
+        }
+    }
 }
 
 export default new Network();
