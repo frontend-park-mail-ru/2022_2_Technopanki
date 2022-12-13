@@ -14,6 +14,7 @@ export const SIGN_IN_PATH = '/signin';
 export const SIGN_UP_PATH = '/signup';
 
 export const SEARCH_PATHS = {
+    SEARCH: '/search/',
     VACANCIES: '/search/vacancy',
     EMPLOYERS: '/search/employer',
     APPLICANTS: '/search/applicant',

@@ -11,6 +11,7 @@ import Dropdown from '../../dropdown/Dropdown';
 import DropdownMenu from './SearchDropdownMenu';
 import Link from '../../../Link';
 import Svg from '../../../Svg';
+import { SEARCH_PATHS } from '../../../../utils/routerConstants';
 
 export default class SearchInput extends ReactsComponent<
     {
@@ -66,7 +67,7 @@ export default class SearchInput extends ReactsComponent<
                                             className={`${styles.dropdown_options}`}
                                         >
                                             <Link
-                                                to={`/search/${option.key}`}
+                                                to={SEARCH_PATHS.SEARCH + option.key}
                                                 content={option.name}
                                             />
                                         </p>
