@@ -11,8 +11,6 @@ import {
     SEARCH_PATHS,
 } from '../../../utils/routerConstants';
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
-import Svg from '../../Svg';
-import Bell from '../../../static/icons/bell.svg'
 import { resumeActions } from '../../../store/resume/actions';
 
 type nextProps = { userType: string, id: string }
@@ -27,8 +25,6 @@ class Header extends ReactsComponent<{ userType: string, id: number }> {
             target.classList.add(`${styles.item__active}`);
         }
     };
-
-    
 
     shouldUpdate(
         nextProps: Readonly<nextProps> | nextProps,
