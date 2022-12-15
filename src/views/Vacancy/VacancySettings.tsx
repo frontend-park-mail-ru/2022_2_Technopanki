@@ -95,7 +95,7 @@ class VacancySettings extends ReactsComponent<
                             }
                         />
                     </div>
-                    <h3 className={'col-12'}>Настройки вакансии</h3>
+                    <h3 className={'col-12'}>Редактировать вакансию</h3>
                     <Form onSubmit={this.submitForm}>
                         <FormItem header={'О вакансии'}>
                             <FormInput

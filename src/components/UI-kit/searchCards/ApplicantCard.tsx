@@ -1,6 +1,6 @@
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import styles from './searchCards.module.scss';
-import Link from '../../Link';
+import Link from '../../Link/Link';
 import {
     APPLICANT_PATHS,
     EMPLOYER_PATHS,

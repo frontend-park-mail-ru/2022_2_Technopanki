@@ -146,23 +146,23 @@ export default class VacancyCard extends ReactsComponent<
                         />
                     </div>
                 </div>
-                <RenderWithCondition
-                    condition={this.state.isOpen}
-                    onSuccess={
-                        <div
-                            className={`flex column g-12 ${styles.description}`}
-                        >
-                            <div
-                                className={'w-100'}
-                                dangerouslySetInnerHTML={{ __html: Hr }}
-                            />
-                            <h5 className={'mx-0'}>Описание вакансии</h5>
-                            <p className={styles.description_text}>
-                                {this.props.description}
-                            </p>
-                        </div>
-                    }
-                />
+                <div className={`flex column g-12 ${styles.description}`}>
+                    <RenderWithCondition
+                        condition={this.state.isOpen}
+                        onSuccess={
+                            <div>
+                                <div
+                                    className={'w-100'}
+                                    dangerouslySetInnerHTML={{ __html: Hr }}
+                                />
+                                <h5 className={'mx-0'}>Описание вакансии</h5>
+                                <p className={styles.description_text}>
+                                    {this.props.description}
+                                </p>
+                            </div>
+                        }
+                    />
+                </div>
             </div>
         );
     }

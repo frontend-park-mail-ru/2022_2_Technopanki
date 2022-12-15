@@ -30,7 +30,7 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                     className={`flex row w-100 g-40 align-items-center justify-content-end ${styles.auth}`}
                 >
                     {this.props.authorized ? (
-                        <div className={'flex row g-40'}>
+                        <div className={'flex align-items-center row g-40'}>
                             <NotificationWindow
                                 type={this.props.type}
                                 vacancyTitle={this.props.vacancyTitle}
@@ -46,7 +46,6 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                         </div>
                     ) : (
                         <div className={'flex row g-24 align-items-center'}>
-                            <p className={'none'}></p>
                             <a
                                 className={'cursor-pointer'}
                                 onClick={toggleTheme}
