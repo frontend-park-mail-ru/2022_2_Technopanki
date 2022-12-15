@@ -12,31 +12,30 @@ export const NOTIFICATION_ACTIONS = {
 }
 
 export const notificationActions: {
-    notifyApply: (
+    notifyResumeDownload: (
         notificationAuthor: string,
         notificationAuthorID: string,
         resumeTitle: string,
         resumeID: string,
-    ) => { type: string; state: ResumeNotification };
-    notifyResumeDownload: (vacancyTitle: string,
-        vacancyID: string,
-        applicantName: string,
-        applicantID: string,
     ) => {
         type: string;
-        state: VacancyNotification;
+        state: ResumeNotification
     };
-} = {
     notifyApply: (
+        vacancyTitle: string,
+        vacancyID: string,
+    ) => { type: string; state: VacancyNotification };
+} = {
+    notifyResumeDownload: (
         notificationAuthor: string,
         notificationAuthorID: string,
         resumeTitle: string,
         resumeID: string,
     ) => {
         return {
-            type: NOTIFICATION_ACTIONS.NOTIFY_VACANCY_APPLY,
+            type: NOTIFICATION_ACTIONS.NOTIFY_RESUME_DOWNLOAD,
             state: {
-                type: NOTIFICATION_TYPES.APPLY,
+                type: NOTIFICATION_TYPES.RESUME_DOWNLOAD,
                 notificationAuthor: notificationAuthor,
                 notificationAuthorID: notificationAuthorID,
                 resumeTitle: resumeTitle,
@@ -44,19 +43,15 @@ export const notificationActions: {
             },
         };
     },
-    notifyResumeDownload: (
+    notifyApply: (
         vacancyTitle: string,
         vacancyID: string,
-        applicantName: string,
-        applicantID: string,
     ) => ({
-        type: NOTIFICATION_ACTIONS.NOTIFY_RESUME_DOWNLOAD,
+        type: NOTIFICATION_ACTIONS.NOTIFY_VACANCY_APPLY,
         state: {
-            type: NOTIFICATION_TYPES.RESUME_DOWNLOAD,
+            type: NOTIFICATION_TYPES.APPLY,
             vacancyTitle: vacancyTitle,
             vacancyID: vacancyID,
-            applicantName: applicantName,
-            applicantID: applicantID,
         },
     }),
 };

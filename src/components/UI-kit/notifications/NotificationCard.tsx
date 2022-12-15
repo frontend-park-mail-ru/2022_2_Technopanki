@@ -3,15 +3,21 @@ import styles from './notifications.module.scss';
 import Svg from '../../Svg';
 import NewNotification from '../../../static/icons/new_notificantion.svg';
 import TextLink from '../../TextLink/TextLink';
+import { VACANCY_PATHS } from '../../../utils/routerConstants';
 
 export default class NotificationCard extends ReactsComponent<{
     type: 'apply' | 'download resume'
-    applicantName: string;
+    vacancyID: string;
     vacancyTitle: string;
 }> {
     state = {
         isWatched: false
     }
+
+    // componentDidUpdate() {
+    //     this.setState(state => ({ ...state, isWatched: true }))
+    //     console.log(this.props.vacancyID, this.state.isWatched)
+    // }
 
     render() {
         return (
@@ -43,14 +49,14 @@ export default class NotificationCard extends ReactsComponent<{
                 ) : (
                     <div>
                         <p>
-                            Пользователь <TextLink to={'/'} content={
-                            <span className={'color-blue'}>
-                                            {this.props.applicantName}
-                                        </span>
-                        }
-                        /> оставил отклик на вашу вакансию <TextLink to={'/'} content={
+                            На вашу вакансию <TextLink to={VACANCY_PATHS.INDEX + this.props.vacancyID} content={
                             <span className={'color-blue'}>
                                             {this.props.vacancyTitle}
+                                        </span>
+                        }
+                        /> был оставлен новый <TextLink to={VACANCY_PATHS.RESUME_LIST + this.props.vacancyID} content={
+                            <span className={'color-blue'}>
+                                            отклик
                                         </span>
                         }
                         />

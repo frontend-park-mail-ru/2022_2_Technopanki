@@ -2,7 +2,7 @@ import styles from './header.module.scss';
 import { toggleTheme } from '../../../utils/toggleTheme';
 import Link from '../../Link/Link';
 import HeaderModal from './HeaderModal';
-import { notificationConnect, userConnect } from '../../../store';
+import { dispatch, notificationConnect, userConnect } from '../../../store';
 import { UserState } from '../../../store/user/types';
 import HeaderUserInfo from './HeaderUserInfo';
 import { SIGN_IN_PATH, SIGN_UP_PATH } from '../../../utils/routerConstants';
@@ -23,27 +23,6 @@ type HeaderProps = {
 } & Notification;
 
 class HeaderProfile extends ReactsComponent<HeaderProps> {
-    componentDidMount(): void {
-        notificationService.subscribe((message: string) => {
-            try {
-                const messageJson: Notification = JSON.parse(message)
-                switch (messageJson.type) {
-                    case NOTIFICATION_TYPES.APPLY:
-                        notificationActions.notifyApply(
-                            messageJson.notificationAuthor, messageJson.notificationAuthorID,
-                            messageJson.resumeID, messageJson.resumeTitle
-                        )
-                        break;
-                    case NOTIFICATION_TYPES.RESUME_DOWNLOAD:
-                        
-                        break;
-                }
-            } catch (e) {
-                console.error(e)
-            }
-        })
-    }
-    
     render() {
         return (
             <div className={'flex-wrap w-100'}>
@@ -55,7 +34,7 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                             <NotificationWindow
                                 type={this.props.type}
                                 vacancyTitle={this.props.vacancyTitle}
-                                applicantName={this.props.applicantName}
+                                vacancyID={this.props.vacancyID}
                             />
                             <HeaderUserInfo
                                 id={this.props.id}
@@ -92,8 +71,6 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                     )}
                 </div>
                 <div className={'w-100 flex row justify-content-end'}>
-                    <RenderWithCondition condition={this.props.type === NOTIFICATION_TYPES.APPLY} onSuccess={<p>{this.props.vacancyTitle}</p>} />
-                    <RenderWithCondition condition={this.props.type === NOTIFICATION_TYPES.RESUME_DOWNLOAD} onSuccess={<p>{this.props.resumeTitle}</p>} />
                     <HeaderModal />
                 </div>
                 <div>
@@ -104,11 +81,6 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
     }
 }
 
-const NotificationWrapper = notificationConnect((state: Notification, props): HeaderProps => ({
-    ...state,
-    ...props,
-} as HeaderProps))(HeaderProfile)
-
 export default userConnect((state: UserState) => {
     return {
         id: state.id,
@@ -118,4 +90,4 @@ export default userConnect((state: UserState) => {
         userType: state.userType as string,
         authorized: state.authorized,
     };
-})(NotificationWrapper);
+})(HeaderProfile);

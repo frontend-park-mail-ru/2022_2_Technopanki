@@ -157,7 +157,7 @@ class ResumeSettings extends ReactsComponent<
                 <div className={'flex row g-16 mt-40'}>
                     <Button onClick={navigator.goBack}>Пропустить</Button>
                     <RenderWithCondition
-                        condition={this.state.isNew}
+                        condition={!this.state.isNew}
                         onSuccess={
                             <ButtonRed
                                 onClick={() => {
