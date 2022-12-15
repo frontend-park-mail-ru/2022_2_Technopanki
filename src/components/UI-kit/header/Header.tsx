@@ -13,16 +13,10 @@ import {
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import { resumeActions } from '../../../store/resume/actions';
 import Svg from '../../Svg';
-<<<<<<< HEAD
 import Bell from '../../../static/icons/bell.svg';
 
 type nextProps = { userType: string, id: string }
 
-=======
-import Bell from '../../../static/icons/bell.svg'
-import { resumeActions } from '../../../store/resume/actions';
-
->>>>>>> 7d4295f (fix(views): fixed bug with resume in hader)
 class Header extends ReactsComponent<{ userType: string, id: number }> {
     setActive = (event: MouseEvent) => {
         let cur = document.querySelector(`.${styles.item__active}`);
@@ -35,11 +29,7 @@ class Header extends ReactsComponent<{ userType: string, id: number }> {
     };
 
     shouldUpdate(
-<<<<<<< HEAD
         nextProps: Readonly<nextProps> | nextProps,
-=======
-        nextProps: Readonly<{ userType: string, id: string }> | { userType: string, id: string },
->>>>>>> 7d4295f (fix(views): fixed bug with resume in hader)
     ): boolean {
         return this.props.userType !== nextProps.userType;
     }

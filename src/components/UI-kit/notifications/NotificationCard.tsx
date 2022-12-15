@@ -7,7 +7,6 @@ import { VACANCY_PATHS } from '../../../utils/routerConstants';
 
 export default class NotificationCard extends ReactsComponent<{
     type: 'apply' | 'download resume'
-<<<<<<< HEAD
     vacancyID: string;
     vacancyTitle: string;
     resumeID: string;
@@ -15,10 +14,6 @@ export default class NotificationCard extends ReactsComponent<{
     companyName: string;
     companyID: string;
     isWatched: boolean;
-=======
-    applicantName: string;
-    vacancyTitle: string;
->>>>>>> 7d4295f (fix(views): fixed bug with resume in hader)
 }> {
     state = {
         isWatched: false
@@ -54,20 +49,12 @@ export default class NotificationCard extends ReactsComponent<{
                         <p>
                             На вашу вакансию <TextLink to={VACANCY_PATHS.INDEX + this.props.vacancyID} content={
                             <span className={'color-blue'}>
-<<<<<<< HEAD
                                             {this.props.vacancyTitle}
-=======
-                                            {this.props.applicantName}
->>>>>>> 7d4295f (fix(views): fixed bug with resume in hader)
                                         </span>
                         }
                         /> был оставлен новый <TextLink to={VACANCY_PATHS.RESUME_LIST + this.props.vacancyID} content={
                             <span className={'color-blue'}>
-<<<<<<< HEAD
                                             отклик
-=======
-                                            {this.props.vacancyTitle}
->>>>>>> 7d4295f (fix(views): fixed bug with resume in hader)
                                         </span>
                         }
                         />

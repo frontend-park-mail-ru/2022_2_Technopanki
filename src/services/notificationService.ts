@@ -3,7 +3,6 @@ import { SERVER_URLS, VACANCY_URLS } from '../utils/networkConstants';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
 import { requestHeaders } from './headers';
-import { ResumeResponse } from './resume/types';
 import { Service } from './types';
 
 export const notificationService: {
@@ -27,7 +26,6 @@ export const notificationService: {
             })
             .catch(() => dispatch(stopLoading()));
     },
-
     setNotificationsWatched: async (notificationID: string) => {
         dispatch(startLoading());
         return await network
