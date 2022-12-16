@@ -120,3 +120,19 @@
   color: var(--primary-red);
   font-weight: 600;
 }
+
+.long_button {
+  height: 32px;
+  color: var(--background-900);
+  border-color: var(--background-100);
+  &-left {
+    border-radius: 16px 0 0 16px;
+  }
+  &-right {
+    border-radius: 0 16px 16px 0;
+  }
+  &:focus {
+    color: var(--background-body);
+  }
+}
+

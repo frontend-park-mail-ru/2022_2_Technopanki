@@ -31,11 +31,7 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                 >
                     {this.props.authorized ? (
                         <div className={'flex row g-40'}>
-                            <NotificationWindow
-                                type={this.props.type}
-                                vacancyTitle={this.props.vacancyTitle}
-                                vacancyID={this.props.vacancyID}
-                            />
+                            <NotificationWindow />
                             <HeaderUserInfo
                                 id={this.props.id}
                                 imgSrc={this.props.imgSrc}
