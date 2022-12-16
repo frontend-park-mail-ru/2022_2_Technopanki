@@ -160,3 +160,14 @@
     color: var(--background-900);
   }
 }
+
+.long_button_left {
+  height: 32px;
+  background-color: var(--background-0);
+  border: solid;
+  border-radius: 16px 0 0 16px;
+  border-color: var(--background-100);
+  &:focus {
+    color: var(--background-900);
+  }
+}
