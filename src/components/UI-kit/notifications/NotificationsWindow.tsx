@@ -48,7 +48,7 @@ export default class NotificationWindow extends ReactsComponent<Notification> {
                         break;
                 }
             } catch (e) {
-                console.error(e)
+                console.error(e);
             }
         })
     }
@@ -57,19 +57,19 @@ export default class NotificationWindow extends ReactsComponent<Notification> {
         let items = [...this.state.notifications];
         items.map(n => {
             n.is_viewed = true;
-        })
+        });
 
         this.setState(state => ({
             ...state,
             notifications: items,
-        }))
+        }));
     }
 
     render() {
         return (
             <Dropdown
                 content={
-                    <div className={'pt-5'} onClick={() => console.log('click')}>
+                    <div className={'pt-5'}>
                         <Svg
                             src={Bell}
                             height={16}
@@ -99,8 +99,6 @@ export default class NotificationWindow extends ReactsComponent<Notification> {
                                                 type={n.type}
                                                 resumeTitle={n.title}
                                                 resumeID={n.object_id}
-                                                // companyName={}
-                                                // companyID={}
                                                 isWatched={n.is_viewed}
                                             />
                                         )
