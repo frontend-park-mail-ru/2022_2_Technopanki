@@ -44,4 +44,14 @@ authService
         router.navigate(location.pathname);
     });
 
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('https://jobflow.su/sw.js').then(() =>
+        navigator.serviceWorker.ready
+            .then(worker => {
+                worker.active;
+            })
+            .catch(err => console.error(err)),
+    );
+}
+
 setTheme();
