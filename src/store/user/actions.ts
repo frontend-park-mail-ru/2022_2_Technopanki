@@ -52,4 +52,8 @@ export const userActions = {
     LOGOUT: () => ({
         type: 'LOGOUT',
     }),
+    updateTwoFactor: (twoFactor: boolean) => ({
+        type: 'TWO_FACTOR',
+        twoFactor
+    })
 };

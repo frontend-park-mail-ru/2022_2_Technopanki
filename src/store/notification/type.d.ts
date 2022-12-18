@@ -12,6 +12,7 @@ export type VacancyNotification = {
     vacancyID: string;
     applicantName: string;
     applicantID: string;
+    isWatched: boolean;
 }
 
 export type Notification = ResumeNotification & VacancyNotification

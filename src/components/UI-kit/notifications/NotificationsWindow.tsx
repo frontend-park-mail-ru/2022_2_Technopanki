@@ -25,7 +25,7 @@ export default class NotificationWindow extends ReactsComponent<Notification> {
             .then(body => {
                 this.setState(state => ({
                     ...state,
-                    notifications: [...body.data],
+                    notifications: [...body.data].reverse(),
                 }));
             })
             .catch(err => console.error(err));
@@ -37,13 +37,14 @@ export default class NotificationWindow extends ReactsComponent<Notification> {
                     case NOTIFICATION_TYPES.APPLY:
                         this.setState(state => ({
                             ...state,
-                            notifications: [...state.notifications, messageJson],
+                            notifications: [messageJson, ...state.notifications],
                         }))
-
-                        console.log(this.state.notifications)
                         break;
                     case NOTIFICATION_TYPES.RESUME_DOWNLOAD:
-
+                        this.setState(state => ({
+                            ...state,
+                            notifications: [messageJson, ...state.notifications],
+                        }))
                         break;
                 }
             } catch (e) {
@@ -52,11 +53,23 @@ export default class NotificationWindow extends ReactsComponent<Notification> {
         })
     }
 
+    onClose = () => {
+        let items = [...this.state.notifications];
+        items.map(n => {
+            n.is_viewed = true;
+        })
+
+        this.setState(state => ({
+            ...state,
+            notifications: items,
+        }))
+    }
+
     render() {
         return (
             <Dropdown
                 content={
-                    <div className={'pt-5'}>
+                    <div className={'pt-5'} onClick={() => console.log('click')}>
                         <Svg
                             src={Bell}
                             height={16}
@@ -72,20 +85,32 @@ export default class NotificationWindow extends ReactsComponent<Notification> {
                         ) : (
                             <div>
                                 {this.state.notifications
-                                    .reverse()
                                     ?.slice(0, this.state.limit)
                                     .map(n => (
-                                        <NotificationCard
-                                            type={n.type}
-                                            vacancyTitle={n.title}
-                                            vacancyID={n.object_id}
-                                        />
+                                        n.type === 'apply' ? (
+                                            <NotificationCard
+                                                type={n.type}
+                                                vacancyTitle={n.title}
+                                                vacancyID={n.object_id}
+                                                isWatched={n.is_viewed}
+                                            />
+                                        ) : (
+                                            <NotificationCard
+                                                type={n.type}
+                                                resumeTitle={n.title}
+                                                resumeID={n.object_id}
+                                                // companyName={}
+                                                // companyID={}
+                                                isWatched={n.is_viewed}
+                                            />
+                                        )
                                 ))}
                             </div>
                         )}
                     </div>
                 }
                 direction={'left'}
+                onClose={this.onClose.bind(this)}
             />
         )
     }

@@ -7,6 +7,8 @@ import { applicantConnect, userConnect } from '../../store';
 
 import RenderWithCondition from '../../components/RenderWithCondition';
 import { ApplicantProfileType } from '../../store/profile/types';
+import ResumeIcon from '../../static/icons/resume.svg';
+import ButtonIcon from '../../components/UI-kit/buttons/ButtonIcon';
 
 class ApplicantHat extends ReactsComponent<
     ApplicantProfileType & { userID: string; resumeID: string }
@@ -31,6 +33,15 @@ class ApplicantHat extends ReactsComponent<
                                     }
                                     content={<Button>Настройки</Button>}
                                 />
+
+                            }
+                        />
+                        <Link
+                            to={'/'}
+                            content={
+                                <ButtonIcon icon={ResumeIcon}>
+                                    Скачать резюме в PDF
+                                </ButtonIcon>
                             }
                         />
                     </div>

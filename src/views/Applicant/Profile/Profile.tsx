@@ -19,6 +19,7 @@ import { APPLICANT_PATHS, RESUME_PATHS } from '../../../utils/routerConstants';
 import RenderWithCondition from '../../../components/RenderWithCondition';
 import { ResumePreviewResponse } from '../../../services/resume/types';
 import { ApplicantProfileType } from '../../../store/profile/types';
+import LongButton from '../../../components/UI-kit/buttons/LongButton';
 
 class ApplicantProfile extends ReactsComponent<
     ApplicantProfileType & { userID: string }
@@ -130,7 +131,19 @@ class ApplicantProfile extends ReactsComponent<
                 />
                 <div className={'columns g-24'}>
                     <div className={'col-12 col-md-9 column g-16'}>
-                        <ResumeList resume={this.state.resume} />
+                        <div className={'flex column g-32'}>
+                            <div className={'flex row'}>
+                                <LongButton
+                                    direction={'left'}
+                                    content={'Мои резюме'}
+                                />
+                                <LongButton
+                                    direction={'right'}
+                                    content={'Избранные вакансии'}
+                                />
+                            </div>
+                            <ResumeList resume={this.state.resume} />
+                        </div>
                     </div>
                     <div className={'col-12 col-md-3'}>
                         <ResumeSidebar creatorID={this.props.id} />

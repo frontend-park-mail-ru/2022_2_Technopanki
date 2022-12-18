@@ -54,12 +54,22 @@ export default class FormInput extends ReactsComponent<FormInputProps> {
         this.validate(this.state.value);
     }
 
-    shouldUpdateState(nextState: FormInputProps | Readonly<FormInputProps>): boolean {
-        return this.state.value !== nextState.value || this.state.error !== nextState.error
+    shouldUpdateState(nextState: {
+        value: string;
+        error: boolean;
+        errorMessage: string;
+    }): boolean {
+        return (
+            this.state.value !== nextState.value ||
+            this.state.error !== nextState.error ||
+            this.state.errorMessage !== nextState.errorMessage
+        );
     }
 
-    shouldUpdate(nextProps: FormInputProps | Readonly<FormInputProps>): boolean {
-        return this.props.value !== nextProps.value
+    shouldUpdate(
+        nextProps: FormInputProps | Readonly<FormInputProps>,
+    ): boolean {
+        return this.props.value !== nextProps.value;
     }
 
     onBlur = (e: Event) => {
