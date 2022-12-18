@@ -1,4 +1,5 @@
-import { PathType } from '../router/navigator';
+import { PathType } from '../router/navigator.tsx';
+import { VNodeType } from '../../__Reacts__old_version__/shared/common';
 import StartPage from '../views/StartPage/StartPage';
 import SignUp from '../views/SignUp/SignUp';
 import SignIn from '../views/SignIn/SignIn';
@@ -7,11 +8,13 @@ import ProfileSettings from '../views/Employer/ProfileSettings';
 import Vacancy from '../views/Vacancy';
 import VacancySettings from '../views/Vacancy/VacancySettings';
 import VacancyResponses from '../views/Vacancy/VacancyResponses';
-import Search from '../views/Search/Search';
+import Vacancies from '../views/Vacancies/Vacancies';
 import Resume from '../views/Applicant/Resume/Resume';
 import ApplicantProfile from '../views/Applicant/Profile/Profile';
 import ApplicantSettings from '../views/Applicant/Profile/ProfileSettings';
 import ResumeSettings from '../views/Applicant/Resume/ResumeSettings';
+import Search from '../views/Search/Search';
+import { RESUME_PATHS, SEARCH_PATHS, SIGN_IN_PATH, SIGN_UP_PATH, VACANCY_PATHS } from '../utils/routerConstants';
 import EmailConfirm from '../views/SignUp/EmailConfirm';
 
 export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
@@ -21,22 +24,22 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
     },
     {
         path: {
-            path: '/signup',
-            validator: (url: string) => url === '/signup',
+            path: SIGN_UP_PATH,
+            validator: (url: string) => url === SIGN_UP_PATH,
         },
         component: SignUp,
     },
     {
         path: {
             path: '/confirm',
-            validator: (url: string) => /^\/confirm/.test(url),
+            validator: (url: string) => url === '/confirm',
         },
         component: EmailConfirm,
     },
     {
         path: {
-            path: '/signin',
-            validator: (url: string) => url === '/signin',
+            path: SIGN_IN_PATH,
+            validator: (url: string) => url === SIGN_IN_PATH,
         },
         component: SignIn,
     },
@@ -63,8 +66,8 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
     },
     {
         path: {
-            path: '/vacancy/new',
-            validator: (url: string) => url === '/vacancy/new',
+            path: VACANCY_PATHS.NEW,
+            validator: (url: string) => url === VACANCY_PATHS.NEW,
         },
         component: VacancySettings,
     },
@@ -84,8 +87,29 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
     },
     {
         path: {
-            path: '/search',
-            validator: (url: string) => url === '/search',
+            path: SEARCH_PATHS.VACANCIES,
+            validator: (url: string) => url === SEARCH_PATHS.VACANCIES,
+        },
+        component: Search,
+    },
+    {
+        path: {
+            path: SEARCH_PATHS.APPLICANTS,
+            validator: (url: string) => url === SEARCH_PATHS.APPLICANTS,
+        },
+        component: Search,
+    },
+    {
+        path: {
+            path: SEARCH_PATHS.EMPLOYERS,
+            validator: (url: string) => url === SEARCH_PATHS.EMPLOYERS,
+        },
+        component: Search,
+    },
+    {
+        path: {
+            path: SEARCH_PATHS.RESUMES,
+            validator: (url: string) => url === SEARCH_PATHS.RESUMES,
         },
         component: Search,
     },
@@ -119,8 +143,8 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
     },
     {
         path: {
-            path: '/resume/new',
-            validator: (url: string) => url === '/resume/new',
+            path: RESUME_PATHS.NEW,
+            validator: (url: string) => url === RESUME_PATHS.NEW,
         },
         component: ResumeSettings,
     },
