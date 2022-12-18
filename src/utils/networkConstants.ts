@@ -22,7 +22,7 @@ export const PROFILE_URLS = {
     USER_PREVIEW: (userID: string) => {
         return SERVER_URL + 'api/user/preview/' + userID;
     },
-    NOTIFICATION: SERVER_URL + '/user/notification/:id'
+    NOTIFICATION: SERVER_URL + 'user/notification/:id'
 };
 
 export const VACANCY_URLS = {
@@ -67,6 +67,6 @@ export const SERVER_URLS = {
 
     IMAGE: SERVER_URL + 'api/user/image/',
 
-    NOTIFICATION: SERVER_URL_WEBSOCKET + '/api/notification/',
+    NOTIFICATION: SERVER_URL_WEBSOCKET + 'api/notification/',
     ALL_NOTIFICATIONS: SERVER_URL + 'api/notification/user'
 };

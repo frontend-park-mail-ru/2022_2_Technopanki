@@ -52,6 +52,8 @@ export const userReducer: Reducer<UserState> = (
                 email: '',
                 twoFactor: false,
             };
+        case 'TWO_FACTOR':
+            return { ...state, twoFactor: action.twoFactor };
         default:
             return state;
     }
