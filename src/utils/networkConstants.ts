@@ -33,6 +33,9 @@ export const VACANCY_URLS = {
     VACANCY_NEW: SERVER_URL + 'api/vacancy/new/',
     PROFILE_VACANCIES: SERVER_URL + 'api/vacancy/company/',
     VACANCY_DELETE: SERVER_URL + 'api/vacancy/',
+    FAVORITE: SERVER_URL + 'api/vacancy/favorites/',
+    ALL_FAVORITES: SERVER_URL + 'api/vacancy/favorites',
+    IS_FAVORITE: SERVER_URL + 'api/vacancy/favorites/check/',
 };
 
 export const SERVER_URLS = {

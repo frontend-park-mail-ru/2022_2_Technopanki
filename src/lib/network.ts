@@ -19,10 +19,7 @@ const sendRequest = async (
         status: response.status,
         body:
             headers['Content-Type'] === 'application/json'
-                ? await response.json().catch(err => {
-                      console.error(err, response);
-                      return {};
-                  })
+                ? await response.json().catch(err => ({}))
                 : await response,
     };
 };
@@ -45,7 +42,7 @@ class Network {
     }
     async POST(
         url: string,
-        payload: string | File | FormData,
+        payload?: string | File | FormData,
         headers: HeadersInit = requestHeaders.jsonHeader,
         credentials: boolean = true,
     ) {
