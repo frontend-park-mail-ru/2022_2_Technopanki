@@ -9,6 +9,11 @@ export default class NotificationCard extends ReactsComponent<{
     type: 'apply' | 'download resume'
     vacancyID: string;
     vacancyTitle: string;
+    resumeID: string;
+    resumeTitle: string;
+    companyName: string;
+    companyID: string;
+    isWatched: boolean;
 }> {
     state = {
         isWatched: false
@@ -19,12 +24,14 @@ export default class NotificationCard extends ReactsComponent<{
     //     console.log(this.props.vacancyID, this.state.isWatched)
     // }
 
+    // onClose = () => {
+    //     this.setState(state => ({ ...state, isWatched: true }))
+    // }
+
     render() {
         return (
             <div className={`flex row align-items-center g-16 p-16 cursor-pointer ${styles.notification_card} ${styles.borderline}`}>
-                {this.state.isWatched ? (
-                    <div />
-                ) : (
+                {this.props.isWatched ? null : (
                     <Svg
                         src={NewNotification}
                         height={6}

@@ -1,5 +1,5 @@
 import network from "../lib/network"
-import { SERVER_URLS } from "../utils/networkConstants"
+import { SERVER_URLS, VACANCY_URLS } from '../utils/networkConstants';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
 import { requestHeaders } from './headers';
@@ -27,4 +27,21 @@ export const notificationService: {
             })
             .catch(() => dispatch(stopLoading()));
     },
+
+    setNotificationsWatched: async (notificationID: string) => {
+        dispatch(startLoading());
+        return await network
+            .PUT(
+                SERVER_URLS.NOTIFICATIONS_READ + notificationID
+            )
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            })
+            .catch(() => dispatch(stopLoading()));
+    }
 }
