@@ -12,7 +12,7 @@ import navigator from '../../../router/navigator';
 import {
     SIGN_IN_PATH,
     SIGN_UP_PATH,
-    SEARCH_PATH,
+    SEARCH_PATHS,
 } from '../../../utils/routerConstants';
 
 class HeaderModal extends ReactsComponent<{
@@ -48,8 +48,8 @@ class HeaderModal extends ReactsComponent<{
                     <div className={`flex rounded-lg p-4 ${styles.modal}`}>
                         <div
                             id={'links-group'}
-                            className={`flex column justify-content-center w-100 g-32`}
-                        >
+                          className={`flex column justify-content-center w-100 g-32`}
+                       >
                             <RenderWithCondition
                                 condition={this.props.authorized}
                                 onSuccess={
@@ -95,7 +95,7 @@ class HeaderModal extends ReactsComponent<{
                                             }
                                             onSuccess={
                                                 <Link
-                                                    to={SEARCH_PATH}
+                                                    to={SEARCH_PATHS.VACANCIES}
                                                     content={
                                                         <p
                                                             className={
@@ -132,7 +132,7 @@ class HeaderModal extends ReactsComponent<{
                                     </p>
                                 </a>
                                 <Link
-                                    to={SEARCH_PATH}
+                                    to={SEARCH_PATHS.VACANCIES}
                                     content={
                                         <p className={styles['modal-item']}>
                                             Поиск

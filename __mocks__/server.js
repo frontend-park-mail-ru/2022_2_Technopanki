@@ -179,7 +179,6 @@ app.post('/auth/sign-in', (req, res) => {
 
 app.post('/api/user/', (req, res) => {
     users.user.company_name = req.body.company_name;
-    console.log('/api/user');
     res.json({ status: 'ok' });
 });
 

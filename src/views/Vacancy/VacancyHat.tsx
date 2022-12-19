@@ -41,6 +41,8 @@ class VacancyHat extends ReactsComponent<
     }
 
     addToFavorites = async () => {
+        console.log(3, this.state.isFavorite);
+
         await vacancyService.addFavoriteVacancy(
             this.props.vacancyID
         )
@@ -49,9 +51,9 @@ class VacancyHat extends ReactsComponent<
         this.setState(state => ({
             ...state,
             isFavorite: true,
-        }))
+        }));
 
-        console.log(this.state.isFavorite)
+        console.log(this.state.isFavorite);
     }
 
     removeFromFavorite = async () => {
@@ -75,28 +77,30 @@ class VacancyHat extends ReactsComponent<
             vacancyID as string
         );
 
-        console.log(vacancyID, check)
+        console.log('FROM SERVER', vacancyID, check)
 
-        this.setState(state => ({
-            ...state,
-            isFavorite: check,
-        }))
-
-        console.log(this.state.isFavorite)
+        return check
     }
 
-    componentDidMount() {
-        // this.checkIfFavorite();
+    // componentDidUpdate() {
+    //     if (this.state.isFavorite === false) {
+    //         console.log('FALSE')
+    //     }
+    // }
 
+    componentDidMount() {
         console.log('1', this.state.isFavorite)
-        this.setState(state => ({
-            ...state,
-            isFavorite: true,
-        }))
-        console.log('2', this.state.isFavorite)
+        this.checkIfFavorite().then(check => {
+            this.setState(state => ({
+                ...state,
+                isFavorite: check,
+            }))
+        });
+        console.log('AFTER MOUNT', this.state.isFavorite)
     }
 
     render() {
+        console.log('AFTER RENDER', this.state.isFavorite)
         return (
             <Hat
                 imgSrc={this.props.creatorImgSrc}

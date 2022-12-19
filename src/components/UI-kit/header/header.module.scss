@@ -18,6 +18,11 @@
 }
 
 .modal-item {
+  padding: var(--padding-8);
+  border-radius: var(--border-radius-lg);
+  &:hover {
+    background: var(--background-100);
+  }
   padding: 16px 12px;
   display: flex;
   align-items: center;

@@ -1,6 +1,9 @@
 export const FRONT_URL = 'http://localhost:8000/';
 export const SERVER_URL = 'http://localhost:8080/';
+<<<<<<< HEAD
 export const SERVER_URL_WEBSOCKET = 'ws://localhost:8080';
+=======
+>>>>>>> main
 export const IMAGE_URL = FRONT_URL + 'image/';
 
 export const USER_URLS = {

@@ -6,7 +6,7 @@ import Logo from '../../static/assets/JobflowDefault.svg';
 import Link from '../../components/Link/Link';
 import {
     SIGN_UP_PATH,
-    SEARCH_PATH,
+    SEARCH_PATHS,
     APPLICANT_PATHS,
     EMPLOYER_PATHS,
 } from '../../utils/routerConstants';
@@ -60,7 +60,7 @@ class StartPage extends ReactsComponent<UserState> {
                             }
                         />
                         <Link
-                            to={SEARCH_PATH}
+                            to={SEARCH_PATHS.VACANCIES}
                             content={
                                 <ArrowButtonWithTextOutline>
                                     <p>Поиск</p>
