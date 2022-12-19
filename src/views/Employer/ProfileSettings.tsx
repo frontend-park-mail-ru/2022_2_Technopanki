@@ -138,6 +138,7 @@ class ProfileSettingsComponent extends ReactsComponent<
         if (employerID !== this.props.id && employerID === this.props.userID) {
             employerProfileService.getProfileData(employerID).then(body => {
                 dispatch(profileActions.updateEmployerFromServer(body));
+                dispatch(userActions.updateTwoFactor(body.two_factor_sign_in));
             });
         }
     }

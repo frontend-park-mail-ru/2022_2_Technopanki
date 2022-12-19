@@ -2,11 +2,16 @@ import styles from './header.module.scss';
 import { toggleTheme } from '../../../utils/toggleTheme';
 import Link from '../../Link/Link';
 import HeaderModal from './HeaderModal';
-import { userConnect } from '../../../store';
+import { dispatch, notificationConnect, userConnect } from '../../../store';
 import { UserState } from '../../../store/user/types';
 import HeaderUserInfo from './HeaderUserInfo';
 import { SIGN_IN_PATH, SIGN_UP_PATH } from '../../../utils/routerConstants';
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
+import { notificationService } from '../../../services/notificationService';
+import { notificationActions, NOTIFICATION_TYPES } from '../../../store/notification/action';
+import { Notification } from '../../../store/notification/type';
+import RenderWithCondition from '../../RenderWithCondition';
+import NotificationWindow from '../notifications/NotificationsWindow';
 
 type HeaderProps = {
     id: string;
@@ -15,7 +20,7 @@ type HeaderProps = {
     userType: string;
     imgSrc: string;
     authorized: boolean;
-};
+} & Notification;
 
 class HeaderProfile extends ReactsComponent<HeaderProps> {
     render() {
@@ -25,7 +30,12 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                     className={`flex row w-100 g-40 align-items-center justify-content-end ${styles.auth}`}
                 >
                     {this.props.authorized ? (
-                        <div>
+                        <div className={'flex align-items-center row g-40'}>
+                            <NotificationWindow
+                                type={this.props.type}
+                                vacancyTitle={this.props.vacancyTitle}
+                                vacancyID={this.props.vacancyID}
+                            />
                             <HeaderUserInfo
                                 id={this.props.id}
                                 imgSrc={this.props.imgSrc}
@@ -36,7 +46,6 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                         </div>
                     ) : (
                         <div className={'flex row g-24 align-items-center'}>
-                            <p className={'none'}></p>
                             <a
                                 className={'cursor-pointer'}
                                 onClick={toggleTheme}
@@ -63,12 +72,15 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                 <div className={'w-100 flex row justify-content-end'}>
                     <HeaderModal />
                 </div>
+                <div>
+                    <p>{this.props.notificationAuthor}</p>
+                </div>
             </div>
         );
     }
 }
 
-export default userConnect((state: UserState): HeaderProps => {
+export default userConnect((state: UserState) => {
     return {
         id: state.id,
         name: state.name,

@@ -132,6 +132,7 @@ class ApplicantSettings extends ReactsComponent<
         const applicantID = location.pathname.split('/').at(-1);
         applicantProfileService.getApplicantData(applicantID).then(body => {
             dispatch(profileActions.update({ ...body, id: applicantID }));
+            dispatch(userActions.updateTwoFactor(body.two_factor_sign_in));
         });
     }
 
@@ -229,7 +230,7 @@ class ApplicantSettings extends ReactsComponent<
                                 placeholder={'Иванов'}
                                 name={'dateOfBirth'}
                                 required={true}
-                                value={this.props.dateOfBirth}
+                                value={this.props.dateOfBirth.substring(0, 10)}
                                 setError={this.profileValidation.setError}
                                 validation={this.profileValidation.getValidation(
                                     'dateOfBirth',

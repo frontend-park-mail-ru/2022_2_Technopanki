@@ -1,6 +1,7 @@
 import { ReactsComponent } from '../../../../../Reacts/reacts/src/Component';
 import styles from '../inputs/input.module.scss';
 import { ValidationFunc } from '../../../../utils/validation/formValidation';
+import RenderWithCondition from '../../../RenderWithCondition';
 
 type FormInputProps = {
     id: string;
@@ -49,6 +50,28 @@ export default class FormInput extends ReactsComponent<FormInputProps> {
         }));
     };
 
+    componentDidUpdate() {
+        this.validate(this.state.value);
+    }
+
+    shouldUpdateState(nextState: {
+        value: string;
+        error: boolean;
+        errorMessage: string;
+    }): boolean {
+        return (
+            this.state.value !== nextState.value ||
+            this.state.error !== nextState.error ||
+            this.state.errorMessage !== nextState.errorMessage
+        );
+    }
+
+    shouldUpdate(
+        nextProps: FormInputProps | Readonly<FormInputProps>,
+    ): boolean {
+        return this.props.value !== nextProps.value;
+    }
+
     onBlur = (e: Event) => {
         e.preventDefault();
         this.props.validationMode === 'onblur' && this.validate(e.target.value);
@@ -56,13 +79,9 @@ export default class FormInput extends ReactsComponent<FormInputProps> {
 
     onInput = (e: Event) => {
         e.preventDefault();
+        this.state.value = e.target.value;
         this.props.validationMode === 'oninput' &&
             this.validate(e.target.value);
-    };
-
-    onSubmit = (e: Event) => {
-        e.preventDefault();
-        this.validate(e.target.value);
     };
 
     render() {
@@ -76,12 +95,13 @@ export default class FormInput extends ReactsComponent<FormInputProps> {
                 <input
                     onBlur={this.onBlur}
                     onInput={this.onInput}
-                    onSubmit={this.onSubmit}
                     className={`${styles.input} ${
                         this.state.error ? styles.input__error : ''
                     }`}
                     {...{
                         ...this.props,
+                        size: null,
+                        value: this.state.value,
                         validation: null,
                         validationMode: null,
                         setError: null,

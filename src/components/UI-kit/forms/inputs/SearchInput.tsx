@@ -9,7 +9,7 @@ import SearchDropdownButton from '../../buttons/SearchDropdownButton'
 import ButtonPrimary from '../../buttons/ButtonPrimary';
 import Dropdown from '../../dropdown/Dropdown';
 import DropdownMenu from './SearchDropdownMenu';
-import Link from '../../../Link';
+import Link from '../../../Link/Link';
 import Svg from '../../../Svg';
 import { SEARCH_PATHS } from '../../../../utils/routerConstants';
 

@@ -1,0 +1,24 @@
+.notification_window {
+  width: 300px;
+  margin-left: 8px;
+  font-size: 14px;
+  color: var(--background-400);
+  transition:height 0.3s ease-in-out;
+  transition-delay: 0.1s;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.borderline {
+  border-bottom: 1px solid var(--background-50);
+  margin-bottom: -1px;
+}
+
+.notification_card {
+  box-sizing: border-box;
+  width: 100%;
+  &:hover {
+    color: var(--background-600);
+    background: var(--background-50);
+  }
+}

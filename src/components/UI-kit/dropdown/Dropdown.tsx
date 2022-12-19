@@ -8,6 +8,7 @@ export default class Dropdown extends ReactsComponent<
         content: ReactsComponentNode;
         direction: 'left' | 'center' | 'right';
         mt?: string;
+        onClose?: Function;
     },
     { isOpen: boolean }
 > {
@@ -20,6 +21,10 @@ export default class Dropdown extends ReactsComponent<
             ...state,
             isOpen: !this.state.isOpen,
         }));
+
+        if (!this.state.isOpen && this.props.onClose) {
+            this.props.onClose()
+        }
     };
 
     render() {

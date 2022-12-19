@@ -35,7 +35,7 @@ export default class HeaderUserInfo extends ReactsComponent<
         return (
             <div
                 onMouseOver={() => this.setState(() => ({ isOpen: true }))}
-                className={'flex row cursor-pointer justify-content-end'}
+                className={'flex row cursor-pointer g-16 justify-content-end'}
             >
                 <img
                     height={20}
@@ -45,11 +45,12 @@ export default class HeaderUserInfo extends ReactsComponent<
                     alt={'profile'}
                 />
                 <div className={'flex row g-16 text-align-right'}>
-                    <p>
-                        {`${this.props.name}${
+                    <Link
+                        to={`/${this.props.userType}/${this.props.id}`}
+                        content={`${this.props.name}${
                             this.props.surname ? ' ' + this.props.surname : ''
                         }`}
-                    </p>
+                    />
                 </div>
                 <div
                     onMouseOut={() => this.setState(() => ({ isOpen: false }))}

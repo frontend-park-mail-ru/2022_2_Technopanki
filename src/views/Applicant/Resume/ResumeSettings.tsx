@@ -97,7 +97,7 @@ class ResumeSettings extends ReactsComponent<
                     <div className={`col-12 mt-header`}>
                         <SettingsHat creatorID={this.props.postedByUserID} />
                     </div>
-                    <h3 className={'col-12'}>Настройки резюме</h3>
+                    <h3 className={'col-12'}>Редактировать резюме</h3>
                     <Form onSubmit={this.submitForm}>
                         <FormItem header={'О себе'}>
                             <FormInput
@@ -157,7 +157,7 @@ class ResumeSettings extends ReactsComponent<
                 <div className={'flex row g-16 mt-40'}>
                     <Button onClick={navigator.goBack}>Пропустить</Button>
                     <RenderWithCondition
-                        condition={this.state.isNew}
+                        condition={!this.state.isNew}
                         onSuccess={
                             <ButtonRed
                                 onClick={() => {
@@ -180,8 +180,7 @@ class ResumeSettings extends ReactsComponent<
 const UserWrapper = userConnect((state, props) => {
     return {
         id: state.id,
-        postedByUserID:
-            props.postedByUserID !== '' ? props.postedByUserID : state.id,
+        postedByUserID: props.postedByUserID,
         isNew: props.isNew,
         ...props,
     };
