@@ -3,7 +3,7 @@ import { resumeService } from '../../../services/resume/resumeService';
 import { IMAGE_URL } from '../../../utils/networkConstants';
 import styles from './searchCards.module.scss';
 import Button from '../buttons/Button';
-import Link from '../../Link';
+import Link from '../../Link/Link';
 import { RESUME_PATHS } from '../../../utils/routerConstants';
 
 export default class ResumeCard extends ReactsComponent<{

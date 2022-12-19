@@ -1,9 +1,8 @@
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
-import { resumeService } from '../../../services/resumeService';
 import { IMAGE_URL } from '../../../utils/networkConstants';
 import { employerProfileService } from '../../../services/employerProfileService';
 import styles from './searchCards.module.scss';
-import Link from '../../Link';
+import Link from '../../Link/Link';
 import { EMPLOYER_PATHS, RESUME_PATHS } from '../../../utils/routerConstants';
 import Button from '../buttons/Button';
 

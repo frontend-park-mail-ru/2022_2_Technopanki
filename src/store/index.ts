@@ -8,11 +8,7 @@ import { errorsStore } from './errors/store';
 import { resumeStore } from './resume/store';
 import { applicantProfileStore } from './applicant/store';
 import { successStore } from './succeses/store';
-<<<<<<< HEAD
 import { notificationStore } from './notification/store';
-=======
-import { vacancyFilterStore } from './filters/store';
->>>>>>> main
 
 dispatcher.register(userStore.dispatch.bind(userStore));
 dispatcher.register(vacancyStore.dispatch.bind(vacancyStore));

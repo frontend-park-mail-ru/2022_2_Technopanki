@@ -2,7 +2,7 @@ import styles from './header.module.scss';
 import { toggleTheme } from '../../../utils/toggleTheme';
 import Link from '../../Link/Link';
 import HeaderModal from './HeaderModal';
-import { dispatch, notificationConnect, userConnect } from '../../../store';
+import { userConnect } from '../../../store';
 import { UserState } from '../../../store/user/types';
 import HeaderUserInfo from './HeaderUserInfo';
 import { SIGN_IN_PATH, SIGN_UP_PATH } from '../../../utils/routerConstants';
@@ -68,9 +68,6 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                 </div>
                 <div className={'w-100 flex row justify-content-end'}>
                     <HeaderModal />
-                </div>
-                <div>
-                    <p>{this.props.notificationAuthor}</p>
                 </div>
             </div>
         );

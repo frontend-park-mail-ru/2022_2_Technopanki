@@ -1,8 +1,6 @@
 import network from '../../lib/network';
 import {
-    SERVER_URL,
     SERVER_URLS,
-    VACANCY_URLS,
 } from '../../utils/networkConstants';
 import { requestHeaders } from '../headers';
 import { Service } from '../types';

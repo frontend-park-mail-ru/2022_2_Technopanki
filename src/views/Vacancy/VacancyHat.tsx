@@ -138,7 +138,7 @@ class VacancyHat extends ReactsComponent<
                                         VACANCY_PATHS.SETTINGS +
                                         this.props.vacancyID
                                     }
-                                    content={<Button>Настройки</Button>}
+                                    content={<Button>Редактировать</Button>}
                                 />
                             }
                         />

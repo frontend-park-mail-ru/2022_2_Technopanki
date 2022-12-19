@@ -42,7 +42,7 @@ export default class VacancyHat extends ReactsComponent<{
                         <Button>Посмотреть отклики на вакансию</Button>
                         <Link
                             to={'/searchCards/settings'}
-                            content={<Button>Настройки</Button>}
+                            content={<Button>Редактировать</Button>}
                         />
                         <Dropdown
                             hidden={

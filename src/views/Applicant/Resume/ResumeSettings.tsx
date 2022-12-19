@@ -97,7 +97,7 @@ class ResumeSettings extends ReactsComponent<
                     <div className={`col-12 mt-header`}>
                         <SettingsHat creatorID={this.props.postedByUserID} />
                     </div>
-                    <h3 className={'col-12'}>Настройки резюме</h3>
+                    <h3 className={'col-12'}>Редактировать резюме</h3>
                     <Form onSubmit={this.submitForm}>
                         <FormItem header={'О себе'}>
                             <FormInput

@@ -2,7 +2,7 @@ import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import Logo from '../../static/assets/JobflowDefault.svg';
 import Illustration from '../../static/assets/illustration.svg';
 import styles from './description.module.scss';
-import Link from '../Link';
+import Link from '../Link/Link';
 import { START_PATH } from '../../utils/routerConstants';
 
 export default class Description extends ReactsComponent {

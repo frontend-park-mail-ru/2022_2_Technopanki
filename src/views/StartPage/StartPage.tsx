@@ -55,7 +55,11 @@ class StartPage extends ReactsComponent<UserState> {
                             }
                             content={
                                 <ArrowButtonWithText>
-                                    <p>Создать аккаунт</p>
+                                    <p>
+                                        {this.props.authorized
+                                            ? 'Перейти в свой аккаунт'
+                                            : 'Создать аккаунт'}
+                                    </p>
                                 </ArrowButtonWithText>
                             }
                         />

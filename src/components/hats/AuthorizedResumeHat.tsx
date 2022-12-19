@@ -23,7 +23,7 @@ export default class ResumeHat extends ReactsComponent<{
                 rightSideContent={
                     <Link
                         to={'/resume/settings'}
-                        content={<Button>Настройки</Button>}
+                        content={<Button>Редактировать</Button>}
                     />
                 }
             />

@@ -15,6 +15,8 @@ import Svg from '../../Svg';
 import Bell from '../../../static/icons/bell.svg'
 import { resumeActions } from '../../../store/resume/actions';
 
+type nextProps = { userType: string, id: string }
+
 class Header extends ReactsComponent<{ userType: string, id: number }> {
     setActive = (event: MouseEvent) => {
         let cur = document.querySelector(`.${styles.item__active}`);
@@ -26,10 +28,8 @@ class Header extends ReactsComponent<{ userType: string, id: number }> {
         }
     };
 
-    
-
     shouldUpdate(
-        nextProps: Readonly<{ userType: string, id: string }> | { userType: string, id: string },
+        nextProps: Readonly<nextProps> | nextProps,
     ): boolean {
         return this.props.userType !== nextProps.userType;
     }
@@ -98,5 +98,4 @@ class Header extends ReactsComponent<{ userType: string, id: number }> {
 
 export default userConnect(state => ({
     userType: state.userType,
-    id: state.id
 }))(Header);

@@ -34,7 +34,7 @@ class Network {
     }
     async PUT(
         url: string,
-        payload?: string | File | FormData,
+        payload: string | File | FormData,
         headers: HeadersInit = requestHeaders.jsonHeader,
         credentials: boolean = true,
     ) {
@@ -42,7 +42,7 @@ class Network {
     }
     async POST(
         url: string,
-        payload?: string | File | FormData,
+        payload: string | File | FormData,
         headers: HeadersInit = requestHeaders.jsonHeader,
         credentials: boolean = true,
     ) {
@@ -58,7 +58,6 @@ class Network {
     WEBSOCKET(
         url: string,
         onMessage: (message: string) => void,
-        // protocols?: string[]
     ) {
         const socket = new WebSocket(url)
         socket.onmessage = (event: MessageEvent<string>) => {
