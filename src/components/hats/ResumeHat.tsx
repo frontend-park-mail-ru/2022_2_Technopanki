@@ -4,8 +4,10 @@ import PhoneIcon from '../../static/icons/phone.svg';
 import MailIcon from '../../static/icons/mail.svg';
 import ResumeIcon from '../../static/icons/resume.svg';
 import Hat from '../UI-kit/hat/Hat';
+import { resumeService } from '../../services/resume/resumeService';
 
 export default class ResumeHat extends ReactsComponent<{
+    id: string;
     imgSrc: string;
     name: string;
     surname: string;
@@ -22,7 +24,7 @@ export default class ResumeHat extends ReactsComponent<{
                     <div className={'flex row flex-wrap g-12'}>
                         <ButtonIcon icon={PhoneIcon} />
                         <ButtonIcon icon={MailIcon} />
-                        <ButtonIcon icon={ResumeIcon}>
+                        <ButtonIcon onClick={() => resumeService.downloadResume(this.props.id)} icon={ResumeIcon}>
                             Скачать резюме в PDF
                         </ButtonIcon>
                     </div>

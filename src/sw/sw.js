@@ -25,46 +25,6 @@ self.addEventListener('activate', event => {
     console.log('Активирован');
 });
 
-// const fetchFromCache = event => {
-//     return caches.open(CACHE_NAME).then(cache => {
-//         cache.match(event).then(matched => {
-//             if (!matched) {
-//                 throw new Error(`${event} not found in cache`);
-//             }
-
-//             return matched;
-//         });
-//     });
-// };
-
-const serveCache = (event, cacheName) => {
-    event.respondWith(
-        (async () => {
-            const request = await caches.match(event.request);
-            console.log(
-                `[Service Worker] Fetching resourse from: ${event.request.url}`,
-            );
-
-            // return cached response
-            if (request) {
-                return request;
-            }
-
-            // get response from server
-            const response = await fetch(event.request);
-            const cache = await caches.open(cacheName);
-
-            console.log(
-                `[Service Worker] Caching new resource: ${event.request.url}`,
-            );
-
-            // save response to cache
-            await cache.put(event.request, response.clone());
-            return response;
-        })(),
-    );
-};
-
 const getCacheName = url => {
     if (/\.html$/.test(url)) {
         return CACHE.HTML;

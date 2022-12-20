@@ -12,8 +12,6 @@ import {
 } from '../../../utils/routerConstants';
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import { resumeActions } from '../../../store/resume/actions';
-import Svg from '../../Svg';
-import Bell from '../../../static/icons/bell.svg';
 
 type nextProps = { userType: string, id: string }
 

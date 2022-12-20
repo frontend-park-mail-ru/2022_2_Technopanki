@@ -69,5 +69,7 @@ export const SERVER_URLS = {
 
     NOTIFICATION: SERVER_URL_WEBSOCKET + '/api/notification/',
     ALL_NOTIFICATIONS: SERVER_URL + 'api/notification/user',
-    NOTIFICATIONS_READ: SERVER_URL + 'api/notification/read/'
+    NOTIFICATIONS_READ: SERVER_URL + 'api/notification/read/',
+
+    DOWNLOAD_RESUME: SERVER_URL + '/api/resume/pdf/',
 };

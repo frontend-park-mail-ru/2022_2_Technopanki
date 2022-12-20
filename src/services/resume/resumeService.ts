@@ -123,4 +123,10 @@ export const resumeService: {
             requestHeaders.jsonHeader,
         );
     },
+
+    downloadResume: async (resumeID: string) => {
+        return await network.GET(
+            SERVER_URLS.DOWNLOAD_RESUME + resumeID
+        )
+    }
 };
