@@ -123,4 +123,16 @@ export const resumeService: {
             requestHeaders.jsonHeader,
         );
     },
+
+    downloadResume: async (resumeID: string) => {
+        return await network
+            .GET(SERVER_URLS.RESUME_PDF + resumeID + '?style=default')
+            .then(response => {
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            });
+    },
 };

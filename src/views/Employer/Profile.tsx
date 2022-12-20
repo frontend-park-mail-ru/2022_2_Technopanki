@@ -113,7 +113,7 @@ class Profile extends ReactsComponent<
                             this.props.userType === USER_TYPE.EMPLOYER ? (
                                 <Link
                                     to={EMPLOYER_PATHS.SETTINGS + this.props.id}
-                                    content={<Button>Настройки</Button>}
+                                    content={<Button>Редактировать профиль</Button>}
                                 />
                             ) : (
                                 <p className={'none'}></p>

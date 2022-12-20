@@ -5,7 +5,7 @@
 
 export const FRONT_URL = 'http://localhost:8000/';
 export const SERVER_URL = 'http://localhost:8080/';
-export const SERVER_URL_WEBSOCKET = 'ws://localhost:8080';
+export const SERVER_URL_WEBSOCKET = 'ws://localhost:8080/';
 
 export const IMAGE_URL = FRONT_URL + 'image/';
 
@@ -51,6 +51,7 @@ export const SERVER_URLS = {
     VACANCY: SERVER_URL + 'api/searchCards/',
 
     RESUME: SERVER_URL + 'api/resume/',
+    RESUME_PDF: SERVER_URL + 'api/resume/pdf/',
     ALL_RESUMES: SERVER_URL + 'api/resume',
     RESUME_SEARCH: SERVER_URL + 'api/resume',
     ADD_RESUME: SERVER_URL + 'api/resume/new',
@@ -73,7 +74,7 @@ export const SERVER_URLS = {
 
     IMAGE: SERVER_URL + 'api/user/image/',
 
-    NOTIFICATION: SERVER_URL_WEBSOCKET + '/api/notification/',
+    NOTIFICATION: SERVER_URL_WEBSOCKET + 'api/notification/',
     ALL_NOTIFICATIONS: SERVER_URL + 'api/notification/user',
     NOTIFICATIONS_READ: SERVER_URL + 'api/notification/read/'
 };
