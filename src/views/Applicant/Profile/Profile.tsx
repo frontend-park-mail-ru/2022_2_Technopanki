@@ -24,13 +24,19 @@ import * as stream from 'stream';
 import { vacancyService } from '../../../services/vacancy/vacancyService';
 import VacancyCard, { VacancyCardPropsType } from '../../../components/UI-kit/searchCards/VacancyCard';
 
+
+const PAGE_TYPE = {
+    VACANCIES: 'vacancies',
+    RESUMES: 'resumes'
+}
+
 class ApplicantProfile extends ReactsComponent<
     ApplicantProfileType & { userID: string }
 > {
     state = {
         resume: [] as ResumePreviewResponse[],
         vacancies: [] as VacancyCardPropsType[],
-        page: 'resumes',
+        page: PAGE_TYPE.RESUMES,
     };
 
     async getDataFromServer() {
@@ -54,14 +60,14 @@ class ApplicantProfile extends ReactsComponent<
     }
 
     switchPage = () => {
-        this.state.page === 'resumes' ?
+        this.state.page === PAGE_TYPE.RESUMES ?
             this.setState(state => ({
                 ...state,
-                page: 'vacancies',
+                page: PAGE_TYPE.VACANCIES,
             })) :
             this.setState(state => ({
                 ...state,
-                page: 'resumes',
+                page: PAGE_TYPE.RESUMES,
             }))
 
         console.log(this.state.page, this.state.resume, this.state.vacancies)
@@ -176,27 +182,25 @@ class ApplicantProfile extends ReactsComponent<
                                         />
                                     </div> : null
                                 }
-                            {this.state.page === 'vacancies' ?
-                                <div className={'flex column g-24'}>
-                                    {this.state.vacancies.map(vacancy => (
-                                        <VacancyCard
-                                            id={vacancy.id.toString()}
-                                            name={vacancy.title}
-                                            icon={vacancy.image}
-                                            salary={vacancy.salary}
-                                            currency={vacancy.currency}
-                                            location={vacancy.location}
-                                            format={vacancy.format}
-                                            hours={vacancy.hours}
-                                            description={vacancy.description}
-                                        />
-                                    ))}
-                                </div>
-                                :
-                                <div>
-                                    <ResumeList resume={this.state.resume} />
-                                </div>
-                            }
+                            <div className={`column g-24 ${this.state.page === PAGE_TYPE.RESUMES ? 'none' : 'flex'}`}>
+                                {this.state.vacancies.map(vacancy => (
+                                    <VacancyCard
+                                        key={vacancy.id.toString()}
+                                        id={vacancy.id.toString()}
+                                        name={vacancy.title}
+                                        icon={vacancy.image}
+                                        salary={vacancy.salary}
+                                        currency={vacancy.currency}
+                                        location={vacancy.location}
+                                        format={vacancy.format}
+                                        hours={vacancy.hours}
+                                        description={vacancy.description}
+                                    />
+                                ))}
+                            </div>
+                            <div className={this.state.page === PAGE_TYPE.RESUMES ? 'block' : 'none'}>
+                                <ResumeList resume={this.state.resume} />
+                            </div>
                         </div>
                     </div>
                     <div className={'col-12 col-md-3'}>

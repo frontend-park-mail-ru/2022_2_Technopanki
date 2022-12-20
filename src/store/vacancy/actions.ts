@@ -7,6 +7,7 @@ export const VACANCY_ACTION_TYPES = {
     UPDATE_FROM_SERVER: 'VACANCY_UPDATE_FROM_SERVER',
     CLEAR: 'VACANCY_CLEAR',
     SET_RESPONSES: 'SET_RESPONSES',
+    SET_FAVORITE: 'SET_FAVORITE',
 };
 
 export const vacancyActions: {
@@ -47,4 +48,8 @@ export const vacancyActions: {
         type: VACANCY_ACTION_TYPES.SET_RESPONSES,
         responses,
     }),
+    setFavorite: (isFavorite: boolean) => ({
+        type: VACANCY_ACTION_TYPES.SET_FAVORITE,
+        isFavorite: isFavorite,
+    })
 };
