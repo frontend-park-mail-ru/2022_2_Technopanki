@@ -126,7 +126,7 @@ export const resumeService: {
 
     downloadResume: async (resumeID: string) => {
         return await network.GET(
-            SERVER_URLS.DOWNLOAD_RESUME + resumeID
+            SERVER_URLS.DOWNLOAD_RESUME + resumeID + '?style=default'
         )
     }
 };

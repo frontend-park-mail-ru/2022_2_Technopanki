@@ -88,28 +88,6 @@ class HeaderModal extends ReactsComponent<{
                                                 </div>
                                             }
                                         />
-                                        <RenderWithCondition
-                                            condition={
-                                                this.props.userType ===
-                                                USER_TYPE.APPLICANT
-                                            }
-                                            onSuccess={
-                                                <Link
-                                                    to={SEARCH_PATHS.VACANCIES}
-                                                    content={
-                                                        <p
-                                                            className={
-                                                                styles[
-                                                                    'modal-item'
-                                                                ]
-                                                            }
-                                                        >
-                                                            Создать резюме
-                                                        </p>
-                                                    }
-                                                />
-                                            }
-                                        />
                                         <a
                                             onClick={this.logout}
                                             className={`${styles['modal-item']} cursor-pointer`}

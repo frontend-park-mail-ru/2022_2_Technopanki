@@ -230,7 +230,7 @@ class ApplicantSettings extends ReactsComponent<
                                 placeholder={'Иванов'}
                                 name={'dateOfBirth'}
                                 required={true}
-                                value={this.props.dateOfBirth.substring(0, 10)}
+                                value={this.props?.dateOfBirth?.substring(0, 10)}
                                 setError={this.profileValidation.setError}
                                 validation={this.profileValidation.getValidation(
                                     'dateOfBirth',

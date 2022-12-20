@@ -9,6 +9,7 @@ import RenderWithCondition from '../../components/RenderWithCondition';
 import { ApplicantProfileType } from '../../store/profile/types';
 import ResumeIcon from '../../static/icons/resume.svg';
 import ButtonIcon from '../../components/UI-kit/buttons/ButtonIcon';
+import { SERVER_URLS } from '../../utils/networkConstants';
 
 class ApplicantHat extends ReactsComponent<
     ApplicantProfileType & { userID: string; resumeID: string }
@@ -33,15 +34,23 @@ class ApplicantHat extends ReactsComponent<
                                     }
                                     content={<Button>Настройки</Button>}
                                 />
-
                             }
                         />
                         <Link
                             to={'/'}
                             content={
-                                <ButtonIcon onClick={() => resumeService.downloadResume(this.props.resumeID)} icon={ResumeIcon}>
-                                    Скачать резюме в PDF
-                                </ButtonIcon>
+                                <a href={`${SERVER_URLS.DOWNLOAD_RESUME}`} download="">
+                                    <ButtonIcon
+                                        onClick={() =>
+                                            resumeService.downloadResume(
+                                                this.props.resumeID,
+                                            )
+                                        }
+                                        icon={ResumeIcon}
+                                    >
+                                        Скачать резюме в PDF
+                                    </ButtonIcon>
+                                </a>
                             }
                         />
                     </div>
@@ -58,5 +67,5 @@ const profileWrapper = applicantConnect((state, props) => ({
 
 export default userConnect((state, props) => ({
     ...props,
-    userID: state.id, 
+    userID: state.id,
 }))(profileWrapper);
