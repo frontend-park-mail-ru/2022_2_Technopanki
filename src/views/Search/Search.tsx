@@ -9,6 +9,7 @@ import ApplicantCard from '../../components/UI-kit/searchCards/ApplicantCard';
 import ResumeCard from '../../components/UI-kit/searchCards/ResumeCard';
 import { vacancyService } from '../../services/vacancy/vacancyService';
 import Button from '../../components/UI-kit/buttons/Button';
+import SearchDropdownButton from '../../components/UI-kit/buttons/SearchDropdownButton'
 import RenderWithCondition from '../../components/RenderWithCondition';
 import SearchFilter from '../../components/UI-kit/filters/SearchFilter';
 import { resumeService } from '../../services/resume/resumeService';
@@ -17,26 +18,11 @@ import { applicantProfileService } from '../../services/applicantService';
 import { searchService } from '../../services/searchService';
 import SearchFilterMobile from '../../components/UI-kit/filters/SearchFilterMobile';
 import { IMAGE_URL } from '../../utils/networkConstants';
+import FilterInput from '../../components/UI-kit/forms/inputs/FilterInput';
 
 export default class Search extends ReactsComponent<
     {},
     {
-        vacancies?: {
-            id: number;
-            title: string;
-            image: string;
-            salary: string;
-            currency: string;
-            location: string;
-            format: string;
-            hours: string;
-        }[];
-        resumes?: {
-            id: number;
-            postedByUserID: string;
-            title: string;
-            description: string;
-        }[];
         limit: number;
         typeOfSearch: 'vacancy' | 'resume' | 'applicant' | 'employer';
     }
@@ -156,14 +142,14 @@ export default class Search extends ReactsComponent<
         limit: 10,
         typeOfSearch: 'vacancy',
         filters: this.filters.vacancyFilter,
+        filtersState: '',
     };
 
     search = '';
 
-    switchSearchType = (e: MouseEvent) => {
-        const type = e.target.innerHTML;
-        document.getElementById('searchOption').innerHTML = e.target.innerHTML;
-        if (type === 'Вакансии') {
+    switchSearchType = () => {
+        const type = location.pathname.split('/').at(-1);
+        if (type === 'vacancy') {
             this.setState(state => ({
                 ...state,
                 typeOfSearch: 'vacancy',
@@ -171,7 +157,7 @@ export default class Search extends ReactsComponent<
             }));
         }
 
-        if (type === 'Должности') {
+        if (type === 'resume') {
             this.setState(state => ({
                 ...state,
                 typeOfSearch: 'resume',
@@ -179,7 +165,7 @@ export default class Search extends ReactsComponent<
             }));
         }
 
-        if (type === 'Работодатели') {
+        if (type === 'employer') {
             this.setState(state => ({
                 ...state,
                 typeOfSearch: 'employer',
@@ -187,7 +173,7 @@ export default class Search extends ReactsComponent<
             }));
         }
 
-        if (type === 'Соискатели') {
+        if (type === 'applicant') {
             this.setState(state => ({
                 ...state,
                 typeOfSearch: 'applicant',
@@ -399,11 +385,14 @@ export default class Search extends ReactsComponent<
         }
     };
 
+
     componentDidMount() {
         this.getVacanciesFromServer();
         this.getResumesFromServer();
         this.getEmployersFromServer();
         this.getApplicantsFromServer();
+
+        this.switchSearchType();
     }
 
     increaseLimit = () => {
@@ -420,12 +409,12 @@ export default class Search extends ReactsComponent<
                     <h3 className={'text-align-center'}>Поиск</h3>
                     <SearchInput
                         onSubmitSearch={this.onSubmitSearch}
-                        onSwitch={this.switchSearchType}
+                        onSwitch={this.switchSearchType.bind(this)}
                     />
                     <div
                         className={'columns justify-content-space-between g-16'}
                     >
-                        <div className={'col-0 col-md-3'}>
+                        <div className={'flex row '}>
                             <SearchFilter
                                 filters={this.state.filters}
                                 onSubmit={this.onSubmitFilters.bind(this)}
@@ -440,7 +429,7 @@ export default class Search extends ReactsComponent<
                             />
                         </div>
                         <div
-                            className={'col-12 col-md-9 flex column g-16 w-100'}
+                            className={'col-12 col-md-10 flex column g-16 w-100'}
                         >
                             {this.state.typeOfSearch === 'vacancy'
                                 ? this.state.vacancies

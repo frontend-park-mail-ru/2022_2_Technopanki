@@ -19,15 +19,6 @@ export default class NotificationCard extends ReactsComponent<{
         isWatched: false
     }
 
-    // componentDidUpdate() {
-    //     this.setState(state => ({ ...state, isWatched: true }))
-    //     console.log(this.props.vacancyID, this.state.isWatched)
-    // }
-
-    // onClose = () => {
-    //     this.setState(state => ({ ...state, isWatched: true }))
-    // }
-
     render() {
         return (
             <div className={`flex row align-items-center g-16 p-16 cursor-pointer ${styles.notification_card} ${styles.borderline}`}>

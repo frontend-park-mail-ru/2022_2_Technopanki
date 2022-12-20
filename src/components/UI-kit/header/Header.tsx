@@ -8,12 +8,14 @@ import RenderWithCondition from '../../RenderWithCondition';
 import {
     RESUME_PATHS,
     START_PATH,
-    SEARCH_PATH,
+    SEARCH_PATHS,
 } from '../../../utils/routerConstants';
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
-import Svg from '../../Svg';
-import Bell from '../../../static/icons/bell.svg'
 import { resumeActions } from '../../../store/resume/actions';
+import Svg from '../../Svg';
+import Bell from '../../../static/icons/bell.svg';
+
+type nextProps = { userType: string, id: string }
 
 class Header extends ReactsComponent<{ userType: string, id: number }> {
     setActive = (event: MouseEvent) => {
@@ -26,10 +28,8 @@ class Header extends ReactsComponent<{ userType: string, id: number }> {
         }
     };
 
-    
-
     shouldUpdate(
-        nextProps: Readonly<{ userType: string, id: string }> | { userType: string, id: string },
+        nextProps: Readonly<nextProps> | nextProps,
     ): boolean {
         return this.props.userType !== nextProps.userType;
     }
@@ -52,7 +52,7 @@ class Header extends ReactsComponent<{ userType: string, id: number }> {
                         className={`flex justify-content-center w-100 g-16 ${styles.items}`}
                     >
                         <Link
-                            to={SEARCH_PATH}
+                            to={SEARCH_PATHS.VACANCIES}
                             content={
                                 <p
                                     key={'item1'}

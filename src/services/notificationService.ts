@@ -27,7 +27,6 @@ export const notificationService: {
             })
             .catch(() => dispatch(stopLoading()));
     },
-
     setNotificationsWatched: async (notificationID: string) => {
         dispatch(startLoading());
         return await network

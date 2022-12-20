@@ -61,7 +61,6 @@ class Network {
     WEBSOCKET(
         url: string,
         onMessage: (message: string) => void,
-        // protocols?: string[]
     ) {
         const socket = new WebSocket(url)
         socket.onmessage = (event: MessageEvent<string>) => {
