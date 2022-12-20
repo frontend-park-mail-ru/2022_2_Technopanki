@@ -55,8 +55,6 @@ class ApplicantProfile extends ReactsComponent<
         dispatch(applicantActions.updateFromServer(applicantBody));
         this.setState(state => ({ ...state, resume: resumeList }));
         this.setState(state => ({ ...state, vacancies: vacancyList.data }));
-
-        console.log(this.state.vacancies)
     }
 
     switchPage = () => {
@@ -69,8 +67,6 @@ class ApplicantProfile extends ReactsComponent<
                 ...state,
                 page: PAGE_TYPE.RESUMES,
             }))
-
-        console.log(this.state.page, this.state.resume, this.state.vacancies)
     }
 
     componentDidMount() {
@@ -100,7 +96,7 @@ class ApplicantProfile extends ReactsComponent<
                                                 window.navigator.clipboard
                                                     .writeText(this.props.phone)
                                                     .then(() =>
-                                                        console.log('copied!'),
+                                                        alert('copied!'),
                                                     )
                                                     .catch(err =>
                                                         console.error(err),
@@ -113,7 +109,7 @@ class ApplicantProfile extends ReactsComponent<
                                                 window.navigator.clipboard
                                                     .writeText(this.props.email)
                                                     .then(() =>
-                                                        console.log('copied!'),
+                                                        alert('copied!'),
                                                     )
                                                     .catch(err =>
                                                         console.error(err),
