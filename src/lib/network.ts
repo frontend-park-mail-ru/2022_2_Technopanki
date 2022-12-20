@@ -19,7 +19,7 @@ const sendRequest = async (
         status: response.status,
         body:
             headers['Content-Type'] === 'application/json'
-                ? await response.json().catch(err => ({}))
+                ? await response.json().catch(() => ({}))
                 : await response,
     };
 };
