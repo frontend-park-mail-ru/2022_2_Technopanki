@@ -22,6 +22,10 @@ export default class ResumeList extends ReactsComponent<
         }));
     };
 
+    componentDidMount() {
+        console.log('resume list mounted', this.props.resume)
+    }
+
     render() {
         return (
             <div className={'w-100 g-24 hidden rounded-md border-default'}>

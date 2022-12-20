@@ -17,6 +17,7 @@ import {
     VACANCY_PATHS,
 } from '../../utils/routerConstants';
 import { IMAGE_URL } from '../../utils/networkConstants';
+import StarButton from '../../components/UI-kit/buttons/StarButton';
 
 export type ProfileHatProps = {
     creatorImgSrc: string;
@@ -35,7 +36,71 @@ class VacancyHat extends ReactsComponent<
         authorized: boolean;
     }
 > {
+    state = {
+        isFavorite: false,
+    }
+
+    addToFavorites = async () => {
+        console.log(3, this.state.isFavorite);
+
+        await vacancyService.addFavoriteVacancy(
+            this.props.vacancyID
+        )
+            .catch(err => console.error(err));
+
+        this.setState(state => ({
+            ...state,
+            isFavorite: true,
+        }));
+
+        console.log(this.state.isFavorite);
+    }
+
+    removeFromFavorite = async () => {
+        await vacancyService.removeFromFavorites(
+            this.props.vacancyID
+        )
+            .catch(err => console.error(err))
+
+        this.setState(state => ({
+            ...state,
+            isFavorite: false,
+        }))
+
+        console.log(this.state.isFavorite)
+    }
+
+    async checkIfFavorite() {
+        const vacancyID = location.pathname.split('/').at(-1);
+
+        const check = await vacancyService.checkIfFavorite(
+            vacancyID as string
+        );
+
+        console.log('FROM SERVER', vacancyID, check)
+
+        return check
+    }
+
+    // componentDidUpdate() {
+    //     if (this.state.isFavorite === false) {
+    //         console.log('FALSE')
+    //     }
+    // }
+
+    componentDidMount() {
+        console.log('1', this.state.isFavorite)
+        this.checkIfFavorite().then(check => {
+            this.setState(state => ({
+                ...state,
+                isFavorite: check,
+            }))
+        });
+        console.log('AFTER MOUNT', this.state.isFavorite)
+    }
+
     render() {
+        console.log('AFTER RENDER', this.state.isFavorite)
         return (
             <Hat
                 imgSrc={this.props.creatorImgSrc}
@@ -80,19 +145,34 @@ class VacancyHat extends ReactsComponent<
                         <RenderWithCondition
                             condition={this.props.userType === 'applicant'}
                             onSuccess={
-                                <Dropdown
-                                    hidden={
-                                        <VacancyDropdownResume
-                                            vacancyID={this.props.vacancyID}
-                                        />
-                                    }
-                                    content={
-                                        <ButtonPrimary>
-                                            Отправить резюме
-                                        </ButtonPrimary>
-                                    }
-                                    direction={'right'}
-                                />
+                                <div className={'flex row g-24'}>
+                                    {this.state.isFavorite ? (
+                                        <Button
+                                            onClick={this.removeFromFavorite}
+                                        >
+                                            Удалить из избранного
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            onClick={this.addToFavorites}
+                                        >
+                                            Добавить в избранное
+                                        </Button>
+                                    )}
+                                    <Dropdown
+                                        hidden={
+                                            <VacancyDropdownResume
+                                                vacancyID={this.props.vacancyID}
+                                            />
+                                        }
+                                        content={
+                                            <ButtonPrimary>
+                                                Отправить резюме
+                                            </ButtonPrimary>
+                                        }
+                                        direction={'right'}
+                                    />
+                                </div>
                             }
                         />
                         <RenderWithCondition

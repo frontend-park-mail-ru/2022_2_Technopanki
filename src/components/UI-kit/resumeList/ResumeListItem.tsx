@@ -69,6 +69,10 @@ export default class ResumeListItem extends ReactsComponent<ResumeListItemPropsT
         },
     ];
 
+    componentDidMount() {
+        console.log('resume item mounted')
+    }
+
     render() {
         return (
             <div className={'columns g-24 p-16 border-top-default'}>
