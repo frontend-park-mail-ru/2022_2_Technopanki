@@ -44,8 +44,6 @@ class VacancyHat extends ReactsComponent<
     }
 
     toggleFavorites = async () => {
-        console.log(3, this.state.isFavorite);
-
         if (this.props.isFavorite) {
             await vacancyService.removeFromFavorites(
                 this.props.vacancyID,
@@ -59,8 +57,6 @@ class VacancyHat extends ReactsComponent<
         }
 
         dispatch(vacancyActions.setFavorite(!this.props.isFavorite))
-
-        console.log(this.state.isFavorite);
     }
 
     async checkIfFavorite() {
@@ -69,8 +65,6 @@ class VacancyHat extends ReactsComponent<
         const check = await vacancyService.checkIfFavorite(
             vacancyID as string
         );
-
-        console.log('FROM SERVER', vacancyID, check)
 
         return check
     }

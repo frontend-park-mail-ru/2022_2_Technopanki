@@ -448,47 +448,47 @@ export default class Search extends ReactsComponent<
                                             description={vacancy.description}
                                         />
                                     ))
-                                : this.state.typeOfSearch === 'resume'
-                                    ? this.state.resumes
-                                        ?.slice(0, this.state.limit)
-                                        .map(resume => (
-                                            <ResumeCard
-                                                id={resume.id.toString()}
-                                                postedByUserID={resume.user_account_id.toString()}
-                                                title={resume.title}
-                                                description={resume.description}
-                                            />
-                                        ))
-                                    : this.state.typeOfSearch === 'employer'
-                                        ? this.state.employers
-                                            ?.slice(0, this.state.limit)
-                                            .map(employer => (
-                                                <EmployerCard
-                                                    id={employer.id.toString()}
-                                                    imgSrc={
-                                                        IMAGE_URL + employer.image
-                                                    }
-                                                    companyName={
-                                                        employer.company_name
-                                                    }
-                                                    description={employer.description}
-                                                />
-                                            ))
-                                        : this.state.applicants
-                                            ?.slice(0, this.state.limit)
-                                            .map(applicant => (
-                                                <ApplicantCard
-                                                    id={applicant.id.toString()}
-                                                    imgSrc={
-                                                        IMAGE_URL + applicant.image
-                                                    }
-                                                    name={applicant.applicant_name}
-                                                    surname={
-                                                        applicant.applicant_surname
-                                                    }
-                                                    description={applicant.status}
-                                                />
-                                            ))}
+                            : this.state.typeOfSearch === 'resume'
+                                ? this.state.resumes
+                                    ?.slice(0, this.state.limit)
+                                    .map(resume => (
+                                        <ResumeCard
+                                            id={resume.id.toString()}
+                                            postedByUserID={resume.user_account_id.toString()}
+                                            title={resume.title}
+                                            description={resume.description}
+                                        />
+                                    ))
+                            : this.state.typeOfSearch === 'employer'
+                                ? this.state.employers
+                                    ?.slice(0, this.state.limit)
+                                    .map(employer => (
+                                        <EmployerCard
+                                            id={employer.id.toString()}
+                                            imgSrc={
+                                                IMAGE_URL + employer.image
+                                            }
+                                            companyName={
+                                                employer.company_name
+                                            }
+                                            description={employer.description}
+                                        />
+                                    ))
+                            : this.state.applicants
+                                ?.slice(0, this.state.limit)
+                                .map(applicant => (
+                                    <ApplicantCard
+                                        id={applicant.id.toString()}
+                                        imgSrc={
+                                            IMAGE_URL + applicant.image
+                                        }
+                                        name={applicant.applicant_name}
+                                        surname={
+                                            applicant.applicant_surname
+                                        }
+                                        description={applicant.status}
+                                    />
+                                ))}
                             <div className={'w-100'}>
                                 <RenderWithCondition
                                     condition={

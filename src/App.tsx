@@ -15,11 +15,20 @@ class App extends ReactsComponent {
     }
 }
 
+class NotFound extends ReactsComponent {
+    render() {
+        return (
+            <p>not found</p>
+        )
+    }
+}
+
 document.querySelector('#root').innerHTML = '';
 
 router.disableScrollRestoration();
 
 router.addNewPath({ path: '/', validator: (url: string) => url === '/' }, App);
+router.addNewPath({ path: '*', validator: (url: string) => url === '*' }, NotFound);
 router.addNewPaths(ROUTER_PATHS);
 
 authService
