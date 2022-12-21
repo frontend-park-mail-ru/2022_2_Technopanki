@@ -33,7 +33,7 @@ export default class FilterInput extends ReactsComponent<FilterInputPropsType> {
                     {this.props.label}
                 </label>
                 <input
-                    className={`${styles.input} ${styles.filter_input} ${
+                    className={`${styles.input} ${
                         this.props.error ? styles.input__error : ''
                     }`}
                     id={this.props.id}

@@ -412,7 +412,7 @@ export default class Search extends ReactsComponent<
                         onSwitch={this.switchSearchType.bind(this)}
                     />
                     <div
-                        className={'columns justify-content-space-between g-16'}
+                        className={'columns justify-content-space-between g-24'}
                     >
                         <div className={'flex row '}>
                             <SearchFilter

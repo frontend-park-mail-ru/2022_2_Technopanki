@@ -131,6 +131,10 @@
   }
 }
 
+.filter_input {
+  width: 172px;
+}
+
 .select {
   max-height: 100%;
   width: 100%;
@@ -195,5 +199,5 @@
 .dropdown_button {
   color: var(--background-200);
   padding: var(--padding-12) 0 var(--padding-12) var(--padding-12);
-  width: 146px;
+  width: 160px;
 }

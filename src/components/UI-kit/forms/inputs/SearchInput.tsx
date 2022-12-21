@@ -52,7 +52,7 @@ export default class SearchInput extends ReactsComponent<
 
     render() {
         return (
-            <div className={'flex row g-24 relative'}>
+            <div className={'grid columns g-24 relative'}>
                 <DropdownMenu
                     hidden={
                         <div
@@ -111,19 +111,19 @@ export default class SearchInput extends ReactsComponent<
                     direction={'left'}
                     isOpen={this.state.isOpen}
                 />
-                <form onSubmit={this.props.onSubmitSearch}>
-                    <div>
+                <form onSubmit={this.props.onSubmitSearch} className={'col-12 col-md-10'}>
+
                         <div
                             className={`cursor-pointer absolute ${styles.icon}`}
                             dangerouslySetInnerHTML={{ __html: Loupe }}
                         />
                         <input
                             id={'search'}
-                            className={`w-75 absolute ${styles.input} ${styles.search_input}`}
+                            className={`col-12 col-md-10 w-100 ${styles.input} ${styles.search_input}`}
                             type={'text'}
                             placeholder={'Поиск...'}
                         />
-                    </div>
+
                 </form>
             </div>
         );
