@@ -2,6 +2,13 @@ export const FRONT_URL = 'https://jobflow.su/';
 export const SERVER_URL = 'https://jobflow.su/';
 export const SERVER_URL_WEBSOCKET = 'wss://jobflow.su/';
 
+<<<<<<< HEAD
+=======
+export const FRONT_URL = 'https://jobflow.su/';
+export const SERVER_URL = 'https://jobflow.su/';
+export const SERVER_URL_WEBSOCKET = 'wss://jobflow.su/';
+
+>>>>>>> 9ae15135c8436a6a9d0b5fb9b00d6497ba691537
 // export const FRONT_URL = 'http://localhost:8000/';
 // export const SERVER_URL = 'http://localhost:8080/';
 // export const SERVER_URL_WEBSOCKET = 'ws://localhost:8080/';

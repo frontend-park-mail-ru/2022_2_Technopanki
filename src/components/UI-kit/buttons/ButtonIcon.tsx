@@ -34,12 +34,6 @@ export default class ButtonIcon extends ReactsComponent<{
                     />
                     <p>{this.props.children ? this.props.children : ''}</p>
                 </button>
-                {/*{this.state.isOpen ?*/}
-                {/*    <div>*/}
-                {/*        {this.props.dataTooltip}*/}
-                {/*    </div>*/}
-                {/*    : null*/}
-                {/*}*/}
             </div>
         );
     }

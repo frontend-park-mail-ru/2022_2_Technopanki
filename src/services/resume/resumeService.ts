@@ -126,6 +126,7 @@ export const resumeService: {
 
     downloadResume: async (resumeID: string) => {
         return await network
+<<<<<<< HEAD
             .GET(SERVER_URLS.RESUME_PDF + resumeID + '?style=default', {
                 'Content-Type': 'application/pdf',
             })
@@ -148,5 +149,15 @@ export const resumeService: {
                 // Clean up and remove the link
                 link.parentNode.removeChild(link);
             })
+=======
+            .GET(SERVER_URLS.RESUME_PDF + resumeID + '?style=default')
+            .then(response => {
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.blob();
+            });
+>>>>>>> 9ae15135c8436a6a9d0b5fb9b00d6497ba691537
     },
 };
