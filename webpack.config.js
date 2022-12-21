@@ -69,6 +69,7 @@ module.exports = {
                 './src/static/index.html',
                 './src/static/favicon.ico',
                 { from: './src/static/image', to: 'image' },
+                './manifest.json'
             ],
         }),
         new webpack.DefinePlugin({

@@ -32,11 +32,7 @@ class ResumeSidebar extends ReactsComponent<
         this.getCreatorData();
     }
 
-    componentDidUpdate() {
-        this.getCreatorData();
-    }
-
-shouldUpdate(
+    shouldUpdate(
         nextProps:
             | Readonly<ApplicantProfileType & { creatorID: string }>
             | (ApplicantProfileType & { creatorID: string }),

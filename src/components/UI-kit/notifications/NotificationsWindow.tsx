@@ -102,7 +102,7 @@ export default class NotificationWindow extends ReactsComponent<Notification> {
                                                 isWatched={n.is_viewed}
                                             />
                                         )
-                                ))}
+                                    ))}
                             </div>
                         )}
                     </div>
