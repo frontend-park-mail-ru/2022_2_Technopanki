@@ -6,6 +6,7 @@ import { startLoading, stopLoading } from '../../store/loading/actions';
 import { requestHeaders } from '../headers';
 import { EmployerResponse } from '../auth/types';
 import { VacancyResponse } from './types';
+import { response } from 'express';
 
 export const vacancyService: {
     getVacancyHatData: (userID: string) => Promise<EmployerResponse>;
@@ -158,5 +159,52 @@ export const vacancyService: {
 
     deleteVacancy: async (vacancyID: string) => {
         return await network.DELETE(VACANCY_URLS.VACANCY_DELETE + vacancyID);
+    },
+
+    addFavoriteVacancy: async (vacancyID: string) => {
+        return await network.POST(VACANCY_URLS.FAVORITE + vacancyID)
+            .then(response => {
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            })
+            .catch(() => dispatch(stopLoading()));
+    },
+
+    removeFromFavorites: async (vacancyID: string) => {
+        return await network.DELETE(VACANCY_URLS.FAVORITE + vacancyID);
+    },
+
+    getAllFavorites: async () => {
+        dispatch(startLoading());
+        return await network
+            .GET(VACANCY_URLS.ALL_FAVORITES, requestHeaders.jsonHeader)
+            .then(response => {
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            })
+            .catch(() => dispatch(stopLoading()));
+    },
+
+    checkIfFavorite: async (vacancyID: string) => {
+        dispatch(startLoading());
+        return await network
+            .GET(VACANCY_URLS.IS_FAVORITE + vacancyID)
+            .then(response => {
+                console.log(response.body)
+                dispatch(stopLoading());
+                if (response.status > 399) {
+                    throw response.status;
+                }
+
+                return response.body;
+            })
+            .catch(() => dispatch(stopLoading()));
     },
 };

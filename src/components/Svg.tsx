@@ -6,6 +6,7 @@ export default class Svg extends ReactsComponent<{
     padding?: number | string;
     onClick?: Function;
     cursor?: string;
+    color?: string;
 }> {
     render() {
         return (
@@ -13,7 +14,7 @@ export default class Svg extends ReactsComponent<{
                 onClick={this.props.onClick}
                 className={`inner-svg-h-${this.props.height.toString()} ${
                     this.props.padding ? `pt-${this.props.padding}` : ''
-                } ${this.props.cursor ? `cursor-${this.props.cursor}` : ''}`}
+                } ${this.props.cursor ? `cursor-${this.props.cursor}` : ''} color-${this.props.color}`}
                 dangerouslySetInnerHTML={{
                     __html: this.props.src,
                 }}

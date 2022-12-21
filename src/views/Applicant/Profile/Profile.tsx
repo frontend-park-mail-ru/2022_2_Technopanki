@@ -20,12 +20,23 @@ import RenderWithCondition from '../../../components/RenderWithCondition';
 import { ResumePreviewResponse } from '../../../services/resume/types';
 import { ApplicantProfileType } from '../../../store/profile/types';
 import LongButton from '../../../components/UI-kit/buttons/LongButton';
+import * as stream from 'stream';
+import { vacancyService } from '../../../services/vacancy/vacancyService';
+import VacancyCard, { VacancyCardPropsType } from '../../../components/UI-kit/searchCards/VacancyCard';
+
+
+const PAGE_TYPE = {
+    VACANCIES: 'vacancies',
+    RESUMES: 'resumes'
+}
 
 class ApplicantProfile extends ReactsComponent<
     ApplicantProfileType & { userID: string }
 > {
     state = {
         resume: [] as ResumePreviewResponse[],
+        vacancies: [] as VacancyCardPropsType[],
+        page: PAGE_TYPE.RESUMES,
     };
 
     async getDataFromServer() {
@@ -39,8 +50,25 @@ class ApplicantProfile extends ReactsComponent<
             applicantID as string,
         );
 
+        const vacancyList = await vacancyService.getAllFavorites();
+
         dispatch(applicantActions.updateFromServer(applicantBody));
         this.setState(state => ({ ...state, resume: resumeList }));
+        this.setState(state => ({ ...state, vacancies: vacancyList.data }));
+    }
+
+    switchToFavorites = () => {
+        this.setState(state => ({
+            ...state,
+            page: PAGE_TYPE.RESUMES,
+        }))
+    }
+
+    switchToVacancies = () => {
+        this.setState(state => ({
+            ...state,
+            page: PAGE_TYPE.VACANCIES,
+        }))
     }
 
     componentDidMount() {
@@ -70,7 +98,7 @@ class ApplicantProfile extends ReactsComponent<
                                                 window.navigator.clipboard
                                                     .writeText(this.props.phone)
                                                     .then(() =>
-                                                        console.log('copied!'),
+                                                        alert('copied!'),
                                                     )
                                                     .catch(err =>
                                                         console.error(err),
@@ -84,7 +112,7 @@ class ApplicantProfile extends ReactsComponent<
                                                 window.navigator.clipboard
                                                     .writeText(this.props.email)
                                                     .then(() =>
-                                                        console.log('copied!'),
+                                                        alert('copied!'),
                                                     )
                                                     .catch(err =>
                                                         console.error(err),
@@ -134,17 +162,41 @@ class ApplicantProfile extends ReactsComponent<
                 <div className={'columns g-24'}>
                     <div className={'col-12 col-md-9 column g-16'}>
                         <div className={'flex column g-32'}>
-                            <div className={'flex row'}>
-                                <LongButton
-                                    direction={'left'}
-                                    content={'Мои резюме'}
-                                />
-                                <LongButton
-                                    direction={'right'}
-                                    content={'Избранные вакансии'}
-                                />
+                            {this.props.userID === this.props.id ?
+                                    <div className={'flex row'}>
+                                        <LongButton
+                                            id={'myResumes'}
+                                            direction={'left'}
+                                            content={'Мои резюме'}
+                                            onClick={this.switchToFavorites.bind(this)}
+                                        />
+                                        <LongButton
+                                            id={'myFeatured'}
+                                            direction={'right'}
+                                            content={'Избранные вакансии'}
+                                            onClick={this.switchToVacancies.bind(this)}
+                                        />
+                                    </div> : null
+                                }
+                            <div className={`column g-24 ${this.state.page === PAGE_TYPE.RESUMES ? 'none' : 'flex'}`}>
+                                {this.state.vacancies.map(vacancy => (
+                                    <VacancyCard
+                                        key={vacancy.id.toString()}
+                                        id={vacancy.id.toString()}
+                                        name={vacancy.title}
+                                        icon={vacancy.image}
+                                        salary={vacancy.salary}
+                                        currency={vacancy.currency}
+                                        location={vacancy.location}
+                                        format={vacancy.format}
+                                        hours={vacancy.hours}
+                                        description={vacancy.description}
+                                    />
+                                ))}
                             </div>
-                            <ResumeList resume={this.state.resume} />
+                            <div className={this.state.page === PAGE_TYPE.RESUMES ? 'block' : 'none'}>
+                                <ResumeList resume={this.state.resume} />
+                            </div>
                         </div>
                     </div>
                     <div className={'col-12 col-md-3'}>

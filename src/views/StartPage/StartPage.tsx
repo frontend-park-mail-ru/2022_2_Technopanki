@@ -13,6 +13,7 @@ import {
 import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import { userConnect } from '../../store';
 import { UserState } from '../../store/user/types';
+import VacancyCard from '../../components/UI-kit/searchCards/VacancyCard';
 
 class StartPage extends ReactsComponent<UserState> {
     render() {

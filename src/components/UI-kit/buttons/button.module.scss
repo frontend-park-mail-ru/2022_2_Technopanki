@@ -161,4 +161,10 @@
   }
 }
 
+.long_button_selected {
+  transition: var(--transition-fast);
+  color: var(--background-0);
+  background-color: var(--background-900);
+  border-color: var(--background-900);
+}
 

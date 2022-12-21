@@ -16,4 +16,5 @@ export type VacancyState = {
     format: string;
     hours: string;
     skills: string[];
+    isFavorite?: boolean;
 };
