@@ -3,7 +3,7 @@ import styles from './notifications.module.scss';
 import Svg from '../../Svg';
 import NewNotification from '../../../static/icons/new_notificantion.svg';
 import TextLink from '../../TextLink/TextLink';
-import { VACANCY_PATHS } from '../../../utils/routerConstants';
+import { EMPLOYER_PATHS, RESUME_PATHS, VACANCY_PATHS } from '../../../utils/routerConstants';
 
 export default class NotificationCard extends ReactsComponent<{
     type: 'apply' | 'download resume'
@@ -31,14 +31,14 @@ export default class NotificationCard extends ReactsComponent<{
                 {this.props.type === 'download resume' ? (
                     <div>
                         <p>
-                            Ваше резюме <TextLink to={'/'} content={
+                            Ваше резюме <TextLink to={RESUME_PATHS.INDEX + this.props.resumeID} content={
                             <span className={'color-blue'}>
-                                            Фронтенд-разработчик
+                                            {this.props.resumeTitle}
                                         </span>
                         }
-                        /> скачал пользователь <TextLink to={'/'} content={
+                        /> скачал пользователь <TextLink to={EMPLOYER_PATHS.PROFILE + this.props.companyID} content={
                             <span className={'color-blue'}>
-                                            VK
+                                            {this.props.companyName}
                                         </span>
                         }
                         />
