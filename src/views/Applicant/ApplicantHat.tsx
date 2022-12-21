@@ -4,16 +4,24 @@ import Hat from '../../components/UI-kit/hat/Hat';
 import Link from '../../components/Link/Link';
 import { APPLICANT_PATHS, RESUME_PATHS } from '../../utils/routerConstants';
 import { applicantConnect, userConnect } from '../../store';
-import { resumeService } from '../../services/resume/resumeService';
+
 import RenderWithCondition from '../../components/RenderWithCondition';
 import { ApplicantProfileType } from '../../store/profile/types';
 import ResumeIcon from '../../static/icons/resume.svg';
 import ButtonIcon from '../../components/UI-kit/buttons/ButtonIcon';
-import { SERVER_URLS } from '../../utils/networkConstants';
+import { resumeService } from '../../services/resume/resumeService';
 
 class ApplicantHat extends ReactsComponent<
-    ApplicantProfileType & { userID: string; resumeID: string }
+    ApplicantProfileType & {
+    userID: string;
+    resumeID: string;
+    authorized: boolean;
+}
 > {
+    downloadResume = () => {
+        resumeService.downloadResume(this.props.resumeID)
+    }
+
     render() {
         return (
             <Hat
@@ -32,25 +40,20 @@ class ApplicantHat extends ReactsComponent<
                                         RESUME_PATHS.SETTINGS +
                                         this.props.resumeID
                                     }
-                                    content={<Button>Настройки</Button>}
+                                    content={<Button>Редактировать</Button>}
                                 />
+
                             }
                         />
-                        <Link
-                            to={'/'}
-                            content={
-                                <a href={`${SERVER_URLS.DOWNLOAD_RESUME}`} download="">
-                                    <ButtonIcon
-                                        onClick={() =>
-                                            resumeService.downloadResume(
-                                                this.props.resumeID,
-                                            )
-                                        }
-                                        icon={ResumeIcon}
-                                    >
-                                        Скачать резюме в PDF
-                                    </ButtonIcon>
-                                </a>
+                        <RenderWithCondition
+                            condition={this.props.authorized}
+                            onSuccess={
+                                <ButtonIcon
+                                    onClick={this.downloadResume}
+                                    icon={ResumeIcon}
+                                >
+                                    Скачать резюме в PDF
+                                </ButtonIcon>
                             }
                         />
                     </div>
@@ -68,4 +71,5 @@ const profileWrapper = applicantConnect((state, props) => ({
 export default userConnect((state, props) => ({
     ...props,
     userID: state.id,
+    authorized: state.authorized,
 }))(profileWrapper);

@@ -64,4 +64,5 @@ export const attributes: { [key: string]: string } = {
     max: 'max',
     min: 'min',
     step: 'step',
+    dataTooltip: 'data-tooltip',
 };
