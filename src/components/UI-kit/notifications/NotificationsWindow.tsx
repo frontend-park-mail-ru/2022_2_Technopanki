@@ -69,7 +69,7 @@ export default class NotificationWindow extends ReactsComponent<Notification> {
         return (
             <Dropdown
                 content={
-                    <div className={'pt-5'} onClick={() => console.log('click')}>
+                    <div className={'pt-5'}>
                         <Svg
                             src={Bell}
                             height={16}

@@ -8,8 +8,6 @@ const CACHE = {
     SERVER_RESPONSES: 'jobflow_resp-v1',
 };
 
-// const CACHE = 'cache';
-
 self.addEventListener('install', event => {
     console.log('Установлен');
     event.waitUntil(async () => {
@@ -69,4 +67,3 @@ self.addEventListener('fetch', event => {
     );
 });
 
-// matched || Promise.reject('no-matched')
