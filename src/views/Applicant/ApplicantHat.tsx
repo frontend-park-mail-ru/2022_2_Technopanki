@@ -4,7 +4,7 @@ import Hat from '../../components/UI-kit/hat/Hat';
 import Link from '../../components/Link/Link';
 import { APPLICANT_PATHS, RESUME_PATHS } from '../../utils/routerConstants';
 import { applicantConnect, userConnect } from '../../store';
-
+import { resumeService } from '../../services/resume/resumeService';
 import RenderWithCondition from '../../components/RenderWithCondition';
 import { ApplicantProfileType } from '../../store/profile/types';
 import ResumeIcon from '../../static/icons/resume.svg';
@@ -39,7 +39,7 @@ class ApplicantHat extends ReactsComponent<
                         <Link
                             to={'/'}
                             content={
-                                <ButtonIcon icon={ResumeIcon}>
+                                <ButtonIcon onClick={() => resumeService.downloadResume(this.props.resumeID)} icon={ResumeIcon}>
                                     Скачать резюме в PDF
                                 </ButtonIcon>
                             }
@@ -58,5 +58,5 @@ const profileWrapper = applicantConnect((state, props) => ({
 
 export default userConnect((state, props) => ({
     ...props,
-    userID: state.id,
+    userID: state.id, 
 }))(profileWrapper);

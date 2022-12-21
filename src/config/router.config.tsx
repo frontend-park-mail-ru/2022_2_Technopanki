@@ -31,8 +31,15 @@ export const ROUTER_PATHS: { path: PathType; component: Function }[] = [
     },
     {
         path: {
-            path: '/confirm',
-            validator: (url: string) => url === '/confirm',
+            path: '/confirm/signup',
+            validator: (url: string) => url === '/confirm/signup',
+        },
+        component: EmailConfirm,
+    },
+    {
+        path: {
+            path: '/confirm/signin',
+            validator: (url: string) => url === '/confirm/signin',
         },
         component: EmailConfirm,
     },

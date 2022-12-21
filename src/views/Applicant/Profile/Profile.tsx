@@ -75,6 +75,10 @@ class ApplicantProfile extends ReactsComponent<
         this.getDataFromServer();
     }
 
+    componentDidUpdate(): void {
+        console.log('UPDATE IN PROFILE')
+    }
+
     render() {
         return (
             <div className={'screen-responsive flex column g-40'}>

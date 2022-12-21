@@ -1,4 +1,4 @@
-import network from "../lib/network";
+import network from "../lib/network"
 import { SERVER_URLS, VACANCY_URLS } from '../utils/networkConstants';
 import { dispatch } from '../store';
 import { startLoading, stopLoading } from '../store/loading/actions';
@@ -27,7 +27,6 @@ export const notificationService: {
             })
             .catch(() => dispatch(stopLoading()));
     },
-
     setNotificationsWatched: async (notificationID: string) => {
         dispatch(startLoading());
         return await network

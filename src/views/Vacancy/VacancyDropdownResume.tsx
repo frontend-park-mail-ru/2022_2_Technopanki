@@ -116,23 +116,17 @@ class VacancyDropdownResume extends ReactsComponent<
     }
 
     async getResumeFromServer() {
-        try {
-            this.setState(state => ({ ...state, loading: true }));
-            const resumeData =
-                await applicantProfileService.getResumePreviewList(
-                    this.props.userID,
-                );
+        this.setState(state => ({ ...state, loading: true }));
+        const resumeData =
+            await applicantProfileService.getResumePreviewList(
+                this.props.userID,
+            );
 
-            this.setState(state => ({
-                ...state,
-                resume: resumeData as ResumeType[],
-                loading: false,
-            }));
-        } catch (e) {
-            dispatch(activateError('Вы уже отправили резюме на эту вакансию'));
-            setTimeout(() => dispatch(deactivateError()), 3000);
-            console.error(e);
-        }
+        this.setState(state => ({
+            ...state,
+            resume: resumeData as ResumeType[],
+            loading: false,
+        }));
     }
 
     componentDidMount() {
