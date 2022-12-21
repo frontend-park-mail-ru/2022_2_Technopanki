@@ -43,7 +43,6 @@ export default class SignIn extends ReactsComponent {
         try {
             const response = await authService.signIn(formData);
             if (response === 202) {
-        	console.log(formData.get('email'));	
 	       dispatch(userActions.updateEmail(formData.get('email') as string));
 	
 
