@@ -57,7 +57,7 @@ class ApplicantProfile extends ReactsComponent<
         this.setState(state => ({ ...state, vacancies: vacancyList.data }));
     }
 
-    switchToFavorites = () => {
+    switchToResumes = () => {
         this.setState(state => ({
             ...state,
             page: PAGE_TYPE.RESUMES,
@@ -172,7 +172,7 @@ class ApplicantProfile extends ReactsComponent<
                                             id={'myResumes'}
                                             direction={'left'}
                                             content={'Мои резюме'}
-                                            onClick={this.switchToFavorites.bind(this)}
+                                            onClick={this.switchToResumes.bind(this)}
                                         />
                                         <LongButton
                                             id={'myFeatured'}
