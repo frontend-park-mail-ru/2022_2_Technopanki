@@ -132,7 +132,7 @@ export const resumeService: {
                     throw response.status;
                 }
 
-                return response.body;
+                return response.blob();
             });
     },
 };
