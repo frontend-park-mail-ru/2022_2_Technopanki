@@ -57,16 +57,18 @@ class ApplicantProfile extends ReactsComponent<
         this.setState(state => ({ ...state, vacancies: vacancyList.data }));
     }
 
-    switchPage = () => {
-        this.state.page === PAGE_TYPE.RESUMES ?
-            this.setState(state => ({
-                ...state,
-                page: PAGE_TYPE.VACANCIES,
-            })) :
-            this.setState(state => ({
-                ...state,
-                page: PAGE_TYPE.RESUMES,
-            }))
+    switchToFavorites = () => {
+        this.setState(state => ({
+            ...state,
+            page: PAGE_TYPE.RESUMES,
+        }))
+    }
+
+    switchToVacancies = () => {
+        this.setState(state => ({
+            ...state,
+            page: PAGE_TYPE.VACANCIES,
+        }))
     }
 
     componentDidMount() {
@@ -164,13 +166,13 @@ class ApplicantProfile extends ReactsComponent<
                                             id={'myResumes'}
                                             direction={'left'}
                                             content={'Мои резюме'}
-                                            onClick={this.switchPage.bind(this)}
+                                            onClick={this.switchToFavorites.bind(this)}
                                         />
                                         <LongButton
                                             id={'myFeatured'}
                                             direction={'right'}
                                             content={'Избранные вакансии'}
-                                            onClick={this.switchPage.bind(this)}
+                                            onClick={this.switchToVacancies.bind(this)}
                                         />
                                     </div> : null
                                 }
