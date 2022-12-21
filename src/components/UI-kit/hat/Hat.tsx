@@ -1,7 +1,6 @@
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import styles from './hat.module.scss';
 import { ReactsComponentNode } from '../../../../Reacts/shared/types/node';
-import Link from '../../Link/Link';
 
 type HatPropsType = {
     imgSrc: string;
@@ -9,7 +8,7 @@ type HatPropsType = {
     surname: string;
     status: string;
     rightSideContent?: ReactsComponentNode;
-    linkTo?: string;
+    linkTo: string;
 };
 
 export default class Hat extends ReactsComponent<HatPropsType> {
@@ -18,10 +17,7 @@ export default class Hat extends ReactsComponent<HatPropsType> {
             <div
                 className={`flex w-100 row align-items-center justify-content-space-between ${styles.hat_content}`}
             >
-                <Link
-                    to={this.props.linkTo}
-                    content={
-                        <div className={`flex align-items-center row g-16`}>
+                <div className={`flex align-items-center row g-16`}>
                             <img
                                 className={styles.content_img}
                                 src={this.props.imgSrc}
@@ -34,8 +30,6 @@ export default class Hat extends ReactsComponent<HatPropsType> {
                                 <p>{this.props.status}</p>
                             </div>
                         </div>
-                    }
-                />
                 <div>{this.props.rightSideContent}</div>
             </div>
         );

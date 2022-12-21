@@ -76,16 +76,13 @@ class VacancyHat extends ReactsComponent<
     }
 
     componentDidMount() {
-        console.log('1', this.state.isFavorite)
         this.checkIfFavorite()
             .then(check => {
                 dispatch(vacancyActions.setFavorite(check))
         });
-        console.log('AFTER MOUNT', this.props.isFavorite)
     }
 
     render() {
-        console.log('AFTER RENDER', this.state.isFavorite)
         return (
             <Hat
                 imgSrc={this.props.creatorImgSrc}
