@@ -28,8 +28,6 @@ class Header extends ReactsComponent<{ userType: string, id: number }> {
         }
     };
 
-    
-
     shouldUpdate(
         nextProps: Readonly<nextProps> | nextProps,
     ): boolean {
@@ -100,5 +98,4 @@ class Header extends ReactsComponent<{ userType: string, id: number }> {
 
 export default userConnect(state => ({
     userType: state.userType,
-    id: state.id
 }))(Header);

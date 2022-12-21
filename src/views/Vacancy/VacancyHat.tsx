@@ -6,7 +6,7 @@ import VacancyDropdownResume from './VacancyDropdownResume';
 import Hat from '../../components/UI-kit/hat/Hat';
 import Link from '../../components/Link/Link';
 import { vacancyService } from '../../services/vacancy/vacancyService';
-import { profileConnect, userConnect } from '../../store';
+import { dispatch, profileConnect, userConnect, vacancyConnect } from '../../store';
 import RenderWithCondition from '../../components/RenderWithCondition';
 import ButtonNotActive from '../../components/UI-kit/buttons/ButtonNotActive';
 import { UserState } from '../../store/user/types';
@@ -17,6 +17,8 @@ import {
     VACANCY_PATHS,
 } from '../../utils/routerConstants';
 import { IMAGE_URL } from '../../utils/networkConstants';
+import StarButton from '../../components/UI-kit/buttons/StarButton';
+import { vacancyActions } from '../../store/vacancy/actions';
 
 export type ProfileHatProps = {
     creatorImgSrc: string;
@@ -29,13 +31,61 @@ class VacancyHat extends ReactsComponent<
         // props
         postedByUserID: string;
         vacancyID: string;
+        isFavorite: boolean;
         // user store
         userID: string;
         userType: string | null;
         authorized: boolean;
     }
 > {
+    //TODO вынести во flux
+    state = {
+        isFavorite: false,
+    }
+
+    toggleFavorites = async () => {
+        console.log(3, this.state.isFavorite);
+
+        if (this.props.isFavorite) {
+            await vacancyService.removeFromFavorites(
+                this.props.vacancyID,
+            )
+                .catch(err => console.error(err));
+        } else {
+            await vacancyService.addFavoriteVacancy(
+                this.props.vacancyID
+            )
+                .catch(err => console.error(err));
+        }
+
+        dispatch(vacancyActions.setFavorite(!this.props.isFavorite))
+
+        console.log(this.state.isFavorite);
+    }
+
+    async checkIfFavorite() {
+        const vacancyID = location.pathname.split('/').at(-1);
+
+        const check = await vacancyService.checkIfFavorite(
+            vacancyID as string
+        );
+
+        console.log('FROM SERVER', vacancyID, check)
+
+        return check
+    }
+
+    componentDidMount() {
+        console.log('1', this.state.isFavorite)
+        this.checkIfFavorite()
+            .then(check => {
+                dispatch(vacancyActions.setFavorite(check))
+        });
+        console.log('AFTER MOUNT', this.props.isFavorite)
+    }
+
     render() {
+        console.log('AFTER RENDER', this.state.isFavorite)
         return (
             <Hat
                 imgSrc={this.props.creatorImgSrc}
@@ -80,19 +130,30 @@ class VacancyHat extends ReactsComponent<
                         <RenderWithCondition
                             condition={this.props.userType === 'applicant'}
                             onSuccess={
-                                <Dropdown
-                                    hidden={
-                                        <VacancyDropdownResume
-                                            vacancyID={this.props.vacancyID}
-                                        />
-                                    }
-                                    content={
-                                        <ButtonPrimary>
-                                            Отправить резюме
-                                        </ButtonPrimary>
-                                    }
-                                    direction={'right'}
-                                />
+                                <div className={'flex row g-24'}>
+                                    <Button
+                                        onClick={this.toggleFavorites}
+                                    >
+                                        {this.props.isFavorite ?
+                                            'Удалить из избранного'
+                                            :
+                                            'Добавить в избранное'
+                                        }
+                                    </Button>
+                                    <Dropdown
+                                        hidden={
+                                            <VacancyDropdownResume
+                                                vacancyID={this.props.vacancyID}
+                                            />
+                                        }
+                                        content={
+                                            <ButtonPrimary>
+                                                Отправить резюме
+                                            </ButtonPrimary>
+                                        }
+                                        direction={'right'}
+                                    />
+                                </div>
                             }
                         />
                         <RenderWithCondition
@@ -116,6 +177,12 @@ class VacancyHat extends ReactsComponent<
     }
 }
 
+const VacancyWrapper = vacancyConnect((state, props) => {
+    return {
+        isFavorite: state.isFavorite
+    }
+})(VacancyHat)
+
 export default userConnect((state, props) => {
     return {
         vacancyID: props.vacancyID,
@@ -126,4 +193,4 @@ export default userConnect((state, props) => {
         userType: state.userType,
         authorized: state.authorized,
     };
-})(VacancyHat);
+})(VacancyWrapper);
