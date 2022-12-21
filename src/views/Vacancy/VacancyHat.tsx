@@ -85,7 +85,7 @@ class VacancyHat extends ReactsComponent<
     }
 
     render() {
-        console.log('AFTER RENDER', this.state.isFavorite)
+        console.log('CREATOR URL', EMPLOYER_PATHS.PROFILE + this.props.postedByUserID)
         return (
             <Hat
                 imgSrc={this.props.creatorImgSrc}
