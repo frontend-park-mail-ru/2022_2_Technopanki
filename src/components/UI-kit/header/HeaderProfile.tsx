@@ -27,12 +27,8 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                     className={`flex row w-100 g-40 align-items-center justify-content-end ${styles.auth}`}
                 >
                     {this.props.authorized ? (
-                        <div className={'flex align-items-center row g-40'}>
-                            <NotificationWindow
-                                type={this.props.type}
-                                vacancyTitle={this.props.vacancyTitle}
-                                vacancyID={this.props.vacancyID}
-                            />
+                        <div className={'flex row g-40'}>
+                            <NotificationWindow />
                             <HeaderUserInfo
                                 id={this.props.id}
                                 imgSrc={this.props.imgSrc}
@@ -43,6 +39,7 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                         </div>
                     ) : (
                         <div className={'flex row g-24 align-items-center'}>
+                            <p className={'none'}></p>
                             <a
                                 className={'cursor-pointer'}
                                 onClick={toggleTheme}
@@ -68,9 +65,6 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                 </div>
                 <div className={'w-100 flex row justify-content-end'}>
                     <HeaderModal />
-                </div>
-                <div>
-                    <p>{this.props.notificationAuthor}</p>
                 </div>
             </div>
         );

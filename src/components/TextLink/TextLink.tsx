@@ -3,6 +3,9 @@ import router from '../../router/navigator';
 import { ReactsTextNode } from '../../../Reacts/shared/types/node';
 import styles from './link.module.scss';
 
+
+let counter = 0;
+
 export default class TextLink extends ReactsComponent<{
     to: string;
     content: ReactsTextNode;

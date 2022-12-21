@@ -19,6 +19,7 @@ export const defaultVacancy: VacancyState = {
     format: '',
     hours: '',
     skills: [],
+    isFavorite: false,
 };
 
 export const vacancyStore = new Store<VacancyState>(

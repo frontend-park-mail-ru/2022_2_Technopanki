@@ -59,6 +59,7 @@ module.exports = {
         static: './dist',
         hot: true,
         allowedHosts: 'all',
+        // port: 5000,
         port: 8000,
     },
     plugins: [

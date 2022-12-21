@@ -65,3 +65,4 @@ export default class NotificationCard extends ReactsComponent<{
         )
     }
 }
+

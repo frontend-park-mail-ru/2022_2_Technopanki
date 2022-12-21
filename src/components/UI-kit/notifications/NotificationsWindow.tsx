@@ -54,8 +54,8 @@ export default class NotificationWindow extends ReactsComponent<Notification> {
     }
 
     onClose = () => {
-        let items = [...this.state.notifications];
-        items.map(n => {
+        const items = [...this.state.notifications];
+        items.forEach(n => {
             n.is_viewed = true;
         });
 
