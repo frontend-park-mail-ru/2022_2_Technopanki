@@ -1,4 +1,4 @@
-import { Options, Path, RouterType } from './types';
+import { Path, RouterType } from './types';
 
 class Router implements RouterType {
     /**
