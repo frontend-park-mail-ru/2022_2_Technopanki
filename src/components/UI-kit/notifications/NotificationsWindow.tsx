@@ -99,6 +99,8 @@ export default class NotificationWindow extends ReactsComponent<Notification> {
                                                 type={n.type}
                                                 resumeTitle={n.title}
                                                 resumeID={n.object_id}
+                                                companyName={n.company_name}
+                                                companyID={n.company_id}
                                                 isWatched={n.is_viewed}
                                             />
                                         )
