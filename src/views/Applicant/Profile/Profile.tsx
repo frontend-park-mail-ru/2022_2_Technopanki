@@ -108,6 +108,7 @@ class ApplicantProfile extends ReactsComponent<
                                                         console.error(err),
                                                     );
                                             }}
+                                            dataTooltip={'Скопироавть номер телефона'}
                                             icon={PhoneIcon}
                                         />
                                         <ButtonIcon
@@ -121,6 +122,7 @@ class ApplicantProfile extends ReactsComponent<
                                                         console.error(err),
                                                     );
                                             }}
+                                            dataTooltip={'Скопироавть email'}
                                             icon={MailIcon}
                                         />
                                     </div>
@@ -154,7 +156,7 @@ class ApplicantProfile extends ReactsComponent<
                                             APPLICANT_PATHS.SETTINGS +
                                             this.props.id
                                         }
-                                        content={<Button>Настройки</Button>}
+                                        content={<Button>Редактировать профиль</Button>}
                                     />
                                 }
                             />
