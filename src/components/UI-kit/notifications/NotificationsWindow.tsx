@@ -32,7 +32,7 @@ export default class NotificationWindow extends ReactsComponent<Notification> {
         notificationService.subscribe((message: string) => {
             try {
                 const messageJson = JSON.parse(message)
-                console.log(messageJson)
+                console.log('WS', messageJson)
                 switch (messageJson.type) {
                     case NOTIFICATION_TYPES.APPLY:
                         this.setState(state => ({

@@ -27,7 +27,7 @@ class HeaderProfile extends ReactsComponent<HeaderProps> {
                     className={`flex row w-100 g-40 align-items-center justify-content-end ${styles.auth}`}
                 >
                     {this.props.authorized ? (
-                        <div className={'flex row g-40'}>
+                        <div className={'flex row g-40 align-items-center'}>
                             <NotificationWindow />
                             <HeaderUserInfo
                                 id={this.props.id}
