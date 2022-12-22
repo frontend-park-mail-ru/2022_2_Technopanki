@@ -154,7 +154,7 @@ class VacancyHat extends ReactsComponent<
                                     to={SIGN_UP_PATH}
                                     content={
                                         <ButtonNotActive>
-                                            Зарегестрируйтесь или войдите чтобы
+                                            Зарегистрируйтесь или войдите чтобы
                                             отправить резюме
                                         </ButtonNotActive>
                                     }
