@@ -104,7 +104,7 @@ class VacancySettings extends ReactsComponent<
                                 label={'Название вакансии'}
                                 value={this.props.vacancy.title}
                                 type={'text'}
-                                placeholder={'Название компании'}
+                                placeholder={'Название вакансии'}
                                 name={'title'}
                                 setError={this.validation.setError}
                                 required={true}
