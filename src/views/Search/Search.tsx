@@ -454,6 +454,7 @@ export default class Search extends ReactsComponent<
                                     .map(resume => (
                                         <ResumeCard
                                             id={resume.id.toString()}
+                                            key={resume.id.toString()}
                                             postedByUserID={resume.user_account_id.toString()}
                                             title={resume.title}
                                             description={resume.description}
@@ -478,6 +479,7 @@ export default class Search extends ReactsComponent<
                                 ?.slice(0, this.state.limit)
                                 .map(applicant => (
                                     <ApplicantCard
+                                        key={applicant.id.toString()}
                                         id={applicant.id.toString()}
                                         imgSrc={
                                             IMAGE_URL + applicant.image

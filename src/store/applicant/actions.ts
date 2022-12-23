@@ -38,6 +38,7 @@ export const applicantActions: {
             location: profile.location ?? '',
             dateOfBirth: profile.date_of_birth,
             averageColor: profile.average_color,
+            mailingApproval: profile.mailing_approval
         } as ApplicantProfileType,
     }),
     clear: () => ({

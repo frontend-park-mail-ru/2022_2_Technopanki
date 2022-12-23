@@ -5,7 +5,7 @@ export default class FormCheckbox extends ReactsComponent<{
     checked?: boolean;
     id: string;
     name: string;
-    value?: string;
+    value?: string | boolean;
     children: string;
     onClick?: Function;
 }> {

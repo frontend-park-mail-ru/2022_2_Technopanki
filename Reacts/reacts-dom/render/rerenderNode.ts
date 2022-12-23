@@ -20,7 +20,7 @@ export const rerenderNode = (
     const diff = createDiff(oldNode, newNode);
     if (diff.type !== REPLACE_OPERATION && diff.type !== REMOVE_OPERATION) {
         // @ts-ignore
-        newNode.ref = oldNode.ref;
+        newNode.ref = oldNode?.ref;
     }
     applyDiff(element, diff);
 };

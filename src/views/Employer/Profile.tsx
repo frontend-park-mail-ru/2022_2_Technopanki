@@ -66,39 +66,6 @@ class Profile extends ReactsComponent<
                     profileID={this.props.id}
                     buttons={
                         <div className={'flex flex-wrap row g-16 gm-8'}>
-                            <RenderWithCondition
-                                condition={Boolean(window.navigator.clipboard)}
-                                onSuccess={
-                                    <div className={'flex row g-16'}>
-                                        <ButtonIcon
-                                            onClick={() => {
-                                                window.navigator.clipboard
-                                                    .writeText(this.props.phone)
-                                                    .then(() =>
-                                                        console.log('copied!'),
-                                                    )
-                                                    .catch(err =>
-                                                        console.error(err),
-                                                    );
-                                            }}
-                                            icon={PhoneIcon}
-                                        />
-                                        <ButtonIcon
-                                            onClick={() => {
-                                                window.navigator.clipboard
-                                                    .writeText(this.props.email)
-                                                    .then(() =>
-                                                        console.log('copied!'),
-                                                    )
-                                                    .catch(err =>
-                                                        console.error(err),
-                                                    );
-                                            }}
-                                            icon={MailIcon}
-                                        />
-                                    </div>
-                                }
-                            />
                             {this.props.authorized &&
                             this.props.userType === USER_TYPE.APPLICANT ? (
                                 <a className={''} href={'#vacancies'}>

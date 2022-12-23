@@ -71,7 +71,7 @@ export const SERVER_URLS = {
 
     IMAGE: SERVER_URL + 'api/user/image/',
 
-    NOTIFICATION: SERVER_URL_WEBSOCKET + 'api/notification/',
+    NOTIFICATION: SERVER_URL_WEBSOCKET + 'api/notification/ws/',
     ALL_NOTIFICATIONS: SERVER_URL + 'api/notification/user',
     NOTIFICATIONS_READ: SERVER_URL + 'api/notification/read/',
 

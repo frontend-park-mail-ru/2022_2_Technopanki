@@ -25,6 +25,7 @@ export type EmployerProfile = {
     socialNetworks: EmployerSocialNetworks;
     businessType: string;
     averageColor: string;
+    mailingApproval: boolean;
 };
 
 export type ApplicantProfileType = {
@@ -45,6 +46,7 @@ export type ApplicantProfileType = {
     experience: string;
     socialNetworks: EmployerSocialNetworks;
     averageColor: string;
+    mailingApproval: boolean;
 };
 
 export type ProfileState = EmployerProfile & {

@@ -27,6 +27,7 @@ import {
     validateTitleSymbols,
 } from './settingsValidators';
 import ButtonPrimary from '../../components/UI-kit/buttons/ButtonPrimary';
+import { AuthError } from '../../services/auth/types';
 
 class VacancySettings extends ReactsComponent<
     {
@@ -74,7 +75,10 @@ class VacancySettings extends ReactsComponent<
             vacancyService
                 .getVacancyData(vacancyID)
                 .then(body => dispatch(vacancyActions.updateFromServer(body)))
-                .catch(err => console.error(err));
+                .catch(e => {
+                    dispatch(activateError((e as AuthError).error));
+                    setTimeout(() => dispatch(deactivateError()), 3000);
+                });
         }
     }
 

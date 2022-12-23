@@ -59,11 +59,6 @@ class Resume extends ReactsComponent<ResumeState> {
                             headline={'Опыт работы'}
                             content={this.props.experience}
                         />
-                        <Education
-                            university={this.props.university}
-                            faculty={this.props.faculty}
-                            status={this.props.status}
-                        />
                     </div>
                     <div className={'col-12 col-md-3'}>
                         <ResumeSidebar creatorID={this.props.postedByUserID} />

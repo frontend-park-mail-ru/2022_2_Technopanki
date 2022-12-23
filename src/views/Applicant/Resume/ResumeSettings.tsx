@@ -19,10 +19,13 @@ import { useValidation } from '../../../utils/validation/formValidation';
 import {
     validateTitleLength,
     validateTitleSymbols,
-} from '../../Vacancy/settingsValidators';
+} from './settingsValidators';
 import RenderWithCondition from '../../../components/RenderWithCondition';
 import { RESUME_PATHS } from '../../../utils/routerConstants';
 import FormInputGroup from '../../../components/UI-kit/forms/formInputs/FormInputGroup';
+import { activateError, deactivateError } from '../../../store/errors/actions';
+import { AuthError } from '../../../services/auth/types';
+import ErrorPopup from '../../../components/ErrorPopup/ErrorPopup';
 
 class ResumeSettings extends ReactsComponent<
     ResumeState & { isNew: boolean },
@@ -63,7 +66,10 @@ class ResumeSettings extends ReactsComponent<
                 .then(() => {
                     navigator.goBack();
                 })
-                .catch(err => console.error(err));
+                .catch(e => {
+                    dispatch(activateError((e as AuthError).error));
+                    setTimeout(() => dispatch(deactivateError()), 3000);
+                });
         }
     };
 
@@ -82,7 +88,11 @@ class ResumeSettings extends ReactsComponent<
 
         resumeService
             .deleteResume(resumeID as string)
-            .then(() => navigator.navigate(`/applicant/${creatorID}`));
+            .then(() => navigator.navigate(`/applicant/${creatorID}`))
+            .catch(e => {
+                dispatch(activateError((e as AuthError).error));
+                setTimeout(() => dispatch(deactivateError()), 3000);
+            });
     }
 
     componentDidMount() {
@@ -92,6 +102,7 @@ class ResumeSettings extends ReactsComponent<
     render() {
         return (
             <div className={'screen-responsive relative'}>
+                <ErrorPopup />
                 <Header />
                 <div class={'column g-24'}>
                     <div className={`col-12 mt-header`}>

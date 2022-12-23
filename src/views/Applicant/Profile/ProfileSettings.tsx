@@ -17,7 +17,7 @@ import navigator from '../../../router/navigator';
 import { applicantProfileService } from '../../../services/applicantService';
 import Footer from '../../../components/UI-kit/footer/Footer';
 import FormFileInput from '../../../components/UI-kit/forms/formInputs/FormFileInput';
-import { authService, USER_TYPE } from '../../../services/auth/authService';
+import { authService } from '../../../services/auth/authService';
 import { userActions } from '../../../store/user/actions';
 import ButtonRed from '../../../components/UI-kit/buttons/ButtonRed';
 import { profileActions } from '../../../store/profile/actions';
@@ -280,7 +280,7 @@ class ApplicantSettings extends ReactsComponent<
                                 )}
                                 validationMode={'oninput'}
                             />
-                            <div className={'col-12'}>
+                            <div className={'col-12 flex g-12'}>
                                 <FormCheckbox
                                     checked={this.props.twoFactor}
                                     name={'twoFactor'}
@@ -288,6 +288,14 @@ class ApplicantSettings extends ReactsComponent<
                                     id={'twoFactor'}
                                 >
                                     Включить двухфакторную авторизацию
+                                </FormCheckbox>
+                                <FormCheckbox
+                                    checked={this.props.mailingApproval}
+                                    name={'mailingApproval'}
+                                    value={this.props.mailingApproval}
+                                    id={'mailingApproval'}
+                                >
+                                    Уведомлять меня о новых вакансиях
                                 </FormCheckbox>
                             </div>
                         </FormItem>
