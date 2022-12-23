@@ -64,14 +64,16 @@ export default class SearchInput extends ReactsComponent<
                                 <div className={'flex row border-tb-light align-items-center justify-content-center p-12'}>
                                     <div className={'flex column justify-content-center'}>
                                         {this.options.map(option => (
-                                            <p
-                                                className={`${styles.dropdown_options}`}
-                                            >
-                                                <Link
-                                                    to={SEARCH_PATHS.SEARCH + option.key}
-                                                    content={option.name}
-                                                />
-                                            </p>
+                                            <Link
+                                                to={SEARCH_PATHS.SEARCH + option.key}
+                                                content={
+                                                    <p
+                                                        className={`${styles.dropdown_options}`}
+                                                    >
+                                                        {option.name}
+                                                    </p>
+                                                }
+                                            />
                                         ))}
                                     </div>
                                 </div>
