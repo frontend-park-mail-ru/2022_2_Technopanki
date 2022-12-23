@@ -84,6 +84,10 @@ class ApplicantProfile extends ReactsComponent<
         this.getDataFromServer();
     }
 
+    componentDidUpdate(): void {
+        console.log('UPDATE IN PROFILE')
+    }
+
     render() {
         return (
             <div className={'screen-responsive flex column g-40'}>
@@ -112,6 +116,7 @@ class ApplicantProfile extends ReactsComponent<
                                                         console.error(err),
                                                     );
                                             }}
+                                            dataTooltip={'Скопироавть номер телефона'}
                                             icon={PhoneIcon}
                                         />
                                         <ButtonIcon
@@ -123,6 +128,7 @@ class ApplicantProfile extends ReactsComponent<
                                                         console.error(err),
                                                     );
                                             }}
+                                            dataTooltip={'Скопироавть email'}
                                             icon={MailIcon}
                                         />
                                     </div>

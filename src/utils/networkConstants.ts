@@ -22,7 +22,6 @@ export const PROFILE_URLS = {
     USER_PREVIEW: (userID: string) => {
         return SERVER_URL + 'api/user/preview/' + userID;
     },
-    NOTIFICATION: SERVER_URL + 'user/notification/:id'
 };
 
 export const VACANCY_URLS = {
