@@ -14,6 +14,7 @@ import ErrorPopup from '../../components/ErrorPopup/ErrorPopup';
 import { profileActions } from '../../store/profile/actions';
 import { employerProfileService } from '../../services/employerProfileService';
 import { ProfileState } from '../../store/profile/types';
+import router from '../../router/navigator';
 
 class Vacancy extends ReactsComponent<
     VacancyState & { profile: ProfileState }
@@ -26,6 +27,10 @@ class Vacancy extends ReactsComponent<
         const vacancyData = await vacancyService.getVacancyData(
             vacancyID as string,
         );
+        if (!vacancyData || (vacancyData as never) as number === 404) {
+            router.navigate('/404');
+        }
+
         const postedByUserID = vacancyData.postedByUserId.toString();
 
         const profileData = await employerProfileService.getProfileData(

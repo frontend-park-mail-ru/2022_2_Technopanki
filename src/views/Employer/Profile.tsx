@@ -23,6 +23,9 @@ import RenderWithCondition from '../../components/RenderWithCondition';
 import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../utils/routerConstants';
 import { vacancyService } from '../../services/vacancy/vacancyService';
 import { USER_TYPE } from '../../services/auth/authService';
+import { activateSuccess, deactivateSuccess } from '../../store/succeses/actions';
+import SuccessPopup from '../../components/SuccessPopup/SuccessPopup';
+import router from '../../router/navigator';
 
 class Profile extends ReactsComponent<
     { userID: string; userType: string; authorized: boolean } & ProfileState,
@@ -38,6 +41,10 @@ class Profile extends ReactsComponent<
         const employerProfile = await employerProfileService.getProfileData(
             employerID,
         );
+        if (!employerProfile || (employerProfile as never) as number === 404) {
+            router.navigate('/404');
+        }
+
         const vacancies = await vacancyService.getAllVacanciesForEmployer(
             employerID,
         );
@@ -53,10 +60,16 @@ class Profile extends ReactsComponent<
         this.getDataFromServer();
     }
 
+    onCopyContacts = () => {
+        dispatch(activateSuccess('Контакт скопирован', ''));
+        setTimeout(() => dispatch(deactivateSuccess()), 3000);
+    }
+
     render() {
         return (
             <div className={'screen-responsive flex column g-40'}>
                 <Header />
+                <SuccessPopup />
                 <ProfileHeader
                     averageColor={this.props.averageColor}
                     bannerSrc={this.props.bannerSrc}
@@ -66,6 +79,35 @@ class Profile extends ReactsComponent<
                     profileID={this.props.id}
                     buttons={
                         <div className={'flex flex-wrap row g-16 gm-8'}>
+                            <RenderWithCondition
+                                condition={Boolean(window.navigator.clipboard)}
+                                onSuccess={
+                                    <div className={'flex row g-16'}>
+                                        <ButtonIcon
+                                            onClick={() => {
+                                                window.navigator.clipboard
+                                                    .writeText(this.props.phone)
+                                                    .then(this.onCopyContacts)
+                                                    .catch(err =>
+                                                        console.error(err),
+                                                    );
+                                            }}
+                                            icon={PhoneIcon}
+                                        />
+                                        <ButtonIcon
+                                            onClick={() => {
+                                                window.navigator.clipboard
+                                                    .writeText(this.props.email)
+                                                    .then(this.onCopyContacts)
+                                                    .catch(err =>
+                                                        console.error(err),
+                                                    );
+                                            }}
+                                            icon={MailIcon}
+                                        />
+                                    </div>
+                                }
+                            />
                             {this.props.authorized &&
                             this.props.userType === USER_TYPE.APPLICANT ? (
                                 <a className={''} href={'#vacancies'}>

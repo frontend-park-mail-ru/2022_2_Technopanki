@@ -26,8 +26,8 @@ export default class SearchFilter extends ReactsComponent<{
 
     render() {
         return (
-            <form id={'searchFilters'} onSubmit={this.props.onSubmit}>
-                <div className={'flex column g-24'}>
+            <form id={'searchFilters'} onSubmit={this.props.onSubmit} className={''}>
+                <div className={`flex column g-24 ${styles.filter}`}>
                     {this.props.filters.map(filter => (
                         <div key={filter.name} className={'flex column g-12'}>
                             <p>{filter.header}</p>
@@ -66,9 +66,11 @@ export default class SearchFilter extends ReactsComponent<{
                             )}
                         </div>
                     ))}
-                    <ButtonPrimaryBlue type={'submit'}>
-                        Применить
-                    </ButtonPrimaryBlue>
+
+                        <ButtonPrimaryBlue type={'submit'}>
+                            Применить
+                        </ButtonPrimaryBlue>
+
                 </div>
             </form>
         );

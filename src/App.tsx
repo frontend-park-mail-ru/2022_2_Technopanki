@@ -7,7 +7,7 @@ import { authService, USER_TYPE } from './services/auth/authService';
 import { dispatch } from './store';
 import StartPage from './views/StartPage/StartPage';
 import { userActions } from './store/user/actions';
-import Profile from './views/Employer/Profile';
+import Header from './components/UI-kit/header/Header';
 
 class App extends ReactsComponent {
     render() {
@@ -18,8 +18,13 @@ class App extends ReactsComponent {
 class NotFound extends ReactsComponent {
     render() {
         return (
-            <p>not found</p>
-        )
+            <div className={'screen-responsive relative hidden g-24'}>
+                <Header />
+                <div className="flex justify-content-center align-items-center w-100w">
+                    <h1 className="color-400">Oops... 404</h1>
+                </div>
+            </div>
+        );
     }
 }
 
@@ -28,7 +33,10 @@ document.querySelector('#root').innerHTML = '';
 router.disableScrollRestoration();
 
 router.addNewPath({ path: '/', validator: (url: string) => url === '/' }, App);
-router.addNewPath({ path: '*', validator: (url: string) => url === '*' }, NotFound);
+router.addNewPath(
+    { path: '/404', validator: (url: string) => url === '/404' },
+    NotFound,
+);
 router.addNewPaths(ROUTER_PATHS);
 
 authService

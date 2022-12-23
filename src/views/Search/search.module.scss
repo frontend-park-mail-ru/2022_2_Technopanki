@@ -140,3 +140,7 @@
   margin-top: calc(var(--header-height) + 40px);
 }
 
+.filter_span {
+  grid-column: span 2;
+}
+

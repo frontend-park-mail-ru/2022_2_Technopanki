@@ -414,7 +414,7 @@ export default class Search extends ReactsComponent<
                     <div
                         className={'columns justify-content-space-between g-24'}
                     >
-                        <div className={'flex row '}>
+                        <div className={styles.filter_span}>
                             <SearchFilter
                                 filters={this.state.filters}
                                 onSubmit={this.onSubmitFilters.bind(this)}
