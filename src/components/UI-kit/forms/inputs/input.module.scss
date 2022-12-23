@@ -106,7 +106,6 @@
   border-radius: var(--border-radius-md);
   @media (max-width: $screen-md) {
     font-size: 14px;
-    padding-left: 150px;
   }
 }
 
@@ -129,6 +128,10 @@
   ::placeholder {
     color: var(--background-700);
   }
+}
+
+.filter_input {
+  width: 172px;
 }
 
 .select {
@@ -162,12 +165,15 @@
 }
 
 .dropdown {
-  width: 172px;
+  width: 100%;
   font-size: 14px;
   color: var(--background-400);
   transition:height 0.3s ease-in-out;
   transition-delay: 0.1s;
   z-index: 2;
+  @media (max-width: $screen-md) {
+    display: none;
+  }
 }
 
 .dropdown_options {
@@ -195,5 +201,8 @@
 .dropdown_button {
   color: var(--background-200);
   padding: var(--padding-12) 0 var(--padding-12) var(--padding-12);
-  width: 146px;
+}
+
+.search {
+  grid-column: span 2;
 }

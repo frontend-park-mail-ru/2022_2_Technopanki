@@ -36,6 +36,7 @@ export const profileReducer: Reducer<ProfileState> = (
                 avatarSrc: IMAGE_URL + action.state.image,
                 size: action.state.company_size?.toString(),
                 averageColor: action.state.average_color,
+                mailingApproval: action.state.mailingApproval
             };
         case PROFILE_ACTION_TYPES.UPDATE_FROM_FORM:
             return {
@@ -51,6 +52,7 @@ export const profileReducer: Reducer<ProfileState> = (
                 phone: action.formData.get('phone'),
                 email: action.formData.get('email'),
                 size: action.formData.get('size')?.toString(),
+                mailingApproval: action.formData.get('mailingApproval')
             };
         case PROFILE_ACTION_TYPES.UPDATE_AVATAR:
             return {

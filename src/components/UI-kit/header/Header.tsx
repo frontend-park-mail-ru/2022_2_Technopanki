@@ -62,30 +62,6 @@ class Header extends ReactsComponent<{ userType: string, id: number }> {
                                 </p>
                             }
                         />
-                        <RenderWithCondition
-                            condition={this.props.userType === 'applicant'}
-                            onSuccess={
-                                <Link
-                                    to={RESUME_PATHS.NEW}
-                                    onClick={() =>
-                                        dispatch(
-                                            resumeActions.clear(
-                                                this.props.id
-                                            ),
-                                        )}
-                                    content={
-                                        <p
-                                            key={'item3'}
-                                            id={'item3'}
-                                            className={styles.item__def}
-                                            onClick={this.setActive}
-                                        >
-                                            Создать резюме
-                                        </p>
-                                    }
-                                />
-                            }
-                        />
                     </div>
                     <HeaderProfile />
                 </div>

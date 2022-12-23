@@ -23,6 +23,9 @@ import RenderWithCondition from '../../components/RenderWithCondition';
 import { EMPLOYER_PATHS, VACANCY_PATHS } from '../../utils/routerConstants';
 import { vacancyService } from '../../services/vacancy/vacancyService';
 import { USER_TYPE } from '../../services/auth/authService';
+import { activateSuccess, deactivateSuccess } from '../../store/succeses/actions';
+import SuccessPopup from '../../components/SuccessPopup/SuccessPopup';
+import router from '../../router/navigator';
 
 class Profile extends ReactsComponent<
     { userID: string; userType: string; authorized: boolean } & ProfileState,
@@ -38,6 +41,10 @@ class Profile extends ReactsComponent<
         const employerProfile = await employerProfileService.getProfileData(
             employerID,
         );
+        if (!employerProfile || (employerProfile as never) as number === 404) {
+            router.navigate('/404');
+        }
+
         const vacancies = await vacancyService.getAllVacanciesForEmployer(
             employerID,
         );
@@ -53,10 +60,16 @@ class Profile extends ReactsComponent<
         this.getDataFromServer();
     }
 
+    onCopyContacts = () => {
+        dispatch(activateSuccess('Контакт скопирован', ''));
+        setTimeout(() => dispatch(deactivateSuccess()), 3000);
+    }
+
     render() {
         return (
             <div className={'screen-responsive flex column g-40'}>
                 <Header />
+                <SuccessPopup />
                 <ProfileHeader
                     averageColor={this.props.averageColor}
                     bannerSrc={this.props.bannerSrc}
@@ -74,9 +87,7 @@ class Profile extends ReactsComponent<
                                             onClick={() => {
                                                 window.navigator.clipboard
                                                     .writeText(this.props.phone)
-                                                    .then(() =>
-                                                        console.log('copied!'),
-                                                    )
+                                                    .then(this.onCopyContacts)
                                                     .catch(err =>
                                                         console.error(err),
                                                     );
@@ -87,9 +98,7 @@ class Profile extends ReactsComponent<
                                             onClick={() => {
                                                 window.navigator.clipboard
                                                     .writeText(this.props.email)
-                                                    .then(() =>
-                                                        console.log('copied!'),
-                                                    )
+                                                    .then(this.onCopyContacts)
                                                     .catch(err =>
                                                         console.error(err),
                                                     );

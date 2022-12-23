@@ -50,7 +50,7 @@ export default class ResumeCard extends ReactsComponent<{
                         alt={'avatar'}
                     />
                     <p>
-                        {this.state.name} {this.state.surname}
+                        {`${this.state.name} ${this.state.surname}`}
                     </p>
                 </div>
                 <div className={`flex column g-4`}>

@@ -19,6 +19,7 @@ import { searchService } from '../../services/searchService';
 import SearchFilterMobile from '../../components/UI-kit/filters/SearchFilterMobile';
 import { IMAGE_URL } from '../../utils/networkConstants';
 import FilterInput from '../../components/UI-kit/forms/inputs/FilterInput';
+import Snow from '../Snow/Snow';
 
 export default class Search extends ReactsComponent<
     {},
@@ -117,14 +118,14 @@ export default class Search extends ReactsComponent<
         ],
 
         applicantFilter: [
-            {
-                header: 'Возраст',
-                type: 'range',
-                rangeMin: '0',
-                rangeMax: '100',
-                name: 'age',
-                value: null,
-            },
+            // {
+            //     header: 'Возраст',
+            //     type: 'range',
+            //     rangeMin: '0',
+            //     rangeMax: '100',
+            //     name: 'age',
+            //     value: null,
+            // },
             {
                 header: 'Город',
                 type: 'input',
@@ -403,6 +404,7 @@ export default class Search extends ReactsComponent<
         return (
             <div>
                 <Header />
+                <Snow />
                 <div
                     className={`flex column g-24 relative screen-responsive ${styles.content}`}
                 >
@@ -412,9 +414,9 @@ export default class Search extends ReactsComponent<
                         onSwitch={this.switchSearchType.bind(this)}
                     />
                     <div
-                        className={'columns justify-content-space-between g-16'}
+                        className={'columns justify-content-space-between g-24'}
                     >
-                        <div className={'flex row '}>
+                        <div className={styles.filter_span}>
                             <SearchFilter
                                 filters={this.state.filters}
                                 onSubmit={this.onSubmitFilters.bind(this)}
@@ -431,18 +433,66 @@ export default class Search extends ReactsComponent<
                         <div
                             className={'col-12 col-md-10 flex column g-16 w-100'}
                         >
-                            <VacancyCard
-                                key={'vacancy.id.toString()'}
-                                id={'vacancy.id.toString()'}
-                                name={'vacancy.title'}
-                                icon={'vacancy.image'}
-                                salary={5000}
-                                currency={'vacancy.currency'}
-                                location={'vacancy.location'}
-                                format={'vacancy.format'}
-                                hours={'vacancy.hours'}
-                                description={'vacancy.description'}
-                            />
+                            {this.state.typeOfSearch === 'vacancy'
+                                ? this.state.vacancies
+                                    ?.slice(0, this.state.limit)
+                                    .map(vacancy => (
+                                        <VacancyCard
+                                            key={vacancy.id.toString()}
+                                            id={vacancy.id.toString()}
+                                            name={vacancy.title}
+                                            icon={vacancy.image}
+                                            salary={vacancy.salary}
+                                            currency={vacancy.currency}
+                                            location={vacancy.location}
+                                            format={vacancy.format}
+                                            hours={vacancy.hours}
+                                            description={vacancy.description}
+                                        />
+                                    ))
+                            : this.state.typeOfSearch === 'resume'
+                                ? this.state.resumes
+                                    ?.slice(0, this.state.limit)
+                                    .map(resume => (
+                                        <ResumeCard
+                                            id={resume.id.toString()}
+                                            key={resume.id.toString()}
+                                            postedByUserID={resume.user_account_id.toString()}
+                                            title={resume.title}
+                                            description={resume.description}
+                                        />
+                                    ))
+                            : this.state.typeOfSearch === 'employer'
+                                ? this.state.employers
+                                    ?.slice(0, this.state.limit)
+                                    .map(employer => (
+                                        <EmployerCard
+                                            id={employer.id.toString()}
+                                            imgSrc={
+                                                IMAGE_URL + employer.image
+                                            }
+                                            companyName={
+                                                employer.company_name
+                                            }
+                                            description={employer.description}
+                                        />
+                                    ))
+                            : this.state.applicants
+                                ?.slice(0, this.state.limit)
+                                .map(applicant => (
+                                    <ApplicantCard
+                                        key={applicant.id.toString()}
+                                        id={applicant.id.toString()}
+                                        imgSrc={
+                                            IMAGE_URL + applicant.image
+                                        }
+                                        name={applicant.applicant_name}
+                                        surname={
+                                            applicant.applicant_surname
+                                        }
+                                        description={applicant.status}
+                                    />
+                                ))}
                             <div className={'w-100'}>
                                 <RenderWithCondition
                                     condition={

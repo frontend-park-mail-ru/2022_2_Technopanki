@@ -28,23 +28,7 @@ export const vacancyReducer: Reducer<VacancyState> = (state, action) => {
             };
         case VACANCY_ACTION_TYPES.UPDATE_FROM_SERVER:
             return {
-                id: action.vacancy.id,
-                postedByUserID: action.vacancy.postedByUserId,
-                jobType: action.vacancy.jobType,
-                title: action.vacancy.title,
-                description: action.vacancy.description,
-                tasks: action.vacancy.tasks,
-                requirements: action.vacancy.requirements,
-                extra: action.vacancy.extra,
-                // Sidebar
-                createdDate: action.vacancy.createdDate,
-                salary: action.vacancy.salary,
-                location: action.vacancy.location,
-                isActive: action.vacancy.isActive,
-                experience: action.vacancy.experience,
-                format: action.vacancy.format,
-                hours: action.vacancy.hours,
-                skills: action.vacancy.skills,
+                ...action.vacancy,
                 isFavorite: state.isFavorite
             };
         case VACANCY_ACTION_TYPES.CLEAR:

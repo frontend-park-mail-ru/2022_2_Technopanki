@@ -74,8 +74,12 @@
   font-weight: 500;
   cursor: pointer;
   height: 100%;
+  width: 100%;
   &:hover {
     box-shadow: var(--shadow-grey-md);
+  }
+  @media (max-width: $screen-md) {
+    display: none;
   }
 }
 
@@ -161,13 +165,9 @@
   }
 }
 
-.long_button_left {
-  height: 32px;
-  background-color: var(--background-0);
-  border: solid;
-  border-radius: 16px 0 0 16px;
-  border-color: var(--background-100);
-  &:focus {
-    color: var(--background-900);
-  }
+.long_button_selected {
+  transition: var(--transition-fast);
+  color: var(--background-0);
+  background-color: var(--background-900);
+  border-color: var(--background-900);
 }

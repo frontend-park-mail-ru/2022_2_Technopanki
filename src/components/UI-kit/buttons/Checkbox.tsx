@@ -33,7 +33,7 @@ export default class CheckBox extends ReactsComponent<{
                 <div name={this.props.name} className={`flex row g-8 align-items-center`}>
                         <input
                             className={`rounded-max ${styles.radio_input}`}
-                            id={this.props.id}
+                            id={this.props.children}
                             type={'radio'}
                             name={this.props.name}
                             value={this.props.children}

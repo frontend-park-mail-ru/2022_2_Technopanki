@@ -44,8 +44,6 @@ class VacancyHat extends ReactsComponent<
     }
 
     toggleFavorites = async () => {
-        console.log(3, this.state.isFavorite);
-
         if (this.props.isFavorite) {
             await vacancyService.removeFromFavorites(
                 this.props.vacancyID,
@@ -59,8 +57,6 @@ class VacancyHat extends ReactsComponent<
         }
 
         dispatch(vacancyActions.setFavorite(!this.props.isFavorite))
-
-        console.log(this.state.isFavorite);
     }
 
     async checkIfFavorite() {
@@ -70,18 +66,14 @@ class VacancyHat extends ReactsComponent<
             vacancyID as string
         );
 
-        console.log('FROM SERVER', vacancyID, check)
-
         return check
     }
 
     componentDidMount() {
-        console.log('1', this.state.isFavorite)
         this.checkIfFavorite()
             .then(check => {
                 dispatch(vacancyActions.setFavorite(check))
         });
-        console.log('AFTER MOUNT', this.props.isFavorite)
     }
 
     render() {
@@ -163,7 +155,7 @@ class VacancyHat extends ReactsComponent<
                                     to={SIGN_UP_PATH}
                                     content={
                                         <ButtonNotActive>
-                                            Зарегестрируйтесь или войдите чтобы
+                                            Зарегистрируйтесь или войдите чтобы
                                             отправить резюме
                                         </ButtonNotActive>
                                     }

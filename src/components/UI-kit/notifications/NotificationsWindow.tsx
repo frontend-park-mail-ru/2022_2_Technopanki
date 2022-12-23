@@ -4,7 +4,6 @@ import Svg from '../../Svg';
 import Dropdown from '../dropdown/Dropdown';
 import styles from './notifications.module.scss'
 import NewNotification from '../../../static/icons/new_notificantion.svg'
-import Link from '../../Link';
 import TextLink from '../../TextLink/TextLink'
 import NotificationCard from './NotificationCard';
 import { Notification } from '../../../store/notification/type';
@@ -99,6 +98,8 @@ export default class NotificationWindow extends ReactsComponent<Notification> {
                                                 type={n.type}
                                                 resumeTitle={n.title}
                                                 resumeID={n.object_id}
+                                                companyName={n.company_name}
+                                                companyID={n.company_id}
                                                 isWatched={n.is_viewed}
                                             />
                                         )

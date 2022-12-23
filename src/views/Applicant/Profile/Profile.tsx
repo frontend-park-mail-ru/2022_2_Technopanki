@@ -20,10 +20,11 @@ import RenderWithCondition from '../../../components/RenderWithCondition';
 import { ResumePreviewResponse } from '../../../services/resume/types';
 import { ApplicantProfileType } from '../../../store/profile/types';
 import LongButton from '../../../components/UI-kit/buttons/LongButton';
-import * as stream from 'stream';
 import { vacancyService } from '../../../services/vacancy/vacancyService';
 import VacancyCard, { VacancyCardPropsType } from '../../../components/UI-kit/searchCards/VacancyCard';
-
+import SuccessPopup from '../../../components/SuccessPopup/SuccessPopup';
+import { activateSuccess, deactivateSuccess } from '../../../store/succeses/actions';
+import router from '../../../router/navigator';
 
 const PAGE_TYPE = {
     VACANCIES: 'vacancies',
@@ -45,6 +46,9 @@ class ApplicantProfile extends ReactsComponent<
         const applicantBody = await applicantProfileService.getApplicantData(
             applicantID as string,
         );
+        if (!applicantBody || (applicantBody as never) as number === 404) {
+            router.navigate('/404');
+        }
 
         const resumeList = await applicantProfileService.getResumeList(
             applicantID as string,
@@ -57,7 +61,7 @@ class ApplicantProfile extends ReactsComponent<
         this.setState(state => ({ ...state, vacancies: vacancyList.data }));
     }
 
-    switchToFavorites = () => {
+    switchToResumes = () => {
         this.setState(state => ({
             ...state,
             page: PAGE_TYPE.RESUMES,
@@ -69,6 +73,11 @@ class ApplicantProfile extends ReactsComponent<
             ...state,
             page: PAGE_TYPE.VACANCIES,
         }))
+    }
+
+    onCopyContacts = () => {
+        dispatch(activateSuccess('Контакт скопирован', ''));
+        setTimeout(() => dispatch(deactivateSuccess()), 3000);
     }
 
     componentDidMount() {
@@ -83,6 +92,7 @@ class ApplicantProfile extends ReactsComponent<
         return (
             <div className={'screen-responsive flex column g-40'}>
                 <Header />
+                <SuccessPopup />
                 <ProfileHeader
                     bannerSrc={this.props.averageColor}
                     averageColor={this.props.averageColor}
@@ -101,9 +111,7 @@ class ApplicantProfile extends ReactsComponent<
                                             onClick={() => {
                                                 window.navigator.clipboard
                                                     .writeText(this.props.phone)
-                                                    .then(() =>
-                                                        alert('copied!'),
-                                                    )
+                                                    .then(this.onCopyContacts)
                                                     .catch(err =>
                                                         console.error(err),
                                                     );
@@ -115,9 +123,7 @@ class ApplicantProfile extends ReactsComponent<
                                             onClick={() => {
                                                 window.navigator.clipboard
                                                     .writeText(this.props.email)
-                                                    .then(() =>
-                                                        alert('copied!'),
-                                                    )
+                                                    .then(this.onCopyContacts)
                                                     .catch(err =>
                                                         console.error(err),
                                                     );
@@ -172,7 +178,7 @@ class ApplicantProfile extends ReactsComponent<
                                             id={'myResumes'}
                                             direction={'left'}
                                             content={'Мои резюме'}
-                                            onClick={this.switchToFavorites.bind(this)}
+                                            onClick={this.switchToResumes.bind(this)}
                                         />
                                         <LongButton
                                             id={'myFeatured'}
@@ -183,6 +189,16 @@ class ApplicantProfile extends ReactsComponent<
                                     </div> : null
                                 }
                             <div className={`column g-24 ${this.state.page === PAGE_TYPE.RESUMES ? 'none' : 'flex'}`}>
+                                <RenderWithCondition
+                                    condition={this.state.vacancies.length === 0}
+                                    onSuccess={
+                                        <div className={'flex justify-content-center color-300'}>
+                                            <h5>
+                                                У вас пока нет избранных вакансий
+                                            </h5>
+                                        </div>
+                                    }
+                                />
                                 {this.state.vacancies.map(vacancy => (
                                     <VacancyCard
                                         key={vacancy.id.toString()}
@@ -199,6 +215,16 @@ class ApplicantProfile extends ReactsComponent<
                                 ))}
                             </div>
                             <div className={this.state.page === PAGE_TYPE.RESUMES ? 'block' : 'none'}>
+                                <RenderWithCondition
+                                    condition={this.state.resume.length === 0}
+                                    onSuccess={
+                                        <div className={'flex justify-content-center color-300'}>
+                                            <h5>
+                                                У вас пока нет резюме
+                                            </h5>
+                                        </div>
+                                    }
+                                />
                                 <ResumeList resume={this.state.resume} />
                             </div>
                         </div>

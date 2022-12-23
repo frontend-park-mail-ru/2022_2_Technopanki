@@ -24,6 +24,7 @@ export default class FormTextarea extends ReactsComponent<FormInputProps> {
                 <label className={`${styles.label}`} for={this.props.id}>
                     {this.props.label}
                 </label>
+                <p className={`font-size-12 color-400 ${this.props.required ? 'block' : 'none'}`}>Обязательное поле</p>
                 <textarea
                     className={`${styles.input} ${styles.textarea}`}
                     {...{

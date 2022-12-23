@@ -275,14 +275,24 @@ class ProfileSettingsComponent extends ReactsComponent<
                                 required={true}
                             />
                         </FormItem>
-                        <FormCheckbox
-                            checked={this.props.twoFactor}
-                            name={'twoFactor'}
-                            value={'twoFactor'}
-                            id={'twoFactor'}
-                        >
-                            Включить двухфакторную авторизацию
-                        </FormCheckbox>
+                        <div className="col-12">
+                            <FormCheckbox
+                                checked={this.props.twoFactor}
+                                name={'twoFactor'}
+                                value={'twoFactor'}
+                                id={'twoFactor'}
+                            >
+                                Включить двухфакторную авторизацию
+                            </FormCheckbox>
+                            <FormCheckbox
+                                checked={this.props.mailingApproval}
+                                name={'mailingApproval'}
+                                value={this.props.mailingApproval}
+                                id={'mailingApproval'}
+                            >
+                                Уведомлять меня о новых вакансиях
+                            </FormCheckbox>
+                        </div>
                         <div>
                             <ButtonPrimary type={'submit'}>
                                 Сохранить

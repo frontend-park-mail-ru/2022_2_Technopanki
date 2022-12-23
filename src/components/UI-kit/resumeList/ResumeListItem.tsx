@@ -90,12 +90,12 @@ export default class ResumeListItem extends ReactsComponent<ResumeListItemPropsT
                         <Link
                             to={RESUME_PATHS.INDEX + this.props.resume_id}
                             content={
-                                <p key={'name'}>
+                                <p key={'name'} className={'color-600'}>
                                     {this.props.name} {this.props.surname}
                                 </p>
                             }
                         />
-                        <p key={'title'}>{this.props.title}</p>
+                        <p key={'title'} className={'bold'}>{this.props.title}</p>
                     </div>
                 </div>
                 <div

@@ -1,5 +1,5 @@
 import { Action } from '../../../Fluxs/types/action';
-import { ApplicantProfileType, EmployerProfile, ProfileState } from './types';
+import { EmployerProfile } from './types';
 import { EmployerResponse } from '../../services/auth/types';
 import { USER_TYPE } from '../../services/auth/authService';
 import { IMAGE_URL } from '../../utils/networkConstants';
@@ -49,6 +49,7 @@ export const profileActions: {
             socialNetworks: [],
             businessType: serverState.business_type,
             averageColor: serverState.average_color,
+            mailingApproval: serverState.mailing_approval
         } as EmployerProfile,
     }),
     update: (newState: { [key: string]: any }) => ({

@@ -52,78 +52,82 @@ export default class SearchInput extends ReactsComponent<
 
     render() {
         return (
-            <div className={'flex row g-24 relative'}>
-                <DropdownMenu
-                    hidden={
-                        <div
-                            className={
-                                `flex hidden column g-0 background-0 rounded-md shadow-md ${styles.dropdown}`
-                            }
-                        >
-                            <div className={'flex row border-tb-light align-items-center justify-content-center p-12'}>
-                                <div className={'flex column justify-content-center'}>
-                                    {this.options.map(option => (
-                                        <p
-                                            className={`${styles.dropdown_options}`}
-                                        >
+            <div className={'grid columns g-24 relative'}>
+                <div className={styles.search}>
+                    <DropdownMenu
+                        hidden={
+                            <div
+                                className={
+                                    `flex hidden column g-0 background-0 rounded-md shadow-md ${styles.dropdown}`
+                                }
+                            >
+                                <div className={'flex row border-tb-light align-items-center justify-content-center p-12'}>
+                                    <div className={'flex column justify-content-center'}>
+                                        {this.options.map(option => (
                                             <Link
                                                 to={SEARCH_PATHS.SEARCH + option.key}
-                                                content={option.name}
+                                                content={
+                                                    <p
+                                                        className={`${styles.dropdown_options}`}
+                                                    >
+                                                        {option.name}
+                                                    </p>
+                                                }
                                             />
-                                        </p>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    }
-                    content={
-                        <SearchDropdownButton
-                            onClick={this.handleMenu}
-                        >
-                            <div className={`flex row g-8 align-items-center justify-content-center ${styles.dropdown_button}`}>
-                                <p
-                                    id={'searchOption'}
-                                    className={`cursor-pointer`}
-                                >
-                                    {
-                                        this.options.map(option => {
-                                            if (option.key === location.pathname.split('/').at(-1))
-                                                return option.name
-                                        })
+                        }
+                        content={
+                            <SearchDropdownButton
+                                onClick={this.handleMenu}
+                            >
+                                <div className={`flex row g-8 align-items-center justify-content-center w-100 ${styles.dropdown_button}`}>
+                                    <p
+                                        id={'searchOption'}
+                                        className={`cursor-pointer`}
+                                    >
+                                        {
+                                            this.options.map(option => {
+                                                if (option.key === location.pathname.split('/').at(-1))
+                                                    return option.name
+                                            })
+                                        }
+                                    </p>
+                                    {this.state.isOpen
+                                        ? (
+                                            <Svg
+                                                src={SearchArrowUp}
+                                                height={6}
+                                            />
+                                        ) : (
+                                            <Svg
+                                                src={SearchArrow}
+                                                height={6}
+                                            />
+                                        )
                                     }
-                                </p>
-                                {this.state.isOpen
-                                    ? (
-                                        <Svg
-                                            src={SearchArrowUp}
-                                            height={6}
-                                        />
-                                    ) : (
-                                        <Svg
-                                            src={SearchArrow}
-                                            height={6}
-                                        />
-                                    )
-                                }
-                            </div>
-                        </SearchDropdownButton>
-                    }
-                    direction={'left'}
-                    isOpen={this.state.isOpen}
-                />
-                <form onSubmit={this.props.onSubmitSearch}>
-                    <div>
+                                </div>
+                            </SearchDropdownButton>
+                        }
+                        direction={'left'}
+                        isOpen={this.state.isOpen}
+                    />
+                </div>
+                <form onSubmit={this.props.onSubmitSearch} className={'col-12 col-md-10'}>
+
                         <div
                             className={`cursor-pointer absolute ${styles.icon}`}
                             dangerouslySetInnerHTML={{ __html: Loupe }}
                         />
                         <input
                             id={'search'}
-                            className={`w-75 absolute ${styles.input} ${styles.search_input}`}
+                            className={`col-12 col-md-10 w-100 ${styles.input} ${styles.search_input}`}
                             type={'text'}
                             placeholder={'Поиск...'}
                         />
-                    </div>
+
                 </form>
             </div>
         );

@@ -73,7 +73,7 @@ class VacancyResponses extends ReactsComponent<
                         <h6>Отклики на вакансию</h6>
                         <RenderWithCondition
                             condition={
-                                this.props.userID === this.props.postedByUserID
+                                this.props.userID == this.props.postedByUserID
                             }
                             onSuccess={
                                 <ResumeList resume={this.state.responses} />

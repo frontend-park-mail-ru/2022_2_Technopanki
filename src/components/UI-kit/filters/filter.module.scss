@@ -1,3 +1,11 @@
+@import '../../../styles/screens';
+
+.filter {
+  @media (max-width: $screen-md) {
+    display: none;
+  }
+}
+
 .filter_body {
   width: max-content;
 }
@@ -26,6 +34,10 @@
   background-color: var(--background-0);
 }
 
+.filter_btn {
+  width: 172px;
+}
+
 .filter-button__mobile {
   background: none;
   border: none;
@@ -42,4 +54,8 @@
     background-color: var(--background-50);
     border-radius: var(--border-radius-md);
   }
+}
+
+.submit_button {
+  width: 164px;
 }

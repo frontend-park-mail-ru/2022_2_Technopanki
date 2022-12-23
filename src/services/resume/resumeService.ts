@@ -78,7 +78,7 @@ export const resumeService: {
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
-                    throw response.status;
+                    throw response.body;
                 }
 
                 return response.body;
@@ -126,7 +126,7 @@ export const resumeService: {
 
     downloadResume: async (resumeID: string) => {
         return await network
-            .GET(SERVER_URLS.DOWNLOAD_RESUME + resumeID + '?style=default', {
+            .GET(SERVER_URLS.RESUME_PDF + resumeID + '?style=default', {
                 'Content-Type': 'application/pdf',
             })
             .then(response => response.body.blob())
@@ -138,13 +138,13 @@ export const resumeService: {
                   'download',
                   `resume.pdf`,
                 );
-            
+
                 // Append to html link element page
                 document.body.appendChild(link);
-            
+
                 // Start download
                 link.click();
-            
+
                 // Clean up and remove the link
                 link.parentNode.removeChild(link);
             })

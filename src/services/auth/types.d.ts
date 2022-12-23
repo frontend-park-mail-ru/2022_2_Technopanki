@@ -21,6 +21,7 @@ export type ApplicantResponse = {
     location: string | undefined;
     experience: string | null;
     average_color: string;
+    mailing_approcal: boolean;
 };
 
 export type EmployerResponse = {
@@ -45,6 +46,7 @@ export type EmployerResponse = {
     business_type: string;
     location: string;
     average_color: string;
+    mailing_approcal: boolean;
 };
 
 export type SignInResponse = ApplicantResponse & EmployerResponse;

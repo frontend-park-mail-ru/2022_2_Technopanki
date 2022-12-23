@@ -25,6 +25,7 @@ export const defaultProfileState: ProfileState = {
         twitter: undefined,
         instagram: undefined,
     },
+    mailingApproval: false,
 };
 
 export const profileStore = new Store(profileReducer, defaultProfileState);
