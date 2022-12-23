@@ -404,7 +404,11 @@ export default class Search extends ReactsComponent<
         return (
             <div>
                 <Header />
-                <Snow />
+                <div
+                    className={'absolute top'}
+                >
+                    <Snow />
+                </div>
                 <div
                     className={`flex column g-24 relative screen-responsive ${styles.content}`}
                 >
