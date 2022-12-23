@@ -61,13 +61,15 @@ class Resume extends ReactsComponent<
                                 );
                             })
                             .catch(err => {
-                                if (err === 400) {
+                                if (err === 500) {
                                     dispatch(
                                         activateError(
                                             'Вы уже откликнулись на эту вакансию',
                                             'Откликаться более одного раза на одну вакансию нельзя',
                                         ),
                                     );
+                                } else if (err) {
+
                                 } else {
                                     dispatch(
                                         activateError(

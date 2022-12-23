@@ -9,7 +9,6 @@ export default class CancelSaveButtons extends ReactsComponent<{
     render() {
         return (
             <div className={'flex row g-12'}>
-                <Button onClick={this.props.onCancel}>Пропустить</Button>
                 <ButtonPrimary onClick={this.props.onSave}>
                     Сохранить
                 </ButtonPrimary>

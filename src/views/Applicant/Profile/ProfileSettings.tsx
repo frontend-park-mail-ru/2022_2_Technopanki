@@ -307,7 +307,6 @@ class ApplicantSettings extends ReactsComponent<
                     </Form>
                 </div>
                 <div className={'flex row g-16 mt-40'}>
-                    <Button onClick={navigator.goBack}>Пропустить</Button>
                     <ButtonRed onClick={this.logout}>Выйти</ButtonRed>
                 </div>
                 <Footer />

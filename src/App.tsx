@@ -20,7 +20,7 @@ class NotFound extends ReactsComponent {
         return (
             <div className={'screen-responsive relative hidden g-24'}>
                 <Header />
-                <div className="flex justify-content-center align-items-center w-100w">
+                <div className="flex justify-content-center align-items-center w-100v h-100v">
                     <h1 className="color-400">Oops... 404</h1>
                 </div>
             </div>
@@ -61,14 +61,14 @@ authService
         router.navigate(location.pathname);
     });
 
-// if ('serviceWorker' in navigator) {
-//     navigator.serviceWorker.register('https://jobflow.su/sw.js').then(() =>
-//         navigator.serviceWorker.ready
-//             .then(worker => {
-//                 worker.active;
-//             })
-//             .catch(err => console.error(err)),
-//     );
-// }
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('https://jobflow.su/sw.js').then(() =>
+        navigator.serviceWorker.ready
+            .then(worker => {
+                worker.active;
+            })
+            .catch(err => console.error(err)),
+    );
+}
 
 setTheme();
