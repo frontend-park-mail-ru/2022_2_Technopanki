@@ -39,7 +39,7 @@ export default class DropdownMenu extends ReactsComponent<
                 {this.props.isOpen ? (
                     <div key={'hidden'} className={'relative cursor-default'}>
                         <div
-                            className={`absolute ${
+                            className={`absolute w-100 ${
                                 this.state.isOpen
                                     ? `flex-${this.props.direction}`
                                     : 'none'

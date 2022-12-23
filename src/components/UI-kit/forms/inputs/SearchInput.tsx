@@ -53,7 +53,7 @@ export default class SearchInput extends ReactsComponent<
     render() {
         return (
             <div className={'grid columns g-24 relative'}>
-                <div className={'col-md-2'}>
+                <div className={styles.search}>
                     <DropdownMenu
                         hidden={
                             <div
@@ -83,7 +83,7 @@ export default class SearchInput extends ReactsComponent<
                             <SearchDropdownButton
                                 onClick={this.handleMenu}
                             >
-                                <div className={`flex row g-8 align-items-center justify-content-center ${styles.dropdown_button}`}>
+                                <div className={`flex row g-8 align-items-center justify-content-center w-100 ${styles.dropdown_button}`}>
                                     <p
                                         id={'searchOption'}
                                         className={`cursor-pointer`}

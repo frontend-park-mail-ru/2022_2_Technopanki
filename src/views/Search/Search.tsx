@@ -19,6 +19,7 @@ import { searchService } from '../../services/searchService';
 import SearchFilterMobile from '../../components/UI-kit/filters/SearchFilterMobile';
 import { IMAGE_URL } from '../../utils/networkConstants';
 import FilterInput from '../../components/UI-kit/forms/inputs/FilterInput';
+import Snow from '../Snow/Snow';
 
 export default class Search extends ReactsComponent<
     {},
@@ -403,6 +404,7 @@ export default class Search extends ReactsComponent<
         return (
             <div>
                 <Header />
+                <Snow />
                 <div
                     className={`flex column g-24 relative screen-responsive ${styles.content}`}
                 >

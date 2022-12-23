@@ -74,8 +74,12 @@
   font-weight: 500;
   cursor: pointer;
   height: 100%;
+  width: 100%;
   &:hover {
     box-shadow: var(--shadow-grey-md);
+  }
+  @media (max-width: $screen-md) {
+    display: none;
   }
 }
 
