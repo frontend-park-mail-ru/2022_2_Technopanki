@@ -186,7 +186,7 @@ class ApplicantProfile extends ReactsComponent<
                                     onSuccess={
                                         <div className={'flex justify-content-center color-300'}>
                                             <h5>
-                                                У вас пока нет вакансий
+                                                У вас пока нет избранных вакансий
                                             </h5>
                                         </div>
                                     }
