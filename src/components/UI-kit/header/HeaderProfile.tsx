@@ -2,13 +2,14 @@ import styles from './header.module.scss';
 import { toggleTheme } from '../../../utils/toggleTheme';
 import Link from '../../Link/Link';
 import HeaderModal from './HeaderModal';
-import { userConnect } from '../../../store';
+import { dispatch, userConnect } from '../../../store';
 import { UserState } from '../../../store/user/types';
 import HeaderUserInfo from './HeaderUserInfo';
 import { SIGN_IN_PATH, SIGN_UP_PATH } from '../../../utils/routerConstants';
 import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import { Notification } from '../../../store/notification/type';
 import NotificationWindow from '../notifications/NotificationsWindow';
+import { activateSuccess, deactivateSuccess } from '../../../store/succeses/actions';
 
 type HeaderProps = {
     id: string;
