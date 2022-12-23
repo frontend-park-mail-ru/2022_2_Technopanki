@@ -56,12 +56,13 @@ export const applicantProfileService: Service = {
                     email: formData.get('email'),
                     password: formData.get('password'),
                     two_factor_sign_in: Boolean(formData.get('twoFactor')),
+                    mailing_approval: Boolean(formData.get('mailingApproval'))
                 }),
             )
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
-                    throw response.status;
+                    throw response.body;
                 }
 
                 return response;
@@ -118,7 +119,7 @@ export const applicantProfileService: Service = {
             )
             .then(response => {
                 if (response.status > 399) {
-                    throw response.status;
+                    throw response.body;
                 }
 
                 return response.body;

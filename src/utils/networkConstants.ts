@@ -1,6 +1,6 @@
-export const FRONT_URL = 'http://localhost:8000/';
-export const SERVER_URL = 'http://localhost:8080/';
-export const SERVER_URL_WEBSOCKET = 'ws://localhost:8080/';
+export const FRONT_URL = 'https://jobflow.su/';
+export const SERVER_URL = 'https://jobflow.su/';
+export const SERVER_URL_WEBSOCKET = 'wss://jobflow.su/';
 export const IMAGE_URL = FRONT_URL + 'image/';
 
 export const USER_URLS = {
@@ -22,7 +22,6 @@ export const PROFILE_URLS = {
     USER_PREVIEW: (userID: string) => {
         return SERVER_URL + 'api/user/preview/' + userID;
     },
-    NOTIFICATION: SERVER_URL + 'user/notification/:id'
 };
 
 export const VACANCY_URLS = {
@@ -71,7 +70,7 @@ export const SERVER_URLS = {
 
     IMAGE: SERVER_URL + 'api/user/image/',
 
-    NOTIFICATION: SERVER_URL_WEBSOCKET + 'api/notification/',
+    NOTIFICATION: SERVER_URL_WEBSOCKET + 'api/notification/ws/',
     ALL_NOTIFICATIONS: SERVER_URL + 'api/notification/user',
     NOTIFICATIONS_READ: SERVER_URL + 'api/notification/read/',
 

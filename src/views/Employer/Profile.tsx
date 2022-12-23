@@ -25,6 +25,7 @@ import { vacancyService } from '../../services/vacancy/vacancyService';
 import { USER_TYPE } from '../../services/auth/authService';
 import { activateSuccess, deactivateSuccess } from '../../store/succeses/actions';
 import SuccessPopup from '../../components/SuccessPopup/SuccessPopup';
+import router from '../../router/navigator';
 
 class Profile extends ReactsComponent<
     { userID: string; userType: string; authorized: boolean } & ProfileState,
@@ -40,6 +41,10 @@ class Profile extends ReactsComponent<
         const employerProfile = await employerProfileService.getProfileData(
             employerID,
         );
+        if (!employerProfile || (employerProfile as never) as number === 404) {
+            router.navigate('/404');
+        }
+
         const vacancies = await vacancyService.getAllVacanciesForEmployer(
             employerID,
         );

@@ -78,7 +78,7 @@ export const resumeService: {
             .then(response => {
                 dispatch(stopLoading());
                 if (response.status > 399) {
-                    throw response.status;
+                    throw response.body;
                 }
 
                 return response.body;

@@ -33,9 +33,10 @@ class Navigator {
     }
 
     setFallback(fallbackPath: string, FallbackComponent: Function) {
-        this.fallback = { path: '/fallback', callback: () => {} };
-        this.fallback.path = fallbackPath;
-        this.fallback.callback = () => this.root.render(<FallbackComponent />);
+        this.fallback = {
+            path: fallbackPath,
+            callback: () => this.root.render(<FallbackComponent />),
+        };
     }
 
     addNewPath(path: PathType, Component: Function) {
@@ -60,16 +61,30 @@ class Navigator {
         }
 
         const url = this.urls.find(url => url.validator(to));
+        console.log('asd');
 
-        if (url) {
-            this.router.navigate(
+        try {
+            if (url) {
+                this.router.navigate(
+                    // @ts-ignore we checked for
+                    { ...this.navMap.get(url.path), options: { pop: pop } },
+                    to.slice(url.path.length, to.length),
+                );
+            } else {
+                console.log(this.navMap.get('/404'));
                 // @ts-ignore we checked for
-                { ...this.navMap.get(url.path), options: { pop: pop } },
-                to.slice(url.path.length, to.length),
-            );
-        } else {
+                this.router.navigate(
+                    { ...this.navMap.get('/404'), options: { pop: pop } },
+                    '',
+                );
+            }
+        } catch {
+            console.log(this.navMap.get('/404'));
             // @ts-ignore we checked for
-            this.router.navigate(this.fallback);
+            this.router.navigate(
+                { ...this.navMap.get('/404'), options: { pop: pop } },
+                '',
+            );
         }
 
         this.prevUrl = to;
