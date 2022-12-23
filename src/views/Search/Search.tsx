@@ -405,11 +405,6 @@ export default class Search extends ReactsComponent<
             <div>
                 <Header />
                 <div
-                    className={'absolute top'}
-                >
-                    <Snow />
-                </div>
-                <div
                     className={`flex column g-24 relative screen-responsive ${styles.content}`}
                 >
                     <h3 className={'text-align-center'}>Поиск</h3>

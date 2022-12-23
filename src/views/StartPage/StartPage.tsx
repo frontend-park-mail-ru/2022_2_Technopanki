@@ -14,6 +14,7 @@ import { ReactsComponent } from '../../../Reacts/reacts/src/Component';
 import { userConnect } from '../../store';
 import { UserState } from '../../store/user/types';
 import VacancyCard from '../../components/UI-kit/searchCards/VacancyCard';
+import Snow from '../Snow/Snow';
 
 class StartPage extends ReactsComponent<UserState> {
     render() {
@@ -24,6 +25,11 @@ class StartPage extends ReactsComponent<UserState> {
                 }
             >
                 <Header />
+                <div
+                    className={'absolute top'}
+                >
+                    <Snow />
+                </div>
                 <div
                     className={
                         'col-md-6 col-12 h-100vh justify-content-center flex column g-32'

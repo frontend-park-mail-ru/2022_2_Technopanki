@@ -18,7 +18,7 @@ export default class Svg extends ReactsComponent<{
                 dangerouslySetInnerHTML={{
                     __html: this.props.src,
                 }}
-            ></div>
+            />
         );
     }
 }

@@ -2,6 +2,7 @@ import { ReactsComponent } from '../../../../Reacts/reacts/src/Component';
 import styles from './button.module.scss';
 import { ReactsComponentNode } from '../../../../Reacts/shared/types/node';
 import DataTooltip from '../dataTooltip/DataTooltip';
+import Svg from '../../Svg';
 
 export default class ButtonIcon extends ReactsComponent<{
     onClick?: Function;
@@ -26,13 +27,12 @@ export default class ButtonIcon extends ReactsComponent<{
                     onMouseOver={this.toggleTooltip}
                     onMouseLeave={this.toggleTooltip}
                 >
-                    <div
-                        className={styles['btn-icon']}
-                        dangerouslySetInnerHTML={{
-                            __html: this.props.icon,
-                        }}
+                    <Svg
+                        src={this.props.icon}
+                        height={20}
+                        onClick={this.props.onClick}
                     />
-                    <p>{this.props.children ? this.props.children : ''}</p>
+                    <p onClick={this.props.onClick}>{this.props.children ? this.props.children : ''}</p>
                 </button>
             </div>
         );
