@@ -117,14 +117,14 @@ export default class Search extends ReactsComponent<
         ],
 
         applicantFilter: [
-            {
-                header: 'Возраст',
-                type: 'range',
-                rangeMin: '0',
-                rangeMax: '100',
-                name: 'age',
-                value: null,
-            },
+            // {
+            //     header: 'Возраст',
+            //     type: 'range',
+            //     rangeMin: '0',
+            //     rangeMax: '100',
+            //     name: 'age',
+            //     value: null,
+            // },
             {
                 header: 'Город',
                 type: 'input',
