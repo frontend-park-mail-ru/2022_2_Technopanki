@@ -170,10 +170,10 @@
   color: var(--background-400);
   transition:height 0.3s ease-in-out;
   transition-delay: 0.1s;
-  z-index: 2;
-  @media (max-width: $screen-md) {
-    display: none;
-  }
+  z-index: 10;
+  //@media (max-width: $screen-md) {
+  //  display: none;
+  //}
 }
 
 .dropdown_options {
@@ -205,4 +205,10 @@
 
 .search {
   grid-column: span 2;
+  @media (max-width: $screen-md) {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    grid-column: span 12;
+  }
 }

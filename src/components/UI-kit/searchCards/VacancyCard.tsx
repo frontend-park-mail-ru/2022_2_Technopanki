@@ -70,11 +70,11 @@ export default class VacancyCard extends ReactsComponent<
                     />
                     <div
                         key={'searchCards-metadata'}
-                        className={'flex flex-start row g-16'}
+                        className={`flex flex-start row g-16 ${styles.metadata}`}
                     >
                         <div
                             key={'location'}
-                            className={'flex row align-items-center g-6'}
+                            className={`flex row align-items-center g-6`}
                         >
                             <div
                                 key={'meta'}

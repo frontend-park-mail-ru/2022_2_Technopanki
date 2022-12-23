@@ -78,9 +78,9 @@
   &:hover {
     box-shadow: var(--shadow-grey-md);
   }
-  @media (max-width: $screen-md) {
-    display: none;
-  }
+  //@media (max-width: $screen-md) {
+  //  display: none;
+  //}
 }
 
 .btn-primary {
