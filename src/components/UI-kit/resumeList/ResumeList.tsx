@@ -24,7 +24,7 @@ export default class ResumeList extends ReactsComponent<
 
     render() {
         return (
-            <div className={'w-100 g-24 hidden rounded-md border-default'}>
+            <div className={`w-100 g-24 hidden rounded-md border-default ${this.props.resume.length === 0 ? 'none': null}`}>
                 <div className={'columns p-16'}>
                     <p className={'col-11 col-md-7'}>Имя</p>
                     <p className={'col-0 col-md-4'}>Время создания резюме</p>

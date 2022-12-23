@@ -181,6 +181,16 @@ class ApplicantProfile extends ReactsComponent<
                                     </div> : null
                                 }
                             <div className={`column g-24 ${this.state.page === PAGE_TYPE.RESUMES ? 'none' : 'flex'}`}>
+                                <RenderWithCondition
+                                    condition={this.state.vacancies.length === 0}
+                                    onSuccess={
+                                        <div className={'flex justify-content-center color-300'}>
+                                            <h5>
+                                                У вас пока нет вакансий
+                                            </h5>
+                                        </div>
+                                    }
+                                />
                                 {this.state.vacancies.map(vacancy => (
                                     <VacancyCard
                                         key={vacancy.id.toString()}
@@ -197,6 +207,16 @@ class ApplicantProfile extends ReactsComponent<
                                 ))}
                             </div>
                             <div className={this.state.page === PAGE_TYPE.RESUMES ? 'block' : 'none'}>
+                                <RenderWithCondition
+                                    condition={this.state.resume.length === 0}
+                                    onSuccess={
+                                        <div className={'flex justify-content-center color-300'}>
+                                            <h5>
+                                                У вас пока нет резюме
+                                            </h5>
+                                        </div>
+                                    }
+                                />
                                 <ResumeList resume={this.state.resume} />
                             </div>
                         </div>
