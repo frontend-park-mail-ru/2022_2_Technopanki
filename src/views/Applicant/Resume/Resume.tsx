@@ -12,6 +12,7 @@ import Footer from '../../../components/UI-kit/footer/Footer';
 import { ResumeState } from '../../../store/resume/type';
 import { applicantProfileService } from '../../../services/applicantService';
 import { applicantActions } from '../../../store/applicant/actions';
+import router from '../../../router/navigator';
 
 class Resume extends ReactsComponent<ResumeState> {
     async getDataFromServer() {
@@ -22,6 +23,9 @@ class Resume extends ReactsComponent<ResumeState> {
         const profileData = await applicantProfileService.getApplicantData(
             postedByUserID,
         );
+        if (!profileData || (profileData as never) as number === 404) {
+            router.navigate('/404');
+        }
 
         dispatch(applicantActions.updateFromServer(profileData));
         dispatch(resumeActions.updateFromServer(resume));
@@ -58,11 +62,6 @@ class Resume extends ReactsComponent<ResumeState> {
                         <TextBlock
                             headline={'Опыт работы'}
                             content={this.props.experience}
-                        />
-                        <Education
-                            university={this.props.university}
-                            faculty={this.props.faculty}
-                            status={this.props.status}
                         />
                     </div>
                     <div className={'col-12 col-md-3'}>

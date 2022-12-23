@@ -5,11 +5,11 @@ import { applicantProfileReducer } from './reducer';
 
 export const defaultApplicantProfile: ProfileState = {
     id: '',
-    imgSrc: '',
+    avatar_src: '',
     applicant_name: '',
-    surname: '',
+    applicant_surname: '',
     status: '',
-    phone: '',
+    contact_number: '',
     experiene: '',
     email: '',
     location: '',
@@ -18,6 +18,7 @@ export const defaultApplicantProfile: ProfileState = {
     vk: '',
     facebook: '',
     telegram: '',
+    mailingApproval: false,
 };
 
 export const applicantProfileStore = new Store<ProfileState>(

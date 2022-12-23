@@ -20,12 +20,11 @@ import RenderWithCondition from '../../../components/RenderWithCondition';
 import { ResumePreviewResponse } from '../../../services/resume/types';
 import { ApplicantProfileType } from '../../../store/profile/types';
 import LongButton from '../../../components/UI-kit/buttons/LongButton';
-import * as stream from 'stream';
 import { vacancyService } from '../../../services/vacancy/vacancyService';
 import VacancyCard, { VacancyCardPropsType } from '../../../components/UI-kit/searchCards/VacancyCard';
 import SuccessPopup from '../../../components/SuccessPopup/SuccessPopup';
 import { activateSuccess, deactivateSuccess } from '../../../store/succeses/actions';
-
+import router from '../../../router/navigator';
 
 const PAGE_TYPE = {
     VACANCIES: 'vacancies',
@@ -47,6 +46,9 @@ class ApplicantProfile extends ReactsComponent<
         const applicantBody = await applicantProfileService.getApplicantData(
             applicantID as string,
         );
+        if (!applicantBody || (applicantBody as never) as number === 404) {
+            router.navigate('/404');
+        }
 
         const resumeList = await applicantProfileService.getResumeList(
             applicantID as string,
@@ -82,6 +84,10 @@ class ApplicantProfile extends ReactsComponent<
         this.getDataFromServer();
     }
 
+    componentDidUpdate(): void {
+        console.log('UPDATE IN PROFILE')
+    }
+
     render() {
         return (
             <div className={'screen-responsive flex column g-40'}>
@@ -110,6 +116,7 @@ class ApplicantProfile extends ReactsComponent<
                                                         console.error(err),
                                                     );
                                             }}
+                                            dataTooltip={'Скопироавть номер телефона'}
                                             icon={PhoneIcon}
                                         />
                                         <ButtonIcon
@@ -121,6 +128,7 @@ class ApplicantProfile extends ReactsComponent<
                                                         console.error(err),
                                                     );
                                             }}
+                                            dataTooltip={'Скопироавть email'}
                                             icon={MailIcon}
                                         />
                                     </div>

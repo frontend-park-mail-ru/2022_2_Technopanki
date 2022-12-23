@@ -197,7 +197,6 @@ export const vacancyService: {
         return await network
             .GET(VACANCY_URLS.IS_FAVORITE + vacancyID)
             .then(response => {
-                console.log(response.body)
                 dispatch(stopLoading());
                 if (response.status > 399) {
                     throw response.status;
